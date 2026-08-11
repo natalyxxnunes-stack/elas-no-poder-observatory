@@ -115,7 +115,10 @@ const FUNNEL_LABELS = [
 ] as const;
 
 function DadosPage() {
+  const { snapshot } = Route.useLoaderData();
+  const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
   return (
+
     <div className="paper-grain min-h-screen">
       <SiteHeader />
 
