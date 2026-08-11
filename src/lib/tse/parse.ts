@@ -47,6 +47,10 @@ export const COLUMN_ALIASES = {
   agremiacao: ["TP_AGREMIACAO"],
   federacao: ["SG_FEDERACAO"],
   sqColigacao: ["SQ_COLIGACAO"],
+  /** data de geração do arquivo informada pelo TSE — data da fotografia */
+  dtGeracao: ["DT_GERACAO"],
+  /** hora de geração do arquivo informada pelo TSE */
+  hhGeracao: ["HH_GERACAO"],
 } as const;
 
 export type ColumnKey = keyof typeof COLUMN_ALIASES;
@@ -56,7 +60,10 @@ export const REQUIRED_COLUMNS: ColumnKey[] = [
   "sqCandidato",
   "cargo",
   "genero",
+  "dtGeracao",
+  "hhGeracao",
 ];
+
 
 /**
  * Colunas que, conforme o dicionário, NÃO pertencem ao recurso `Candidatos`
