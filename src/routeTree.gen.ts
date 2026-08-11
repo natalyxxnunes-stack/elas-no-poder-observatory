@@ -10,13 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BarreirasRouteImport } from './routes/barreiras'
 import { Route as CondicoesRouteImport } from './routes/condicoes'
+import { Route as DinheiroRouteImport } from './routes/dinheiro'
 import { Route as DireitosRouteImport } from './routes/direitos'
 import { Route as EmDisputaRouteImport } from './routes/em-disputa'
 import { Route as FunilRouteImport } from './routes/funil'
 import { Route as MetodoRouteImport } from './routes/metodo'
+import { Route as QuemChegaRouteImport } from './routes/quem-chega'
 import { Route as QuemControlaRouteImport } from './routes/quem-controla'
 import { Route as QuemSaoElasRouteImport } from './routes/quem-sao-elas'
+import { Route as VotosRouteImport } from './routes/votos'
 import { Route as ApiPublicTseIngestRouteImport } from './routes/api/public/tse/ingest'
 
 const IndexRoute = IndexRouteImport.update({
@@ -24,9 +28,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BarreirasRoute = BarreirasRouteImport.update({
+  id: '/barreiras',
+  path: '/barreiras',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CondicoesRoute = CondicoesRouteImport.update({
   id: '/condicoes',
   path: '/condicoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DinheiroRoute = DinheiroRouteImport.update({
+  id: '/dinheiro',
+  path: '/dinheiro',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DireitosRoute = DireitosRouteImport.update({
@@ -49,6 +63,11 @@ const MetodoRoute = MetodoRouteImport.update({
   path: '/metodo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuemChegaRoute = QuemChegaRouteImport.update({
+  id: '/quem-chega',
+  path: '/quem-chega',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QuemControlaRoute = QuemControlaRouteImport.update({
   id: '/quem-controla',
   path: '/quem-controla',
@@ -59,6 +78,11 @@ const QuemSaoElasRoute = QuemSaoElasRouteImport.update({
   path: '/quem-sao-elas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VotosRoute = VotosRouteImport.update({
+  id: '/votos',
+  path: '/votos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicTseIngestRoute = ApiPublicTseIngestRouteImport.update({
   id: '/api/public/tse/ingest',
   path: '/api/public/tse/ingest',
@@ -67,83 +91,111 @@ const ApiPublicTseIngestRoute = ApiPublicTseIngestRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/barreiras': typeof BarreirasRoute
   '/condicoes': typeof CondicoesRoute
+  '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
   '/em-disputa': typeof EmDisputaRoute
   '/funil': typeof FunilRoute
   '/metodo': typeof MetodoRoute
+  '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
   '/quem-sao-elas': typeof QuemSaoElasRoute
+  '/votos': typeof VotosRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/barreiras': typeof BarreirasRoute
   '/condicoes': typeof CondicoesRoute
+  '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
   '/em-disputa': typeof EmDisputaRoute
   '/funil': typeof FunilRoute
   '/metodo': typeof MetodoRoute
+  '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
   '/quem-sao-elas': typeof QuemSaoElasRoute
+  '/votos': typeof VotosRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/barreiras': typeof BarreirasRoute
   '/condicoes': typeof CondicoesRoute
+  '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
   '/em-disputa': typeof EmDisputaRoute
   '/funil': typeof FunilRoute
   '/metodo': typeof MetodoRoute
+  '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
   '/quem-sao-elas': typeof QuemSaoElasRoute
+  '/votos': typeof VotosRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/barreiras'
     | '/condicoes'
+    | '/dinheiro'
     | '/direitos'
     | '/em-disputa'
     | '/funil'
     | '/metodo'
+    | '/quem-chega'
     | '/quem-controla'
     | '/quem-sao-elas'
+    | '/votos'
     | '/api/public/tse/ingest'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/barreiras'
     | '/condicoes'
+    | '/dinheiro'
     | '/direitos'
     | '/em-disputa'
     | '/funil'
     | '/metodo'
+    | '/quem-chega'
     | '/quem-controla'
     | '/quem-sao-elas'
+    | '/votos'
     | '/api/public/tse/ingest'
   id:
     | '__root__'
     | '/'
+    | '/barreiras'
     | '/condicoes'
+    | '/dinheiro'
     | '/direitos'
     | '/em-disputa'
     | '/funil'
     | '/metodo'
+    | '/quem-chega'
     | '/quem-controla'
     | '/quem-sao-elas'
+    | '/votos'
     | '/api/public/tse/ingest'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BarreirasRoute: typeof BarreirasRoute
   CondicoesRoute: typeof CondicoesRoute
+  DinheiroRoute: typeof DinheiroRoute
   DireitosRoute: typeof DireitosRoute
   EmDisputaRoute: typeof EmDisputaRoute
   FunilRoute: typeof FunilRoute
   MetodoRoute: typeof MetodoRoute
+  QuemChegaRoute: typeof QuemChegaRoute
   QuemControlaRoute: typeof QuemControlaRoute
   QuemSaoElasRoute: typeof QuemSaoElasRoute
+  VotosRoute: typeof VotosRoute
   ApiPublicTseIngestRoute: typeof ApiPublicTseIngestRoute
 }
 
@@ -156,11 +208,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/barreiras': {
+      id: '/barreiras'
+      path: '/barreiras'
+      fullPath: '/barreiras'
+      preLoaderRoute: typeof BarreirasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/condicoes': {
       id: '/condicoes'
       path: '/condicoes'
       fullPath: '/condicoes'
       preLoaderRoute: typeof CondicoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dinheiro': {
+      id: '/dinheiro'
+      path: '/dinheiro'
+      fullPath: '/dinheiro'
+      preLoaderRoute: typeof DinheiroRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/direitos': {
@@ -191,6 +257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MetodoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quem-chega': {
+      id: '/quem-chega'
+      path: '/quem-chega'
+      fullPath: '/quem-chega'
+      preLoaderRoute: typeof QuemChegaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/quem-controla': {
       id: '/quem-controla'
       path: '/quem-controla'
@@ -205,6 +278,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuemSaoElasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/votos': {
+      id: '/votos'
+      path: '/votos'
+      fullPath: '/votos'
+      preLoaderRoute: typeof VotosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/tse/ingest': {
       id: '/api/public/tse/ingest'
       path: '/api/public/tse/ingest'
@@ -217,13 +297,17 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BarreirasRoute: BarreirasRoute,
   CondicoesRoute: CondicoesRoute,
+  DinheiroRoute: DinheiroRoute,
   DireitosRoute: DireitosRoute,
   EmDisputaRoute: EmDisputaRoute,
   FunilRoute: FunilRoute,
   MetodoRoute: MetodoRoute,
+  QuemChegaRoute: QuemChegaRoute,
   QuemControlaRoute: QuemControlaRoute,
   QuemSaoElasRoute: QuemSaoElasRoute,
+  VotosRoute: VotosRoute,
   ApiPublicTseIngestRoute: ApiPublicTseIngestRoute,
 }
 export const routeTree = rootRouteImport
