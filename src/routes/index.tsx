@@ -9,7 +9,7 @@ import {
   CURRENT_INDICATORS,
   SITE,
   THESIS,
-  TSE_SOURCE,
+  
   formatPercent,
   formatPoints,
   formatRatio,
