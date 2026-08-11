@@ -14,6 +14,78 @@ export type Database = {
   }
   public: {
     Tables: {
+      tse_historical_snapshots: {
+        Row: {
+          aggregates: Json
+          anomalies: Json
+          base_generated_at: string | null
+          collected_at: string
+          columns_found: Json
+          created_at: string
+          dictionary_version: string
+          duplicate_rows: number
+          election_year: number
+          file_name: string
+          file_url: string
+          filters: Json
+          id: string
+          notes: string | null
+          out_of_scope: number
+          processing_version: string
+          raw_line_count: number
+          record_count: number
+          rows_without_key: number
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          aggregates?: Json
+          anomalies?: Json
+          base_generated_at?: string | null
+          collected_at?: string
+          columns_found?: Json
+          created_at?: string
+          dictionary_version: string
+          duplicate_rows?: number
+          election_year: number
+          file_name: string
+          file_url: string
+          filters?: Json
+          id?: string
+          notes?: string | null
+          out_of_scope?: number
+          processing_version: string
+          raw_line_count?: number
+          record_count?: number
+          rows_without_key?: number
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          aggregates?: Json
+          anomalies?: Json
+          base_generated_at?: string | null
+          collected_at?: string
+          columns_found?: Json
+          created_at?: string
+          dictionary_version?: string
+          duplicate_rows?: number
+          election_year?: number
+          file_name?: string
+          file_url?: string
+          filters?: Json
+          id?: string
+          notes?: string | null
+          out_of_scope?: number
+          processing_version?: string
+          raw_line_count?: number
+          record_count?: number
+          rows_without_key?: number
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       tse_snapshots: {
         Row: {
           anomalies: Json
