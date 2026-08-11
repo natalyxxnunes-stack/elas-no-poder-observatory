@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CondicoesRouteImport } from './routes/condicoes'
+import { Route as DireitosRouteImport } from './routes/direitos'
 import { Route as EmDisputaRouteImport } from './routes/em-disputa'
+import { Route as MetodoRouteImport } from './routes/metodo'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,40 +25,58 @@ const CondicoesRoute = CondicoesRouteImport.update({
   path: '/condicoes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DireitosRoute = DireitosRouteImport.update({
+  id: '/direitos',
+  path: '/direitos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EmDisputaRoute = EmDisputaRouteImport.update({
   id: '/em-disputa',
   path: '/em-disputa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MetodoRoute = MetodoRouteImport.update({
+  id: '/metodo',
+  path: '/metodo',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/condicoes': typeof CondicoesRoute
+  '/direitos': typeof DireitosRoute
   '/em-disputa': typeof EmDisputaRoute
+  '/metodo': typeof MetodoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/condicoes': typeof CondicoesRoute
+  '/direitos': typeof DireitosRoute
   '/em-disputa': typeof EmDisputaRoute
+  '/metodo': typeof MetodoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/condicoes': typeof CondicoesRoute
+  '/direitos': typeof DireitosRoute
   '/em-disputa': typeof EmDisputaRoute
+  '/metodo': typeof MetodoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/condicoes' | '/em-disputa'
+  fullPaths: '/' | '/condicoes' | '/direitos' | '/em-disputa' | '/metodo'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/condicoes' | '/em-disputa'
-  id: '__root__' | '/' | '/condicoes' | '/em-disputa'
+  to: '/' | '/condicoes' | '/direitos' | '/em-disputa' | '/metodo'
+  id: '__root__' | '/' | '/condicoes' | '/direitos' | '/em-disputa' | '/metodo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CondicoesRoute: typeof CondicoesRoute
+  DireitosRoute: typeof DireitosRoute
   EmDisputaRoute: typeof EmDisputaRoute
+  MetodoRoute: typeof MetodoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,11 +95,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CondicoesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/direitos': {
+      id: '/direitos'
+      path: '/direitos'
+      fullPath: '/direitos'
+      preLoaderRoute: typeof DireitosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/em-disputa': {
       id: '/em-disputa'
       path: '/em-disputa'
       fullPath: '/em-disputa'
       preLoaderRoute: typeof EmDisputaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/metodo': {
+      id: '/metodo'
+      path: '/metodo'
+      fullPath: '/metodo'
+      preLoaderRoute: typeof MetodoRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -88,7 +122,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CondicoesRoute: CondicoesRoute,
+  DireitosRoute: DireitosRoute,
   EmDisputaRoute: EmDisputaRoute,
+  MetodoRoute: MetodoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
