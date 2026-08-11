@@ -1,39 +1,212 @@
 /**
- * election-2026 — módulo de dados do observatório "Quem são elas?".
+ * election-2026 — camada de dados e metodologia do observatório "Quem são elas?".
  *
- * PROCEDÊNCIA DOS DADOS
- * ---------------------
- * O snapshot publicado em
- *   https://quem-sao-elas-2026.natalyxxnunes.chatgpt.site/direitos
- * está atrás de um login ("Continue with ChatGPT") e NÃO pôde ser lido nesta
- * reconstrução. Portanto:
+ * FONTE ÚNICA DOS INDICADORES
+ * ---------------------------
+ * TSE / Dados Abertos / Candidatos 2026. Nenhum número exibido no site pode vir
+ * de outra origem, e nenhum indicador é apresentado sem denominador.
  *
- *  - `recovered: true`  => número explicitamente presente nos artefatos
- *                          recuperados da conversa.
- *  - `recovered: false` => LACUNA. Estrutura preservada, valor ausente.
- *                          NÃO preencher com estimativa: só com fonte TSE.
- *
- * Nunca substituir uma lacuna por um número plausível. A ausência é o dado.
+ * Os valores da fotografia anterior (09/08/2026) foram retirados da camada de
+ * apresentação: eram provisórios, sem denominador e sem metadados auditáveis.
+ * Enquanto o snapshot da base não for processado, os indicadores existem com
+ * estrutura completa e valor nulo.
  */
 
-export type Sourced<T> = {
-  value: T | null;
-  recovered: boolean;
-  /** de onde veio, ou o que falta para preencher */
+import {
+  MAJORITARIAN_POSITIONS,
+  PROPORTIONAL_POSITIONS,
+  type UniverseId,
+} from "@/lib/tse/compute";
+import {
+  LAST_FETCH_ATTEMPT,
+  snapshot,
+  type UniverseSnapshot,
+} from "./tse-snapshot";
+
+/** Status padronizado de qualquer indicador do observatório. */
+export const DATA_STATUS = {
+  validado: "DISPONÍVEL E VALIDADO",
+  provisorio: "PROVISÓRIO / SUJEITO A ATUALIZAÇÃO",
+  apuracao: "EM APURAÇÃO",
+  indisponivel: "AINDA NÃO DISPONÍVEL",
+  limitacao: "LIMITAÇÃO DA BASE",
+} as const;
+
+export type DataStatus = (typeof DATA_STATUS)[keyof typeof DATA_STATUS];
+
+/** Metadados da fonte oficial. */
+export const TSE_SOURCE = {
+  name: "TSE / Dados Abertos / Candidatos 2026",
+  datasetUrl: "https://dadosabertos.tse.jus.br/dataset/candidatos-2026",
+  resourceName: "Candidatos (consulta_cand_2026)",
+  resourceUrl:
+    "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2026.zip",
+  /** data de geração do recurso informada pelo TSE nos metadados do dataset */
+  baseGeneratedAt: snapshot?.baseGeneratedAt ?? "2026-07-22T16:35:13Z",
+  /** última modificação de metadados do dataset informada pelo TSE */
+  datasetMetadataModified: "2026-08-03T16:53:04Z",
+  /** data/hora em que a base foi efetivamente processada */
+  processedAt: snapshot?.processedAt ?? null,
+  /** registro da última tentativa de obtenção do arquivo */
+  lastFetchAttempt: LAST_FETCH_ATTEMPT,
+  legalUrl:
+    "https://www.tse.jus.br/legislacao/codigo-eleitoral/lei-das-eleicoes/lei-das-eleicoes-lei-nb0-9.504-de-30-de-setembro-de-1997/",
+} as const;
+
+/** Metadados auditáveis de um indicador. */
+export type Indicator = {
+  id: string;
+  label: string;
+  /** valor bruto, sem arredondamento. Arredondar só na apresentação. */
+  value: number | null;
+  unit: "%" | "candidaturas" | "p.p.";
+  numerator: number | null;
+  denominator: number | null;
+  universe: string;
+  /** cargos incluídos no cálculo */
+  positions: readonly string[];
+  /** filtros aplicados na leitura da base */
+  filters: readonly string[];
   source: string;
+  sourceUrl: string | null;
+  /** data de geração da base informada pelo TSE */
+  baseGeneratedAt: string | null;
+  /** data/hora de processamento */
+  processedAt: string | null;
+  formula: string;
+  status: DataStatus;
+  /** observação ou limitação */
+  caveat: string;
 };
 
-export const rec = <T>(value: T, source: string): Sourced<T> => ({
-  value,
-  recovered: true,
-  source,
+const UNIVERSE_LABEL: Record<UniverseId, string> = {
+  proporcional:
+    "Candidaturas registradas em eleições proporcionais (Câmara dos Deputados, assembleias legislativas e Câmara Legislativa do Distrito Federal)",
+  majoritario:
+    "Candidaturas registradas em eleições majoritárias, de cargo único (Presidência, governos estaduais e do Distrito Federal, Senado)",
+};
+
+const UNIVERSE_POSITIONS: Record<UniverseId, readonly string[]> = {
+  proporcional: PROPORTIONAL_POSITIONS,
+  majoritario: MAJORITARIAN_POSITIONS,
+};
+
+const BASE_FILTERS = [
+  "Unidade de análise: candidatura registrada (não pessoa)",
+  "Gênero conforme categoria DS_GENERO da base, autodeclarado no registro",
+  "Cargos filtrados por DS_CARGO; universos calculados separadamente e nunca somados",
+  "Nenhum filtro por situação de candidatura aplicado — o registro pode mudar até a decisão final da Justiça Eleitoral",
+];
+
+function feminineShareIndicator(universe: UniverseId): Indicator {
+  const u: UniverseSnapshot | undefined = snapshot?.universes[universe];
+  const has = !!u && u.total > 0;
+  return {
+    id: `participacao-feminina-${universe}`,
+    label:
+      universe === "proporcional"
+        ? "Participação feminina · candidaturas proporcionais"
+        : "Participação feminina · candidaturas majoritárias",
+    value: has ? (u!.feminine / u!.total) * 100 : null,
+    unit: "%",
+    numerator: has ? u!.feminine : null,
+    denominator: has ? u!.total : null,
+    universe: UNIVERSE_LABEL[universe],
+    positions: UNIVERSE_POSITIONS[universe],
+    filters: [...BASE_FILTERS, ...(snapshot?.filters ?? [])],
+    source: TSE_SOURCE.name,
+    sourceUrl: TSE_SOURCE.datasetUrl,
+    baseGeneratedAt: has ? TSE_SOURCE.baseGeneratedAt : null,
+    processedAt: TSE_SOURCE.processedAt,
+    formula:
+      "(candidaturas de gênero feminino no universo ÷ total de candidaturas no universo) × 100",
+    status: has ? DATA_STATUS.provisorio : DATA_STATUS.indisponivel,
+    caveat: has
+      ? "Registro de candidaturas de 2026 ainda sujeito a alteração pelo TSE (deferimentos, indeferimentos e substituições). Valor provisório."
+      : `Indicador aguardando processamento da base oficial. ${LAST_FETCH_ATTEMPT.outcome}`,
+  };
+}
+
+export const PROPORTIONAL_SHARE = feminineShareIndicator("proporcional");
+export const MAJORITARIAN_SHARE = feminineShareIndicator("majoritario");
+
+/** Diferença entre os dois universos, em pontos percentuais. Descritiva. */
+export const UNIVERSE_DIFFERENCE: Indicator = {
+  id: "diferenca-universos",
+  label: "Diferença entre os universos",
+  value:
+    PROPORTIONAL_SHARE.value !== null && MAJORITARIAN_SHARE.value !== null
+      ? PROPORTIONAL_SHARE.value - MAJORITARIAN_SHARE.value
+      : null,
+  unit: "p.p.",
+  numerator: null,
+  denominator: null,
+  universe:
+    "Comparação descritiva entre dois universos distintos, com denominadores próprios",
+  positions: [...PROPORTIONAL_POSITIONS, ...MAJORITARIAN_POSITIONS],
+  filters: BASE_FILTERS,
+  source: TSE_SOURCE.name,
+  sourceUrl: TSE_SOURCE.datasetUrl,
+  baseGeneratedAt: PROPORTIONAL_SHARE.baseGeneratedAt,
+  processedAt: TSE_SOURCE.processedAt,
+  formula:
+    "participação feminina proporcional − participação feminina majoritária, em pontos percentuais (p.p.)",
+  status:
+    PROPORTIONAL_SHARE.value !== null && MAJORITARIAN_SHARE.value !== null
+      ? DATA_STATUS.provisorio
+      : DATA_STATUS.indisponivel,
+  caveat:
+    "Os dois universos seguem regras eleitorais diferentes e têm denominadores próprios. A diferença é descritiva: não mede efeito de nenhuma regra e não autoriza conclusão causal.",
+};
+
+export const CURRENT_INDICATORS = [
+  PROPORTIONAL_SHARE,
+  MAJORITARIAN_SHARE,
+  UNIVERSE_DIFFERENCE,
+] as const;
+
+/** Indicadores de raça: categorias originais da base, sem substituição. */
+export const RACE_INDICATORS: Indicator[] = (
+  ["proporcional", "majoritario"] as UniverseId[]
+).map((universe) => {
+  const u = snapshot?.universes[universe];
+  const denominator = u
+    ? Object.values(u.raceCounts).reduce((a, b) => a + b, 0)
+    : null;
+  return {
+    id: `raca-${universe}`,
+    label:
+      universe === "proporcional"
+        ? "Cor/raça das candidaturas de mulheres · proporcionais"
+        : "Cor/raça das candidaturas de mulheres · majoritárias",
+    value: null,
+    unit: "candidaturas",
+    numerator: null,
+    denominator: denominator && denominator > 0 ? denominator : null,
+    universe: UNIVERSE_LABEL[universe],
+    positions: UNIVERSE_POSITIONS[universe],
+    filters: [
+      ...BASE_FILTERS,
+      "Cor/raça conforme categoria original DS_COR_RACA (branca, preta, parda, amarela, indígena, não informado), sem agregação",
+    ],
+    source: TSE_SOURCE.name,
+    sourceUrl: TSE_SOURCE.datasetUrl,
+    baseGeneratedAt: u ? TSE_SOURCE.baseGeneratedAt : null,
+    processedAt: TSE_SOURCE.processedAt,
+    formula:
+      "contagem de candidaturas de mulheres por categoria original de cor/raça; percentuais sempre sobre o total de candidaturas de mulheres no mesmo universo",
+    status: u ? DATA_STATUS.provisorio : DATA_STATUS.indisponivel,
+    caveat:
+      "Cor/raça é autodeclarada no registro. Quando houver leitura agregada, 'negra' = preta + parda, declarado explicitamente, e as categorias originais permanecem visíveis. A base não capta de forma confiável identidade trans ou travesti.",
+  };
 });
 
-export const gap = <T>(source: string): Sourced<T> => ({
-  value: null,
-  recovered: false,
-  source,
-});
+/** Contagem por categoria original, quando houver snapshot. */
+export function raceCounts(universe: UniverseId): Record<string, number> | null {
+  const u = snapshot?.universes[universe];
+  if (!u) return null;
+  return u.raceCounts;
+}
 
 /** Tese editorial do observatório. */
 export const THESIS =
@@ -71,20 +244,37 @@ export const CYCLE_STAGES = [
 
 export type CycleStageId = (typeof CYCLE_STAGES)[number]["id"];
 
+/** Regra de composição de candidaturas por gênero. */
+export const QUOTA_RULE = {
+  /** faixa legal */
+  floor: 30,
+  ceiling: 70,
+  shortName: "regra de composição de candidaturas de 30%–70% por gênero",
+  scope:
+    "Aplica-se às eleições proporcionais: cada partido ou federação preenche no mínimo 30% e no máximo 70% das candidaturas com cada gênero (Lei 9.504/1997, art. 10, §3º).",
+  outOfScope:
+    "As eleições majoritárias, de cargo único, não estão submetidas à regra de composição de candidaturas de 30%–70% por gênero.",
+  descriptiveReading:
+    "Os dois universos apresentam participação feminina diferente e estão submetidos a regras eleitorais diferentes. A comparação é ponto de partida para investigação, não prova de causalidade: a diferença observada não permite afirmar que a regra de composição explique o resultado.",
+  financingNote:
+    "As regras de destinação mínima de recursos públicos de campanha e de tempo de propaganda a candidaturas de mulheres são distintas da regra de composição de candidaturas e podem alcançar disputas majoritárias e proporcionais.",
+  sourceUrl: TSE_SOURCE.legalUrl,
+} as const;
+
 /**
- * Funil candidatura → poder.
- * Só o primeiro degrau tem valor recuperado (share de candidaturas por tipo de
- * disputa). Os degraus posteriores — votos → eleitas → poder — ficam abertos.
+ * Funil candidatura → poder. Os degraus posteriores ao registro não têm valor
+ * e não recebem estimativa.
  */
 export type FunnelStep = {
   id: string;
   stage: CycleStageId;
   label: string;
   description: string;
-  /** participação feminina em % naquele degrau */
-  share: Sourced<number>;
-  /** universo absoluto observado no degrau, quando conhecido */
-  universe: Sourced<number>;
+  indicator: Indicator | null;
+  /** status do degrau quando não há indicador calculável */
+  status: DataStatus;
+  /** o que falta, quando falta */
+  pending: string | null;
 };
 
 export const FUNNEL_STEPS: FunnelStep[] = [
@@ -93,46 +283,55 @@ export const FUNNEL_STEPS: FunnelStep[] = [
     stage: "registros",
     label: "Candidaturas · proporcionais",
     description:
-      "Câmara, assembleias e câmaras distritais — disputas de lista, onde incide a cota de gênero de 30%.",
-    share: rec(35.2, "Artefato recuperado da conversa (share de candidaturas)"),
-    universe: gap("Total de registros deferidos — requer extração TSE"),
+      "Câmara dos Deputados, assembleias legislativas e Câmara Legislativa do Distrito Federal — eleições proporcionais, submetidas à regra de composição de candidaturas de 30%–70% por gênero.",
+    indicator: PROPORTIONAL_SHARE,
+    status: PROPORTIONAL_SHARE.status,
+    pending:
+      PROPORTIONAL_SHARE.value === null
+        ? "Aguardando processamento da base oficial de Candidatos 2026."
+        : null,
   },
   {
     id: "candidaturas-majoritarias",
     stage: "registros",
     label: "Candidaturas · majoritárias",
     description:
-      "Governo, Senado e chapas majoritárias — disputas de cargo único, sem incidência de cota.",
-    share: rec(16.9, "Artefato recuperado da conversa (share de candidaturas)"),
-    universe: rec(
-      33,
-      "Artefato recuperado: universo de apenas 33 mulheres nas majoritárias",
-    ),
+      "Presidência, governos estaduais e do Distrito Federal e Senado — disputas de cargo único, sem a regra de composição de candidaturas de 30%–70% por gênero.",
+    indicator: MAJORITARIAN_SHARE,
+    status: MAJORITARIAN_SHARE.status,
+    pending:
+      MAJORITARIAN_SHARE.value === null
+        ? "Aguardando processamento da base oficial de Candidatos 2026."
+        : null,
   },
   {
     id: "recursos",
     stage: "recursos",
     label: "Recursos de campanha",
     description:
-      "Fatia do fundo eleitoral e do fundo partidário efetivamente transferida a candidaturas de mulheres.",
-    share: gap("Prestação de contas TSE — não recuperada no snapshot"),
-    universe: gap("Prestação de contas TSE — não recuperada no snapshot"),
+      "Recursos públicos de campanha e tempo de propaganda efetivamente destinados a candidaturas de mulheres.",
+    indicator: null,
+    status: DATA_STATUS.indisponivel,
+    pending:
+      "Ainda não disponível: será integrado em módulo próprio, a partir das bases de prestação de contas do TSE.",
   },
   {
     id: "votos",
     stage: "votos-eleitas",
     label: "Votos recebidos",
-    description: "Fatia da votação nominal válida dirigida a mulheres.",
-    share: gap("Resultado da eleição de 2026 — ainda não apurado"),
-    universe: gap("Resultado da eleição de 2026 — ainda não apurado"),
+    description: "Votação nominal válida dirigida a candidaturas de mulheres.",
+    indicator: null,
+    status: DATA_STATUS.indisponivel,
+    pending: "Ainda não disponível antes da eleição de 2026.",
   },
   {
     id: "eleitas",
     stage: "votos-eleitas",
     label: "Eleitas",
     description: "Cadeiras efetivamente ocupadas por mulheres.",
-    share: gap("Resultado da eleição de 2026 — ainda não apurado"),
-    universe: gap("Resultado da eleição de 2026 — ainda não apurado"),
+    indicator: null,
+    status: DATA_STATUS.indisponivel,
+    pending: "Ainda não disponível antes da apuração da eleição de 2026.",
   },
   {
     id: "poder",
@@ -140,128 +339,138 @@ export const FUNNEL_STEPS: FunnelStep[] = [
     label: "Poder e decisões",
     description:
       "Presidências de comissão, lideranças partidárias, mesas diretoras e secretarias.",
-    share: gap("Composição pós-posse — a levantar após a diplomação"),
-    universe: gap("Composição pós-posse — a levantar após a diplomação"),
+    indicator: null,
+    status: DATA_STATUS.indisponivel,
+    pending: "Módulo posterior, a levantar após a diplomação e a posse.",
   },
 ];
 
-/**
- * Contraste central do site: 35,2% nas proporcionais × 16,9% nas majoritárias,
- * e o papel da cota de gênero nessa diferença.
- */
-export const REPRESENTATION_CONTRAST = {
-  proportional: {
-    label: "Proporcionais",
-    share: 35.2,
-    quotaApplies: true,
-    note: "Acima do piso legal de 30%. A cota funciona como chão de entrada em disputas de lista.",
-  },
-  majoritarian: {
-    label: "Majoritárias",
-    share: 16.9,
-    quotaApplies: false,
-    note: "Sem cota. A escolha da candidatura é decisão interna do partido, e cai para menos da metade.",
-  },
-  quotaFloor: 30,
-  /** diferença em pontos percentuais */
-  gapPoints: 18.3,
-  caution:
-    "As majoritárias descrevem um universo de apenas 33 mulheres. Cada nome desloca o percentual em cerca de meio ponto: leia a direção, não a casa decimal.",
-} as const;
-
-/**
- * Eixo raça × nível de poder. Este é o eixo central do observatório e é
- * justamente o que o snapshot não entregou em números.
- */
+/** Raça × nível de poder — eixo central do observatório. */
 export const RACE_BY_POWER_LEVEL: {
   level: string;
   note: string;
-  breakdown: Sourced<Record<string, number>>;
+  indicator: Indicator | null;
+  status: DataStatus;
+  pending: string | null;
 }[] = [
   {
     level: "Candidaturas proporcionais",
-    note: "Autodeclaração de cor/raça no registro de candidatura (TSE).",
-    breakdown: gap("Cruzamento raça × cargo — não recuperado do snapshot"),
+    note: "Cor/raça autodeclarada no registro de candidatura, nas categorias originais do TSE.",
+    indicator: RACE_INDICATORS[0] ?? null,
+    status: RACE_INDICATORS[0]?.status ?? DATA_STATUS.indisponivel,
+    pending:
+      RACE_INDICATORS[0]?.denominator === null
+        ? "Aguardando processamento da base oficial de Candidatos 2026."
+        : null,
   },
   {
     level: "Candidaturas majoritárias",
-    note: "Universo de 33 mulheres: desagregar por raça reduz células a poucas unidades.",
-    breakdown: gap("Cruzamento raça × cargo — não recuperado do snapshot"),
+    note: "Universo pequeno: desagregar por cor/raça reduz as células a poucas unidades, o que exige leitura em contagens absolutas.",
+    indicator: RACE_INDICATORS[1] ?? null,
+    status: RACE_INDICATORS[1]?.status ?? DATA_STATUS.indisponivel,
+    pending:
+      RACE_INDICATORS[1]?.denominator === null
+        ? "Aguardando processamento da base oficial de Candidatos 2026."
+        : null,
   },
   {
     level: "Eleitas",
-    note: "Só disponível após a apuração de 2026.",
-    breakdown: gap("Resultado da eleição de 2026 — ainda não apurado"),
+    note: "Depende da apuração de 2026.",
+    indicator: null,
+    status: DATA_STATUS.indisponivel,
+    pending: "Ainda não disponível antes da apuração da eleição de 2026.",
   },
   {
     level: "Poder e decisões",
     note: "Presidências, lideranças e mesas diretoras.",
-    breakdown: gap("Composição pós-posse — a levantar após a diplomação"),
+    indicator: null,
+    status: DATA_STATUS.indisponivel,
+    pending: "Módulo posterior, a levantar após a diplomação e a posse.",
   },
 ];
 
-/** Direitos: marcos legais. Datas são fato público verificável. */
+/** Direitos: marcos legais. */
 export const RIGHTS_MILESTONES = [
   {
     year: "1932",
-    title: "Voto feminino no Código Eleitoral",
-    body: "O Brasil reconhece o direito de voto às mulheres — inicialmente restrito, e universalizado em 1934/1946.",
+    title: "Código Eleitoral reconhece o voto feminino",
+    body: "O Código Eleitoral de 1932 admite o voto de mulheres, mas de forma restrita: o alistamento era facultativo e, na prática, condicionado à situação civil e ocupacional. A obrigatoriedade e a equiparação de condições vieram nas normas eleitorais posteriores, ao longo das décadas seguintes.",
+    sourceUrl: "https://www.tse.jus.br/",
   },
   {
     year: "1995",
-    title: "Primeira cota de candidaturas",
-    body: "A Lei 9.100 reserva um mínimo de 20% das vagas de candidatura nas eleições municipais para mulheres.",
+    title: "Primeira reserva de candidaturas",
+    body: "A Lei 9.100/1995 estabelece percentual mínimo de vagas de candidatura para mulheres nas eleições municipais.",
+    sourceUrl:
+      "https://www.planalto.gov.br/ccivil_03/leis/l9100.htm",
   },
   {
     year: "1997",
-    title: "Lei 9.504 — o piso de 30%",
-    body: "Cada partido ou coligação passa a preencher no mínimo 30% e no máximo 70% das candidaturas proporcionais com cada sexo.",
+    title: "Lei 9.504 — composição de 30% a 70% por gênero",
+    body: "Cada partido ou federação preenche no mínimo 30% e no máximo 70% das candidaturas em eleições proporcionais com cada gênero (art. 10, §3º).",
+    sourceUrl: TSE_SOURCE.legalUrl,
   },
   {
     year: "2009",
-    title: "De 'deverá reservar' para 'preencherá'",
-    body: "A reforma torna o piso de 30% uma obrigação de preenchimento efetivo, não apenas de reserva de vagas.",
+    title: "De reservar para preencher",
+    body: "A Lei 12.034/2009 altera a redação do art. 10, §3º: a regra passa a exigir preenchimento efetivo dos percentuais, e não apenas reserva de vagas.",
+    sourceUrl: TSE_SOURCE.legalUrl,
   },
   {
     year: "2018",
-    title: "30% do fundo eleitoral e do tempo de mídia",
-    body: "O STF e o TSE fixam que recursos de campanha e propaganda devem ser distribuídos na mesma proporção mínima das candidaturas femininas.",
+    title: "Recursos públicos e tempo de propaganda",
+    body: "STF e TSE fixam que recursos públicos de campanha e tempo de propaganda devem observar percentual mínimo destinado a candidaturas de mulheres, proporcional ao número dessas candidaturas.",
+    sourceUrl:
+      "https://www.tse.jus.br/comunicacao/noticias/2018/Maio/fundo-eleitoral-e-tempo-de-radio-e-tv-devem-reservar-o-minimo-de-30-para-candidaturas-femininas",
   },
   {
-    year: "2021",
-    title: "Distribuição proporcional por raça",
-    body: "O TSE estende a lógica de distribuição proporcional de fundo e tempo de mídia às candidaturas de pessoas negras.",
+    year: "2020",
+    title: "Distribuição proporcional para candidaturas negras",
+    body: "O TSE decide que recursos públicos de campanha e tempo de propaganda devem ser distribuídos proporcionalmente também às candidaturas de pessoas negras, com efeitos antecipados para as eleições municipais de 2020.",
+    sourceUrl: "https://www.tse.jus.br/",
   },
 ] as const;
 
 export const RIGHTS_OPEN_QUESTIONS = [
-  "A cota alcança o registro, não a competitividade: quem entra na lista não necessariamente recebe recurso.",
-  "Nenhuma regra de cota incide sobre disputas majoritárias — é exatamente ali que a participação cai.",
-  "Fiscalização de candidaturas fictícias segue reativa: depende de denúncia e de decisão caso a caso.",
-  "A distribuição por raça é recente e a série histórica comparável ainda é curta.",
+  "A regra de composição de candidaturas incide sobre o registro, não sobre a competitividade: constar da lista não implica receber recursos ou tempo de propaganda.",
+  "A regra de composição de 30%–70% por gênero não se aplica às disputas majoritárias, de cargo único.",
+  "Casos de fraude à regra de composição de candidaturas por gênero podem ser apurados pela Justiça Eleitoral e são analisados individualmente, conforme as circunstâncias e as provas de cada processo.",
+  "A distribuição proporcional de recursos por cor/raça é recente e a série histórica comparável ainda é curta.",
 ] as const;
 
-/** Notas metodológicas — o que sustenta e o que limita cada leitura. */
+/** Notas metodológicas. */
 export const METHOD_NOTES = [
+  {
+    title: "Fonte e data",
+    body: `Fonte única dos indicadores: ${TSE_SOURCE.name}. Data de geração da base informada pelo TSE: ${TSE_SOURCE.baseGeneratedAt}. Data/hora de processamento: ${TSE_SOURCE.processedAt ?? "ainda não processada"}. Última tentativa de obtenção do arquivo: ${TSE_SOURCE.lastFetchAttempt.at} — ${TSE_SOURCE.lastFetchAttempt.outcome}`,
+  },
   {
     title: "Unidade de análise",
     body: "Candidatura registrada, não pessoa. Uma mesma pessoa pode aparecer em ciclos distintos; não há deduplicação longitudinal.",
   },
   {
-    title: "Sexo e raça são autodeclarados",
-    body: "Ambos vêm do registro de candidatura no TSE. Mudanças de autodeclaração entre ciclos afetam comparações históricas.",
+    title: "Dois universos, calculados separadamente",
+    body: "Proporcional: deputado federal, deputado estadual e deputado distrital. Majoritário: presidente, governador e senador. Cada universo tem denominador próprio e os universos nunca são somados em um único cálculo.",
   },
   {
-    title: "Universos pequenos",
-    body: "Nas majoritárias há 33 mulheres. Percentuais sobre universos assim são instáveis: uma entrada ou saída move o indicador em cerca de 0,5 ponto.",
+    title: "Gênero e cor/raça são autodeclarados",
+    body: "Ambos vêm do registro de candidatura no TSE, nas categorias originais da base. Não há substituição das categorias originais por agregações; quando uma leitura agregada for apresentada, a agregação é declarada ('negra' = preta + parda). A base não capta de forma confiável identidade trans ou travesti.",
   },
   {
-    title: "Proporcional × majoritária não é comparação pareada",
-    body: "São regras eleitorais diferentes (lista versus cargo único). O contraste 35,2% × 16,9% descreve dois regimes, não uma perda dentro de um mesmo processo.",
+    title: "Comparação entre universos é descritiva",
+    body: QUOTA_RULE.descriptiveReading,
+  },
+  {
+    title: "Precisão e arredondamento",
+    body: "O valor bruto é preservado na camada de dados; o arredondamento ocorre apenas na apresentação. Diferenças entre percentuais são expressas em pontos percentuais (p.p.). Nenhum percentual é exibido sem denominador.",
+  },
+  {
+    title: "Dados provisórios",
+    body: "O registro de candidaturas de 2026 segue sujeito a alteração pelo TSE — deferimentos, indeferimentos, substituições e recursos. Indicadores derivados dessa base são marcados como provisórios.",
   },
   {
     title: "Etapas em aberto",
-    body: "Votos, eleitas e poder só se fecham após a apuração e a posse. Até então esses degraus do funil permanecem vazios por decisão editorial.",
+    body: "Recursos de campanha entram em módulo próprio; votos e eleitas dependem da apuração; poder e decisões dependem da posse. Até então, esses degraus permanecem vazios por decisão editorial.",
   },
 ] as const;
 
@@ -273,3 +482,26 @@ export const SECTIONS = [
   { to: "/direitos", label: "Direitos" },
   { to: "/metodo", label: "Método" },
 ] as const;
+
+/** Formatação: valor bruto → apresentação em pt-BR, uma casa decimal. */
+export function formatPercent(value: number | null, digits = 1): string {
+  if (value === null) return "—";
+  return `${value.toLocaleString("pt-BR", {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  })}%`;
+}
+
+export function formatPoints(value: number | null, digits = 1): string {
+  if (value === null) return "—";
+  return `${value.toLocaleString("pt-BR", {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  })} p.p.`;
+}
+
+/** Denominador legível: "n de N candidaturas". */
+export function formatRatio(i: Indicator): string | null {
+  if (i.numerator === null || i.denominator === null) return null;
+  return `${i.numerator.toLocaleString("pt-BR")} de ${i.denominator.toLocaleString("pt-BR")} candidaturas`;
+}

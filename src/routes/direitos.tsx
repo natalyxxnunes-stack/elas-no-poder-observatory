@@ -4,10 +4,12 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { CycleStrip } from "@/components/CycleStrip";
 import { GapNote } from "@/components/GapNote";
 import {
-  REPRESENTATION_CONTRAST as R,
+  QUOTA_RULE,
   RIGHTS_MILESTONES,
   RIGHTS_OPEN_QUESTIONS,
   THESIS,
+  UNIVERSE_DIFFERENCE,
+  formatPoints,
 } from "@/data/election-2026";
 import timelineImage from "@/assets/timeline-editorial.png";
 import spotQuota from "@/assets/spot-quota.png";
@@ -82,6 +84,17 @@ function DireitosPage() {
                 <p className="mt-2 max-w-2xl leading-relaxed text-muted-foreground">
                   {m.body}
                 </p>
+                <p className="mt-2 font-mono text-[11px] text-muted-foreground">
+                  Fonte:{" "}
+                  <a
+                    href={m.sourceUrl}
+                    className="underline"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {m.sourceUrl}
+                  </a>
+                </p>
               </li>
             ))}
           </ol>
@@ -94,16 +107,25 @@ function DireitosPage() {
               “{THESIS}”
             </p>
             <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
-              A cota de {R.quotaFloor}% se aplica às candidaturas proporcionais.
-              Ali, a participação chega a{" "}
-              {R.proportional.share.toString().replace(".", ",")}%. Nas
-              majoritárias, onde nenhuma cota incide, o número é{" "}
-              {R.majoritarian.share.toString().replace(".", ",")}% — uma diferença
-              de {R.gapPoints.toString().replace(".", ",")} pontos que acompanha
-              exatamente o limite da norma.
+              A regra de composição de candidaturas de {QUOTA_RULE.floor}% a{" "}
+              {QUOTA_RULE.ceiling}% por gênero se aplica às eleições
+              proporcionais, por partido ou federação. As disputas majoritárias,
+              de cargo único, não estão submetidas a ela. Cada universo tem
+              participação feminina própria, calculada sobre seu próprio
+              denominador; a diferença entre os dois, quando disponível, é
+              apresentada em pontos percentuais:{" "}
+              <span className="font-mono">
+                {formatPoints(UNIVERSE_DIFFERENCE.value)}
+              </span>{" "}
+              ({UNIVERSE_DIFFERENCE.status}).
             </p>
-            <div className="mt-5">
-              <GapNote label="Cuidado metodológico">{R.caution}</GapNote>
+            <div className="mt-5 space-y-3">
+              <GapNote label="Leitura descritiva">
+                {QUOTA_RULE.descriptiveReading}
+              </GapNote>
+              <GapNote label="Cuidado metodológico">
+                {UNIVERSE_DIFFERENCE.caveat}
+              </GapNote>
             </div>
           </div>
           <img
@@ -127,12 +149,11 @@ function DireitosPage() {
             ))}
           </ul>
           <div className="mt-6">
-            <GapNote>
-              O snapshot publicado desta página está atrás de autenticação e não
-              pôde ser lido nesta reconstrução. A estrutura editorial (linha do
-              tempo, leitura da cota e limites em aberto) foi preservada; textos
-              corridos originais de cada marco não são recuperáveis e devem ser
-              reconferidos com a autora.
+            <GapNote label="Limite desta versão">
+              A cronologia lista apenas marcos com base normativa ou decisão
+              identificável, com link de fonte. Marcos sem fonte verificável não
+              são exibidos, e a redação de cada item deve ser reconferida contra o
+              texto legal antes da publicação.
             </GapNote>
           </div>
         </section>

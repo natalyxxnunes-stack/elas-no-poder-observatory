@@ -1,31 +1,139 @@
-import { useState } from "react";
-import { REPRESENTATION_CONTRAST as R } from "@/data/election-2026";
+import {
+  MAJORITARIAN_SHARE,
+  PROPORTIONAL_SHARE,
+  QUOTA_RULE,
+  UNIVERSE_DIFFERENCE,
+  formatPercent,
+  formatPoints,
+  formatRatio,
+  type Indicator,
+} from "@/data/election-2026";
 import { GapNote } from "./GapNote";
 import spotQuota from "@/assets/spot-quota.png";
 
 /**
- * RepresentationExplorer — o contraste 35,2% (proporcionais) × 16,9%
- * (majoritárias) e o papel da cota de gênero nessa diferença.
+ * RepresentationExplorer — participação feminina nos dois universos de
+ * candidatura (proporcional e majoritário), cada um com seu denominador.
+ * A diferença entre eles é apresentada em p.p. e de forma descritiva:
+ * nenhuma causalidade é atribuída à regra de composição de candidaturas.
  */
-export function RepresentationExplorer() {
-  const [showQuota, setShowQuota] = useState(true);
-  const bars = [R.proportional, R.majoritarian];
+function UniverseCard({
+  indicator,
+  quotaApplies,
+  note,
+}: {
+  indicator: Indicator;
+  quotaApplies: boolean;
+  note: string;
+}) {
+  const ratio = formatRatio(indicator);
+  const hasValue = indicator.value !== null && indicator.denominator !== null;
 
+  return (
+    <article className="editorial-card p-5">
+      <div className="flex items-baseline justify-between gap-3">
+        <h4 className="font-display text-lg text-ink">
+          {quotaApplies ? "Proporcionais" : "Majoritárias"}
+        </h4>
+        <span
+          className={`font-mono text-[11px] uppercase tracking-wider ${
+            quotaApplies ? "text-plum" : "text-coral"
+          }`}
+        >
+          {quotaApplies
+            ? "com regra de composição 30%–70%"
+            : "sem a regra de composição 30%–70%"}
+        </span>
+      </div>
+
+      <p className="data-figure mt-4 text-6xl text-plum">
+        {hasValue ? formatPercent(indicator.value) : "—"}
+      </p>
+      <p className="mt-1 font-mono text-[11px] text-muted-foreground">
+        {ratio ?? "sem denominador processado — indicador não exibido"}
+      </p>
+
+      <div className="relative mt-4 h-6 w-full overflow-hidden rounded-sm bg-muted">
+        {hasValue ? (
+          <div
+            className={`h-full transition-all ${
+              quotaApplies ? "bg-plum" : "bg-coral"
+            }`}
+            style={{ width: `${indicator.value}%` }}
+          />
+        ) : (
+          <div className="h-full w-full bg-[repeating-linear-gradient(45deg,transparent,transparent_5px,var(--color-rule)_5px,var(--color-rule)_10px)]" />
+        )}
+      </div>
+
+      <p className="mt-3 font-mono text-[11px] uppercase tracking-wider text-coral">
+        {indicator.status}
+      </p>
+
+      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{note}</p>
+
+      <dl className="mt-4 space-y-2 border-t border-rule pt-4 font-mono text-[11px] leading-relaxed text-muted-foreground">
+        <div>
+          <dt className="inline uppercase tracking-wider">Universo: </dt>
+          <dd className="inline">{indicator.universe}</dd>
+        </div>
+        <div>
+          <dt className="inline uppercase tracking-wider">Cargos: </dt>
+          <dd className="inline">{indicator.positions.join(", ")}</dd>
+        </div>
+        <div>
+          <dt className="inline uppercase tracking-wider">Fórmula: </dt>
+          <dd className="inline">{indicator.formula}</dd>
+        </div>
+        <div>
+          <dt className="inline uppercase tracking-wider">Fonte: </dt>
+          <dd className="inline">
+            {indicator.sourceUrl ? (
+              <a
+                href={indicator.sourceUrl}
+                className="underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {indicator.source}
+              </a>
+            ) : (
+              indicator.source
+            )}
+          </dd>
+        </div>
+      </dl>
+
+      {!hasValue && (
+        <div className="mt-4">
+          <GapNote label="Lacuna declarada">{indicator.caveat}</GapNote>
+        </div>
+      )}
+    </article>
+  );
+}
+
+export function RepresentationExplorer() {
   return (
     <section aria-labelledby="rep-title" className="rule-top pt-8">
       <div className="flex flex-wrap items-start justify-between gap-6">
         <div className="max-w-2xl">
-          <h2 className="kicker">Onde a queda acontece</h2>
+          <h2 className="kicker">Dois universos, duas regras</h2>
           <h3
             id="rep-title"
             className="mt-3 font-display text-2xl leading-snug text-ink md:text-3xl"
           >
-            35,2% nas proporcionais, 16,9% nas majoritárias
+            Participação feminina nas candidaturas proporcionais e majoritárias
           </h3>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            A diferença de {R.gapPoints.toString().replace(".", ",")} pontos não
-            está distribuída ao acaso: a cota de gênero de {R.quotaFloor}% incide
-            sobre as listas proporcionais e não alcança as disputas de cargo único.
+            {QUOTA_RULE.scope} {QUOTA_RULE.outOfScope}
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Diferença entre os universos:{" "}
+            <span className="font-mono">
+              {formatPoints(UNIVERSE_DIFFERENCE.value)}
+            </span>{" "}
+            — {UNIVERSE_DIFFERENCE.status}.
           </p>
         </div>
         <img
@@ -39,68 +147,29 @@ export function RepresentationExplorer() {
         />
       </div>
 
-      <button
-        type="button"
-        onClick={() => setShowQuota((v) => !v)}
-        aria-pressed={showQuota}
-        className={`mt-6 rounded-full border px-4 py-1.5 font-mono text-[11px] uppercase tracking-wider transition-colors ${
-          showQuota
-            ? "border-plum bg-plum text-primary-foreground"
-            : "border-rule bg-card text-muted-foreground"
-        }`}
-      >
-        {showQuota ? "Piso legal de 30% visível" : "Mostrar piso legal de 30%"}
-      </button>
-
       <div className="mt-8 grid gap-6 md:grid-cols-2">
-        {bars.map((bar) => (
-          <article key={bar.label} className="editorial-card p-5">
-            <div className="flex items-baseline justify-between">
-              <h4 className="font-display text-lg text-ink">{bar.label}</h4>
-              <span
-                className={`font-mono text-[11px] uppercase tracking-wider ${
-                  bar.quotaApplies ? "text-plum" : "text-coral"
-                }`}
-              >
-                {bar.quotaApplies ? "com cota" : "sem cota"}
-              </span>
-            </div>
-
-            <p className="data-figure mt-4 text-6xl text-plum">
-              {bar.share.toString().replace(".", ",")}
-              <span className="text-3xl">%</span>
-            </p>
-
-            <div className="relative mt-4 h-6 w-full overflow-hidden rounded-sm bg-muted">
-              <div
-                className={`h-full transition-all ${
-                  bar.quotaApplies ? "bg-plum" : "bg-coral"
-                }`}
-                style={{ width: `${bar.share}%` }}
-              />
-              {showQuota && (
-                <span
-                  className="absolute inset-y-0 border-l-2 border-dashed border-ink"
-                  style={{ left: `${R.quotaFloor}%` }}
-                  aria-hidden
-                />
-              )}
-            </div>
-            {showQuota && (
-              <p className="mt-2 font-mono text-[11px] text-muted-foreground">
-                Linha tracejada: piso de {R.quotaFloor}% previsto na Lei 9.504/97.
-              </p>
-            )}
-
-            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              {bar.note}
-            </p>
-          </article>
-        ))}
+        <UniverseCard
+          indicator={PROPORTIONAL_SHARE}
+          quotaApplies
+          note={`Eleições proporcionais, submetidas à ${QUOTA_RULE.shortName}, aplicada a cada partido ou federação.`}
+        />
+        <UniverseCard
+          indicator={MAJORITARIAN_SHARE}
+          quotaApplies={false}
+          note="Disputas de cargo único, sem a regra de composição de candidaturas de 30%–70% por gênero. A escolha da candidatura segue processos internos de partidos e federações."
+        />
       </div>
 
-      <div className="mt-6">
-        <GapNote label="Cuidado metodológico">{R.caution}</GapNote>
+      <div className="mt-6 space-y-3">
+        <GapNote label="Leitura descritiva">
+          {QUOTA_RULE.descriptiveReading}
+        </GapNote>
+        <GapNote label="Cuidado metodológico">
+          {UNIVERSE_DIFFERENCE.caveat} O universo majoritário é pequeno: leia
+          contagens absolutas junto do percentual, e nunca a casa decimal
+          isoladamente.
+        </GapNote>
+        <GapNote label="Financiamento">{QUOTA_RULE.financingNote}</GapNote>
       </div>
     </section>
   );

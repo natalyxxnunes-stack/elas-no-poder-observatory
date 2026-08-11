@@ -3,24 +3,24 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { CycleStrip } from "@/components/CycleStrip";
 import { GapNote } from "@/components/GapNote";
-import { REPRESENTATION_CONTRAST } from "@/data/election-2026";
+import { QUOTA_RULE, TSE_SOURCE } from "@/data/election-2026";
 import spotStrength from "@/assets/spot-strength.png";
 import spotQuota from "@/assets/spot-quota.png";
 
 export const Route = createFileRoute("/condicoes")({
   head: () => ({
     meta: [
-      { title: "Condições — Quem são elas? | Cota, recursos e mídia" },
+      { title: "Condições — Quem são elas? | Regras, recursos e mídia" },
       {
         name: "description",
         content:
-          "As condições materiais da disputa: cota de gênero de 30%, fundo eleitoral, tempo de mídia e estrutura partidária das candidaturas de mulheres em 2026.",
+          "As condições da disputa em 2026: regra de composição de candidaturas de 30%–70% por gênero, recursos públicos de campanha, tempo de propaganda e estrutura partidária.",
       },
       { property: "og:title", content: "Condições da disputa — Quem são elas?" },
       {
         property: "og:description",
         content:
-          "Cota de gênero, fundo eleitoral e tempo de mídia: o que sustenta ou trava uma candidatura de mulher.",
+          "Regra de composição de candidaturas, recursos públicos de campanha e tempo de propaganda: o que sustenta ou trava uma candidatura de mulher.",
       },
     ],
   }),
@@ -29,34 +29,40 @@ export const Route = createFileRoute("/condicoes")({
 
 const CONDITIONS = [
   {
-    title: "Cota de gênero de 30%",
-    body: "Incide sobre o total de candidaturas proporcionais de cada partido ou coligação. É um piso de entrada, não uma garantia de competitividade: define quem consta na lista, não quem recebe estrutura.",
-    status: "recuperado" as const,
-    note: "É essa regra que explica a distância entre 35,2% e 16,9%.",
+    title: "Composição de candidaturas: 30% a 70% por gênero",
+    body: `${QUOTA_RULE.scope} ${QUOTA_RULE.outOfScope}`,
+    status: "regra" as const,
+    note: QUOTA_RULE.descriptiveReading,
   },
   {
-    title: "Fundo eleitoral e fundo partidário",
-    body: "Desde 2018, os recursos devem ser distribuídos na mesma proporção mínima das candidaturas femininas. A regra vale para o volume; a distribuição interna entre candidatas segue sendo decisão do partido.",
+    title: "Recursos públicos de campanha",
+    body: "Desde 2018, recursos públicos de campanha devem observar percentual mínimo destinado a candidaturas de mulheres. Essas regras de financiamento são distintas da regra de composição de candidaturas e podem alcançar disputas proporcionais e majoritárias.",
     status: "lacuna" as const,
-    note: "Valores por partido e por candidatura exigem extração da prestação de contas do TSE — não recuperada do snapshot publicado.",
+    note: "Ainda não disponível: valores por partido, federação e candidatura serão integrados em módulo próprio, a partir das bases de prestação de contas do TSE.",
   },
   {
     title: "Tempo de propaganda",
-    body: "Rádio e televisão seguem a mesma lógica proporcional dos recursos, com inserções distribuídas pelo partido.",
+    body: "A destinação mínima de tempo de propaganda em rádio e televisão a candidaturas de mulheres segue regra própria, com a distribuição das inserções operada por partidos e federações.",
     status: "lacuna" as const,
-    note: "Distribuição efetiva de inserções por candidatura não recuperada.",
+    note: "Ainda não disponível: distribuição efetiva de inserções por candidatura não foi apurada nesta etapa.",
   },
   {
     title: "Estrutura partidária e posição na chapa",
-    body: "Suplência, ordem de chapa majoritária e acesso a diretórios locais definem se a candidatura é competitiva ou apenas formal.",
+    body: "Posição em chapa majoritária, condição de suplência e acesso a diretórios locais integram as condições materiais de uma candidatura.",
     status: "lacuna" as const,
-    note: "Requer classificação manual das chapas de 2026.",
+    note: "Ainda não disponível: exige classificação documentada das chapas de 2026, não realizada nesta etapa.",
+  },
+  {
+    title: "Apuração de fraude à regra de composição",
+    body: "Casos de fraude à regra de composição de candidaturas por gênero podem ser apurados pela Justiça Eleitoral e são analisados individualmente, conforme as circunstâncias e as provas de cada processo. O observatório não classifica candidaturas concretas sem decisão específica.",
+    status: "lacuna" as const,
+    note: "Ainda não disponível: um levantamento de decisões exigiria consulta processual documentada, com identificação de cada caso e do respectivo estágio.",
   },
   {
     title: "Violência política de gênero",
-    body: "Condição de disputa que não aparece nos registros: ataques, assédio e ameaças moldam quem permanece na campanha até o fim.",
+    body: "Condição de disputa que não aparece no registro de candidatura e que incide sobre a permanência na campanha.",
     status: "lacuna" as const,
-    note: "Sem série de dados pública consolidada para 2026 no material recuperado.",
+    note: "Ainda não disponível: sem base pública consolidada e comparável para 2026 nesta etapa do projeto.",
   },
 ];
 
@@ -72,9 +78,9 @@ function CondicoesPage() {
               A regra do jogo antes do primeiro voto
             </h1>
             <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
-              Uma candidatura não nasce igual à outra. Cota, dinheiro, tempo de
-              mídia e posição na chapa definem quem entra para disputar e quem
-              entra para completar a lista.
+              Uma candidatura não nasce igual à outra. Regras de composição,
+              recursos públicos, tempo de propaganda e posição na chapa formam as
+              condições da disputa — e cada uma delas tem base de dados própria.
             </p>
           </div>
           <img
@@ -95,22 +101,24 @@ function CondicoesPage() {
                 <h2 className="font-display text-xl text-ink">{c.title}</h2>
                 <span
                   className={`font-mono text-[11px] uppercase tracking-wider ${
-                    c.status === "recuperado" ? "text-plum" : "text-coral"
+                    c.status === "regra" ? "text-plum" : "text-coral"
                   }`}
                 >
-                  {c.status === "recuperado" ? "com dado" : "sem fonte"}
+                  {c.status === "regra"
+                    ? "Regra vigente"
+                    : "AINDA NÃO DISPONÍVEL"}
                 </span>
               </div>
               <p className="mt-3 max-w-3xl leading-relaxed text-muted-foreground">
                 {c.body}
               </p>
               <div className="mt-4">
-                {c.status === "recuperado" ? (
+                {c.status === "regra" ? (
                   <p className="border-l-[3px] border-plum bg-secondary px-4 py-3 text-sm text-ink">
                     {c.note}
                   </p>
                 ) : (
-                  <GapNote>{c.note}</GapNote>
+                  <GapNote label="Lacuna declarada">{c.note}</GapNote>
                 )}
               </div>
             </article>
@@ -128,19 +136,29 @@ function CondicoesPage() {
             className="h-28 w-28 md:h-36 md:w-36"
           />
           <div>
-            <h2 className="kicker">O que a cota faz e o que não faz</h2>
+            <h2 className="kicker">O alcance da regra de composição</h2>
             <p className="mt-3 max-w-2xl font-display text-2xl leading-snug text-ink">
-              Onde a cota incide, a participação passa de{" "}
-              {REPRESENTATION_CONTRAST.quotaFloor}%. Onde não incide, cai para{" "}
-              {REPRESENTATION_CONTRAST.majoritarian.share
-                .toString()
-                .replace(".", ",")}
-              %.
+              A regra de {QUOTA_RULE.floor}% a {QUOTA_RULE.ceiling}% incide sobre
+              a composição das candidaturas proporcionais de cada partido ou
+              federação.
             </p>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-              A cota garante presença na lista. Não garante recurso, tempo de
-              mídia, apoio de diretório nem lugar em chapa majoritária — e é aí
-              que o funil se estreita.
+              Ela trata de quem consta do conjunto de candidaturas registradas.
+              Não trata de recursos, tempo de propaganda, apoio de diretório nem
+              de posição em chapa majoritária — essas condições seguem regras e
+              bases de dados distintas. {QUOTA_RULE.financingNote}
+            </p>
+            <p className="mt-3 font-mono text-[11px] text-muted-foreground">
+              Base legal:{" "}
+              <a
+                href={QUOTA_RULE.sourceUrl}
+                className="underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Lei 9.504/1997, art. 10, §3º
+              </a>{" "}
+              · Indicadores de candidatura: {TSE_SOURCE.name}
             </p>
           </div>
         </section>
