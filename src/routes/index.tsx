@@ -179,7 +179,7 @@ function DadosPage() {
             pelo TSE. Por isso, esta fotografia muda diariamente.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            {CURRENT_INDICATORS.map((indicator) => (
+            {indicators.map((indicator) => (
               <IndicatorCard key={indicator.id} indicator={indicator} />
             ))}
           </div>
