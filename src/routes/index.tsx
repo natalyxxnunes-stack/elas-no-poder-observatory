@@ -5,7 +5,11 @@ import { CycleStrip } from "@/components/CycleStrip";
 import { FunnelExplorer } from "@/components/FunnelExplorer";
 import { RepresentationExplorer } from "@/components/RepresentationExplorer";
 import { WhoAreTheyExplorer } from "@/components/WhoAreTheyExplorer";
-import { REPRESENTATION_CONTRAST, SITE, THESIS } from "@/data/election-2026";
+import {
+  REPRESENTATION_CONTRAST as R,
+  SITE,
+  THESIS,
+} from "@/data/election-2026";
 import heroImage from "@/assets/elections-editorial.png";
 
 export const Route = createFileRoute("/")({
