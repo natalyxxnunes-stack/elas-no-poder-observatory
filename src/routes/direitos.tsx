@@ -84,6 +84,17 @@ function DireitosPage() {
                 <p className="mt-2 max-w-2xl leading-relaxed text-muted-foreground">
                   {m.body}
                 </p>
+                <p className="mt-2 font-mono text-[11px] text-muted-foreground">
+                  Fonte:{" "}
+                  <a
+                    href={m.sourceUrl}
+                    className="underline"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {m.sourceUrl}
+                  </a>
+                </p>
               </li>
             ))}
           </ol>
@@ -96,16 +107,25 @@ function DireitosPage() {
               “{THESIS}”
             </p>
             <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
-              A cota de {R.quotaFloor}% se aplica às candidaturas proporcionais.
-              Ali, a participação chega a{" "}
-              {R.proportional.share.toString().replace(".", ",")}%. Nas
-              majoritárias, onde nenhuma cota incide, o número é{" "}
-              {R.majoritarian.share.toString().replace(".", ",")}% — uma diferença
-              de {R.gapPoints.toString().replace(".", ",")} pontos que acompanha
-              exatamente o limite da norma.
+              A regra de composição de candidaturas de {QUOTA_RULE.floor}% a{" "}
+              {QUOTA_RULE.ceiling}% por gênero se aplica às eleições
+              proporcionais, por partido ou federação. As disputas majoritárias,
+              de cargo único, não estão submetidas a ela. Cada universo tem
+              participação feminina própria, calculada sobre seu próprio
+              denominador; a diferença entre os dois, quando disponível, é
+              apresentada em pontos percentuais:{" "}
+              <span className="font-mono">
+                {formatPoints(UNIVERSE_DIFFERENCE.value)}
+              </span>{" "}
+              ({UNIVERSE_DIFFERENCE.status}).
             </p>
-            <div className="mt-5">
-              <GapNote label="Cuidado metodológico">{R.caution}</GapNote>
+            <div className="mt-5 space-y-3">
+              <GapNote label="Leitura descritiva">
+                {QUOTA_RULE.descriptiveReading}
+              </GapNote>
+              <GapNote label="Cuidado metodológico">
+                {UNIVERSE_DIFFERENCE.caveat}
+              </GapNote>
             </div>
           </div>
           <img
