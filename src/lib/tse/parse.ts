@@ -513,14 +513,30 @@ export function validate(
     anomalies.push("Arquivo lido sem nenhum registro");
     publishable = false;
   }
-  if (result.distinctCandidacies > 0) {
-    const duplicates = result.recordCount - result.distinctCandidacies;
-    if (duplicates > 0) {
-      anomalies.push(
-        `${duplicates} linhas com SQ_CANDIDATO repetido — chave de candidatura não é única nesta fotografia`,
-      );
-    }
+  if (result.duplicateRows > 0) {
+    anomalies.push(
+      `${result.duplicateRows} linhas com SQ_CANDIDATO repetido foram descartadas das contagens (${result.rawLineCount} linhas brutas → ${result.recordCount} candidaturas distintas) — anomalia informativa, sem efeito sobre os indicadores`,
+    );
   }
+  if (result.rowsWithoutKey > 0) {
+    anomalies.push(
+      `${result.rowsWithoutKey} linhas sem SQ_CANDIDATO foram descartadas por não permitirem deduplicação`,
+    );
+  }
+  if (result.recordCount !== result.distinctCandidacies) {
+    anomalies.push(
+      "Contagem analítica divergente do número de candidaturas distintas — publicação bloqueada",
+    );
+    publishable = false;
+  }
+  const generated = resolveBaseGeneratedAt(result);
+  if (!generated.value) {
+    anomalies.push(
+      `Data da fotografia não obtida de DT_GERACAO/HH_GERACAO: ${generated.problem} — publicação bloqueada (metadado do portal não é usado como substituto)`,
+    );
+    publishable = false;
+  }
+
   for (const universe of ["proporcional", "majoritario"] as UniverseId[]) {
     const t = result.universes[universe];
     if (t.total === 0) {
