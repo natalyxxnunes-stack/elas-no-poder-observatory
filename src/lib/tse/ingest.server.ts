@@ -14,6 +14,7 @@
  */
 
 import { unzipSync } from "fflate";
+import { DICTIONARY_VERSION, INSPECTED_AT } from "./data-dictionary";
 import {
   APPLIED_FILTERS,
   PROCESSING_VERSION,
@@ -22,6 +23,7 @@ import {
   ingestCsv,
   validate,
 } from "./parse";
+
 
 const DATASET_API =
   "https://dadosabertos.tse.jus.br/api/3/action/package_show?id=candidatos-2026";
@@ -198,7 +200,7 @@ export async function runIngest(
       universes: acc.universes,
       indicators,
       anomalies: validation.anomalies,
-      notes: `Linhas fora dos universos analisados: ${acc.outOfScope}.`,
+      notes: `Dicionário de dados ${DICTIONARY_VERSION} (inspeção de cabeçalho real em ${INSPECTED_AT}). Candidaturas distintas por SQ_CANDIDATO: ${acc.distinctCandidacies}. Linhas fora dos universos analisados: ${acc.outOfScope}.`,
     })
     .select("id")
     .single();

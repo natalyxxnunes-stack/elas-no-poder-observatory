@@ -15,7 +15,21 @@ export type PublicUniverseTally = {
   total: number;
   raceCounts: Record<string, number>;
   situationCounts?: Record<string, number>;
+  /**
+   * Contagens brutas por dimensões confirmadas no dicionário de dados
+   * (UF, partido, forma de agremiação). Nenhum indicador é derivado delas
+   * automaticamente: existem para permitir recortes futuros documentados.
+   */
+  dimensions?: {
+    feminineByUf?: Record<string, number>;
+    totalByUf?: Record<string, number>;
+    feminineByParty?: Record<string, number>;
+    totalByParty?: Record<string, number>;
+    feminineByAgremiacao?: Record<string, number>;
+    totalByAgremiacao?: Record<string, number>;
+  };
 };
+
 
 export type PublicSnapshot = {
   id: string;

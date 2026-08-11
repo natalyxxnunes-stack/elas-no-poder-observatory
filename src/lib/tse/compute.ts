@@ -10,21 +10,43 @@
  * campo `filters` do indicador, para auditoria.
  */
 
-/** Linha da base de candidaturas, com os campos usados no cálculo. */
+/**
+ * Linha da base de candidaturas, com os campos CONFIRMADOS no cabeçalho real
+ * do recurso `Candidatos` de 2026 (ver `data-dictionary.ts`). Nenhum campo
+ * aqui é suposto: todos existem no arquivo público.
+ */
 export type TseCandidateRow = {
+  /** SQ_CANDIDATO — chave da candidatura */
+  sqCandidato: string;
   /** DS_CARGO */
   cargo: string;
-  /** DS_GENERO */
+  /** CD_CARGO — relacionamento com Vagas e Coligações */
+  codCargo: string;
+  /** DS_GENERO (base binária; sem inferência por nome) */
   genero: string;
   /** DS_COR_RACA — categoria original da base, sem agregação */
   corRaca: string;
-  /** DS_SITUACAO_CANDIDATURA (ex.: APTO, INAPTO) */
+  /** DS_SITUACAO_CANDIDATURA (na fotografia atual vem '#NE') */
   situacaoCandidatura: string;
-  /** DS_DETALHE_SITUACAO_CAND — estágio processual do registro */
+  /**
+   * DS_DETALHE_SITUACAO_CAND — existe apenas no recurso complementar
+   * (ligado por SQ_CANDIDATO); fica vazio ao ler somente `Candidatos`.
+   */
   detalheSituacao: string;
   /** SG_UF */
   uf: string;
+  /** SG_UE — unidade eleitoral (UF ou BR) */
+  ue: string;
+  /** SG_PARTIDO */
+  partido: string;
+  /** TP_AGREMIACAO — partido isolado, federação ou coligação */
+  agremiacao: string;
+  /** SG_FEDERACAO ('#NULO' quando não se aplica) */
+  federacao: string;
+  /** SQ_COLIGACAO — relacionamento com o recurso Coligações */
+  sqColigacao: string;
 };
+
 
 /** Cargos que compõem o universo proporcional (eleições proporcionais). */
 export const PROPORTIONAL_POSITIONS = [
