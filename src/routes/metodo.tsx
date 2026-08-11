@@ -82,7 +82,10 @@ const PLAIN_STEPS = [
 ] as const;
 
 function MetodoPage() {
-  const { snapshot, history } = Route.useLoaderData();
+  const { snapshot, history } = Route.useLoaderData() as {
+    snapshot: PublicSnapshot | null;
+    history: PublicSnapshot[];
+  };
   const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
 
   return (
