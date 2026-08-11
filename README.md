@@ -138,3 +138,21 @@ pessoa estável entre anos: a unidade de análise é a **candidatura**
 
 Nenhum indicador, filtro, rota, texto ou visual de 2026 foi alterado nesta
 rodada — o Bloco 5 aqui é dicionário e matriz de comparabilidade.
+
+## Auditoria dos denominadores (2014 · 2018 · 2022 · 2026)
+
+`docs/auditoria-denominadores.md` traz a tabela completa: por ano e universo,
+filtro aplicado, linhas brutas, linhas após deduplicação, número exibido e a
+explicação de cada diferença.
+
+Três pontos estruturais que ficam registrados aqui:
+
+- **os pacotes do TSE repetem todas as linhas das UFs no arquivo `..._BRASIL`**,
+  então as linhas brutas são ~2× as candidaturas. A deduplicação pela chave da
+  candidatura é obrigatória, não opcional;
+- **candidaturas e eleitos são universos diferentes**, assim como proporcional e
+  majoritário, e 2026 (base em curso) e os anos fechados. Nada é somado entre
+  universos para "fechar" um total;
+- **eleitos são contados apenas no 1º turno**: quem venceu no 2º turno não entra
+  no total de eleitos majoritários. Identificado e documentado, ainda não
+  corrigido.
