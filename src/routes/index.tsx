@@ -81,17 +81,17 @@ function DadosPage() {
         <section className="grid gap-4 pb-14 sm:grid-cols-3">
           {[
             {
-              figure: "35,2%",
+              figure: `${R.proportional.share.toString().replace(".", ",")}%`,
               label: "das candidaturas proporcionais",
-              note: "Disputas de lista, onde a cota de 30% incide.",
+              note: `Disputas de lista, onde a cota de ${R.quotaFloor}% incide.`,
             },
             {
-              figure: "16,9%",
+              figure: `${R.majoritarian.share.toString().replace(".", ",")}%`,
               label: "das candidaturas majoritárias",
               note: "Cargo único, sem cota de gênero.",
             },
             {
-              figure: String(REPRESENTATION_CONTRAST.caution ? 33 : 33),
+              figure: "33",
               label: "mulheres nas majoritárias",
               note: "Universo pequeno: leia a direção, não a casa decimal.",
             },
