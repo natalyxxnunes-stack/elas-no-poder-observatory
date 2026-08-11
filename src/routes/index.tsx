@@ -10,9 +10,12 @@ import {
   formatPoints,
   type Indicator,
 } from "@/data/election-2026";
+import { applySnapshot } from "@/lib/tse/indicators";
+import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import heroImage from "@/assets/elections-editorial.png";
 import spotQuota from "@/assets/spot-quota.png";
 import spotStrength from "@/assets/spot-strength.png";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
