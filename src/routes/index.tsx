@@ -6,9 +6,13 @@ import { FunnelExplorer } from "@/components/FunnelExplorer";
 import { RepresentationExplorer } from "@/components/RepresentationExplorer";
 import { WhoAreTheyExplorer } from "@/components/WhoAreTheyExplorer";
 import {
-  REPRESENTATION_CONTRAST as R,
+  CURRENT_INDICATORS,
   SITE,
   THESIS,
+  TSE_SOURCE,
+  formatPercent,
+  formatPoints,
+  formatRatio,
 } from "@/data/election-2026";
 import heroImage from "@/assets/elections-editorial.png";
 
