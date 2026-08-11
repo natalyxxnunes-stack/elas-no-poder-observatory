@@ -363,12 +363,14 @@ export function validate(
     }
   }
   for (const col of result.missingColumns) {
+    if (COLUMNS_FROM_OTHER_RESOURCE.includes(col)) continue;
     if (!REQUIRED_COLUMNS.includes(col)) {
       anomalies.push(
         `Coluna opcional ausente no arquivo: ${col} — indicadores que dependem dela não são calculados`,
       );
     }
   }
+
 
   // Guarda de estrutura: mudança de cabeçalho do TSE não pode gerar publicação
   // silenciosa. Coluna estrutural ausente bloqueia a fotografia; coluna nova ou
