@@ -1,17 +1,25 @@
 import { useState } from "react";
-import { CYCLE_STAGES, FUNNEL_STEPS, THESIS } from "@/data/election-2026";
+import {
+  CYCLE_STAGES,
+  FUNNEL_STEPS,
+  THESIS,
+  formatPercent,
+  formatRatio,
+} from "@/data/election-2026";
 import { GapNote } from "./GapNote";
 
 /**
  * FunnelExplorer — funil candidatura → poder.
- * Degraus sem fonte são renderizados como vazios declarados, com largura zero
- * e etiqueta de lacuna. É proibido interpolar valores entre degraus.
+ * Degraus sem indicador calculado a partir da base oficial são renderizados
+ * como vazios declarados, com o status padronizado. É proibido interpolar
+ * valores entre degraus.
  */
 export function FunnelExplorer() {
   const first = FUNNEL_STEPS[0]!;
   const [selected, setSelected] = useState<string>(first.id);
   const step = FUNNEL_STEPS.find((s) => s.id === selected) ?? first;
   const stage = CYCLE_STAGES.find((s) => s.id === step.stage);
+  const ind = step.indicator;
 
   return (
     <section aria-labelledby="funnel-title" className="rule-top pt-8">
@@ -26,7 +34,8 @@ export function FunnelExplorer() {
       <div className="mt-8 grid gap-8 lg:grid-cols-[1.35fr_1fr]">
         <ol className="space-y-2">
           {FUNNEL_STEPS.map((s) => {
-            const known = s.share.recovered && s.share.value !== null;
+            const value = s.indicator?.value ?? null;
+            const known = value !== null && s.indicator?.denominator !== null;
             const active = s.id === selected;
             return (
               <li key={s.id}>
@@ -43,13 +52,11 @@ export function FunnelExplorer() {
                   <div className="flex items-baseline justify-between gap-4">
                     <span className="font-display text-base text-ink">{s.label}</span>
                     <span
-                      className={`font-mono text-sm ${
+                      className={`font-mono text-[11px] uppercase tracking-wider ${
                         known ? "text-plum" : "text-coral"
                       }`}
                     >
-                      {known
-                        ? `${s.share.value!.toString().replace(".", ",")}%`
-                        : "sem fonte"}
+                      {known ? formatPercent(value) : s.status}
                     </span>
                   </div>
                   <div
@@ -57,14 +64,14 @@ export function FunnelExplorer() {
                     role="img"
                     aria-label={
                       known
-                        ? `Participação feminina de ${s.share.value}%`
-                        : "Etapa sem dado disponível"
+                        ? `Participação feminina de ${formatPercent(value)}`
+                        : `Etapa sem indicador calculado: ${s.status}`
                     }
                   >
                     {known ? (
                       <div
                         className="h-full bg-plum transition-all"
-                        style={{ width: `${s.share.value}%` }}
+                        style={{ width: `${value}%` }}
                       />
                     ) : (
                       <div className="h-full w-full bg-[repeating-linear-gradient(45deg,transparent,transparent_5px,var(--color-rule)_5px,var(--color-rule)_10px)]" />
@@ -89,31 +96,62 @@ export function FunnelExplorer() {
                 Participação
               </dt>
               <dd className="data-figure mt-1 text-3xl text-plum">
-                {step.share.value !== null
-                  ? `${step.share.value.toString().replace(".", ",")}%`
+                {ind && ind.denominator !== null
+                  ? formatPercent(ind.value)
                   : "—"}
               </dd>
             </div>
             <div>
               <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                Universo
+                Numerador / denominador
               </dt>
-              <dd className="data-figure mt-1 text-3xl text-ink">
-                {step.universe.value !== null ? step.universe.value : "—"}
+              <dd className="mt-1 font-mono text-sm text-ink">
+                {ind ? (formatRatio(ind) ?? "—") : "—"}
               </dd>
             </div>
           </dl>
 
-          {(!step.share.recovered || !step.universe.recovered) && (
-            <div className="mt-4 space-y-2">
-              {!step.share.recovered && <GapNote>{step.share.source}</GapNote>}
-              {!step.universe.recovered && <GapNote>{step.universe.source}</GapNote>}
+          <p className="mt-4 font-mono text-[11px] uppercase tracking-wider text-coral">
+            {step.status}
+          </p>
+
+          {step.pending && (
+            <div className="mt-3">
+              <GapNote label="Lacuna declarada">{step.pending}</GapNote>
             </div>
           )}
-          {step.share.recovered && (
-            <p className="mt-4 font-mono text-[11px] leading-relaxed text-muted-foreground">
-              Fonte: {step.share.source}
-            </p>
+
+          {ind && (
+            <dl className="mt-4 space-y-2 border-t border-rule pt-4 font-mono text-[11px] leading-relaxed text-muted-foreground">
+              <div>
+                <dt className="inline uppercase tracking-wider">Fonte: </dt>
+                <dd className="inline">{ind.source}</dd>
+              </div>
+              <div>
+                <dt className="inline uppercase tracking-wider">Cargos: </dt>
+                <dd className="inline">{ind.positions.join(", ")}</dd>
+              </div>
+              <div>
+                <dt className="inline uppercase tracking-wider">Fórmula: </dt>
+                <dd className="inline">{ind.formula}</dd>
+              </div>
+              <div>
+                <dt className="inline uppercase tracking-wider">
+                  Geração da base:{" "}
+                </dt>
+                <dd className="inline">{ind.baseGeneratedAt ?? "—"}</dd>
+              </div>
+              <div>
+                <dt className="inline uppercase tracking-wider">
+                  Processamento:{" "}
+                </dt>
+                <dd className="inline">{ind.processedAt ?? "—"}</dd>
+              </div>
+              <div>
+                <dt className="inline uppercase tracking-wider">Observação: </dt>
+                <dd className="inline">{ind.caveat}</dd>
+              </div>
+            </dl>
           )}
         </aside>
       </div>
