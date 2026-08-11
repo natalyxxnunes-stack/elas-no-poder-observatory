@@ -24,6 +24,7 @@ import { Route as QuemSaoElasRouteImport } from './routes/quem-sao-elas'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as VotosRouteImport } from './routes/votos'
 import { Route as ApiPublicTseIngestRouteImport } from './routes/api/public/tse/ingest'
+import { Route as ApiPublicTseIngestHistoryRouteImport } from './routes/api/public/tse/ingest-history'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -100,6 +101,12 @@ const ApiPublicTseIngestRoute = ApiPublicTseIngestRouteImport.update({
   path: '/api/public/tse/ingest',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicTseIngestHistoryRoute =
+  ApiPublicTseIngestHistoryRouteImport.update({
+    id: '/api/public/tse/ingest-history',
+    path: '/api/public/tse/ingest-history',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -117,6 +124,7 @@ export interface FileRoutesByFullPath {
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
+  '/api/public/tse/ingest-history': typeof ApiPublicTseIngestHistoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -134,6 +142,7 @@ export interface FileRoutesByTo {
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
+  '/api/public/tse/ingest-history': typeof ApiPublicTseIngestHistoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -152,6 +161,7 @@ export interface FileRoutesById {
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
+  '/api/public/tse/ingest-history': typeof ApiPublicTseIngestHistoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -171,6 +181,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/votos'
     | '/api/public/tse/ingest'
+    | '/api/public/tse/ingest-history'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -188,6 +199,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/votos'
     | '/api/public/tse/ingest'
+    | '/api/public/tse/ingest-history'
   id:
     | '__root__'
     | '/'
@@ -205,6 +217,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/votos'
     | '/api/public/tse/ingest'
+    | '/api/public/tse/ingest-history'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -223,6 +236,7 @@ export interface RootRouteChildren {
   SobreRoute: typeof SobreRoute
   VotosRoute: typeof VotosRoute
   ApiPublicTseIngestRoute: typeof ApiPublicTseIngestRoute
+  ApiPublicTseIngestHistoryRoute: typeof ApiPublicTseIngestHistoryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -332,6 +346,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicTseIngestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/tse/ingest-history': {
+      id: '/api/public/tse/ingest-history'
+      path: '/api/public/tse/ingest-history'
+      fullPath: '/api/public/tse/ingest-history'
+      preLoaderRoute: typeof ApiPublicTseIngestHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -351,17 +372,8 @@ const rootRouteChildren: RootRouteChildren = {
   SobreRoute: SobreRoute,
   VotosRoute: VotosRoute,
   ApiPublicTseIngestRoute: ApiPublicTseIngestRoute,
+  ApiPublicTseIngestHistoryRoute: ApiPublicTseIngestHistoryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
