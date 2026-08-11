@@ -236,12 +236,16 @@ export function createTally(): ParseResult {
     headerNames: [],
     missingColumns: [],
     headerAudit: null,
+    rawLineCount: 0,
     recordCount: 0,
     distinctCandidacies: 0,
+    duplicateRows: 0,
+    rowsWithoutKey: 0,
     outOfScope: 0,
     universes: { proporcional: emptyTally(), majoritario: emptyTally() },
     situationValues: {},
     seenKeys: new Set<string>(),
+    generationStamps: {},
   };
 }
 
@@ -249,6 +253,25 @@ const bump = (map: Record<string, number>, key: string) => {
   const k = key || "NÃO INFORMADO";
   map[k] = (map[k] ?? 0) + 1;
 };
+
+/**
+ * Converte DT_GERACAO (dd/mm/aaaa) + HH_GERACAO (hh:mm:ss) em ISO.
+ * O TSE gera os arquivos no horário de Brasília (UTC-03:00).
+ * Devolve null se qualquer uma das partes não vier no formato esperado —
+ * nunca há substituição por metadado ou data aproximada.
+ */
+export function generationStampToIso(
+  dt: string,
+  hh: string,
+): string | null {
+  const d = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(dt.trim());
+  const t = /^(\d{2}):(\d{2}):(\d{2})$/.exec(hh.trim());
+  if (!d || !t) return null;
+  const iso = `${d[3]}-${d[2]}-${d[1]}T${t[1]}:${t[2]}:${t[3]}-03:00`;
+  const parsed = new Date(iso);
+  if (Number.isNaN(parsed.getTime())) return null;
+  return parsed.toISOString();
+}
 
 /** Lê um CSV completo do pacote do TSE e acumula as contagens em `acc`. */
 export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
@@ -269,11 +292,34 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
     }
     const row = toRow(cells, header);
     if (!row.cargo && !row.genero) continue;
-    acc.recordCount += 1;
-    if (row.sqCandidato && !acc.seenKeys.has(row.sqCandidato)) {
-      acc.seenKeys.add(row.sqCandidato);
-      acc.distinctCandidacies += 1;
+    acc.rawLineCount += 1;
+
+    // Data da fotografia: lida das próprias linhas do arquivo Candidatos.
+    const idxDt = header.dtGeracao;
+    const idxHh = header.hhGeracao;
+    if (idxDt !== undefined && idxHh !== undefined) {
+      const stamp = generationStampToIso(
+        clean(cells[idxDt] ?? ""),
+        clean(cells[idxHh] ?? ""),
+      );
+      bump(acc.generationStamps, stamp ?? "INVÁLIDA");
+    } else {
+      bump(acc.generationStamps, "AUSENTE");
     }
+
+    // Deduplicação pela chave da unidade de análise: uma linha cujo
+    // SQ_CANDIDATO já foi processado NÃO entra em nenhuma contagem analítica.
+    if (!row.sqCandidato) {
+      acc.rowsWithoutKey += 1;
+      continue;
+    }
+    if (acc.seenKeys.has(row.sqCandidato)) {
+      acc.duplicateRows += 1;
+      continue;
+    }
+    acc.seenKeys.add(row.sqCandidato);
+    acc.distinctCandidacies += 1;
+    acc.recordCount += 1;
 
     const situation = row.situacaoCandidatura || "NÃO INFORMADO";
     acc.situationValues[situation] = (acc.situationValues[situation] ?? 0) + 1;
@@ -301,6 +347,40 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
   }
   return acc;
 }
+
+/**
+ * Data da fotografia segundo o próprio arquivo do TSE.
+ * Só devolve valor se TODAS as linhas trouxerem a mesma data de geração
+ * (a hora pode variar entre arquivos do pacote; nesse caso usa-se a mais
+ * recente). Qualquer inconsistência devolve null e bloqueia a publicação.
+ */
+export function resolveBaseGeneratedAt(result: ParseResult): {
+  value: string | null;
+  problem: string | null;
+} {
+  const stamps = Object.keys(result.generationStamps);
+  if (stamps.length === 0) {
+    return { value: null, problem: "Nenhuma data de geração lida do arquivo" };
+  }
+  const invalid = stamps.filter((s) => s === "INVÁLIDA" || s === "AUSENTE");
+  if (invalid.length > 0) {
+    return {
+      value: null,
+      problem:
+        "DT_GERACAO/HH_GERACAO ausente ou em formato inesperado em parte das linhas",
+    };
+  }
+  const days = new Set(stamps.map((s) => s.slice(0, 10)));
+  if (days.size > 1) {
+    return {
+      value: null,
+      problem: `Datas de geração divergentes entre os arquivos do pacote: ${[...days].sort().join(", ")}`,
+    };
+  }
+  const latest = stamps.sort().at(-1)!;
+  return { value: latest, problem: null };
+}
+
 
 
 export type ComputedIndicator = {
