@@ -13,7 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CondicoesRouteImport } from './routes/condicoes'
 import { Route as DireitosRouteImport } from './routes/direitos'
 import { Route as EmDisputaRouteImport } from './routes/em-disputa'
+import { Route as FunilRouteImport } from './routes/funil'
 import { Route as MetodoRouteImport } from './routes/metodo'
+import { Route as QuemControlaRouteImport } from './routes/quem-controla'
+import { Route as QuemSaoElasRouteImport } from './routes/quem-sao-elas'
 import { Route as ApiPublicTseIngestRouteImport } from './routes/api/public/tse/ingest'
 
 const IndexRoute = IndexRouteImport.update({
@@ -36,9 +39,24 @@ const EmDisputaRoute = EmDisputaRouteImport.update({
   path: '/em-disputa',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FunilRoute = FunilRouteImport.update({
+  id: '/funil',
+  path: '/funil',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MetodoRoute = MetodoRouteImport.update({
   id: '/metodo',
   path: '/metodo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuemControlaRoute = QuemControlaRouteImport.update({
+  id: '/quem-controla',
+  path: '/quem-controla',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuemSaoElasRoute = QuemSaoElasRouteImport.update({
+  id: '/quem-sao-elas',
+  path: '/quem-sao-elas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicTseIngestRoute = ApiPublicTseIngestRouteImport.update({
@@ -52,7 +70,10 @@ export interface FileRoutesByFullPath {
   '/condicoes': typeof CondicoesRoute
   '/direitos': typeof DireitosRoute
   '/em-disputa': typeof EmDisputaRoute
+  '/funil': typeof FunilRoute
   '/metodo': typeof MetodoRoute
+  '/quem-controla': typeof QuemControlaRoute
+  '/quem-sao-elas': typeof QuemSaoElasRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
 }
 export interface FileRoutesByTo {
@@ -60,7 +81,10 @@ export interface FileRoutesByTo {
   '/condicoes': typeof CondicoesRoute
   '/direitos': typeof DireitosRoute
   '/em-disputa': typeof EmDisputaRoute
+  '/funil': typeof FunilRoute
   '/metodo': typeof MetodoRoute
+  '/quem-controla': typeof QuemControlaRoute
+  '/quem-sao-elas': typeof QuemSaoElasRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
 }
 export interface FileRoutesById {
@@ -69,7 +93,10 @@ export interface FileRoutesById {
   '/condicoes': typeof CondicoesRoute
   '/direitos': typeof DireitosRoute
   '/em-disputa': typeof EmDisputaRoute
+  '/funil': typeof FunilRoute
   '/metodo': typeof MetodoRoute
+  '/quem-controla': typeof QuemControlaRoute
+  '/quem-sao-elas': typeof QuemSaoElasRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
 }
 export interface FileRouteTypes {
@@ -79,7 +106,10 @@ export interface FileRouteTypes {
     | '/condicoes'
     | '/direitos'
     | '/em-disputa'
+    | '/funil'
     | '/metodo'
+    | '/quem-controla'
+    | '/quem-sao-elas'
     | '/api/public/tse/ingest'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -87,7 +117,10 @@ export interface FileRouteTypes {
     | '/condicoes'
     | '/direitos'
     | '/em-disputa'
+    | '/funil'
     | '/metodo'
+    | '/quem-controla'
+    | '/quem-sao-elas'
     | '/api/public/tse/ingest'
   id:
     | '__root__'
@@ -95,7 +128,10 @@ export interface FileRouteTypes {
     | '/condicoes'
     | '/direitos'
     | '/em-disputa'
+    | '/funil'
     | '/metodo'
+    | '/quem-controla'
+    | '/quem-sao-elas'
     | '/api/public/tse/ingest'
   fileRoutesById: FileRoutesById
 }
@@ -104,7 +140,10 @@ export interface RootRouteChildren {
   CondicoesRoute: typeof CondicoesRoute
   DireitosRoute: typeof DireitosRoute
   EmDisputaRoute: typeof EmDisputaRoute
+  FunilRoute: typeof FunilRoute
   MetodoRoute: typeof MetodoRoute
+  QuemControlaRoute: typeof QuemControlaRoute
+  QuemSaoElasRoute: typeof QuemSaoElasRoute
   ApiPublicTseIngestRoute: typeof ApiPublicTseIngestRoute
 }
 
@@ -138,11 +177,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmDisputaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/funil': {
+      id: '/funil'
+      path: '/funil'
+      fullPath: '/funil'
+      preLoaderRoute: typeof FunilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/metodo': {
       id: '/metodo'
       path: '/metodo'
       fullPath: '/metodo'
       preLoaderRoute: typeof MetodoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quem-controla': {
+      id: '/quem-controla'
+      path: '/quem-controla'
+      fullPath: '/quem-controla'
+      preLoaderRoute: typeof QuemControlaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quem-sao-elas': {
+      id: '/quem-sao-elas'
+      path: '/quem-sao-elas'
+      fullPath: '/quem-sao-elas'
+      preLoaderRoute: typeof QuemSaoElasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/tse/ingest': {
@@ -160,7 +220,10 @@ const rootRouteChildren: RootRouteChildren = {
   CondicoesRoute: CondicoesRoute,
   DireitosRoute: DireitosRoute,
   EmDisputaRoute: EmDisputaRoute,
+  FunilRoute: FunilRoute,
   MetodoRoute: MetodoRoute,
+  QuemControlaRoute: QuemControlaRoute,
+  QuemSaoElasRoute: QuemSaoElasRoute,
   ApiPublicTseIngestRoute: ApiPublicTseIngestRoute,
 }
 export const routeTree = rootRouteImport
