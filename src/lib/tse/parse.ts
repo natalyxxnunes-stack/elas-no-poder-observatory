@@ -436,7 +436,10 @@ export const APPLIED_FILTERS = [
   "Cor/raça mantida nas categorias originais do TSE (DS_COR_RACA), sem agregação; preta + parda = negra só como transformação analítica declarada na apresentação",
   `Leitura de colunas conforme o dicionário de dados versionado ${DICTIONARY_VERSION}, mapeado a partir do cabeçalho real do arquivo`,
   "Dimensões adicionais gravadas apenas como contagens brutas (UF, partido e forma de agremiação); nenhum indicador novo é derivado delas nesta fotografia",
+  "Deduplicação por SQ_CANDIDATO antes de qualquer contagem: linha com chave já processada é descartada dos numeradores, denominadores, cor/raça e dimensões; o total de linhas brutas e a quantidade de duplicidades ficam registrados separadamente",
+  "Data da fotografia lida de DT_GERACAO + HH_GERACAO nas linhas do próprio arquivo Candidatos (horário de Brasília); metadados do portal não substituem essa data",
 ];
+
 
 
 export type ValidationOutcome = {
