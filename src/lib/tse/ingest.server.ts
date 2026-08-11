@@ -198,7 +198,7 @@ export async function runIngest(
       universes: acc.universes,
       indicators,
       anomalies: validation.anomalies,
-      notes: `Linhas fora dos universos analisados: ${acc.outOfScope}.`,
+      notes: `Dicionário de dados ${DICTIONARY_VERSION} (inspeção de cabeçalho real em ${INSPECTED_AT}). Candidaturas distintas por SQ_CANDIDATO: ${acc.distinctCandidacies}. Linhas fora dos universos analisados: ${acc.outOfScope}.`,
     })
     .select("id")
     .single();
