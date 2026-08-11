@@ -8,8 +8,9 @@ import { GapNote } from "./GapNote";
  * e etiqueta de lacuna. É proibido interpolar valores entre degraus.
  */
 export function FunnelExplorer() {
-  const [selected, setSelected] = useState<string>(FUNNEL_STEPS[0].id);
-  const step = FUNNEL_STEPS.find((s) => s.id === selected) ?? FUNNEL_STEPS[0];
+  const first = FUNNEL_STEPS[0]!;
+  const [selected, setSelected] = useState<string>(first.id);
+  const step = FUNNEL_STEPS.find((s) => s.id === selected) ?? first;
   const stage = CYCLE_STAGES.find((s) => s.id === step.stage);
 
   return (

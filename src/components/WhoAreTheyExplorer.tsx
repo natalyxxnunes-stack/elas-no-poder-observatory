@@ -9,7 +9,7 @@ import { GapNote } from "./GapNote";
  */
 export function WhoAreTheyExplorer() {
   const [openLevel, setOpenLevel] = useState<string>(
-    RACE_BY_POWER_LEVEL[0].level,
+    RACE_BY_POWER_LEVEL[0]!.level,
   );
 
   return (
