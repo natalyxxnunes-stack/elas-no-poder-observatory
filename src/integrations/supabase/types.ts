@@ -14,7 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      tse_snapshots: {
+        Row: {
+          anomalies: Json
+          base_generated_at: string | null
+          collected_at: string
+          columns_found: Json
+          created_at: string
+          file_name: string
+          file_url: string
+          filters: Json
+          id: string
+          indicators: Json
+          notes: string | null
+          processing_version: string
+          record_count: number
+          situation_values: Json
+          status: string
+          universes: Json
+        }
+        Insert: {
+          anomalies?: Json
+          base_generated_at?: string | null
+          collected_at?: string
+          columns_found?: Json
+          created_at?: string
+          file_name: string
+          file_url: string
+          filters?: Json
+          id?: string
+          indicators?: Json
+          notes?: string | null
+          processing_version: string
+          record_count?: number
+          situation_values?: Json
+          status?: string
+          universes?: Json
+        }
+        Update: {
+          anomalies?: Json
+          base_generated_at?: string | null
+          collected_at?: string
+          columns_found?: Json
+          created_at?: string
+          file_name?: string
+          file_url?: string
+          filters?: Json
+          id?: string
+          indicators?: Json
+          notes?: string | null
+          processing_version?: string
+          record_count?: number
+          situation_values?: Json
+          status?: string
+          universes?: Json
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
