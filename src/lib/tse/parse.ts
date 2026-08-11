@@ -24,7 +24,7 @@ import {
  * Versão do processamento — muda quando a lógica de cálculo muda.
  * Inclui a versão do dicionário de dados usada na leitura do arquivo.
  */
-export const PROCESSING_VERSION = `2026.08.11-b4+${DICTIONARY_VERSION}`;
+export const PROCESSING_VERSION = `2026.08.11-b4.1+${DICTIONARY_VERSION}`;
 
 /**
  * Colunas analíticas e os nomes REAIS aceitos, conforme o dicionário de dados
