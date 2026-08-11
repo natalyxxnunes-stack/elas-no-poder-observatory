@@ -4,10 +4,12 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { CycleStrip } from "@/components/CycleStrip";
 import { GapNote } from "@/components/GapNote";
 import {
-  REPRESENTATION_CONTRAST as R,
+  QUOTA_RULE,
   RIGHTS_MILESTONES,
   RIGHTS_OPEN_QUESTIONS,
   THESIS,
+  UNIVERSE_DIFFERENCE,
+  formatPoints,
 } from "@/data/election-2026";
 import timelineImage from "@/assets/timeline-editorial.png";
 import spotQuota from "@/assets/spot-quota.png";
