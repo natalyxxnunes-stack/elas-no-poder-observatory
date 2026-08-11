@@ -34,18 +34,21 @@ export type TseSnapshot = {
 };
 
 /**
- * Estado atual: sem snapshot processado.
+ * Estado atual: os números da fotografia vigente não vivem mais neste arquivo.
  *
- * Tentativa registrada em 2026-08-11T20:19Z: a API de metadados do TSE
- * (dadosabertos.tse.jus.br) respondeu normalmente, mas o download do arquivo
- * `consulta_cand_2026.zip` em cdn.tse.jus.br retornou HTTP 403 (bloqueio de
- * acesso automatizado). Sem o arquivo, nenhum indicador foi recalculado.
+ * A coleta diária da base oficial (TSE / Dados Abertos / Candidatos 2026) grava
+ * cada fotografia no banco do projeto, com data de geração do arquivo, número
+ * de registros, filtros, contagens por universo e indicadores. A leitura é
+ * feita em `src/lib/tse/snapshot.functions.ts` e projetada sobre os
+ * indicadores por `src/lib/tse/indicators.ts`.
+ *
+ * Este slot permanece nulo de propósito: nenhum número é fixado em código.
  */
 export const snapshot: TseSnapshot | null = null;
 
-/** Registro da última tentativa de obtenção da base. */
+/** Origem da fotografia vigente. */
 export const LAST_FETCH_ATTEMPT = {
-  at: "2026-08-11T20:19:00Z",
+  at: null,
   outcome:
-    "HTTP 403 no CDN do TSE ao baixar consulta_cand_2026.zip (bloqueio de acesso automatizado). Metadados do dataset acessíveis.",
+    "Fotografia obtida pela coleta diária do arquivo oficial de candidaturas do TSE e armazenada no histórico de fotografias do projeto.",
 } as const;

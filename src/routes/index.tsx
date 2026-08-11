@@ -10,9 +10,12 @@ import {
   formatPoints,
   type Indicator,
 } from "@/data/election-2026";
+import { applySnapshot } from "@/lib/tse/indicators";
+import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import heroImage from "@/assets/elections-editorial.png";
 import spotQuota from "@/assets/spot-quota.png";
 import spotStrength from "@/assets/spot-strength.png";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,7 +36,9 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
+  loader: async () => ({ snapshot: await getLatestTseSnapshot() }),
   component: DadosPage,
+
 });
 
 /** Formata uma data ISO como fotografia legível (dd/mm/aaaa). */
@@ -110,7 +115,10 @@ const FUNNEL_LABELS = [
 ] as const;
 
 function DadosPage() {
+  const { snapshot } = Route.useLoaderData();
+  const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
   return (
+
     <div className="paper-grain min-h-screen">
       <SiteHeader />
 
@@ -171,7 +179,7 @@ function DadosPage() {
             pelo TSE. Por isso, esta fotografia muda diariamente.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            {CURRENT_INDICATORS.map((indicator) => (
+            {indicators.map((indicator) => (
               <IndicatorCard key={indicator.id} indicator={indicator} />
             ))}
           </div>
