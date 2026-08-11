@@ -14,12 +14,14 @@ import { Route as BarreirasRouteImport } from './routes/barreiras'
 import { Route as CondicoesRouteImport } from './routes/condicoes'
 import { Route as DinheiroRouteImport } from './routes/dinheiro'
 import { Route as DireitosRouteImport } from './routes/direitos'
+import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as EmDisputaRouteImport } from './routes/em-disputa'
 import { Route as FunilRouteImport } from './routes/funil'
 import { Route as MetodoRouteImport } from './routes/metodo'
 import { Route as QuemChegaRouteImport } from './routes/quem-chega'
 import { Route as QuemControlaRouteImport } from './routes/quem-controla'
 import { Route as QuemSaoElasRouteImport } from './routes/quem-sao-elas'
+import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as VotosRouteImport } from './routes/votos'
 import { Route as ApiPublicTseIngestRouteImport } from './routes/api/public/tse/ingest'
 
@@ -46,6 +48,11 @@ const DinheiroRoute = DinheiroRouteImport.update({
 const DireitosRoute = DireitosRouteImport.update({
   id: '/direitos',
   path: '/direitos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DownloadsRoute = DownloadsRouteImport.update({
+  id: '/downloads',
+  path: '/downloads',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmDisputaRoute = EmDisputaRouteImport.update({
@@ -78,6 +85,11 @@ const QuemSaoElasRoute = QuemSaoElasRouteImport.update({
   path: '/quem-sao-elas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VotosRoute = VotosRouteImport.update({
   id: '/votos',
   path: '/votos',
@@ -95,12 +107,14 @@ export interface FileRoutesByFullPath {
   '/condicoes': typeof CondicoesRoute
   '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
+  '/downloads': typeof DownloadsRoute
   '/em-disputa': typeof EmDisputaRoute
   '/funil': typeof FunilRoute
   '/metodo': typeof MetodoRoute
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
   '/quem-sao-elas': typeof QuemSaoElasRoute
+  '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
 }
@@ -110,12 +124,14 @@ export interface FileRoutesByTo {
   '/condicoes': typeof CondicoesRoute
   '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
+  '/downloads': typeof DownloadsRoute
   '/em-disputa': typeof EmDisputaRoute
   '/funil': typeof FunilRoute
   '/metodo': typeof MetodoRoute
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
   '/quem-sao-elas': typeof QuemSaoElasRoute
+  '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
 }
@@ -126,12 +142,14 @@ export interface FileRoutesById {
   '/condicoes': typeof CondicoesRoute
   '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
+  '/downloads': typeof DownloadsRoute
   '/em-disputa': typeof EmDisputaRoute
   '/funil': typeof FunilRoute
   '/metodo': typeof MetodoRoute
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
   '/quem-sao-elas': typeof QuemSaoElasRoute
+  '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
 }
@@ -143,12 +161,14 @@ export interface FileRouteTypes {
     | '/condicoes'
     | '/dinheiro'
     | '/direitos'
+    | '/downloads'
     | '/em-disputa'
     | '/funil'
     | '/metodo'
     | '/quem-chega'
     | '/quem-controla'
     | '/quem-sao-elas'
+    | '/sobre'
     | '/votos'
     | '/api/public/tse/ingest'
   fileRoutesByTo: FileRoutesByTo
@@ -158,12 +178,14 @@ export interface FileRouteTypes {
     | '/condicoes'
     | '/dinheiro'
     | '/direitos'
+    | '/downloads'
     | '/em-disputa'
     | '/funil'
     | '/metodo'
     | '/quem-chega'
     | '/quem-controla'
     | '/quem-sao-elas'
+    | '/sobre'
     | '/votos'
     | '/api/public/tse/ingest'
   id:
@@ -173,12 +195,14 @@ export interface FileRouteTypes {
     | '/condicoes'
     | '/dinheiro'
     | '/direitos'
+    | '/downloads'
     | '/em-disputa'
     | '/funil'
     | '/metodo'
     | '/quem-chega'
     | '/quem-controla'
     | '/quem-sao-elas'
+    | '/sobre'
     | '/votos'
     | '/api/public/tse/ingest'
   fileRoutesById: FileRoutesById
@@ -189,12 +213,14 @@ export interface RootRouteChildren {
   CondicoesRoute: typeof CondicoesRoute
   DinheiroRoute: typeof DinheiroRoute
   DireitosRoute: typeof DireitosRoute
+  DownloadsRoute: typeof DownloadsRoute
   EmDisputaRoute: typeof EmDisputaRoute
   FunilRoute: typeof FunilRoute
   MetodoRoute: typeof MetodoRoute
   QuemChegaRoute: typeof QuemChegaRoute
   QuemControlaRoute: typeof QuemControlaRoute
   QuemSaoElasRoute: typeof QuemSaoElasRoute
+  SobreRoute: typeof SobreRoute
   VotosRoute: typeof VotosRoute
   ApiPublicTseIngestRoute: typeof ApiPublicTseIngestRoute
 }
@@ -234,6 +260,13 @@ declare module '@tanstack/react-router' {
       path: '/direitos'
       fullPath: '/direitos'
       preLoaderRoute: typeof DireitosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/downloads': {
+      id: '/downloads'
+      path: '/downloads'
+      fullPath: '/downloads'
+      preLoaderRoute: typeof DownloadsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/em-disputa': {
@@ -278,6 +311,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuemSaoElasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/votos': {
       id: '/votos'
       path: '/votos'
@@ -301,12 +341,14 @@ const rootRouteChildren: RootRouteChildren = {
   CondicoesRoute: CondicoesRoute,
   DinheiroRoute: DinheiroRoute,
   DireitosRoute: DireitosRoute,
+  DownloadsRoute: DownloadsRoute,
   EmDisputaRoute: EmDisputaRoute,
   FunilRoute: FunilRoute,
   MetodoRoute: MetodoRoute,
   QuemChegaRoute: QuemChegaRoute,
   QuemControlaRoute: QuemControlaRoute,
   QuemSaoElasRoute: QuemSaoElasRoute,
+  SobreRoute: SobreRoute,
   VotosRoute: VotosRoute,
   ApiPublicTseIngestRoute: ApiPublicTseIngestRoute,
 }
