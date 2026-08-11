@@ -58,6 +58,13 @@ export const REQUIRED_COLUMNS: ColumnKey[] = [
   "genero",
 ];
 
+/**
+ * Colunas que, conforme o dicionário, NÃO pertencem ao recurso `Candidatos`
+ * e sim ao recurso complementar (ligado por SQ_CANDIDATO). A ausência delas no
+ * arquivo principal é esperada e não é anomalia.
+ */
+export const COLUMNS_FROM_OTHER_RESOURCE: ColumnKey[] = ["detalheSituacao"];
+
 
 const clean = (v: string) => v.replace(/^"+|"+$/g, "").trim();
 
