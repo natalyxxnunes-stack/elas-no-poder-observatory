@@ -14,6 +14,7 @@ import { Route as CondicoesRouteImport } from './routes/condicoes'
 import { Route as DireitosRouteImport } from './routes/direitos'
 import { Route as EmDisputaRouteImport } from './routes/em-disputa'
 import { Route as MetodoRouteImport } from './routes/metodo'
+import { Route as ApiPublicTseIngestRouteImport } from './routes/api/public/tse/ingest'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const MetodoRoute = MetodoRouteImport.update({
   path: '/metodo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicTseIngestRoute = ApiPublicTseIngestRouteImport.update({
+  id: '/api/public/tse/ingest',
+  path: '/api/public/tse/ingest',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/direitos': typeof DireitosRoute
   '/em-disputa': typeof EmDisputaRoute
   '/metodo': typeof MetodoRoute
+  '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/direitos': typeof DireitosRoute
   '/em-disputa': typeof EmDisputaRoute
   '/metodo': typeof MetodoRoute
+  '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,33 @@ export interface FileRoutesById {
   '/direitos': typeof DireitosRoute
   '/em-disputa': typeof EmDisputaRoute
   '/metodo': typeof MetodoRoute
+  '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/condicoes' | '/direitos' | '/em-disputa' | '/metodo'
+  fullPaths:
+    | '/'
+    | '/condicoes'
+    | '/direitos'
+    | '/em-disputa'
+    | '/metodo'
+    | '/api/public/tse/ingest'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/condicoes' | '/direitos' | '/em-disputa' | '/metodo'
-  id: '__root__' | '/' | '/condicoes' | '/direitos' | '/em-disputa' | '/metodo'
+  to:
+    | '/'
+    | '/condicoes'
+    | '/direitos'
+    | '/em-disputa'
+    | '/metodo'
+    | '/api/public/tse/ingest'
+  id:
+    | '__root__'
+    | '/'
+    | '/condicoes'
+    | '/direitos'
+    | '/em-disputa'
+    | '/metodo'
+    | '/api/public/tse/ingest'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +105,7 @@ export interface RootRouteChildren {
   DireitosRoute: typeof DireitosRoute
   EmDisputaRoute: typeof EmDisputaRoute
   MetodoRoute: typeof MetodoRoute
+  ApiPublicTseIngestRoute: typeof ApiPublicTseIngestRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MetodoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/tse/ingest': {
+      id: '/api/public/tse/ingest'
+      path: '/api/public/tse/ingest'
+      fullPath: '/api/public/tse/ingest'
+      preLoaderRoute: typeof ApiPublicTseIngestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,17 +161,8 @@ const rootRouteChildren: RootRouteChildren = {
   DireitosRoute: DireitosRoute,
   EmDisputaRoute: EmDisputaRoute,
   MetodoRoute: MetodoRoute,
+  ApiPublicTseIngestRoute: ApiPublicTseIngestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
