@@ -21,6 +21,7 @@ import {
   computeIndicators,
   createTally,
   ingestCsv,
+  resolveBaseGeneratedAt,
   validate,
 } from "./parse";
 
@@ -148,8 +149,6 @@ export async function runIngest(
     const resource = await fetchResourceMetadata();
     fileUrl = resource.url!;
     fileName = fileUrl.split("/").pop() || fileName;
-    baseGeneratedAt =
-      resource.last_modified ?? resource.created ?? resource.metadata_modified ?? null;
     bytes = await downloadZip(fileUrl);
   } catch (error) {
     return fail(error instanceof Error ? error.message : String(error));
@@ -171,6 +170,12 @@ export async function runIngest(
       }`,
     );
   }
+
+  // Data da fotografia: apenas DT_GERACAO + HH_GERACAO do próprio arquivo.
+  // Metadados do portal (last_modified/created/metadata_modified) não são
+  // usados como substituto — se a data não for consistente, a validação
+  // bloqueia a publicação.
+  baseGeneratedAt = resolveBaseGeneratedAt(acc).value;
 
   const indicators = computeIndicators(acc);
 
@@ -200,10 +205,11 @@ export async function runIngest(
       universes: acc.universes,
       indicators,
       anomalies: validation.anomalies,
-      notes: `Dicionário de dados ${DICTIONARY_VERSION} (inspeção de cabeçalho real em ${INSPECTED_AT}). Candidaturas distintas por SQ_CANDIDATO: ${acc.distinctCandidacies}. Linhas fora dos universos analisados: ${acc.outOfScope}.`,
+      notes: `Dicionário de dados ${DICTIONARY_VERSION} (inspeção de cabeçalho real em ${INSPECTED_AT}). Unidade de análise deduplicada por SQ_CANDIDATO: ${acc.distinctCandidacies} candidaturas distintas a partir de ${acc.rawLineCount} linhas brutas (${acc.duplicateRows} linhas duplicadas e ${acc.rowsWithoutKey} sem chave, descartadas dos cálculos). Linhas fora dos universos analisados: ${acc.outOfScope}. Data da fotografia lida de DT_GERACAO/HH_GERACAO do arquivo Candidatos.`,
     })
     .select("id")
     .single();
+
 
   if (error) {
     return {

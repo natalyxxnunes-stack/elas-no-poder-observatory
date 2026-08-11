@@ -24,7 +24,7 @@ import {
  * Versão do processamento — muda quando a lógica de cálculo muda.
  * Inclui a versão do dicionário de dados usada na leitura do arquivo.
  */
-export const PROCESSING_VERSION = `2026.08.11-b4+${DICTIONARY_VERSION}`;
+export const PROCESSING_VERSION = `2026.08.11-b4.1+${DICTIONARY_VERSION}`;
 
 /**
  * Colunas analíticas e os nomes REAIS aceitos, conforme o dicionário de dados
@@ -47,6 +47,10 @@ export const COLUMN_ALIASES = {
   agremiacao: ["TP_AGREMIACAO"],
   federacao: ["SG_FEDERACAO"],
   sqColigacao: ["SQ_COLIGACAO"],
+  /** data de geração do arquivo informada pelo TSE — data da fotografia */
+  dtGeracao: ["DT_GERACAO"],
+  /** hora de geração do arquivo informada pelo TSE */
+  hhGeracao: ["HH_GERACAO"],
 } as const;
 
 export type ColumnKey = keyof typeof COLUMN_ALIASES;
@@ -56,7 +60,10 @@ export const REQUIRED_COLUMNS: ColumnKey[] = [
   "sqCandidato",
   "cargo",
   "genero",
+  "dtGeracao",
+  "hhGeracao",
 ];
+
 
 /**
  * Colunas que, conforme o dicionário, NÃO pertencem ao recurso `Candidatos`
@@ -174,10 +181,19 @@ export type ParseResult = {
   missingColumns: ColumnKey[];
   /** comparação do cabeçalho real com o dicionário vigente */
   headerAudit: HeaderAudit | null;
-  /** linhas lidas (excluindo cabeçalhos) */
+  /** linhas brutas lidas do pacote (excluindo cabeçalhos), antes da deduplicação */
+  rawLineCount: number;
+  /**
+   * Linhas efetivamente contadas nos indicadores — candidaturas distintas por
+   * SQ_CANDIDATO. É este o número publicado como `record_count`.
+   */
   recordCount: number;
   /** candidaturas distintas por SQ_CANDIDATO */
   distinctCandidacies: number;
+  /** linhas ignoradas por SQ_CANDIDATO já processado */
+  duplicateRows: number;
+  /** linhas sem SQ_CANDIDATO — não podem ser deduplicadas e são ignoradas */
+  rowsWithoutKey: number;
   /** linhas fora dos dois universos analisados (ex.: vice, suplente) */
   outOfScope: number;
   universes: Record<UniverseId, UniverseTally>;
@@ -185,7 +201,14 @@ export type ParseResult = {
   situationValues: Record<string, number>;
   /** chaves SQ_CANDIDATO vistas (uso interno da coleta, não publicado) */
   seenKeys: Set<string>;
+  /**
+   * Marcas de geração (DT_GERACAO + HH_GERACAO) encontradas nos arquivos, já
+   * normalizadas em ISO, com contagem de linhas por marca. Serve para checar
+   * consistência entre os arquivos do pacote.
+   */
+  generationStamps: Record<string, number>;
 };
+
 
 function emptyTally(): UniverseTally {
   return {
@@ -213,12 +236,16 @@ export function createTally(): ParseResult {
     headerNames: [],
     missingColumns: [],
     headerAudit: null,
+    rawLineCount: 0,
     recordCount: 0,
     distinctCandidacies: 0,
+    duplicateRows: 0,
+    rowsWithoutKey: 0,
     outOfScope: 0,
     universes: { proporcional: emptyTally(), majoritario: emptyTally() },
     situationValues: {},
     seenKeys: new Set<string>(),
+    generationStamps: {},
   };
 }
 
@@ -226,6 +253,25 @@ const bump = (map: Record<string, number>, key: string) => {
   const k = key || "NÃO INFORMADO";
   map[k] = (map[k] ?? 0) + 1;
 };
+
+/**
+ * Converte DT_GERACAO (dd/mm/aaaa) + HH_GERACAO (hh:mm:ss) em ISO.
+ * O TSE gera os arquivos no horário de Brasília (UTC-03:00).
+ * Devolve null se qualquer uma das partes não vier no formato esperado —
+ * nunca há substituição por metadado ou data aproximada.
+ */
+export function generationStampToIso(
+  dt: string,
+  hh: string,
+): string | null {
+  const d = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(dt.trim());
+  const t = /^(\d{2}):(\d{2}):(\d{2})$/.exec(hh.trim());
+  if (!d || !t) return null;
+  const iso = `${d[3]}-${d[2]}-${d[1]}T${t[1]}:${t[2]}:${t[3]}-03:00`;
+  const parsed = new Date(iso);
+  if (Number.isNaN(parsed.getTime())) return null;
+  return parsed.toISOString();
+}
 
 /** Lê um CSV completo do pacote do TSE e acumula as contagens em `acc`. */
 export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
@@ -246,11 +292,34 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
     }
     const row = toRow(cells, header);
     if (!row.cargo && !row.genero) continue;
-    acc.recordCount += 1;
-    if (row.sqCandidato && !acc.seenKeys.has(row.sqCandidato)) {
-      acc.seenKeys.add(row.sqCandidato);
-      acc.distinctCandidacies += 1;
+    acc.rawLineCount += 1;
+
+    // Data da fotografia: lida das próprias linhas do arquivo Candidatos.
+    const idxDt = header.dtGeracao;
+    const idxHh = header.hhGeracao;
+    if (idxDt !== undefined && idxHh !== undefined) {
+      const stamp = generationStampToIso(
+        clean(cells[idxDt] ?? ""),
+        clean(cells[idxHh] ?? ""),
+      );
+      bump(acc.generationStamps, stamp ?? "INVÁLIDA");
+    } else {
+      bump(acc.generationStamps, "AUSENTE");
     }
+
+    // Deduplicação pela chave da unidade de análise: uma linha cujo
+    // SQ_CANDIDATO já foi processado NÃO entra em nenhuma contagem analítica.
+    if (!row.sqCandidato) {
+      acc.rowsWithoutKey += 1;
+      continue;
+    }
+    if (acc.seenKeys.has(row.sqCandidato)) {
+      acc.duplicateRows += 1;
+      continue;
+    }
+    acc.seenKeys.add(row.sqCandidato);
+    acc.distinctCandidacies += 1;
+    acc.recordCount += 1;
 
     const situation = row.situacaoCandidatura || "NÃO INFORMADO";
     acc.situationValues[situation] = (acc.situationValues[situation] ?? 0) + 1;
@@ -278,6 +347,40 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
   }
   return acc;
 }
+
+/**
+ * Data da fotografia segundo o próprio arquivo do TSE.
+ * Só devolve valor se TODAS as linhas trouxerem a mesma data de geração
+ * (a hora pode variar entre arquivos do pacote; nesse caso usa-se a mais
+ * recente). Qualquer inconsistência devolve null e bloqueia a publicação.
+ */
+export function resolveBaseGeneratedAt(result: ParseResult): {
+  value: string | null;
+  problem: string | null;
+} {
+  const stamps = Object.keys(result.generationStamps);
+  if (stamps.length === 0) {
+    return { value: null, problem: "Nenhuma data de geração lida do arquivo" };
+  }
+  const invalid = stamps.filter((s) => s === "INVÁLIDA" || s === "AUSENTE");
+  if (invalid.length > 0) {
+    return {
+      value: null,
+      problem:
+        "DT_GERACAO/HH_GERACAO ausente ou em formato inesperado em parte das linhas",
+    };
+  }
+  const days = new Set(stamps.map((s) => s.slice(0, 10)));
+  if (days.size > 1) {
+    return {
+      value: null,
+      problem: `Datas de geração divergentes entre os arquivos do pacote: ${[...days].sort().join(", ")}`,
+    };
+  }
+  const latest = stamps.sort().at(-1)!;
+  return { value: latest, problem: null };
+}
+
 
 
 export type ComputedIndicator = {
@@ -333,7 +436,10 @@ export const APPLIED_FILTERS = [
   "Cor/raça mantida nas categorias originais do TSE (DS_COR_RACA), sem agregação; preta + parda = negra só como transformação analítica declarada na apresentação",
   `Leitura de colunas conforme o dicionário de dados versionado ${DICTIONARY_VERSION}, mapeado a partir do cabeçalho real do arquivo`,
   "Dimensões adicionais gravadas apenas como contagens brutas (UF, partido e forma de agremiação); nenhum indicador novo é derivado delas nesta fotografia",
+  "Deduplicação por SQ_CANDIDATO antes de qualquer contagem: linha com chave já processada é descartada dos numeradores, denominadores, cor/raça e dimensões; o total de linhas brutas e a quantidade de duplicidades ficam registrados separadamente",
+  "Data da fotografia lida de DT_GERACAO + HH_GERACAO nas linhas do próprio arquivo Candidatos (horário de Brasília); metadados do portal não substituem essa data",
 ];
+
 
 
 export type ValidationOutcome = {
@@ -407,14 +513,30 @@ export function validate(
     anomalies.push("Arquivo lido sem nenhum registro");
     publishable = false;
   }
-  if (result.distinctCandidacies > 0) {
-    const duplicates = result.recordCount - result.distinctCandidacies;
-    if (duplicates > 0) {
-      anomalies.push(
-        `${duplicates} linhas com SQ_CANDIDATO repetido — chave de candidatura não é única nesta fotografia`,
-      );
-    }
+  if (result.duplicateRows > 0) {
+    anomalies.push(
+      `${result.duplicateRows} linhas com SQ_CANDIDATO repetido foram descartadas das contagens (${result.rawLineCount} linhas brutas → ${result.recordCount} candidaturas distintas) — anomalia informativa, sem efeito sobre os indicadores`,
+    );
   }
+  if (result.rowsWithoutKey > 0) {
+    anomalies.push(
+      `${result.rowsWithoutKey} linhas sem SQ_CANDIDATO foram descartadas por não permitirem deduplicação`,
+    );
+  }
+  if (result.recordCount !== result.distinctCandidacies) {
+    anomalies.push(
+      "Contagem analítica divergente do número de candidaturas distintas — publicação bloqueada",
+    );
+    publishable = false;
+  }
+  const generated = resolveBaseGeneratedAt(result);
+  if (!generated.value) {
+    anomalies.push(
+      `Data da fotografia não obtida de DT_GERACAO/HH_GERACAO: ${generated.problem} — publicação bloqueada (metadado do portal não é usado como substituto)`,
+    );
+    publishable = false;
+  }
+
   for (const universe of ["proporcional", "majoritario"] as UniverseId[]) {
     const t = result.universes[universe];
     if (t.total === 0) {
