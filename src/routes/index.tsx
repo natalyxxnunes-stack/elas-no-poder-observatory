@@ -86,40 +86,55 @@ function DadosPage() {
           </figure>
         </section>
 
-        <section aria-label="Indicadores atuais" className="grid gap-4 pb-6 sm:grid-cols-3">
-          {CURRENT_INDICATORS.map((k) => (
-            <div key={k.id} className="editorial-card p-5">
-              <p className="data-figure text-4xl text-plum">
-                {k.unit === "p.p."
-                  ? formatPoints(k.value)
-                  : k.value !== null && k.denominator !== null
-                    ? formatPercent(k.value)
-                    : "—"}
+        {CURRENT_INDICATORS.some(
+          (k) => k.value !== null && k.denominator !== null,
+        ) ? (
+          <section
+            aria-label="Indicadores atuais"
+            className="grid gap-4 pb-6 sm:grid-cols-3"
+          >
+            {CURRENT_INDICATORS.map((k) => (
+              <div key={k.id} className="editorial-card p-5">
+                <p className="data-figure text-4xl text-plum">
+                  {k.unit === "p.p."
+                    ? formatPoints(k.value)
+                    : k.value !== null && k.denominator !== null
+                      ? formatPercent(k.value)
+                      : "—"}
+                </p>
+                <p className="mt-2 font-display text-base text-ink">{k.label}</p>
+                <p className="mt-1 font-mono text-[11px] text-muted-foreground">
+                  {formatRatio(k) ?? ""}
+                </p>
+              </div>
+            ))}
+          </section>
+        ) : (
+          <section aria-label="Indicadores atuais" className="pb-6">
+            <div className="editorial-card p-6">
+              <p className="kicker">Dados em atualização</p>
+              <p className="mt-3 max-w-2xl font-display text-xl leading-snug text-ink">
+                Os indicadores de candidaturas estão sendo atualizados a partir
+                da base oficial do TSE.
               </p>
-              <p className="mt-2 font-display text-base text-ink">{k.label}</p>
-              <p className="mt-1 font-mono text-[11px] text-muted-foreground">
-                {formatRatio(k) ?? "denominador ainda não processado"}
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                Enquanto a atualização não é concluída, o site não exibe
+                percentuais — nenhum número aparece aqui sem denominador e sem
+                origem verificável.
               </p>
-              <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-coral">
-                {k.status}
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground">{k.caveat}</p>
             </div>
-          ))}
-        </section>
+          </section>
+        )}
 
         <section className="pb-14">
-          <p className="border-l-[3px] border-plum bg-secondary px-4 py-3 font-mono text-[11px] leading-relaxed text-ink">
-            Fonte dos indicadores: {TSE_SOURCE.name} ·{" "}
-            <a href={TSE_SOURCE.datasetUrl} className="underline" target="_blank" rel="noreferrer">
-              {TSE_SOURCE.datasetUrl}
-            </a>{" "}
-            · geração da base informada pelo TSE: {TSE_SOURCE.baseGeneratedAt} ·
-            processamento: {TSE_SOURCE.processedAt ?? "ainda não processado"} ·
-            última tentativa de obtenção: {TSE_SOURCE.lastFetchAttempt.at} —{" "}
-            {TSE_SOURCE.lastFetchAttempt.outcome}
+          <p className="font-mono text-[11px] leading-relaxed text-muted-foreground">
+            Fonte: TSE · Candidaturas 2026 ·{" "}
+            <Link to="/metodo" className="text-plum underline underline-offset-4">
+              ver o método
+            </Link>
           </p>
         </section>
+
 
 
         <div className="space-y-16 pb-10">
