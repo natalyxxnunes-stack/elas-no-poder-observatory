@@ -1,27 +1,34 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
-import { CycleStrip } from "@/components/CycleStrip";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { PageShell } from "@/components/PageShell";
+import { PageHero } from "@/components/editorial/PageHero";
+import { SectionBlock } from "@/components/editorial/SectionBlock";
+import { InBrief } from "@/components/editorial/InBrief";
+import { ContextBox } from "@/components/editorial/ContextBox";
+import { StatusTag } from "@/components/editorial/StatusTag";
+import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { QUOTA_RULE, TSE_SOURCE } from "@/data/election-2026";
+import { axis } from "@/data/architecture";
 import spotStrength from "@/assets/spot-strength.png";
 import spotQuota from "@/assets/spot-quota.png";
 
 export const Route = createFileRoute("/condicoes")({
   head: () => ({
     meta: [
-      { title: "Condições — Quem são elas? | Regras, recursos e mídia" },
+      { title: "Condições — Quem são elas? | Quem consegue entrar na disputa" },
       {
         name: "description",
         content:
-          "As condições da disputa em 2026: regra de composição de candidaturas de 30%–70% por gênero, recursos públicos de campanha, tempo de propaganda e estrutura partidária.",
+          "As condições anteriores à urna em 2026: regra de composição de candidaturas por gênero, recursos, propaganda, partido ou federação, cargo e território.",
       },
-      { property: "og:title", content: "Condições da disputa — Quem são elas?" },
+      { property: "og:title", content: "Quem consegue entrar na disputa?" },
       {
         property: "og:description",
         content:
-          "Regra de composição de candidaturas, recursos públicos de campanha e tempo de propaganda: o que sustenta ou trava uma candidatura de mulher.",
+          "Uma candidatura não nasce igual à outra. As condições da disputa começam antes da campanha.",
       },
+      { property: "og:type", content: "article" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: CondicoesPage,
@@ -38,19 +45,25 @@ const CONDITIONS = [
     title: "Recursos públicos de campanha",
     body: "Desde 2018, recursos públicos de campanha devem observar percentual mínimo destinado a candidaturas de mulheres. Essas regras de financiamento são distintas da regra de composição de candidaturas e podem alcançar disputas proporcionais e majoritárias.",
     status: "lacuna" as const,
-    note: "Ainda não disponível: valores por partido, federação e candidatura serão integrados em módulo próprio, a partir das bases de prestação de contas do TSE.",
+    note: "Ainda não disponível: valores por partido, federação e candidatura serão integrados a partir das bases de prestação de contas do TSE.",
   },
   {
     title: "Tempo de propaganda",
     body: "A destinação mínima de tempo de propaganda em rádio e televisão a candidaturas de mulheres segue regra própria, com a distribuição das inserções operada por partidos e federações.",
     status: "lacuna" as const,
-    note: "Ainda não disponível: distribuição efetiva de inserções por candidatura não foi apurada nesta etapa.",
+    note: "Ainda não disponível: a distribuição efetiva de inserções por candidatura não foi apurada.",
   },
   {
-    title: "Estrutura partidária e posição na chapa",
-    body: "Posição em chapa majoritária, condição de suplência e acesso a diretórios locais integram as condições materiais de uma candidatura.",
+    title: "Partido ou federação e posição da candidatura",
+    body: "Posição em chapa majoritária, titularidade, suplência e acesso a diretórios locais integram as condições materiais de uma candidatura — e são decididos internamente.",
     status: "lacuna" as const,
-    note: "Ainda não disponível: exige classificação documentada das chapas de 2026, não realizada nesta etapa.",
+    note: "Ainda não disponível: exige classificação documentada das chapas de 2026 e definição declarada de posição estratégica.",
+  },
+  {
+    title: "Território",
+    body: "A mesma candidatura enfrenta disputas muito diferentes conforme a unidade da federação e o município: número de vagas, concorrência e estrutura partidária local mudam a chance real de competir.",
+    status: "regra" as const,
+    note: "Investigável na fotografia atual: UF e cargo constam do registro de candidaturas, e as leituras territoriais usam sempre o denominador da própria circunscrição.",
   },
   {
     title: "Apuração de fraude à regra de composição",
@@ -60,61 +73,75 @@ const CONDITIONS = [
   },
   {
     title: "Violência política de gênero",
-    body: "Condição de disputa que não aparece no registro de candidatura e que incide sobre a permanência na campanha.",
+    body: "Condição de disputa que não aparece no registro de candidatura e que incide sobre a permanência na campanha e no mandato.",
     status: "lacuna" as const,
-    note: "Ainda não disponível: sem base pública consolidada e comparável para 2026 nesta etapa do projeto.",
+    note: "Ainda não disponível: sem base pública consolidada e comparável para 2026.",
   },
 ];
 
 function CondicoesPage() {
+  const a = axis("condicoes");
   return (
-    <div className="paper-grain min-h-screen">
-      <SiteHeader />
-      <main className="mx-auto max-w-6xl px-5 md:px-8">
-        <header className="grid gap-8 py-14 md:grid-cols-[1.3fr_auto] md:items-center">
-          <div>
-            <p className="kicker">Condições</p>
-            <h1 className="mt-4 max-w-2xl font-display text-4xl leading-[1.08] text-ink md:text-5xl">
-              A regra do jogo antes do primeiro voto
-            </h1>
-            <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
-              Uma candidatura não nasce igual à outra. Regras de composição,
-              recursos públicos, tempo de propaganda e posição na chapa formam as
-              condições da disputa — e cada uma delas tem base de dados própria.
-            </p>
-          </div>
-          <img
-            src={spotStrength}
-            alt=""
-            aria-hidden
-            loading="lazy"
-            width={640}
-            height={640}
-            className="h-32 w-32 justify-self-start md:h-44 md:w-44"
-          />
-        </header>
+    <PageShell>
+      <PageHero
+        kicker="Condições"
+        question={a.question}
+        lead={
+          <p>
+            Uma candidatura não nasce igual à outra. Regras de composição,
+            recursos públicos, tempo de propaganda, posição na chapa e território
+            formam as condições da disputa — e cada uma tem base de dados própria.
+          </p>
+        }
+        image={spotStrength}
+      />
 
-        <section aria-label="Condições da disputa" className="space-y-4 pb-14">
+      <div className="pb-4">
+        <InBrief
+          found={
+            <>
+              As condições de entrada são reguladas em camadas diferentes: uma
+              regra alcança o registro de candidaturas, outra alcança dinheiro e
+              propaganda, e várias decisões ficam inteiramente com o partido.
+            </>
+          }
+          matters={
+            <>
+              Tratar “estar na lista” como equivalente a “disputar em igualdade”
+              apaga exatamente o ponto em que a desigualdade se organiza.
+            </>
+          }
+          unknown={
+            <>
+              Recursos e propaganda efetivamente recebidos em 2026, posição das
+              candidaturas nas chapas e casos de fraude à regra de composição.
+            </>
+          }
+        />
+      </div>
+
+      <SectionBlock
+        kicker="Sete condições"
+        question="O que já dá para investigar e o que ainda falta"
+        align="wide"
+      >
+        <div className="space-y-4">
           {CONDITIONS.map((c) => (
             <article key={c.title} className="editorial-card p-5 md:p-6">
               <div className="flex flex-wrap items-baseline justify-between gap-3">
-                <h2 className="font-display text-xl text-ink">{c.title}</h2>
-                <span
-                  className={`font-mono text-[11px] uppercase tracking-wider ${
-                    c.status === "regra" ? "text-plum" : "text-coral"
-                  }`}
-                >
+                <h3 className="font-display text-xl text-ink">{c.title}</h3>
+                <StatusTag tone={c.status === "regra" ? "ok" : "pending"}>
                   {c.status === "regra"
-                    ? "Regra vigente"
-                    : "AINDA NÃO DISPONÍVEL"}
-                </span>
+                    ? "investigável agora"
+                    : "ainda não disponível"}
+                </StatusTag>
               </div>
               <p className="mt-3 max-w-3xl leading-relaxed text-muted-foreground">
                 {c.body}
               </p>
               <div className="mt-4">
                 {c.status === "regra" ? (
-                  <p className="border-l-[3px] border-plum bg-secondary px-4 py-3 text-sm text-ink">
+                  <p className="border-l-[3px] border-plum bg-secondary px-4 py-3 text-sm leading-relaxed text-ink">
                     {c.note}
                   </p>
                 ) : (
@@ -123,9 +150,39 @@ function CondicoesPage() {
               </div>
             </article>
           ))}
-        </section>
+        </div>
+      </SectionBlock>
 
-        <section className="rule-top grid gap-8 pt-10 pb-14 md:grid-cols-[auto_1fr] md:items-center">
+      <SectionBlock
+        kicker="O alcance da regra"
+        question={`A regra de ${QUOTA_RULE.floor}% a ${QUOTA_RULE.ceiling}% trata de quem entra na lista — e só disso.`}
+        lead={
+          <p>
+            Ela incide sobre a composição das candidaturas proporcionais de cada
+            partido ou federação. Não trata de recursos, tempo de propaganda, apoio
+            de diretório nem de posição em chapa majoritária: essas condições
+            seguem regras e bases de dados distintas.
+          </p>
+        }
+        source={
+          <>
+            Base legal:{" "}
+            <a
+              href={QUOTA_RULE.sourceUrl}
+              className="underline"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Lei 9.504/1997, art. 10, §3º
+            </a>{" "}
+            · Indicadores de candidatura: {TSE_SOURCE.name} ·{" "}
+            <Link to="/metodo" className="text-plum underline underline-offset-4">
+              ver o método
+            </Link>
+          </>
+        }
+      >
+        <div className="grid gap-6 md:grid-cols-[auto_1fr] md:items-start">
           <img
             src={spotQuota}
             alt=""
@@ -135,39 +192,29 @@ function CondicoesPage() {
             height={640}
             className="h-28 w-28 md:h-36 md:w-36"
           />
-          <div>
-            <h2 className="kicker">O alcance da regra de composição</h2>
-            <p className="mt-3 max-w-2xl font-display text-2xl leading-snug text-ink">
-              A regra de {QUOTA_RULE.floor}% a {QUOTA_RULE.ceiling}% incide sobre
-              a composição das candidaturas proporcionais de cada partido ou
-              federação.
-            </p>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-              Ela trata de quem consta do conjunto de candidaturas registradas.
-              Não trata de recursos, tempo de propaganda, apoio de diretório nem
-              de posição em chapa majoritária — essas condições seguem regras e
-              bases de dados distintas. {QUOTA_RULE.financingNote}
-            </p>
-            <p className="mt-3 font-mono text-[11px] text-muted-foreground">
-              Base legal:{" "}
-              <a
-                href={QUOTA_RULE.sourceUrl}
-                className="underline"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Lei 9.504/1997, art. 10, §3º
-              </a>{" "}
-              · Indicadores de candidatura: {TSE_SOURCE.name}
-            </p>
+          <div className="grid gap-4">
+            <ContextBox variant="significa">
+              <p>{QUOTA_RULE.financingNote}</p>
+            </ContextBox>
+            <ContextBox variant="importa">
+              <p>
+                Quem decide a distribuição concreta de condições é o partido ou a
+                federação. Por isso as condições de entrada e o controle partidário
+                são investigados como eixos separados.
+              </p>
+            </ContextBox>
+            <ContextBox variant="calculamos">
+              <p>
+                Nas leituras por partido ou federação, o denominador é sempre o
+                total de candidaturas daquele partido no mesmo universo eleitoral —
+                nunca o total nacional.
+              </p>
+            </ContextBox>
           </div>
-        </section>
-
-        <div className="pb-10">
-          <CycleStrip activeId="recursos" />
         </div>
-      </main>
-      <SiteFooter />
-    </div>
+      </SectionBlock>
+
+      <NextAxes ids={["quem-controla", "dinheiro", "funil"]} />
+    </PageShell>
   );
 }

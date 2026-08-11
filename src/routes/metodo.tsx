@@ -1,71 +1,162 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
-import { CycleStrip } from "@/components/CycleStrip";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { PageShell } from "@/components/PageShell";
+import { PageHero } from "@/components/editorial/PageHero";
+import { SectionBlock } from "@/components/editorial/SectionBlock";
+import { ContextBox } from "@/components/editorial/ContextBox";
+import { StatusTag } from "@/components/editorial/StatusTag";
+import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import {
   CURRENT_INDICATORS,
   DATA_STATUS,
-  FUNNEL_STEPS,
   METHOD_NOTES,
-  RACE_BY_POWER_LEVEL,
-  RACE_INDICATORS,
   TSE_SOURCE,
   formatPercent,
   formatPoints,
   formatRatio,
 } from "@/data/election-2026";
+import { applySnapshot } from "@/lib/tse/indicators";
+import {
+  getLatestTseSnapshot,
+  listTseSnapshots,
+} from "@/lib/tse/snapshot.functions";
 
 export const Route = createFileRoute("/metodo")({
   head: () => ({
     meta: [
-      { title: "Método — Quem são elas? | Fonte, fórmulas e lacunas" },
+      { title: "Método — Quem são elas? | Como sabemos" },
       {
         name: "description",
         content:
-          "Como o observatório calcula cada indicador de 2026: fonte oficial do TSE, universos, numeradores, denominadores, fórmulas, status de validação e lacunas declaradas.",
+          "Duas camadas: explicação simples de como calculamos e ficha técnica auditável com fonte, universo, filtros, fórmulas, fotografias da base e limitações.",
       },
-      { property: "og:title", content: "Método — Quem são elas?" },
+      { property: "og:title", content: "Método — como sabemos?" },
       {
         property: "og:description",
         content:
-          "Fonte, fórmulas, denominadores e status de validação de cada indicador do observatório sobre mulheres, eleições e poder.",
+          "Fonte, universo, denominador, fórmula, data da base e limitações de cada indicador do observatório.",
       },
+      { property: "og:type", content: "article" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+  }),
+  loader: async () => ({
+    snapshot: await getLatestTseSnapshot(),
+    history: await listTseSnapshots(),
   }),
   component: MetodoPage,
 });
 
-const ALL_INDICATORS = [...CURRENT_INDICATORS, ...RACE_INDICATORS];
+function br(iso: string | null): string {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "—";
+  return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+}
+
+const PLAIN_STEPS = [
+  {
+    step: "1. Pegamos a base oficial",
+    body: "Usamos o arquivo de candidaturas publicado pelo TSE em Dados Abertos. Guardamos a data em que o TSE gerou o arquivo e a data em que o observatório o processou.",
+  },
+  {
+    step: "2. Separamos dois universos",
+    body: "Eleições proporcionais (Câmara dos Deputados, assembleias legislativas e Câmara Legislativa do Distrito Federal) e eleições majoritárias (Presidência, governos e Senado). Nunca somamos os dois em uma conta só.",
+  },
+  {
+    step: "3. Contamos candidaturas, não pessoas",
+    body: "A unidade de análise é a candidatura registrada. Gênero e cor/raça vêm da autodeclaração feita no registro.",
+  },
+  {
+    step: "4. Dividimos pelo denominador do próprio universo",
+    body: "Candidaturas de mulheres divididas pelo total de candidaturas daquele mesmo universo. Nenhum percentual aparece sem esse denominador visível.",
+  },
+  {
+    step: "5. Diferenças em pontos percentuais",
+    body: "Quando comparamos dois percentuais, a diferença é expressa em p.p. — e é descritiva: não prova que uma regra causou o resultado.",
+  },
+  {
+    step: "6. O que falta fica declarado",
+    body: "Recursos, votos, eleitas e poder ainda não têm base disponível para 2026. Onde falta dado, aparece a lacuna. Dado não disponível não é zero.",
+  },
+] as const;
 
 function MetodoPage() {
-  const openSteps = FUNNEL_STEPS.filter((s) => s.pending !== null);
-  const openRace = RACE_BY_POWER_LEVEL.filter((r) => r.pending !== null);
+  const { snapshot, history } = Route.useLoaderData();
+  const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
 
   return (
-    <div className="paper-grain min-h-screen">
-      <SiteHeader />
-      <main className="mx-auto max-w-6xl px-5 md:px-8">
-        <header className="py-14">
-          <p className="kicker">Método</p>
-          <h1 className="mt-4 max-w-3xl font-display text-4xl leading-[1.08] text-ink md:text-5xl">
-            O que sustenta cada número — e o que ainda não existe
-          </h1>
-          <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
-            Este observatório prefere a lacuna explícita à estimativa
-            conveniente. Todo indicador vem da base oficial do TSE, com
-            denominador, fórmula e status de validação declarados.
+    <PageShell>
+      <PageHero
+        kicker="Método"
+        question="Como sabemos?"
+        lead={
+          <p>
+            Esta página tem duas camadas. A primeira explica em linguagem simples
+            como cada número é calculado. A segunda é a ficha técnica auditável,
+            gerada a partir da mesma camada de dados que alimenta o site.
           </p>
-        </header>
+        }
+        aside={
+          <div className="editorial-card p-5">
+            <p className="kicker">Fotografia vigente</p>
+            <p className="mt-2 font-display text-lg leading-snug text-ink">
+              Base do TSE gerada em{" "}
+              {br(snapshot?.baseGeneratedAt ?? TSE_SOURCE.baseGeneratedAt)}
+            </p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Processada pelo observatório em {br(snapshot?.collectedAt ?? null)}
+            </p>
+            {snapshot && (
+              <p className="mt-3 font-mono text-[11px] text-muted-foreground">
+                {snapshot.recordCount.toLocaleString("pt-BR")} candidaturas na
+                fotografia
+              </p>
+            )}
+          </div>
+        }
+      />
 
-        <section
-          aria-labelledby="ficha"
-          className="editorial-card mb-14 p-5 md:p-6"
-        >
-          <h2 id="ficha" className="kicker">
-            Ficha da fonte
-          </h2>
-          <dl className="mt-4 grid gap-3 font-mono text-[12px] leading-relaxed text-muted-foreground md:grid-cols-2">
+      {/* CAMADA 1 — linguagem simples */}
+      <SectionBlock
+        kicker="Camada 1 · linguagem simples"
+        question="Como calculamos?"
+        align="wide"
+      >
+        <ol className="grid gap-4 md:grid-cols-2">
+          {PLAIN_STEPS.map((s) => (
+            <li key={s.step} className="editorial-card p-5">
+              <h3 className="font-display text-lg text-ink">{s.step}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {s.body}
+              </p>
+            </li>
+          ))}
+        </ol>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <ContextBox variant="significa">
+            <p>
+              “Fotografia” é o estado da base num momento específico. O registro de
+              candidaturas muda enquanto a Justiça Eleitoral analisa pedidos, então
+              cada número tem data.
+            </p>
+          </ContextBox>
+          <ContextBox variant="importa">
+            <p>
+              Sem a data, um número antigo circula como se fosse atual. Com a data,
+              qualquer pessoa pode conferir e reproduzir a conta.
+            </p>
+          </ContextBox>
+        </div>
+      </SectionBlock>
+
+      {/* CAMADA 2 — ficha técnica */}
+      <SectionBlock
+        kicker="Camada 2 · ficha técnica"
+        question="Fonte e processamento"
+      >
+        <div className="editorial-card p-5 md:p-6">
+          <dl className="grid gap-3 font-mono text-[12px] leading-relaxed text-muted-foreground md:grid-cols-2">
             <div>
               <dt className="uppercase tracking-wider">Fonte</dt>
               <dd className="text-ink">{TSE_SOURCE.name}</dd>
@@ -84,235 +175,288 @@ function MetodoPage() {
               </dd>
             </div>
             <div>
-              <dt className="uppercase tracking-wider">Recurso</dt>
-              <dd>{TSE_SOURCE.resourceName}</dd>
+              <dt className="uppercase tracking-wider">Recurso processado</dt>
+              <dd>{snapshot?.fileName ?? TSE_SOURCE.resourceName}</dd>
             </div>
             <div>
-              <dt className="uppercase tracking-wider">
-                Geração da base (informada pelo TSE)
-              </dt>
-              <dd>{TSE_SOURCE.baseGeneratedAt}</dd>
-            </div>
-            <div>
-              <dt className="uppercase tracking-wider">
-                Metadados do dataset atualizados em
-              </dt>
-              <dd>{TSE_SOURCE.datasetMetadataModified}</dd>
-            </div>
-            <div>
-              <dt className="uppercase tracking-wider">
-                Data/hora de processamento
-              </dt>
-              <dd>{TSE_SOURCE.processedAt ?? "ainda não processada"}</dd>
-            </div>
-            <div className="md:col-span-2">
-              <dt className="uppercase tracking-wider">
-                Última tentativa de obtenção
-              </dt>
+              <dt className="uppercase tracking-wider">Geração da base (TSE)</dt>
               <dd>
-                {TSE_SOURCE.lastFetchAttempt.at} —{" "}
-                {TSE_SOURCE.lastFetchAttempt.outcome}
+                {br(snapshot?.baseGeneratedAt ?? TSE_SOURCE.baseGeneratedAt)}
               </dd>
             </div>
+            <div>
+              <dt className="uppercase tracking-wider">
+                Coleta pelo observatório
+              </dt>
+              <dd>{br(snapshot?.collectedAt ?? null)}</dd>
+            </div>
+            <div>
+              <dt className="uppercase tracking-wider">Registros lidos</dt>
+              <dd>{snapshot?.recordCount.toLocaleString("pt-BR") ?? "—"}</dd>
+            </div>
+            <div className="md:col-span-2">
+              <dt className="uppercase tracking-wider">Unidade de análise</dt>
+              <dd>Candidatura registrada (não pessoa)</dd>
+            </div>
+            {snapshot && snapshot.filters.length > 0 && (
+              <div className="md:col-span-2">
+                <dt className="uppercase tracking-wider">Filtros aplicados</dt>
+                <dd>{snapshot.filters.join(" · ")}</dd>
+              </div>
+            )}
           </dl>
-          <div className="mt-4">
-            <GapNote label="Status geral">
-              Sem o arquivo da base, nenhum indicador de 2026 é exibido com
-              valor. Os números da fotografia anterior (09/08/2026) foram
-              retirados da apresentação por não terem denominador nem metadados
-              auditáveis. A coleta automática diária é o próximo bloco do
-              projeto.
-            </GapNote>
-          </div>
-        </section>
+          {!snapshot && (
+            <div className="mt-4">
+              <GapNote label="Fotografia indisponível">
+                Nenhuma fotografia publicável da base está disponível neste
+                momento. Enquanto isso, o site não exibe percentuais: exibe a
+                lacuna.
+              </GapNote>
+            </div>
+          )}
+        </div>
+      </SectionBlock>
 
-        <section aria-label="Notas metodológicas" className="space-y-4 pb-14">
+      {/* Situação de candidatura */}
+      {snapshot && Object.keys(snapshot.situationValues).length > 0 && (
+        <SectionBlock
+          kicker="Situação de candidatura"
+          question="Que estágios a base contém"
+          lead={
+            <p>
+              Nenhum filtro de situação é aplicado aos indicadores: um registro
+              pode mudar de situação até a decisão final da Justiça Eleitoral.
+              Abaixo, as situações presentes na fotografia vigente.
+            </p>
+          }
+        >
+          <dl className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+            {Object.entries(snapshot.situationValues)
+              .sort((a, b) => b[1] - a[1])
+              .map(([k, v]) => (
+                <div key={k} className="editorial-card p-4">
+                  <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                    {k}
+                  </dt>
+                  <dd className="data-figure mt-1 text-2xl text-plum">
+                    {v.toLocaleString("pt-BR")}
+                  </dd>
+                </div>
+              ))}
+          </dl>
+        </SectionBlock>
+      )}
+
+      {/* Notas metodológicas */}
+      <SectionBlock
+        kicker="Notas metodológicas"
+        question="As decisões que valem para todo o site"
+        align="wide"
+      >
+        <div className="space-y-4">
           {METHOD_NOTES.map((n, i) => (
             <article key={n.title} className="editorial-card p-5 md:p-6">
               <span className="font-mono text-[11px] text-muted-foreground">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <h2 className="mt-1 font-display text-xl text-ink">{n.title}</h2>
+              <h3 className="mt-1 font-display text-xl text-ink">{n.title}</h3>
               <p className="mt-2 max-w-3xl leading-relaxed text-muted-foreground">
                 {n.body}
               </p>
             </article>
           ))}
-        </section>
+        </div>
+      </SectionBlock>
 
-        <section className="rule-top pt-8">
-          <h2 className="kicker">Metadados por indicador</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            Cada indicador do site carrega valor, unidade, numerador,
-            denominador, universo, cargos, filtros, fonte, datas, fórmula, status
-            e limitação. A tabela abaixo é gerada diretamente do módulo de dados.
+      {/* Metadados por indicador */}
+      <SectionBlock
+        kicker="Metadados por indicador"
+        question="Cada número, com sua conta aberta"
+        align="wide"
+        lead={
+          <p>
+            Valor, unidade, numerador, denominador, universo, cargos, filtros,
+            fonte, datas, fórmula, status e limitação. A lista é gerada a partir da
+            camada de dados.
           </p>
-          <div className="mt-6 space-y-4">
-            {ALL_INDICATORS.map((i) => (
-              <article key={i.id} className="editorial-card p-5">
-                <div className="flex flex-wrap items-baseline justify-between gap-3">
-                  <h3 className="font-display text-lg text-ink">{i.label}</h3>
-                  <span
-                    className={`font-mono text-[11px] uppercase tracking-wider ${
-                      i.status === DATA_STATUS.validado
-                        ? "text-plum"
-                        : "text-coral"
-                    }`}
-                  >
-                    {i.status}
-                  </span>
+        }
+      >
+        <div className="space-y-4">
+          {indicators.map((i) => (
+            <article key={i.id} className="editorial-card p-5">
+              <div className="flex flex-wrap items-baseline justify-between gap-3">
+                <h3 className="font-display text-lg text-ink">{i.label}</h3>
+                <StatusTag
+                  tone={
+                    i.status === DATA_STATUS.validado
+                      ? "ok"
+                      : i.status === DATA_STATUS.provisorio
+                        ? "limit"
+                        : "pending"
+                  }
+                >
+                  {i.status}
+                </StatusTag>
+              </div>
+              <dl className="mt-4 grid gap-2 font-mono text-[11px] leading-relaxed text-muted-foreground md:grid-cols-2">
+                <div>
+                  <dt className="inline uppercase tracking-wider">Valor: </dt>
+                  <dd className="inline">
+                    {i.unit === "p.p."
+                      ? formatPoints(i.value)
+                      : i.unit === "%"
+                        ? formatPercent(i.value)
+                        : (i.value ?? "—")}
+                  </dd>
                 </div>
-                <dl className="mt-4 grid gap-2 font-mono text-[11px] leading-relaxed text-muted-foreground md:grid-cols-2">
-                  <div>
-                    <dt className="inline uppercase tracking-wider">Valor: </dt>
-                    <dd className="inline">
-                      {i.unit === "p.p."
-                        ? formatPoints(i.value)
-                        : i.unit === "%"
-                          ? formatPercent(i.value)
-                          : (i.value ?? "—")}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="inline uppercase tracking-wider">Unidade: </dt>
-                    <dd className="inline">{i.unit}</dd>
-                  </div>
-                  <div>
-                    <dt className="inline uppercase tracking-wider">
-                      Numerador / denominador:{" "}
-                    </dt>
-                    <dd className="inline">{formatRatio(i) ?? "—"}</dd>
-                  </div>
-                  <div>
-                    <dt className="inline uppercase tracking-wider">Cargos: </dt>
-                    <dd className="inline">{i.positions.join(", ")}</dd>
-                  </div>
-                  <div className="md:col-span-2">
-                    <dt className="inline uppercase tracking-wider">Universo: </dt>
-                    <dd className="inline">{i.universe}</dd>
-                  </div>
-                  <div className="md:col-span-2">
-                    <dt className="inline uppercase tracking-wider">Filtros: </dt>
-                    <dd className="inline">{i.filters.join(" · ")}</dd>
-                  </div>
-                  <div className="md:col-span-2">
-                    <dt className="inline uppercase tracking-wider">Fórmula: </dt>
-                    <dd className="inline">{i.formula}</dd>
-                  </div>
-                  <div>
-                    <dt className="inline uppercase tracking-wider">Fonte: </dt>
-                    <dd className="inline">
-                      {i.sourceUrl ? (
-                        <a
-                          href={i.sourceUrl}
-                          className="underline"
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {i.source}
-                        </a>
-                      ) : (
-                        i.source
-                      )}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="inline uppercase tracking-wider">
-                      Geração da base / processamento:{" "}
-                    </dt>
-                    <dd className="inline">
-                      {i.baseGeneratedAt ?? "—"} / {i.processedAt ?? "—"}
-                    </dd>
-                  </div>
-                  <div className="md:col-span-2">
-                    <dt className="inline uppercase tracking-wider">
-                      Observação:{" "}
-                    </dt>
-                    <dd className="inline">{i.caveat}</dd>
-                  </div>
-                </dl>
-              </article>
-            ))}
-          </div>
-        </section>
+                <div>
+                  <dt className="inline uppercase tracking-wider">Unidade: </dt>
+                  <dd className="inline">{i.unit}</dd>
+                </div>
+                <div>
+                  <dt className="inline uppercase tracking-wider">
+                    Numerador / denominador:{" "}
+                  </dt>
+                  <dd className="inline">{formatRatio(i) ?? "—"}</dd>
+                </div>
+                <div>
+                  <dt className="inline uppercase tracking-wider">Cargos: </dt>
+                  <dd className="inline">{i.positions.join(", ")}</dd>
+                </div>
+                <div className="md:col-span-2">
+                  <dt className="inline uppercase tracking-wider">Universo: </dt>
+                  <dd className="inline">{i.universe}</dd>
+                </div>
+                <div className="md:col-span-2">
+                  <dt className="inline uppercase tracking-wider">Filtros: </dt>
+                  <dd className="inline">{i.filters.join(" · ")}</dd>
+                </div>
+                <div className="md:col-span-2">
+                  <dt className="inline uppercase tracking-wider">Fórmula: </dt>
+                  <dd className="inline">{i.formula}</dd>
+                </div>
+                <div>
+                  <dt className="inline uppercase tracking-wider">Fonte: </dt>
+                  <dd className="inline">
+                    {i.sourceUrl ? (
+                      <a
+                        href={i.sourceUrl}
+                        className="underline"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {i.source}
+                      </a>
+                    ) : (
+                      i.source
+                    )}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="inline uppercase tracking-wider">
+                    Geração da base / coleta:{" "}
+                  </dt>
+                  <dd className="inline">
+                    {br(i.baseGeneratedAt)} / {br(i.processedAt)}
+                  </dd>
+                </div>
+                <div className="md:col-span-2">
+                  <dt className="inline uppercase tracking-wider">
+                    Observação:{" "}
+                  </dt>
+                  <dd className="inline">{i.caveat}</dd>
+                </div>
+              </dl>
+            </article>
+          ))}
+        </div>
+      </SectionBlock>
 
-        <section className="rule-top mt-16 pt-8">
-          <h2 className="kicker">Inventário de lacunas</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            Lista gerada diretamente do módulo de dados: toda etapa sem
-            indicador calculado aparece aqui automaticamente, com o status
-            padronizado.
+      {/* Histórico de fotografias */}
+      <SectionBlock
+        kicker="Histórico"
+        question="Fotografias já processadas"
+        lead={
+          <p>
+            Cada atualização gera uma fotografia nova; nenhuma é sobrescrita. Assim
+            é possível saber qual base sustentava um número em determinada data.
           </p>
-          <div className="mt-6 overflow-x-auto">
-            <table className="w-full min-w-[640px] border-collapse text-left">
+        }
+      >
+        {history.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[560px] border-collapse text-left">
               <thead>
                 <tr className="border-b border-rule">
-                  <th className="py-3 pr-4 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                    Item
-                  </th>
-                  <th className="py-3 pr-4 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                    Status
-                  </th>
-                  <th className="py-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                    Falta
-                  </th>
+                  {["Coleta", "Geração da base", "Registros", "Situação"].map(
+                    (h) => (
+                      <th
+                        key={h}
+                        className="py-3 pr-4 font-mono text-[11px] uppercase tracking-wider text-muted-foreground"
+                      >
+                        {h}
+                      </th>
+                    ),
+                  )}
                 </tr>
               </thead>
               <tbody>
-                {openSteps.map((s) => (
+                {history.map((s) => (
                   <tr key={s.id} className="border-b border-rule align-top">
-                    <td className="py-3 pr-4 font-display text-base text-ink">
-                      {s.label}
+                    <td className="py-3 pr-4 font-mono text-xs text-ink">
+                      {br(s.collectedAt)}
                     </td>
-                    <td className="py-3 pr-4 font-mono text-[11px] uppercase tracking-wider text-coral">
-                      {s.status}
+                    <td className="py-3 pr-4 font-mono text-xs text-muted-foreground">
+                      {br(s.baseGeneratedAt)}
                     </td>
-                    <td className="py-3 text-sm text-muted-foreground">
-                      {s.pending}
+                    <td className="py-3 pr-4 font-mono text-xs text-muted-foreground">
+                      {s.recordCount.toLocaleString("pt-BR")}
                     </td>
-                  </tr>
-                ))}
-                {openRace.map((r) => (
-                  <tr key={r.level} className="border-b border-rule align-top">
-                    <td className="py-3 pr-4 font-display text-base text-ink">
-                      Cor/raça × {r.level}
-                    </td>
-                    <td className="py-3 pr-4 font-mono text-[11px] uppercase tracking-wider text-coral">
-                      {r.status}
-                    </td>
-                    <td className="py-3 text-sm text-muted-foreground">
-                      {r.pending}
+                    <td className="py-3 font-mono text-xs text-muted-foreground">
+                      {s.status === "ok" ? "validada" : s.status}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </section>
+        ) : (
+          <GapNote label="Histórico">
+            Nenhuma fotografia registrada até o momento.
+          </GapNote>
+        )}
+      </SectionBlock>
 
-        <section className="rule-top mt-16 pt-8">
-          <h2 className="kicker">Próximo bloco</h2>
-          <div className="mt-5 space-y-3">
-            <GapNote label="Coleta">
-              O módulo de cálculo já está implementado em src/lib/tse/compute.ts,
-              com universos, fórmulas e categorias de cor/raça definidos. Falta a
-              rotina de obtenção e atualização da base, prevista para o próximo
-              bloco: enquanto ela não existir, o slot src/data/tse-snapshot.ts
-              permanece vazio e o site não exibe percentuais.
-            </GapNote>
-            <GapNote label="Módulos posteriores">
-              Recursos de campanha, votos e resultados, e poder e decisões entram
-              em módulos próprios, cada um com sua base oficial e sua ficha de
-              metadados.
-            </GapNote>
-          </div>
-        </section>
-
-        <div className="mt-16 pb-10">
-          <CycleStrip activeId="poder-decisoes" />
+      {/* Limitações */}
+      <SectionBlock
+        kicker="Limitações"
+        question="O que este método não faz"
+      >
+        <div className="space-y-3">
+          <GapNote label="Não disponível não é zero">
+            Recursos de campanha, votos, eleitas, posições de poder, deficiência e
+            barreiras à permanência não têm base disponível para 2026. Onde não há
+            fonte, não há número — nem estimativa.
+          </GapNote>
+          <GapNote label="Correlação não é causalidade">
+            Contrastes entre universos, partidos, territórios ou grupos são
+            descritivos. Este método não isola o efeito de nenhuma regra sobre a
+            presença de mulheres.
+          </GapNote>
+          <GapNote label="Limitação da base">
+            O registro não capta de forma confiável identidade trans ou travesti, e
+            a categoria de cor/raça não identifica pertencimento étnico indígena.
+          </GapNote>
         </div>
-      </main>
-      <SiteFooter />
-    </div>
+        <p className="mt-6 font-mono text-[11px] text-muted-foreground">
+          Como citar e política de correções em{" "}
+          <Link to="/sobre" className="text-plum underline underline-offset-4">
+            Sobre
+          </Link>
+        </p>
+      </SectionBlock>
+
+      <NextAxes ids={["dados-2026", "funil", "sobre"]} />
+    </PageShell>
   );
 }
