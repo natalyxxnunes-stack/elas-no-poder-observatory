@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CondicoesRouteImport } from './routes/condicoes'
+import { Route as EmDisputaRouteImport } from './routes/em-disputa'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CondicoesRoute = CondicoesRouteImport.update({
+  id: '/condicoes',
+  path: '/condicoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmDisputaRoute = EmDisputaRouteImport.update({
+  id: '/em-disputa',
+  path: '/em-disputa',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/condicoes': typeof CondicoesRoute
+  '/em-disputa': typeof EmDisputaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/condicoes': typeof CondicoesRoute
+  '/em-disputa': typeof EmDisputaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/condicoes': typeof CondicoesRoute
+  '/em-disputa': typeof EmDisputaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/condicoes' | '/em-disputa'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/condicoes' | '/em-disputa'
+  id: '__root__' | '/' | '/condicoes' | '/em-disputa'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CondicoesRoute: typeof CondicoesRoute
+  EmDisputaRoute: typeof EmDisputaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +68,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/condicoes': {
+      id: '/condicoes'
+      path: '/condicoes'
+      fullPath: '/condicoes'
+      preLoaderRoute: typeof CondicoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/em-disputa': {
+      id: '/em-disputa'
+      path: '/em-disputa'
+      fullPath: '/em-disputa'
+      preLoaderRoute: typeof EmDisputaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CondicoesRoute: CondicoesRoute,
+  EmDisputaRoute: EmDisputaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
