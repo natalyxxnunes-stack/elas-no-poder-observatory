@@ -23,13 +23,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Observatório das candidaturas de mulheres em 2026: 35,2% nas proporcionais contra 16,9% nas majoritárias, e o funil da candidatura ao poder.",
+          "Observatório das candidaturas de mulheres em 2026: participação feminina nos universos proporcional e majoritário, calculada a partir da base oficial do TSE, com denominadores e metadados auditáveis.",
       },
       { property: "og:title", content: "Quem são elas? — Dados 2026" },
       {
         property: "og:description",
         content:
-          "Entre se candidatar e chegar ao poder, onde elas desaparecem? Dados de registro, cota de gênero e raça × nível de poder.",
+          "Entre se candidatar e chegar ao poder, onde elas desaparecem? Indicadores de registro, regra de composição de candidaturas e cor/raça × nível de poder.",
       },
     ],
   }),
