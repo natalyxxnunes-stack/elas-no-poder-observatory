@@ -362,15 +362,56 @@ export function validate(
       );
     }
   }
+
+  // Guarda de estrutura: mudança de cabeçalho do TSE não pode gerar publicação
+  // silenciosa. Coluna estrutural ausente bloqueia a fotografia; coluna nova ou
+  // removida fora do núcleo estrutural é sinalizada para revisão do dicionário.
+  const audit = result.headerAudit;
+  if (!audit) {
+    anomalies.push(
+      "Cabeçalho do arquivo não pôde ser auditado contra o dicionário de dados",
+    );
+    publishable = false;
+  } else {
+    for (const col of audit.missingStructural) {
+      anomalies.push(
+        `Estrutura do arquivo mudou: coluna estrutural ausente (${col}) segundo o dicionário ${DICTIONARY_VERSION} — publicação bloqueada`,
+      );
+      publishable = false;
+    }
+    const removedNonStructural = audit.removedColumns.filter(
+      (c) => !audit.missingStructural.includes(c),
+    );
+    if (removedNonStructural.length > 0) {
+      anomalies.push(
+        `Colunas do arquivo desapareceram em relação ao dicionário ${DICTIONARY_VERSION}: ${removedNonStructural.join(", ")} — revisar dicionário`,
+      );
+    }
+    if (audit.newColumns.length > 0) {
+      anomalies.push(
+        `Colunas novas no arquivo do TSE, ainda não documentadas no dicionário ${DICTIONARY_VERSION}: ${audit.newColumns.join(", ")} — revisar dicionário antes de usar`,
+      );
+    }
+  }
+
   if (result.recordCount === 0) {
     anomalies.push("Arquivo lido sem nenhum registro");
     publishable = false;
+  }
+  if (result.distinctCandidacies > 0) {
+    const duplicates = result.recordCount - result.distinctCandidacies;
+    if (duplicates > 0) {
+      anomalies.push(
+        `${duplicates} linhas com SQ_CANDIDATO repetido — chave de candidatura não é única nesta fotografia`,
+      );
+    }
   }
   for (const universe of ["proporcional", "majoritario"] as UniverseId[]) {
     const t = result.universes[universe];
     if (t.total === 0) {
       anomalies.push(`Universo ${universe} sem candidaturas no arquivo`);
       publishable = false;
+
     } else if (t.feminine > t.total) {
       anomalies.push(`Universo ${universe}: numerador maior que denominador`);
       publishable = false;
