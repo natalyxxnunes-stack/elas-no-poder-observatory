@@ -181,10 +181,19 @@ export type ParseResult = {
   missingColumns: ColumnKey[];
   /** comparação do cabeçalho real com o dicionário vigente */
   headerAudit: HeaderAudit | null;
-  /** linhas lidas (excluindo cabeçalhos) */
+  /** linhas brutas lidas do pacote (excluindo cabeçalhos), antes da deduplicação */
+  rawLineCount: number;
+  /**
+   * Linhas efetivamente contadas nos indicadores — candidaturas distintas por
+   * SQ_CANDIDATO. É este o número publicado como `record_count`.
+   */
   recordCount: number;
   /** candidaturas distintas por SQ_CANDIDATO */
   distinctCandidacies: number;
+  /** linhas ignoradas por SQ_CANDIDATO já processado */
+  duplicateRows: number;
+  /** linhas sem SQ_CANDIDATO — não podem ser deduplicadas e são ignoradas */
+  rowsWithoutKey: number;
   /** linhas fora dos dois universos analisados (ex.: vice, suplente) */
   outOfScope: number;
   universes: Record<UniverseId, UniverseTally>;
@@ -192,7 +201,14 @@ export type ParseResult = {
   situationValues: Record<string, number>;
   /** chaves SQ_CANDIDATO vistas (uso interno da coleta, não publicado) */
   seenKeys: Set<string>;
+  /**
+   * Marcas de geração (DT_GERACAO + HH_GERACAO) encontradas nos arquivos, já
+   * normalizadas em ISO, com contagem de linhas por marca. Serve para checar
+   * consistência entre os arquivos do pacote.
+   */
+  generationStamps: Record<string, number>;
 };
+
 
 function emptyTally(): UniverseTally {
   return {
