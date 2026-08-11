@@ -317,14 +317,17 @@ export function computeIndicators(result: ParseResult): ComputedIndicators {
 
 /** Filtros efetivamente aplicados — sempre gravados junto do snapshot. */
 export const APPLIED_FILTERS = [
-  "Unidade de análise: candidatura registrada (uma linha do arquivo), não pessoa",
-  "Gênero conforme a coluna original de gênero do TSE, autodeclarado no registro",
+  "Unidade de análise: candidatura registrada (uma linha do arquivo, identificada por SQ_CANDIDATO), não pessoa",
+  "Gênero conforme a coluna original de gênero do TSE (DS_GENERO), autodeclarado no registro; sem inferência por nome ou nome social",
   "Universo proporcional: deputado federal, deputado estadual e deputado distrital",
   "Universo majoritário: presidente, governador e senador",
   "Universos calculados separadamente, com denominadores próprios, e nunca somados",
   "Sem filtro por situação de candidatura: o denominador é o total de candidaturas registradas no arquivo. A distribuição pelos valores originais de situação é gravada no snapshot para permitir recortes posteriores documentados",
-  "Cor/raça mantida nas categorias originais do TSE, sem agregação",
+  "Cor/raça mantida nas categorias originais do TSE (DS_COR_RACA), sem agregação; preta + parda = negra só como transformação analítica declarada na apresentação",
+  `Leitura de colunas conforme o dicionário de dados versionado ${DICTIONARY_VERSION}, mapeado a partir do cabeçalho real do arquivo`,
+  "Dimensões adicionais gravadas apenas como contagens brutas (UF, partido e forma de agremiação); nenhum indicador novo é derivado delas nesta fotografia",
 ];
+
 
 export type ValidationOutcome = {
   /** se o snapshot pode ser publicado como fotografia atual */
