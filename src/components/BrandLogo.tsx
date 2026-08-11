@@ -1,0 +1,30 @@
+/**
+ * Logo original do projeto — SVG preservado exatamente como recuperado.
+ * Não substituir por ícone genérico nem re-desenhar.
+ */
+export function BrandLogo({ className = "h-9 w-9" }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+      role="img"
+      aria-labelledby="qse-logo-title qse-logo-desc"
+      className={className}
+    >
+      <title id="qse-logo-title">Quem são elas?</title>
+      <desc id="qse-logo-desc">
+        Lente editorial roxa com olho escuro e íris formada por recortes em
+        creme, amarelo e coral.
+      </desc>
+      <circle cx="256" cy="256" r="240" fill="#5b2a86" />
+      <path
+        d="M68 256c47-87 108-129 188-129s141 42 188 129c-47 87-108 129-188 129S115 343 68 256Z"
+        fill="#1a1420"
+      />
+      <circle cx="256" cy="256" r="83" fill="#f5f1e8" />
+      <path d="M256 173a83 83 0 0 1 71 41l-71 42Z" fill="#f2c230" />
+      <path d="M327 214a83 83 0 0 1-12 94l-59-52Z" fill="#e8552b" />
+      <circle cx="256" cy="256" r="29" fill="#1a1420" />
+    </svg>
+  );
+}
