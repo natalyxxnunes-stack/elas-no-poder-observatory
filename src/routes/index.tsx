@@ -1,11 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
-import { WhoAreTheyExplorer } from "@/components/WhoAreTheyExplorer";
+import { PageShell } from "@/components/PageShell";
+import { SectionBlock } from "@/components/editorial/SectionBlock";
+import { ContextBox } from "@/components/editorial/ContextBox";
+import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
+import { NextAxes } from "@/components/editorial/NextAxes";
+import { StatusTag } from "@/components/editorial/StatusTag";
+import {
+  CENTRAL_PRINCIPLE,
+  CENTRAL_THESIS,
+  COVER_QUESTION,
+  FUNNEL_LAYERS,
+} from "@/data/architecture";
 import {
   CURRENT_INDICATORS,
   SITE,
-  THESIS,
   formatPercent,
   formatPoints,
   type Indicator,
@@ -16,7 +24,6 @@ import heroImage from "@/assets/elections-editorial.png";
 import spotQuota from "@/assets/spot-quota.png";
 import spotStrength from "@/assets/spot-strength.png";
 
-
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -24,7 +31,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Observatório de dados sobre mulheres, eleições e poder em 2026: candidaturas proporcionais e majoritárias, o funil até o poder e quais mulheres chegam, sempre com fonte e método abertos.",
+          "Observatório de dados sobre mulheres, eleições e poder em 2026: candidaturas proporcionais e majoritárias, gênero e raça, o funil até o poder e o método aberto.",
       },
       { property: "og:title", content: "Quem são elas? — Dados 2026" },
       {
@@ -38,10 +45,8 @@ export const Route = createFileRoute("/")({
   }),
   loader: async () => ({ snapshot: await getLatestTseSnapshot() }),
   component: DadosPage,
-
 });
 
-/** Formata uma data ISO como fotografia legível (dd/mm/aaaa). */
 function snapshotDate(iso: string | null): string | null {
   if (!iso) return null;
   const d = new Date(iso);
@@ -49,7 +54,6 @@ function snapshotDate(iso: string | null): string | null {
   return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
 }
 
-/** Descrição em linguagem comum de cada indicador exibido na home. */
 const PLAIN_MEANING: Record<string, string> = {
   "participacao-feminina-proporcional":
     "Mulheres entre as candidaturas proporcionais",
@@ -59,17 +63,25 @@ const PLAIN_MEANING: Record<string, string> = {
     "Distância entre os dois universos, em pontos percentuais",
 };
 
-function IndicatorCard({ indicator }: { indicator: Indicator }) {
+function IndicatorCard({
+  indicator,
+  featured,
+}: {
+  indicator: Indicator;
+  featured?: boolean;
+}) {
   const isPoints = indicator.unit === "p.p.";
   const hasValue =
     indicator.value !== null && (isPoints || indicator.denominator !== null);
   const date = snapshotDate(indicator.baseGeneratedAt);
 
   return (
-    <article className="editorial-card p-6">
+    <article className={`editorial-card p-6 ${featured ? "border-plum" : ""}`}>
       {hasValue ? (
         <>
-          <p className="data-figure text-5xl text-plum">
+          <p
+            className={`data-figure text-plum ${featured ? "text-6xl md:text-7xl" : "text-5xl"}`}
+          >
             {isPoints
               ? formatPoints(indicator.value)
               : formatPercent(indicator.value)}
@@ -80,12 +92,12 @@ function IndicatorCard({ indicator }: { indicator: Indicator }) {
           {indicator.numerator !== null && indicator.denominator !== null && (
             <p className="mt-2 font-mono text-[11px] text-muted-foreground">
               {indicator.numerator.toLocaleString("pt-BR")} de{" "}
-              {indicator.denominator.toLocaleString("pt-BR")}
+              {indicator.denominator.toLocaleString("pt-BR")} candidaturas
             </p>
           )}
           {date && (
             <p className="mt-1 font-mono text-[11px] text-muted-foreground">
-              TSE · fotografia de {date}
+              Fotografia da base de {date}
             </p>
           )}
         </>
@@ -106,245 +118,245 @@ function IndicatorCard({ indicator }: { indicator: Indicator }) {
   );
 }
 
-const FUNNEL_LABELS = [
-  "Candidaturas",
-  "Recursos",
-  "Votos",
-  "Eleitas",
-  "Poder",
-] as const;
-
 function DadosPage() {
   const { snapshot } = Route.useLoaderData();
   const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
+  const [first, ...rest] = indicators;
+
   return (
-
-    <div className="paper-grain min-h-screen">
-      <SiteHeader />
-
-      <main className="mx-auto max-w-6xl px-5 md:px-8">
-        {/* HERO */}
-        <section className="grid gap-10 py-14 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:py-20">
-          <div>
-            <p className="kicker">{SITE.cycle}</p>
-            <h1 className="mt-4 font-display text-4xl leading-[1.05] text-ink md:text-6xl">
-              Quem são elas?
-            </h1>
-            <p className="mt-4 max-w-xl font-display text-2xl leading-snug text-plum md:text-3xl">
-              {THESIS}
-            </p>
-            <p className="mt-5 max-w-xl leading-relaxed text-muted-foreground">
-              Um observatório de dados sobre mulheres, eleições e poder.
-              Acompanhamos o caminho entre a candidatura e os espaços onde as
-              decisões são tomadas.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                to="/em-disputa"
-                className="rounded-md bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
-              >
-                Ver o funil
-              </Link>
-              <Link
-                to="/metodo"
-                className="rounded-md border border-plum px-5 py-2.5 text-sm font-semibold text-plum transition-colors hover:bg-secondary"
-              >
-                Como lemos os dados
-              </Link>
-            </div>
-          </div>
-
-          <figure className="editorial-card overflow-hidden">
-            <img
-              src={heroImage}
-              alt="Ilustração editorial: fila de mulheres diante de uma urna eleitoral"
-              width={1280}
-              height={800}
-              className="w-full"
-            />
-            <figcaption className="border-t border-rule px-4 py-3 font-mono text-[11px] text-muted-foreground">
-              elections-editorial · ilustração do projeto
-            </figcaption>
-          </figure>
-        </section>
-
-        {/* A FOTOGRAFIA DE AGORA */}
-        <section aria-labelledby="foto-title" className="rule-top py-14">
-          <h2 className="kicker">A fotografia de agora</h2>
-          <p
-            id="foto-title"
-            className="mt-3 max-w-2xl font-display text-2xl leading-snug text-ink md:text-3xl"
-          >
-            As candidaturas de 2026 ainda estão sendo registradas e atualizadas
-            pelo TSE. Por isso, esta fotografia muda diariamente.
+    <PageShell>
+      {/* HERO — pergunta de capa protagonista */}
+      <section className="grid gap-10 py-14 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:py-20">
+        <div>
+          <p className="kicker">{SITE.cycle}</p>
+          <h1 className="mt-4 font-display text-4xl leading-[1.02] text-ink md:text-6xl">
+            {COVER_QUESTION}
+          </h1>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
+            {CENTRAL_THESIS}
           </p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            {indicators.map((indicator) => (
-              <IndicatorCard key={indicator.id} indicator={indicator} />
-            ))}
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              to="/funil"
+              className="rounded-md bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+            >
+              Ver o funil
+            </Link>
+            <Link
+              to="/metodo"
+              className="rounded-md border border-plum px-5 py-2.5 text-sm font-semibold text-plum transition-colors hover:bg-secondary"
+            >
+              Como lemos os dados
+            </Link>
           </div>
-          <p className="mt-6 font-mono text-[11px] text-muted-foreground">
+        </div>
+
+        <figure className="editorial-card overflow-hidden">
+          <img
+            src={heroImage}
+            alt="Ilustração editorial: fila de mulheres diante de uma urna eleitoral"
+            width={1280}
+            height={800}
+            className="w-full"
+          />
+          <figcaption className="border-t border-rule px-4 py-3 font-mono text-[11px] text-muted-foreground">
+            elections-editorial · ilustração do projeto
+          </figcaption>
+        </figure>
+      </section>
+
+      {/* A FOTOGRAFIA DE AGORA */}
+      <SectionBlock
+        kicker="A fotografia de agora"
+        question="O que está acontecendo agora?"
+        align="wide"
+        lead={
+          <p>
+            As candidaturas de 2026 seguem sendo registradas e analisadas pela
+            Justiça Eleitoral. Esta fotografia muda — e por isso ela sempre vem
+            com a data da base que a originou.
+          </p>
+        }
+        source={
+          <>
             Fonte: TSE · Candidaturas 2026 ·{" "}
             <Link to="/metodo" className="text-plum underline underline-offset-4">
               ver o método
             </Link>
-          </p>
-        </section>
-
-        {/* DOIS UNIVERSOS */}
-        <section aria-labelledby="universos-title" className="rule-top py-14">
-          <div className="flex flex-wrap items-start justify-between gap-6">
-            <div className="max-w-2xl">
-              <h2 className="kicker">Dois universos</h2>
-              <h3
-                id="universos-title"
-                className="mt-3 font-display text-2xl leading-snug text-ink md:text-3xl"
-              >
-                Duas formas de disputar uma eleição
-              </h3>
-              <p className="mt-4 leading-relaxed text-muted-foreground">
-                As regras não são iguais nos dois universos. Nas eleições
-                proporcionais existe uma regra de composição de candidaturas por
-                gênero. Nas majoritárias, essa regra não se aplica.
-              </p>
-            </div>
-            <img
-              src={spotQuota}
-              alt=""
-              aria-hidden
-              loading="lazy"
-              width={640}
-              height={640}
-              className="h-24 w-24 shrink-0 md:h-32 md:w-32"
-            />
-          </div>
-
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            <article className="editorial-card p-6">
-              <h4 className="font-display text-xl text-ink">Proporcional</h4>
-              <p className="mt-2 leading-relaxed text-muted-foreground">
-                Deputadas federais, estaduais e distritais.
-              </p>
-              <p className="mt-4 font-mono text-[11px] uppercase tracking-wider text-plum">
-                com regra de composição 30%–70% por gênero
-              </p>
-            </article>
-            <article className="editorial-card p-6">
-              <h4 className="font-display text-xl text-ink">Majoritária</h4>
-              <p className="mt-2 leading-relaxed text-muted-foreground">
-                Presidente, governadoras e senadoras.
-              </p>
-              <p className="mt-4 font-mono text-[11px] uppercase tracking-wider text-coral">
-                sem a regra de composição 30%–70% por gênero
-              </p>
-            </article>
-          </div>
-
-          <p className="mt-6 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-            Os dois universos têm denominadores próprios e regras eleitorais
-            diferentes. A comparação entre eles é descritiva: é um ponto de
-            partida para investigação, não uma prova de causa.
-          </p>
-        </section>
-
-        {/* O FUNIL */}
-        <section aria-labelledby="funil-title" className="rule-top py-14">
-          <h2 className="kicker">O funil</h2>
-          <h3
-            id="funil-title"
-            className="mt-3 max-w-2xl font-display text-2xl leading-snug text-ink md:text-3xl"
-          >
-            Entre entrar na disputa e chegar ao poder, há um funil.
-          </h3>
-
-          <ol className="mt-8 flex flex-col gap-3 md:flex-row md:items-stretch">
-            {FUNNEL_LABELS.map((label, i) => (
-              <li
-                key={label}
-                className="editorial-card flex flex-1 items-center gap-3 p-4"
-                style={{ opacity: 1 - i * 0.1 }}
-              >
-                <span className="font-mono text-[11px] text-muted-foreground">
-                  0{i + 1}
-                </span>
-                <span className="font-display text-lg text-ink">{label}</span>
-              </li>
+          </>
+        }
+      >
+        <div className="grid gap-4 lg:grid-cols-[1.2fr_1fr]">
+          {first && <IndicatorCard indicator={first} featured />}
+          <div className="grid gap-4">
+            {rest.map((indicator) => (
+              <IndicatorCard key={indicator.id} indicator={indicator} />
             ))}
-          </ol>
+          </div>
+        </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <ContextBox variant="significa">
+            <p>
+              Cada percentual tem numerador e denominador próprios: candidaturas
+              de mulheres dentro do total de candidaturas do mesmo universo
+              eleitoral.
+            </p>
+          </ContextBox>
+          <ContextBox variant="importa">
+            <p>
+              A diferença entre os dois universos é medida em pontos percentuais
+              (p.p.) e é descritiva. Ela abre uma investigação; não prova causa.
+            </p>
+          </ContextBox>
+        </div>
+      </SectionBlock>
 
-          <p className="mt-6 max-w-3xl leading-relaxed text-muted-foreground">
-            Em cada etapa, o universo muda. O Quem são elas? acompanha onde a
-            presença das mulheres diminui — e quem consegue atravessar cada
-            barreira.
+      {/* DOIS UNIVERSOS */}
+      <SectionBlock
+        kicker="Dois universos"
+        question="Duas formas de disputar uma eleição"
+        lead={
+          <p>
+            As regras não são as mesmas nos dois universos. Nas eleições
+            proporcionais existe uma regra de composição de candidaturas por
+            gênero, aplicada por partido ou federação. Nas majoritárias, de cargo
+            único, essa regra não se aplica.
           </p>
+        }
+      >
+        <div className="grid gap-6 md:grid-cols-[1fr_1fr_auto] md:items-start">
+          <article className="editorial-card p-6">
+            <h3 className="font-display text-xl text-ink">Proporcional</h3>
+            <p className="mt-2 leading-relaxed text-muted-foreground">
+              Câmara dos Deputados, assembleias legislativas e Câmara Legislativa
+              do Distrito Federal.
+            </p>
+            <p className="mt-4 font-mono text-[11px] uppercase tracking-wider text-plum">
+              com a regra de composição de 30%–70% por gênero
+            </p>
+          </article>
+          <article className="editorial-card p-6">
+            <h3 className="font-display text-xl text-ink">Majoritária</h3>
+            <p className="mt-2 leading-relaxed text-muted-foreground">
+              Presidência, governos estaduais e do Distrito Federal e Senado.
+            </p>
+            <p className="mt-4 font-mono text-[11px] uppercase tracking-wider text-coral">
+              sem a regra de composição de 30%–70% por gênero
+            </p>
+          </article>
+          <img
+            src={spotQuota}
+            alt=""
+            aria-hidden
+            loading="lazy"
+            width={640}
+            height={640}
+            className="h-24 w-24 shrink-0 md:h-32 md:w-32"
+          />
+        </div>
+      </SectionBlock>
 
-          <Link
-            to="/em-disputa"
-            className="mt-6 inline-flex rounded-md bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
-          >
-            Explorar o funil →
-          </Link>
-        </section>
-
-        {/* QUEM CHEGA? */}
-        <section aria-labelledby="quem-chega-title" className="rule-top py-14">
-          <div className="flex flex-wrap items-start justify-between gap-6">
-            <div className="max-w-2xl">
-              <h2 className="kicker">Quem chega?</h2>
-              <h3
-                id="quem-chega-title"
-                className="mt-3 font-display text-2xl leading-snug text-ink md:text-3xl"
-              >
-                Não existe uma única experiência de ser mulher na política.
+      {/* O FUNIL */}
+      <SectionBlock
+        kicker="O funil"
+        question="Entre entrar na disputa e chegar ao poder, há um caminho — e ele filtra."
+        align="wide"
+        lead={
+          <p>
+            Contexto, competição e poder. Cada etapa tem universo, denominador e
+            fonte próprios: o funil organiza perguntas, não uma subtração.
+          </p>
+        }
+      >
+        <ol className="grid gap-3 md:grid-cols-3">
+          {FUNNEL_LAYERS.map((layer, i) => (
+            <li key={layer.id} className="editorial-card p-5">
+              <span className="font-mono text-[11px] text-muted-foreground">
+                camada 0{i + 1}
+              </span>
+              <h3 className="mt-1 font-display text-xl text-ink">
+                {layer.label}
               </h3>
-              <p className="mt-4 leading-relaxed text-muted-foreground">
-                Raça, território, deficiência e partido também atravessam o
-                caminho até o poder. Por isso, não basta perguntar quantas
-                mulheres estão na disputa. Precisamos perguntar quais mulheres
-                chegam — e onde.
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {layer.lead}
               </p>
-            </div>
-            <img
-              src={spotStrength}
-              alt=""
-              aria-hidden
-              loading="lazy"
-              width={640}
-              height={640}
-              className="h-24 w-24 shrink-0 md:h-32 md:w-32"
-            />
-          </div>
+              <ul className="mt-4 space-y-1">
+                {layer.steps.map((s) => (
+                  <li
+                    key={s.id}
+                    className="flex items-center justify-between gap-2 border-t border-rule pt-1 font-mono text-[11px] text-muted-foreground"
+                  >
+                    <span>{s.label}</span>
+                    <StatusTag tone={s.pending ? "pending" : "ok"}>
+                      {s.pending ? "sem dado" : "com dado"}
+                    </StatusTag>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ol>
+        <Link
+          to="/funil"
+          className="mt-8 inline-flex rounded-md bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+        >
+          Explorar o funil →
+        </Link>
+      </SectionBlock>
 
-          <div className="mt-10">
-            <WhoAreTheyExplorer />
-          </div>
-        </section>
+      {/* QUEM SÃO ELAS */}
+      <SectionBlock
+        kicker="Quem são elas?"
+        question="Não existe uma única experiência de ser mulher na política."
+        align="wide"
+        lead={<p>{CENTRAL_PRINCIPLE}</p>}
+        source={
+          <>
+            Fonte: TSE · Candidaturas 2026 ·{" "}
+            <Link
+              to="/quem-sao-elas"
+              className="text-plum underline underline-offset-4"
+            >
+              ver o eixo completo
+            </Link>
+          </>
+        }
+      >
+        <div className="mb-8 flex justify-end">
+          <img
+            src={spotStrength}
+            alt=""
+            aria-hidden
+            loading="lazy"
+            width={640}
+            height={640}
+            className="h-24 w-24 md:h-32 md:w-32"
+          />
+        </div>
+        <RaceBreakdown snapshot={snapshot} />
+      </SectionBlock>
 
-        {/* COMO SABEMOS? */}
-        <section aria-labelledby="metodo-title" className="rule-top py-14">
-          <h2 className="kicker">Como sabemos?</h2>
-          <h3
-            id="metodo-title"
-            className="mt-3 max-w-2xl font-display text-2xl leading-snug text-ink md:text-3xl"
-          >
-            Dados para perguntar. Método para conferir.
-          </h3>
-          <p className="mt-4 max-w-3xl leading-relaxed text-muted-foreground">
-            Os indicadores são calculados a partir de bases oficiais e
-            identificados por fonte, data, universo e metodologia. Quando um dado
-            ainda não existe ou não pode ser calculado com segurança, dizemos
-            isso.
+      {/* COMO SABEMOS */}
+      <SectionBlock
+        kicker="Como sabemos?"
+        question="Dados para perguntar. Método para conferir."
+        lead={
+          <p>
+            Todo indicador aparece com fonte, universo, denominador, fórmula e
+            data. Quando um dado ainda não existe, dizemos exatamente o que falta:
+            dado não disponível não é zero.
           </p>
-          <Link
-            to="/metodo"
-            className="mt-6 inline-flex rounded-md border border-plum px-5 py-2.5 text-sm font-semibold text-plum transition-colors hover:bg-secondary"
-          >
-            Conheça o método →
-          </Link>
-        </section>
-      </main>
+        }
+      >
+        <Link
+          to="/metodo"
+          className="inline-flex rounded-md border border-plum px-5 py-2.5 text-sm font-semibold text-plum transition-colors hover:bg-secondary"
+        >
+          Conheça o método →
+        </Link>
+      </SectionBlock>
 
-      <SiteFooter />
-    </div>
+      <NextAxes ids={["condicoes", "quem-controla", "quem-sao-elas"]} />
+    </PageShell>
   );
 }

@@ -1,168 +1,185 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
-import { CycleStrip } from "@/components/CycleStrip";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { PageShell } from "@/components/PageShell";
+import { PageHero } from "@/components/editorial/PageHero";
+import { SectionBlock } from "@/components/editorial/SectionBlock";
+import { InBrief } from "@/components/editorial/InBrief";
+import { ContextBox } from "@/components/editorial/ContextBox";
+import { StatusTag } from "@/components/editorial/StatusTag";
+import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
-import {
-  QUOTA_RULE,
-  RIGHTS_MILESTONES,
-  RIGHTS_OPEN_QUESTIONS,
-  THESIS,
-  UNIVERSE_DIFFERENCE,
-  formatPoints,
-} from "@/data/election-2026";
+import { RIGHTS_TIMELINE, RIGHTS_TIMELINE_RULE } from "@/data/rights-timeline";
+import { RIGHTS_OPEN_QUESTIONS } from "@/data/election-2026";
 import timelineImage from "@/assets/timeline-editorial.png";
-import spotQuota from "@/assets/spot-quota.png";
 
 export const Route = createFileRoute("/direitos")({
   head: () => ({
     meta: [
-      { title: "Direitos — Quem são elas? | Cota de gênero e marcos legais" },
+      { title: "Direitos — Quem são elas? | Como chegamos até aqui" },
       {
         name: "description",
         content:
-          "Do voto de 1932 ao piso de 30% e à distribuição proporcional por raça: os direitos que sustentam a presença de mulheres na disputa eleitoral brasileira.",
+          "De 1932 a 2026: cada marco jurídico dos direitos políticos das mulheres em conquista, regra, disputa, implementação e consequência, com fonte normativa específica.",
       },
-      { property: "og:title", content: "Direitos — Quem são elas?" },
+      { property: "og:title", content: "Direitos — como chegamos até aqui" },
       {
         property: "og:description",
         content:
-          "A linha do tempo das regras que abriram a disputa às mulheres — e o que essas regras ainda não alcançam.",
+          "As regras que abriram a disputa às mulheres, marco por marco — e o que cada uma delas ainda não alcança.",
       },
+      { property: "og:type", content: "article" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: DireitosPage,
 });
 
+const FIELDS = [
+  { key: "achievement", label: "Conquista" },
+  { key: "rule", label: "Regra" },
+  { key: "dispute", label: "Disputa" },
+  { key: "implementation", label: "Implementação" },
+  { key: "consequence", label: "Consequência" },
+] as const;
+
 function DireitosPage() {
   return (
-    <div className="paper-grain min-h-screen">
-      <SiteHeader />
-      <main className="mx-auto max-w-6xl px-5 md:px-8">
-        <header className="py-14">
-          <p className="kicker">Direitos</p>
-          <h1 className="mt-4 max-w-3xl font-display text-4xl leading-[1.08] text-ink md:text-5xl">
-            As regras que abriram a disputa — e o que elas ainda não alcançam
-          </h1>
-          <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
-            A presença de mulheres nas eleições brasileiras não é um movimento
-            espontâneo: é resultado de normas específicas, conquistadas em
-            momentos distintos. Entender essas regras é entender por que a
-            participação muda tanto de um tipo de disputa para outro.
+    <PageShell>
+      <PageHero
+        kicker="Direitos"
+        question="Como chegamos até aqui?"
+        lead={
+          <p>
+            A presença de mulheres nas eleições brasileiras não é espontânea: é
+            resultado de normas conquistadas em momentos distintos, cada uma com
+            alcance limitado e disputa própria.
           </p>
-        </header>
+        }
+        image={timelineImage}
+        imageAlt="Ilustração editorial: linha do tempo dos direitos políticos das mulheres"
+      />
 
-        <figure className="editorial-card overflow-hidden">
-          <img
-            src={timelineImage}
-            alt="Ilustração editorial: linha do tempo dos direitos políticos das mulheres"
-            loading="lazy"
-            width={1600}
-            height={560}
-            className="w-full"
-          />
-          <figcaption className="border-t border-rule px-4 py-3 font-mono text-[11px] text-muted-foreground">
-            timeline-editorial · ilustração do projeto
-          </figcaption>
-        </figure>
+      <div className="pb-4">
+        <InBrief
+          found={
+            <>
+              Onze marcos entre 1932 e 2026. Nenhum deles produziu igualdade
+              imediata: cada um criou uma regra nova e, com ela, uma nova disputa
+              sobre implementação.
+            </>
+          }
+          matters={
+            <>
+              Saber o que cada regra alcança evita atribuir a ela efeitos que não
+              estão no seu escopo — como esperar que uma regra sobre registro de
+              candidaturas resolva a distribuição de dinheiro.
+            </>
+          }
+          unknown={
+            <>
+              O efeito isolado de cada norma sobre a presença de mulheres. Medir
+              isso exigiria desenho metodológico próprio, que este eixo não faz.
+            </>
+          }
+        />
+      </div>
 
-        <section aria-labelledby="marcos" className="rule-top mt-16 pt-8">
-          <h2 id="marcos" className="kicker">
-            Marcos legais
-          </h2>
-          <ol className="mt-8 space-y-0 border-l-2 border-plum pl-6">
-            {RIGHTS_MILESTONES.map((m) => (
-              <li key={m.year} className="relative pb-9 last:pb-0">
-                <span
-                  aria-hidden
-                  className="absolute -left-[31px] top-1.5 h-3.5 w-3.5 rounded-full border-2 border-plum bg-paper"
-                />
-                <p className="data-figure text-2xl text-plum">
-                  {m.year}
-                </p>
-                <h3 className="mt-1 font-display text-xl text-ink">{m.title}</h3>
-                <p className="mt-2 max-w-2xl leading-relaxed text-muted-foreground">
-                  {m.body}
-                </p>
-                <p className="mt-2 font-mono text-[11px] text-muted-foreground">
+      <SectionBlock
+        kicker="Linha do tempo"
+        question="Cada marco em cinco perguntas"
+        align="wide"
+        lead={<p>{RIGHTS_TIMELINE_RULE}</p>}
+      >
+        <ol className="space-y-6 border-l-2 border-plum pl-6">
+          {RIGHTS_TIMELINE.map((m) => (
+            <li key={m.year} className="relative">
+              <span
+                aria-hidden
+                className="absolute -left-[31px] top-2 h-3.5 w-3.5 rounded-full border-2 border-plum bg-paper"
+              />
+              <div className="editorial-card p-6">
+                <div className="flex flex-wrap items-baseline justify-between gap-3">
+                  <p className="data-figure text-3xl text-plum">{m.year}</p>
+                  {m.needsReview && (
+                    <StatusTag tone="limit">redação a conferir</StatusTag>
+                  )}
+                </div>
+                <h3 className="mt-1 max-w-2xl font-display text-xl leading-snug text-ink">
+                  {m.title}
+                </h3>
+                <dl className="mt-4 space-y-3">
+                  {FIELDS.map((f) => (
+                    <div key={f.key} className="sm:flex sm:gap-5">
+                      <dt className="shrink-0 font-mono text-[11px] uppercase tracking-wider text-muted-foreground sm:w-36 sm:pt-0.5">
+                        {f.label}
+                      </dt>
+                      <dd className="mt-1 text-sm leading-relaxed text-ink sm:mt-0">
+                        {m[f.key]}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+                <p className="mt-4 font-mono text-[11px] text-muted-foreground">
                   Fonte:{" "}
                   <a
                     href={m.sourceUrl}
-                    className="underline"
                     target="_blank"
                     rel="noreferrer"
+                    className="underline"
                   >
-                    {m.sourceUrl}
+                    {m.sourceLabel}
                   </a>
                 </p>
-              </li>
-            ))}
-          </ol>
-        </section>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </SectionBlock>
 
-        <section className="rule-top mt-16 grid gap-8 pt-8 md:grid-cols-[1fr_auto] md:items-start">
-          <div>
-            <h2 className="kicker">Da regra ao resultado</h2>
-            <p className="mt-3 max-w-2xl font-display text-2xl leading-snug text-ink md:text-3xl">
-              “{THESIS}”
+      <SectionBlock
+        kicker="Limites em aberto"
+        question="O que as regras ainda não alcançam"
+      >
+        <ul className="grid gap-4 md:grid-cols-2">
+          {RIGHTS_OPEN_QUESTIONS.map((q) => (
+            <li
+              key={q}
+              className="editorial-card p-5 text-sm leading-relaxed text-muted-foreground"
+            >
+              {q}
+            </li>
+          ))}
+        </ul>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <ContextBox variant="significa">
+            <p>
+              Uma regra pode existir e não ser implementada. Conquista, vigência e
+              efeito prático são três coisas diferentes.
             </p>
-            <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
-              A regra de composição de candidaturas de {QUOTA_RULE.floor}% a{" "}
-              {QUOTA_RULE.ceiling}% por gênero se aplica às eleições
-              proporcionais, por partido ou federação. As disputas majoritárias,
-              de cargo único, não estão submetidas a ela. Cada universo tem
-              participação feminina própria, calculada sobre seu próprio
-              denominador; a diferença entre os dois, quando disponível, é
-              apresentada em pontos percentuais:{" "}
-              <span className="font-mono">
-                {formatPoints(UNIVERSE_DIFFERENCE.value)}
-              </span>{" "}
-              ({UNIVERSE_DIFFERENCE.status}).
+          </ContextBox>
+          <ContextBox variant="importa">
+            <p>
+              Sem essa distinção, a leitura pública oscila entre “já existe cota,
+              então está resolvido” e “a cota não serve para nada”. Nenhuma das
+              duas descreve o que os dados mostram.
             </p>
-            <div className="mt-5 space-y-3">
-              <GapNote label="Leitura descritiva">
-                {QUOTA_RULE.descriptiveReading}
-              </GapNote>
-              <GapNote label="Cuidado metodológico">
-                {UNIVERSE_DIFFERENCE.caveat}
-              </GapNote>
-            </div>
-          </div>
-          <img
-            src={spotQuota}
-            alt=""
-            aria-hidden
-            loading="lazy"
-            width={640}
-            height={640}
-            className="h-28 w-28 md:h-40 md:w-40"
-          />
-        </section>
-
-        <section className="rule-top mt-16 pt-8">
-          <h2 className="kicker">Limites em aberto</h2>
-          <ul className="mt-6 grid gap-4 md:grid-cols-2">
-            {RIGHTS_OPEN_QUESTIONS.map((q) => (
-              <li key={q} className="editorial-card p-5 leading-relaxed text-muted-foreground">
-                {q}
-              </li>
-            ))}
-          </ul>
-          <div className="mt-6">
-            <GapNote label="Limite desta versão">
-              A cronologia lista apenas marcos com base normativa ou decisão
-              identificável, com link de fonte. Marcos sem fonte verificável não
-              são exibidos, e a redação de cada item deve ser reconferida contra o
-              texto legal antes da publicação.
-            </GapNote>
-          </div>
-        </section>
-
-        <div className="mt-16 pb-10">
-          <CycleStrip activeId="registros" />
+          </ContextBox>
         </div>
-      </main>
-      <SiteFooter />
-    </div>
+        <div className="mt-6">
+          <GapNote label="Limite desta versão">
+            Marcos sinalizados como “redação a conferir” precisam de checagem
+            final contra o texto normativo antes de circularem como definitivos.
+            Nenhum marco sem fonte identificável é exibido.
+          </GapNote>
+        </div>
+        <p className="mt-6 font-mono text-[11px] text-muted-foreground">
+          Regras em discussão agora em{" "}
+          <Link to="/em-disputa" className="text-plum underline underline-offset-4">
+            Em disputa
+          </Link>
+        </p>
+      </SectionBlock>
+
+      <NextAxes ids={["em-disputa", "condicoes", "metodo"]} />
+    </PageShell>
   );
 }
