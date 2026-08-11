@@ -75,7 +75,7 @@ function DireitosPage() {
                   aria-hidden
                   className="absolute -left-[31px] top-1.5 h-3.5 w-3.5 rounded-full border-2 border-plum bg-paper"
                 />
-                <p className="data-figure text-2xl text-solar-foreground text-plum">
+                <p className="data-figure text-2xl text-plum">
                   {m.year}
                 </p>
                 <h3 className="mt-1 font-display text-xl text-ink">{m.title}</h3>
