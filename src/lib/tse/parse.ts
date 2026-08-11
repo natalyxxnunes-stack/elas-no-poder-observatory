@@ -14,35 +14,50 @@ import {
   type TseCandidateRow,
   type UniverseId,
 } from "./compute";
-
-/** Versão do processamento — muda quando a lógica de cálculo muda. */
-export const PROCESSING_VERSION = "2026.08.11-b2";
+import {
+  DICTIONARY_VERSION,
+  auditHeader,
+  type HeaderAudit,
+} from "./data-dictionary";
 
 /**
- * Colunas esperadas no arquivo 2026 e os sinônimos aceitos.
- * O mapeamento é feito a partir do cabeçalho real do arquivo: se uma coluna
- * não existir, isso é registrado como anomalia em vez de ser suposto.
+ * Versão do processamento — muda quando a lógica de cálculo muda.
+ * Inclui a versão do dicionário de dados usada na leitura do arquivo.
+ */
+export const PROCESSING_VERSION = `2026.08.11-b4+${DICTIONARY_VERSION}`;
+
+/**
+ * Colunas analíticas e os nomes REAIS aceitos, conforme o dicionário de dados
+ * (`data-dictionary.ts`) — confirmados no cabeçalho do recurso `Candidatos`.
+ * O mapeamento é feito a partir do cabeçalho real: coluna ausente é registrada
+ * como anomalia, nunca suposta.
  */
 export const COLUMN_ALIASES = {
-  cargo: ["DS_CARGO", "NM_CARGO", "DESCRICAO_CARGO"],
-  genero: ["DS_GENERO", "DESCRICAO_GENERO"],
-  corRaca: ["DS_COR_RACA", "DESCRICAO_COR_RACA"],
-  situacaoCandidatura: [
-    "DS_SITUACAO_CANDIDATURA",
-    "DESC_SIT_TOT_TURNO",
-    "DESCRICAO_SITUACAO_CANDIDATURA",
-  ],
-  detalheSituacao: [
-    "DS_DETALHE_SITUACAO_CAND",
-    "DESCRICAO_DETALHE_SITUACAO_CAND",
-  ],
-  uf: ["SG_UF", "SIGLA_UF"],
+  sqCandidato: ["SQ_CANDIDATO"],
+  cargo: ["DS_CARGO"],
+  codCargo: ["CD_CARGO"],
+  genero: ["DS_GENERO"],
+  corRaca: ["DS_COR_RACA"],
+  situacaoCandidatura: ["DS_SITUACAO_CANDIDATURA"],
+  /** só existe no recurso complementar; ausente em `Candidatos` */
+  detalheSituacao: ["DS_DETALHE_SITUACAO_CAND"],
+  uf: ["SG_UF"],
+  ue: ["SG_UE"],
+  partido: ["SG_PARTIDO"],
+  agremiacao: ["TP_AGREMIACAO"],
+  federacao: ["SG_FEDERACAO"],
+  sqColigacao: ["SQ_COLIGACAO"],
 } as const;
 
 export type ColumnKey = keyof typeof COLUMN_ALIASES;
 
 /** Colunas sem as quais nenhum indicador pode ser calculado. */
-export const REQUIRED_COLUMNS: ColumnKey[] = ["cargo", "genero"];
+export const REQUIRED_COLUMNS: ColumnKey[] = [
+  "sqCandidato",
+  "cargo",
+  "genero",
+];
+
 
 const clean = (v: string) => v.replace(/^"+|"+$/g, "").trim();
 
