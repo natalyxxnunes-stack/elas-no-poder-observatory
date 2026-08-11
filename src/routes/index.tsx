@@ -86,31 +86,41 @@ function DadosPage() {
           </figure>
         </section>
 
-        <section className="grid gap-4 pb-14 sm:grid-cols-3">
-          {[
-            {
-              figure: `${R.proportional.share.toString().replace(".", ",")}%`,
-              label: "das candidaturas proporcionais",
-              note: `Disputas de lista, onde a cota de ${R.quotaFloor}% incide.`,
-            },
-            {
-              figure: `${R.majoritarian.share.toString().replace(".", ",")}%`,
-              label: "das candidaturas majoritárias",
-              note: "Cargo único, sem cota de gênero.",
-            },
-            {
-              figure: "33",
-              label: "mulheres nas majoritárias",
-              note: "Universo pequeno: leia a direção, não a casa decimal.",
-            },
-          ].map((k) => (
-            <div key={k.label} className="editorial-card p-5">
-              <p className="data-figure text-4xl text-plum">{k.figure}</p>
+        <section aria-label="Indicadores atuais" className="grid gap-4 pb-6 sm:grid-cols-3">
+          {CURRENT_INDICATORS.map((k) => (
+            <div key={k.id} className="editorial-card p-5">
+              <p className="data-figure text-4xl text-plum">
+                {k.unit === "p.p."
+                  ? formatPoints(k.value)
+                  : k.value !== null && k.denominator !== null
+                    ? formatPercent(k.value)
+                    : "—"}
+              </p>
               <p className="mt-2 font-display text-base text-ink">{k.label}</p>
-              <p className="mt-1 text-sm text-muted-foreground">{k.note}</p>
+              <p className="mt-1 font-mono text-[11px] text-muted-foreground">
+                {formatRatio(k) ?? "denominador ainda não processado"}
+              </p>
+              <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-coral">
+                {k.status}
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">{k.caveat}</p>
             </div>
           ))}
         </section>
+
+        <section className="pb-14">
+          <p className="border-l-[3px] border-plum bg-secondary px-4 py-3 font-mono text-[11px] leading-relaxed text-ink">
+            Fonte dos indicadores: {TSE_SOURCE.name} ·{" "}
+            <a href={TSE_SOURCE.datasetUrl} className="underline" target="_blank" rel="noreferrer">
+              {TSE_SOURCE.datasetUrl}
+            </a>{" "}
+            · geração da base informada pelo TSE: {TSE_SOURCE.baseGeneratedAt} ·
+            processamento: {TSE_SOURCE.processedAt ?? "ainda não processado"} ·
+            última tentativa de obtenção: {TSE_SOURCE.lastFetchAttempt.at} —{" "}
+            {TSE_SOURCE.lastFetchAttempt.outcome}
+          </p>
+        </section>
+
 
         <div className="space-y-16 pb-10">
           <CycleStrip activeId="registros" />
