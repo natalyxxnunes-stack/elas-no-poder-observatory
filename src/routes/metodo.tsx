@@ -20,6 +20,7 @@ import {
   getLatestTseSnapshot,
   listTseSnapshots,
 } from "@/lib/tse/snapshot.functions";
+import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 
 export const Route = createFileRoute("/metodo")({
   head: () => ({
