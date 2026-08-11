@@ -149,12 +149,11 @@ function DireitosPage() {
             ))}
           </ul>
           <div className="mt-6">
-            <GapNote>
-              O snapshot publicado desta página está atrás de autenticação e não
-              pôde ser lido nesta reconstrução. A estrutura editorial (linha do
-              tempo, leitura da cota e limites em aberto) foi preservada; textos
-              corridos originais de cada marco não são recuperáveis e devem ser
-              reconferidos com a autora.
+            <GapNote label="Limite desta versão">
+              A cronologia lista apenas marcos com base normativa ou decisão
+              identificável, com link de fonte. Marcos sem fonte verificável não
+              são exibidos, e a redação de cada item deve ser reconferida contra o
+              texto legal antes da publicação.
             </GapNote>
           </div>
         </section>
