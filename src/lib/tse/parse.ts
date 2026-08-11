@@ -114,12 +114,19 @@ export function toRow(cells: readonly string[], map: ColumnMap): TseCandidateRow
     return i === undefined ? "" : clean(cells[i] ?? "");
   };
   return {
+    sqCandidato: at("sqCandidato"),
     cargo: at("cargo"),
+    codCargo: at("codCargo"),
     genero: at("genero"),
     corRaca: at("corRaca"),
     situacaoCandidatura: at("situacaoCandidatura"),
     detalheSituacao: at("detalheSituacao"),
     uf: at("uf"),
+    ue: at("ue"),
+    partido: at("partido"),
+    agremiacao: at("agremiacao"),
+    federacao: at("federacao"),
+    sqColigacao: at("sqColigacao"),
   };
 }
 
@@ -132,6 +139,25 @@ export type UniverseTally = {
   raceCounts: Record<string, number>;
   /** contagem por valor original de situação de candidatura (todas as linhas) */
   situationCounts: Record<string, number>;
+  /**
+   * Dimensões adicionais preparadas pelo dicionário (campos confirmados).
+   * São contagens brutas, sem indicador derivado: nenhum número novo é
+   * publicado a partir daqui sem método declarado.
+   */
+  dimensions: {
+    /** candidaturas de mulheres por UF (SG_UF) */
+    feminineByUf: Record<string, number>;
+    /** total de candidaturas por UF */
+    totalByUf: Record<string, number>;
+    /** candidaturas de mulheres por partido (SG_PARTIDO) */
+    feminineByParty: Record<string, number>;
+    /** total de candidaturas por partido */
+    totalByParty: Record<string, number>;
+    /** candidaturas de mulheres por forma de agremiação (TP_AGREMIACAO) */
+    feminineByAgremiacao: Record<string, number>;
+    /** total de candidaturas por forma de agremiação */
+    totalByAgremiacao: Record<string, number>;
+  };
 };
 
 export type ParseResult = {
@@ -139,17 +165,36 @@ export type ParseResult = {
   headerNames: string[];
   /** colunas esperadas ausentes no arquivo */
   missingColumns: ColumnKey[];
+  /** comparação do cabeçalho real com o dicionário vigente */
+  headerAudit: HeaderAudit | null;
   /** linhas lidas (excluindo cabeçalhos) */
   recordCount: number;
+  /** candidaturas distintas por SQ_CANDIDATO */
+  distinctCandidacies: number;
   /** linhas fora dos dois universos analisados (ex.: vice, suplente) */
   outOfScope: number;
   universes: Record<UniverseId, UniverseTally>;
   /** valores originais de situação encontrados no arquivo, com contagem */
   situationValues: Record<string, number>;
+  /** chaves SQ_CANDIDATO vistas (uso interno da coleta, não publicado) */
+  seenKeys: Set<string>;
 };
 
 function emptyTally(): UniverseTally {
-  return { feminine: 0, total: 0, raceCounts: {}, situationCounts: {} };
+  return {
+    feminine: 0,
+    total: 0,
+    raceCounts: {},
+    situationCounts: {},
+    dimensions: {
+      feminineByUf: {},
+      totalByUf: {},
+      feminineByParty: {},
+      totalByParty: {},
+      feminineByAgremiacao: {},
+      totalByAgremiacao: {},
+    },
+  };
 }
 
 /**
@@ -160,12 +205,20 @@ export function createTally(): ParseResult {
   return {
     headerNames: [],
     missingColumns: [],
+    headerAudit: null,
     recordCount: 0,
+    distinctCandidacies: 0,
     outOfScope: 0,
     universes: { proporcional: emptyTally(), majoritario: emptyTally() },
     situationValues: {},
+    seenKeys: new Set<string>(),
   };
 }
+
+const bump = (map: Record<string, number>, key: string) => {
+  const k = key || "NÃO INFORMADO";
+  map[k] = (map[k] ?? 0) + 1;
+};
 
 /** Lê um CSV completo do pacote do TSE e acumula as contagens em `acc`. */
 export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
@@ -180,12 +233,17 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
       if (acc.headerNames.length === 0) {
         acc.headerNames = mapped.headerNames;
         acc.missingColumns = mapped.missing;
+        acc.headerAudit = auditHeader(mapped.headerNames);
       }
       continue;
     }
     const row = toRow(cells, header);
     if (!row.cargo && !row.genero) continue;
     acc.recordCount += 1;
+    if (row.sqCandidato && !acc.seenKeys.has(row.sqCandidato)) {
+      acc.seenKeys.add(row.sqCandidato);
+      acc.distinctCandidacies += 1;
+    }
 
     const situation = row.situacaoCandidatura || "NÃO INFORMADO";
     acc.situationValues[situation] = (acc.situationValues[situation] ?? 0) + 1;
@@ -199,14 +257,21 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
     tally.total += 1;
     tally.situationCounts[situation] =
       (tally.situationCounts[situation] ?? 0) + 1;
+    bump(tally.dimensions.totalByUf, row.uf);
+    bump(tally.dimensions.totalByParty, row.partido);
+    bump(tally.dimensions.totalByAgremiacao, row.agremiacao);
     if (isFeminine(row.genero)) {
       tally.feminine += 1;
       const race = row.corRaca || "NÃO INFORMADO";
       tally.raceCounts[race] = (tally.raceCounts[race] ?? 0) + 1;
+      bump(tally.dimensions.feminineByUf, row.uf);
+      bump(tally.dimensions.feminineByParty, row.partido);
+      bump(tally.dimensions.feminineByAgremiacao, row.agremiacao);
     }
   }
   return acc;
 }
+
 
 export type ComputedIndicator = {
   numerator: number;
