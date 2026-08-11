@@ -38,8 +38,8 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-cream/15">
         <p className="mx-auto max-w-6xl px-5 py-5 font-mono text-[11px] text-cream/45 md:px-8">
-          Reconstrução do projeto a partir dos artefatos recuperados. Lacunas de
-          fonte estão marcadas explicitamente ao longo do site.
+          Indicadores calculados a partir de TSE / Dados Abertos / Candidatos
+          2026. Lacunas e limitações estão declaradas ao longo do site.
         </p>
       </div>
     </footer>
