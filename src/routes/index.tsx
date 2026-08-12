@@ -24,8 +24,10 @@ import { getHistoricalSeries } from "@/lib/tse/historical.functions";
 import type { Series } from "@/lib/tse/historical-compute";
 import { PastStrip } from "@/components/funnel/PastStrip";
 import { GapNote } from "@/components/GapNote";
-import heroAsset from "@/assets/feministas.webp.asset.json";
-import respiroAsset from "@/assets/respiro.webp.asset.json";
+import { PageHero } from "@/components/editorial/PageHero";
+import { HeroNumber } from "@/components/editorial/HeroNumber";
+import { PullQuote } from "@/components/editorial/PullQuote";
+import topoAsset from "@/assets/mulheresnotopo.webp.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
