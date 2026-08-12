@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -8,7 +8,15 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import timelineImage from "@/assets/timeline-editorial.png";
 
+/**
+ * ROTA DESPUBLICADA (lançamento de 5 páginas).
+ * Arquivo preservado intencionalmente para republicação futura: o conteúdo e os
+ * componentes seguem intactos, apenas o acesso público está redirecionado.
+ */
 export const Route = createFileRoute("/downloads")({
+  beforeLoad: () => {
+    throw redirect({ to: "/" });
+  },
   head: () => ({
     meta: [
       { title: "Downloads — Quem são elas? | Cartilhas e materiais" },

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -9,7 +9,15 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { axis } from "@/data/architecture";
 
+/**
+ * ROTA DESPUBLICADA (lançamento de 5 páginas).
+ * Arquivo preservado intencionalmente para republicação futura: o conteúdo e os
+ * componentes seguem intactos, apenas o acesso público está redirecionado.
+ */
 export const Route = createFileRoute("/votos")({
+  beforeLoad: () => {
+    throw redirect({ to: "/" });
+  },
   head: () => ({
     meta: [
       { title: "Votos — Quem são elas? | Candidatura, competição e desempenho" },

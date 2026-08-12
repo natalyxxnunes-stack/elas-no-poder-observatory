@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -11,7 +11,15 @@ import { axis } from "@/data/architecture";
 import { QUOTA_RULE } from "@/data/election-2026";
 import spotQuota from "@/assets/spot-quota.png";
 
+/**
+ * ROTA DESPUBLICADA (lançamento de 5 páginas).
+ * Arquivo preservado intencionalmente para republicação futura: o conteúdo e os
+ * componentes seguem intactos, apenas o acesso público está redirecionado.
+ */
 export const Route = createFileRoute("/dinheiro")({
+  beforeLoad: () => {
+    throw redirect({ to: "/" });
+  },
   head: () => ({
     meta: [
       { title: "Dinheiro — Quem são elas? | Quem recebe condições para competir" },
