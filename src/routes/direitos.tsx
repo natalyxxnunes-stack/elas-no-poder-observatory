@@ -271,7 +271,7 @@ function DireitosPage() {
           ))}
         </ul>
 
-        <div className="mt-6 space-y-3">
+        <div className="editorial-card mt-6 space-y-3 p-4">
           <GapNote label="Lacuna declarada">{DISPUTE_GAP}</GapNote>
           <GapNote label="Regra editorial">{DISPUTE_RULE}</GapNote>
         </div>
