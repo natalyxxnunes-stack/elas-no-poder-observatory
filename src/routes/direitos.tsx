@@ -9,6 +9,11 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { RIGHTS_TIMELINE, RIGHTS_TIMELINE_RULE } from "@/data/rights-timeline";
 import { RIGHTS_OPEN_QUESTIONS } from "@/data/election-2026";
+import {
+  DISPUTE_GAP,
+  DISPUTE_ITEMS,
+  DISPUTE_RULE,
+} from "@/data/rules-in-dispute";
 import timelineImage from "@/assets/timeline-editorial.png";
 
 export const Route = createFileRoute("/direitos")({
@@ -171,15 +176,119 @@ function DireitosPage() {
             Nenhum marco sem fonte identificável é exibido.
           </GapNote>
         </div>
+      </SectionBlock>
+
+      {/* EM DISPUTA — presente das regras, na sequência da linha do tempo */}
+      <SectionBlock
+        kicker="Em disputa"
+        question="As regras também estão em disputa"
+        align="wide"
+        lead={
+          <p>
+            As normas que organizam a participação de mulheres nas eleições não
+            são estáveis: mudam por lei, por resolução e por decisão judicial —
+            muitas vezes no meio do ciclo eleitoral. Projeto apresentado não é
+            projeto aprovado, e situação em tramitação não antecipa resultado.
+          </p>
+        }
+      >
+        <ul className="space-y-4">
+          {DISPUTE_ITEMS.map((item) => (
+            <li key={item.id} className="editorial-card p-6">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                    {item.kind}
+                  </p>
+                  <h3 className="mt-1 max-w-2xl font-display text-xl leading-snug text-ink">
+                    {item.title}
+                  </h3>
+                </div>
+                <StatusTag tone={item.status === "EM VIGOR" ? "ok" : "pending"}>
+                  {item.status}
+                </StatusTag>
+              </div>
+
+              <dl className="mt-4 space-y-3 text-sm leading-relaxed">
+                <div>
+                  <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                    O que propõe
+                  </dt>
+                  <dd className="mt-1 text-ink">{item.proposal}</dd>
+                </div>
+                <div>
+                  <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                    Quem seria afetado
+                  </dt>
+                  <dd className="mt-1 text-muted-foreground">{item.affects}</dd>
+                </div>
+                <div>
+                  <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                    Situação
+                  </dt>
+                  <dd className="mt-1 text-muted-foreground">
+                    {item.statusNote}
+                  </dd>
+                </div>
+              </dl>
+
+              <p className="mt-4 font-mono text-[11px] text-muted-foreground">
+                Fonte:{" "}
+                <a
+                  href={item.sourceUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="underline"
+                >
+                  {item.sourceLabel}
+                </a>{" "}
+                · Última verificação pelo observatório:{" "}
+                {item.checkedAt ?? "a registrar"}
+              </p>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-6 space-y-3">
+          <GapNote label="Lacuna declarada">{DISPUTE_GAP}</GapNote>
+          <GapNote label="Regra editorial">{DISPUTE_RULE}</GapNote>
+        </div>
+      </SectionBlock>
+
+      <SectionBlock
+        kicker="Como ler uma regra em tramitação"
+        question="Três distinções que evitam erro"
+      >
+        <div className="grid gap-4 md:grid-cols-3">
+          <ContextBox variant="significa">
+            <p>
+              Apresentado, aprovado em comissão, aprovado em plenário e
+              sancionado são estágios distintos. Só o último produz norma.
+            </p>
+          </ContextBox>
+          <ContextBox variant="importa">
+            <p>
+              Resolução do TSE organiza a aplicação das regras de um ciclo; não
+              cria direito novo além do que a lei e a Constituição autorizam.
+            </p>
+          </ContextBox>
+          <ContextBox variant="calculamos">
+            <p>
+              Não atribuímos efeito estatístico a uma regra sem desenho
+              metodológico que permita isolar esse efeito. Contraste antes e
+              depois não é prova de causa.
+            </p>
+          </ContextBox>
+        </div>
         <p className="mt-6 font-mono text-[11px] text-muted-foreground">
-          Regras em discussão agora em{" "}
-          <Link to="/em-disputa" className="text-plum underline underline-offset-4">
-            Em disputa
+          Fórmulas, filtros e limitações em{" "}
+          <Link to="/metodo" className="text-plum underline underline-offset-4">
+            Método
           </Link>
         </p>
       </SectionBlock>
 
-      <NextAxes ids={["em-disputa", "condicoes", "metodo"]} />
+      <NextAxes ids={["dados-2026", "funil", "metodo"]} />
     </PageShell>
   );
 }
