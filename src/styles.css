@@ -174,3 +174,38 @@
   padding: 0.75rem 1rem;
   color: var(--color-foreground);
 }
+
+/* --- direção de arte cartaz (home) --- */
+
+@utility poster-frame {
+  background-color: var(--color-card);
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-lg);
+  box-shadow: 7px 7px 0 0 var(--color-ink);
+}
+
+@utility poster-frame-solar {
+  background-color: var(--color-card);
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-lg);
+  box-shadow: 7px 7px 0 0 var(--color-solar);
+}
+
+@utility poster-figure {
+  font-family: "Archivo", var(--font-sans);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility poster-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 2px solid var(--color-ink);
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  display: inline-block;
+}

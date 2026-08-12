@@ -5,27 +5,27 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { StatusTag } from "@/components/editorial/StatusTag";
+import { AiCredit } from "@/components/editorial/AiCredit";
 import {
   CENTRAL_PRINCIPLE,
   CENTRAL_THESIS,
-  COVER_QUESTION,
   FUNNEL_LAYERS,
 } from "@/data/architecture";
 import {
   CURRENT_INDICATORS,
-  SITE,
   formatPercent,
   formatPoints,
   type Indicator,
 } from "@/data/election-2026";
 import { applySnapshot } from "@/lib/tse/indicators";
-import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
+import {
+  getLatestTseSnapshot,
+  type PublicSnapshot,
+} from "@/lib/tse/snapshot.functions";
 import { getHistoricalSeries } from "@/lib/tse/historical.functions";
 import type { Series } from "@/lib/tse/historical-compute";
 import { PastStrip } from "@/components/funnel/PastStrip";
 import { GapNote } from "@/components/GapNote";
-import { PageHero } from "@/components/editorial/PageHero";
-import { HeroNumber } from "@/components/editorial/HeroNumber";
 import { PullQuote } from "@/components/editorial/PullQuote";
 import topoAsset from "@/assets/mulheresnotopo.webp.asset.json";
 
@@ -65,6 +65,8 @@ function snapshotDate(iso: string | null): string | null {
   return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
 }
 
+const nf = (n: number) => n.toLocaleString("pt-BR");
+
 const PLAIN_MEANING: Record<string, string> = {
   "participacao-feminina-proporcional":
     "Mulheres entre as candidaturas proporcionais",
@@ -74,25 +76,86 @@ const PLAIN_MEANING: Record<string, string> = {
     "Distância entre os dois universos, em pontos percentuais",
 };
 
-function IndicatorCard({
-  indicator,
-  featured,
+/** Maior participação feminina proporcional por UF, lida do snapshot. */
+function topUf(snapshot: PublicSnapshot | null) {
+  const dims = snapshot?.universes.proporcional.dimensions;
+  const fem = dims?.feminineByUf;
+  const tot = dims?.totalByUf;
+  if (!fem || !tot) return null;
+  let best: { uf: string; share: number; f: number; t: number } | null = null;
+  for (const [uf, t] of Object.entries(tot)) {
+    if (!t || t <= 0) continue;
+    const f = fem[uf] ?? 0;
+    const share = (f / t) * 100;
+    if (!best || share > best.share) best = { uf, share, f, t };
+  }
+  return best;
+}
+
+/** Card de achado: etiqueta → número gigante coral → significado → denominador. */
+function FindingCard({
+  tag,
+  value,
+  meaning,
+  denominator,
+  date,
 }: {
-  indicator: Indicator;
-  featured?: boolean;
+  tag: string;
+  value: string | null;
+  meaning: string;
+  denominator: string | null;
+  date: string | null;
 }) {
+  return (
+    <article className="poster-frame p-6">
+      <p className="poster-eyebrow text-ink">{tag}</p>
+      {value ? (
+        <>
+          <p className="poster-figure mt-4 text-[clamp(2.6rem,7vw,4rem)] text-coral">
+            {value}
+          </p>
+          <p className="mt-3 font-display text-lg leading-snug text-ink">
+            {meaning}
+          </p>
+          {denominator && (
+            <p className="mt-2 font-mono text-[11px] text-muted-foreground">
+              {denominator}
+            </p>
+          )}
+          {date && (
+            <p className="font-mono text-[11px] text-muted-foreground">
+              Fotografia da base de {date}
+            </p>
+          )}
+        </>
+      ) : (
+        <>
+          <p className="poster-figure mt-4 text-3xl text-plum">
+            em atualização
+          </p>
+          <p className="mt-3 font-display text-lg leading-snug text-ink">
+            {meaning}
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            Aguardando a nova fotografia da base do TSE.
+          </p>
+        </>
+      )}
+    </article>
+  );
+}
+
+function IndicatorCard({ indicator }: { indicator: Indicator }) {
   const isPoints = indicator.unit === "p.p.";
   const hasValue =
     indicator.value !== null && (isPoints || indicator.denominator !== null);
   const date = snapshotDate(indicator.baseGeneratedAt);
 
   return (
-    <article className={`editorial-card p-6 ${featured ? "border-plum" : ""}`}>
+    <article className="poster-frame p-6">
       {hasValue ? (
         <>
-          <p
-            className={`data-figure text-plum ${featured ? "text-6xl md:text-7xl" : "text-5xl"}`}
-          >
+          <p className="poster-figure text-[clamp(2.4rem,6vw,3.4rem)] text-plum">
             {isPoints
               ? formatPoints(indicator.value)
               : formatPercent(indicator.value)}
@@ -102,12 +165,12 @@ function IndicatorCard({
           </p>
           {indicator.numerator !== null && indicator.denominator !== null && (
             <p className="mt-2 font-mono text-[11px] text-muted-foreground">
-              {indicator.numerator.toLocaleString("pt-BR")} de{" "}
-              {indicator.denominator.toLocaleString("pt-BR")} candidaturas
+              {nf(indicator.numerator)} de {nf(indicator.denominator)}{" "}
+              candidaturas
             </p>
           )}
           {date && (
-            <p className="mt-1 font-mono text-[11px] text-muted-foreground">
+            <p className="font-mono text-[11px] text-muted-foreground">
               Fotografia da base de {date}
             </p>
           )}
@@ -129,6 +192,21 @@ function IndicatorCard({
   );
 }
 
+const INVESTIGATION_PLAN = [
+  {
+    n: "01",
+    text: "Fechar o dicionário de partidos e federações da base de 2026 antes de qualquer agrupamento por campo político.",
+  },
+  {
+    n: "02",
+    text: "Publicar o critério de classificação com fonte externa citável, e não uma leitura própria de conveniência.",
+  },
+  {
+    n: "03",
+    text: "Só então cruzar candidaturas de mulheres por campo, sempre com denominador por universo eleitoral.",
+  },
+];
+
 function DadosPage() {
   const { snapshot, historical } = Route.useLoaderData();
   const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
@@ -138,43 +216,230 @@ function DadosPage() {
     ) ?? null;
   const [first, ...rest] = indicators;
 
+  const baseDate = snapshotDate(snapshot?.baseGeneratedAt ?? null);
+  const prop = snapshot?.universes.proporcional ?? null;
+  const maj = snapshot?.universes.majoritario ?? null;
+  const uf = topUf(snapshot);
+  const propShare = prop && prop.total > 0 ? (prop.feminine / prop.total) * 100 : null;
+  const majShare = maj && maj.total > 0 ? (maj.feminine / maj.total) * 100 : null;
+
   return (
     <PageShell>
-      {/* ABERTURA — ilustração larga protagonista + título editorial */}
-      <PageHero
-        wide
-        kicker={SITE.cycle}
-        question="Quem entra, quem avança e onde a presença diminui."
-        lead={
-          <>
-            <p>{CENTRAL_THESIS}</p>
-            <p className="mt-3 font-display text-lg text-ink md:text-xl">
-              {COVER_QUESTION}
-            </p>
-          </>
-        }
-        image={topoAsset.url}
-        imageAlt="Ilustração editorial: mulheres sobem rampas e escadas em direção a uma urna eleitoral"
-        actions={
-          <>
-            <Link
-              to="/funil"
-              className="rounded-md bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
-            >
-              Ver o funil
-            </Link>
-            <Link
-              to="/metodo"
-              className="rounded-md border border-plum px-5 py-2.5 text-sm font-semibold text-plum transition-colors hover:bg-secondary"
-            >
-              Como lemos os dados
-            </Link>
-          </>
-        }
-      />
+      {/* 1. HERO — ilustração larga + painel de texto sobreposto */}
+      <section className="py-6 md:py-10">
+        <figure className="relative">
+          <div className="overflow-hidden rounded-lg border-2 border-ink">
+            <img
+              src={topoAsset.url}
+              alt="Ilustração editorial: mulheres sobem rampas e escadas em direção a uma urna eleitoral"
+              className="h-[240px] w-full object-cover sm:h-[340px] md:h-[460px]"
+            />
+          </div>
+          <AiCredit />
+        </figure>
 
-      {/* NÚMERO-HERÓI — etiqueta → número → significado → ressalva */}
-      {first && <HeroNumber indicator={first} />}
+        <div className="relative z-10 mx-auto -mt-12 max-w-3xl px-1 md:-mt-28 md:ml-0 md:mr-auto md:px-0">
+          <div className="poster-frame p-6 md:p-9">
+            <p className="poster-eyebrow text-ink">
+              Edição atual · Eleições 2026 · Brasil
+            </p>
+            <h1 className="mt-4 font-display text-[clamp(1.9rem,6vw,3.4rem)] leading-[1.03] text-ink">
+              Entre se candidatar e chegar ao poder,{" "}
+              <span className="text-plum italic">onde elas desaparecem?</span>
+            </h1>
+            <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground md:text-lg">
+              {CENTRAL_THESIS}
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <Link
+                to="/funil"
+                className="rounded-md border-2 border-ink bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+              >
+                Ver o funil
+              </Link>
+              <Link
+                to="/metodo"
+                className="rounded-md border-2 border-ink px-5 py-2.5 text-sm font-semibold text-plum transition-colors hover:bg-secondary"
+              >
+                Como lemos os dados
+              </Link>
+              <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                Dados parciais · Base do TSE ·{" "}
+                {baseDate ?? "base em atualização"}
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. TESE + DIÁRIO DA ENTRADA */}
+      <section className="rule-top grid gap-8 py-12 md:py-16 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+        <div>
+          <p className="kicker">A tese que investigamos</p>
+          <h2 className="mt-3 font-display text-[clamp(1.7rem,4.6vw,2.8rem)] leading-[1.08] text-ink">
+            Mulheres não estão ausentes da política.{" "}
+            <span className="text-plum italic">
+              Sua presença encolhe quando o poder se concentra.
+            </span>
+          </h2>
+          <p className="mt-5 max-w-xl leading-relaxed text-muted-foreground">
+            A hipótese que orienta esta edição é de distribuição, não de
+            ausência: quanto mais concentrado o cargo, menor a presença. É uma
+            hipótese a testar etapa por etapa — registro, recursos, votos,
+            cadeiras e comando — com denominador próprio em cada uma. Nenhum
+            contraste desta página, isolado, prova causa.
+          </p>
+        </div>
+
+        <aside className="poster-frame-solar p-6 md:p-7">
+          <p className="poster-eyebrow text-ink">Diário da entrada</p>
+          {snapshot ? (
+            <>
+              <p className="poster-figure mt-5 text-[clamp(2.9rem,10vw,4.75rem)] text-ink">
+                {nf(snapshot.recordCount)}
+              </p>
+              <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                pedidos de registro na fotografia
+              </p>
+
+              <div className="mt-6 grid gap-4 border-t-2 border-ink pt-5 sm:grid-cols-2">
+                <div>
+                  <p className="poster-figure text-3xl text-plum">
+                    {prop ? nf(prop.feminine) : "—"}
+                  </p>
+                  <p className="mt-1 font-display text-base leading-snug text-ink">
+                    mulheres nas proporcionais
+                  </p>
+                  <p className="mt-1 font-mono text-[11px] text-muted-foreground">
+                    {propShare !== null && prop
+                      ? `${formatPercent(propShare)} · ${nf(prop.feminine)} de ${nf(prop.total)}`
+                      : "em atualização"}
+                  </p>
+                </div>
+                <div>
+                  <p className="poster-figure text-3xl text-coral">
+                    {maj ? nf(maj.feminine) : "—"}
+                  </p>
+                  <p className="mt-1 font-display text-base leading-snug text-ink">
+                    mulheres nas majoritárias
+                  </p>
+                  <p className="mt-1 font-mono text-[11px] text-muted-foreground">
+                    {majShare !== null && maj
+                      ? `${formatPercent(majShare)} · ${nf(maj.feminine)} de ${nf(maj.total)}`
+                      : "em atualização"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-6 border-2 border-ink bg-ink px-4 py-3">
+                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-solar">
+                  Primeiro marco
+                </p>
+                <p className="mt-1 text-sm leading-relaxed text-cream/85">
+                  Esta é a primeira fotografia comparável do ciclo de 2026.
+                  Fotografia da base de {baseDate ?? "data em atualização"} —
+                  provisória: o registro ainda pode mudar por decisão da Justiça
+                  Eleitoral. Os dois universos têm denominadores próprios e não
+                  são somados.
+                </p>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="mt-5 font-display text-2xl text-plum">
+                Em atualização
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-ink/80">
+                Aguardando a nova fotografia da base do TSE. Dado não disponível
+                não é zero.
+              </p>
+            </>
+          )}
+        </aside>
+      </section>
+
+      {/* 3. TRÊS ACHADOS */}
+      <section className="rule-top py-12 md:py-14">
+        <p className="kicker">Três achados desta fotografia</p>
+        <h2 className="mt-3 max-w-3xl font-display text-[clamp(1.6rem,4.2vw,2.5rem)] leading-tight text-ink">
+          O que os registros{" "}
+          <span className="text-plum italic">permitem dizer agora</span>
+        </h2>
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
+          <FindingCard
+            tag="Entrada proporcional"
+            value={propShare !== null ? formatPercent(propShare) : null}
+            meaning="das candidaturas proporcionais são de mulheres"
+            denominator={
+              prop ? `${nf(prop.feminine)} de ${nf(prop.total)} candidaturas` : null
+            }
+            date={baseDate}
+          />
+          <FindingCard
+            tag="Comando majoritário"
+            value={majShare !== null ? formatPercent(majShare) : null}
+            meaning="das candidaturas majoritárias, de cargo único, são de mulheres"
+            denominator={
+              maj ? `${nf(maj.feminine)} de ${nf(maj.total)} candidaturas` : null
+            }
+            date={baseDate}
+          />
+          <FindingCard
+            tag="Território"
+            value={uf ? formatPercent(uf.share) : null}
+            meaning={
+              uf
+                ? `maior presença feminina proporcional entre as unidades da federação: ${uf.uf}`
+                : "maior presença feminina proporcional entre as unidades da federação"
+            }
+            denominator={
+              uf ? `${nf(uf.f)} de ${nf(uf.t)} candidaturas em ${uf.uf}` : null
+            }
+            date={baseDate}
+          />
+        </div>
+        <p className="mt-6 font-mono text-[11px] text-muted-foreground">
+          Fonte: TSE · Candidaturas 2026 ·{" "}
+          <Link to="/metodo" className="text-plum underline underline-offset-4">
+            ver o método
+          </Link>
+        </p>
+      </section>
+
+      {/* 4. INVESTIGAÇÃO CENTRAL — bloco amarelo chapado */}
+      <section className="my-10 rounded-lg border-2 border-ink bg-solar px-5 py-12 text-ink shadow-[7px_7px_0_0_var(--color-ink)] md:px-10 md:py-14">
+        <div className="flex flex-wrap items-center gap-3">
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-plum">
+            Investigação central
+          </p>
+          <span className="poster-eyebrow bg-ink text-cream">
+            Em apuração metodológica
+          </span>
+        </div>
+        <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.6rem,4.4vw,2.6rem)] leading-tight">
+          As candidaturas de mulheres não se distribuem igualmente entre os
+          campos políticos —{" "}
+          <span className="text-plum italic">
+            mas isso só será publicado com critério auditável.
+          </span>
+        </h2>
+        <p className="mt-4 max-w-2xl leading-relaxed text-ink/80">
+          A base do TSE traz partido e forma de agremiação, não campo
+          ideológico. Qualquer agrupamento por campo é uma classificação
+          editorial, e por isso ela precisa de critério declarado antes de
+          qualquer número. Até lá, não publicamos percentual por campo.
+        </p>
+        <ol className="mt-8 grid gap-4 md:grid-cols-3">
+          {INVESTIGATION_PLAN.map((item) => (
+            <li key={item.n} className="border-t-2 border-ink pt-3">
+              <span className="poster-figure text-2xl text-plum">{item.n}</span>
+              <p className="mt-2 text-sm leading-relaxed text-ink/85">
+                {item.text}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </section>
 
       {/* A FOTOGRAFIA DE AGORA */}
       <SectionBlock
@@ -197,7 +462,8 @@ function DadosPage() {
           </>
         }
       >
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-5 md:grid-cols-2">
+          {first && <IndicatorCard indicator={first} />}
           {rest.map((indicator) => (
             <IndicatorCard key={indicator.id} indicator={indicator} />
           ))}
@@ -221,8 +487,7 @@ function DadosPage() {
 
       <PullQuote>Dado não disponível não é zero.</PullQuote>
 
-
-      {/* CONTEXTO HISTÓRICO — série já auditada, leitura descritiva */}
+      {/* CONTEXTO HISTÓRICO */}
       <SectionBlock
         kicker="Como chegamos até aqui"
         question="Uma fotografia mostra a desigualdade. A série mostra o movimento."
@@ -246,7 +511,7 @@ function DadosPage() {
         </div>
       </SectionBlock>
 
-      {/* DOIS UNIVERSOS — bloco colorido, ritmo */}
+      {/* DOIS UNIVERSOS — bloco colorido */}
       <SectionBlock
         tone="plum"
         kicker="Dois universos"
@@ -261,7 +526,7 @@ function DadosPage() {
         }
       >
         <div className="grid gap-6 md:grid-cols-2">
-          <article className="editorial-card p-6">
+          <article className="poster-frame p-6">
             <h3 className="font-display text-xl text-ink">Proporcional</h3>
             <p className="mt-2 leading-relaxed text-muted-foreground">
               Câmara dos Deputados, assembleias legislativas e Câmara Legislativa
@@ -271,7 +536,7 @@ function DadosPage() {
               com a regra de composição de 30%–70% por gênero
             </p>
           </article>
-          <article className="editorial-card p-6">
+          <article className="poster-frame p-6">
             <h3 className="font-display text-xl text-ink">Majoritária</h3>
             <p className="mt-2 leading-relaxed text-muted-foreground">
               Presidência, governos estaduais e do Distrito Federal e Senado.
@@ -282,7 +547,6 @@ function DadosPage() {
           </article>
         </div>
       </SectionBlock>
-
 
       {/* O FUNIL */}
       <SectionBlock
@@ -296,11 +560,11 @@ function DadosPage() {
           </p>
         }
       >
-        <ol className="grid gap-3 md:grid-cols-3">
+        <ol className="grid gap-4 md:grid-cols-3">
           {FUNNEL_LAYERS.map((layer, i) => (
-            <li key={layer.id} className="editorial-card p-5">
-              <span className="font-mono text-[11px] text-muted-foreground">
-                camada 0{i + 1}
+            <li key={layer.id} className="poster-frame p-5">
+              <span className="poster-figure text-2xl text-plum">
+                0{i + 1}
               </span>
               <h3 className="mt-1 font-display text-xl text-ink">
                 {layer.label}
@@ -326,7 +590,7 @@ function DadosPage() {
         </ol>
         <Link
           to="/funil"
-          className="mt-8 inline-flex rounded-md bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+          className="mt-8 inline-flex rounded-md border-2 border-ink bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
         >
           Explorar o funil →
         </Link>
@@ -352,6 +616,7 @@ function DadosPage() {
 
       {/* COMO SABEMOS */}
       <SectionBlock
+        tone="ink"
         kicker="Como sabemos?"
         question="Dados para perguntar. Método para conferir."
         lead={
@@ -364,7 +629,7 @@ function DadosPage() {
       >
         <Link
           to="/metodo"
-          className="inline-flex rounded-md border border-plum px-5 py-2.5 text-sm font-semibold text-plum transition-colors hover:bg-secondary"
+          className="inline-flex rounded-md border-2 border-solar px-5 py-2.5 text-sm font-semibold text-solar transition-colors hover:bg-solar hover:text-ink"
         >
           Conheça o método →
         </Link>
