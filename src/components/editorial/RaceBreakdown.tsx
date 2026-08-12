@@ -99,12 +99,12 @@ function Table({
 export function RaceBreakdown({ snapshot }: { snapshot: PublicSnapshot | null }) {
   return (
     <div className="space-y-8">
-      <figure className="overflow-hidden rounded-lg border border-rule">
+      <figure className="overflow-hidden rounded-lg border border-rule bg-paper">
         <img
           src={mulheresAsset.url}
           alt="Ilustração editorial: fileira de mulheres de perfil, de diferentes idades e origens"
           loading="lazy"
-          className="h-40 w-full object-cover md:h-56"
+          className="h-auto w-full object-contain"
         />
       </figure>
       <div className="grid gap-6 md:grid-cols-2">
