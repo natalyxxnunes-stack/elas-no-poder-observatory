@@ -1,4 +1,5 @@
 import { RACE_CATEGORY_RULE } from "@/data/architecture";
+import mulheresAsset from "@/assets/mulheres.webp.asset.json";
 import { GapNote } from "@/components/GapNote";
 import { snapshotRaceCounts } from "@/lib/tse/indicators";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
@@ -98,6 +99,14 @@ function Table({
 export function RaceBreakdown({ snapshot }: { snapshot: PublicSnapshot | null }) {
   return (
     <div className="space-y-8">
+      <figure className="overflow-hidden rounded-lg border border-rule">
+        <img
+          src={mulheresAsset.url}
+          alt="Ilustração editorial: fileira de mulheres de perfil, de diferentes idades e origens"
+          loading="lazy"
+          className="h-40 w-full object-cover md:h-56"
+        />
+      </figure>
       <div className="grid gap-6 md:grid-cols-2">
         <Table snapshot={snapshot} universe="proporcional" />
         <Table snapshot={snapshot} universe="majoritario" />

@@ -7,6 +7,7 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
+import { PullQuote } from "@/components/editorial/PullQuote";
 import {
   CURRENT_INDICATORS,
   DATA_STATUS,
@@ -93,8 +94,9 @@ function MetodoPage() {
   return (
     <PageShell>
       <PageHero
+        wide
         kicker="Método"
-        question="Como sabemos?"
+        question="Todo número precisa mostrar de onde veio."
         lead={
           <p>
             Esta página tem duas camadas. A primeira explica em linguagem simples
@@ -157,8 +159,11 @@ function MetodoPage() {
         </div>
       </SectionBlock>
 
+      <PullQuote>Correlação não é causalidade.</PullQuote>
+
       {/* CAMADA 2 — ficha técnica */}
       <SectionBlock
+        tone="solar"
         kicker="Camada 2 · ficha técnica"
         question="Fonte e processamento"
       >

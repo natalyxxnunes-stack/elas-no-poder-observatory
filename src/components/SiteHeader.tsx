@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
+import { BrandWordmark } from "./BrandWordmark";
 import { SITE } from "@/data/election-2026";
 import { NAV_ITEMS } from "@/data/architecture";
 
@@ -19,9 +20,7 @@ export function SiteHeader() {
         <Link to="/" className="flex items-center gap-3" onClick={close}>
           <BrandLogo className="h-10 w-10 shrink-0" />
           <span className="leading-tight">
-            <span className="block font-display text-lg font-semibold text-ink">
-              {SITE.name}
-            </span>
+            <BrandWordmark className="block font-display text-lg font-semibold text-ink" />
             <span className="block text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
               {SITE.tagline}
             </span>

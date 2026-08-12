@@ -80,6 +80,7 @@ function FunilPage() {
   return (
     <PageShell>
       <PageHero
+        wide
         kicker="O funil de 2026"
         question="Onde elas ficam pelo caminho?"
         lead={

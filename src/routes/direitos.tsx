@@ -14,7 +14,9 @@ import {
   DISPUTE_ITEMS,
   DISPUTE_RULE,
 } from "@/data/rules-in-dispute";
-import mulheresAsset from "@/assets/mulheres.webp.asset.json";
+import feministasAsset from "@/assets/feministas.webp.asset.json";
+import respiroFundoAsset from "@/assets/respirocomfundo.webp.asset.json";
+import { PullQuote } from "@/components/editorial/PullQuote";
 
 export const Route = createFileRoute("/direitos")({
   head: () => ({
@@ -50,8 +52,9 @@ function DireitosPage() {
   return (
     <PageShell>
       <PageHero
+        wide
         kicker="Direitos"
-        question="Como chegamos até aqui?"
+        question="Nada foi dado. Tudo foi disputado."
         lead={
           <p>
             A presença de mulheres nas eleições brasileiras não é espontânea: é
@@ -59,8 +62,8 @@ function DireitosPage() {
             alcance limitado e disputa própria.
           </p>
         }
-        image={mulheresAsset.url}
-        imageAlt="Ilustração editorial: mulheres brasileiras diversas de perfil, em fila"
+        image={feministasAsset.url}
+        imageAlt="Ilustração editorial: marcha de mulheres com cartazes e urnas"
       />
 
       <div className="pb-4">
@@ -92,7 +95,14 @@ function DireitosPage() {
         kicker="Linha do tempo"
         question="Cada marco em cinco perguntas"
         align="wide"
-        lead={<p>{RIGHTS_TIMELINE_RULE}</p>}
+        lead={
+          <>
+            <p className="font-display text-xl leading-snug text-ink">
+              Uma lei é um marco. Não é a linha de chegada.
+            </p>
+            <p className="mt-3">{RIGHTS_TIMELINE_RULE}</p>
+          </>
+        }
       >
         <ol className="space-y-6 border-l-2 border-plum pl-6">
           {RIGHTS_TIMELINE.map((m) => (
@@ -178,8 +188,20 @@ function DireitosPage() {
         </div>
       </SectionBlock>
 
+      {/* RESPIRO — pausa visual entre dois blocos densos */}
+      <div className="flex justify-center py-6">
+        <img
+          src={respiroFundoAsset.url}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          className="h-auto w-52 rounded-lg md:w-72"
+        />
+      </div>
+
       {/* EM DISPUTA — presente das regras, na sequência da linha do tempo */}
       <SectionBlock
+        tone="ink"
         kicker="Em disputa"
         question="As regras também estão em disputa"
         align="wide"
@@ -249,7 +271,7 @@ function DireitosPage() {
           ))}
         </ul>
 
-        <div className="mt-6 space-y-3">
+        <div className="editorial-card mt-6 space-y-3 p-4">
           <GapNote label="Lacuna declarada">{DISPUTE_GAP}</GapNote>
           <GapNote label="Regra editorial">{DISPUTE_RULE}</GapNote>
         </div>

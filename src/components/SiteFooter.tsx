@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { BrandLogo } from "./BrandLogo";
+import { BrandWordmark } from "./BrandWordmark";
 import { SITE } from "@/data/election-2026";
 import { CENTRAL_THESIS, COVER_QUESTION, NAV_ITEMS } from "@/data/architecture";
 
@@ -10,7 +11,7 @@ export function SiteFooter() {
         <div>
           <div className="flex items-center gap-3">
             <BrandLogo className="h-11 w-11" />
-            <span className="font-display text-xl font-semibold">{SITE.name}</span>
+            <BrandWordmark tone="cream" className="font-display text-xl font-semibold" />
           </div>
           <p className="mt-5 max-w-md font-display text-xl leading-snug text-cream/90">
             “{COVER_QUESTION}”

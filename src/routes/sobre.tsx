@@ -5,6 +5,7 @@ import aberturaAsset from "@/assets/aberturasobre.webp.asset.json";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
+import { PullQuote } from "@/components/editorial/PullQuote";
 import { SITE } from "@/data/election-2026";
 
 export const Route = createFileRoute("/sobre")({
@@ -42,6 +43,7 @@ function SobrePage() {
   return (
     <PageShell>
       <PageHero
+        wide
         kicker="Sobre"
         question="Quem faz?"
         lead={
@@ -137,6 +139,13 @@ function SobrePage() {
           </p>
         </div>
       </SectionBlock>
+
+      <PullQuote>
+        Você pode discordar da minha leitura, mas precisa conseguir ver como
+        cheguei até aqui.
+      </PullQuote>
+
+
 
       <SectionBlock
         kicker="Um projeto independente"
