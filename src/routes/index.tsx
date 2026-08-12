@@ -283,9 +283,7 @@ function DadosPage() {
             alt=""
             aria-hidden
             loading="lazy"
-            width={640}
-            height={640}
-            className="h-24 w-24 shrink-0 md:h-32 md:w-32"
+            className="h-auto w-40 shrink-0 md:w-56"
           />
         </div>
       </SectionBlock>

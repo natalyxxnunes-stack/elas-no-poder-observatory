@@ -104,7 +104,6 @@ function MetodoPage() {
         }
         image={checagemAsset.url}
         imageAlt="Ilustração editorial: mãos conferindo gráficos e documentos com uma lupa"
-
         aside={
           <div className="editorial-card p-5">
             <p className="kicker">Fotografia vigente</p>
