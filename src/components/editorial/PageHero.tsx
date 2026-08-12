@@ -36,9 +36,7 @@ export function PageHero({
             alt={imageAlt ?? ""}
             aria-hidden={imageAlt ? undefined : true}
             loading="lazy"
-            width={640}
-            height={640}
-            className="mx-auto h-36 w-36 md:h-52 md:w-52 lg:mx-0"
+            className="mx-auto h-auto w-full max-w-md lg:mx-0"
           />
         )}
         {aside}

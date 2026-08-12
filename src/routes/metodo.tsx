@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
+import checagemAsset from "@/assets/checagem.webp.asset.json";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { StatusTag } from "@/components/editorial/StatusTag";
@@ -101,6 +102,8 @@ function MetodoPage() {
             gerada a partir da mesma camada de dados que alimenta o site.
           </p>
         }
+        image={checagemAsset.url}
+        imageAlt="Ilustração editorial: mãos conferindo gráficos e documentos com uma lupa"
         aside={
           <div className="editorial-card p-5">
             <p className="kicker">Fotografia vigente</p>
