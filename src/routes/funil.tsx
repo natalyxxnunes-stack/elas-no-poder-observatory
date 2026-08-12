@@ -11,6 +11,7 @@ import { PastStrip } from "@/components/funnel/PastStrip";
 import { FUNNEL_READING_RULE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import { getHistoricalSeries } from "@/lib/tse/historical.functions";
+import type { Series } from "@/lib/tse/historical-compute";
 import spotStrength from "@/assets/spot-strength.png";
 
 export const Route = createFileRoute("/funil")({
@@ -62,7 +63,9 @@ export const Route = createFileRoute("/funil")({
 function FunilPage() {
   const { snapshot, historical } = Route.useLoaderData();
   const feminineSeries =
-    historical.series.find((s) => s.id === "serie-mulheres-candidaturas") ??
+    (historical.series as Series[]).find(
+      (s) => s.id === "serie-mulheres-candidaturas",
+    ) ??
     null;
 
   const stamp = snapshot?.baseGeneratedAt ?? snapshot?.collectedAt ?? null;
