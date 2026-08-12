@@ -42,7 +42,7 @@ export function PageHero({
 
 
         <div className="relative z-10 mx-auto -mt-10 max-w-3xl px-1 md:-mt-24 md:mr-auto md:ml-0 md:px-0">
-          <div className="editorial-card p-6 md:p-9">
+          <div className="rounded-lg border-2 border-ink bg-paper/95 p-6 shadow-[9px_9px_0_0_var(--color-plum)] md:p-9">
             <p className="kicker">{kicker}</p>
             <h1 className="mt-3 font-display text-3xl leading-[1.05] text-ink md:text-5xl">
               {question}
