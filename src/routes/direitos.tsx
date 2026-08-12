@@ -188,8 +188,20 @@ function DireitosPage() {
         </div>
       </SectionBlock>
 
+      {/* RESPIRO — pausa visual entre dois blocos densos */}
+      <div className="flex justify-center py-6">
+        <img
+          src={respiroFundoAsset.url}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          className="h-auto w-52 rounded-lg md:w-72"
+        />
+      </div>
+
       {/* EM DISPUTA — presente das regras, na sequência da linha do tempo */}
       <SectionBlock
+        tone="ink"
         kicker="Em disputa"
         question="As regras também estão em disputa"
         align="wide"
