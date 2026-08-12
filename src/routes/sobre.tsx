@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
+import aberturaAsset from "@/assets/aberturasobre.webp.asset.json";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
@@ -51,6 +52,8 @@ function SobrePage() {
             entender direito o que estão dizendo.
           </p>
         }
+        image={aberturaAsset.url}
+        imageAlt="Ilustração editorial: mesa de trabalho jornalística com caderno de metodologia, gráficos e recortes"''".replace("''","")
         aside={
           <div className="editorial-card p-5">
             <p className="kicker">O projeto</p>

@@ -24,8 +24,8 @@ import { getHistoricalSeries } from "@/lib/tse/historical.functions";
 import type { Series } from "@/lib/tse/historical-compute";
 import { PastStrip } from "@/components/funnel/PastStrip";
 import { GapNote } from "@/components/GapNote";
-import heroImage from "@/assets/elections-editorial.png";
-import spotQuota from "@/assets/spot-quota.png";
+import heroAsset from "@/assets/feministas.webp.asset.json";
+import respiroAsset from "@/assets/respiro.webp.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -166,8 +166,8 @@ function DadosPage() {
 
         <figure className="editorial-card overflow-hidden">
           <img
-            src={heroImage}
-            alt="Ilustração editorial: fila de mulheres diante de uma urna eleitoral"
+            src={heroAsset.url}
+            alt="Ilustração editorial: mulheres de várias gerações caminham até a urna com cartazes"
             width={1280}
             height={800}
             className="w-full"
@@ -279,7 +279,7 @@ function DadosPage() {
             </p>
           </article>
           <img
-            src={spotQuota}
+            src={respiroAsset.url}
             alt=""
             aria-hidden
             loading="lazy"

@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
+import subindoAsset from "@/assets/subindo.webp.asset.json";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -88,6 +89,8 @@ function FunilPage() {
             denominador próprio: nada é subtraído de uma para a outra.
           </p>
         }
+        image={subindoAsset.url}
+        imageAlt="Ilustração editorial: mulher subindo degraus sob arcos coloridos"
       />
 
       <div className="pb-4">

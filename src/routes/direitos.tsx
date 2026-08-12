@@ -14,7 +14,7 @@ import {
   DISPUTE_ITEMS,
   DISPUTE_RULE,
 } from "@/data/rules-in-dispute";
-import timelineImage from "@/assets/timeline-editorial.png";
+import mulheresAsset from "@/assets/mulheres.webp.asset.json";
 
 export const Route = createFileRoute("/direitos")({
   head: () => ({
@@ -59,8 +59,8 @@ function DireitosPage() {
             alcance limitado e disputa própria.
           </p>
         }
-        image={timelineImage}
-        imageAlt="Ilustração editorial: linha do tempo dos direitos políticos das mulheres"
+        image={mulheresAsset.url}
+        imageAlt="Ilustração editorial: mulheres brasileiras diversas de perfil, em fila"
       />
 
       <div className="pb-4">
