@@ -93,8 +93,9 @@ function MetodoPage() {
   return (
     <PageShell>
       <PageHero
+        wide
         kicker="Método"
-        question="Como sabemos?"
+        question="Todo número precisa mostrar de onde veio."
         lead={
           <p>
             Esta página tem duas camadas. A primeira explica em linguagem simples

@@ -14,7 +14,9 @@ import {
   DISPUTE_ITEMS,
   DISPUTE_RULE,
 } from "@/data/rules-in-dispute";
-import mulheresAsset from "@/assets/mulheres.webp.asset.json";
+import feministasAsset from "@/assets/feministas.webp.asset.json";
+import respiroFundoAsset from "@/assets/respirocomfundo.webp.asset.json";
+import { PullQuote } from "@/components/editorial/PullQuote";
 
 export const Route = createFileRoute("/direitos")({
   head: () => ({
@@ -50,8 +52,9 @@ function DireitosPage() {
   return (
     <PageShell>
       <PageHero
+        wide
         kicker="Direitos"
-        question="Como chegamos até aqui?"
+        question="Nada foi dado. Tudo foi disputado."
         lead={
           <p>
             A presença de mulheres nas eleições brasileiras não é espontânea: é
@@ -59,8 +62,8 @@ function DireitosPage() {
             alcance limitado e disputa própria.
           </p>
         }
-        image={mulheresAsset.url}
-        imageAlt="Ilustração editorial: mulheres brasileiras diversas de perfil, em fila"
+        image={feministasAsset.url}
+        imageAlt="Ilustração editorial: marcha de mulheres com cartazes e urnas"
       />
 
       <div className="pb-4">

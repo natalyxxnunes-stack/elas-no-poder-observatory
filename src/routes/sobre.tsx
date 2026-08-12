@@ -42,6 +42,7 @@ function SobrePage() {
   return (
     <PageShell>
       <PageHero
+        wide
         kicker="Sobre"
         question="Quem faz?"
         lead={
