@@ -440,6 +440,7 @@ function DadosPage() {
           ))}
         </ol>
       </section>
+      <PullQuote>Dado não disponível não é zero.</PullQuote>
 
 
       {/* CONTEXTO HISTÓRICO */}
