@@ -95,7 +95,14 @@ function DireitosPage() {
         kicker="Linha do tempo"
         question="Cada marco em cinco perguntas"
         align="wide"
-        lead={<p>{RIGHTS_TIMELINE_RULE}</p>}
+        lead={
+          <>
+            <p className="font-display text-xl leading-snug text-ink">
+              Uma lei é um marco. Não é a linha de chegada.
+            </p>
+            <p className="mt-3">{RIGHTS_TIMELINE_RULE}</p>
+          </>
+        }
       >
         <ol className="space-y-6 border-l-2 border-plum pl-6">
           {RIGHTS_TIMELINE.map((m) => (
