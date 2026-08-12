@@ -111,9 +111,11 @@ function DireitosPage() {
                 aria-hidden
                 className="absolute -left-[31px] top-2 h-3.5 w-3.5 rounded-full border-2 border-plum bg-paper"
               />
-              <div className="editorial-card p-6">
+              <div className="poster-frame p-6">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
-                  <p className="data-figure text-3xl text-plum">{m.year}</p>
+                  <p className="poster-figure text-[2rem] text-plum md:text-[2.6rem]">
+                    {m.year}
+                  </p>
                   {m.needsReview && (
                     <StatusTag tone="limit">redação a conferir</StatusTag>
                   )}
@@ -158,7 +160,7 @@ function DireitosPage() {
           {RIGHTS_OPEN_QUESTIONS.map((q) => (
             <li
               key={q}
-              className="editorial-card p-5 text-sm leading-relaxed text-muted-foreground"
+              className="poster-frame p-5 text-sm leading-relaxed text-muted-foreground"
             >
               {q}
             </li>
@@ -216,7 +218,7 @@ function DireitosPage() {
       >
         <ul className="space-y-4">
           {DISPUTE_ITEMS.map((item) => (
-            <li key={item.id} className="editorial-card p-6">
+            <li key={item.id} className="poster-frame p-6">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
@@ -271,13 +273,14 @@ function DireitosPage() {
           ))}
         </ul>
 
-        <div className="editorial-card mt-6 space-y-3 p-4">
+        <div className="poster-frame mt-6 space-y-3 p-4">
           <GapNote label="Lacuna declarada">{DISPUTE_GAP}</GapNote>
           <GapNote label="Regra editorial">{DISPUTE_RULE}</GapNote>
         </div>
       </SectionBlock>
 
       <SectionBlock
+        tone="solar"
         kicker="Como ler uma regra em tramitação"
         question="Três distinções que evitam erro"
       >
