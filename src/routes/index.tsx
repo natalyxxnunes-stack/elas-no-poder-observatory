@@ -138,17 +138,23 @@ function DadosPage() {
 
   return (
     <PageShell>
-      {/* HERO — pergunta de capa protagonista */}
-      <section className="grid gap-10 py-14 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:py-20">
-        <div>
-          <p className="kicker">{SITE.cycle}</p>
-          <h1 className="mt-4 font-display text-4xl leading-[1.02] text-ink md:text-6xl">
-            {COVER_QUESTION}
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            {CENTRAL_THESIS}
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+      {/* ABERTURA — ilustração larga protagonista + título editorial */}
+      <PageHero
+        wide
+        kicker={SITE.cycle}
+        question="Quem entra, quem avança e onde a presença diminui."
+        lead={
+          <>
+            <p>{CENTRAL_THESIS}</p>
+            <p className="mt-3 font-display text-lg text-ink md:text-xl">
+              {COVER_QUESTION}
+            </p>
+          </>
+        }
+        image={topoAsset.url}
+        imageAlt="Ilustração editorial: mulheres sobem rampas e escadas em direção a uma urna eleitoral"
+        actions={
+          <>
             <Link
               to="/funil"
               className="rounded-md bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
@@ -161,19 +167,12 @@ function DadosPage() {
             >
               Como lemos os dados
             </Link>
-          </div>
-        </div>
+          </>
+        }
+      />
 
-        <figure className="editorial-card overflow-hidden">
-          <img
-            src={heroAsset.url}
-            alt="Ilustração editorial: mulheres de várias gerações caminham até a urna com cartazes"
-            width={1280}
-            height={800}
-            className="w-full"
-          />
-        </figure>
-      </section>
+      {/* NÚMERO-HERÓI — etiqueta → número → significado → ressalva */}
+      {first && <HeroNumber indicator={first} />}
 
       {/* A FOTOGRAFIA DE AGORA */}
       <SectionBlock
@@ -196,13 +195,10 @@ function DadosPage() {
           </>
         }
       >
-        <div className="grid gap-4 lg:grid-cols-[1.2fr_1fr]">
-          {first && <IndicatorCard indicator={first} featured />}
-          <div className="grid gap-4">
-            {rest.map((indicator) => (
-              <IndicatorCard key={indicator.id} indicator={indicator} />
-            ))}
-          </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          {rest.map((indicator) => (
+            <IndicatorCard key={indicator.id} indicator={indicator} />
+          ))}
         </div>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           <ContextBox variant="significa">
@@ -220,6 +216,9 @@ function DadosPage() {
           </ContextBox>
         </div>
       </SectionBlock>
+
+      <PullQuote>Dado não disponível não é zero.</PullQuote>
+
 
       {/* CONTEXTO HISTÓRICO — série já auditada, leitura descritiva */}
       <SectionBlock
