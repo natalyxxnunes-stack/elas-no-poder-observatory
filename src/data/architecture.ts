@@ -220,40 +220,34 @@ export function axis(id: string): Axis {
   return found;
 }
 
-/** Navegação agrupada — o menu principal nunca lista os 14 eixos. */
-export type NavGroup = {
-  label: string;
-  items: readonly { to: string; label: string; question: string }[];
-};
-
+/**
+ * Navegação de lançamento — menu plano de 5 itens.
+ *
+ * Os demais eixos permanecem descritos em `AXES` e seus arquivos de rota
+ * seguem preservados no projeto, mas estão despublicados: fora do menu, do
+ * rodapé e da navegação entre eixos, prontos para republicação futura.
+ */
 const navItem = (id: string) => {
   const a = axis(id);
   return { to: a.to, label: a.label, question: a.question };
 };
 
-export const NAV_GROUPS: readonly NavGroup[] = [
-  {
-    label: "Investigue",
-    items: [
-      navItem("condicoes"),
-      navItem("quem-controla"),
-      navItem("funil"),
-      navItem("quem-sao-elas"),
-      navItem("dinheiro"),
-      navItem("votos"),
-      navItem("quem-chega"),
-      navItem("barreiras"),
-    ],
-  },
-  {
-    label: "Entenda",
-    items: [navItem("direitos"), navItem("em-disputa"), navItem("metodo")],
-  },
-];
+export const NAV_ITEMS = [
+  navItem("dados-2026"),
+  navItem("funil"),
+  navItem("direitos"),
+  navItem("metodo"),
+  navItem("sobre"),
+] as const;
 
-/** Itens fixos do menu, fora dos agrupamentos. */
-export const NAV_DIRECT = [navItem("dados-2026"), navItem("sobre")] as const;
-export const NAV_CTA = navItem("downloads");
+/** Eixos publicados no lançamento. */
+export const PUBLISHED_AXES = [
+  "dados-2026",
+  "funil",
+  "direitos",
+  "metodo",
+  "sobre",
+] as const;
 
 /**
  * O funil em três camadas narrativas. Cada passagem tem universo e fonte
