@@ -22,15 +22,15 @@ export function PastStrip({ series }: { series: Series | null }) {
   if (points.length === 0) return null;
 
   return (
-    <div className="editorial-card p-5">
-      <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+    <div className="poster-frame p-5 md:p-6">
+      <p className="poster-eyebrow border-plum text-plum">
         Mulheres nas candidaturas proporcionais · eleições gerais
       </p>
       <ol className="mt-4 flex flex-wrap items-end gap-x-6 gap-y-4">
         {points.map((p, i) => (
           <li key={p.year} className="flex items-end gap-6">
             <div>
-              <p className="data-figure text-2xl leading-none text-plum md:text-3xl">
+              <p className="poster-figure text-3xl leading-none text-plum md:text-4xl">
                 {pct(p.value as number)}
               </p>
               <p className="mt-1 font-mono text-[11px] text-muted-foreground">

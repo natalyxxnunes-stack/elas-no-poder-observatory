@@ -52,11 +52,11 @@ function StageBar({
 }) {
   const share = (feminine / total) * 100;
   return (
-    <li className="editorial-card overflow-hidden">
+    <li className="poster-frame overflow-hidden">
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
-          <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-            etapa 0{step}
+          <span className="poster-figure block text-3xl text-plum md:text-4xl">
+            0{step}
           </span>
           <h3 className="font-display text-xl text-ink md:text-2xl">
             {UNIVERSE_LABEL[universe]}
@@ -67,7 +67,7 @@ function StageBar({
 
       <div className="px-5 pt-4">
         <div className="flex items-end justify-between gap-4">
-          <p className="data-figure text-4xl leading-none text-plum md:text-5xl">
+          <p className="poster-figure text-5xl leading-none text-plum md:text-6xl">
             {pct(share)}
           </p>
           <p className="text-right font-mono text-[11px] leading-relaxed text-muted-foreground">
@@ -118,11 +118,11 @@ function RaceStage({
     .reduce((a, [, v]) => a + v, 0);
 
   return (
-    <li className="editorial-card overflow-hidden">
+    <li className="poster-frame overflow-hidden">
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
-          <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-            etapa 0{step}
+          <span className="poster-figure block text-3xl text-plum md:text-4xl">
+            0{step}
           </span>
           <h3 className="font-display text-xl text-ink md:text-2xl">
             Quem são essas mulheres
@@ -200,11 +200,11 @@ function RaceStage({
 /** Etapa 4: resultado eleitoral — futura, nunca zero. */
 function FutureStage({ step }: { step: number }) {
   return (
-    <li className="editorial-card border-dashed bg-secondary/40 overflow-hidden">
+    <li className="poster-frame overflow-hidden bg-secondary/40">
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
-          <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-            etapa 0{step}
+          <span className="poster-figure block text-3xl text-plum md:text-4xl">
+            0{step}
           </span>
           <h3 className="font-display text-xl text-ink md:text-2xl">
             Eleitas e eleitos
@@ -215,7 +215,7 @@ function FutureStage({ step }: { step: number }) {
 
       <div className="px-5 pt-4">
         <p
-          className="data-figure text-4xl leading-none text-muted-foreground md:text-5xl"
+          className="poster-figure text-5xl leading-none text-muted-foreground md:text-6xl"
           aria-hidden
         >
           —
@@ -279,7 +279,7 @@ export function FunnelStages2026({
           universeLabel="nas eleições proporcionais"
         />
       ) : (
-        <li className="editorial-card p-5">
+        <li className="poster-frame p-5">
           <GapNote label="Lacuna declarada">
             A fotografia atual não trouxe cor/raça das candidaturas de mulheres
             neste universo. Ausência de dado não é ausência de mulheres negras.
