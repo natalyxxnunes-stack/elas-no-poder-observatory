@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -13,7 +13,15 @@ import {
   DISPUTE_RULE,
 } from "@/data/rules-in-dispute";
 
+/**
+ * ROTA DESPUBLICADA (lançamento de 5 páginas).
+ * Arquivo preservado intencionalmente para republicação futura: o conteúdo e os
+ * componentes seguem intactos, apenas o acesso público está redirecionado.
+ */
 export const Route = createFileRoute("/em-disputa")({
+  beforeLoad: () => {
+    throw redirect({ to: "/" });
+  },
   head: () => ({
     meta: [
       { title: "Em disputa — Quem são elas? | As regras também estão em disputa" },

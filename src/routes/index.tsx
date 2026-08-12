@@ -20,9 +20,12 @@ import {
 } from "@/data/election-2026";
 import { applySnapshot } from "@/lib/tse/indicators";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
+import { getHistoricalSeries } from "@/lib/tse/historical.functions";
+import type { Series } from "@/lib/tse/historical-compute";
+import { PastStrip } from "@/components/funnel/PastStrip";
+import { GapNote } from "@/components/GapNote";
 import heroImage from "@/assets/elections-editorial.png";
 import spotQuota from "@/assets/spot-quota.png";
-import spotStrength from "@/assets/spot-strength.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -43,7 +46,13 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  loader: async () => ({ snapshot: await getLatestTseSnapshot() }),
+  loader: async () => {
+    const [snapshot, historical] = await Promise.all([
+      getLatestTseSnapshot(),
+      getHistoricalSeries(),
+    ]);
+    return { snapshot, historical };
+  },
   component: DadosPage,
 });
 
@@ -119,8 +128,12 @@ function IndicatorCard({
 }
 
 function DadosPage() {
-  const { snapshot } = Route.useLoaderData();
+  const { snapshot, historical } = Route.useLoaderData();
   const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
+  const feminineSeries =
+    (historical.series as Series[]).find(
+      (s) => s.id === "serie-mulheres-candidaturas",
+    ) ?? null;
   const [first, ...rest] = indicators;
 
   return (
@@ -159,9 +172,6 @@ function DadosPage() {
             height={800}
             className="w-full"
           />
-          <figcaption className="border-t border-rule px-4 py-3 font-mono text-[11px] text-muted-foreground">
-            elections-editorial · ilustração do projeto
-          </figcaption>
         </figure>
       </section>
 
@@ -208,6 +218,30 @@ function DadosPage() {
               (p.p.) e é descritiva. Ela abre uma investigação; não prova causa.
             </p>
           </ContextBox>
+        </div>
+      </SectionBlock>
+
+      {/* CONTEXTO HISTÓRICO — série já auditada, leitura descritiva */}
+      <SectionBlock
+        kicker="Como chegamos até aqui"
+        question="O número de 2026 diante das eleições anteriores"
+        lead={
+          <p>
+            Contexto curto para o número atual: a participação de mulheres nas
+            candidaturas proporcionais das eleições gerais de 2014, 2018 e 2022,
+            e a fotografia em curso de 2026. Cada ano tem denominador próprio e a
+            comparação é descritiva.
+          </p>
+        }
+        source="Fonte: TSE · Candidatos 2014, 2018, 2022 e 2026"
+      >
+        <div className="space-y-4">
+          <PastStrip series={feminineSeries} />
+          <GapNote label="Transparência">
+            Anos anteriores são bases fechadas; 2026 ainda pode mudar por decisão
+            da Justiça Eleitoral. Resultado eleitoral de 2026 não existe e nada é
+            projetado.
+          </GapNote>
         </div>
       </SectionBlock>
 
@@ -313,26 +347,12 @@ function DadosPage() {
         source={
           <>
             Fonte: TSE · Candidaturas 2026 ·{" "}
-            <Link
-              to="/quem-sao-elas"
-              className="text-plum underline underline-offset-4"
-            >
-              ver o eixo completo
+            <Link to="/metodo" className="text-plum underline underline-offset-4">
+              ver o método
             </Link>
           </>
         }
       >
-        <div className="mb-8 flex justify-end">
-          <img
-            src={spotStrength}
-            alt=""
-            aria-hidden
-            loading="lazy"
-            width={640}
-            height={640}
-            className="h-24 w-24 md:h-32 md:w-32"
-          />
-        </div>
         <RaceBreakdown snapshot={snapshot} />
       </SectionBlock>
 
@@ -356,7 +376,7 @@ function DadosPage() {
         </Link>
       </SectionBlock>
 
-      <NextAxes ids={["condicoes", "quem-controla", "quem-sao-elas"]} />
+      <NextAxes ids={["funil", "direitos", "metodo"]} />
     </PageShell>
   );
 }

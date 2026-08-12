@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -12,7 +12,15 @@ import { axis } from "@/data/architecture";
 import spotStrength from "@/assets/spot-strength.png";
 import spotQuota from "@/assets/spot-quota.png";
 
+/**
+ * ROTA DESPUBLICADA (lançamento de 5 páginas).
+ * Arquivo preservado intencionalmente para republicação futura: o conteúdo e os
+ * componentes seguem intactos, apenas o acesso público está redirecionado.
+ */
 export const Route = createFileRoute("/condicoes")({
+  beforeLoad: () => {
+    throw redirect({ to: "/" });
+  },
   head: () => ({
     meta: [
       { title: "Condições — Quem são elas? | Quem consegue entrar na disputa" },

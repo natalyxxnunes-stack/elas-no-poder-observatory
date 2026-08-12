@@ -12,7 +12,6 @@ import { FUNNEL_READING_RULE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import { getHistoricalSeries } from "@/lib/tse/historical.functions";
 import type { Series } from "@/lib/tse/historical-compute";
-import spotStrength from "@/assets/spot-strength.png";
 
 export const Route = createFileRoute("/funil")({
   head: () => ({
@@ -89,8 +88,6 @@ function FunilPage() {
             denominador próprio: nada é subtraído de uma para a outra.
           </p>
         }
-        image={spotStrength}
-        imageAlt="Ilustração editorial de mulheres em movimento"
       />
 
       <div className="pb-4">
@@ -137,13 +134,6 @@ function FunilPage() {
             {stampLabel ? ` · base gerada em ${stampLabel}` : ""} ·{" "}
             <Link to="/metodo" className="text-plum underline underline-offset-4">
               ver o método
-            </Link>{" "}
-            ·{" "}
-            <Link
-              to="/condicoes"
-              className="text-plum underline underline-offset-4"
-            >
-              as condições da disputa
             </Link>
           </>
         }
@@ -185,17 +175,7 @@ function FunilPage() {
             comparação é descritiva.
           </p>
         }
-        source={
-          <>
-            Fonte: TSE · Candidatos 2014, 2018, 2022 e 2026 ·{" "}
-            <Link
-              to="/historico"
-              className="text-plum underline underline-offset-4"
-            >
-              ver a série histórica completa
-            </Link>
-          </>
-        }
+        source="Fonte: TSE · Candidatos 2014, 2018, 2022 e 2026"
       >
         <div className="space-y-4">
           <PastStrip series={feminineSeries} />
@@ -207,7 +187,7 @@ function FunilPage() {
         </div>
       </SectionBlock>
 
-      <NextAxes ids={["quem-sao-elas", "dinheiro", "quem-chega"]} />
+      <NextAxes ids={["dados-2026", "direitos", "metodo"]} />
     </PageShell>
   );
 }
