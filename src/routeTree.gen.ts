@@ -17,6 +17,7 @@ import { Route as DireitosRouteImport } from './routes/direitos'
 import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as EmDisputaRouteImport } from './routes/em-disputa'
 import { Route as FunilRouteImport } from './routes/funil'
+import { Route as HistoricoRouteImport } from './routes/historico'
 import { Route as MetodoRouteImport } from './routes/metodo'
 import { Route as QuemChegaRouteImport } from './routes/quem-chega'
 import { Route as QuemControlaRouteImport } from './routes/quem-controla'
@@ -64,6 +65,11 @@ const EmDisputaRoute = EmDisputaRouteImport.update({
 const FunilRoute = FunilRouteImport.update({
   id: '/funil',
   path: '/funil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoricoRoute = HistoricoRouteImport.update({
+  id: '/historico',
+  path: '/historico',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MetodoRoute = MetodoRouteImport.update({
@@ -117,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/downloads': typeof DownloadsRoute
   '/em-disputa': typeof EmDisputaRoute
   '/funil': typeof FunilRoute
+  '/historico': typeof HistoricoRoute
   '/metodo': typeof MetodoRoute
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
@@ -135,6 +142,7 @@ export interface FileRoutesByTo {
   '/downloads': typeof DownloadsRoute
   '/em-disputa': typeof EmDisputaRoute
   '/funil': typeof FunilRoute
+  '/historico': typeof HistoricoRoute
   '/metodo': typeof MetodoRoute
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
@@ -154,6 +162,7 @@ export interface FileRoutesById {
   '/downloads': typeof DownloadsRoute
   '/em-disputa': typeof EmDisputaRoute
   '/funil': typeof FunilRoute
+  '/historico': typeof HistoricoRoute
   '/metodo': typeof MetodoRoute
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
@@ -174,6 +183,7 @@ export interface FileRouteTypes {
     | '/downloads'
     | '/em-disputa'
     | '/funil'
+    | '/historico'
     | '/metodo'
     | '/quem-chega'
     | '/quem-controla'
@@ -192,6 +202,7 @@ export interface FileRouteTypes {
     | '/downloads'
     | '/em-disputa'
     | '/funil'
+    | '/historico'
     | '/metodo'
     | '/quem-chega'
     | '/quem-controla'
@@ -210,6 +221,7 @@ export interface FileRouteTypes {
     | '/downloads'
     | '/em-disputa'
     | '/funil'
+    | '/historico'
     | '/metodo'
     | '/quem-chega'
     | '/quem-controla'
@@ -229,6 +241,7 @@ export interface RootRouteChildren {
   DownloadsRoute: typeof DownloadsRoute
   EmDisputaRoute: typeof EmDisputaRoute
   FunilRoute: typeof FunilRoute
+  HistoricoRoute: typeof HistoricoRoute
   MetodoRoute: typeof MetodoRoute
   QuemChegaRoute: typeof QuemChegaRoute
   QuemControlaRoute: typeof QuemControlaRoute
@@ -295,6 +308,13 @@ declare module '@tanstack/react-router' {
       path: '/funil'
       fullPath: '/funil'
       preLoaderRoute: typeof FunilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/historico': {
+      id: '/historico'
+      path: '/historico'
+      fullPath: '/historico'
+      preLoaderRoute: typeof HistoricoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/metodo': {
@@ -365,6 +385,7 @@ const rootRouteChildren: RootRouteChildren = {
   DownloadsRoute: DownloadsRoute,
   EmDisputaRoute: EmDisputaRoute,
   FunilRoute: FunilRoute,
+  HistoricoRoute: HistoricoRoute,
   MetodoRoute: MetodoRoute,
   QuemChegaRoute: QuemChegaRoute,
   QuemControlaRoute: QuemControlaRoute,
@@ -377,13 +398,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

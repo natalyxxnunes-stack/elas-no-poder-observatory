@@ -8,7 +8,7 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { SeriesChart } from "@/components/historical/SeriesChart";
 import { HistoryTimeline } from "@/components/historical/HistoryTimeline";
-import { getHistoricalSeries } from "@/lib/tse/historical.functions";
+import { getHistoricalSeries, type HistoricalSeriesPayload } from "@/lib/tse/historical.functions";
 import { BLACK_AGGREGATION_NOTE } from "@/lib/tse/historical-compute";
 import timelineEditorial from "@/assets/timeline-editorial.png";
 
@@ -41,7 +41,7 @@ export const Route = createFileRoute("/historico")({
 });
 
 function HistoricoPage() {
-  const data = Route.useLoaderData();
+  const data = Route.useLoaderData() as HistoricalSeriesPayload;
   const byId = (id: string) => data.series.find((s) => s.id === id);
 
   const feminine = byId("serie-mulheres-candidaturas");
