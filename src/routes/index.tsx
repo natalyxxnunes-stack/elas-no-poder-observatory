@@ -335,7 +335,7 @@ function DadosPage() {
       {/* QUEM SÃO ELAS */}
       <SectionBlock
         kicker="Quem são elas?"
-        question="Não existe uma única experiência de ser mulher na política."
+        question="Não existe uma candidata média."
         align="wide"
         lead={<p>{CENTRAL_PRINCIPLE}</p>}
         source={
