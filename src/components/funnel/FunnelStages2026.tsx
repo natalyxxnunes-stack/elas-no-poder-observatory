@@ -144,7 +144,7 @@ function RaceStage({
               key={label}
               title={`${label}: ${n(value)}`}
               className={
-                ["bg-plum", "bg-coral", "bg-yellow", "bg-ink"][i % 4] ??
+                ["bg-plum", "bg-coral", "bg-ink", "bg-muted-foreground"][i % 4] ??
                 "bg-plum"
               }
               style={{ width: `${(value / denominator) * 100}%` }}
@@ -157,7 +157,7 @@ function RaceStage({
               <span
                 aria-hidden
                 className={`mt-1 inline-block h-2 w-2 shrink-0 rounded-full ${
-                  ["bg-plum", "bg-coral", "bg-yellow", "bg-ink"][i % 4] ??
+                  ["bg-plum", "bg-coral", "bg-ink", "bg-muted-foreground"][i % 4] ??
                   "bg-plum"
                 }`}
               />
