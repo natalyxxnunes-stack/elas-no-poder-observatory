@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
+import { BrandWordmark } from "./BrandWordmark";
 import { SITE } from "@/data/election-2026";
 import { NAV_ITEMS } from "@/data/architecture";
 

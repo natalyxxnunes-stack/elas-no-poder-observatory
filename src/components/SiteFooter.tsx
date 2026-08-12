@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { BrandLogo } from "./BrandLogo";
+import { BrandWordmark } from "./BrandWordmark";
 import { SITE } from "@/data/election-2026";
 import { CENTRAL_THESIS, COVER_QUESTION, NAV_ITEMS } from "@/data/architecture";
 
