@@ -1,27 +1,25 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
-import { GapNote } from "@/components/GapNote";
-import { CENTRAL_PRINCIPLE, CENTRAL_THESIS } from "@/data/architecture";
 import { SITE } from "@/data/election-2026";
 
 export const Route = createFileRoute("/sobre")({
   head: () => ({
     meta: [
-      { title: "Sobre — Quem são elas? | Proposta, princípios e correções" },
+      { title: "Sobre — Quem são elas? | Quem faz e por que existe" },
       {
         name: "description",
         content:
-          "Quem faz o observatório Quem são elas?, com quais princípios editoriais, como citar os dados e como pedir correção.",
+          "Nataly Nunes, jornalista, sobre o Quem são elas?: projeto independente de jornalismo de dados sobre mulheres na política, com método aberto, transparência e correções.",
       },
       { property: "og:title", content: "Sobre o Quem são elas?" },
       {
         property: "og:description",
         content:
-          "Jornalismo de dados sobre mulheres, eleições e poder: proposta, princípios, transparência e política de correções.",
+          "Um projeto independente de jornalismo de dados sobre mulheres, eleições e poder: quem faz, por que existe e como conferir os números.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -30,31 +28,13 @@ export const Route = createFileRoute("/sobre")({
   component: SobrePage,
 });
 
-const PRINCIPLES = [
-  {
-    title: "Fato, interpretação e hipótese são separados",
-    body: "O que é dado aparece como dado. O que é leitura editorial aparece como leitura. O que é hipótese aparece como pergunta em aberto.",
-  },
-  {
-    title: "Nenhum percentual sem denominador",
-    body: "Todo indicador informa numerador, denominador, universo, fonte e data. Diferenças entre percentuais são expressas em pontos percentuais (p.p.).",
-  },
-  {
-    title: "Correlação não é causalidade",
-    body: "Contrastes entre universos e entre grupos são descritivos. Não afirmamos que uma regra causou um resultado sem prova metodológica dessa relação.",
-  },
-  {
-    title: "Dado não disponível não é zero",
-    body: "Quando falta fonte, dizemos exatamente o que falta e por quê. Não preenchemos lacuna com estimativa nem com número de ciclo anterior.",
-  },
-  {
-    title: "Gênero e raça estruturam a investigação",
-    body: CENTRAL_PRINCIPLE,
-  },
-  {
-    title: "Categorias originais são preservadas",
-    body: "Mantemos as categorias declaradas ao TSE. Toda agregação analítica do observatório é declarada como tal.",
-  },
+const COMMITMENTS = [
+  "Fato, interpretação e hipótese são coisas diferentes.",
+  "Nenhum percentual aparece sem que você saiba qual é o universo daquele cálculo.",
+  "Correlação não é causalidade.",
+  "Todo dado tem uma fonte, e toda fonte precisa de contexto.",
+  "A metodologia precisa poder ser entendida e conferida.",
+  "Erros são corrigidos de forma transparente.",
 ] as const;
 
 function SobrePage() {
@@ -63,7 +43,14 @@ function SobrePage() {
       <PageHero
         kicker="Sobre"
         question="Quem faz?"
-        lead={<p>{CENTRAL_THESIS}</p>}
+        lead={
+          <p>
+            Eu sou Nataly Nunes, jornalista. Criei o {SITE.name} porque me
+            incomodo com ter poucas mulheres na política — e com a quantidade de
+            números sobre elas que circulam por aí sem que a gente consiga
+            entender direito o que estão dizendo.
+          </p>
+        }
         aside={
           <div className="editorial-card p-5">
             <p className="kicker">O projeto</p>
@@ -79,131 +66,173 @@ function SobrePage() {
       />
 
       <SectionBlock
-        kicker="Proposta"
-        question="Um observatório, não um placar"
+        kicker="Quem faz"
+        question="Um projeto independente, feito por mim"
         lead={
           <p>
-            O {SITE.name} acompanha o caminho entre candidatura, competição
-            eleitoral e poder, investigando como gênero e raça atravessam cada
-            etapa — e quem controla cada uma delas. O objetivo é permitir que
-            qualquer pessoa entenda o que os dados mostram e confira como foram
-            calculados.
+            Um percentual aparece. Um gráfico aparece. Uma manchete aparece. E,
+            muitas vezes, ninguém conta de onde aquele número veio, quem está
+            sendo considerado, quem ficou de fora ou o que aconteceu antes de ele
+            chegar até ali. Foi daí que nasceu o projeto.
           </p>
         }
       >
         <div className="grid gap-4 md:grid-cols-2">
-          <ContextBox variant="importa">
-            <p>
-              Números sobre mulheres na política circulam sem universo e sem data,
-              e viram argumento. Um observatório com método aberto permite
-              discordar do resultado sem discutir a origem do número.
-            </p>
-          </ContextBox>
           <ContextBox variant="significa">
             <p>
-              Publicamos indicadores provisórios quando a própria base é
-              provisória — e dizemos isso na mesma tela em que o número aparece.
+              O {SITE.name} é um projeto independente, feito por mim, com o apoio
+              de ferramentas de inteligência artificial. Eu faço as perguntas,
+              defino os caminhos da apuração, escolho as fontes, tomo as decisões
+              editoriais e sou responsável pelo que é publicado. Uso inteligência
+              artificial como ferramenta de trabalho — para pesquisar, organizar e
+              analisar dados, escrever e revisar código, testar possibilidades e
+              construir algumas das soluções que você encontra aqui.
+            </p>
+          </ContextBox>
+          <ContextBox variant="importa">
+            <p>
+              A IA ajuda a fazer o trabalho. A responsabilidade pelo trabalho é
+              minha. Por isso, sempre que ela participa de alguma etapa
+              importante, isso é registrado como parte da transparência do
+              projeto.
             </p>
           </ContextBox>
         </div>
       </SectionBlock>
 
       <SectionBlock
-        kicker="Princípios editoriais"
-        question="Seis compromissos que valem para toda página"
+        kicker="Por que existe"
+        question="Existe uma história inteira entre um número e outro"
+        lead={
+          <p>
+            A presença das mulheres na política costuma ser apresentada como um
+            número: quantas se candidataram, quantas foram eleitas, qual
+            porcentagem representam. Mas existe uma história inteira entre uma
+            coisa e outra.
+          </p>
+        }
+      >
+        <div className="max-w-3xl space-y-4 text-base leading-relaxed text-muted-foreground">
+          <p>
+            Quero olhar para esse caminho. Quem se candidata? Quem consegue chegar
+            à urna? Quem é eleita? O que muda entre partidos, estados, cargos e
+            eleições? E o que os dados realmente conseguem nos contar sobre tudo
+            isso?
+          </p>
+          <p>
+            O {SITE.name} nasceu para transformar esses números em perguntas e
+            tentar respondê-las com jornalismo, dados públicos e transparência
+            sobre como cada resultado foi construído. Os dados têm fonte. Os
+            cálculos podem ser conferidos. As escolhas são explicadas. E fato,
+            interpretação e hipótese aparecem separados.
+          </p>
+          <p>
+            A ideia é simples: você pode discordar da minha leitura, questionar
+            uma escolha metodológica, até chegar a outra conclusão — mas precisa
+            conseguir olhar para os mesmos dados e entender como eu cheguei até
+            aqui.
+          </p>
+        </div>
+      </SectionBlock>
+
+      <SectionBlock
+        kicker="Um projeto independente"
+        question="Sem financiamento e sem apoio institucional"
+        lead={
+          <p>
+            O {SITE.name} é independente e, atualmente, não recebe financiamento
+            nem apoio institucional. Isso também faz parte da história do
+            projeto. Ele existe porque eu quis fazer esse trabalho — e porque
+            acredito que jornalismo de dados não precisa ser complicado, distante
+            ou feito apenas para quem já entende de estatística.
+          </p>
+        }
+      />
+
+      <SectionBlock
+        kicker="Transparência"
+        question="Nada aqui é definitivo demais para ser corrigido"
+        lead={
+          <p>
+            Não existe pesquisa perfeita, banco de dados perfeito ou análise que
+            não possa ser melhorada. Por isso, as fontes, os critérios e a
+            metodologia estão disponíveis. Quando uma escolha precisar ser
+            explicada, ela será explicada. Quando um dado precisar ser corrigido,
+            será corrigido.
+          </p>
+        }
+      >
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="editorial-card p-5">
+            <h3 className="font-display text-lg text-ink">Fale comigo</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Se você encontrar um erro, discordar de uma análise ou perceber que
+              alguma coisa ficou de fora, me escreva. É assim que o projeto
+              melhora.
+            </p>
+            <p className="mt-3 font-mono text-[11px] text-ink">
+              Contato:{" "}
+              <a
+                href="mailto:contato@quemsaoelas.com.br"
+                className="text-plum underline underline-offset-4"
+              >
+                contato@quemsaoelas.com.br
+              </a>
+            </p>
+          </div>
+          <div className="editorial-card p-5">
+            <h3 className="font-display text-lg text-ink">Como citar</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Os dados e análises do {SITE.name} podem ser utilizados e citados.
+              Só peço que a fonte seja identificada e que o contexto da
+              informação seja preservado.
+            </p>
+            <p className="mt-3 rounded-md bg-muted p-3 font-mono text-[11px] leading-relaxed text-ink">
+              Fonte: {SITE.name} — Observatório independente sobre mulheres na
+              política brasileira.
+            </p>
+          </div>
+        </div>
+      </SectionBlock>
+
+      <SectionBlock
+        kicker="O compromisso"
+        question="Os princípios editoriais que valem para toda página"
         align="wide"
       >
         <ul className="grid gap-4 md:grid-cols-2">
-          {PRINCIPLES.map((p) => (
-            <li key={p.title} className="editorial-card p-5">
-              <h3 className="font-display text-lg text-ink">{p.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {p.body}
-              </p>
+          {COMMITMENTS.map((c) => (
+            <li
+              key={c}
+              className="editorial-card p-5 text-sm leading-relaxed text-ink"
+            >
+              {c}
             </li>
           ))}
         </ul>
       </SectionBlock>
 
       <SectionBlock
-        kicker="Metodologia resumida"
-        question="De onde vêm os números"
-        lead={
-          <p>
-            A fonte dos indicadores de candidatura é a base oficial do TSE (Dados
-            Abertos / Candidatos 2026), processada periodicamente pelo
-            observatório. Cada fotografia guarda a data de geração do arquivo, a
-            data da coleta, os filtros aplicados e as contagens por universo.
-          </p>
-        }
-        source={
-          <>
-            Ficha técnica completa em{" "}
-            <Link to="/metodo" className="text-plum underline underline-offset-4">
-              Método
-            </Link>
-          </>
-        }
-      />
-
-      <SectionBlock
-        kicker="Equipe e transparência"
-        question="Quem assina e como o projeto se sustenta"
+        kicker="Correções"
+        question="O que corrigimos e como"
       >
-        <div className="space-y-4">
-          <GapNote label="Informação a completar">
-            A composição da equipe, os créditos individuais e a informação sobre
-            financiamento ou apoio institucional serão publicados nesta página.
-            Enquanto não estiverem confirmados, a lacuna fica declarada em vez de
-            preenchida com texto genérico.
-          </GapNote>
-          <GapNote label="Contato">
-            O canal público de contato para dúvidas, pautas e pedidos de correção
-            será publicado aqui.
-          </GapNote>
-        </div>
+        <ul className="max-w-3xl space-y-3 text-sm leading-relaxed text-muted-foreground">
+          <li>
+            Erro de dado: corrigimos o valor e registramos a correção na página
+            do indicador, com data.
+          </li>
+          <li>
+            Erro de método: revisamos a fórmula, recalculamos a série e
+            explicamos o que mudou.
+          </li>
+          <li>
+            Atualização de base: não é correção. A mudança de fotografia é
+            identificada pela data da base, sem apagar o histórico.
+          </li>
+        </ul>
       </SectionBlock>
 
-      <SectionBlock
-        kicker="Uso e correções"
-        question="Como citar e como pedir correção"
-      >
-        <div className="grid gap-4 md:grid-cols-2">
-          <div className="editorial-card p-5">
-            <h3 className="font-display text-lg text-ink">Como citar</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Cite o observatório, o indicador, a data da fotografia da base e o
-              endereço da página. Exemplo de estrutura:
-            </p>
-            <p className="mt-3 rounded-md bg-muted p-3 font-mono text-[11px] leading-relaxed text-ink">
-              {SITE.name} ({SITE.cycle}). [Nome do indicador], fotografia da base
-              do TSE de [data]. Disponível em: [endereço da página]. Acesso em:
-              [data].
-            </p>
-          </div>
-          <div className="editorial-card p-5">
-            <h3 className="font-display text-lg text-ink">
-              Política de correções
-            </h3>
-            <ul className="mt-2 space-y-2 text-sm leading-relaxed text-muted-foreground">
-              <li>
-                Erro de dado: corrigimos o valor e registramos a correção na
-                página do indicador, com data.
-              </li>
-              <li>
-                Erro de método: revisamos a fórmula, recalculamos a série e
-                explicamos o que mudou.
-              </li>
-              <li>
-                Atualização de base: não é correção. A mudança de fotografia é
-                identificada pela data da base, sem apagar o histórico.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </SectionBlock>
-
-      <NextAxes ids={["metodo", "downloads", "dados-2026"]} />
+      <NextAxes ids={["dados-2026", "funil", "metodo"]} />
     </PageShell>
   );
 }
