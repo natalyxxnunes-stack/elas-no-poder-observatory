@@ -225,52 +225,55 @@ function DadosPage() {
 
   return (
     <PageShell>
-      {/* 1. HERO — ilustração larga + painel de texto sobreposto */}
-      <section className="py-6 md:py-10">
-        <figure className="relative">
-          <div className="overflow-hidden rounded-lg border-2 border-ink">
-            <img
-              src={topoAsset.url}
-              alt="Ilustração editorial: mulheres sobem rampas e escadas em direção a uma urna eleitoral"
-              className="h-[240px] w-full object-cover sm:h-[340px] md:h-[460px]"
-            />
-          </div>
-          <AiCredit />
-        </figure>
+      {/* 1. HERO — ilustração full-bleed + painel de texto flutuante */}
+      <section className="relative left-1/2 -ml-[50vw] w-screen">
+        <img
+          src={topoAsset.url}
+          alt="Ilustração editorial: mulheres sobem rampas e escadas em direção a uma urna eleitoral"
+          className="h-[62vh] min-h-[380px] w-full object-cover md:h-[80vh]"
+        />
 
-        <div className="relative z-10 mx-auto -mt-12 max-w-3xl px-1 md:-mt-28 md:ml-0 md:mr-auto md:px-0">
-          <div className="poster-frame p-6 md:p-9">
-            <p className="poster-eyebrow text-ink">
-              Edição atual · Eleições 2026 · Brasil
-            </p>
-            <h1 className="mt-4 font-display text-[clamp(1.9rem,6vw,3.4rem)] leading-[1.03] text-ink">
-              Entre se candidatar e chegar ao poder,{" "}
-              <span className="text-plum italic">onde elas desaparecem?</span>
-            </h1>
-            <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground md:text-lg">
-              {CENTRAL_THESIS}
-            </p>
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <Link
-                to="/funil"
-                className="rounded-md border-2 border-ink bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
-              >
-                Ver o funil
-              </Link>
-              <Link
-                to="/metodo"
-                className="rounded-md border-2 border-ink px-5 py-2.5 text-sm font-semibold text-plum transition-colors hover:bg-secondary"
-              >
-                Como lemos os dados
-              </Link>
-              <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                Dados parciais · Base do TSE ·{" "}
-                {baseDate ?? "base em atualização"}
-              </span>
+        <span className="absolute right-4 top-4 rounded-md bg-paper/85 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink md:right-8 md:top-6">
+          Dados parciais · Base do TSE · {baseDate ?? "base em atualização"}
+        </span>
+
+        <div className="absolute inset-x-4 bottom-6 md:inset-x-0 md:bottom-14">
+          <div className="mx-auto max-w-6xl md:px-8">
+            <div className="max-w-xl rounded-lg border-2 border-ink bg-paper/95 p-5 shadow-[9px_9px_0_0_var(--color-plum)] backdrop-blur-sm md:max-w-2xl md:p-8">
+              <p className="poster-eyebrow border-coral text-coral">
+                Edição atual · Eleições 2026 · Brasil
+              </p>
+              <h1 className="mt-4 font-display text-[clamp(1.6rem,5vw,3.1rem)] leading-[1.03] text-ink">
+                Entre se candidatar e chegar ao poder,{" "}
+                <span className="text-plum italic">onde elas desaparecem?</span>
+              </h1>
+              <p className="mt-4 leading-relaxed text-muted-foreground md:text-lg">
+                {CENTRAL_THESIS}
+              </p>
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <Link
+                  to="/funil"
+                  className="rounded-md border-2 border-ink bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+                >
+                  Ver o funil
+                </Link>
+                <Link
+                  to="/metodo"
+                  className="rounded-md border-2 border-ink bg-paper px-5 py-2.5 text-sm font-semibold text-plum transition-colors hover:bg-secondary"
+                >
+                  Como lemos os dados
+                </Link>
+              </div>
             </div>
           </div>
         </div>
+
+        <p className="absolute bottom-2 right-3 max-w-[70%] rounded bg-ink/70 px-2 py-1 text-right font-mono text-[9px] leading-tight text-cream/80 md:text-[10px]">
+          Ilustração original gerada com inteligência artificial sob direção
+          editorial.
+        </p>
       </section>
+
 
       {/* 2. TESE + DIÁRIO DA ENTRADA */}
       <section className="rule-top grid gap-8 py-12 md:py-16 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
