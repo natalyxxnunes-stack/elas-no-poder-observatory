@@ -441,51 +441,6 @@ function DadosPage() {
         </ol>
       </section>
 
-      {/* A FOTOGRAFIA DE AGORA */}
-      <SectionBlock
-        kicker="A fotografia de agora"
-        question="O que está acontecendo agora?"
-        align="wide"
-        lead={
-          <p>
-            As candidaturas de 2026 seguem sendo registradas e analisadas pela
-            Justiça Eleitoral. Esta fotografia muda — e por isso ela sempre vem
-            com a data da base que a originou.
-          </p>
-        }
-        source={
-          <>
-            Fonte: TSE · Candidaturas 2026 ·{" "}
-            <Link to="/metodo" className="text-plum underline underline-offset-4">
-              ver o método
-            </Link>
-          </>
-        }
-      >
-        <div className="grid gap-5 md:grid-cols-2">
-          {first && <IndicatorCard indicator={first} />}
-          {rest.map((indicator) => (
-            <IndicatorCard key={indicator.id} indicator={indicator} />
-          ))}
-        </div>
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          <ContextBox variant="significa">
-            <p>
-              Cada percentual tem numerador e denominador próprios: candidaturas
-              de mulheres dentro do total de candidaturas do mesmo universo
-              eleitoral.
-            </p>
-          </ContextBox>
-          <ContextBox variant="importa">
-            <p>
-              A diferença entre os dois universos é medida em pontos percentuais
-              (p.p.) e é descritiva. Ela abre uma investigação; não prova causa.
-            </p>
-          </ContextBox>
-        </div>
-      </SectionBlock>
-
-      <PullQuote>Dado não disponível não é zero.</PullQuote>
 
       {/* CONTEXTO HISTÓRICO */}
       <SectionBlock
