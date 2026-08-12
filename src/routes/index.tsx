@@ -5,7 +5,7 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { StatusTag } from "@/components/editorial/StatusTag";
-import { AiCredit } from "@/components/editorial/AiCredit";
+
 import {
   CENTRAL_PRINCIPLE,
   CENTRAL_THESIS,
