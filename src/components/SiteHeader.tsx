@@ -1,23 +1,17 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
 import { SITE } from "@/data/election-2026";
-import { NAV_CTA, NAV_DIRECT, NAV_GROUPS } from "@/data/architecture";
+import { NAV_ITEMS } from "@/data/architecture";
 
 /**
- * SiteHeader — navegação agrupada. O menu principal nunca lista os 14 eixos:
- * "Investigue" e "Entenda" agrupam os eixos, "Dados 2026" e "Sobre" são
- * diretos e "Downloads" é CTA permanente.
+ * SiteHeader — menu plano de 5 itens do lançamento. Sem submenus e sem CTA:
+ * os eixos despublicados continuam no projeto, mas fora da navegação.
  */
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const [group, setGroup] = useState<string | null>(null);
-
-  const close = () => {
-    setOpen(false);
-    setGroup(null);
-  };
+  const close = () => setOpen(false);
 
   return (
     <header className="sticky top-0 z-40 border-b border-rule bg-paper/95 backdrop-blur">
@@ -34,8 +28,8 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav aria-label="Principal" className="ml-auto hidden items-center gap-5 lg:flex">
-          {NAV_DIRECT.map((item) => (
+        <nav aria-label="Principal" className="ml-auto hidden items-center gap-6 lg:flex">
+          {NAV_ITEMS.map((item) => (
             <Link
               key={item.to}
               to={item.to}
@@ -46,55 +40,6 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-
-          {NAV_GROUPS.map((g) => (
-            <div
-              key={g.label}
-              className="relative"
-              onMouseEnter={() => setGroup(g.label)}
-              onMouseLeave={() => setGroup(null)}
-            >
-              <button
-                type="button"
-                aria-expanded={group === g.label}
-                onClick={() => setGroup(group === g.label ? null : g.label)}
-                className="inline-flex items-center gap-1 border-b-2 border-transparent pb-0.5 text-sm text-muted-foreground transition-colors hover:text-plum"
-              >
-                {g.label}
-                <ChevronDown className="h-3.5 w-3.5" />
-              </button>
-              {group === g.label && (
-                <div className="absolute right-0 top-full z-50 w-80 pt-3">
-                  <ul className="editorial-card divide-y divide-rule overflow-hidden">
-                    {g.items.map((item) => (
-                      <li key={item.to}>
-                        <Link
-                          to={item.to}
-                          onClick={close}
-                          className="block px-4 py-3 transition-colors hover:bg-secondary"
-                          activeProps={{ className: "bg-secondary" }}
-                        >
-                          <span className="block font-display text-base text-ink">
-                            {item.label}
-                          </span>
-                          <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
-                            {item.question}
-                          </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          ))}
-
-          <Link
-            to={NAV_CTA.to}
-            className="rounded-md bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
-          >
-            {NAV_CTA.label}
-          </Link>
         </nav>
 
         <button
@@ -113,7 +58,7 @@ export function SiteHeader() {
           aria-label="Principal (móvel)"
           className="max-h-[75vh] overflow-y-auto border-t border-rule bg-paper px-5 pb-6 lg:hidden"
         >
-          {NAV_DIRECT.map((item) => (
+          {NAV_ITEMS.map((item) => (
             <Link
               key={item.to}
               to={item.to}
@@ -123,37 +68,11 @@ export function SiteHeader() {
               activeProps={{ className: "text-plum" }}
             >
               {item.label}
+              <span className="block text-xs text-muted-foreground">
+                {item.question}
+              </span>
             </Link>
           ))}
-          {NAV_GROUPS.map((g) => (
-            <div key={g.label} className="border-b border-rule py-3">
-              <p className="kicker">{g.label}</p>
-              <ul className="mt-2 space-y-2">
-                {g.items.map((item) => (
-                  <li key={item.to}>
-                    <Link
-                      to={item.to}
-                      onClick={close}
-                      className="block py-1 text-sm text-ink"
-                      activeProps={{ className: "font-semibold text-plum" }}
-                    >
-                      {item.label}
-                      <span className="block text-xs text-muted-foreground">
-                        {item.question}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-          <Link
-            to={NAV_CTA.to}
-            onClick={close}
-            className="mt-4 inline-flex rounded-md bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground"
-          >
-            {NAV_CTA.label}
-          </Link>
         </nav>
       )}
     </header>
