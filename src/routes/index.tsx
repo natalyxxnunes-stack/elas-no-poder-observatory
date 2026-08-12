@@ -230,7 +230,7 @@ function DadosPage() {
         <img
           src={topoAsset.url}
           alt="Ilustração editorial: mulheres sobem rampas e escadas em direção a uma urna eleitoral"
-          className="h-[62vh] min-h-[380px] w-full object-cover md:h-[80vh]"
+          className="block h-[62vh] min-h-[380px] w-full object-cover md:h-[80vh]"
         />
 
         <span className="absolute right-4 top-4 rounded-md bg-paper/85 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink md:right-8 md:top-6">
