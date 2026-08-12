@@ -55,8 +55,11 @@ function StageBar({
     <li className="poster-frame overflow-hidden">
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
-          <span className="poster-figure block text-3xl text-plum md:text-4xl">
-            0{step}
+          <span className="block font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+            etapa{" "}
+            <span className="poster-figure align-middle text-3xl text-plum md:text-4xl">
+              0{step}
+            </span>
           </span>
           <h3 className="font-display text-xl text-ink md:text-2xl">
             {UNIVERSE_LABEL[universe]}
@@ -121,8 +124,11 @@ function RaceStage({
     <li className="poster-frame overflow-hidden">
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
-          <span className="poster-figure block text-3xl text-plum md:text-4xl">
-            0{step}
+          <span className="block font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+            etapa{" "}
+            <span className="poster-figure align-middle text-3xl text-plum md:text-4xl">
+              0{step}
+            </span>
           </span>
           <h3 className="font-display text-xl text-ink md:text-2xl">
             Quem são essas mulheres
@@ -203,8 +209,11 @@ function FutureStage({ step }: { step: number }) {
     <li className="poster-frame overflow-hidden bg-secondary/40">
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
-          <span className="poster-figure block text-3xl text-plum md:text-4xl">
-            0{step}
+          <span className="block font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+            etapa{" "}
+            <span className="poster-figure align-middle text-3xl text-plum md:text-4xl">
+              0{step}
+            </span>
           </span>
           <h3 className="font-display text-xl text-ink md:text-2xl">
             Eleitas e eleitos
