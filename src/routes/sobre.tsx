@@ -53,7 +53,7 @@ function SobrePage() {
           </p>
         }
         image={aberturaAsset.url}
-        imageAlt="Ilustração editorial: mesa de trabalho jornalística com caderno de metodologia, gráficos e recortes"''".replace("''","")
+        imageAlt="Ilustração editorial: mesa de trabalho jornalística com caderno de metodologia, gráficos e recortes"
         aside={
           <div className="editorial-card p-5">
             <p className="kicker">O projeto</p>
