@@ -134,7 +134,7 @@ function MetodoPage() {
       >
         <ol className="grid gap-4 md:grid-cols-2">
           {PLAIN_STEPS.map((s) => (
-            <li key={s.step} className="editorial-card p-5">
+            <li key={s.step} className="poster-frame p-5">
               <h3 className="font-display text-lg text-ink">{s.step}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {s.body}
@@ -246,11 +246,11 @@ function MetodoPage() {
             {Object.entries(snapshot.situationValues)
               .sort((a, b) => b[1] - a[1])
               .map(([k, v]) => (
-                <div key={k} className="editorial-card p-4">
+                <div key={k} className="poster-frame p-4">
                   <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
                     {k}
                   </dt>
-                  <dd className="data-figure mt-1 text-2xl text-plum">
+                  <dd className="poster-figure mt-2 text-3xl text-plum md:text-4xl">
                     {v.toLocaleString("pt-BR")}
                   </dd>
                 </div>
@@ -267,8 +267,8 @@ function MetodoPage() {
       >
         <div className="space-y-4">
           {METHOD_NOTES.map((n, i) => (
-            <article key={n.title} className="editorial-card p-5 md:p-6">
-              <span className="font-mono text-[11px] text-muted-foreground">
+            <article key={n.title} className="poster-frame p-5 md:p-6">
+              <span className="poster-figure block text-3xl text-plum md:text-4xl">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <h3 className="mt-1 font-display text-xl text-ink">{n.title}</h3>
