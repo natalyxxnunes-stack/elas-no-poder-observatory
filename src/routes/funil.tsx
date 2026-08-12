@@ -146,6 +146,7 @@ function FunilPage() {
       </SectionBlock>
 
       <SectionBlock
+        tone="solar"
         kicker="Regra de leitura"
         question="Por que as etapas não se somam nem se subtraem"
         lead={<p>{FUNNEL_READING_RULE}</p>}

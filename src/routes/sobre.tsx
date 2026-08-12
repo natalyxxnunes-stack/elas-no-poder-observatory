@@ -148,6 +148,7 @@ function SobrePage() {
 
 
       <SectionBlock
+        tone="plum"
         kicker="Um projeto independente"
         question="Sem financiamento e sem apoio institucional"
         lead={
@@ -175,8 +176,8 @@ function SobrePage() {
         }
       >
         <div className="grid gap-4 md:grid-cols-2">
-          <div className="editorial-card p-5">
-            <h3 className="font-display text-lg text-ink">Fale comigo</h3>
+          <div className="poster-frame p-5 md:p-6">
+            <h3 className="font-display text-xl text-ink">Fale comigo</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               Se você encontrar um erro, discordar de uma análise ou perceber que
               alguma coisa ficou de fora, me escreva. É assim que o projeto
@@ -192,8 +193,8 @@ function SobrePage() {
               </a>
             </p>
           </div>
-          <div className="editorial-card p-5">
-            <h3 className="font-display text-lg text-ink">Como citar</h3>
+          <div className="poster-frame p-5 md:p-6">
+            <h3 className="font-display text-xl text-ink">Como citar</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               Os dados e análises do {SITE.name} podem ser utilizados e citados.
               Só peço que a fonte seja identificada e que o contexto da
@@ -208,17 +209,23 @@ function SobrePage() {
       </SectionBlock>
 
       <SectionBlock
+        tone="solar"
         kicker="O compromisso"
         question="Os princípios editoriais que valem para toda página"
         align="wide"
       >
-        <ul className="grid gap-4 md:grid-cols-2">
-          {COMMITMENTS.map((c) => (
-            <li
-              key={c}
-              className="editorial-card p-5 text-sm leading-relaxed text-ink"
-            >
-              {c}
+        <ul className="grid gap-5 md:grid-cols-2">
+          {COMMITMENTS.map((c, i) => (
+            <li key={c} className="poster-frame p-5">
+              <span
+                aria-hidden
+                className="poster-figure block text-3xl text-coral md:text-4xl"
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <p className="mt-2 font-display text-lg leading-snug text-ink">
+                {c}
+              </p>
             </li>
           ))}
         </ul>
