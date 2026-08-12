@@ -225,7 +225,7 @@ function DadosPage() {
       {/* CONTEXTO HISTÓRICO — série já auditada, leitura descritiva */}
       <SectionBlock
         kicker="Como chegamos até aqui"
-        question="O número de 2026 diante das eleições anteriores"
+        question="Uma fotografia mostra a desigualdade. A série mostra o movimento."
         lead={
           <p>
             Contexto curto para o número atual: a participação de mulheres nas
@@ -246,10 +246,11 @@ function DadosPage() {
         </div>
       </SectionBlock>
 
-      {/* DOIS UNIVERSOS */}
+      {/* DOIS UNIVERSOS — bloco colorido, ritmo */}
       <SectionBlock
+        tone="plum"
         kicker="Dois universos"
-        question="Duas formas de disputar uma eleição"
+        question="A regra muda conforme o cargo."
         lead={
           <p>
             As regras não são as mesmas nos dois universos. Nas eleições
@@ -259,7 +260,7 @@ function DadosPage() {
           </p>
         }
       >
-        <div className="grid gap-6 md:grid-cols-[1fr_1fr_auto] md:items-start">
+        <div className="grid gap-6 md:grid-cols-2">
           <article className="editorial-card p-6">
             <h3 className="font-display text-xl text-ink">Proporcional</h3>
             <p className="mt-2 leading-relaxed text-muted-foreground">
@@ -279,15 +280,9 @@ function DadosPage() {
               sem a regra de composição de 30%–70% por gênero
             </p>
           </article>
-          <img
-            src={respiroAsset.url}
-            alt=""
-            aria-hidden
-            loading="lazy"
-            className="h-auto w-40 shrink-0 md:w-56"
-          />
         </div>
       </SectionBlock>
+
 
       {/* O FUNIL */}
       <SectionBlock
