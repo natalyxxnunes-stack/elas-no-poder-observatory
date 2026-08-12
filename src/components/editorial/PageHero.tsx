@@ -28,15 +28,18 @@ export function PageHero({
   if (wide && image) {
     return (
       <section className="py-8 md:py-12">
-        <figure className="relative overflow-hidden rounded-lg border border-rule">
-          <img
-            src={image}
-            alt={imageAlt ?? ""}
-            aria-hidden={imageAlt ? undefined : true}
-            className="h-[220px] w-full object-cover sm:h-[300px] md:h-[420px]"
-          />
+        <figure>
+          <div className="overflow-hidden rounded-lg border border-rule">
+            <img
+              src={image}
+              alt={imageAlt ?? ""}
+              aria-hidden={imageAlt ? undefined : true}
+              className="h-[220px] w-full object-cover sm:h-[300px] md:h-[420px]"
+            />
+          </div>
           <AiCredit />
         </figure>
+
 
         <div className="relative z-10 mx-auto -mt-10 max-w-3xl px-1 md:-mt-24 md:mr-auto md:ml-0 md:px-0">
           <div className="editorial-card p-6 md:p-9">
