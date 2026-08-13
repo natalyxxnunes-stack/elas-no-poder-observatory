@@ -185,20 +185,20 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
   },
   {
     year: "2024",
-    title: "Fiscalização de fraude à regra de composição",
+    title: "Súmula 73 e a punição da fraude à cota de gênero",
     achievement:
-      "Consolida-se a jurisprudência eleitoral sobre apuração de fraude à regra de composição de candidaturas por gênero.",
+      "Consolida-se, com a aprovação da Súmula 73 do TSE em maio de 2024, a jurisprudência sobre apuração e punição da fraude à regra de composição de candidaturas por gênero.",
     rule:
-      "Casos de candidaturas registradas apenas para cumprir percentual podem ser apurados pela Justiça Eleitoral, com análise individual de provas e circunstâncias.",
+      "A fraude — uso de candidaturas femininas fictícias para o partido atingir o mínimo de 30% e ter o registro deferido — pode ser reconhecida por elementos objetivos (votação ínfima ou zerada, ausência de atos efetivos de campanha, prestação de contas padronizada), sem necessidade de prova de intenção. Confirmada, acarreta anulação dos votos do partido para o cargo, cassação do DRAP e dos diplomas das candidaturas vinculadas, e recálculo dos quocientes eleitoral e partidário.",
     dispute:
-      "Os efeitos sobre a votação do partido e sobre as cadeiras obtidas seguem sendo objeto de decisões caso a caso.",
+      "A caracterização depende dos fatos de cada caso — atos concretos de campanha e movimentação financeira compatível afastam a presunção de candidatura fictícia — e os efeitos sobre cadeiras são decididos após o pleito.",
     implementation:
-      "Apuração por ação eleitoral própria, após o pleito, com produção de prova.",
+      "Apuração por ação eleitoral própria (AIJE ou AIME), após a eleição, com produção de prova.",
     consequence:
-      "O cumprimento formal da regra deixou de encerrar a discussão sobre a candidatura.",
-    sourceLabel: "TSE — jurisprudência sobre fraude à cota de gênero",
-    sourceUrl: "https://www.tse.jus.br/jurisprudencia",
-    needsReview: true,
+      "O cumprimento apenas formal da regra deixou de encerrar a discussão: registrar 30% no papel não basta se as candidaturas não forem reais.",
+    sourceLabel: "Súmula 73 do TSE; Lei nº 9.504/1997, art. 10, §3º",
+    sourceUrl:
+      "https://www.tse.jus.br/jurisprudencia/sumulas/sumulas-do-tse",
   },
   {
     year: "2026",
