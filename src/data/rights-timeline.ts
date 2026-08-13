@@ -48,21 +48,20 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
   },
   {
     year: "1934",
-    title: "Constituição incorpora o voto feminino",
+    title: "Constituição incorpora o voto feminino, ainda facultativo",
     achievement:
-      "A Constituição de 1934 incorpora ao texto constitucional o direito de voto de mulheres.",
+      "A Constituição de 16 de julho de 1934 assentou em bases constitucionais o direito de voto das mulheres, já reconhecido pelo Código de 1932.",
     rule:
-      "O texto constitucional trata do alistamento eleitoral, mantendo diferenças de obrigatoriedade em relação aos homens.",
+      "O art. 108 definiu como eleitores \"os brasileiros de um ou de outro sexo, maiores de 18 anos\". Mas o art. 109 tornava o alistamento e o voto obrigatórios para os homens e, para as mulheres, apenas quando exercessem função pública remunerada — para as demais, o voto seguia facultativo.",
     dispute:
-      "A obrigatoriedade e a equiparação plena de condições permaneceram em debate legislativo.",
+      "A equiparação plena de obrigatoriedade e de condições entre homens e mulheres permaneceu em aberto, refletindo uma lógica que ainda vinculava a participação da mulher à sua situação de trabalho e estado civil.",
     implementation:
-      "A eleição da Assembleia Constituinte e o período seguinte foram interrompidos pelo Estado Novo, em 1937.",
+      "A experiência constitucional foi interrompida pelo Estado Novo em 1937.",
     consequence:
-      "A constitucionalização do direito não garantiu continuidade institucional: a experiência eleitoral foi interrompida poucos anos depois.",
-    sourceLabel: "Constituição de 1934",
+      "A constitucionalização do direito não significou igualdade de condições: o voto feminino nasceu constitucional, mas assimétrico.",
+    sourceLabel: "Constituição de 1934, arts. 108 e 109",
     sourceUrl:
       "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao34.htm",
-    needsReview: true,
   },
   {
     year: "1946",
