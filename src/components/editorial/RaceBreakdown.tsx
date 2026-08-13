@@ -1,5 +1,5 @@
 import { RACE_CATEGORY_RULE } from "@/data/architecture";
-import mulheresAsset from "@/assets/mulheres.webp.asset.json";
+import mulheresAsset from "@/assets/mulheres-Photoroom.png.asset.json";
 import { GapNote } from "@/components/GapNote";
 import { snapshotRaceCounts } from "@/lib/tse/indicators";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
@@ -102,7 +102,7 @@ export function RaceBreakdown({ snapshot }: { snapshot: PublicSnapshot | null })
       <figure className="overflow-hidden rounded-lg border border-rule bg-paper leading-none">
         <img
           src={mulheresAsset.url}
-          alt="Ilustração editorial: fileira de mulheres de perfil, de diferentes idades e origens"
+          alt="Ilustração editorial: fileira de mulheres de perfil, de diferentes idades, origens e trajetórias"
           loading="lazy"
           className="block h-auto w-full object-contain"
         />
