@@ -5,6 +5,8 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { StatusTag } from "@/components/editorial/StatusTag";
+import { UfGrid } from "@/components/editorial/UfGrid";
+
 
 import {
   CENTRAL_PRINCIPLE,
