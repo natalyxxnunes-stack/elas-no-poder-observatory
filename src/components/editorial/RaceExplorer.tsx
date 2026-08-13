@@ -94,7 +94,10 @@ export function RaceExplorer({
     }
     return [...totals.entries()]
       .sort((a, b) => a[0].localeCompare(b[0], "pt-BR"))
-      .map(([v, n]) => ({ value: v, label: `${v} · ${n} candidaturas` }));
+      .map(([v, n]) => ({
+        value: v,
+        label: `${v} · ${n} ${n === 1 ? "candidatura" : "candidaturas"}`,
+      }));
   }, [cells]);
 
   const partyOptions = useMemo(() => {
@@ -106,7 +109,10 @@ export function RaceExplorer({
     }
     return [...totals.entries()]
       .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "pt-BR"))
-      .map(([v, n]) => ({ value: v, label: `${v} · ${n} candidaturas` }));
+      .map(([v, n]) => ({
+        value: v,
+        label: `${v} · ${n} ${n === 1 ? "candidatura" : "candidaturas"}`,
+      }));
   }, [cells, uf]);
 
   const slice = useMemo(() => {
@@ -202,7 +208,8 @@ export function RaceExplorer({
           <p className="poster-eyebrow text-muted-foreground">Fatia escolhida</p>
           <p className="mt-1 font-display text-lg text-ink">{scopeLabel}</p>
           <p className="mt-2 font-mono text-[11px] text-muted-foreground">
-            Base: {base.toLocaleString("pt-BR")} candidaturas de mulheres
+            Base: {base.toLocaleString("pt-BR")}{" "}
+            {base === 1 ? "candidatura" : "candidaturas"} de mulheres
             {showPercent
               ? " — denominador de todos os percentuais abaixo"
               : ` — abaixo de ${MIN_BASE}: só contagens absolutas`}
@@ -248,7 +255,8 @@ export function RaceExplorer({
         {!showPercent && base > 0 && (
           <div className="border-t-2 border-ink p-5">
             <GapNote label="Base pequena">
-              Com {base.toLocaleString("pt-BR")} candidaturas nesta fatia
+              Com {base.toLocaleString("pt-BR")}{" "}
+              {base === 1 ? "candidatura" : "candidaturas"} nesta fatia
               (mínimo de {MIN_BASE}), um percentual daria aparência de precisão a
               um número que uma única candidatura moveria demais. Por isso aqui
               só aparecem contagens absolutas.
