@@ -1,4 +1,4 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -12,14 +12,11 @@ import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import spotStrength from "@/assets/spot-strength.png";
 
 /**
- * ROTA DESPUBLICADA (lançamento de 5 páginas).
- * Arquivo preservado intencionalmente para republicação futura: o conteúdo e os
- * componentes seguem intactos, apenas o acesso público está redirecionado.
+ * ROTA REPUBLICADA.
+ * O conteúdo, o loader e o componente permanecem intactos; o redirecionamento
+ * foi removido para que o eixo volte a ser acessível publicamente.
  */
 export const Route = createFileRoute("/quem-sao-elas")({
-  beforeLoad: () => {
-    throw redirect({ to: "/" });
-  },
   head: () => ({
     meta: [
       {
@@ -144,7 +141,7 @@ function QuemSaoElasPage() {
         <IntersectionPlan />
       </SectionBlock>
 
-      <NextAxes ids={["quem-chega", "dinheiro", "barreiras"]} />
+      <NextAxes ids={["funil", "direitos", "metodo"]} />
     </PageShell>
   );
 }
