@@ -5,6 +5,8 @@ import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
+import { RaceExplorer } from "@/components/editorial/RaceExplorer";
+
 import { IntersectionPlan } from "@/components/editorial/IntersectionPlan";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { axis, CENTRAL_PRINCIPLE } from "@/data/architecture";
@@ -106,9 +108,34 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
       <SectionBlock
+        kicker="Explorador"
+        question="Escolha o cargo, o estado e o partido — e veja quem são elas ali"
+        align="wide"
+        tone="solar"
+        lead={
+          <p>
+            Cada combinação recalcula a distribuição por cor/raça daquela fatia,
+            com a base à vista. Onde a base é pequena demais, o percentual
+            desaparece e ficam só as contagens absolutas.
+          </p>
+        }
+        source={
+          <>
+            Fonte: TSE · Candidaturas 2026 ·{" "}
+            <Link to="/metodo" className="text-plum underline underline-offset-4">
+              ver o método
+            </Link>
+          </>
+        }
+      >
+        <RaceExplorer snapshot={snapshot} />
+      </SectionBlock>
+
+      <SectionBlock
         kicker="Limites da fonte"
         question="O que a base registra — e o que ela não registra"
       >
+
         <div className="grid gap-4 md:grid-cols-3">
           <ContextBox variant="significa">
             <p>

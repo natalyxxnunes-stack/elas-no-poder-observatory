@@ -24,7 +24,7 @@ import {
  * Versão do processamento — muda quando a lógica de cálculo muda.
  * Inclui a versão do dicionário de dados usada na leitura do arquivo.
  */
-export const PROCESSING_VERSION = `2026.08.11-b4.1+${DICTIONARY_VERSION}`;
+export const PROCESSING_VERSION = `2026.08.13-b7.1+${DICTIONARY_VERSION}`;
 
 /**
  * Colunas analíticas e os nomes REAIS aceitos, conforme o dicionário de dados
@@ -171,7 +171,22 @@ export type UniverseTally = {
     feminineByAgremiacao: Record<string, number>;
     /** total de candidaturas por forma de agremiação */
     totalByAgremiacao: Record<string, number>;
+    /**
+     * Distribuição de cor/raça (categorias originais do TSE) das candidaturas
+     * de mulheres dentro de cada partido: SG_PARTIDO → DS_COR_RACA → contagem.
+     */
+    raceByParty: Record<string, Record<string, number>>;
+    /** o mesmo por UF: SG_UF → DS_COR_RACA → contagem */
+    raceByUf: Record<string, Record<string, number>>;
+    /**
+     * Tabela conjunta esparsa para permitir filtros combinados de UF e partido
+     * sem recompor a base: chave `SG_UF|SG_PARTIDO` → DS_COR_RACA → contagem
+     * de candidaturas de mulheres. Só células não-nulas são gravadas. O cargo
+     * não entra na chave: cada universo já tem sua própria tabela.
+     */
+    raceByUfParty: Record<string, Record<string, number>>;
   };
+
 };
 
 export type ParseResult = {
@@ -223,7 +238,11 @@ function emptyTally(): UniverseTally {
       totalByParty: {},
       feminineByAgremiacao: {},
       totalByAgremiacao: {},
+      raceByParty: {},
+      raceByUf: {},
+      raceByUfParty: {},
     },
+
   };
 }
 
@@ -253,6 +272,21 @@ const bump = (map: Record<string, number>, key: string) => {
   const k = key || "NÃO INFORMADO";
   map[k] = (map[k] ?? 0) + 1;
 };
+
+/**
+ * Acumula uma contagem em tabela de dois níveis (dimensão → cor/raça),
+ * criando a célula só quando ela existe de fato no arquivo.
+ */
+const bump2 = (
+  map: Record<string, Record<string, number>>,
+  key: string,
+  race: string,
+) => {
+  const k = key || "NÃO INFORMADO";
+  const inner = (map[k] ??= {});
+  bump(inner, race);
+};
+
 
 /**
  * Converte DT_GERACAO (dd/mm/aaaa) + HH_GERACAO (hh:mm:ss) em ISO.
@@ -343,6 +377,12 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
       bump(tally.dimensions.feminineByUf, row.uf);
       bump(tally.dimensions.feminineByParty, row.partido);
       bump(tally.dimensions.feminineByAgremiacao, row.agremiacao);
+      const uf = row.uf || "NÃO INFORMADO";
+      const party = row.partido || "NÃO INFORMADO";
+      bump2(tally.dimensions.raceByParty, party, race);
+      bump2(tally.dimensions.raceByUf, uf, race);
+      bump2(tally.dimensions.raceByUfParty, `${uf}|${party}`, race);
+
     }
   }
   return acc;
@@ -436,6 +476,7 @@ export const APPLIED_FILTERS = [
   "Cor/raça mantida nas categorias originais do TSE (DS_COR_RACA), sem agregação; preta + parda = negra só como transformação analítica declarada na apresentação",
   `Leitura de colunas conforme o dicionário de dados versionado ${DICTIONARY_VERSION}, mapeado a partir do cabeçalho real do arquivo`,
   "Dimensões adicionais gravadas apenas como contagens brutas (UF, partido e forma de agremiação); nenhum indicador novo é derivado delas nesta fotografia",
+  "Cruzamentos de cor/raça das candidaturas de mulheres gravados por partido, por UF e na tabela conjunta UF|partido (categorias originais do TSE, apenas células existentes no arquivo); o cargo não entra na chave, cada universo tem tabela própria",
   "Deduplicação por SQ_CANDIDATO antes de qualquer contagem: linha com chave já processada é descartada dos numeradores, denominadores, cor/raça e dimensões; o total de linhas brutas e a quantidade de duplicidades ficam registrados separadamente",
   "Data da fotografia lida de DT_GERACAO + HH_GERACAO nas linhas do próprio arquivo Candidatos (horário de Brasília); metadados do portal não substituem essa data",
 ];
