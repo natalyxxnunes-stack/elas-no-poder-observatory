@@ -27,6 +27,12 @@ export type PublicUniverseTally = {
     totalByParty?: Record<string, number>;
     feminineByAgremiacao?: Record<string, number>;
     totalByAgremiacao?: Record<string, number>;
+    /** SG_PARTIDO → DS_COR_RACA → candidaturas de mulheres */
+    raceByParty?: Record<string, Record<string, number>>;
+    /** SG_UF → DS_COR_RACA → candidaturas de mulheres */
+    raceByUf?: Record<string, Record<string, number>>;
+    /** `SG_UF|SG_PARTIDO` → DS_COR_RACA → candidaturas de mulheres */
+    raceByUfParty?: Record<string, Record<string, number>>;
   };
 };
 

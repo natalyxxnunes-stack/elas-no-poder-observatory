@@ -24,7 +24,7 @@ import {
  * Versão do processamento — muda quando a lógica de cálculo muda.
  * Inclui a versão do dicionário de dados usada na leitura do arquivo.
  */
-export const PROCESSING_VERSION = `2026.08.11-b4.1+${DICTIONARY_VERSION}`;
+export const PROCESSING_VERSION = `2026.08.13-b7.1+${DICTIONARY_VERSION}`;
 
 /**
  * Colunas analíticas e os nomes REAIS aceitos, conforme o dicionário de dados
@@ -476,6 +476,7 @@ export const APPLIED_FILTERS = [
   "Cor/raça mantida nas categorias originais do TSE (DS_COR_RACA), sem agregação; preta + parda = negra só como transformação analítica declarada na apresentação",
   `Leitura de colunas conforme o dicionário de dados versionado ${DICTIONARY_VERSION}, mapeado a partir do cabeçalho real do arquivo`,
   "Dimensões adicionais gravadas apenas como contagens brutas (UF, partido e forma de agremiação); nenhum indicador novo é derivado delas nesta fotografia",
+  "Cruzamentos de cor/raça das candidaturas de mulheres gravados por partido, por UF e na tabela conjunta UF|partido (categorias originais do TSE, apenas células existentes no arquivo); o cargo não entra na chave, cada universo tem tabela própria",
   "Deduplicação por SQ_CANDIDATO antes de qualquer contagem: linha com chave já processada é descartada dos numeradores, denominadores, cor/raça e dimensões; o total de linhas brutas e a quantidade de duplicidades ficam registrados separadamente",
   "Data da fotografia lida de DT_GERACAO + HH_GERACAO nas linhas do próprio arquivo Candidatos (horário de Brasília); metadados do portal não substituem essa data",
 ];
