@@ -23,10 +23,11 @@ type Cell = {
 
 /** Faixas de percentual, da menor para a maior. */
 const BANDS = [
-  { max: 30, label: "abaixo de 30%", bg: "bg-coral", fg: "text-cream" },
-  { max: 33, label: "30% a 33%", bg: "bg-solar", fg: "text-ink" },
-  { max: 36, label: "33% a 36%", bg: "bg-plum-soft", fg: "text-cream" },
-  { max: Infinity, label: "36% ou mais", bg: "bg-plum", fg: "text-cream" },
+  { max: 34, label: "abaixo de 34%", bg: "bg-coral", fg: "text-cream" },
+  { max: 35.5, label: "34% a 35,5%", bg: "bg-solar", fg: "text-ink" },
+  { max: 37, label: "35,5% a 37%", bg: "bg-plum-soft", fg: "text-cream" },
+  { max: 39, label: "37% a 39%", bg: "bg-plum", fg: "text-cream" },
+  { max: Infinity, label: "39% ou mais", bg: "bg-forest", fg: "text-cream" },
 ] as const;
 
 function band(share: number) {

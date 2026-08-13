@@ -47,6 +47,7 @@
   --color-plum-soft: var(--plum-soft);
   --color-solar: var(--solar);
   --color-coral: var(--coral);
+  --color-forest: var(--forest);
   --color-paper: var(--paper);
   --color-rule: var(--rule);
 
@@ -71,6 +72,7 @@
   --plum-soft: oklch(0.52 0.13 305);
   --solar: oklch(0.83 0.16 84);
   --coral: oklch(0.63 0.2 34);
+  --forest: #2E7D4F;
   --rule: oklch(0.86 0.02 85);
 
   --background: var(--paper);
