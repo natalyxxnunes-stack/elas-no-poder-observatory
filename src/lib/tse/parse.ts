@@ -171,7 +171,22 @@ export type UniverseTally = {
     feminineByAgremiacao: Record<string, number>;
     /** total de candidaturas por forma de agremiação */
     totalByAgremiacao: Record<string, number>;
+    /**
+     * Distribuição de cor/raça (categorias originais do TSE) das candidaturas
+     * de mulheres dentro de cada partido: SG_PARTIDO → DS_COR_RACA → contagem.
+     */
+    raceByParty: Record<string, Record<string, number>>;
+    /** o mesmo por UF: SG_UF → DS_COR_RACA → contagem */
+    raceByUf: Record<string, Record<string, number>>;
+    /**
+     * Tabela conjunta esparsa para permitir filtros combinados de UF e partido
+     * sem recompor a base: chave `SG_UF|SG_PARTIDO` → DS_COR_RACA → contagem
+     * de candidaturas de mulheres. Só células não-nulas são gravadas. O cargo
+     * não entra na chave: cada universo já tem sua própria tabela.
+     */
+    raceByUfParty: Record<string, Record<string, number>>;
   };
+
 };
 
 export type ParseResult = {
