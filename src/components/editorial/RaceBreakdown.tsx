@@ -1,5 +1,5 @@
 import { RACE_CATEGORY_RULE } from "@/data/architecture";
-import mulheresAsset from "@/assets/mulheres.webp.asset.json";
+import mulheresAsset from "@/assets/mulheres-Photoroom.png.asset.json";
 import { GapNote } from "@/components/GapNote";
 import { snapshotRaceCounts } from "@/lib/tse/indicators";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
