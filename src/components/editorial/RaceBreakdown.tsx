@@ -104,7 +104,7 @@ export function RaceBreakdown({ snapshot }: { snapshot: PublicSnapshot | null })
           src={mulheresAsset.url}
           alt="Ilustração editorial: fileira de mulheres de perfil, de diferentes idades e origens"
           loading="lazy"
-          className="block h-auto w-full"
+          className="block h-auto w-full object-contain"
         />
       </figure>
 
