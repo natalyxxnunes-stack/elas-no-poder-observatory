@@ -66,21 +66,20 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
   },
   {
     year: "1946",
-    title: "Redemocratização e retomada do alistamento",
+    title: "Voto feminino passa a obrigatório para alfabetizados",
     achievement:
-      "Com a Constituição de 1946, o voto volta a organizar a vida política e o alistamento feminino é retomado.",
+      "A Constituição de 18 de setembro de 1946, na redemocratização, equiparou a obrigatoriedade do voto entre homens e mulheres alfabetizados.",
     rule:
-      "O texto de 1946 define eleitores e condições de alistamento no novo arranjo democrático.",
+      "O voto, até então facultativo para a maioria das mulheres, tornou-se obrigatório para homens e mulheres alfabetizados de todo o país.",
     dispute:
-      "A participação de mulheres em candidaturas seguia sem qualquer mecanismo de estímulo ou reserva.",
+      "A obrigatoriedade encerrou a assimetria no direito de votar, mas nenhum mecanismo estimulava candidaturas de mulheres — o gargalo se deslocou do voto para a candidatura.",
     implementation:
-      "A retomada ocorreu sob a estrutura da Justiça Eleitoral reinstalada.",
+      "Aplicada sob a estrutura da Justiça Eleitoral reinstalada no novo arranjo democrático.",
     consequence:
-      "Votar deixou de ser a questão central; candidatar-se e ser eleita passaram a ser o gargalo visível.",
+      "Votar deixou de ser a questão; candidatar-se e ser eleita passaram a ser o gargalo visível — e assim permaneceriam por décadas.",
     sourceLabel: "Constituição de 1946",
     sourceUrl:
       "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao46.htm",
-    needsReview: true,
   },
   {
     year: "1995",
