@@ -5,6 +5,8 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { StatusTag } from "@/components/editorial/StatusTag";
+import { UfGrid } from "@/components/editorial/UfGrid";
+
 
 import {
   CENTRAL_PRINCIPLE,
@@ -401,6 +403,8 @@ function DadosPage() {
             date={baseDate}
           />
         </div>
+        <UfGrid snapshot={snapshot} baseDate={baseDate} />
+
         <p className="mt-6 font-mono text-[11px] text-muted-foreground">
           Fonte: TSE · Candidaturas 2026 ·{" "}
           <Link to="/metodo" className="text-plum underline underline-offset-4">
