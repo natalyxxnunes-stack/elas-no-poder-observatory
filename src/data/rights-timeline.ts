@@ -204,18 +204,18 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     year: "2026",
     title: "Regras aplicáveis ao ciclo em curso",
     achievement:
-      "As resoluções do TSE para as eleições de 2026 organizam registro de candidaturas, prestação de contas e distribuição de recursos.",
+      "As eleições de 2026 são regidas por um conjunto de resoluções do TSE que organizam, em normas separadas, o registro de candidaturas, a arrecadação e a prestação de contas, e a distribuição de recursos públicos de campanha — incorporando as regras de destinação a candidaturas de mulheres, pessoas negras e indígenas construídas ao longo dos ciclos anteriores.",
     rule:
-      "A Resolução TSE nº 23.752/2026 trata, entre outros pontos, da destinação de recursos a candidaturas de mulheres, pessoas negras e indígenas.",
+      "A destinação mínima de recursos do FEFC e do Fundo Partidário a essas candidaturas continua regida pela Resolução TSE nº 23.607/2019 (art. 17, §4º, e art. 19), com piso de 30% para candidaturas de mulheres, apoiada na ADI 5.617/DF e na ADPF 738/DF. Para o ciclo de 2026, a Resolução TSE nº 23.752/2026 (arrecadação e prestação de contas) alterou dispositivos da 23.607/2019, e o registro de candidaturas é tratado pela Resolução TSE nº 23.754/2026.",
     dispute:
-      "É o ciclo em curso: prazos, deferimentos e indeferimentos seguem em andamento e podem alterar o quadro de candidaturas.",
+      "É o ciclo em curso: prazos, deferimentos e indeferimentos seguem em andamento e podem alterar o quadro de candidaturas. A eficácia das regras de destinação depende de fiscalização na prestação de contas, verificada apenas após o pleito.",
     implementation:
       "Aplicação corrente, acompanhada pelo calendário eleitoral de 2026.",
     consequence:
       "Os dados que este observatório publica em 2026 são provisórios por natureza, porque a própria aplicação das regras está em curso.",
-    sourceLabel: "Resolução TSE nº 23.752/2026",
+    sourceLabel: "Resolução TSE nº 23.607/2019; Resoluções TSE nº 23.752/2026 e nº 23.754/2026",
     sourceUrl:
-      "https://www.tse.jus.br/legislacao/compilada/res/2026/resolucao-no-23-752-de-26-de-fevereiro-de-2026",
+      "https://www.tse.jus.br/legislacao/compilada/res/2019/resolucao-no-23-607-de-17-de-dezembro-de-2019",
   },
 ];
 
