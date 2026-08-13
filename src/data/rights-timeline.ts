@@ -167,21 +167,20 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
   },
   {
     year: "2021",
-    title: "Emenda Constitucional 111 e incentivo por gênero e raça",
+    title: "Emenda Constitucional 111: voto que vale em dobro na partilha dos fundos",
     achievement:
-      "A EC 111/2021 cria contagem em dobro, por período determinado, de votos dados a mulheres e a pessoas negras para fins de distribuição de fundos e tempo de propaganda.",
+      "A EC 111/2021 criou um incentivo constitucional às candidaturas de mulheres e pessoas negras na distribuição de recursos públicos de campanha.",
     rule:
-      "Incide sobre a distribuição de recursos entre partidos, e não sobre a atribuição de cadeiras.",
+      "Para a distribuição, entre os partidos, dos recursos do Fundo Partidário e do FEFC, os votos dados a candidatas mulheres ou a candidatos negros para a Câmara dos Deputados nas eleições de 2022 a 2030 são contados em dobro. A contagem incide sobre a partilha dos fundos entre os partidos — não sobre a atribuição de cadeiras: nenhuma candidata se elege com voto duplicado.",
     dispute:
-      "Regra de incentivo com prazo definido; sua eficácia depende de como cada partido redistribui internamente o que recebe.",
+      "É um incentivo com prazo definido (2022–2030) e aplicação única por eleição. Sua eficácia depende de como cada partido redistribui internamente o que recebe, e a regra de aplicação única desfavorece especificamente mulheres negras, que se enquadram nos dois critérios mas têm o voto contado em dobro uma só vez.",
     implementation:
-      "Aplicada a partir das eleições seguintes à promulgação, nos termos do texto constitucional.",
+      "Em vigor desde as eleições de 2022, por ter entrado em vigência um ano antes.",
     consequence:
-      "Criou incentivo financeiro partidário, sem alterar o resultado eleitoral em si.",
-    sourceLabel: "Emenda Constitucional nº 111/2021",
+      "Criou incentivo financeiro partidário para investir nessas candidaturas, sem alterar o resultado eleitoral em si.",
+    sourceLabel: "Emenda Constitucional nº 111/2021, art. 2º",
     sourceUrl:
       "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm",
-    needsReview: true,
   },
   {
     year: "2024",
