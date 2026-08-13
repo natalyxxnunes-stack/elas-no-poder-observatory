@@ -274,6 +274,21 @@ const bump = (map: Record<string, number>, key: string) => {
 };
 
 /**
+ * Acumula uma contagem em tabela de dois níveis (dimensão → cor/raça),
+ * criando a célula só quando ela existe de fato no arquivo.
+ */
+const bump2 = (
+  map: Record<string, Record<string, number>>,
+  key: string,
+  race: string,
+) => {
+  const k = key || "NÃO INFORMADO";
+  const inner = (map[k] ??= {});
+  bump(inner, race);
+};
+
+
+/**
  * Converte DT_GERACAO (dd/mm/aaaa) + HH_GERACAO (hh:mm:ss) em ISO.
  * O TSE gera os arquivos no horário de Brasília (UTC-03:00).
  * Devolve null se qualquer uma das partes não vier no formato esperado —
