@@ -48,39 +48,37 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
   },
   {
     year: "1934",
-    title: "Constituição incorpora o voto feminino",
+    title: "Constituição incorpora o voto feminino, ainda facultativo",
     achievement:
-      "A Constituição de 1934 incorpora ao texto constitucional o direito de voto de mulheres.",
+      "A Constituição de 16 de julho de 1934 assentou em bases constitucionais o direito de voto das mulheres, já reconhecido pelo Código de 1932.",
     rule:
-      "O texto constitucional trata do alistamento eleitoral, mantendo diferenças de obrigatoriedade em relação aos homens.",
+      "O art. 108 definiu como eleitores \"os brasileiros de um ou de outro sexo, maiores de 18 anos\". Mas o art. 109 tornava o alistamento e o voto obrigatórios para os homens e, para as mulheres, apenas quando exercessem função pública remunerada — para as demais, o voto seguia facultativo.",
     dispute:
-      "A obrigatoriedade e a equiparação plena de condições permaneceram em debate legislativo.",
+      "A equiparação plena de obrigatoriedade e de condições entre homens e mulheres permaneceu em aberto, refletindo uma lógica que ainda vinculava a participação da mulher à sua situação de trabalho e estado civil.",
     implementation:
-      "A eleição da Assembleia Constituinte e o período seguinte foram interrompidos pelo Estado Novo, em 1937.",
+      "A experiência constitucional foi interrompida pelo Estado Novo em 1937.",
     consequence:
-      "A constitucionalização do direito não garantiu continuidade institucional: a experiência eleitoral foi interrompida poucos anos depois.",
-    sourceLabel: "Constituição de 1934",
+      "A constitucionalização do direito não significou igualdade de condições: o voto feminino nasceu constitucional, mas assimétrico.",
+    sourceLabel: "Constituição de 1934, arts. 108 e 109",
     sourceUrl:
       "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao34.htm",
-    needsReview: true,
   },
   {
     year: "1946",
-    title: "Redemocratização e retomada do alistamento",
+    title: "Voto feminino passa a obrigatório para alfabetizados",
     achievement:
-      "Com a Constituição de 1946, o voto volta a organizar a vida política e o alistamento feminino é retomado.",
+      "A Constituição de 18 de setembro de 1946, na redemocratização, equiparou a obrigatoriedade do voto entre homens e mulheres alfabetizados.",
     rule:
-      "O texto de 1946 define eleitores e condições de alistamento no novo arranjo democrático.",
+      "O voto, até então facultativo para a maioria das mulheres, tornou-se obrigatório para homens e mulheres alfabetizados de todo o país.",
     dispute:
-      "A participação de mulheres em candidaturas seguia sem qualquer mecanismo de estímulo ou reserva.",
+      "A obrigatoriedade encerrou a assimetria no direito de votar, mas nenhum mecanismo estimulava candidaturas de mulheres — o gargalo se deslocou do voto para a candidatura.",
     implementation:
-      "A retomada ocorreu sob a estrutura da Justiça Eleitoral reinstalada.",
+      "Aplicada sob a estrutura da Justiça Eleitoral reinstalada no novo arranjo democrático.",
     consequence:
-      "Votar deixou de ser a questão central; candidatar-se e ser eleita passaram a ser o gargalo visível.",
+      "Votar deixou de ser a questão; candidatar-se e ser eleita passaram a ser o gargalo visível — e assim permaneceriam por décadas.",
     sourceLabel: "Constituição de 1946",
     sourceUrl:
       "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao46.htm",
-    needsReview: true,
   },
   {
     year: "1995",
@@ -167,55 +165,54 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
   },
   {
     year: "2021",
-    title: "Emenda Constitucional 111 e incentivo por gênero e raça",
+    title: "Emenda Constitucional 111: voto que vale em dobro na partilha dos fundos",
     achievement:
-      "A EC 111/2021 cria contagem em dobro, por período determinado, de votos dados a mulheres e a pessoas negras para fins de distribuição de fundos e tempo de propaganda.",
+      "A EC 111/2021 criou um incentivo constitucional às candidaturas de mulheres e pessoas negras na distribuição de recursos públicos de campanha.",
     rule:
-      "Incide sobre a distribuição de recursos entre partidos, e não sobre a atribuição de cadeiras.",
+      "Para a distribuição, entre os partidos, dos recursos do Fundo Partidário e do FEFC, os votos dados a candidatas mulheres ou a candidatos negros para a Câmara dos Deputados nas eleições de 2022 a 2030 são contados em dobro. A contagem incide sobre a partilha dos fundos entre os partidos — não sobre a atribuição de cadeiras: nenhuma candidata se elege com voto duplicado.",
     dispute:
-      "Regra de incentivo com prazo definido; sua eficácia depende de como cada partido redistribui internamente o que recebe.",
+      "É um incentivo com prazo definido (2022–2030) e aplicação única por eleição. Sua eficácia depende de como cada partido redistribui internamente o que recebe, e a regra de aplicação única desfavorece especificamente mulheres negras, que se enquadram nos dois critérios mas têm o voto contado em dobro uma só vez.",
     implementation:
-      "Aplicada a partir das eleições seguintes à promulgação, nos termos do texto constitucional.",
+      "Em vigor desde as eleições de 2022, por ter entrado em vigência um ano antes.",
     consequence:
-      "Criou incentivo financeiro partidário, sem alterar o resultado eleitoral em si.",
-    sourceLabel: "Emenda Constitucional nº 111/2021",
+      "Criou incentivo financeiro partidário para investir nessas candidaturas, sem alterar o resultado eleitoral em si.",
+    sourceLabel: "Emenda Constitucional nº 111/2021, art. 2º",
     sourceUrl:
       "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm",
-    needsReview: true,
   },
   {
     year: "2024",
-    title: "Fiscalização de fraude à regra de composição",
+    title: "Súmula 73 e a punição da fraude à cota de gênero",
     achievement:
-      "Consolida-se a jurisprudência eleitoral sobre apuração de fraude à regra de composição de candidaturas por gênero.",
+      "Consolida-se, com a aprovação da Súmula 73 do TSE em maio de 2024, a jurisprudência sobre apuração e punição da fraude à regra de composição de candidaturas por gênero.",
     rule:
-      "Casos de candidaturas registradas apenas para cumprir percentual podem ser apurados pela Justiça Eleitoral, com análise individual de provas e circunstâncias.",
+      "A fraude — uso de candidaturas femininas fictícias para o partido atingir o mínimo de 30% e ter o registro deferido — pode ser reconhecida por elementos objetivos (votação ínfima ou zerada, ausência de atos efetivos de campanha, prestação de contas padronizada), sem necessidade de prova de intenção. Confirmada, acarreta anulação dos votos do partido para o cargo, cassação do DRAP e dos diplomas das candidaturas vinculadas, e recálculo dos quocientes eleitoral e partidário.",
     dispute:
-      "Os efeitos sobre a votação do partido e sobre as cadeiras obtidas seguem sendo objeto de decisões caso a caso.",
+      "A caracterização depende dos fatos de cada caso — atos concretos de campanha e movimentação financeira compatível afastam a presunção de candidatura fictícia — e os efeitos sobre cadeiras são decididos após o pleito.",
     implementation:
-      "Apuração por ação eleitoral própria, após o pleito, com produção de prova.",
+      "Apuração por ação eleitoral própria (AIJE ou AIME), após a eleição, com produção de prova.",
     consequence:
-      "O cumprimento formal da regra deixou de encerrar a discussão sobre a candidatura.",
-    sourceLabel: "TSE — jurisprudência sobre fraude à cota de gênero",
-    sourceUrl: "https://www.tse.jus.br/jurisprudencia",
-    needsReview: true,
+      "O cumprimento apenas formal da regra deixou de encerrar a discussão: registrar 30% no papel não basta se as candidaturas não forem reais.",
+    sourceLabel: "Súmula 73 do TSE; Lei nº 9.504/1997, art. 10, §3º",
+    sourceUrl:
+      "https://www.tse.jus.br/jurisprudencia/sumulas/sumulas-do-tse",
   },
   {
     year: "2026",
     title: "Regras aplicáveis ao ciclo em curso",
     achievement:
-      "As resoluções do TSE para as eleições de 2026 organizam registro de candidaturas, prestação de contas e distribuição de recursos.",
+      "As eleições de 2026 são regidas por um conjunto de resoluções do TSE que organizam, em normas separadas, o registro de candidaturas, a arrecadação e a prestação de contas, e a distribuição de recursos públicos de campanha — incorporando as regras de destinação a candidaturas de mulheres, pessoas negras e indígenas construídas ao longo dos ciclos anteriores.",
     rule:
-      "A Resolução TSE nº 23.752/2026 trata, entre outros pontos, da destinação de recursos a candidaturas de mulheres, pessoas negras e indígenas.",
+      "A destinação mínima de recursos do FEFC e do Fundo Partidário a essas candidaturas continua regida pela Resolução TSE nº 23.607/2019 (art. 17, §4º, e art. 19), com piso de 30% para candidaturas de mulheres, apoiada na ADI 5.617/DF e na ADPF 738/DF. Para o ciclo de 2026, a Resolução TSE nº 23.752/2026 (arrecadação e prestação de contas) alterou dispositivos da 23.607/2019, e o registro de candidaturas é tratado pela Resolução TSE nº 23.754/2026.",
     dispute:
-      "É o ciclo em curso: prazos, deferimentos e indeferimentos seguem em andamento e podem alterar o quadro de candidaturas.",
+      "É o ciclo em curso: prazos, deferimentos e indeferimentos seguem em andamento e podem alterar o quadro de candidaturas. A eficácia das regras de destinação depende de fiscalização na prestação de contas, verificada apenas após o pleito.",
     implementation:
       "Aplicação corrente, acompanhada pelo calendário eleitoral de 2026.",
     consequence:
       "Os dados que este observatório publica em 2026 são provisórios por natureza, porque a própria aplicação das regras está em curso.",
-    sourceLabel: "Resolução TSE nº 23.752/2026",
+    sourceLabel: "Resolução TSE nº 23.607/2019; Resoluções TSE nº 23.752/2026 e nº 23.754/2026",
     sourceUrl:
-      "https://www.tse.jus.br/legislacao/compilada/res/2026/resolucao-no-23-752-de-26-de-fevereiro-de-2026",
+      "https://www.tse.jus.br/legislacao/compilada/res/2019/resolucao-no-23-607-de-17-de-dezembro-de-2019",
   },
 ];
 
