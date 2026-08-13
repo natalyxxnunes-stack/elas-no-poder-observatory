@@ -5,6 +5,8 @@ import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
+import { RaceExplorer } from "@/components/editorial/RaceExplorer";
+
 import { IntersectionPlan } from "@/components/editorial/IntersectionPlan";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { axis, CENTRAL_PRINCIPLE } from "@/data/architecture";
