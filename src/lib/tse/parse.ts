@@ -377,6 +377,12 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
       bump(tally.dimensions.feminineByUf, row.uf);
       bump(tally.dimensions.feminineByParty, row.partido);
       bump(tally.dimensions.feminineByAgremiacao, row.agremiacao);
+      const uf = row.uf || "NÃO INFORMADO";
+      const party = row.partido || "NÃO INFORMADO";
+      bump2(tally.dimensions.raceByParty, party, race);
+      bump2(tally.dimensions.raceByUf, uf, race);
+      bump2(tally.dimensions.raceByUfParty, `${uf}|${party}`, race);
+
     }
   }
   return acc;
