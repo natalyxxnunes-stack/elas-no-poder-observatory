@@ -179,15 +179,18 @@ export async function runIngest(
 
   const indicators = computeIndicators(acc);
 
+  // Comparação de volume contra a última fotografia efetivamente publicada
+  // (ok, ou retida e liberada por conferência manual).
   const { data: previous } = await supabaseAdmin
     .from("tse_snapshots")
     .select("record_count")
-    .in("status", ["ok", "anomalia"])
+    .or("status.eq.ok,and(status.eq.requer_conferencia,conferido.eq.true)")
     .order("collected_at", { ascending: false })
     .limit(1)
     .maybeSingle();
 
   const validation = validate(acc, indicators, previous?.record_count ?? null);
+
 
   const { data, error } = await supabaseAdmin
     .from("tse_snapshots")
