@@ -57,8 +57,21 @@ function br(iso: string | null): string {
   if (!iso) return "—";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "—";
-  return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+function statusLabel(s: PublicSnapshot): string {
+  switch (s.status) {
+    case "ok":
+      return "validada";
+    case "requer_conferencia":
+      return s.conferido ? "validada" : "em conferência";
+    case "invalido":
+      return "não publicada";
+    case "falha_coleta":
+      return "falha na coleta";
+    default:
+      return s.status;
+  }
 }
+
 
 const PLAIN_STEPS = [
   {
@@ -93,6 +106,23 @@ function MetodoPage() {
     history: PublicSnapshot[];
   };
   const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
+
+  const getCsv = useServerFn(getLatestTseSnapshotCsv);
+  const handleDownload = async () => {
+    const result = await getCsv();
+    if (!result) return;
+    const blob = new Blob([result.content], {
+      type: "text/csv;charset=utf-8",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = result.fileName;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+
 
   return (
     <PageShell>
