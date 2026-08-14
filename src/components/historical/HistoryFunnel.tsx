@@ -29,47 +29,39 @@ const pct = (v: number) =>
   })}%`;
 
 function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: string }) {
-  const totalCount = RACE_CATEGORIES.reduce((acc, key) => acc + race[key].count, 0);
-  if (totalCount <= 0) return null;
+  const maxCount = Math.max(...RACE_CATEGORIES.map((key) => race[key].count), 1);
 
   return (
-    <div className="mt-3 space-y-1.5">
-      <div
-        className="flex h-2.5 w-full overflow-hidden rounded-sm border border-ink/20 bg-secondary"
-        role="img"
-        aria-label={`Cor/raça na ${stageLabel.toLowerCase()}: ${RACE_CATEGORIES.map(
-          (key) => `${RACE_LABELS[key]} ${n(race[key].count)} (${pct(race[key].percent)})`,
-        ).join(", ")}`}
-      >
-        {RACE_CATEGORIES.map((key) =>
-          race[key].count > 0 ? (
-            <div
-              key={key}
-              className="h-full"
-              style={{
-                width: `${(race[key].count / totalCount) * 100}%`,
-                minWidth: "2px",
-                background: RACE_COLORS[key],
-              }}
-            />
-          ) : null,
-        )}
-      </div>
-      <dl className="grid grid-cols-1 gap-x-3 gap-y-0.5 font-mono text-[10px] leading-tight sm:grid-cols-2">
-        {RACE_CATEGORIES.map((key) => (
-          <div key={key} className="flex items-center gap-1.5">
-            <span
-              aria-hidden
-              className="inline-block h-2 w-2 shrink-0 rounded-full border border-ink/40"
-              style={{ background: RACE_COLORS[key] }}
-            />
-            <dt className="text-muted-foreground">{RACE_LABELS[key]}</dt>
-            <dd className="ml-auto whitespace-nowrap text-ink">
-              {n(race[key].count)} · {pct(race[key].percent)}
-            </dd>
-          </div>
-        ))}
-      </dl>
+    <div className="mt-4">
+      <p className="mb-2.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+        Cor/raça: {stageLabel.toLowerCase()}
+      </p>
+      <ul className="space-y-2.5">
+        {RACE_CATEGORIES.map((key) => {
+          const item = race[key];
+          const barWidth = (item.count / maxCount) * 100;
+          return (
+            <li key={key} className="grid items-center gap-2" style={{ gridTemplateColumns: "5.5rem 1fr 4.5rem" }}>
+              <span className="truncate font-mono text-[10px] leading-none text-muted-foreground">
+                {RACE_LABELS[key]}
+              </span>
+              <div className="h-1.5 w-full overflow-hidden rounded-sm bg-secondary" aria-hidden>
+                <div
+                  className="h-full rounded-sm"
+                  style={{
+                    width: item.count > 0 ? `${barWidth}%` : "0%",
+                    background: RACE_COLORS[key],
+                    minWidth: item.count > 0 ? "2px" : "0",
+                  }}
+                />
+              </div>
+              <span className="text-right font-mono text-[10px] leading-none text-ink">
+                {n(item.count)} · {pct(item.percent)}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
