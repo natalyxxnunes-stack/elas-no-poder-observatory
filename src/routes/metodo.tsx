@@ -114,9 +114,7 @@ function MetodoPage() {
   const getCsv = useServerFn(getLatestTseSnapshotCsv);
   const handleDownload = async () => {
     const result = await getCsv();
-    console.log("csv result", result);
     if (!result) return;
-
     const blob = new Blob([result.content], {
       type: "text/csv;charset=utf-8",
     });
@@ -124,9 +122,12 @@ function MetodoPage() {
     const a = document.createElement("a");
     a.href = url;
     a.download = result.fileName;
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
+
 
 
 
