@@ -229,7 +229,7 @@ export async function runIngest(
   }
 
   return {
-    ok: validation.publishable,
+    ok: validation.status === "ok",
     snapshotId: data?.id ?? null,
     status: validation.status,
     fileName,
@@ -237,8 +237,12 @@ export async function runIngest(
     baseGeneratedAt,
     recordCount: acc.recordCount,
     anomalies: validation.anomalies,
-    message: validation.publishable
-      ? "Nova fotografia gravada."
-      : "Fotografia gravada como inválida; a anterior segue sendo a fotografia atual.",
+    message:
+      validation.status === "ok"
+        ? "Nova fotografia gravada e publicada."
+        : validation.status === "requer_conferencia"
+          ? "Fotografia gravada e retida para conferência manual; a anterior segue no ar até a liberação."
+          : "Fotografia gravada como inválida; a anterior segue sendo a fotografia atual.",
   };
 }
+
