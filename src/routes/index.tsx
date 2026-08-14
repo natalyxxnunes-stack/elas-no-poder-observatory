@@ -210,15 +210,10 @@ const INVESTIGATION_PLAN = [
 ];
 
 function DadosPage() {
-  const { snapshot, historical, pendingReviewBaseDate } =
-    Route.useLoaderData();
+  const { snapshot, pendingReviewBaseDate } = Route.useLoaderData();
   const pendingDate = snapshotDate(pendingReviewBaseDate ?? null);
 
   const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
-  const feminineSeries =
-    (historical.series as Series[]).find(
-      (s) => s.id === "serie-mulheres-candidaturas",
-    ) ?? null;
   const [first, ...rest] = indicators;
 
   const baseDate = snapshotDate(snapshot?.baseGeneratedAt ?? null);
