@@ -567,10 +567,11 @@ export function validate(
     publishable = false;
   }
   if (result.duplicateRows > 0) {
-    anomalies.push(
-      `${result.duplicateRows} linhas com SQ_CANDIDATO repetido foram descartadas das contagens (${result.rawLineCount} linhas brutas → ${result.recordCount} candidaturas distintas) — anomalia informativa, sem efeito sobre os indicadores`,
+    notes.push(
+      `${result.duplicateRows} linhas com SQ_CANDIDATO repetido foram descartadas das contagens (${result.rawLineCount} linhas brutas → ${result.recordCount} candidaturas distintas) — deduplicação de rotina do arquivo BRASIL, sem efeito sobre os indicadores`,
     );
   }
+
   if (result.rowsWithoutKey > 0) {
     anomalies.push(
       `${result.rowsWithoutKey} linhas sem SQ_CANDIDATO foram descartadas por não permitirem deduplicação`,
