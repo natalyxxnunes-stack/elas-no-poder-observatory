@@ -119,7 +119,7 @@ function YearCard({ year }: { year: (typeof HISTORICAL_FUNNEL)[number] }) {
           {year.stage === "em_curso" ? "base em curso" : "eleição encerrada"}
         </StatusTag>
       </div>
-      <div className="mt-6 grid gap-6 md:grid-cols-2">
+      <div className="mt-6 grid gap-6">
         <StageColumn
           label="Candidatura"
           femininePercent={year.candidacy.femininePercent}
