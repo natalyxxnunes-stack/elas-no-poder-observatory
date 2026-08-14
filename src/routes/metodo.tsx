@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import checagemAsset from "@/assets/checagem.webp.asset.json";
@@ -20,9 +21,11 @@ import {
 import { applySnapshot } from "@/lib/tse/indicators";
 import {
   getLatestTseSnapshot,
+  getLatestTseSnapshotCsv,
   listTseSnapshots,
 } from "@/lib/tse/snapshot.functions";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
+
 
 export const Route = createFileRoute("/metodo")({
   head: () => ({
@@ -217,6 +220,21 @@ function MetodoPage() {
               </div>
             )}
           </dl>
+          {snapshot && (
+            <div className="mt-5 border-t border-rule pt-4">
+              <button
+                type="button"
+                onClick={handleDownload}
+                className="inline-flex rounded-md bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+              >
+                Baixar esta fotografia (CSV)
+              </button>
+              <p className="mt-2 font-mono text-[11px] text-muted-foreground">
+                CSV gerado a partir da fotografia vigente, com data e filtros no
+                cabeçalho do arquivo.
+              </p>
+            </div>
+          )}
           {!snapshot && (
             <div className="mt-4">
               <GapNote label="Fotografia indisponível">
@@ -226,6 +244,7 @@ function MetodoPage() {
               </GapNote>
             </div>
           )}
+
         </div>
       </SectionBlock>
 
@@ -425,8 +444,9 @@ function MetodoPage() {
                       {s.recordCount.toLocaleString("pt-BR")}
                     </td>
                     <td className="py-3 font-mono text-xs text-muted-foreground">
-                      {s.status === "ok" ? "validada" : s.status}
+                      {statusLabel(s)}
                     </td>
+
                   </tr>
                 ))}
               </tbody>
