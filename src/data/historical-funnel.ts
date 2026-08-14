@@ -8,34 +8,59 @@
  * percentuais não se somam entre anos.
  *
  * Eleitas = DS_SIT_TOT_TURNO iniciando em "ELEITO" no 1º turno. Candidatas =
- * DS_GENERO = FEMININO. Cor/raça = categorias autodeclaradas originais do TSE
- * (branca, preta, parda, amarela, indígena, não informado).
+ * DS_GENERO = FEMININO. Cor/raça = categorias autodeclaradas originais do TSE,
+ * todas exibidas: branca, parda, preta, indígena, amarela, não informado.
+ * Nenhuma categoria é omitida ou agregada.
  */
+
+/** ordem fixa de exibição das categorias de cor/raça em todos os anos */
+export const RACE_CATEGORIES = [
+  "branca",
+  "parda",
+  "preta",
+  "indigena",
+  "amarela",
+  "nao_informado",
+] as const;
+
+export type RaceCategory = (typeof RACE_CATEGORIES)[number];
+
+export const RACE_LABELS: Record<RaceCategory, string> = {
+  branca: "Branca",
+  parda: "Parda",
+  preta: "Preta",
+  indigena: "Indígena",
+  amarela: "Amarela",
+  nao_informado: "Não informado",
+};
+
+/** cores da paleta do projeto, uma por categoria, na ordem fixa */
+export const RACE_COLORS: Record<RaceCategory, string> = {
+  branca: "var(--cream)",
+  parda: "var(--coral)",
+  preta: "var(--plum)",
+  indigena: "var(--forest)",
+  amarela: "var(--solar)",
+  nao_informado: "var(--plum-soft)",
+};
+
+export type RaceBreakdown = Record<RaceCategory, { count: number; percent: number }>;
+
+export type FunnelStage = {
+  total: number;
+  feminine: number;
+  femininePercent: number;
+  /** distribuição de cor/raça dentro do universo feminino; null quando indisponível */
+  race: RaceBreakdown | null;
+};
 
 export type HistoricalFunnelYear = {
   year: 2014 | 2018 | 2022 | 2026;
   /** estágio da base: fechada (eleição encerrada) ou em curso (2026) */
   stage: "fechada" | "em_curso";
-  /** candidaturas de mulheres no universo proporcional */
-  candidacy: {
-    total: number;
-    feminine: number;
-    femininePercent: number;
-    race: {
-      parda: { percent: number; count: number };
-      branca: { percent: number; count: number };
-    };
-  };
-  /** mulheres eleitas no universo proporcional; null quando a eleição ainda não ocorreu */
-  elected: {
-    total: number;
-    feminine: number;
-    femininePercent: number;
-    race: {
-      parda: { percent: number; count: number };
-      branca: { percent: number; count: number };
-    };
-  } | null;
+  candidacy: FunnelStage;
+  /** null quando a eleição ainda não ocorreu */
+  elected: FunnelStage | null;
 };
 
 export const HISTORICAL_FUNNEL: HistoricalFunnelYear[] = [
@@ -47,8 +72,12 @@ export const HISTORICAL_FUNNEL: HistoricalFunnelYear[] = [
       feminine: 7_930,
       femininePercent: 31.5,
       race: {
-        parda: { percent: 36.0, count: 2_855 },
-        branca: { percent: 53.1, count: 4_211 },
+        branca: { count: 4_207, percent: 53.1 },
+        parda: { count: 2_856, percent: 36.0 },
+        preta: { count: 804, percent: 10.1 },
+        indigena: { count: 28, percent: 0.4 },
+        amarela: { count: 35, percent: 0.4 },
+        nao_informado: { count: 0, percent: 0 },
       },
     },
     elected: {
@@ -56,8 +85,12 @@ export const HISTORICAL_FUNNEL: HistoricalFunnelYear[] = [
       feminine: 170,
       femininePercent: 10.8,
       race: {
-        parda: { percent: 21.8, count: 37 },
-        branca: { percent: 72.9, count: 124 },
+        branca: { count: 124, percent: 72.9 },
+        parda: { count: 37, percent: 21.8 },
+        preta: { count: 9, percent: 5.3 },
+        indigena: { count: 0, percent: 0 },
+        amarela: { count: 0, percent: 0 },
+        nao_informado: { count: 0, percent: 0 },
       },
     },
   },
@@ -69,8 +102,12 @@ export const HISTORICAL_FUNNEL: HistoricalFunnelYear[] = [
       feminine: 8_820,
       femininePercent: 32.0,
       race: {
-        parda: { percent: 35.0, count: 3_087 },
-        branca: { percent: 50.6, count: 4_463 },
+        branca: { count: 4_460, percent: 50.6 },
+        parda: { count: 3_084, percent: 35.0 },
+        preta: { count: 1_173, percent: 13.3 },
+        indigena: { count: 42, percent: 0.5 },
+        amarela: { count: 61, percent: 0.7 },
+        nao_informado: { count: 0, percent: 0 },
       },
     },
     elected: {
@@ -78,8 +115,12 @@ export const HISTORICAL_FUNNEL: HistoricalFunnelYear[] = [
       feminine: 240,
       femininePercent: 15.3,
       race: {
-        parda: { percent: 18.8, count: 45 },
-        branca: { percent: 72.9, count: 175 },
+        branca: { count: 175, percent: 72.9 },
+        parda: { count: 45, percent: 18.8 },
+        preta: { count: 19, percent: 7.9 },
+        indigena: { count: 1, percent: 0.4 },
+        amarela: { count: 0, percent: 0 },
+        nao_informado: { count: 0, percent: 0 },
       },
     },
   },
@@ -91,8 +132,12 @@ export const HISTORICAL_FUNNEL: HistoricalFunnelYear[] = [
       feminine: 9_532,
       femininePercent: 34.1,
       race: {
-        parda: { percent: 35.1, count: 3_346 },
-        branca: { percent: 45.0, count: 4_289 },
+        branca: { count: 4_287, percent: 45.0 },
+        parda: { count: 3_341, percent: 35.1 },
+        preta: { count: 1_745, percent: 18.3 },
+        indigena: { count: 79, percent: 0.8 },
+        amarela: { count: 45, percent: 0.5 },
+        nao_informado: { count: 35, percent: 0.4 },
       },
     },
     elected: {
@@ -100,8 +145,12 @@ export const HISTORICAL_FUNNEL: HistoricalFunnelYear[] = [
       feminine: 282,
       femininePercent: 17.9,
       race: {
-        parda: { percent: 23.4, count: 66 },
-        branca: { percent: 61.0, count: 172 },
+        branca: { count: 172, percent: 61.0 },
+        parda: { count: 66, percent: 23.4 },
+        preta: { count: 37, percent: 13.1 },
+        indigena: { count: 5, percent: 1.8 },
+        amarela: { count: 1, percent: 0.4 },
+        nao_informado: { count: 1, percent: 0.4 },
       },
     },
   },
@@ -112,10 +161,7 @@ export const HISTORICAL_FUNNEL: HistoricalFunnelYear[] = [
       total: 17_299,
       feminine: 6_109,
       femininePercent: 35.3,
-      race: {
-        parda: { percent: 0, count: 0 },
-        branca: { percent: 0, count: 0 },
-      },
+      race: null,
     },
     elected: null,
   },

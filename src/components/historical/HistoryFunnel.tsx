@@ -7,10 +7,18 @@
  *  - cada ano e cada etapa têm denominador próprio;
  *  - nenhum percentual é subtraído de outro;
  *  - 2026 exibe só a candidatura; a eleição fica vazia/hachurada;
- *  - raça é autodeclarada e preservada nas categorias originais (parda, branca).
+ *  - cor/raça é autodeclarada e TODAS as categorias do TSE são exibidas, na
+ *    ordem fixa, com número absoluto sempre visível.
  */
 
-import { HISTORICAL_FUNNEL, HISTORICAL_FUNNEL_SOURCE } from "@/data/historical-funnel";
+import {
+  HISTORICAL_FUNNEL,
+  HISTORICAL_FUNNEL_SOURCE,
+  RACE_CATEGORIES,
+  RACE_COLORS,
+  RACE_LABELS,
+  type RaceBreakdown,
+} from "@/data/historical-funnel";
 import { StatusTag } from "@/components/editorial/StatusTag";
 
 const n = (v: number) => v.toLocaleString("pt-BR");
@@ -20,32 +28,47 @@ const pct = (v: number) =>
     maximumFractionDigits: 1,
   })}%`;
 
-function RaceMiniBars({
-  parda,
-  branca,
-}: {
-  parda: { percent: number; count: number };
-  branca: { percent: number; count: number };
-}) {
-  const total = parda.count + branca.count;
-  if (total <= 0) return null;
+function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: string }) {
+  const totalCount = RACE_CATEGORIES.reduce((acc, key) => acc + race[key].count, 0);
+  if (totalCount <= 0) return null;
+
   return (
-    <div className="mt-2 space-y-1">
-      <div className="flex h-2 w-full overflow-hidden rounded-sm bg-secondary">
-        <div className="h-full bg-coral" style={{ width: `${parda.percent}%` }} />
-        <div className="h-full bg-cream" style={{ width: `${branca.percent}%` }} />
+    <div className="mt-3 space-y-1.5">
+      <div
+        className="flex h-2.5 w-full overflow-hidden rounded-sm border border-ink/20 bg-secondary"
+        role="img"
+        aria-label={`Cor/raça na ${stageLabel.toLowerCase()}: ${RACE_CATEGORIES.map(
+          (key) => `${RACE_LABELS[key]} ${n(race[key].count)} (${pct(race[key].percent)})`,
+        ).join(", ")}`}
+      >
+        {RACE_CATEGORIES.map((key) =>
+          race[key].count > 0 ? (
+            <div
+              key={key}
+              className="h-full"
+              style={{
+                width: `${(race[key].count / totalCount) * 100}%`,
+                minWidth: "2px",
+                background: RACE_COLORS[key],
+              }}
+            />
+          ) : null,
+        )}
       </div>
-      <dl className="grid grid-cols-2 gap-2 font-mono text-[10px] leading-tight">
-        <div className="flex items-center gap-1.5">
-          <span aria-hidden className="inline-block h-2 w-2 rounded-full bg-coral" />
-          <span className="text-muted-foreground">Parda</span>
-          <span className="ml-auto text-ink">{pct(parda.percent)}</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <span aria-hidden className="inline-block h-2 w-2 rounded-full border border-ink bg-cream" />
-          <span className="text-muted-foreground">Branca</span>
-          <span className="ml-auto text-ink">{pct(branca.percent)}</span>
-        </div>
+      <dl className="grid grid-cols-1 gap-x-3 gap-y-0.5 font-mono text-[10px] leading-tight sm:grid-cols-2">
+        {RACE_CATEGORIES.map((key) => (
+          <div key={key} className="flex items-center gap-1.5">
+            <span
+              aria-hidden
+              className="inline-block h-2 w-2 shrink-0 rounded-full border border-ink/40"
+              style={{ background: RACE_COLORS[key] }}
+            />
+            <dt className="text-muted-foreground">{RACE_LABELS[key]}</dt>
+            <dd className="ml-auto whitespace-nowrap text-ink">
+              {n(race[key].count)} · {pct(race[key].percent)}
+            </dd>
+          </div>
+        ))}
       </dl>
     </div>
   );
@@ -64,7 +87,7 @@ function StageColumn({
   femininePercent: number;
   feminine: number;
   total: number;
-  race: { parda: { percent: number; count: number }; branca: { percent: number; count: number } } | null;
+  race: RaceBreakdown | null;
   empty?: boolean;
   emptyLabel?: string;
 }) {
@@ -100,7 +123,7 @@ function StageColumn({
           <div className="h-full bg-plum" style={{ width: `${Math.max(femininePercent, 1.5)}%` }} />
         )}
       </div>
-      {!empty && race && <RaceMiniBars parda={race.parda} branca={race.branca} />}
+      {!empty && race && <RaceMiniBars race={race} stageLabel={label} />}
       {empty && (
         <p className="mt-2 font-mono text-[10px] leading-relaxed text-muted-foreground">
           Eleição de novembro de 2026 ainda não ocorreu. Nenhum valor é projetado.
@@ -125,7 +148,7 @@ function YearCard({ year }: { year: (typeof HISTORICAL_FUNNEL)[number] }) {
           femininePercent={year.candidacy.femininePercent}
           feminine={year.candidacy.feminine}
           total={year.candidacy.total}
-          race={year.year === 2026 ? null : year.candidacy.race}
+          race={year.candidacy.race}
         />
         {year.elected ? (
           <StageColumn
@@ -183,19 +206,23 @@ export function HistoryFunnel() {
         <article className="editorial-card p-5">
           <h3 className="font-display text-lg text-ink">A cor do funil</h3>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            A urna não filtra por igual. Em 2022, a fatia parda entre as mulheres caiu
-            de 35,1% na candidatura para 23,4% na eleição, enquanto a branca subiu de
-            45% para 61%. Quanto mais perto da cadeira, mais branca fica a representação
-            feminina — e isso se repete nos três ciclos.
+            A urna não filtra por igual. Em 2022, entre as mulheres, a fatia parda caiu
+            de 35,1% (3.341) na candidatura para 23,4% (66) na eleição e a preta caiu de
+            18,3% (1.745) para 13,1% (37), enquanto a branca subiu de 45% (4.287) para
+            61% (172). Indígenas (79 → 5) e amarelas (45 → 1) aparecem em números
+            pequenos e devem ser lidas pelo absoluto.
           </p>
         </article>
       </div>
 
       <p className="font-mono text-[11px] leading-relaxed text-muted-foreground">
         Ressalva: cada ano e cada etapa têm denominador próprio; percentuais não se
-        somam. Cor/raça é autodeclarada (o TSE coleta desde 2014). 2026 é fotografia
-        em andamento, sem eleição. Comparação descritiva, sem atribuir causa. Fonte:{" "}
-        {HISTORICAL_FUNNEL_SOURCE}.
+        somam. Cor/raça é autodeclarada, nas categorias do TSE, coletada desde 2014 — a
+        qualidade do preenchimento varia entre ciclos e, em 2014, não há registros “não
+        informado”. Categorias com poucas candidaturas ou eleitas devem ser lidas pelo
+        número absoluto, não pelo percentual. Nenhuma categoria é omitida. 2026 é
+        fotografia em andamento, sem eleição e sem recorte de raça publicado nesta peça.
+        Comparação descritiva, sem atribuir causa. Fonte: {HISTORICAL_FUNNEL_SOURCE}.
       </p>
     </div>
   );
