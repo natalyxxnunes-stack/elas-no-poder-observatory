@@ -158,7 +158,7 @@ export function HistoryFunnel() {
         Olho: <span className="text-coral">Candidatar-se não é eleger-se.</span>
       </p>
 
-      <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <ol className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {HISTORICAL_FUNNEL.map((year) => (
           <YearCard key={year.year} year={year} />
         ))}
