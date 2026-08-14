@@ -214,7 +214,10 @@ const INVESTIGATION_PLAN = [
 ];
 
 function DadosPage() {
-  const { snapshot, historical } = Route.useLoaderData();
+  const { snapshot, historical, pendingReviewBaseDate } =
+    Route.useLoaderData();
+  const pendingDate = snapshotDate(pendingReviewBaseDate ?? null);
+
   const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
   const feminineSeries =
     (historical.series as Series[]).find(
