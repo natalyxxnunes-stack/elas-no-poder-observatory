@@ -99,19 +99,59 @@ function toPublic(row: any): PublicSnapshot {
   };
 }
 
-/** Fotografia mais recente publicável (status ok ou com anomalia sinalizada). */
+/**
+ * Fotografia mais recente publicável: status `ok`, ou `requer_conferencia`
+ * já liberada por conferência manual (`conferido = true`). `invalido` e
+ * fotografias retidas sem conferência nunca são publicadas.
+ */
 export const getLatestTseSnapshot = createServerFn({ method: "GET" }).handler(
   async (): Promise<PublicSnapshot | null> => {
     const { data } = await client()
       .from("tse_snapshots")
       .select("*")
-      .in("status", ["ok", "anomalia"])
+      .or("status.eq.ok,and(status.eq.requer_conferencia,conferido.eq.true)")
       .order("collected_at", { ascending: false })
       .limit(1)
       .maybeSingle();
     return data ? toPublic(data) : null;
   },
 );
+
+/**
+ * Data da fotografia retida em conferência, quando ela for mais recente que a
+ * fotografia publicada. Serve apenas para informar, de forma factual, que há
+ * atualização em conferência. Sem pendência, devolve null.
+ */
+export const getPendingReviewBaseDate = createServerFn({ method: "GET" }).handler(
+  async (): Promise<string | null> => {
+    const db = client();
+    const [{ data: published }, { data: pending }] = await Promise.all([
+      db
+        .from("tse_snapshots")
+        .select("base_generated_at")
+        .or("status.eq.ok,and(status.eq.requer_conferencia,conferido.eq.true)")
+        .order("collected_at", { ascending: false })
+        .limit(1)
+        .maybeSingle(),
+      db
+        .from("tse_snapshots")
+        .select("base_generated_at")
+        .eq("status", "requer_conferencia")
+        .eq("conferido", false)
+        .order("collected_at", { ascending: false })
+        .limit(1)
+        .maybeSingle(),
+    ]);
+    const pendingDate = pending?.base_generated_at ?? null;
+    if (!pendingDate) return null;
+    const publishedDate = published?.base_generated_at ?? null;
+    if (publishedDate && new Date(pendingDate) <= new Date(publishedDate)) {
+      return null;
+    }
+    return pendingDate;
+  },
+);
+
 
 /** Histórico de fotografias, do mais recente para o mais antigo. */
 export const listTseSnapshots = createServerFn({ method: "GET" }).handler(
