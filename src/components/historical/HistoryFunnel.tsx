@@ -73,16 +73,14 @@ function StageColumn({
       <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
         {label}
       </p>
-      <div className="mt-2 flex items-end justify-between gap-3">
-        <p className={`poster-figure text-4xl leading-none ${empty ? "text-muted-foreground" : "text-plum"} md:text-5xl`}>
-          {empty ? "—" : pct(femininePercent)}
+      <p className={`poster-figure mt-1 text-3xl leading-none ${empty ? "text-muted-foreground" : "text-plum"} md:text-4xl`}>
+        {empty ? "—" : pct(femininePercent)}
+      </p>
+      {!empty && (
+        <p className="mt-1 font-mono text-[11px] leading-relaxed text-muted-foreground">
+          {n(feminine)} de {n(total)} {label === "Candidatura" ? "candidaturas" : "eleitas"}
         </p>
-        {!empty && (
-          <p className="text-right font-mono text-[11px] leading-relaxed text-muted-foreground">
-            {n(feminine)} de {n(total)} {label === "Candidatura" ? "candidaturas" : "eleitas"}
-          </p>
-        )}
-      </div>
+      )}
       <div
         className="mt-2 h-6 w-full overflow-hidden rounded-sm"
         role="img"
