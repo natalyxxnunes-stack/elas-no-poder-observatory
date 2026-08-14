@@ -493,16 +493,41 @@ export type ValidationOutcome = {
 };
 
 /**
- * Validação antes de publicar uma nova fotografia.
+ * PROTOCOLO DE CONFERÊNCIA DE FOTOGRAFIAS RETIDAS (requer_conferencia)
  *
- * Três estados possíveis:
- *  - `ok`: publica automaticamente;
- *  - `requer_conferencia`: gravado e segurado, só entra no ar depois de
- *    conferência manual registrada no banco (`conferido = true`);
- *  - `invalido`: nunca publica.
+ * Quando aplicar: toda fotografia com status requer_conferencia — variação de
+ * volume acima de 25% em relação à última publicada. Fica retida até conferência
+ * manual; o site segue exibindo a última fotografia publicada, com data visível
+ * e aviso.
  *
- * Deduplicação de rotina (linhas repetidas do arquivo BRASIL) é nota, não
- * anomalia. O snapshot anterior nunca é apagado.
+ * Por que existe: reter não pressupõe erro. Pressupõe que variação atípica seja
+ * olhada por uma pessoa, com critério fixo, antes de virar número público. Durante
+ * o prazo de registro o volume sobe naturalmente — e é aí que um pacote
+ * malformado do TSE se disfarçaria de crescimento normal. A liberação deve ser
+ * fato verificável ("passou nestes testes"), não autoridade pessoal.
+ *
+ * Procedimento (replicável): 1) baixar o arquivo oficial direto de
+ * cdn.tse.jus.br, por fora do pipeline; 2) deduplicar por SQ_CANDIDATO com
+ * script independente; 3) recontar total distinto, total proporcional e
+ * percentual proporcional feminino; 4) comparar com o banco; 5) confirmar que a
+ * estrutura (colunas, situações) não mudou.
+ *
+ * Aprovar (conferido = true) se: o percentual proporcional feminino bate a menos
+ * de arredondamento; os totais crescem de forma coerente com registro em curso;
+ * a estrutura é a mesma.
+ *
+ * Rejeitar e investigar se: o percentual diverge além de arredondamento; a
+ * estrutura mudou; o total salta sem candidatura correspondente. Fotografia
+ * rejeitada permanece retida; a última publicada segue no ar.
+ *
+ * Registro ao liberar: conferido_em (data/hora) e conferido_nota (ex.:
+ * "Recontagem independente DD/MM: total N, proporcional fem. XX,X%, bate com o
+ * banco. Aprovado.").
+ *
+ * Precedente: inaugurado em 14/08/2026 na investigação do salto de 37%
+ * (13.339 → 18.282 entre 10/08 e 13/08). Recontagem independente do zip oficial:
+ * 18.343 distintas na fotografia das 22:34 de 13/08, proporcional feminino
+ * 35,3%, idêntico ao banco. Salto confirmado como candidatura real, não falha.
  */
 export function validate(
   result: ParseResult,
