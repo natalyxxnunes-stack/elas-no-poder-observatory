@@ -406,11 +406,18 @@ function DadosPage() {
         <UfGrid snapshot={snapshot} baseDate={baseDate} />
 
         <p className="mt-6 font-mono text-[11px] text-muted-foreground">
+          Dados de {baseDate ?? "data em atualização"}.
+          {pendingDate
+            ? ` Uma atualização (dados de ${pendingDate}) está em conferência.`
+            : ""}
+        </p>
+        <p className="mt-2 font-mono text-[11px] text-muted-foreground">
           Fonte: TSE · Candidaturas 2026 ·{" "}
           <Link to="/metodo" className="text-plum underline underline-offset-4">
             ver o método
           </Link>
         </p>
+
       </section>
 
       {/* 4. INVESTIGAÇÃO CENTRAL — bloco amarelo chapado */}
