@@ -472,6 +472,10 @@ export const METHOD_NOTES = [
     title: "Etapas em aberto",
     body: "Recursos de campanha entram em módulo próprio; votos e eleitas dependem da apuração; poder e decisões dependem da posse. Até então, esses degraus permanecem vazios por decisão editorial.",
   },
+  {
+    title: "Conferência de atualizações",
+    body: "O registro de candidaturas muda enquanto a Justiça Eleitoral analisa pedidos, e a cada atualização o site gera uma fotografia nova. Quando uma atualização apresenta variação de volume fora do esperado, ela não vai ao ar automaticamente: fica retida até ser reconferida contra o arquivo oficial do TSE, baixado e recontado por fora do sistema. Enquanto isso, permanece publicada a última fotografia conferida, com a data sempre visível. Em 13 de agosto de 2026, durante o prazo de registro, o número de candidaturas subiu 37% de uma coleta para outra (de 13.339 para 18.282). A atualização foi retida e reconferida: a recontagem independente confirmou que o salto era candidatura nova entrando na disputa, não erro de processamento, e a fotografia foi liberada. Nenhum número entra no ar sem essa checagem.",
+  },
 ] as const;
 
 /** Rotas do observatório, na ordem editorial. */
