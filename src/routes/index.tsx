@@ -465,26 +465,19 @@ function DadosPage() {
 
       {/* CONTEXTO HISTÓRICO */}
       <SectionBlock
-        kicker="Como chegamos até aqui"
-        question="Uma fotografia mostra a desigualdade. A série mostra o movimento."
+        kicker="Como isso se compara ao passado"
+        question="O funil se repete: mais mulheres entram do que chegam."
         lead={
           <p>
-            Contexto curto para o número atual: a participação de mulheres nas
-            candidaturas proporcionais das eleições gerais de 2014, 2018 e 2022,
-            e a fotografia em curso de 2026. Cada ano tem denominador próprio e a
-            comparação é descritiva.
+            Candidatura e eleição não são a mesma coisa. Para cada ano fechado,
+            o funil mostra a participação feminina no registro e a participação
+            feminina entre as eleitas — com o recorte de raça por dentro. Cada
+            etapa tem denominador próprio; os percentuais não se somam.
           </p>
         }
-        source="Fonte: TSE · Candidatos 2014, 2018, 2022 e 2026"
+        source="Fonte: TSE — candidatos e resultados 2014/2018/2022/2026"
       >
-        <div className="space-y-4">
-          <PastStrip series={feminineSeries} />
-          <GapNote label="Transparência">
-            Anos anteriores são bases fechadas; 2026 ainda pode mudar por decisão
-            da Justiça Eleitoral. Resultado eleitoral de 2026 não existe e nada é
-            projetado.
-          </GapNote>
-        </div>
+        <HistoryFunnel />
       </SectionBlock>
 
       {/* DOIS UNIVERSOS — bloco colorido */}
