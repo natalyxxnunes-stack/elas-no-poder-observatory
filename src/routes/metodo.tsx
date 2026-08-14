@@ -60,6 +60,23 @@ function br(iso: string | null): string {
   return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
 }
 
+function statusLabel(s: PublicSnapshot): string {
+  switch (s.status) {
+    case "ok":
+      return "validada";
+    case "requer_conferencia":
+      return s.conferido ? "validada" : "em conferência";
+    case "invalido":
+      return "não publicada";
+    case "falha_coleta":
+      return "falha na coleta";
+    default:
+      return s.status;
+  }
+}
+
+
+
 const PLAIN_STEPS = [
   {
     step: "1. Pegamos a base oficial",
@@ -93,6 +110,26 @@ function MetodoPage() {
     history: PublicSnapshot[];
   };
   const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
+
+  const getCsv = useServerFn(getLatestTseSnapshotCsv);
+  const handleDownload = async () => {
+    const result = await getCsv();
+    if (!result) return;
+    const blob = new Blob([result.content], {
+      type: "text/csv;charset=utf-8",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = result.fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+
+
 
   return (
     <PageShell>
