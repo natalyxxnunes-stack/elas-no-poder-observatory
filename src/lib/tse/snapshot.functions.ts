@@ -45,6 +45,7 @@ export type PublicSnapshot = {
   fileUrl: string;
   recordCount: number;
   status: string;
+  conferido: boolean;
   processingVersion: string;
   filters: string[];
   situationValues: Record<string, number>;
@@ -53,6 +54,7 @@ export type PublicSnapshot = {
     majoritario: PublicUniverseTally;
   };
 };
+
 
 function client() {
   const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
@@ -81,6 +83,8 @@ function toPublic(row: any): PublicSnapshot {
     fileUrl: row.file_url,
     recordCount: row.record_count ?? 0,
     status: row.status,
+    conferido: row.conferido === true,
+
     processingVersion: row.processing_version,
     filters: Array.isArray(row.filters) ? row.filters : [],
     situationValues: row.situation_values ?? {},
@@ -162,5 +166,64 @@ export const listTseSnapshots = createServerFn({ method: "GET" }).handler(
       .order("collected_at", { ascending: false })
       .limit(60);
     return (data ?? []).map(toPublic);
+  },
+);
+
+/** Escapa um campo para CSV com delimitador vírgula. */
+function csvField(value: string | number): string {
+  const s = String(value);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+/**
+ * CSV da fotografia vigente, gerado na hora a partir do snapshot publicado.
+ * Nenhum cálculo novo: apenas serializa as contagens já gravadas.
+ * Devolve null quando não há fotografia publicável.
+ */
+export const getLatestTseSnapshotCsv = createServerFn({ method: "GET" }).handler(
+  async (): Promise<{ fileName: string; content: string } | null> => {
+    const { data } = await client()
+      .from("tse_snapshots")
+      .select("*")
+      .or("status.eq.ok,and(status.eq.requer_conferencia,conferido.eq.true)")
+      .order("collected_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (!data) return null;
+    const snap = toPublic(data);
+
+    const lines: string[] = [
+      "# Fonte: TSE / Dados Abertos / Candidatos 2026",
+      `# Geracao da base (TSE): ${snap.baseGeneratedAt ?? "nao informada"}`,
+      `# Coleta pelo observatorio: ${snap.collectedAt}`,
+      `# Arquivo processado: ${snap.fileName}`,
+      `# Filtros aplicados: ${snap.filters.length > 0 ? snap.filters.join(" | ") : "nenhum"}`,
+      "# Unidade de analise: candidatura registrada (nao pessoa)",
+      "universo,categoria,candidaturas_mulheres,total_universo",
+    ];
+
+    const universes: Array<[string, PublicUniverseTally]> = [
+      ["proporcional", snap.universes.proporcional],
+      ["majoritario", snap.universes.majoritario],
+    ];
+
+    for (const [name, tally] of universes) {
+      lines.push(
+        [name, "TOTAL", tally.feminine, tally.total].map(csvField).join(","),
+      );
+      for (const [category, count] of Object.entries(tally.raceCounts ?? {}).sort(
+        (a, b) => b[1] - a[1],
+      )) {
+        lines.push(
+          [name, category, count, tally.total].map(csvField).join(","),
+        );
+      }
+    }
+
+    const base = (snap.baseGeneratedAt ?? snap.collectedAt).slice(0, 10);
+    return {
+      fileName: `quem-sao-elas-fotografia-tse-${base}.csv`,
+      content: `\uFEFF${lines.join("\n")}\n`,
+    };
   },
 );
