@@ -50,12 +50,11 @@ export const Route = createFileRoute("/")({
     ],
   }),
   loader: async () => {
-    const [snapshot, historical, pendingReviewBaseDate] = await Promise.all([
+    const [snapshot, pendingReviewBaseDate] = await Promise.all([
       getLatestTseSnapshot(),
-      getHistoricalSeries(),
       getPendingReviewBaseDate(),
     ]);
-    return { snapshot, historical, pendingReviewBaseDate };
+    return { snapshot, pendingReviewBaseDate };
   },
 
   component: DadosPage,
