@@ -92,6 +92,9 @@ export type Database = {
           base_generated_at: string | null
           collected_at: string
           columns_found: Json
+          conferido: boolean
+          conferido_em: string | null
+          conferido_nota: string | null
           created_at: string
           file_name: string
           file_url: string
@@ -110,6 +113,9 @@ export type Database = {
           base_generated_at?: string | null
           collected_at?: string
           columns_found?: Json
+          conferido?: boolean
+          conferido_em?: string | null
+          conferido_nota?: string | null
           created_at?: string
           file_name: string
           file_url: string
@@ -128,6 +134,9 @@ export type Database = {
           base_generated_at?: string | null
           collected_at?: string
           columns_found?: Json
+          conferido?: boolean
+          conferido_em?: string | null
+          conferido_nota?: string | null
           created_at?: string
           file_name?: string
           file_url?: string
