@@ -57,6 +57,9 @@ function br(iso: string | null): string {
   if (!iso) return "—";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "—";
+  return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+}
+
 function statusLabel(s: PublicSnapshot): string {
   switch (s.status) {
     case "ok":
@@ -71,6 +74,7 @@ function statusLabel(s: PublicSnapshot): string {
       return s.status;
   }
 }
+
 
 
 const PLAIN_STEPS = [
