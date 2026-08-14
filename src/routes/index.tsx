@@ -26,10 +26,7 @@ import {
   type PublicSnapshot,
 } from "@/lib/tse/snapshot.functions";
 
-import { getHistoricalSeries } from "@/lib/tse/historical.functions";
-import type { Series } from "@/lib/tse/historical-compute";
-import { PastStrip } from "@/components/funnel/PastStrip";
-import { GapNote } from "@/components/GapNote";
+import { HistoryFunnel } from "@/components/historical/HistoryFunnel";
 import { PullQuote } from "@/components/editorial/PullQuote";
 import topoAsset from "@/assets/mulheresnotopo.webp.asset.json";
 
@@ -53,12 +50,11 @@ export const Route = createFileRoute("/")({
     ],
   }),
   loader: async () => {
-    const [snapshot, historical, pendingReviewBaseDate] = await Promise.all([
+    const [snapshot, pendingReviewBaseDate] = await Promise.all([
       getLatestTseSnapshot(),
-      getHistoricalSeries(),
       getPendingReviewBaseDate(),
     ]);
-    return { snapshot, historical, pendingReviewBaseDate };
+    return { snapshot, pendingReviewBaseDate };
   },
 
   component: DadosPage,
@@ -214,15 +210,10 @@ const INVESTIGATION_PLAN = [
 ];
 
 function DadosPage() {
-  const { snapshot, historical, pendingReviewBaseDate } =
-    Route.useLoaderData();
+  const { snapshot, pendingReviewBaseDate } = Route.useLoaderData();
   const pendingDate = snapshotDate(pendingReviewBaseDate ?? null);
 
   const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
-  const feminineSeries =
-    (historical.series as Series[]).find(
-      (s) => s.id === "serie-mulheres-candidaturas",
-    ) ?? null;
   const [first, ...rest] = indicators;
 
   const baseDate = snapshotDate(snapshot?.baseGeneratedAt ?? null);
@@ -466,26 +457,19 @@ function DadosPage() {
 
       {/* CONTEXTO HISTÓRICO */}
       <SectionBlock
-        kicker="Como chegamos até aqui"
-        question="Uma fotografia mostra a desigualdade. A série mostra o movimento."
+        kicker="Como isso se compara ao passado"
+        question="O funil se repete: mais mulheres entram do que chegam."
         lead={
           <p>
-            Contexto curto para o número atual: a participação de mulheres nas
-            candidaturas proporcionais das eleições gerais de 2014, 2018 e 2022,
-            e a fotografia em curso de 2026. Cada ano tem denominador próprio e a
-            comparação é descritiva.
+            Candidatura e eleição não são a mesma coisa. Para cada ano fechado,
+            o funil mostra a participação feminina no registro e a participação
+            feminina entre as eleitas — com o recorte de raça por dentro. Cada
+            etapa tem denominador próprio; os percentuais não se somam.
           </p>
         }
-        source="Fonte: TSE · Candidatos 2014, 2018, 2022 e 2026"
+        source="Fonte: TSE — candidatos e resultados 2014/2018/2022/2026"
       >
-        <div className="space-y-4">
-          <PastStrip series={feminineSeries} />
-          <GapNote label="Transparência">
-            Anos anteriores são bases fechadas; 2026 ainda pode mudar por decisão
-            da Justiça Eleitoral. Resultado eleitoral de 2026 não existe e nada é
-            projetado.
-          </GapNote>
-        </div>
+        <HistoryFunnel />
       </SectionBlock>
 
       {/* DOIS UNIVERSOS — bloco colorido */}
