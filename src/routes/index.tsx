@@ -28,8 +28,7 @@ import {
 
 import { getHistoricalSeries } from "@/lib/tse/historical.functions";
 import type { Series } from "@/lib/tse/historical-compute";
-import { PastStrip } from "@/components/funnel/PastStrip";
-import { GapNote } from "@/components/GapNote";
+import { HistoryFunnel } from "@/components/historical/HistoryFunnel";
 import { PullQuote } from "@/components/editorial/PullQuote";
 import topoAsset from "@/assets/mulheresnotopo.webp.asset.json";
 
