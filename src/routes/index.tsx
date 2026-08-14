@@ -26,8 +26,6 @@ import {
   type PublicSnapshot,
 } from "@/lib/tse/snapshot.functions";
 
-import { getHistoricalSeries } from "@/lib/tse/historical.functions";
-import type { Series } from "@/lib/tse/historical-compute";
 import { HistoryFunnel } from "@/components/historical/HistoryFunnel";
 import { PullQuote } from "@/components/editorial/PullQuote";
 import topoAsset from "@/assets/mulheresnotopo.webp.asset.json";
