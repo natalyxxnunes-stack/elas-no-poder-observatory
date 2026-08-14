@@ -83,6 +83,8 @@ function toPublic(row: any): PublicSnapshot {
     fileUrl: row.file_url,
     recordCount: row.record_count ?? 0,
     status: row.status,
+    conferido: row.conferido === true,
+
     processingVersion: row.processing_version,
     filters: Array.isArray(row.filters) ? row.filters : [],
     situationValues: row.situation_values ?? {},
