@@ -179,15 +179,18 @@ export async function runIngest(
 
   const indicators = computeIndicators(acc);
 
+  // Comparação de volume contra a última fotografia efetivamente publicada
+  // (ok, ou retida e liberada por conferência manual).
   const { data: previous } = await supabaseAdmin
     .from("tse_snapshots")
     .select("record_count")
-    .in("status", ["ok", "anomalia"])
+    .or("status.eq.ok,and(status.eq.requer_conferencia,conferido.eq.true)")
     .order("collected_at", { ascending: false })
     .limit(1)
     .maybeSingle();
 
   const validation = validate(acc, indicators, previous?.record_count ?? null);
+
 
   const { data, error } = await supabaseAdmin
     .from("tse_snapshots")
@@ -205,7 +208,7 @@ export async function runIngest(
       universes: acc.universes,
       indicators,
       anomalies: validation.anomalies,
-      notes: `Dicionário de dados ${DICTIONARY_VERSION} (inspeção de cabeçalho real em ${INSPECTED_AT}). Unidade de análise deduplicada por SQ_CANDIDATO: ${acc.distinctCandidacies} candidaturas distintas a partir de ${acc.rawLineCount} linhas brutas (${acc.duplicateRows} linhas duplicadas e ${acc.rowsWithoutKey} sem chave, descartadas dos cálculos). Linhas fora dos universos analisados: ${acc.outOfScope}. Data da fotografia lida de DT_GERACAO/HH_GERACAO do arquivo Candidatos.`,
+      notes: `Dicionário de dados ${DICTIONARY_VERSION} (inspeção de cabeçalho real em ${INSPECTED_AT}). Unidade de análise deduplicada por SQ_CANDIDATO: ${acc.distinctCandidacies} candidaturas distintas a partir de ${acc.rawLineCount} linhas brutas (${acc.duplicateRows} linhas duplicadas e ${acc.rowsWithoutKey} sem chave, descartadas dos cálculos). Linhas fora dos universos analisados: ${acc.outOfScope}. Data da fotografia lida de DT_GERACAO/HH_GERACAO do arquivo Candidatos.${validation.notes.length > 0 ? ` Notas de rotina: ${validation.notes.join(" | ")}` : ""}`,
     })
     .select("id")
     .single();
@@ -226,7 +229,7 @@ export async function runIngest(
   }
 
   return {
-    ok: validation.publishable,
+    ok: validation.status === "ok",
     snapshotId: data?.id ?? null,
     status: validation.status,
     fileName,
@@ -234,8 +237,12 @@ export async function runIngest(
     baseGeneratedAt,
     recordCount: acc.recordCount,
     anomalies: validation.anomalies,
-    message: validation.publishable
-      ? "Nova fotografia gravada."
-      : "Fotografia gravada como inválida; a anterior segue sendo a fotografia atual.",
+    message:
+      validation.status === "ok"
+        ? "Nova fotografia gravada e publicada."
+        : validation.status === "requer_conferencia"
+          ? "Fotografia gravada e retida para conferência manual; a anterior segue no ar até a liberação."
+          : "Fotografia gravada como inválida; a anterior segue sendo a fotografia atual.",
   };
 }
+

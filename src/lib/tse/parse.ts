@@ -486,14 +486,23 @@ export const APPLIED_FILTERS = [
 export type ValidationOutcome = {
   /** se o snapshot pode ser publicado como fotografia atual */
   publishable: boolean;
-  status: "ok" | "anomalia" | "invalido";
+  status: "ok" | "requer_conferencia" | "invalido";
   anomalies: string[];
+  /** notas de rotina: registram o processamento, não afetam o status */
+  notes: string[];
 };
 
 /**
- * Validação antes de publicar uma nova fotografia. Variação normal do volume
- * de candidaturas não bloqueia a atualização; mudança estruturalmente anormal
- * é sinalizada. O snapshot anterior nunca é apagado.
+ * Validação antes de publicar uma nova fotografia.
+ *
+ * Três estados possíveis:
+ *  - `ok`: publica automaticamente;
+ *  - `requer_conferencia`: gravado e segurado, só entra no ar depois de
+ *    conferência manual registrada no banco (`conferido = true`);
+ *  - `invalido`: nunca publica.
+ *
+ * Deduplicação de rotina (linhas repetidas do arquivo BRASIL) é nota, não
+ * anomalia. O snapshot anterior nunca é apagado.
  */
 export function validate(
   result: ParseResult,
@@ -501,7 +510,10 @@ export function validate(
   previousRecordCount: number | null,
 ): ValidationOutcome {
   const anomalies: string[] = [];
+  const notes: string[] = [];
   let publishable = true;
+  let needsReview = false;
+
 
   for (const col of REQUIRED_COLUMNS) {
     if (result.missingColumns.includes(col)) {
@@ -555,10 +567,11 @@ export function validate(
     publishable = false;
   }
   if (result.duplicateRows > 0) {
-    anomalies.push(
-      `${result.duplicateRows} linhas com SQ_CANDIDATO repetido foram descartadas das contagens (${result.rawLineCount} linhas brutas → ${result.recordCount} candidaturas distintas) — anomalia informativa, sem efeito sobre os indicadores`,
+    notes.push(
+      `${result.duplicateRows} linhas com SQ_CANDIDATO repetido foram descartadas das contagens (${result.rawLineCount} linhas brutas → ${result.recordCount} candidaturas distintas) — deduplicação de rotina do arquivo BRASIL, sem efeito sobre os indicadores`,
     );
   }
+
   if (result.rowsWithoutKey > 0) {
     anomalies.push(
       `${result.rowsWithoutKey} linhas sem SQ_CANDIDATO foram descartadas por não permitirem deduplicação`,
@@ -602,15 +615,22 @@ export function validate(
     const variation =
       (result.recordCount - previousRecordCount) / previousRecordCount;
     if (Math.abs(variation) > 0.25) {
+      needsReview = true;
       anomalies.push(
-        `Variação de ${(variation * 100).toFixed(1)}% no número de registros em relação à fotografia anterior (${previousRecordCount} → ${result.recordCount}) — verificar antes de usar editorialmente`,
+        `Variação de ${(variation * 100).toFixed(1)}% no número de registros em relação à fotografia anterior (${previousRecordCount} → ${result.recordCount}) — fotografia retida para conferência manual antes de ir ao ar`,
       );
     }
   }
 
   return {
     publishable,
-    status: !publishable ? "invalido" : anomalies.length > 0 ? "anomalia" : "ok",
+    status: !publishable
+      ? "invalido"
+      : needsReview
+        ? "requer_conferencia"
+        : "ok",
     anomalies,
+    notes,
   };
 }
+

@@ -22,8 +22,10 @@ import {
 import { applySnapshot } from "@/lib/tse/indicators";
 import {
   getLatestTseSnapshot,
+  getPendingReviewBaseDate,
   type PublicSnapshot,
 } from "@/lib/tse/snapshot.functions";
+
 import { getHistoricalSeries } from "@/lib/tse/historical.functions";
 import type { Series } from "@/lib/tse/historical-compute";
 import { PastStrip } from "@/components/funnel/PastStrip";
@@ -51,12 +53,14 @@ export const Route = createFileRoute("/")({
     ],
   }),
   loader: async () => {
-    const [snapshot, historical] = await Promise.all([
+    const [snapshot, historical, pendingReviewBaseDate] = await Promise.all([
       getLatestTseSnapshot(),
       getHistoricalSeries(),
+      getPendingReviewBaseDate(),
     ]);
-    return { snapshot, historical };
+    return { snapshot, historical, pendingReviewBaseDate };
   },
+
   component: DadosPage,
 });
 
@@ -210,7 +214,10 @@ const INVESTIGATION_PLAN = [
 ];
 
 function DadosPage() {
-  const { snapshot, historical } = Route.useLoaderData();
+  const { snapshot, historical, pendingReviewBaseDate } =
+    Route.useLoaderData();
+  const pendingDate = snapshotDate(pendingReviewBaseDate ?? null);
+
   const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
   const feminineSeries =
     (historical.series as Series[]).find(
@@ -406,11 +413,18 @@ function DadosPage() {
         <UfGrid snapshot={snapshot} baseDate={baseDate} />
 
         <p className="mt-6 font-mono text-[11px] text-muted-foreground">
+          Dados de {baseDate ?? "data em atualização"}.
+          {pendingDate
+            ? ` Uma atualização (dados de ${pendingDate}) está em conferência.`
+            : ""}
+        </p>
+        <p className="mt-2 font-mono text-[11px] text-muted-foreground">
           Fonte: TSE · Candidaturas 2026 ·{" "}
           <Link to="/metodo" className="text-plum underline underline-offset-4">
             ver o método
           </Link>
         </p>
+
       </section>
 
       {/* 4. INVESTIGAÇÃO CENTRAL — bloco amarelo chapado */}
