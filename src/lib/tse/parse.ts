@@ -615,15 +615,22 @@ export function validate(
     const variation =
       (result.recordCount - previousRecordCount) / previousRecordCount;
     if (Math.abs(variation) > 0.25) {
+      needsReview = true;
       anomalies.push(
-        `Variação de ${(variation * 100).toFixed(1)}% no número de registros em relação à fotografia anterior (${previousRecordCount} → ${result.recordCount}) — verificar antes de usar editorialmente`,
+        `Variação de ${(variation * 100).toFixed(1)}% no número de registros em relação à fotografia anterior (${previousRecordCount} → ${result.recordCount}) — fotografia retida para conferência manual antes de ir ao ar`,
       );
     }
   }
 
   return {
     publishable,
-    status: !publishable ? "invalido" : anomalies.length > 0 ? "anomalia" : "ok",
+    status: !publishable
+      ? "invalido"
+      : needsReview
+        ? "requer_conferencia"
+        : "ok",
     anomalies,
+    notes,
   };
 }
+
