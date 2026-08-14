@@ -486,14 +486,23 @@ export const APPLIED_FILTERS = [
 export type ValidationOutcome = {
   /** se o snapshot pode ser publicado como fotografia atual */
   publishable: boolean;
-  status: "ok" | "anomalia" | "invalido";
+  status: "ok" | "requer_conferencia" | "invalido";
   anomalies: string[];
+  /** notas de rotina: registram o processamento, não afetam o status */
+  notes: string[];
 };
 
 /**
- * Validação antes de publicar uma nova fotografia. Variação normal do volume
- * de candidaturas não bloqueia a atualização; mudança estruturalmente anormal
- * é sinalizada. O snapshot anterior nunca é apagado.
+ * Validação antes de publicar uma nova fotografia.
+ *
+ * Três estados possíveis:
+ *  - `ok`: publica automaticamente;
+ *  - `requer_conferencia`: gravado e segurado, só entra no ar depois de
+ *    conferência manual registrada no banco (`conferido = true`);
+ *  - `invalido`: nunca publica.
+ *
+ * Deduplicação de rotina (linhas repetidas do arquivo BRASIL) é nota, não
+ * anomalia. O snapshot anterior nunca é apagado.
  */
 export function validate(
   result: ParseResult,
@@ -501,7 +510,10 @@ export function validate(
   previousRecordCount: number | null,
 ): ValidationOutcome {
   const anomalies: string[] = [];
+  const notes: string[] = [];
   let publishable = true;
+  let needsReview = false;
+
 
   for (const col of REQUIRED_COLUMNS) {
     if (result.missingColumns.includes(col)) {
