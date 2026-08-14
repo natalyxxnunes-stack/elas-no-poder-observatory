@@ -45,6 +45,7 @@ export type PublicSnapshot = {
   fileUrl: string;
   recordCount: number;
   status: string;
+  conferido: boolean;
   processingVersion: string;
   filters: string[];
   situationValues: Record<string, number>;
@@ -53,6 +54,7 @@ export type PublicSnapshot = {
     majoritario: PublicUniverseTally;
   };
 };
+
 
 function client() {
   const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
