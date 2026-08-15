@@ -134,10 +134,11 @@ function MetodoPage() {
   };
   const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
 
-  const getCsv = useServerFn(getLatestTseSnapshotCsv);
-  const handleDownload = async () => {
-    const result = await getCsv();
-    if (!result) return;
+  // O CSV é montado no navegador a partir da mesma fotografia já carregada
+  // nesta página: nenhum número novo, nenhum cálculo adicional.
+  const handleDownload = () => {
+    if (!snapshot) return;
+    const result = buildSnapshotCsv(snapshot);
     const blob = new Blob([result.content], {
       type: "text/csv;charset=utf-8",
     });
@@ -150,6 +151,7 @@ function MetodoPage() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
+
 
 
 
