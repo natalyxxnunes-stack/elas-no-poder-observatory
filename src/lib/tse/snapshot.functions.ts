@@ -46,6 +46,10 @@ export type PublicSnapshot = {
   recordCount: number;
   status: string;
   conferido: boolean;
+  /** SHA-256 do arquivo ZIP como baixado do TSE */
+  zipSha256: string | null;
+  /** SHA-256 do CSV BRASIL, arquivo de onde os indicadores são calculados */
+  brasilCsvSha256: string | null;
   processingVersion: string;
   filters: string[];
   situationValues: Record<string, number>;
@@ -93,6 +97,9 @@ function toPublic(row: any): PublicSnapshot {
     recordCount: row.record_count ?? 0,
     status: row.status,
     conferido: row.conferido === true,
+    zipSha256: row.zip_sha256 ?? null,
+    brasilCsvSha256: row.brasil_csv_sha256 ?? null,
+
 
     processingVersion: row.processing_version,
     filters: Array.isArray(row.filters) ? row.filters : [],

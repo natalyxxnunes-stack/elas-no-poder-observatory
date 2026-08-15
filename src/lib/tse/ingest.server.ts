@@ -13,6 +13,7 @@
  * permanece intacta — nenhum número antigo é reapresentado como atual.
  */
 
+import { createHash } from "crypto";
 import { unzipSync } from "fflate";
 import { DICTIONARY_VERSION, INSPECTED_AT } from "./data-dictionary";
 import {
@@ -113,6 +114,9 @@ export async function runIngest(
   let fileName = "consulta_cand_2026.zip";
   let fileUrl = "";
   let baseGeneratedAt: string | null = null;
+  let zipSha256: string | null = null;
+  let brasilCsvSha256: string | null = null;
+
 
   const fail = async (message: string): Promise<IngestOutcome> => {
     const { data } = await supabaseAdmin
@@ -150,6 +154,7 @@ export async function runIngest(
     fileUrl = resource.url!;
     fileName = fileUrl.split("/").pop() || fileName;
     bytes = await downloadZip(fileUrl);
+    zipSha256 = createHash("sha256").update(bytes).digest("hex");
   } catch (error) {
     return fail(error instanceof Error ? error.message : String(error));
   }
@@ -160,6 +165,12 @@ export async function runIngest(
     const files = unzipSync(bytes);
     const csvNames = Object.keys(files).filter((n) => /\.csv$/i.test(n));
     if (csvNames.length === 0) throw new Error("pacote sem arquivos .csv");
+    const brasilName = csvNames.find((n) => /BRASIL\.csv$/i.test(n));
+    if (brasilName) {
+      brasilCsvSha256 = createHash("sha256")
+        .update(files[brasilName]!)
+        .digest("hex");
+    }
     for (const name of csvNames) {
       ingestCsv(decodeLatin1(files[name]!), acc);
     }
@@ -201,6 +212,8 @@ export async function runIngest(
       file_url: fileUrl,
       record_count: acc.recordCount,
       status: validation.status,
+      zip_sha256: zipSha256,
+      brasil_csv_sha256: brasilCsvSha256,
       processing_version: PROCESSING_VERSION,
       columns_found: acc.headerNames,
       filters: APPLIED_FILTERS,
