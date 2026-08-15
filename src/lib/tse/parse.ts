@@ -270,6 +270,7 @@ export function createTally(): ParseResult {
     duplicateRows: 0,
     rowsWithoutKey: 0,
     outOfScope: 0,
+    outOfUniverse: { total: 0, byCargo: {}, feminineByCargo: {} },
     universes: { proporcional: emptyTally(), majoritario: emptyTally() },
     situationValues: {},
     seenKeys: new Set<string>(),
