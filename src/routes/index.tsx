@@ -6,6 +6,7 @@ import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { UfGrid } from "@/components/editorial/UfGrid";
+import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 
 
 import {
@@ -273,11 +274,10 @@ function DadosPage() {
             </span>
           </h2>
           <p className="mt-5 max-w-xl leading-relaxed text-muted-foreground">
-            A hipótese que orienta esta edição é de distribuição, não de
-            ausência: quanto mais concentrado o cargo, menor a presença. É uma
+            A hipótese desta edição é de distribuição, não de ausência: quanto
+            mais concentrado o cargo, menor a presença de mulheres. É uma
             hipótese a testar etapa por etapa — registro, recursos, votos,
-            cadeiras e comando — com denominador próprio em cada uma. Nenhum
-            contraste desta página, isolado, prova causa.
+            cadeiras e comando. Cada etapa é contada sobre o seu próprio total.
           </p>
         </div>
 
@@ -326,11 +326,20 @@ function DadosPage() {
                   Primeiro marco
                 </p>
                 <p className="mt-1 text-sm leading-relaxed text-cream/85">
-                  Esta é a primeira fotografia comparável do ciclo de 2026.
-                  Fotografia da base de {baseDate ?? "data em atualização"} —
+                  Esta é a primeira fotografia comparável do ciclo de 2026, com
+                  a base de {baseDate ?? "data em atualização"}. Ela é
                   provisória: o registro ainda pode mudar por decisão da Justiça
-                  Eleitoral. Proporcional e majoritário são contados
-                  separadamente.
+                  Eleitoral. As eleições{" "}
+                  <span className="text-solar">
+                    <GlossaryTerm term="proporcional">
+                      proporcionais
+                    </GlossaryTerm>
+                  </span>{" "}
+                  e as{" "}
+                  <span className="text-solar">
+                    <GlossaryTerm term="majoritaria">majoritárias</GlossaryTerm>
+                  </span>{" "}
+                  são contadas separadamente.
                 </p>
               </div>
             </>
@@ -483,8 +492,10 @@ function DadosPage() {
           <p>
             As regras não são as mesmas nos dois universos. Nas eleições
             proporcionais existe uma regra de composição de candidaturas por
-            gênero, aplicada por partido ou federação. Nas majoritárias, de cargo
-            único, essa regra não se aplica.
+            gênero, aplicada por partido ou{" "}
+            <GlossaryTerm term="federacao">federação</GlossaryTerm>. Nas
+            majoritárias, em que cada partido lança um nome por cargo, essa regra
+            não se aplica.
           </p>
         }
       >
@@ -513,12 +524,11 @@ function DadosPage() {
         <div className="mt-6">
           <ContextBox variant="significa" title="A cota de 30% (Lei 9.504/1997)">
             <p>
-              A lei obriga cada partido a preencher no mínimo 30% das suas
-              candidaturas com mulheres — daí a faixa de 30%–70% por gênero. É
-              cota de candidatura, não de cadeira: garante que elas entrem na
-              disputa, não que sejam eleitas. Por isso a presença feminina nas
-              candidaturas fica perto de 30%, mas despenca entre as eleitas. A cota
-              abre a porta; não decide quem atravessa.
+              A lei obriga cada partido ou federação a preencher no mínimo 30%
+              das candidaturas proporcionais com cada gênero — daí a faixa de
+              30%–70%. É{" "}
+              <GlossaryTerm term="cota">cota</GlossaryTerm> de candidatura, não
+              de cadeira: trata de quem entra na disputa, não de quem é eleita.
             </p>
           </ContextBox>
         </div>

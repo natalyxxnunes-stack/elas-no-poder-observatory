@@ -11,6 +11,7 @@ import { HistoryTimeline } from "@/components/historical/HistoryTimeline";
 import { getHistoricalSeries, type HistoricalSeriesPayload } from "@/lib/tse/historical.functions";
 import { BLACK_AGGREGATION_NOTE } from "@/lib/tse/historical-compute";
 import timelineEditorial from "@/assets/timeline-editorial.png";
+import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 
 /**
  * ROTA DESPUBLICADA (lançamento de 5 páginas).
@@ -85,8 +86,9 @@ function HistoricoPage() {
           found={
             firstProp?.value != null && lastProp?.value != null ? (
               <>
-                Nas eleições proporcionais, a participação feminina nas
-                candidaturas passou de{" "}
+                Nas eleições{" "}
+                <GlossaryTerm term="proporcional">proporcionais</GlossaryTerm>, a
+                participação feminina nas candidaturas passou de{" "}
                 {firstProp.value.toLocaleString("pt-BR", {
                   maximumFractionDigits: 1,
                   minimumFractionDigits: 1,
@@ -96,7 +98,8 @@ function HistoricoPage() {
                   maximumFractionDigits: 1,
                   minimumFractionDigits: 1,
                 })}
-                % na fotografia de 2026. Cada ano tem denominador próprio.
+                % na fotografia de 2026. Cada ano é calculado sobre o seu próprio
+                total.
               </>
             ) : (
               <>

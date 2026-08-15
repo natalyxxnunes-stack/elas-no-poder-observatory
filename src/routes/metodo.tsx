@@ -8,6 +8,7 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
+import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 import {
   CURRENT_INDICATORS,
   DATA_STATUS,
@@ -76,32 +77,53 @@ function statusLabel(s: PublicSnapshot): string {
 
 
 
-const PLAIN_STEPS = [
+const PLAIN_STEPS: { step: string; body: React.ReactNode }[] = [
   {
     step: "1. Pegamos a base oficial",
     body: "Usamos o arquivo de candidaturas publicado pelo TSE em Dados Abertos. Guardamos a data em que o TSE gerou o arquivo e a data em que o observatório o processou.",
   },
   {
     step: "2. Separamos dois universos",
-    body: "Eleições proporcionais (Câmara dos Deputados, assembleias legislativas e Câmara Legislativa do Distrito Federal) e eleições majoritárias (Presidência, governos e Senado). Nunca somamos os dois em uma conta só.",
+    body: (
+      <>
+        Eleições{" "}
+        <GlossaryTerm term="proporcional" method={false}>
+          proporcionais
+        </GlossaryTerm>{" "}
+        (Câmara dos Deputados, assembleias legislativas e Câmara Legislativa do
+        Distrito Federal) e eleições{" "}
+        <GlossaryTerm term="majoritaria" method={false}>
+          majoritárias
+        </GlossaryTerm>{" "}
+        (Presidência, governos e Senado). Nunca somamos os dois em uma conta só.
+      </>
+    ),
   },
   {
     step: "3. Contamos candidaturas, não pessoas",
     body: "A unidade de análise é a candidatura registrada. Gênero e cor/raça vêm da autodeclaração feita no registro.",
   },
   {
-    step: "4. Dividimos pelo denominador do próprio universo",
-    body: "Candidaturas de mulheres divididas pelo total de candidaturas daquele mesmo universo. Nenhum percentual aparece sem esse denominador visível.",
+    step: "4. Dividimos pelo total do próprio universo",
+    body: "Candidaturas de mulheres divididas pelo total de candidaturas daquele mesmo universo. Nenhum percentual aparece sem esse total visível.",
   },
   {
     step: "5. Diferenças em pontos percentuais",
-    body: "Quando comparamos dois percentuais, a diferença é expressa em p.p. — e é descritiva: não prova que uma regra causou o resultado.",
+    body: (
+      <>
+        Quando comparamos dois percentuais, a diferença aparece em{" "}
+        <GlossaryTerm term="pontos-percentuais" method={false}>
+          p.p.
+        </GlossaryTerm>{" "}
+        — uma leitura descritiva, que não prova que uma regra causou o resultado.
+      </>
+    ),
   },
   {
     step: "6. O que falta fica declarado",
     body: "Recursos, votos, eleitas e poder ainda não têm base disponível para 2026. Onde falta dado, aparece a lacuna, com o motivo e a fonte que ainda falta.",
   },
-] as const;
+];
 
 function MetodoPage() {
   const { snapshot, history } = Route.useLoaderData() as {
@@ -184,14 +206,33 @@ function MetodoPage() {
         <div className="mt-6">
           <ContextBox variant="significa" title="Como uma cadeira proporcional é preenchida">
             <p>
-              Na proporcional você vota também no partido, não só na pessoa. A
-              soma dos votos do partido — o quociente eleitoral — define quantas
-              cadeiras ele conquista; só depois, dentro do partido, a ordem dos
-              mais votados define quem as ocupa. Por isso uma candidata pode ter
-              muitos votos e não ser eleita, e outra com menos entrar: depende de
-              quanto o partido inteiro somou. É o que torna a proporcional menos
-              intuitiva — e explica por que "mais votos" não é o mesmo que
-              "eleita".
+              Na proporcional, o voto conta também para o partido, não só para a
+              pessoa. A soma dos votos do partido — o{" "}
+              <GlossaryTerm term="quociente-eleitoral" method={false}>
+                quociente eleitoral
+              </GlossaryTerm>{" "}
+              — define quantas cadeiras ele conquista. Só depois, dentro do
+              partido, a ordem dos mais votados define quem ocupa essas cadeiras.
+            </p>
+            <p className="mt-2">
+              Por isso uma candidata pode ter muitos votos e não ser eleita, e
+              outra com menos votos entrar: “mais votos” não é o mesmo que
+              “eleita”.
+            </p>
+          </ContextBox>
+        </div>
+
+        <div className="mt-6">
+          <ContextBox variant="significa" title="Como este site usa a palavra “mulheres”">
+            <p>
+              Nos indicadores eleitorais, “mulheres” corresponde às candidaturas
+              registradas como FEMININO no campo DS_GENERO da base pública do
+              TSE. É a classificação do dataset — não uma definição sociológica
+              de identidade de gênero.
+            </p>
+            <p className="mt-2">
+              O mesmo vale para cor/raça: os grupos vêm da autodeclaração no
+              registro, com as categorias que o TSE publica.
             </p>
           </ContextBox>
         </div>
@@ -523,9 +564,15 @@ function MetodoPage() {
             descritivos. Este método não isola o efeito de nenhuma regra sobre a
             presença de mulheres.
           </GapNote>
-          <GapNote label="Limitação da base">
-            O registro não capta de forma confiável identidade trans ou travesti, e
-            a categoria de cor/raça não identifica pertencimento étnico indígena.
+          <GapNote label="O que esta base não mostra">
+            Três coisas ficam fora do alcance do indicador atual, porque o
+            registro de candidaturas não as capta de forma equivalente:
+            identidade de gênero (a base traz apenas o campo de gênero, que não
+            identifica candidaturas trans ou travestis); deficiência; e detalhes
+            de pertencimento étnico ou quilombola, que dependeriam de outras
+            bases ainda não integradas. A categoria de cor/raça do TSE, por
+            exemplo, registra “indígena” como cor declarada, não pertencimento a
+            um povo.
           </GapNote>
           <GapNote label="Campo político: eixo em apuração">
             A base do TSE traz partido e forma de agremiação, não campo

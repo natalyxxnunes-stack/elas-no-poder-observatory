@@ -7,6 +7,7 @@ import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
+import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 import { FunnelStages2026 } from "@/components/funnel/FunnelStages2026";
 import { PastStrip } from "@/components/funnel/PastStrip";
 import { FUNNEL_READING_RULE } from "@/data/architecture";
@@ -97,16 +98,21 @@ function FunilPage() {
         <InBrief
           found={
             <>
-              Nas candidaturas proporcionais de 2026, a participação de mulheres
-              é bem maior do que nas majoritárias — os dois universos seguem
-              regras diferentes e são contados separadamente.
+              Nas candidaturas{" "}
+              <GlossaryTerm term="proporcional">proporcionais</GlossaryTerm> de
+              2026 — as que elegem vários nomes para um mesmo parlamento — a
+              participação de mulheres é bem maior do que nas{" "}
+              <GlossaryTerm term="majoritaria">majoritárias</GlossaryTerm>, que
+              elegem uma pessoa por cargo. Os dois grupos são contados
+              separadamente.
             </>
           }
           matters={
             <>
               O cargo em disputa muda o tamanho da porta. Entrar numa lista
-              proporcional é diferente de ser a única candidata de um partido ou
-              federação a um governo, ao Senado ou à Presidência.
+              proporcional é diferente de ser a única candidata de um partido ou{" "}
+              <GlossaryTerm term="federacao">federação</GlossaryTerm> a um
+              governo, ao Senado ou à Presidência.
             </>
           }
           unknown={
@@ -155,8 +161,12 @@ function FunilPage() {
             <p>
               “Universo” é o conjunto de registros que entra na conta.
               Proporcional e majoritário são universos distintos: um elege por
-              lista e quociente, o outro elege quem tem mais votos para um cargo
-              único. Percentuais de universos diferentes não se somam.
+              lista, segundo o{" "}
+              <GlossaryTerm term="quociente-eleitoral">
+                quociente eleitoral
+              </GlossaryTerm>
+              ; o outro elege quem tem mais votos para um cargo único.
+              Percentuais de universos diferentes não se somam.
             </p>
           </ContextBox>
           <ContextBox variant="importa">

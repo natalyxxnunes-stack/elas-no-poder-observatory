@@ -17,6 +17,7 @@ import {
 import feministasAsset from "@/assets/feministas.webp.asset.json";
 import respiroFundoAsset from "@/assets/respirocomfundo.webp.asset.json";
 import { PullQuote } from "@/components/editorial/PullQuote";
+import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 
 export const Route = createFileRoute("/direitos")({
   head: () => ({
@@ -175,9 +176,10 @@ function DireitosPage() {
           </ContextBox>
           <ContextBox variant="importa">
             <p>
-              Sem essa distinção, a leitura pública oscila entre “já existe cota,
-              então está resolvido” e “a cota não serve para nada”. Nenhuma das
-              duas descreve o que os dados mostram.
+              Sem essa distinção, a leitura pública oscila entre “já existe{" "}
+              <GlossaryTerm term="cota">cota</GlossaryTerm>, então está
+              resolvido” e “a cota não serve para nada”. Nenhuma das duas
+              descreve o que os dados mostram.
             </p>
           </ContextBox>
         </div>
