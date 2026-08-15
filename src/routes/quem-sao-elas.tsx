@@ -106,10 +106,11 @@ function QuemSaoElasPage() {
         align="wide"
         lead={
           <p>
-            Cada universo eleitoral é lido com seu próprio denominador. As
-            categorias são exatamente as declaradas ao TSE, sem substituição.
+            A distribuição das candidaturas de mulheres entre as categorias de
+            cor/raça que o próprio registro publica, um universo por vez.
           </p>
         }
+
         source={
           <>
             Fonte: TSE · Candidaturas 2026
