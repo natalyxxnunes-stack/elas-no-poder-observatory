@@ -283,7 +283,7 @@ export function PartyGenderTable({
                       <td className="py-3 pr-1">
                         {r.race && r.raceSum > 0 ? (
                           <>
-                            <span
+                            {showRacePercent && <span
                               className="flex h-3 w-full min-w-[160px] overflow-hidden border-2 border-ink"
                               role="img"
                               aria-label={`Cor/raça das ${r.raceSum} candidaturas de mulheres do ${r.party}`}
@@ -304,8 +304,8 @@ export function PartyGenderTable({
                                   />
                                 );
                               })}
-                            </span>
-                            <span className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+                            </span>}
+                            <span className="flex flex-wrap gap-x-3 gap-y-1">
                               {ALL_CATS.filter((c) => r.race![c] > 0).map((c) => (
                                 <span
                                   key={c}
