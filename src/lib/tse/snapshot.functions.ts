@@ -214,6 +214,7 @@ export const getLatestTseSnapshotCsv = createServerFn({ method: "GET" }).handler
       `# Geracao da base (TSE): ${snap.baseGeneratedAt ?? "nao informada"}`,
       `# Coleta pelo observatorio: ${snap.collectedAt}`,
       `# Arquivo processado: ${snap.fileName}`,
+      `# SHA-256 do arquivo processado (procedencia, nao validacao de calculo): ${snap.brasilCsvSha256 ?? snap.zipSha256 ?? "nao registrado nesta fotografia"}`,
       `# Filtros aplicados: ${snap.filters.length > 0 ? snap.filters.join(" | ") : "nenhum"}`,
       "# Unidade de analise: candidatura registrada (nao pessoa)",
       "universo,categoria,quantidade,total_mulheres_universo,total_candidaturas_universo",
@@ -245,6 +246,31 @@ export const getLatestTseSnapshotCsv = createServerFn({ method: "GET" }).handler
     return {
       fileName: `quem-sao-elas-fotografia-tse-${base}.csv`,
       content: `\uFEFF${lines.join("\n")}\n`,
+    };
+  },
+);
+
+/**
+ * Carimbo global da última fotografia publicada. Payload mínimo, para o
+ * rodapé do site: as duas datas são nomeadas separadamente (geração do
+ * arquivo pelo TSE e coleta pelo observatório) e nada é inferido.
+ */
+export const getSnapshotStamp = createServerFn({ method: "GET" }).handler(
+  async (): Promise<{
+    baseGeneratedAt: string | null;
+    collectedAt: string;
+  } | null> => {
+    const { data } = await client()
+      .from("tse_snapshots")
+      .select("base_generated_at, collected_at")
+      .or("status.eq.ok,and(status.eq.requer_conferencia,conferido.eq.true)")
+      .order("collected_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (!data) return null;
+    return {
+      baseGeneratedAt: data.base_generated_at ?? null,
+      collectedAt: data.collected_at,
     };
   },
 );

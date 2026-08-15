@@ -143,3 +143,26 @@ Nenhuma nova fonte de resultado foi implementada nesta rodada.
 - a coleta diária de 2026 está sendo recusada pelo CDN do TSE (HTTP 403) quando
   disparada pelo servidor; a fotografia corrigida desta auditoria foi calculada
   com o mesmo código do projeto sobre o pacote oficial baixado.
+
+## 6. Procedência (SHA-256) e carimbo global — estado em 15/08/2026
+
+- O pipeline de coleta grava dois códigos SHA-256 por fotografia: do pacote ZIP
+  baixado do TSE (`zip_sha256`) e do CSV BRASIL de onde os indicadores saem
+  (`brasil_csv_sha256`). Ambos comprovam a **procedência/identidade do arquivo
+  processado**, não a correção dos cálculos.
+- A fotografia vigente (base gerada pelo TSE em 13/08/2026, coletada em
+  13/08/2026, 18.282 registros) foi gravada **antes** de o registro de hash
+  entrar no pipeline: os dois campos estão nulos no banco. Por isso o Método
+  informa a ausência de código de procedência nesta fotografia em vez de exibir
+  um valor — nenhum hash é recalculado ou inventado.
+- O rodapé do site publica um carimbo global com as duas datas nomeadas
+  separadamente: **geração da base pelo TSE** e **coleta pelo observatório**.
+  Sem fotografia publicável, o carimbo não é exibido.
+- Exportação: existe uma única exportação, o CSV gerado na hora a partir da
+  fotografia vigente, publicado no Método. A página de materiais aponta para
+  ela em vez de manter cópia própria, para que nenhuma versão anterior circule
+  como atual. O cabeçalho do CSV traz fonte, as duas datas, arquivo processado,
+  filtros, unidade de análise e o código de procedência quando registrado.
+- Navegação: o menu principal tem seis itens (Dados 2026, Quem são elas?, O
+  funil, Direitos, Método, Sobre). Materiais para download fica fora do menu,
+  acessível pelo fim de Método e de Sobre, porque só a tabela está publicada.

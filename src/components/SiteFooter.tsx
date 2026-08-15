@@ -1,12 +1,33 @@
 import { Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { useQuery } from "@tanstack/react-query";
 import { BrandLogo } from "./BrandLogo";
 import { BrandWordmark } from "./BrandWordmark";
 import { SITE } from "@/data/election-2026";
 import { CENTRAL_THESIS, COVER_QUESTION, NAV_ITEMS } from "@/data/architecture";
+import { getSnapshotStamp } from "@/lib/tse/snapshot.functions";
+
+function br(iso: string | null | undefined): string | null {
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+}
+
 
 export function SiteFooter() {
+  const fetchStamp = useServerFn(getSnapshotStamp);
+  const { data: stamp } = useQuery({
+    queryKey: ["tse-snapshot-stamp"],
+    queryFn: () => fetchStamp(),
+    staleTime: 5 * 60 * 1000,
+  });
+  const generated = br(stamp?.baseGeneratedAt);
+  const collected = br(stamp?.collectedAt);
+
   return (
     <footer className="ink-panel mt-24">
+
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.5fr_1fr] md:px-8">
         <div>
           <div className="flex items-center gap-3">
@@ -40,12 +61,20 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-cream/15">
-        <p className="mx-auto max-w-6xl px-5 py-5 font-mono text-[12px] leading-relaxed text-cream/45 md:px-8">
-          Indicadores de candidatura calculados a partir de TSE / Dados Abertos /
-          Candidatos 2026. Lacunas e limitações estão declaradas ao longo do site,
-          com a data da fotografia usada em cada número.
-        </p>
+        <div className="mx-auto max-w-6xl px-5 py-5 font-mono text-[12px] leading-relaxed text-cream/45 md:px-8">
+          {generated && (
+            <p className="text-cream/60">
+              Última fotografia publicada: base gerada pelo TSE em {generated}
+              {collected ? ` · coletada pelo observatório em ${collected}` : ""}.
+            </p>
+          )}
+          <p className={generated ? "mt-1" : undefined}>
+            Indicadores de candidatura calculados a partir de TSE / Dados Abertos
+            / Candidatos 2026. A data da base usada aparece junto de cada número.
+          </p>
+        </div>
       </div>
+
     </footer>
   );
 }

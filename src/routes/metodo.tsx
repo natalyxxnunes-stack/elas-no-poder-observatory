@@ -311,19 +311,71 @@ function MetodoPage() {
           </dl>
           {snapshot && (
             <div className="mt-5 border-t border-rule pt-4">
-              <button
-                type="button"
-                onClick={handleDownload}
-                className="inline-flex rounded-md bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
-              >
-                Baixar esta fotografia (CSV)
-              </button>
-              <p className="mt-2 font-mono text-[12px] text-muted-foreground">
-                CSV gerado a partir da fotografia vigente, com data e filtros no
-                cabeçalho do arquivo.
-              </p>
+              <p className="kicker">Procedência do arquivo</p>
+              {snapshot.zipSha256 || snapshot.brasilCsvSha256 ? (
+                <>
+                  <dl className="mt-3 space-y-2 font-mono text-[12px] text-muted-foreground">
+                    {snapshot.zipSha256 && (
+                      <div>
+                        <dt className="uppercase tracking-wider">
+                          SHA-256 do pacote baixado do TSE
+                        </dt>
+                        <dd className="break-all text-ink">
+                          {snapshot.zipSha256}
+                        </dd>
+                      </div>
+                    )}
+                    {snapshot.brasilCsvSha256 && (
+                      <div>
+                        <dt className="uppercase tracking-wider">
+                          SHA-256 do arquivo de onde os números saem
+                        </dt>
+                        <dd className="break-all text-ink">
+                          {snapshot.brasilCsvSha256}
+                        </dd>
+                      </div>
+                    )}
+                    <div>
+                      <dt className="uppercase tracking-wider">
+                        Versão de processamento
+                      </dt>
+                      <dd>{snapshot.processingVersion}</dd>
+                    </div>
+                  </dl>
+                  <p className="mt-2 font-mono text-[12px] text-muted-foreground">
+                    O código identifica o arquivo processado: quem baixar o mesmo
+                    arquivo do TSE chega ao mesmo código. Ele comprova a
+                    procedência do arquivo, não a correção dos cálculos feitos
+                    sobre ele.
+                  </p>
+                </>
+              ) : (
+                <p className="mt-3 font-mono text-[12px] leading-relaxed text-muted-foreground">
+                  Esta fotografia foi coletada antes de o registro de SHA-256
+                  entrar no pipeline, então não tem código de procedência
+                  gravado. A partir da versão {snapshot.processingVersion} em
+                  diante, cada coleta guarda o código do pacote baixado e do
+                  arquivo de onde os números saem.
+                </p>
+              )}
+
+              <div className="mt-4 border-t border-rule pt-4">
+                <button
+                  type="button"
+                  onClick={handleDownload}
+                  className="inline-flex rounded-md bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+                >
+                  Baixar esta fotografia (CSV)
+                </button>
+                <p className="mt-2 font-mono text-[12px] text-muted-foreground">
+                  CSV da fotografia vigente, com a data de geração da base pelo
+                  TSE, os filtros e o universo de cada linha no cabeçalho do
+                  arquivo.
+                </p>
+              </div>
             </div>
           )}
+
           {!snapshot && (
             <div className="mt-4">
               <GapNote label="Fotografia indisponível">
@@ -592,7 +644,7 @@ function MetodoPage() {
         </p>
       </SectionBlock>
 
-      <NextAxes ids={["dados-2026", "funil", "sobre"]} />
+      <NextAxes ids={["dados-2026", "sobre", "downloads"]} />
     </PageShell>
   );
 }

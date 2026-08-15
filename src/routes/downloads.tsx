@@ -86,12 +86,12 @@ const MATERIALS: readonly Material[] = [
   {
     id: "base-candidaturas",
     kind: "Base de dados",
-    title: "Fotografia das candidaturas de 2026",
+    title: "Fotografia das candidaturas de 2026 (CSV)",
     description:
-      "Tabela com as contagens por universo, gênero e categoria de cor/raça, com data de geração da base e filtros aplicados.",
+      "Contagens por universo, gênero e categoria de cor/raça. O arquivo é gerado na hora a partir da fotografia vigente e traz, no cabeçalho, a data de geração da base pelo TSE, a data da coleta, os filtros e o código de procedência do arquivo processado. Já publicado no Método — não há cópia separada aqui, para que nenhuma versão antiga circule como atual.",
     audience: "Jornalistas e pesquisadoras",
-    format: "CSV com dicionário de variáveis",
-    file: null,
+    format: "CSV, download no Método",
+    file: "/metodo",
   },
 ];
 
@@ -148,7 +148,14 @@ function DownloadsPage() {
                 </div>
               </dl>
               <div className="mt-auto pt-4">
-                {m.file ? (
+                {m.file === "/metodo" ? (
+                  <Link
+                    to="/metodo"
+                    className="inline-flex rounded-md bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+                  >
+                    Baixar no Método
+                  </Link>
+                ) : m.file ? (
                   <a
                     href={m.file}
                     className="inline-flex rounded-md bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
@@ -161,6 +168,7 @@ function DownloadsPage() {
                   </span>
                 )}
               </div>
+
             </li>
           ))}
         </ul>
