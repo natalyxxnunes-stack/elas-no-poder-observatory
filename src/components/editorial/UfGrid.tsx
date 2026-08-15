@@ -131,7 +131,7 @@ export function UfGrid({
 
       <p className="mt-6 font-mono text-[12px] leading-relaxed text-ink/70">
         Universo: candidaturas proporcionais (Deputada Federal, Estadual e
-        Distrital), com denominador próprio de cada unidade da federação. Fonte:
+        Distrital), contadas dentro de cada unidade da federação. Fonte:
         TSE · Candidaturas 2026
         {baseDate ? ` · fotografia da base de ${baseDate}` : ""}. Percentual e
         tamanho da base devem ser lidos juntos: um estado com poucas

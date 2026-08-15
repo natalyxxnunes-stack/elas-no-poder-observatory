@@ -95,8 +95,8 @@ function UniverseColumn({
 
       {missing.length > 0 && (
         <p className="mt-3 font-mono text-[12px] leading-relaxed text-muted-foreground">
-          Pontos vazios: {missing.map((m) => m.year).join(", ")}. Ausência de
-          dado não é zero.
+          Pontos vazios: {missing.map((m) => m.year).join(", ")} — a fonte não
+          trouxe o resultado desses anos.
         </p>
       )}
     </div>

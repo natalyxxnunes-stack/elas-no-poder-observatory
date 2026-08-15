@@ -134,8 +134,8 @@ export function RaceExplorer({
     return (
       <GapNote label="Lacuna declarada">
         A fotografia atual do TSE ainda não trouxe os cruzamentos de cor/raça por
-        UF e partido para este universo. Ausência de dado não é zero: enquanto a
-        coleta não gravar essas células, o explorador não exibe número algum.
+        UF e partido para este universo. Sem essas células, o explorador fica sem
+        número — nada é estimado no lugar.
       </GapNote>
     );
   }

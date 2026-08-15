@@ -65,8 +65,8 @@ export function RaceByStateTable({ snapshot }: { snapshot: PublicSnapshot | null
     return (
       <GapNote label="Dado não disponível">
         O cruzamento de cor/raça por estado ainda não foi gravado nesta
-        fotografia do TSE. Ausência de dado não é zero: enquanto a coleta não
-        trouxer essas células, a tabela não exibe número algum.
+        fotografia do TSE. Enquanto a coleta não trouxer essas células, a tabela
+        fica sem número — nenhum valor é estimado.
       </GapNote>
     );
   }

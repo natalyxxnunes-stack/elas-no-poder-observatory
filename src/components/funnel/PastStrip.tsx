@@ -47,9 +47,8 @@ export function PastStrip({ series }: { series: Series | null }) {
         ))}
       </ol>
       <p className="mt-4 border-t border-rule pt-3 text-sm leading-relaxed text-muted-foreground">
-        Cada ano tem denominador próprio e não é somado aos outros. 2026 é
-        fotografia em andamento: comparar percentuais exige a ressalva de
-        estágio, e nenhuma causa é atribuída à variação.
+        Cada ano é contado dentro da própria eleição; os anos não são somados.
+        2026 aparece como registro em andamento, sem resultado apurado.
       </p>
     </div>
   );
