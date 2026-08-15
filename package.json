@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "build:hostgator": "vite build --config vite.config.static.ts"
+    "build:hostgator": "vite build --config vite.config.static.ts && node scripts/hostgator-assets.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
