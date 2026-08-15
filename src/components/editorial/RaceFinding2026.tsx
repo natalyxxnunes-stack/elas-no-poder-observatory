@@ -16,16 +16,30 @@ const pct = (v: number) =>
     maximumFractionDigits: 1,
   })}%`;
 
+/** Normaliza o rótulo literal do TSE (ex.: "PARDA", "INDÍGENA") para a chave
+ *  interna de categoria (parda, indigena). Sem agregações. */
+function normalizeRaceKey(label: string): string {
+  return label
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
 /** Lê os dados de candidatura da fotografia vigente, se disponível; senão,
  *  mantém os valores curados contra o TSE. Devolve também se a fotografia
  *  usada passou por conferência manual explícita (`conferido = true`), para
  *  que o rótulo nunca afirme conferência que não ocorreu. */
 function getCandidateData(snapshot: PublicSnapshot | null) {
-  const snap = snapshot?.universes.proporcional;
-  const snapCounts = snap?.raceCounts;
+  const snapCounts = snapshot?.universes.proporcional?.raceCounts;
   if (snapCounts) {
+    const normalized: Record<string, number> = {};
+    for (const [label, count] of Object.entries(snapCounts)) {
+      const key = normalizeRaceKey(label);
+      normalized[key] = (normalized[key] ?? 0) + (count ?? 0);
+    }
     const total = RACE_FINDING_CATEGORIES.reduce(
-      (sum, key) => sum + (snapCounts[key] ?? 0),
+      (sum, key) => sum + (normalized[key] ?? 0),
       0,
     );
     if (total > 0) {
@@ -34,7 +48,7 @@ function getCandidateData(snapshot: PublicSnapshot | null) {
         { count: number; percent: number }
       >;
       for (const key of RACE_FINDING_CATEGORIES) {
-        const count = snapCounts[key] ?? 0;
+        const count = normalized[key] ?? 0;
         byRace[key] = { count, percent: (count / total) * 100 };
       }
       return {
@@ -52,6 +66,7 @@ function getCandidateData(snapshot: PublicSnapshot | null) {
     conferido: false,
   };
 }
+
 
 
 function MiniBar({
