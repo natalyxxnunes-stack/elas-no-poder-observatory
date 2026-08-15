@@ -182,6 +182,20 @@ function MetodoPage() {
             </li>
           ))}
         </ol>
+        <div className="mt-6">
+          <ContextBox variant="significa" title="Como uma cadeira proporcional é preenchida">
+            <p>
+              Na proporcional você vota também no partido, não só na pessoa. A
+              soma dos votos do partido — o quociente eleitoral — define quantas
+              cadeiras ele conquista; só depois, dentro do partido, a ordem dos
+              mais votados define quem as ocupa. Por isso uma candidata pode ter
+              muitos votos e não ser eleita, e outra com menos entrar: depende de
+              quanto o partido inteiro somou. É o que torna a proporcional menos
+              intuitiva — e explica por que "mais votos" não é o mesmo que
+              "eleita".
+            </p>
+          </ContextBox>
+        </div>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           <ContextBox variant="significa">
             <p>
