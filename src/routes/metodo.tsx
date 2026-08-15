@@ -18,6 +18,11 @@ import {
   formatPoints,
   formatRatio,
 } from "@/data/election-2026";
+import {
+  COMPETITION_DEFINITION,
+  FINANCE_AVAILABILITY,
+} from "@/data/competitividade";
+import { VAGAS_SOURCE } from "@/data/vagas-2026";
 import { applySnapshot } from "@/lib/tse/indicators";
 import {
   getLatestTseSnapshot,
