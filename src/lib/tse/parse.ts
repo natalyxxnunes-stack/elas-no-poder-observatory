@@ -185,6 +185,14 @@ export type UniverseTally = {
      * não entra na chave: cada universo já tem sua própria tabela.
      */
     raceByUfParty: Record<string, Record<string, number>>;
+    /**
+     * Denominador e numerador de gênero na mesma chave `SG_UF|SG_PARTIDO`:
+     * total de candidaturas e candidaturas de mulheres. Permite ler a
+     * composição de gênero de uma lista partidária dentro de um estado sem
+     * recompor a base. Fotografias anteriores a esta versão não têm as células.
+     */
+    totalByUfParty: Record<string, number>;
+    feminineByUfParty: Record<string, number>;
   };
 
 };
