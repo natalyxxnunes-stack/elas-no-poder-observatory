@@ -16,16 +16,6 @@ const pct = (v: number) =>
     maximumFractionDigits: 1,
   })}%`;
 
-const nf = (v: number) => {
-  if (v >= 1_000_000) {
-    return `${(v / 1_000_000).toLocaleString("pt-BR", {
-      minimumFractionDigits: 1,
-      maximumFractionDigits: 1,
-    })} milhões`;
-  }
-  return n(v);
-};
-
 /** Lê os dados de candidatura da fotografia conferida, se disponível; senão,
  *  mantém os valores curados contra o TSE. */
 function getCandidateData(snapshot: PublicSnapshot | null) {
@@ -252,13 +242,14 @@ export function RaceFinding2026({
 
       <p className="font-mono text-[11px] leading-relaxed text-muted-foreground">
         Denominadores: {n(total)} candidaturas de mulheres nas eleições
-        proporcionais de 2026{fromSnapshot ? " (lidas do snapshot conferido)" : ""};{" "}
-        população feminina de {n(POPULATION_FEMININE_2022)} ({"104,5 milhões"}, Censo
-        2022). Cor/raça autodeclarada, nas categorias do IBGE/TSE; "negra" = preta
-        + parda (definição oficial). A comparação entre candidaturas (TSE
-        proporcional 2026) e população feminina (Censo 2022) são dois retratos,
-        cada um com seu denominador; leitura descritiva, não causal. Indígenas e
-        amarelas: poucas candidaturas, ler pelo absoluto.
+        proporcionais de 2026
+        {fromSnapshot ? " (lidas do snapshot conferido)" : ""}; população
+        feminina 104,5 milhões (Censo 2022). Cor/raça autodeclarada, nas
+        categorias do IBGE/TSE; "negra" = preta + parda (definição oficial). A
+        comparação entre candidaturas (TSE proporcional 2026) e população
+        feminina (Censo 2022) são dois retratos, cada um com seu denominador;
+        leitura descritiva, não causal. Indígenas e amarelas: poucas
+        candidaturas, ler pelo absoluto.
       </p>
     </div>
   );
