@@ -8,7 +8,6 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
-import { NextAxes } from "@/components/editorial/NextAxes";
 import {
   CURRENT_INDICATORS,
   DATA_STATUS,
@@ -212,8 +211,6 @@ function MetodoPage() {
           </ContextBox>
         </div>
       </SectionBlock>
-
-      <PullQuote>Correlação não é causalidade.</PullQuote>
 
       {/* CAMADA 2 — ficha técnica */}
       <SectionBlock
