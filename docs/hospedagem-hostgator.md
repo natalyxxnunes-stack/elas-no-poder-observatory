@@ -48,7 +48,7 @@ Arquivos gerados:
 - `assets/l5e/` com as ilustrações editoriais: o script
   `scripts/hostgator-assets.mjs` roda ao final do build, baixa o binário de cada
   `src/assets/*.asset.json` (com cache em `.hostgator-assets/`) e reescreve todas
-  as referências `/__l5e/assets-v1/...` para `/assets/l5e/...`, deixando o pacote
+  as referências `/__l5e/assets-v1/...` para `/ilustracoes/...`, deixando o pacote
   autocontido. Se algum binário não puder ser baixado, o build falha e nomeia o
   asset — nenhum substituto é usado;
 - `.htaccess` com HTTPS forçado, resolução das rotas, fallback de SPA,

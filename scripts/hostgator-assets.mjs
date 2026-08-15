@@ -7,9 +7,9 @@
 //
 // Este passo roda DEPOIS do `vite build --config vite.config.static.ts`:
 //  1. baixa (com cache local) o binário de cada asset;
-//  2. copia para `dist/client/assets/l5e/<arquivo>`;
+//  2. copia para `dist/client/ilustracoes/<arquivo>`;
 //  3. reescreve toda ocorrência de `/__l5e/assets-v1/<id>/<arquivo>` nos
-//     arquivos de texto do pacote (HTML, JS, CSS, JSON) para `/assets/l5e/<arquivo>`.
+//     arquivos de texto do pacote (HTML, JS, CSS, JSON) para `/ilustracoes/<arquivo>`.
 //
 // O build padrão da Lovable não é afetado: ele continua servindo `/__l5e/...`.
 import { readdir, readFile, writeFile, mkdir, copyFile, stat } from "node:fs/promises";
