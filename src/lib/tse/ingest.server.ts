@@ -13,6 +13,7 @@
  * permanece intacta — nenhum número antigo é reapresentado como atual.
  */
 
+import { createHash } from "crypto";
 import { unzipSync } from "fflate";
 import { DICTIONARY_VERSION, INSPECTED_AT } from "./data-dictionary";
 import {
