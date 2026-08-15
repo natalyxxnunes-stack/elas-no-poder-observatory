@@ -18,7 +18,7 @@ import path from "node:path";
 const ROOT = process.cwd();
 const ASSETS_DIR = path.join(ROOT, "src/assets");
 const DIST = path.join(ROOT, "dist/client");
-const OUT_DIR = path.join(DIST, "assets/l5e");
+const OUT_DIR = path.join(DIST, "ilustracoes");
 const CACHE_DIR = path.join(ROOT, ".hostgator-assets");
 // Host que serve os binários originais. Pode ser sobrescrito com
 // HOSTGATOR_ASSET_ORIGIN se o endereço do projeto mudar.
@@ -80,7 +80,7 @@ async function main() {
     }
 
     await copyFile(cached, path.join(OUT_DIR, filename));
-    rewrites.push({ from: meta.url, to: `/assets/l5e/${filename}` });
+    rewrites.push({ from: meta.url, to: `/ilustracoes/${filename}` });
   }
 
   if (missing.length > 0) {
@@ -114,7 +114,7 @@ async function main() {
   }
 
   console.log(
-    `[hostgator-assets] ${rewrites.length} assets copiados para assets/l5e/, ${touched} arquivos reescritos.`,
+    `[hostgator-assets] ${rewrites.length} assets copiados para ilustracoes/, ${touched} arquivos reescritos.`,
   );
 }
 
