@@ -10,6 +10,7 @@ import { GapNote } from "@/components/GapNote";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 import { FunnelStages2026 } from "@/components/funnel/FunnelStages2026";
 import { PastStrip } from "@/components/funnel/PastStrip";
+import { CompetitionByUf } from "@/components/editorial/CompetitionByUf";
 import { FUNNEL_READING_RULE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import { getHistoricalSeries } from "@/lib/tse/historical.functions";
@@ -185,6 +186,32 @@ function FunilPage() {
           </ContextBox>
         </div>
       </SectionBlock>
+
+      <SectionBlock
+        kicker="Tamanho da disputa"
+        question="Quantas candidaturas existem para cada vaga?"
+        align="wide"
+        lead={
+          <p>
+            Antes de qualquer resultado, é possível medir uma coisa só com os
+            registros: o tamanho da disputa. Dividimos as candidaturas
+            registradas pelas vagas efetivamente em disputa, dentro de um mesmo
+            universo. É concorrência declarada, não chance de eleição.
+          </p>
+        }
+        source={
+          <>
+            Fonte: TSE · Candidaturas 2026 (numerador) e TSE · recurso Vagas de
+            2026 (denominador) ·{" "}
+            <Link to="/metodo" className="text-plum underline underline-offset-4">
+              definição no método
+            </Link>
+          </>
+        }
+      >
+        <CompetitionByUf snapshot={snapshot} />
+      </SectionBlock>
+
 
       <SectionBlock
         kicker="Contexto"
