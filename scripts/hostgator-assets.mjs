@@ -94,11 +94,12 @@ async function main() {
   let touched = 0;
   for (const file of await listFiles(DIST)) {
     if (!TEXT_EXT.has(path.extname(file))) continue;
-    const original = await readFile(file, "utf8");
+    // latin1 preserva byte a byte: nenhum arquivo é reencodado ao ser reescrito.
+    const original = (await readFile(file)).toString("latin1");
     let next = original;
     for (const { from, to } of rewrites) next = next.split(from).join(to);
     if (next !== original) {
-      await writeFile(file, next);
+      await writeFile(file, Buffer.from(next, "latin1"));
       touched += 1;
     }
   }
@@ -106,7 +107,7 @@ async function main() {
   const leftovers = [];
   for (const file of await listFiles(DIST)) {
     if (!TEXT_EXT.has(path.extname(file))) continue;
-    if ((await readFile(file, "utf8")).includes("/__l5e/")) leftovers.push(file);
+    if ((await readFile(file)).toString("latin1").includes("/__l5e/")) leftovers.push(file);
   }
   if (leftovers.length > 0) {
     throw new Error(`Ainda há referências a /__l5e/ em: ${leftovers.join(", ")}`);
