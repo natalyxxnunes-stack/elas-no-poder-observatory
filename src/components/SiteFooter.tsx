@@ -61,12 +61,20 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-cream/15">
-        <p className="mx-auto max-w-6xl px-5 py-5 font-mono text-[12px] leading-relaxed text-cream/45 md:px-8">
-          Indicadores de candidatura calculados a partir de TSE / Dados Abertos /
-          Candidatos 2026. Lacunas e limitações estão declaradas ao longo do site,
-          com a data da fotografia usada em cada número.
-        </p>
+        <div className="mx-auto max-w-6xl px-5 py-5 font-mono text-[12px] leading-relaxed text-cream/45 md:px-8">
+          {generated && (
+            <p className="text-cream/60">
+              Última fotografia publicada: base gerada pelo TSE em {generated}
+              {collected ? ` · coletada pelo observatório em ${collected}` : ""}.
+            </p>
+          )}
+          <p className={generated ? "mt-1" : undefined}>
+            Indicadores de candidatura calculados a partir de TSE / Dados Abertos
+            / Candidatos 2026. A data da base usada aparece junto de cada número.
+          </p>
+        </div>
       </div>
+
     </footer>
   );
 }
