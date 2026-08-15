@@ -152,8 +152,7 @@ export function RaceFinding2026({
       <p className="font-display text-xl leading-snug text-ink md:text-2xl">
         Olho:{" "}
         <span className="text-coral">
-          Antes do primeiro voto, a política já filtra. E a mulher negra é a
-          primeira a perder terreno.
+          Pardas e brancas são quase do mesmo tamanho no país. Nas candidaturas, não são.
         </span>
       </p>
 
