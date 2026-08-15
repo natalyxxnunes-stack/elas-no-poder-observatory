@@ -6,6 +6,7 @@ import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { UfGrid } from "@/components/editorial/UfGrid";
+import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 
 
 import {
