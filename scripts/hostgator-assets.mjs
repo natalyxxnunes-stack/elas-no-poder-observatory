@@ -7,9 +7,9 @@
 //
 // Este passo roda DEPOIS do `vite build --config vite.config.static.ts`:
 //  1. baixa (com cache local) o binário de cada asset;
-//  2. copia para `dist/client/assets/l5e/<arquivo>`;
+//  2. copia para `dist/client/ilustracoes/<arquivo>`;
 //  3. reescreve toda ocorrência de `/__l5e/assets-v1/<id>/<arquivo>` nos
-//     arquivos de texto do pacote (HTML, JS, CSS, JSON) para `/assets/l5e/<arquivo>`.
+//     arquivos de texto do pacote (HTML, JS, CSS, JSON) para `/ilustracoes/<arquivo>`.
 //
 // O build padrão da Lovable não é afetado: ele continua servindo `/__l5e/...`.
 import { readdir, readFile, writeFile, mkdir, copyFile, stat } from "node:fs/promises";
@@ -18,7 +18,7 @@ import path from "node:path";
 const ROOT = process.cwd();
 const ASSETS_DIR = path.join(ROOT, "src/assets");
 const DIST = path.join(ROOT, "dist/client");
-const OUT_DIR = path.join(DIST, "assets/l5e");
+const OUT_DIR = path.join(DIST, "ilustracoes");
 const CACHE_DIR = path.join(ROOT, ".hostgator-assets");
 // Host que serve os binários originais. Pode ser sobrescrito com
 // HOSTGATOR_ASSET_ORIGIN se o endereço do projeto mudar.
@@ -80,7 +80,7 @@ async function main() {
     }
 
     await copyFile(cached, path.join(OUT_DIR, filename));
-    rewrites.push({ from: meta.url, to: `/assets/l5e/${filename}` });
+    rewrites.push({ from: meta.url, to: `/ilustracoes/${filename}` });
   }
 
   if (missing.length > 0) {
@@ -114,7 +114,7 @@ async function main() {
   }
 
   console.log(
-    `[hostgator-assets] ${rewrites.length} assets copiados para assets/l5e/, ${touched} arquivos reescritos.`,
+    `[hostgator-assets] ${rewrites.length} assets copiados para ilustracoes/, ${touched} arquivos reescritos.`,
   );
 }
 
