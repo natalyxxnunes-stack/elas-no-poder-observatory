@@ -93,7 +93,26 @@ function client() {
   });
 }
 
+/**
+ * Regra única de vigência: uma fotografia só é pública se tiver passado por
+ * conferência manual explícita (`conferido = true`) e não estiver marcada como
+ * inválida. `status = ok` por si só NÃO publica.
+ */
+const PUBLISHABLE_STATUSES = ["ok", "requer_conferencia"] as const;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+function publishedQuery(db: ReturnType<typeof client>, columns: string) {
+  return db
+    .from("tse_snapshots")
+    .select(columns)
+    .eq("conferido", true)
+    .in("status", PUBLISHABLE_STATUSES as unknown as string[])
+    .order("collected_at", { ascending: false })
+    .limit(1);
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 function toPublic(row: any): PublicSnapshot {
   return {
     id: row.id,
