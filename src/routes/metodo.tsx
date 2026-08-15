@@ -840,6 +840,55 @@ function MetodoPage() {
         )}
       </SectionBlock>
 
+      {/* Fato, interpretação e hipótese */}
+      <SectionBlock
+        kicker="Como ler o site"
+        question="Três registros diferentes, sempre marcados"
+        lead={
+          <p>
+            Nada aqui mistura o que o dado mostra com o que nós achamos que ele
+            significa. Os três registros aparecem separados em cada página, e o
+            bloco racial em{" "}
+            <Link
+              to="/quem-sao-elas"
+              className="text-plum underline underline-offset-4"
+            >
+              Quem são elas?
+            </Link>{" "}
+            é o exemplo mais completo.
+          </p>
+        }
+      >
+        <dl className="grid gap-4 md:grid-cols-3">
+          <div className="poster-frame p-5">
+            <dt className="poster-eyebrow border-plum text-plum">Fato</dt>
+            <dd className="mt-3 text-sm leading-relaxed text-ink/70">
+              Contagem que sai direto da base, com numerador, denominador e data.
+              É verificável: recalcule e confira.
+            </dd>
+          </div>
+          <div className="poster-frame p-5">
+            <dt className="poster-eyebrow border-coral text-coral-ink">
+              Interpretação editorial
+            </dt>
+            <dd className="mt-3 text-sm leading-relaxed text-ink/70">
+              Nossa leitura do fato: qual comparação importa, o que um total
+              esconde, por que um recorte fica separado. Assinada, discutível — e
+              nunca apresentada como resultado do cálculo.
+            </dd>
+          </div>
+          <div className="poster-frame p-5">
+            <dt className="poster-eyebrow border-ink text-ink">
+              Hipótese em investigação
+            </dt>
+            <dd className="mt-3 text-sm leading-relaxed text-ink/70">
+              Explicação possível que os dados atuais não testam. Fica marcada
+              como pergunta aberta; nenhuma delas é publicada como causa.
+            </dd>
+          </div>
+        </dl>
+      </SectionBlock>
+
       {/* Limitações */}
       <SectionBlock
         kicker="Limitações"
@@ -847,24 +896,32 @@ function MetodoPage() {
       >
         <div className="space-y-3">
           <GapNote label="Não disponível não é zero">
-            Recursos de campanha, votos, eleitas, posições de poder, deficiência e
-            barreiras à permanência não têm base disponível para 2026. Onde não há
-            fonte, não há número — nem estimativa.
+            Recursos de campanha, votos, eleitas, posições de poder e barreiras à
+            permanência não têm base disponível para 2026. Onde não há fonte, não
+            há número — nem estimativa.
           </GapNote>
           <GapNote label="Correlação não é causalidade">
             Contrastes entre universos, partidos, territórios ou grupos são
             descritivos. Este método não isola o efeito de nenhuma regra sobre a
             presença de mulheres.
           </GapNote>
-          <GapNote label="O que esta base não mostra">
-            Três coisas ficam fora do alcance do indicador atual, porque o
-            registro de candidaturas não as capta de forma equivalente:
-            identidade de gênero (a base traz apenas o campo de gênero, que não
-            identifica candidaturas trans ou travestis); deficiência; e detalhes
-            de pertencimento étnico ou quilombola, que dependeriam de outras
-            bases ainda não integradas. A categoria de cor/raça do TSE, por
-            exemplo, registra “indígena” como cor declarada, não pertencimento a
-            um povo.
+          <GapNote label="Deficiência, povos indígenas e quilombolas">
+            Verificamos coluna por coluna o que a base de 2026 permite. Não há
+            nenhuma coluna de deficiência no arquivo público de Candidatos nem no
+            de Informações complementares: esse recorte é impossível hoje, e não
+            será inferido. Pertencimento quilombola (ST_QUILOMBOLA) e etnia
+            indígena (DS_ETNIA_INDIGENA) existem, mas apenas no recurso
+            complementar, que o observatório ainda não ingere — enquanto ele não
+            for processado e auditado como a base principal, nenhum percentual
+            desses dois grupos é publicado. Atenção a uma confusão comum: a
+            categoria “indígena” de cor/raça é cor declarada, não pertencimento a
+            um povo, e uma não substitui a outra.
+          </GapNote>
+          <GapNote label="Identidade de gênero">
+            A base traz um único campo de gênero, com valores masculino e
+            feminino. Ele não identifica candidaturas trans ou travestis, e por
+            isso este site não afirma nada sobre elas — nem por nome social, nem
+            por qualquer outra inferência.
           </GapNote>
           <GapNote label="Campo político: eixo em apuração">
             A base do TSE traz partido e forma de agremiação, não campo
