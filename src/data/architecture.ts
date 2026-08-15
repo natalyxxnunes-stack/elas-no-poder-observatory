@@ -34,6 +34,8 @@ export type Axis = {
   /** dimensões pelas quais o eixo investiga gênero e raça */
   dimensions: readonly string[];
   state: AxisState;
+  /** motivo editorial da despublicação; string vazia nos eixos publicados */
+  unpublishedReason: string;
 };
 
 export const AXES: readonly Axis[] = [
@@ -45,6 +47,8 @@ export const AXES: readonly Axis[] = [
     summary:
       "A fotografia atual das candidaturas registradas: gênero, cor/raça quando disponível, eleições proporcionais e majoritárias, território, data de atualização e fonte.",
     dimensions: ["gênero", "cor/raça", "cargo", "território", "tempo"],
+    unpublishedReason:
+      "",
     state: "com dados de candidatura",
   },
   {
@@ -61,6 +65,8 @@ export const AXES: readonly Axis[] = [
       "território",
       "regras",
     ],
+    unpublishedReason:
+      "Depende de cruzamentos da base de candidatura que ainda estão sendo fechados, com denominador por universo.",
     state: "com dados de candidatura",
   },
   {
@@ -77,6 +83,8 @@ export const AXES: readonly Axis[] = [
       "propaganda",
       "território",
     ],
+    unpublishedReason:
+      "Depende de fechar a leitura de partido, federação e diretório sobre a base de candidatura, com critério declarado antes de qualquer agrupamento.",
     state: "arquitetura preparada",
   },
   {
@@ -87,6 +95,8 @@ export const AXES: readonly Axis[] = [
     summary:
       "O funil é metáfora jornalística, não uma única conta. Cada etapa tem universo, denominador e fonte próprios — e é lida separadamente.",
     dimensions: ["contexto", "competição", "poder"],
+    unpublishedReason:
+      "",
     state: "com dados de candidatura",
   },
   {
@@ -103,6 +113,8 @@ export const AXES: readonly Axis[] = [
       "partido ou federação",
       "deficiência",
     ],
+    unpublishedReason:
+      "",
     state: "com dados de candidatura",
   },
   {
@@ -119,6 +131,8 @@ export const AXES: readonly Axis[] = [
       "UF",
       "titularidade/suplência",
     ],
+    unpublishedReason:
+      "Depende da prestação de contas de 2026, ainda não divulgada pelo TSE. Este observatório não publica valor estimado, projetado ou herdado de ciclos anteriores.",
     state: "arquitetura preparada",
   },
   {
@@ -134,6 +148,8 @@ export const AXES: readonly Axis[] = [
       "território",
       "recursos",
     ],
+    unpublishedReason:
+      "Depende da apuração da eleição de 2026.",
     state: "arquitetura preparada",
   },
   {
@@ -150,6 +166,8 @@ export const AXES: readonly Axis[] = [
       "partido ou federação",
       "posições institucionais",
     ],
+    unpublishedReason:
+      "Depende do resultado e da diplomação de 2026.",
     state: "arquitetura preparada",
   },
   {
@@ -160,6 +178,8 @@ export const AXES: readonly Axis[] = [
     summary:
       "Eixo transversal sobre violência política de gênero, racismo, transfobia, ameaças, assédio e ataques digitais. Só entra com fontes comparáveis e método defensável.",
     dimensions: ["gênero", "cor/raça", "identidade de gênero", "território"],
+    unpublishedReason:
+      "Depende de fontes comparáveis sobre violência política de gênero e raça, com método defensável — ainda não integradas.",
     state: "arquitetura preparada",
   },
   {
@@ -170,6 +190,8 @@ export const AXES: readonly Axis[] = [
     summary:
       "A linha do tempo jurídica e política, marco por marco: conquista, regra, disputa, implementação e consequência.",
     dimensions: ["legislação", "decisões", "implementação"],
+    unpublishedReason:
+      "",
     state: "conteúdo editorial",
   },
   {
@@ -180,6 +202,8 @@ export const AXES: readonly Axis[] = [
     summary:
       "Projetos, resoluções e decisões em tramitação. Projeto apresentado não é projeto aprovado.",
     dimensions: ["projetos de lei", "resoluções", "decisões judiciais"],
+    unpublishedReason:
+      "Em preparação editorial.",
     state: "conteúdo editorial",
   },
   {
@@ -190,6 +214,8 @@ export const AXES: readonly Axis[] = [
     summary:
       "Duas camadas: explicação em linguagem simples e ficha técnica auditável, com fonte, universo, filtros, fórmulas, snapshots e limitações.",
     dimensions: ["fonte", "universo", "fórmula", "limitações"],
+    unpublishedReason:
+      "",
     state: "conteúdo editorial",
   },
   {
@@ -200,6 +226,8 @@ export const AXES: readonly Axis[] = [
     summary:
       "Proposta, princípios editoriais, compromissos, transparência, contato, como citar e política de correções.",
     dimensions: ["equipe", "princípios", "transparência"],
+    unpublishedReason:
+      "",
     state: "conteúdo editorial",
   },
   {
@@ -210,6 +238,8 @@ export const AXES: readonly Axis[] = [
     summary:
       "Cartilhas, materiais educativos, infográficos e PDFs para impressão e compartilhamento.",
     dimensions: ["materiais"],
+    unpublishedReason:
+      "Materiais em preparação.",
     state: "arquitetura preparada",
   },
 ];
