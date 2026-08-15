@@ -51,10 +51,14 @@ anterior; **não** devem ser publicados como número atual.
 | 2022 | majoritário | idem | — | — | 480 (F 100 = 20,8% · M 379 · Não divulgável 1) | — |
 | 2022 | fora dos universos | vices e suplentes | — | — | 805 | 27.977 + 480 + 805 = 29.262 ✔ |
 | 2022 | eleitos (1º turno) | idem | — | — | prop. 1.512 (F 267) · maj. 42 (F 5) | prop. está 60 abaixo do total de cadeiras: **o Maranhão não tem resultado no arquivo** — as 926 candidaturas de MA vêm com `#NULO` em DS_SIT_TOT_TURNO, e MA elege 18 federais + 42 estaduais = 60. Lacuna da fonte; não corrigida nesta rodada. Maj. = 27 senadores + 15 governadores no 1º turno |
-| 2026 | base inteira | NR_TURNO=1 (única existente), chave SQ_CANDIDATO | 26.678 | 13.339 | 13.339 candidaturas | 13.339 linhas repetidas (BRASIL). **Erro comprovado e corrigido nesta rodada**: a fotografia publicada antes usava o processamento `2026.08.11-b2`, anterior à deduplicação, e exibia 26.678 |
-| 2026 | proporcional | idem | — | — | 12.754 (F 4.488 = 35,2%) | antes exibia 25.508 e 8.976 — exatamente o dobro |
-| 2026 | majoritário | idem | — | — | 227 (F 41 = 18,1%) | antes exibia 454 e 82 — exatamente o dobro |
-| 2026 | fora dos universos | vices e suplentes | — | — | 358 | 12.754 + 227 + 358 = 13.339 ✔ |
+| 2026 (vigente, 13/08) | base inteira | NR_TURNO=1 (única existente), chave SQ_CANDIDATO | — | 18.282 | 18.282 candidaturas | fotografia vigente do site; coleta retida e reconferida contra o pacote oficial antes de publicar |
+| 2026 (vigente, 13/08) | proporcional | idem | — | — | 17.299 (F 6.109 = 35,3%) | número publicado hoje |
+| 2026 (vigente, 13/08) | majoritário | idem | — | — | 377 (F 73 = 19,4%) | número publicado hoje |
+| 2026 (vigente, 13/08) | fora dos universos | vices e suplentes | — | — | 606 | 17.299 + 377 + 606 = 18.282 ✔ |
+| 2026 (fotografia anterior, 11/08 — valor substituído) | base inteira | idem | 26.678 | 13.339 | 13.339 candidaturas | 13.339 linhas repetidas (BRASIL). Erro anterior a esta série: o processamento `2026.08.11-b2` era pré-deduplicação e exibia 26.678 |
+| 2026 (fotografia anterior — valor substituído) | proporcional | idem | — | — | 12.754 (F 4.488 = 35,2%) | **não é a fotografia vigente** |
+| 2026 (fotografia anterior — valor substituído) | majoritário | idem | — | — | 227 (F 41 = 18,1%) | **não é a fotografia vigente** |
+| 2026 (fotografia anterior — valor substituído) | fora dos universos | vices e suplentes | — | — | 358 | 12.754 + 227 + 358 = 13.339 ✔ |
 | 2026 | eleitas | — | — | — | **bloqueado** | eleição não realizada; nenhum valor é criado ou estimado |
 | 2026 | raça sobre o total de candidaturas | — | — | — | **bloqueado** | a fotografia atual grava cor/raça apenas das candidaturas de mulheres; o denominador racial total não existe no snapshot |
 
