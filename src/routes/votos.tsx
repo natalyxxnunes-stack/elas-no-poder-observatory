@@ -41,7 +41,6 @@ export const Route = createFileRoute("/votos")({
 });
 
 /* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
 /** Quatro conceitos que não podem ser confundidos. */
 const CONCEPTS = [
@@ -56,8 +55,7 @@ const CONCEPTS = [
     term: "Competitividade",
     meaning:
       "Condição real de disputar: posição na chapa, recursos, propaganda e inserção territorial.",
-    measurable:
-      "Ainda não mensurável: exige indicador declarado antes de qualquer cálculo.",
+    measurable: "Ainda não mensurável: exige indicador declarado antes de qualquer cálculo.",
     ready: false,
   },
   {
@@ -85,9 +83,8 @@ function VotosPage() {
         question={a.question}
         lead={
           <p>
-            Ter candidatura não é competir, competir não é ir bem e ir bem não é
-            eleger-se. Este eixo separa os quatro conceitos antes de publicar
-            qualquer número.
+            Ter candidatura não é competir, competir não é ir bem e ir bem não é eleger-se. Este
+            eixo separa os quatro conceitos antes de publicar qualquer número.
           </p>
         }
         aside={
@@ -97,8 +94,7 @@ function VotosPage() {
               Definir o indicador antes de usar a palavra.
             </p>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              “Competitividade” só aparece no site depois de publicada sua
-              definição no método.
+              “Competitividade” só aparece no site depois de publicada sua definição no método.
             </p>
           </div>
         }
@@ -108,21 +104,21 @@ function VotosPage() {
         <InBrief
           found={
             <>
-              Nada ainda: a votação de 2026 não foi apurada. O que existe hoje é a
-              definição dos conceitos e dos denominadores que serão usados.
+              Nada ainda: a votação de 2026 não foi apurada. O que existe hoje é a definição dos
+              conceitos e dos denominadores que serão usados.
             </>
           }
           matters={
             <>
-              A confusão entre candidatura e competitividade é a principal fonte
-              de leitura equivocada sobre mulheres na política: uma lista cheia
-              pode conviver com pouquíssima competição real.
+              A confusão entre candidatura e competitividade é a principal fonte de leitura
+              equivocada sobre mulheres na política: uma lista cheia pode conviver com pouquíssima
+              competição real.
             </>
           }
           unknown={
             <>
-              Votação nominal por gênero e cor/raça, relação entre recursos e
-              votos e resultado por cargo e território.
+              Votação nominal por gênero e cor/raça, relação entre recursos e votos e resultado por
+              cargo e território.
             </>
           }
         />
@@ -142,12 +138,8 @@ function VotosPage() {
                   {c.ready ? "mensurável agora" : "aguardando fonte"}
                 </StatusTag>
               </div>
-              <p className="mt-2 max-w-3xl leading-relaxed text-muted-foreground">
-                {c.meaning}
-              </p>
-              <p className="mt-2 font-mono text-[11px] text-muted-foreground">
-                {c.measurable}
-              </p>
+              <p className="mt-2 max-w-3xl leading-relaxed text-muted-foreground">{c.meaning}</p>
+              <p className="mt-2 font-mono text-[11px] text-muted-foreground">{c.measurable}</p>
             </li>
           ))}
         </ul>
@@ -158,33 +150,30 @@ function VotosPage() {
         question="Votos por gênero, cor/raça, cargo e território"
         lead={
           <p>
-            Quando a apuração existir, cada leitura terá cargo e circunscrição
-            declarados, porque a comparação entre cargos diferentes não faz
-            sentido: o denominador muda.
+            Quando a apuração existir, cada leitura terá cargo e circunscrição declarados, porque a
+            comparação entre cargos diferentes não faz sentido: o denominador muda.
           </p>
         }
       >
         <div className="grid gap-4 md:grid-cols-2">
           <ContextBox variant="calculamos">
             <p>
-              Votação nominal de candidaturas de mulheres dividida pelo total de
-              votos nominais válidos do mesmo cargo e da mesma circunscrição.
-              Nunca somamos votos de cargos distintos em um único percentual.
+              Votação nominal de candidaturas de mulheres dividida pelo total de votos nominais
+              válidos do mesmo cargo e da mesma circunscrição. Nunca somamos votos de cargos
+              distintos em um único percentual.
             </p>
           </ContextBox>
           <ContextBox variant="importa">
             <p>
-              Recursos e votos podem aparecer juntos, mas a relação entre eles é
-              descritiva: mais dinheiro coincidir com mais votos não prova que o
-              dinheiro produziu os votos.
+              Recursos e votos podem aparecer juntos, mas a relação entre eles é descritiva: mais
+              dinheiro coincidir com mais votos não prova que o dinheiro produziu os votos.
             </p>
           </ContextBox>
         </div>
         <div className="mt-6">
           <GapNote label="Lacuna declarada">
-            Nenhum número de votos de 2026 é exibido antes da apuração oficial.
-            Projeções, pesquisas e séries de ciclos anteriores não substituem o
-            dado desta eleição.
+            Nenhum número de votos de 2026 é exibido antes da apuração oficial. Projeções, pesquisas
+            e séries de ciclos anteriores não substituem o dado desta eleição.
           </GapNote>
         </div>
         <p className="mt-6 font-mono text-[11px] text-muted-foreground">

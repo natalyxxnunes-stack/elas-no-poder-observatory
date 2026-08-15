@@ -8,11 +8,7 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
-import {
-  DISPUTE_GAP,
-  DISPUTE_ITEMS,
-  DISPUTE_RULE,
-} from "@/data/rules-in-dispute";
+import { DISPUTE_GAP, DISPUTE_ITEMS, DISPUTE_RULE } from "@/data/rules-in-dispute";
 
 /**
  * ROTA DESPUBLICADA (lançamento de 5 páginas).
@@ -42,7 +38,6 @@ export const Route = createFileRoute("/em-disputa")({
 });
 
 /* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
 function EmDisputaPage() {
   return (
@@ -52,9 +47,8 @@ function EmDisputaPage() {
         question="As regras também estão em disputa"
         lead={
           <p>
-            As normas que organizam a participação de mulheres nas eleições não
-            são estáveis: mudam por lei, por resolução e por decisão judicial —
-            muitas vezes no meio do ciclo eleitoral.
+            As normas que organizam a participação de mulheres nas eleições não são estáveis: mudam
+            por lei, por resolução e por decisão judicial — muitas vezes no meio do ciclo eleitoral.
           </p>
         }
         aside={
@@ -74,23 +68,20 @@ function EmDisputaPage() {
         <InBrief
           found={
             <>
-              As regras em vigor no ciclo de 2026 combinam composição de
-              candidaturas, destinação de recursos e incentivos de distribuição
-              partidária — cada uma com alcance diferente.
+              As regras em vigor no ciclo de 2026 combinam composição de candidaturas, destinação de
+              recursos e incentivos de distribuição partidária — cada uma com alcance diferente.
             </>
           }
           matters={
             <>
-              Uma mudança de regra altera a leitura de qualquer série histórica:
-              comparar ciclos sem considerar a regra vigente produz conclusão
-              falsa.
+              Uma mudança de regra altera a leitura de qualquer série histórica: comparar ciclos sem
+              considerar a regra vigente produz conclusão falsa.
             </>
           }
           unknown={
             <>
-              O desfecho das proposições em tramitação e o efeito concreto das
-              normas de 2026, que só poderá ser avaliado com as prestações de
-              contas e o resultado da eleição.
+              O desfecho das proposições em tramitação e o efeito concreto das normas de 2026, que
+              só poderá ser avaliado com as prestações de contas e o resultado da eleição.
             </>
           }
         />
@@ -135,24 +126,16 @@ function EmDisputaPage() {
                   <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
                     Situação
                   </dt>
-                  <dd className="mt-1 text-muted-foreground">
-                    {item.statusNote}
-                  </dd>
+                  <dd className="mt-1 text-muted-foreground">{item.statusNote}</dd>
                 </div>
               </dl>
 
               <p className="mt-4 font-mono text-[11px] text-muted-foreground">
                 Fonte:{" "}
-                <a
-                  href={item.sourceUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline"
-                >
+                <a href={item.sourceUrl} target="_blank" rel="noreferrer" className="underline">
                   {item.sourceLabel}
                 </a>{" "}
-                · Última verificação pelo observatório:{" "}
-                {item.checkedAt ?? "a registrar"}
+                · Última verificação pelo observatório: {item.checkedAt ?? "a registrar"}
               </p>
             </li>
           ))}
@@ -171,21 +154,20 @@ function EmDisputaPage() {
         <div className="grid gap-4 md:grid-cols-3">
           <ContextBox variant="significa">
             <p>
-              Apresentado, aprovado em comissão, aprovado em plenário e
-              sancionado são estágios distintos. Só o último produz norma.
+              Apresentado, aprovado em comissão, aprovado em plenário e sancionado são estágios
+              distintos. Só o último produz norma.
             </p>
           </ContextBox>
           <ContextBox variant="importa">
             <p>
-              Resolução do TSE organiza a aplicação das regras de um ciclo; não
-              cria direito novo além do que a lei e a Constituição autorizam.
+              Resolução do TSE organiza a aplicação das regras de um ciclo; não cria direito novo
+              além do que a lei e a Constituição autorizam.
             </p>
           </ContextBox>
           <ContextBox variant="calculamos">
             <p>
-              Não atribuímos efeito estatístico a uma regra sem desenho
-              metodológico que permita isolar esse efeito. Contraste antes e
-              depois não é prova de causa.
+              Não atribuímos efeito estatístico a uma regra sem desenho metodológico que permita
+              isolar esse efeito. Contraste antes e depois não é prova de causa.
             </p>
           </ContextBox>
         </div>

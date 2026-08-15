@@ -26,19 +26,14 @@ export function UnpublishedAxis({ axisId }: { axisId: string }) {
         </p>
 
         <div className="mt-8 max-w-2xl">
-          <GapNote label="Lacuna declarada">
-            Dado não disponível não é zero.
-          </GapNote>
+          <GapNote label="Lacuna declarada">Dado não disponível não é zero.</GapNote>
         </div>
 
         <nav className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-rule pt-6 font-mono text-[11px] uppercase tracking-[0.14em]">
           <Link to="/" className="text-plum underline underline-offset-4">
             Dados 2026
           </Link>
-          <Link
-            to="/quem-sao-elas"
-            className="text-plum underline underline-offset-4"
-          >
+          <Link to="/quem-sao-elas" className="text-plum underline underline-offset-4">
             Quem são elas?
           </Link>
           <Link to="/metodo" className="text-plum underline underline-offset-4">

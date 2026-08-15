@@ -12,17 +12,13 @@ export const CENTRAL_THESIS =
   "Como gênero e raça atravessam o caminho entre candidatura, competição eleitoral e poder — e quem controla cada etapa desse caminho?";
 
 /** Pergunta de capa. */
-export const COVER_QUESTION =
-  "Entre se candidatar e chegar ao poder, onde elas desaparecem?";
+export const COVER_QUESTION = "Entre se candidatar e chegar ao poder, onde elas desaparecem?";
 
 export const CENTRAL_PRINCIPLE =
   "Gênero e raça são dimensões estruturantes da investigação, não filtros decorativos. Território, partido, cargo, recursos, votos, resultado e poder são as dimensões pelas quais investigamos essas perguntas.";
 
 /** Estado editorial de um eixo — não é status de indicador. */
-export type AxisState =
-  | "com dados de candidatura"
-  | "arquitetura preparada"
-  | "conteúdo editorial";
+export type AxisState = "com dados de candidatura" | "arquitetura preparada" | "conteúdo editorial";
 
 export type Axis = {
   id: string;
@@ -47,8 +43,7 @@ export const AXES: readonly Axis[] = [
     summary:
       "A fotografia atual das candidaturas registradas: gênero, cor/raça quando disponível, eleições proporcionais e majoritárias, território, data de atualização e fonte.",
     dimensions: ["gênero", "cor/raça", "cargo", "território", "tempo"],
-    unpublishedReason:
-      "",
+    unpublishedReason: "",
     state: "com dados de candidatura",
   },
   {
@@ -58,13 +53,7 @@ export const AXES: readonly Axis[] = [
     question: "Quem consegue entrar na disputa?",
     summary:
       "As condições anteriores à urna: regras eleitorais, composição de candidaturas, partido ou federação, cargo, território, recursos, posição da candidatura e propaganda.",
-    dimensions: [
-      "gênero × cor/raça",
-      "partido ou federação",
-      "cargo",
-      "território",
-      "regras",
-    ],
+    dimensions: ["gênero × cor/raça", "partido ou federação", "cargo", "território", "regras"],
     unpublishedReason:
       "Depende de cruzamentos da base de candidatura que ainda estão sendo fechados, com denominador por universo.",
     state: "com dados de candidatura",
@@ -76,13 +65,7 @@ export const AXES: readonly Axis[] = [
     question: "Quem decide quem entra e quem recebe condições para competir?",
     summary:
       "Partidos, federações e diretórios controlam listas, recursos, propaganda e posição estratégica das candidaturas. Investigamos padrões e estruturas, não rankings morais.",
-    dimensions: [
-      "partido ou federação",
-      "diretório",
-      "recursos",
-      "propaganda",
-      "território",
-    ],
+    dimensions: ["partido ou federação", "diretório", "recursos", "propaganda", "território"],
     unpublishedReason:
       "Depende de fechar a leitura de partido, federação e diretório sobre a base de candidatura, com critério declarado antes de qualquer agrupamento.",
     state: "arquitetura preparada",
@@ -95,8 +78,7 @@ export const AXES: readonly Axis[] = [
     summary:
       "O funil é metáfora jornalística, não uma única conta. Cada etapa tem universo, denominador e fonte próprios — e é lida separadamente.",
     dimensions: ["contexto", "competição", "poder"],
-    unpublishedReason:
-      "",
+    unpublishedReason: "",
     state: "com dados de candidatura",
   },
   {
@@ -106,15 +88,8 @@ export const AXES: readonly Axis[] = [
     question: "Quais mulheres atravessam o caminho?",
     summary:
       "O eixo gênero × cor/raça. Preservamos as categorias originais do TSE e distinguimos categoria de cor/raça de pertencimento étnico indígena.",
-    dimensions: [
-      "gênero × cor/raça",
-      "território",
-      "cargo",
-      "partido ou federação",
-      "deficiência",
-    ],
-    unpublishedReason:
-      "",
+    dimensions: ["gênero × cor/raça", "território", "cargo", "partido ou federação", "deficiência"],
+    unpublishedReason: "",
     state: "com dados de candidatura",
   },
   {
@@ -142,14 +117,8 @@ export const AXES: readonly Axis[] = [
     question: "Quem consegue transformar candidatura em competição?",
     summary:
       "Candidatura, competitividade, desempenho e resultado são coisas distintas. Definimos os indicadores antes de chamar qualquer coisa de competitividade.",
-    dimensions: [
-      "gênero × cor/raça × votos",
-      "cargo",
-      "território",
-      "recursos",
-    ],
-    unpublishedReason:
-      "Depende da apuração da eleição de 2026.",
+    dimensions: ["gênero × cor/raça × votos", "cargo", "território", "recursos"],
+    unpublishedReason: "Depende da apuração da eleição de 2026.",
     state: "arquitetura preparada",
   },
   {
@@ -166,8 +135,7 @@ export const AXES: readonly Axis[] = [
       "partido ou federação",
       "posições institucionais",
     ],
-    unpublishedReason:
-      "Depende do resultado e da diplomação de 2026.",
+    unpublishedReason: "Depende do resultado e da diplomação de 2026.",
     state: "arquitetura preparada",
   },
   {
@@ -190,8 +158,7 @@ export const AXES: readonly Axis[] = [
     summary:
       "A linha do tempo jurídica e política, marco por marco: conquista, regra, disputa, implementação e consequência.",
     dimensions: ["legislação", "decisões", "implementação"],
-    unpublishedReason:
-      "",
+    unpublishedReason: "",
     state: "conteúdo editorial",
   },
   {
@@ -202,8 +169,7 @@ export const AXES: readonly Axis[] = [
     summary:
       "Projetos, resoluções e decisões em tramitação. Projeto apresentado não é projeto aprovado.",
     dimensions: ["projetos de lei", "resoluções", "decisões judiciais"],
-    unpublishedReason:
-      "Em preparação editorial.",
+    unpublishedReason: "Em preparação editorial.",
     state: "conteúdo editorial",
   },
   {
@@ -214,8 +180,7 @@ export const AXES: readonly Axis[] = [
     summary:
       "Duas camadas: explicação em linguagem simples e ficha técnica auditável, com fonte, universo, filtros, fórmulas, snapshots e limitações.",
     dimensions: ["fonte", "universo", "fórmula", "limitações"],
-    unpublishedReason:
-      "",
+    unpublishedReason: "",
     state: "conteúdo editorial",
   },
   {
@@ -226,8 +191,7 @@ export const AXES: readonly Axis[] = [
     summary:
       "Proposta, princípios editoriais, compromissos, transparência, contato, como citar e política de correções.",
     dimensions: ["equipe", "princípios", "transparência"],
-    unpublishedReason:
-      "",
+    unpublishedReason: "",
     state: "conteúdo editorial",
   },
   {
@@ -238,8 +202,7 @@ export const AXES: readonly Axis[] = [
     summary:
       "Cartilhas, materiais educativos, infográficos e PDFs para impressão e compartilhamento.",
     dimensions: ["materiais"],
-    unpublishedReason:
-      "Materiais em preparação.",
+    unpublishedReason: "Materiais em preparação.",
     state: "arquitetura preparada",
   },
 ];
@@ -272,13 +235,7 @@ export const NAV_ITEMS = [
 ] as const;
 
 /** Eixos publicados no lançamento. */
-export const PUBLISHED_AXES = [
-  "dados-2026",
-  "funil",
-  "direitos",
-  "metodo",
-  "sobre",
-] as const;
+export const PUBLISHED_AXES = ["dados-2026", "funil", "direitos", "metodo", "sobre"] as const;
 
 /**
  * O funil em três camadas narrativas. Cada passagem tem universo e fonte
@@ -323,16 +280,14 @@ export const FUNNEL_LAYERS: readonly FunnelLayer[] = [
         question: "Quantas mulheres estão aptas a votar?",
         universe: "Eleitorado apto, por sexo e UF",
         source: "TSE — Estatísticas do eleitorado",
-        pending:
-          "Base de eleitorado ainda não integrada ao processamento do observatório.",
+        pending: "Base de eleitorado ainda não integrada ao processamento do observatório.",
       },
     ],
   },
   {
     id: "competicao",
     label: "Competição",
-    lead:
-      "A disputa propriamente dita: entrar na lista não é o mesmo que ter condições de competir.",
+    lead: "A disputa propriamente dita: entrar na lista não é o mesmo que ter condições de competir.",
     steps: [
       {
         id: "candidaturas",
@@ -350,8 +305,7 @@ export const FUNNEL_LAYERS: readonly FunnelLayer[] = [
         universe:
           "Receitas e despesas declaradas por candidatura; universo próprio, distinto do universo de candidaturas",
         source: "TSE — prestação de contas de campanha",
-        pending:
-          "Base financeira ainda não disponível para 2026. Nenhum valor é estimado.",
+        pending: "Base financeira ainda não disponível para 2026. Nenhum valor é estimado.",
       },
       {
         id: "competitividade",
@@ -384,8 +338,7 @@ export const FUNNEL_LAYERS: readonly FunnelLayer[] = [
   {
     id: "poder",
     label: "Poder",
-    lead:
-      "Ser eleita não é automaticamente ocupar poder institucional. Essa distinção é o coração da investigação.",
+    lead: "Ser eleita não é automaticamente ocupar poder institucional. Essa distinção é o coração da investigação.",
     steps: [
       {
         id: "eleitas",
@@ -399,21 +352,17 @@ export const FUNNEL_LAYERS: readonly FunnelLayer[] = [
         id: "posicoes",
         label: "Posições institucionais",
         question: "Quem preside comissões, mesas e lideranças?",
-        universe:
-          "Cargos de direção efetivamente ocupados, por casa legislativa e Executivo",
+        universe: "Cargos de direção efetivamente ocupados, por casa legislativa e Executivo",
         source: "Levantamento próprio em fontes institucionais",
-        pending:
-          "Levantamento a realizar após a formação das mesas diretoras e comissões.",
+        pending: "Levantamento a realizar após a formação das mesas diretoras e comissões.",
       },
       {
         id: "poder",
         label: "Poder de decisão",
         question: "Quem decide orçamento, pauta e nomeações?",
-        universe:
-          "A definir: exige critério declarado de o que conta como espaço de decisão",
+        universe: "A definir: exige critério declarado de o que conta como espaço de decisão",
         source: "Levantamento próprio",
-        pending:
-          "Critério ainda não fixado. Sem critério declarado, não há indicador.",
+        pending: "Critério ainda não fixado. Sem critério declarado, não há indicador.",
       },
     ],
   },

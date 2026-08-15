@@ -18,8 +18,7 @@ export const Route = createFileRoute("/barreiras")({
   head: () => ({
     meta: [
       {
-        title:
-          "Barreiras à permanência — Quem são elas? | Violência política e exclusão",
+        title: "Barreiras à permanência — Quem são elas? | Violência política e exclusão",
       },
       {
         name: "description",
@@ -40,7 +39,6 @@ export const Route = createFileRoute("/barreiras")({
 });
 
 /* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
 const BARRIER_FORMS = [
   {
@@ -52,8 +50,7 @@ const BARRIER_FORMS = [
   {
     form: "Racismo na disputa política",
     note: "Ataques e barreiras dirigidos a candidatas e eleitas negras e indígenas.",
-    sourceNeed:
-      "Fonte que registre simultaneamente o caso e a cor/raça da pessoa atingida",
+    sourceNeed: "Fonte que registre simultaneamente o caso e a cor/raça da pessoa atingida",
   },
   {
     form: "Transfobia",
@@ -82,9 +79,8 @@ function BarreirasPage() {
         question="O que impede permanecer?"
         lead={
           <p>
-            Este é um eixo transversal: atravessa candidatura, campanha, mandato e
-            poder. Ele só recebe indicador quando houver fonte comparável e
-            metodologia defensável — e não antes.
+            Este é um eixo transversal: atravessa candidatura, campanha, mandato e poder. Ele só
+            recebe indicador quando houver fonte comparável e metodologia defensável — e não antes.
           </p>
         }
         aside={
@@ -94,8 +90,8 @@ function BarreirasPage() {
               Não inventamos indicador de violência.
             </p>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Número sem universo conhecido, em tema de violência, produz dano
-              real. Preferimos a lacuna declarada.
+              Número sem universo conhecido, em tema de violência, produz dano real. Preferimos a
+              lacuna declarada.
             </p>
           </div>
         }
@@ -105,21 +101,20 @@ function BarreirasPage() {
         <InBrief
           found={
             <>
-              Um mapa das formas documentadas de exclusão e do tipo de fonte que
-              cada uma exigiria para virar indicador publicável.
+              Um mapa das formas documentadas de exclusão e do tipo de fonte que cada uma exigiria
+              para virar indicador publicável.
             </>
           }
           matters={
             <>
-              A barreira não termina no registro da candidatura. Permanecer,
-              exercer mandato e disputar espaços de decisão envolve custos que os
-              dados eleitorais não mostram.
+              A barreira não termina no registro da candidatura. Permanecer, exercer mandato e
+              disputar espaços de decisão envolve custos que os dados eleitorais não mostram.
             </>
           }
           unknown={
             <>
-              Frequência, distribuição e evolução dos casos. Não há, hoje, base
-              nacional comparável que permita percentual confiável neste eixo.
+              Frequência, distribuição e evolução dos casos. Não há, hoje, base nacional comparável
+              que permita percentual confiável neste eixo.
             </>
           }
         />
@@ -137,9 +132,7 @@ function BarreirasPage() {
                 <h3 className="font-display text-xl text-ink">{b.form}</h3>
                 <StatusTag tone="pending">sem indicador publicável</StatusTag>
               </div>
-              <p className="mt-2 max-w-3xl leading-relaxed text-muted-foreground">
-                {b.note}
-              </p>
+              <p className="mt-2 max-w-3xl leading-relaxed text-muted-foreground">{b.note}</p>
               <p className="mt-2 font-mono text-[11px] text-muted-foreground">
                 Exige: {b.sourceNeed}
               </p>
@@ -153,36 +146,35 @@ function BarreirasPage() {
         question="Quando um caso vira dado"
         lead={
           <p>
-            Antes de publicar qualquer contagem, precisamos poder responder: qual
-            é o universo, quem registrou, em que período e sob qual definição.
+            Antes de publicar qualquer contagem, precisamos poder responder: qual é o universo, quem
+            registrou, em que período e sob qual definição.
           </p>
         }
       >
         <div className="grid gap-4 md:grid-cols-3">
           <ContextBox variant="significa">
             <p>
-              Caso relatado, caso denunciado e caso julgado são coisas diferentes.
-              Somá-los cria um número que não corresponde a nenhuma realidade.
+              Caso relatado, caso denunciado e caso julgado são coisas diferentes. Somá-los cria um
+              número que não corresponde a nenhuma realidade.
             </p>
           </ContextBox>
           <ContextBox variant="importa">
             <p>
-              Subnotificação é a regra neste tema. Um número baixo pode significar
-              ausência de registro, não ausência de violência.
+              Subnotificação é a regra neste tema. Um número baixo pode significar ausência de
+              registro, não ausência de violência.
             </p>
           </ContextBox>
           <ContextBox variant="calculamos">
             <p>
-              Quando houver base, apresentaremos contagens absolutas com fonte,
-              definição e período — e só usaremos percentual se o universo for
-              conhecido.
+              Quando houver base, apresentaremos contagens absolutas com fonte, definição e período
+              — e só usaremos percentual se o universo for conhecido.
             </p>
           </ContextBox>
         </div>
         <div className="mt-6">
           <GapNote label="Lacuna declarada">
-            Este eixo permanece sem indicador até que exista fonte comparável.
-            Nenhum relato individual é transformado em estatística.
+            Este eixo permanece sem indicador até que exista fonte comparável. Nenhum relato
+            individual é transformado em estatística.
           </GapNote>
         </div>
       </SectionBlock>

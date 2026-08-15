@@ -39,13 +39,11 @@ export const Route = createFileRoute("/quem-chega")({
 });
 
 /* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
 const RESULT_LAYERS = [
   {
     label: "Eleitas por cargo",
-    detail:
-      "Cadeiras e cargos obtidos, com universo separado por cargo e circunscrição.",
+    detail: "Cadeiras e cargos obtidos, com universo separado por cargo e circunscrição.",
     pending: "Depende da apuração da eleição de 2026.",
   },
   {
@@ -61,8 +59,7 @@ const RESULT_LAYERS = [
   },
   {
     label: "Eleitas por partido ou federação",
-    detail:
-      "Resultado com denominador do próprio partido ou federação, não do total nacional.",
+    detail: "Resultado com denominador do próprio partido ou federação, não do total nacional.",
     pending: "Depende da apuração da eleição de 2026.",
   },
 ] as const;
@@ -75,8 +72,7 @@ const POWER_LAYERS = [
   },
   {
     label: "Presidências de comissão",
-    detail:
-      "Comissões permanentes e temporárias, onde a pauta legislativa é filtrada.",
+    detail: "Comissões permanentes e temporárias, onde a pauta legislativa é filtrada.",
     pending: "Levantamento próprio, após a instalação das comissões.",
   },
   {
@@ -100,9 +96,8 @@ function QuemChegaPage() {
         question={a.question}
         lead={
           <p>
-            Ser eleita não equivale automaticamente a ocupar posição de poder
-            institucional. Este eixo separa resultado eleitoral de controle sobre
-            decisões.
+            Ser eleita não equivale automaticamente a ocupar posição de poder institucional. Este
+            eixo separa resultado eleitoral de controle sobre decisões.
           </p>
         }
         image={spotStrength}
@@ -112,31 +107,26 @@ function QuemChegaPage() {
         <InBrief
           found={
             <>
-              Nada ainda para 2026: o resultado depende da apuração e as posições
-              institucionais dependem da posse, em 2027.
+              Nada ainda para 2026: o resultado depende da apuração e as posições institucionais
+              dependem da posse, em 2027.
             </>
           }
           matters={
             <>
-              A pergunta pública costuma parar em “quantas foram eleitas”. O poder
-              de decidir pauta, orçamento e nomeações está em cargos de direção
-              que raramente são contados.
+              A pergunta pública costuma parar em “quantas foram eleitas”. O poder de decidir pauta,
+              orçamento e nomeações está em cargos de direção que raramente são contados.
             </>
           }
           unknown={
             <>
-              Quem foi eleita, por gênero e cor/raça, e quem ocupou presidências,
-              mesas, comissões e lideranças.
+              Quem foi eleita, por gênero e cor/raça, e quem ocupou presidências, mesas, comissões e
+              lideranças.
             </>
           }
         />
       </div>
 
-      <SectionBlock
-        kicker="Camada 1 — resultado"
-        question="Quem se elegeu"
-        align="wide"
-      >
+      <SectionBlock kicker="Camada 1 — resultado" question="Quem se elegeu" align="wide">
         <ul className="grid gap-4 md:grid-cols-2">
           {RESULT_LAYERS.map((l) => (
             <li key={l.label} className="editorial-card p-5">
@@ -144,12 +134,8 @@ function QuemChegaPage() {
                 <h3 className="font-display text-lg text-ink">{l.label}</h3>
                 <StatusTag tone="pending">em apuração futura</StatusTag>
               </div>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {l.detail}
-              </p>
-              <p className="mt-3 font-mono text-[11px] text-muted-foreground">
-                {l.pending}
-              </p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.detail}</p>
+              <p className="mt-3 font-mono text-[11px] text-muted-foreground">{l.pending}</p>
             </li>
           ))}
         </ul>
@@ -161,8 +147,8 @@ function QuemChegaPage() {
         align="wide"
         lead={
           <p>
-            Cada posição institucional será contada em relação ao total de
-            posições daquele tipo — e não ao total de eleitas.
+            Cada posição institucional será contada em relação ao total de posições daquele tipo — e
+            não ao total de eleitas.
           </p>
         }
       >
@@ -173,34 +159,29 @@ function QuemChegaPage() {
                 <h3 className="font-display text-lg text-ink">{l.label}</h3>
                 <StatusTag tone="pending">levantamento futuro</StatusTag>
               </div>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {l.detail}
-              </p>
-              <p className="mt-3 font-mono text-[11px] text-muted-foreground">
-                {l.pending}
-              </p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.detail}</p>
+              <p className="mt-3 font-mono text-[11px] text-muted-foreground">{l.pending}</p>
             </li>
           ))}
         </ul>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           <ContextBox variant="significa">
             <p>
-              “Posição institucional” é um cargo com poder de decisão sobre pauta,
-              orçamento, relatoria ou nomeação — não apenas um assento.
+              “Posição institucional” é um cargo com poder de decisão sobre pauta, orçamento,
+              relatoria ou nomeação — não apenas um assento.
             </p>
           </ContextBox>
           <ContextBox variant="calculamos">
             <p>
-              Número de mulheres em determinado tipo de cargo dividido pelo total
-              de cargos daquele tipo, na mesma casa e no mesmo período. Universos
-              de casas diferentes não são somados.
+              Número de mulheres em determinado tipo de cargo dividido pelo total de cargos daquele
+              tipo, na mesma casa e no mesmo período. Universos de casas diferentes não são somados.
             </p>
           </ContextBox>
         </div>
         <div className="mt-6">
           <GapNote label="Lacuna declarada">
-            Nenhuma projeção de eleitas ou de composição de mesas é publicada
-            antes das fontes oficiais correspondentes.
+            Nenhuma projeção de eleitas ou de composição de mesas é publicada antes das fontes
+            oficiais correspondentes.
           </GapNote>
         </div>
         <p className="mt-6 font-mono text-[11px] text-muted-foreground">
