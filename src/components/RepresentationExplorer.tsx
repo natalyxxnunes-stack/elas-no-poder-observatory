@@ -36,7 +36,7 @@ function UniverseCard({
           {quotaApplies ? "Proporcionais" : "Majoritárias"}
         </h4>
         <span
-          className={`font-mono text-[11px] uppercase tracking-wider ${
+          className={`font-mono text-[12px] uppercase tracking-wider ${
             quotaApplies ? "text-plum" : "text-coral"
           }`}
         >
@@ -49,7 +49,7 @@ function UniverseCard({
       <p className="data-figure mt-4 text-6xl text-plum">
         {hasValue ? formatPercent(indicator.value) : "—"}
       </p>
-      <p className="mt-1 font-mono text-[11px] text-muted-foreground">
+      <p className="mt-1 font-mono text-[12px] text-muted-foreground">
         {ratio ?? "sem denominador processado — indicador não exibido"}
       </p>
 
@@ -66,13 +66,13 @@ function UniverseCard({
         )}
       </div>
 
-      <p className="mt-3 font-mono text-[11px] uppercase tracking-wider text-coral">
+      <p className="mt-3 font-mono text-[12px] uppercase tracking-wider text-coral">
         {indicator.status}
       </p>
 
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{note}</p>
 
-      <dl className="mt-4 space-y-2 border-t border-rule pt-4 font-mono text-[11px] leading-relaxed text-muted-foreground">
+      <dl className="mt-4 space-y-2 border-t border-rule pt-4 font-mono text-[12px] leading-relaxed text-muted-foreground">
         <div>
           <dt className="inline uppercase tracking-wider">Universo: </dt>
           <dd className="inline">{indicator.universe}</dd>

@@ -33,7 +33,7 @@ function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: s
 
   return (
     <div className="mt-4">
-      <p className="mb-2.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+      <p className="mb-2.5 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
         Cor/raça: {stageLabel.toLowerCase()}
       </p>
       <ul className="space-y-2.5">
@@ -42,7 +42,7 @@ function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: s
           const barWidth = (item.count / maxCount) * 100;
           return (
             <li key={key} className="grid items-center gap-2" style={{ gridTemplateColumns: "5.5rem 1fr 4.5rem" }}>
-              <span className="truncate font-mono text-[10px] leading-none text-muted-foreground">
+              <span className="truncate font-mono text-[12px] leading-none text-muted-foreground">
                 {RACE_LABELS[key]}
               </span>
               <div className="h-1.5 w-full overflow-hidden rounded-sm bg-secondary" aria-hidden>
@@ -55,7 +55,7 @@ function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: s
                   }}
                 />
               </div>
-              <span className="text-right font-mono text-[10px] leading-none text-ink">
+              <span className="text-right font-mono text-[12px] leading-none text-ink">
                 {n(item.count)} · {pct(item.percent)}
               </span>
             </li>
@@ -87,14 +87,14 @@ function StageColumn({
 }) {
   return (
     <div className="flex flex-col">
-      <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+      <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
         {heading}
       </p>
       <p className={`poster-figure mt-1 text-3xl leading-none ${empty ? "text-muted-foreground" : "text-plum"} md:text-4xl`}>
         {empty ? "—" : pct(femininePercent)}
       </p>
       {!empty && (
-        <p className="mt-1 font-mono text-[11px] leading-relaxed text-muted-foreground">
+        <p className="mt-1 font-mono text-[12px] leading-relaxed text-muted-foreground">
           {n(feminine)} de {n(total)} {label === "Candidatura" ? "candidaturas" : "eleitas"}
         </p>
       )}
@@ -109,7 +109,7 @@ function StageColumn({
       >
         {empty ? (
           <div className="flex h-full w-full items-center justify-center rounded-sm border border-dashed border-rule bg-[repeating-linear-gradient(135deg,transparent,transparent_6px,var(--color-rule,#ddd)_6px,var(--color-rule,#ddd)_7px)]">
-            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            <span className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
               {emptyLabel ?? "não disponível"}
             </span>
           </div>
@@ -119,7 +119,7 @@ function StageColumn({
       </div>
       {!empty && race && <RaceMiniBars race={race} stageLabel={label} />}
       {empty && (
-        <p className="mt-2 font-mono text-[10px] leading-relaxed text-muted-foreground">
+        <p className="mt-2 font-mono text-[12px] leading-relaxed text-muted-foreground">
           Eleição de novembro de 2026 ainda não ocorreu. Nenhum valor é projetado.
         </p>
       )}
@@ -212,7 +212,7 @@ export function HistoryFunnel() {
         </article>
       </div>
 
-      <p className="font-mono text-[11px] leading-relaxed text-muted-foreground">
+      <p className="font-mono text-[12px] leading-relaxed text-muted-foreground">
         Recorte: Câmara dos Deputados, Assembleias Legislativas e Câmara Legislativa do DF — eleições proporcionais, 1º turno. Não inclui Senado, governos estaduais ou Presidência. Por isso os totais podem diferir de estatísticas do TSE que somam o Legislativo inteiro: aqui se conta a cadeira proporcional, não a suplência nem o Senado. Ressalva: cada ano e cada etapa têm denominador próprio; percentuais não se
         somam. Cor/raça é autodeclarada, nas categorias do TSE, coletada desde 2014 — a
         qualidade do preenchimento varia entre ciclos e, em 2014, não há registros “não

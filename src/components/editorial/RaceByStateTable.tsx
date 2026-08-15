@@ -87,7 +87,7 @@ export function RaceByStateTable({ snapshot }: { snapshot: PublicSnapshot | null
             type="button"
             onClick={() => setSortBy("uf")}
             aria-pressed={sortBy === "uf"}
-            className={`border-2 border-ink px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider ${
+            className={`border-2 border-ink px-2.5 py-1 font-mono text-[12px] uppercase tracking-wider ${
               sortBy === "uf" ? "bg-ink text-paper" : "bg-paper text-ink"
             }`}
           >
@@ -99,7 +99,7 @@ export function RaceByStateTable({ snapshot }: { snapshot: PublicSnapshot | null
               type="button"
               onClick={() => setSortBy(c)}
               aria-pressed={sortBy === c}
-              className={`inline-flex items-center gap-2 border-2 border-ink px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider ${
+              className={`inline-flex items-center gap-2 border-2 border-ink px-2.5 py-1 font-mono text-[12px] uppercase tracking-wider ${
                 sortBy === c ? "bg-ink text-paper" : "bg-paper text-ink"
               }`}
             >
@@ -119,13 +119,13 @@ export function RaceByStateTable({ snapshot }: { snapshot: PublicSnapshot | null
           <table className="w-full min-w-[720px] border-collapse text-left">
             <thead>
               <tr className="border-b-2 border-ink">
-                <th className="py-2 pr-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                <th className="py-2 pr-3 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                   UF
                 </th>
-                <th className="py-2 pr-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                <th className="py-2 pr-3 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                   Candidatas
                 </th>
-                <th className="py-2 pr-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                <th className="py-2 pr-3 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                   Distribuição por cor/raça
                 </th>
               </tr>
@@ -174,7 +174,7 @@ export function RaceByStateTable({ snapshot }: { snapshot: PublicSnapshot | null
                         {ALL_CATS.map((c) => (
                           <span
                             key={c}
-                            className="font-mono text-[11px] text-muted-foreground"
+                            className="font-mono text-[12px] text-muted-foreground"
                           >
                             {RACE_LABELS[c]}: <span className="text-ink">{r.counts[c]}</span>
                             {showPercent && r.total > 0 && (
@@ -200,7 +200,7 @@ export function RaceByStateTable({ snapshot }: { snapshot: PublicSnapshot | null
         </div>
       </div>
 
-      <p className="font-mono text-[11px] leading-relaxed text-muted-foreground">
+      <p className="font-mono text-[12px] leading-relaxed text-muted-foreground">
         Estados com poucas candidaturas têm percentuais mais sensíveis: uma
         candidatura a mais desloca muito o percentual. Onde a base é menor que
         20, mostramos apenas contagens absolutas. Recorte: candidaturas

@@ -51,18 +51,18 @@ export function HistoryTimeline({
                   : "Candidaturas e resultado de 1º turno lidos do arquivo oficial do TSE."}
             </p>
             {date && (
-              <p className="mt-3 font-mono text-[11px] text-muted-foreground">
+              <p className="mt-3 font-mono text-[12px] text-muted-foreground">
                 Base gerada em {date}
               </p>
             )}
             {snap && snap.recordCount > 0 && (
-              <p className="mt-1 font-mono text-[11px] text-muted-foreground">
+              <p className="mt-1 font-mono text-[12px] text-muted-foreground">
                 {snap.recordCount.toLocaleString("pt-BR")} candidaturas
                 deduplicadas
               </p>
             )}
             {snap && snap.anomalies.length > 0 && (
-              <p className="mt-2 font-mono text-[10px] leading-relaxed text-coral">
+              <p className="mt-2 font-mono text-[12px] leading-relaxed text-coral">
                 {snap.anomalies.join(" · ")}
               </p>
             )}

@@ -126,7 +126,7 @@ function DireitosPage() {
                 <dl className="mt-4 space-y-3">
                   {FIELDS.map((f) => (
                     <div key={f.key} className="sm:flex sm:gap-5">
-                      <dt className="shrink-0 font-mono text-[11px] uppercase tracking-wider text-muted-foreground sm:w-36 sm:pt-0.5">
+                      <dt className="shrink-0 font-mono text-[12px] uppercase tracking-wider text-muted-foreground sm:w-36 sm:pt-0.5">
                         {f.label}
                       </dt>
                       <dd className="mt-1 text-sm leading-relaxed text-ink sm:mt-0">
@@ -135,7 +135,7 @@ function DireitosPage() {
                     </div>
                   ))}
                 </dl>
-                <p className="mt-4 font-mono text-[11px] text-muted-foreground">
+                <p className="mt-4 font-mono text-[12px] text-muted-foreground">
                   Fonte:{" "}
                   <a
                     href={m.sourceUrl}
@@ -221,7 +221,7 @@ function DireitosPage() {
             <li key={item.id} className="poster-frame p-6">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                     {item.kind}
                   </p>
                   <h3 className="mt-1 max-w-2xl font-display text-xl leading-snug text-ink">
@@ -235,19 +235,19 @@ function DireitosPage() {
 
               <dl className="mt-4 space-y-3 text-sm leading-relaxed">
                 <div>
-                  <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                     O que propõe
                   </dt>
                   <dd className="mt-1 text-ink">{item.proposal}</dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                     Quem seria afetado
                   </dt>
                   <dd className="mt-1 text-muted-foreground">{item.affects}</dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                     Situação
                   </dt>
                   <dd className="mt-1 text-muted-foreground">
@@ -256,7 +256,7 @@ function DireitosPage() {
                 </div>
               </dl>
 
-              <p className="mt-4 font-mono text-[11px] text-muted-foreground">
+              <p className="mt-4 font-mono text-[12px] text-muted-foreground">
                 Fonte:{" "}
                 <a
                   href={item.sourceUrl}
@@ -307,7 +307,7 @@ function DireitosPage() {
             </p>
           </ContextBox>
         </div>
-        <p className="mt-6 font-mono text-[11px] text-muted-foreground">
+        <p className="mt-6 font-mono text-[12px] text-muted-foreground">
           Fórmulas, filtros e limitações em{" "}
           <Link to="/metodo" className="text-plum underline underline-offset-4">
             Método

@@ -133,7 +133,7 @@ function QuemControlaPage() {
                 </StatusTag>
               </div>
               <p className="mt-2 max-w-3xl leading-relaxed text-muted-foreground">{l.what}</p>
-              <p className="mt-2 font-mono text-[11px] text-muted-foreground">Exige: {l.needs}</p>
+              <p className="mt-2 font-mono text-[12px] text-muted-foreground">Exige: {l.needs}</p>
             </li>
           ))}
         </ul>

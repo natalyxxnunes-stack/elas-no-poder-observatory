@@ -33,7 +33,7 @@ export function PastStrip({ series }: { series: Series | null }) {
               <p className="poster-figure text-3xl leading-none text-plum md:text-4xl">
                 {pct(p.value as number)}
               </p>
-              <p className="mt-1 font-mono text-[11px] text-muted-foreground">
+              <p className="mt-1 font-mono text-[12px] text-muted-foreground">
                 {p.year}
                 {p.stage === "em_curso" ? " · base em curso" : ""}
               </p>

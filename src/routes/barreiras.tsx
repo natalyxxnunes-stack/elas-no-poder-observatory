@@ -133,7 +133,7 @@ function BarreirasPage() {
                 <StatusTag tone="pending">sem indicador publicável</StatusTag>
               </div>
               <p className="mt-2 max-w-3xl leading-relaxed text-muted-foreground">{b.note}</p>
-              <p className="mt-2 font-mono text-[11px] text-muted-foreground">
+              <p className="mt-2 font-mono text-[12px] text-muted-foreground">
                 Exige: {b.sourceNeed}
               </p>
             </li>

@@ -21,7 +21,7 @@ export function IntersectionPlan() {
             >
               <div>
                 <p className="font-display text-lg text-ink">{row.crossing}</p>
-                <p className="mt-1 font-mono text-[11px] text-muted-foreground">
+                <p className="mt-1 font-mono text-[12px] text-muted-foreground">
                   Exige: {row.requires}
                 </p>
               </div>

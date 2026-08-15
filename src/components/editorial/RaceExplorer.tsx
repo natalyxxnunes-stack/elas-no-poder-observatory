@@ -196,7 +196,7 @@ export function RaceExplorer({
               setUf("");
               setParty("");
             }}
-            className="mt-4 font-mono text-[11px] uppercase tracking-wider text-plum underline underline-offset-4"
+            className="mt-4 font-mono text-[12px] uppercase tracking-wider text-plum underline underline-offset-4"
           >
             limpar filtros
           </button>
@@ -207,7 +207,7 @@ export function RaceExplorer({
         <header className="border-b-2 border-ink px-5 py-4">
           <p className="poster-eyebrow text-muted-foreground">Fatia escolhida</p>
           <p className="mt-1 font-display text-lg text-ink">{scopeLabel}</p>
-          <p className="mt-2 font-mono text-[11px] text-muted-foreground">
+          <p className="mt-2 font-mono text-[12px] text-muted-foreground">
             Base: {base.toLocaleString("pt-BR")}{" "}
             {base === 1 ? "candidatura" : "candidaturas"} de mulheres
             {showPercent
@@ -228,7 +228,7 @@ export function RaceExplorer({
           <dl className="divide-y-2 divide-ink/10">
             {rows.map(([race, n]) => (
               <div key={race} className="flex items-baseline gap-4 px-5 py-3">
-                <dt className="w-32 shrink-0 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                <dt className="w-32 shrink-0 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                   {race}
                 </dt>
                 <dd className="flex-1">

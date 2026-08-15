@@ -21,7 +21,7 @@ export function CycleStrip({ activeId }: { activeId?: string }) {
                 active ? "border-plum bg-secondary" : ""
               }`}
             >
-              <span className="font-mono text-[11px] text-muted-foreground">
+              <span className="font-mono text-[12px] text-muted-foreground">
                 0{i + 1}
               </span>
               <h3 className="mt-1 font-display text-lg text-ink">{stage.label}</h3>

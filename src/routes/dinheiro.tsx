@@ -153,7 +153,7 @@ function DinheiroPage() {
                 <StatusTag tone="pending">aguardando fonte</StatusTag>
               </div>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.question}</p>
-              <p className="mt-3 font-mono text-[11px] text-muted-foreground">Exige: {l.needs}</p>
+              <p className="mt-3 font-mono text-[12px] text-muted-foreground">Exige: {l.needs}</p>
             </li>
           ))}
         </ul>

@@ -62,7 +62,7 @@ function MiniBar({
   const isBranca = category === "branca";
   return (
     <div className="flex items-center gap-2">
-      <span className="w-14 shrink-0 font-mono text-[9px] uppercase tracking-wider text-muted-foreground">
+      <span className="w-14 shrink-0 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
         {label}
       </span>
       <div className="h-2 flex-1 overflow-hidden rounded-sm bg-secondary" aria-hidden>
@@ -96,7 +96,7 @@ function RacePair({
   const color = RACE_COLORS[category];
   return (
     <li className="grid items-start gap-3 border-b border-rule py-4 last:border-b-0 md:grid-cols-[7rem_1fr_1fr]">
-      <div className="font-mono text-[11px] uppercase tracking-wider text-ink">
+      <div className="font-mono text-[12px] uppercase tracking-wider text-ink">
         {RACE_LABELS[category]}
       </div>
 
@@ -108,7 +108,7 @@ function RacePair({
           label="Pop."
           category={category}
         />
-        <p className="font-mono text-[11px] leading-tight text-muted-foreground">
+        <p className="font-mono text-[12px] leading-tight text-muted-foreground">
           {n(pop.count)} · {pct(pop.percent)}
         </p>
       </div>
@@ -121,7 +121,7 @@ function RacePair({
           label="Cand."
           category={category}
         />
-        <p className="font-mono text-[11px] leading-tight text-ink">
+        <p className="font-mono text-[12px] leading-tight text-ink">
           {n(cand.count)} · {pct(cand.percent)}
         </p>
       </div>
@@ -160,19 +160,19 @@ export function RaceFinding2026({
         <article className="poster-frame p-5 md:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="poster-eyebrow text-ink">Cinco categorias, dois retratos</p>
-            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            <span className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
               população feminina × candidatas 2026
             </span>
           </div>
 
           <div className="mt-5 hidden border-b border-ink pb-2 md:grid md:grid-cols-[7rem_1fr_1fr]">
-            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            <span className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
               Cor/raça
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            <span className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
               População feminina (Censo 2022)
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            <span className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
               Candidaturas de mulheres 2026
             </span>
           </div>
@@ -219,7 +219,7 @@ export function RaceFinding2026({
         </div>
       </div>
 
-      <p className="font-mono text-[11px] leading-relaxed text-muted-foreground">
+      <p className="font-mono text-[12px] leading-relaxed text-muted-foreground">
         Denominadores: {n(total)} candidaturas de mulheres nas eleições
         proporcionais de 2026
         {fromSnapshot ? " (lidas do snapshot conferido)" : ""}; população

@@ -309,7 +309,7 @@ function HistoricoPage() {
             vazio. Não há estimativa em nenhum ponto desta página.
           </li>
         </ul>
-        <p className="mt-8 font-mono text-[11px] text-muted-foreground">
+        <p className="mt-8 font-mono text-[12px] text-muted-foreground">
           Fórmulas, filtros e versões de processamento em{" "}
           <Link to="/metodo" className="text-plum underline underline-offset-4">
             Método

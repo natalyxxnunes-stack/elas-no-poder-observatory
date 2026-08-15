@@ -17,9 +17,9 @@ const TONE_WRAP: Record<Tone, string> = {
 
 const TONE_KICKER: Record<Tone, string> = {
   paper: "kicker",
-  plum: "font-mono text-[11px] uppercase tracking-[0.18em] text-solar",
-  ink: "font-mono text-[11px] uppercase tracking-[0.18em] text-solar",
-  solar: "font-mono text-[11px] uppercase tracking-[0.18em] text-plum",
+  plum: "font-mono text-[12px] uppercase tracking-[0.18em] text-solar",
+  ink: "font-mono text-[12px] uppercase tracking-[0.18em] text-solar",
+  solar: "font-mono text-[12px] uppercase tracking-[0.18em] text-plum",
 };
 
 const TONE_TITLE: Record<Tone, string> = {
@@ -78,7 +78,7 @@ export function SectionBlock({
       )}
       {children && <div className="mt-8">{children}</div>}
       {source && (
-        <p className={`mt-6 font-mono text-[11px] ${TONE_LEAD[tone]}`}>{source}</p>
+        <p className={`mt-6 font-mono text-[12px] ${TONE_LEAD[tone]}`}>{source}</p>
       )}
     </section>
   );
