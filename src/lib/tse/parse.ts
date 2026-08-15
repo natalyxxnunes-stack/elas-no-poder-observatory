@@ -258,6 +258,8 @@ function emptyTally(): UniverseTally {
       raceByParty: {},
       raceByUf: {},
       raceByUfParty: {},
+      totalByUfParty: {},
+      feminineByUfParty: {},
     },
 
   };
