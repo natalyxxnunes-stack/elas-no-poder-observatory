@@ -644,7 +644,7 @@ function MetodoPage() {
         </p>
       </SectionBlock>
 
-      <NextAxes ids={["dados-2026", "funil", "sobre"]} />
+      <NextAxes ids={["dados-2026", "sobre", "downloads"]} />
     </PageShell>
   );
 }
