@@ -102,6 +102,7 @@ export type Database = {
           id: string
           indicators: Json
           notes: string | null
+          out_of_universe: Json | null
           processing_version: string
           record_count: number
           situation_values: Json
@@ -123,6 +124,7 @@ export type Database = {
           id?: string
           indicators?: Json
           notes?: string | null
+          out_of_universe?: Json | null
           processing_version: string
           record_count?: number
           situation_values?: Json
@@ -144,6 +146,7 @@ export type Database = {
           id?: string
           indicators?: Json
           notes?: string | null
+          out_of_universe?: Json | null
           processing_version?: string
           record_count?: number
           situation_values?: Json

@@ -1,0 +1,1 @@
+ALTER TABLE public.tse_snapshots ADD COLUMN IF NOT EXISTS out_of_universe jsonb;
