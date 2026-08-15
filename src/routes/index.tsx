@@ -28,6 +28,7 @@ import {
 
 import { HistoryFunnel } from "@/components/historical/HistoryFunnel";
 import { PullQuote } from "@/components/editorial/PullQuote";
+import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
 import topoAsset from "@/assets/mulheresnotopo.webp.asset.json";
 
 export const Route = createFileRoute("/")({
@@ -454,6 +455,20 @@ function DadosPage() {
       </section>
       <PullQuote>Dado não disponível não é zero.</PullQuote>
 
+      {/* O ACHADO RACIAL DE 2026 */}
+      <SectionBlock
+        kicker="O achado racial de 2026"
+        question="A largada já é mais branca que o país."
+        lead={
+          <p>
+            População feminina (Censo 2022) × candidaturas de mulheres às
+            proporcionais de 2026 (TSE). A comparação é descritiva: dois
+            retratos, cada um com seu denominador.
+          </p>
+        }
+      >
+        <RaceFinding2026 snapshot={snapshot} />
+      </SectionBlock>
 
       {/* CONTEXTO HISTÓRICO */}
       <SectionBlock
