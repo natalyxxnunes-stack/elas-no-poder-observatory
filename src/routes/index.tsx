@@ -493,8 +493,10 @@ function DadosPage() {
           <p>
             As regras não são as mesmas nos dois universos. Nas eleições
             proporcionais existe uma regra de composição de candidaturas por
-            gênero, aplicada por partido ou federação. Nas majoritárias, de cargo
-            único, essa regra não se aplica.
+            gênero, aplicada por partido ou{" "}
+            <GlossaryTerm term="federacao">federação</GlossaryTerm>. Nas
+            majoritárias, em que cada partido lança um nome por cargo, essa regra
+            não se aplica.
           </p>
         }
       >
@@ -523,12 +525,11 @@ function DadosPage() {
         <div className="mt-6">
           <ContextBox variant="significa" title="A cota de 30% (Lei 9.504/1997)">
             <p>
-              A lei obriga cada partido a preencher no mínimo 30% das suas
-              candidaturas com mulheres — daí a faixa de 30%–70% por gênero. É
-              cota de candidatura, não de cadeira: garante que elas entrem na
-              disputa, não que sejam eleitas. Por isso a presença feminina nas
-              candidaturas fica perto de 30%, mas despenca entre as eleitas. A cota
-              abre a porta; não decide quem atravessa.
+              A lei obriga cada partido ou federação a preencher no mínimo 30%
+              das candidaturas proporcionais com cada gênero — daí a faixa de
+              30%–70%. É{" "}
+              <GlossaryTerm term="cota">cota</GlossaryTerm> de candidatura, não
+              de cadeira: trata de quem entra na disputa, não de quem é eleita.
             </p>
           </ContextBox>
         </div>
