@@ -371,6 +371,11 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
     const universe = classifyUniverse(row.cargo);
     if (!universe) {
       acc.outOfScope += 1;
+      acc.outOfUniverse.total += 1;
+      bump(acc.outOfUniverse.byCargo, row.cargo);
+      if (isFeminine(row.genero)) {
+        bump(acc.outOfUniverse.feminineByCargo, row.cargo);
+      }
       continue;
     }
     const tally = acc.universes[universe];
