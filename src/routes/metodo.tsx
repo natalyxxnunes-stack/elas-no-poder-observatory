@@ -76,32 +76,53 @@ function statusLabel(s: PublicSnapshot): string {
 
 
 
-const PLAIN_STEPS = [
+const PLAIN_STEPS: { step: string; body: React.ReactNode }[] = [
   {
     step: "1. Pegamos a base oficial",
     body: "Usamos o arquivo de candidaturas publicado pelo TSE em Dados Abertos. Guardamos a data em que o TSE gerou o arquivo e a data em que o observatório o processou.",
   },
   {
     step: "2. Separamos dois universos",
-    body: "Eleições proporcionais (Câmara dos Deputados, assembleias legislativas e Câmara Legislativa do Distrito Federal) e eleições majoritárias (Presidência, governos e Senado). Nunca somamos os dois em uma conta só.",
+    body: (
+      <>
+        Eleições{" "}
+        <GlossaryTerm term="proporcional" method={false}>
+          proporcionais
+        </GlossaryTerm>{" "}
+        (Câmara dos Deputados, assembleias legislativas e Câmara Legislativa do
+        Distrito Federal) e eleições{" "}
+        <GlossaryTerm term="majoritaria" method={false}>
+          majoritárias
+        </GlossaryTerm>{" "}
+        (Presidência, governos e Senado). Nunca somamos os dois em uma conta só.
+      </>
+    ),
   },
   {
     step: "3. Contamos candidaturas, não pessoas",
     body: "A unidade de análise é a candidatura registrada. Gênero e cor/raça vêm da autodeclaração feita no registro.",
   },
   {
-    step: "4. Dividimos pelo denominador do próprio universo",
-    body: "Candidaturas de mulheres divididas pelo total de candidaturas daquele mesmo universo. Nenhum percentual aparece sem esse denominador visível.",
+    step: "4. Dividimos pelo total do próprio universo",
+    body: "Candidaturas de mulheres divididas pelo total de candidaturas daquele mesmo universo. Nenhum percentual aparece sem esse total visível.",
   },
   {
     step: "5. Diferenças em pontos percentuais",
-    body: "Quando comparamos dois percentuais, a diferença é expressa em p.p. — e é descritiva: não prova que uma regra causou o resultado.",
+    body: (
+      <>
+        Quando comparamos dois percentuais, a diferença aparece em{" "}
+        <GlossaryTerm term="pontos-percentuais" method={false}>
+          p.p.
+        </GlossaryTerm>{" "}
+        — uma leitura descritiva, que não prova que uma regra causou o resultado.
+      </>
+    ),
   },
   {
     step: "6. O que falta fica declarado",
     body: "Recursos, votos, eleitas e poder ainda não têm base disponível para 2026. Onde falta dado, aparece a lacuna, com o motivo e a fonte que ainda falta.",
   },
-] as const;
+];
 
 function MetodoPage() {
   const { snapshot, history } = Route.useLoaderData() as {
