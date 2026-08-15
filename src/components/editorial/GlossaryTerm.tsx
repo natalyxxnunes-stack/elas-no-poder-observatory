@@ -39,7 +39,7 @@ export function GlossaryTerm({
           aria-expanded={open}
           aria-controls={open ? contentId : undefined}
           aria-label={`${
-            typeof children === "string" ? children : entry.title
+            typeof children === "string" ? children.trim() : entry.title
           } — ver definição`}
           className="cursor-help rounded-sm border-b border-dashed border-plum/70 bg-transparent p-0 font-[inherit] text-[inherit] leading-[inherit] text-inherit underline-offset-4 transition-colors hover:border-solid hover:text-plum focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum"
         >
