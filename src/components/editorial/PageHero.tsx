@@ -76,7 +76,7 @@ export function PageHero({
         </div>
 
         {/* crédito de ilustração, discreto, sobre a imagem */}
-        <p className="absolute left-3 top-16 max-w-[70%] rounded bg-ink/70 px-2 py-1 text-right font-mono text-[11px] leading-tight text-cream/80 md:bottom-2 md:left-auto md:right-3 md:top-auto md:text-[12px]">
+        <p className="absolute left-3 top-16 max-w-[70%] rounded bg-ink/70 px-2 py-1 text-right font-mono text-[12px] leading-tight text-cream/80 md:bottom-2 md:left-auto md:right-3 md:top-auto md:text-[12px]">
           Ilustração original gerada com inteligência artificial sob direção
           editorial.
         </p>

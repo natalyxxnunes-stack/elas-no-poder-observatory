@@ -269,7 +269,7 @@ function DadosPage() {
           </div>
         </div>
 
-        <p className="absolute left-3 top-16 max-w-[70%] md:left-auto md:top-auto md:bottom-2 md:right-3 rounded bg-ink/70 px-2 py-1 text-right font-mono text-[11px] leading-tight text-cream/80 md:text-[12px]">
+        <p className="absolute left-3 top-16 max-w-[70%] md:left-auto md:top-auto md:bottom-2 md:right-3 rounded bg-ink/70 px-2 py-1 text-right font-mono text-[12px] leading-tight text-cream/80 md:text-[12px]">
           Ilustração original gerada com inteligência artificial sob direção
           editorial.
         </p>

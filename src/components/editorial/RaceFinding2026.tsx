@@ -62,7 +62,7 @@ function MiniBar({
   const isBranca = category === "branca";
   return (
     <div className="flex items-center gap-2">
-      <span className="w-14 shrink-0 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+      <span className="w-14 shrink-0 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
         {label}
       </span>
       <div className="h-2 flex-1 overflow-hidden rounded-sm bg-secondary" aria-hidden>
