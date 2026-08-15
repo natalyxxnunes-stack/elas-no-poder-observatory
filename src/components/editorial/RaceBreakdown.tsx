@@ -87,8 +87,7 @@ function Table({
         <div className="p-5">
           <GapNote label="Lacuna declarada">
             A fotografia atual do TSE ainda não trouxe a distribuição por
-            categoria de cor/raça para este universo. Ausência de dado não é
-            zero.
+            categoria de cor/raça para este universo.
           </GapNote>
         </div>
       )}
