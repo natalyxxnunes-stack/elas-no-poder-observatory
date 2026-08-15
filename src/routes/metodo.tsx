@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
+import { buildSnapshotCsv } from "@/lib/tse/snapshot-csv";
+
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import checagemAsset from "@/assets/checagem.webp.asset.json";
@@ -26,9 +27,9 @@ import { VAGAS_SOURCE } from "@/data/vagas-2026";
 import { applySnapshot } from "@/lib/tse/indicators";
 import {
   getLatestTseSnapshot,
-  getLatestTseSnapshotCsv,
   listTseSnapshots,
 } from "@/lib/tse/snapshot.functions";
+
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 
 
@@ -134,10 +135,11 @@ function MetodoPage() {
   };
   const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
 
-  const getCsv = useServerFn(getLatestTseSnapshotCsv);
-  const handleDownload = async () => {
-    const result = await getCsv();
-    if (!result) return;
+  // O CSV é montado no navegador a partir da mesma fotografia já carregada
+  // nesta página: nenhum número novo, nenhum cálculo adicional.
+  const handleDownload = () => {
+    if (!snapshot) return;
+    const result = buildSnapshotCsv(snapshot);
     const blob = new Blob([result.content], {
       type: "text/csv;charset=utf-8",
     });
@@ -150,6 +152,7 @@ function MetodoPage() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
+
 
 
 
