@@ -15,21 +15,29 @@ Duas naturezas de dado, nunca misturadas:
   nova, com data. O site publica **uma** fotografia por vez, e ela é a única
   fonte dos números de 2026 exibidos.
 
-**Fotografia vigente de 2026** — coleta de 13/08/2026, processamento
-`2026.08.13-b7.1+2026.08.11-dic1`, conferida manualmente:
+**Fotografia vigente de 2026** — base gerada pelo TSE em 14/08/2026, coletada
+pelo observatório em 15/08/2026, processamento
+`2026.08.13-b7.1+2026.08.11-dic1`, status `ok` (sem anomalia de volume):
 
 | Universo | Total | Mulheres | % mulheres |
 | --- | --- | --- | --- |
-| proporcional | 17.299 | 6.109 | 35,3% |
-| majoritário | 377 | 73 | 19,4% |
-| fora dos universos (vices e suplentes) | 606 | — | — |
-| base após deduplicação | 18.282 | — | — |
+| proporcional | 17.927 | 6.338 | 35,4% |
+| majoritário | 430 | 85 | 19,8% |
+| fora dos universos (vices e suplentes) | 693 | — | — |
+| base após deduplicação | 19.050 | — | — |
 
-**Fotografia anterior (substituída, não vigente)** — coleta de 11/08/2026,
-processamento `2026.08.11-b4.1`: proporcional 12.754 (F 4.488 = 35,2%),
-majoritário 227 (F 41 = 18,1%), fora dos universos 358, base 13.339. Esses
-valores continuam citados neste documento apenas como registro de versão
-anterior; **não** devem ser publicados como número atual.
+Diferença descritiva entre os dois universos: 15,6 p.p. Nenhuma causa é
+atribuída a essa diferença.
+
+**Fotografias anteriores (substituídas, não vigentes)** — preservadas no banco e
+citadas aqui apenas como registro de versão:
+
+| Coleta | Proporcional | Majoritário | Fora dos universos | Base |
+| --- | --- | --- | --- | --- |
+| 13/08/2026 (base de 13/08) | 17.299 (F 6.109 = 35,3%) | 377 (F 73 = 19,4%) | 606 | 18.282 |
+| 11/08/2026 (base de 10/08) | 12.754 (F 4.488 = 35,2%) | 227 (F 41 = 18,1%) | 358 | 13.339 |
+
+Nenhum desses valores deve ser publicado como número atual.
 
 **Série publicada de eleitas proporcionais (1º turno)** — única versão válida no
 site, coerente com `src/data/historical-funnel.ts`:
@@ -64,10 +72,14 @@ estimada. Valores antigos de 2022 (1.572 / 282 / 17,9%) estão **substituídos**
 | 2022 | majoritário | idem | — | — | 480 (F 100 = 20,8% · M 379 · Não divulgável 1) | — |
 | 2022 | fora dos universos | vices e suplentes | — | — | 805 | 27.977 + 480 + 805 = 29.262 ✔ |
 | 2022 | eleitos (1º turno) | idem | — | — | prop. 1.512 (F 267) · maj. 42 (F 5) | prop. está 60 abaixo do total de cadeiras: **o Maranhão não tem resultado no arquivo** — as 926 candidaturas de MA vêm com `#NULO` em DS_SIT_TOT_TURNO, e MA elege 18 federais + 42 estaduais = 60. Lacuna da fonte; não corrigida nesta rodada. Maj. = 27 senadores + 15 governadores no 1º turno |
-| 2026 (vigente, 13/08) | base inteira | NR_TURNO=1 (única existente), chave SQ_CANDIDATO | — | 18.282 | 18.282 candidaturas | fotografia vigente do site; coleta retida e reconferida contra o pacote oficial antes de publicar |
-| 2026 (vigente, 13/08) | proporcional | idem | — | — | 17.299 (F 6.109 = 35,3%) | número publicado hoje |
-| 2026 (vigente, 13/08) | majoritário | idem | — | — | 377 (F 73 = 19,4%) | número publicado hoje |
-| 2026 (vigente, 13/08) | fora dos universos | vices e suplentes | — | — | 606 | 17.299 + 377 + 606 = 18.282 ✔ |
+| 2026 (vigente, base 14/08 · coleta 15/08) | base inteira | NR_TURNO=1 (única existente), chave SQ_CANDIDATO | — | 19.050 | 19.050 candidaturas | fotografia vigente do site; variação de volume dentro do esperado, sem retenção |
+| 2026 (vigente, base 14/08 · coleta 15/08) | proporcional | idem | — | — | 17.927 (F 6.338 = 35,4%) | número publicado hoje |
+| 2026 (vigente, base 14/08 · coleta 15/08) | majoritário | idem | — | — | 430 (F 85 = 19,8%) | número publicado hoje |
+| 2026 (vigente, base 14/08 · coleta 15/08) | fora dos universos | vices e suplentes | — | — | 693 | 17.927 + 430 + 693 = 19.050 ✔ |
+| 2026 (fotografia anterior, 13/08 — valor substituído) | base inteira | idem | — | 18.282 | 18.282 candidaturas | **não é a fotografia vigente**; coleta retida e reconferida contra o pacote oficial na época |
+| 2026 (fotografia anterior, 13/08 — valor substituído) | proporcional | idem | — | — | 17.299 (F 6.109 = 35,3%) | **não é a fotografia vigente** |
+| 2026 (fotografia anterior, 13/08 — valor substituído) | majoritário | idem | — | — | 377 (F 73 = 19,4%) | **não é a fotografia vigente** |
+| 2026 (fotografia anterior, 13/08 — valor substituído) | fora dos universos | vices e suplentes | — | — | 606 | 17.299 + 377 + 606 = 18.282 ✔ |
 | 2026 (fotografia anterior, 11/08 — valor substituído) | base inteira | idem | 26.678 | 13.339 | 13.339 candidaturas | 13.339 linhas repetidas (BRASIL). Erro anterior a esta série: o processamento `2026.08.11-b2` era pré-deduplicação e exibia 26.678 |
 | 2026 (fotografia anterior — valor substituído) | proporcional | idem | — | — | 12.754 (F 4.488 = 35,2%) | **não é a fotografia vigente** |
 | 2026 (fotografia anterior — valor substituído) | majoritário | idem | — | — | 227 (F 41 = 18,1%) | **não é a fotografia vigente** |
@@ -150,11 +162,12 @@ Nenhuma nova fonte de resultado foi implementada nesta rodada.
   baixado do TSE (`zip_sha256`) e do CSV BRASIL de onde os indicadores saem
   (`brasil_csv_sha256`). Ambos comprovam a **procedência/identidade do arquivo
   processado**, não a correção dos cálculos.
-- A fotografia vigente (base gerada pelo TSE em 13/08/2026, coletada em
-  13/08/2026, 18.282 registros) foi gravada **antes** de o registro de hash
-  entrar no pipeline: os dois campos estão nulos no banco. Por isso o Método
-  informa a ausência de código de procedência nesta fotografia em vez de exibir
-  um valor — nenhum hash é recalculado ou inventado.
+- A fotografia vigente (base gerada pelo TSE em 14/08/2026, coletada em
+  15/08/2026, 19.050 registros) tem os dois códigos registrados e exibidos no
+  Método: ZIP `d41e88a9…c810a47`, CSV BRASIL `066a28c3…403f344f`. As
+  fotografias de 11/08 e 13/08 foram gravadas antes de o registro de hash entrar
+  no pipeline e seguem com os campos nulos; nenhum hash é recalculado
+  retroativamente.
 - O rodapé do site publica um carimbo global com as duas datas nomeadas
   separadamente: **geração da base pelo TSE** e **coleta pelo observatório**.
   Sem fotografia publicável, o carimbo não é exibido.
