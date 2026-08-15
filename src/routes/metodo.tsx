@@ -123,7 +123,7 @@ const PLAIN_STEPS: { step: string; body: React.ReactNode }[] = [
   },
   {
     step: "6. O que falta fica declarado",
-    body: "Recursos, votos, eleitas e poder ainda não têm base disponível para 2026. Onde falta dado, aparece a lacuna, com o motivo e a fonte que ainda falta.",
+    body: "Onde falta dado, aparece a lacuna, com o motivo e a fonte que ainda falta — nunca um número provisório no lugar.",
   },
 ];
 
@@ -576,14 +576,12 @@ function MetodoPage() {
               6. Fotografias e verificação
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Cada coleta gera uma fotografia datada e nenhuma é sobrescrita, o
-              que permite saber qual base sustentava um número em determinada
-              data. Quando disponível, o SHA-256 do pacote baixado e do arquivo de
-              onde os números saem fica publicado acima: ele confirma que o
-              arquivo é o mesmo, não que a conta está certa. Para conferir:
-              recalcule as contagens do passo 5 sobre o arquivo indicado no passo
-              1 e compare com a planilha exportada.
+              Cada coleta gera uma fotografia datada, listada no histórico ao fim
+              desta página com o respectivo SHA-256 quando disponível. Para
+              conferir: recalcule as contagens do passo 5 sobre o arquivo
+              indicado no passo 1 e compare com a planilha exportada.
             </p>
+
           </li>
         </ol>
       </SectionBlock>
@@ -633,11 +631,11 @@ function MetodoPage() {
           question="Que estágios a base contém"
           lead={
             <p>
-              Nenhum filtro de situação é aplicado aos indicadores: um registro
-              pode mudar de situação até a decisão final da Justiça Eleitoral.
-              Abaixo, as situações presentes na fotografia vigente.
+              As situações presentes na fotografia vigente, contadas. O critério
+              de não filtrar por situação está no passo 4 da ficha técnica.
             </p>
           }
+
         >
           <dl className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
             {Object.entries(snapshot.situationValues)

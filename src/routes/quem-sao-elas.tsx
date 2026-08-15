@@ -106,10 +106,11 @@ function QuemSaoElasPage() {
         align="wide"
         lead={
           <p>
-            Cada universo eleitoral é lido com seu próprio denominador. As
-            categorias são exatamente as declaradas ao TSE, sem substituição.
+            A distribuição das candidaturas de mulheres entre as categorias de
+            cor/raça que o próprio registro publica, um universo por vez.
           </p>
         }
+
         source={
           <>
             Fonte: TSE · Candidaturas 2026
@@ -131,10 +132,10 @@ function QuemSaoElasPage() {
         lead={
           <p>
             Cada combinação recalcula a distribuição por cor/raça daquela fatia,
-            com a base à vista. Onde a base é pequena demais, o percentual
-            desaparece e ficam só as contagens absolutas.
+            com a base à vista.
           </p>
         }
+
         source={
           <>
             Fonte: TSE · Candidaturas 2026
@@ -154,11 +155,11 @@ function QuemSaoElasPage() {
         align="wide"
         lead={
           <p>
-            Aqui todos os estados aparecem lado a lado para comparação, cada um
-            com seu próprio denominador. O explorador acima serve para
-            aprofundar um recorte por vez.
+            Aqui todos os estados aparecem lado a lado para comparação. O
+            explorador acima serve para aprofundar um recorte por vez.
           </p>
         }
+
         source={
           <>
             Fonte: TSE · Candidaturas 2026
@@ -179,7 +180,7 @@ function QuemSaoElasPage() {
         question="O que a base registra — e o que ela não registra"
       >
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2">
           <ContextBox variant="significa">
             <p>
               Cor/raça no registro é autodeclaração. Ela não identifica
@@ -193,14 +194,8 @@ function QuemSaoElasPage() {
               com aparência de precisão e sem base. Preferimos declarar a lacuna.
             </p>
           </ContextBox>
-          <ContextBox variant="calculamos">
-            <p>
-              Quando apresentamos leitura agregada, dizemos a agregação —
-              “negra” = preta + parda — e mantemos as categorias originais
-              visíveis na mesma tela.
-            </p>
-          </ContextBox>
         </div>
+
       </SectionBlock>
 
       <SectionBlock
@@ -211,12 +206,12 @@ function QuemSaoElasPage() {
           <p>
             Quem decide o registro é o partido ou a federação. Aqui está a
             composição de cada lista: quantas das candidaturas registradas são de
-            mulheres, com o número absoluto ao lado do percentual. Trocar de
-            universo troca a tabela inteira, porque cada um tem denominador
-            próprio. Ligando o recorte de cor/raça, a mesma tabela mostra quais
-            mulheres cada partido registrou.
+            mulheres, com o número absoluto ao lado do percentual. Ligando o
+            recorte de cor/raça, a mesma tabela mostra quais mulheres cada
+            partido registrou.
           </p>
         }
+
         source={
           <>
             Fonte: TSE · Candidaturas 2026
@@ -230,15 +225,13 @@ function QuemSaoElasPage() {
         <PartyGenderTable snapshot={snapshot} />
         <ContextBox variant="significa" title="Como ler">
           <p>
-            O que o dado mostra: a proporção de mulheres entre as candidaturas
-            registradas por cada partido, na data desta fotografia. O que ele não
-            mostra: quanto dinheiro e tempo de propaganda cada candidatura
-            recebeu, em que posição da lista entrou e quem foi eleita — essas
-            bases só existem depois da campanha e da votação. Por isso a tabela
-            não sustenta frases como "partido melhor para mulheres": ela descreve
-            a entrada, e a entrada é apenas a primeira etapa.
+            A tabela não sustenta frases como “partido melhor para mulheres”:
+            ela descreve a entrada, e a entrada é apenas a primeira etapa —
+            dinheiro, posição na lista e eleição só existem em bases posteriores
+            à campanha.
           </p>
         </ContextBox>
+
       </SectionBlock>
 
       <SectionBlock

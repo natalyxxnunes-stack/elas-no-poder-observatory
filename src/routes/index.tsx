@@ -442,10 +442,10 @@ function DadosPage() {
               {prop
                 ? `Em 2026, são ${((prop.feminine / prop.total) * 100).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}% das candidaturas proporcionais`
                 : "Em 2026, o percentual de candidaturas proporcionais está em atualização"}{" "}
-              — e o resultado ainda não existe, porque a eleição acontece em
-              novembro. São dois momentos diferentes: um já terminou, o outro
-              está começando; a comparação é de entrada com entrada.
+              — a comparação possível é de entrada com entrada: um ciclo já
+              terminou, o outro está começando.
             </p>
+
           </>
         }
         source="Fonte: TSE — candidatos e resultados 2014/2018/2022/2026"
@@ -574,8 +574,9 @@ function DadosPage() {
           <p>
             “Funil” aqui é o roteiro de perguntas que este observatório persegue
             — contexto, competição e poder —, não uma medição do que aconteceu em
-            2026: o resultado de 2026 ainda não existe. Cada etapa tem sua
-            própria fonte e será publicada quando essa fonte existir.
+            2026. Cada etapa tem sua própria fonte e será publicada quando essa
+            fonte existir.
+
           </p>
         }
       >
