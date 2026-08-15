@@ -31,6 +31,19 @@ majoritário 227 (F 41 = 18,1%), fora dos universos 358, base 13.339. Esses
 valores continuam citados neste documento apenas como registro de versão
 anterior; **não** devem ser publicados como número atual.
 
+**Série publicada de eleitas proporcionais (1º turno)** — única versão válida no
+site, coerente com `src/data/historical-funnel.ts`:
+
+| Ano | Eleitas | Cadeiras contadas | % |
+| --- | --- | --- | --- |
+| 2014 | 170 | 1.572 | 10,8% |
+| 2018 | 240 | 1.572 | 15,3% |
+| 2022 | 267 | 1.512 | 17,7% |
+
+2022 conta 1.512 e não 1.572 porque o arquivo oficial não traz resultado para o
+Maranhão (60 cadeiras: 18 federais + 42 estaduais). Lacuna da fonte, não
+estimada. Valores antigos de 2022 (1.572 / 282 / 17,9%) estão **substituídos**.
+
 ## 1. O que cada número representa
 
 
