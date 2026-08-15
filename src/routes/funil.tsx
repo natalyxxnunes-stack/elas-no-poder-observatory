@@ -161,8 +161,12 @@ function FunilPage() {
             <p>
               “Universo” é o conjunto de registros que entra na conta.
               Proporcional e majoritário são universos distintos: um elege por
-              lista e quociente, o outro elege quem tem mais votos para um cargo
-              único. Percentuais de universos diferentes não se somam.
+              lista, segundo o{" "}
+              <GlossaryTerm term="quociente-eleitoral">
+                quociente eleitoral
+              </GlossaryTerm>
+              ; o outro elege quem tem mais votos para um cargo único.
+              Percentuais de universos diferentes não se somam.
             </p>
           </ContextBox>
           <ContextBox variant="importa">
