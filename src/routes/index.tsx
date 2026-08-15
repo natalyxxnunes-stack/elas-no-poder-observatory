@@ -326,11 +326,20 @@ function DadosPage() {
                   Primeiro marco
                 </p>
                 <p className="mt-1 text-sm leading-relaxed text-cream/85">
-                  Esta é a primeira fotografia comparável do ciclo de 2026.
-                  Fotografia da base de {baseDate ?? "data em atualização"} —
+                  Esta é a primeira fotografia comparável do ciclo de 2026, com
+                  a base de {baseDate ?? "data em atualização"}. Ela é
                   provisória: o registro ainda pode mudar por decisão da Justiça
-                  Eleitoral. Proporcional e majoritário são contados
-                  separadamente.
+                  Eleitoral. As eleições{" "}
+                  <span className="text-solar">
+                    <GlossaryTerm term="proporcional">
+                      proporcionais
+                    </GlossaryTerm>
+                  </span>{" "}
+                  e as{" "}
+                  <span className="text-solar">
+                    <GlossaryTerm term="majoritaria">majoritárias</GlossaryTerm>
+                  </span>{" "}
+                  são contadas separadamente.
                 </p>
               </div>
             </>
