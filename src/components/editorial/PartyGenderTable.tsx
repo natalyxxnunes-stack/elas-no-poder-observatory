@@ -254,7 +254,8 @@ export function PartyGenderTable({
                       {r.party}
                     </th>
                     <td className="py-3 pr-3 font-mono text-sm text-ink">
-                      {r.feminine} / {r.total}
+                      {r.feminine.toLocaleString("pt-BR")} /{" "}
+                      {r.total.toLocaleString("pt-BR")}
                     </td>
                     <td className="py-3 pr-3">
                       {showPercent ? (
@@ -265,8 +266,9 @@ export function PartyGenderTable({
                           <span
                             className="mt-1 flex h-3 w-full max-w-[220px] overflow-hidden border-2 border-ink"
                             role="img"
-                            aria-label={`${r.feminine} de ${r.total} candidaturas do ${r.party} são de mulheres`}
+                            aria-label={`${r.feminine.toLocaleString("pt-BR")} de ${r.total.toLocaleString("pt-BR")} candidaturas do ${r.party} são de mulheres`}
                           >
+
                             <span
                               style={{
                                 width: `${(r.feminine / r.total) * 100}%`,

@@ -65,20 +65,17 @@ function br(iso: string | null): string {
   return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
 }
 
+/**
+ * Situação de cada fotografia. A conferência manual (`conferido = true`) é a
+ * única coisa que libera uma fotografia para uso público: `status = ok` sozinho
+ * não basta. Fotografias coletadas e ainda não conferidas ficam retidas.
+ */
 function statusLabel(s: PublicSnapshot): string {
-  switch (s.status) {
-    case "ok":
-      return "validada";
-    case "requer_conferencia":
-      return s.conferido ? "validada" : "em conferência";
-    case "invalido":
-      return "não publicada";
-    case "falha_coleta":
-      return "falha na coleta";
-    default:
-      return s.status;
-  }
+  if (s.status === "falha_coleta") return "falha na coleta";
+  if (s.status === "invalido") return "não publicada";
+  return s.conferido ? "conferida" : "retida para conferência";
 }
+
 
 
 
@@ -791,9 +788,12 @@ function MetodoPage() {
         lead={
           <p>
             Cada atualização gera uma fotografia nova; nenhuma é sobrescrita. Assim
-            é possível saber qual base sustentava um número em determinada data.
+            é possível saber qual base sustentava um número em determinada data. Só
+            a fotografia conferida manualmente vai ao ar — a mais recente pode estar
+            coletada e ainda retida.
           </p>
         }
+
       >
         {history.length > 0 ? (
           <div className="overflow-x-auto">
@@ -831,7 +831,11 @@ function MetodoPage() {
                     </td>
                     <td className="py-3 font-mono text-xs text-muted-foreground">
                       {statusLabel(s)}
+                      {snapshot && s.id === snapshot.id ? (
+                        <span className="text-ink"> · no ar</span>
+                      ) : null}
                     </td>
+
 
                   </tr>
                 ))}
@@ -920,7 +924,7 @@ function MetodoPage() {
             <h3 className="font-display text-xl text-ink">
               {COMPETITION_DEFINITION.question}
             </h3>
-            <dl className="mt-3 space-y-2 font-mono text-[12px] leading-relaxed text-ink/80">
+            <dl className="mt-3 space-y-2 break-words font-mono text-[12px] leading-relaxed text-ink/80">
               <div>
                 <dt className="inline text-muted-foreground">Fórmula: </dt>
                 <dd className="inline">{COMPETITION_DEFINITION.formula}</dd>
@@ -942,10 +946,12 @@ function MetodoPage() {
                 <dt className="inline text-muted-foreground">Denominador: </dt>
                 <dd className="inline">
                   {COMPETITION_DEFINITION.denominatorSource} · arquivo gerado em
-                  15/08/2026 · SHA-256 do pacote {VAGAS_SOURCE.zipSha256}
+                  15/08/2026 · SHA-256 do pacote{" "}
+                  <span className="break-all">{VAGAS_SOURCE.zipSha256}</span>
                 </dd>
               </div>
             </dl>
+
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
