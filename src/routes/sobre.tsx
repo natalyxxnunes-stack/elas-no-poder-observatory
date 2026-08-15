@@ -163,23 +163,19 @@ function SobrePage() {
         }
       >
         <div className="grid gap-4 md:grid-cols-2">
-          <ContextBox variant="significa">
+          <ContextBox variant="significa" title="Onde a IA entra">
             <p>
-              O {SITE.name} é um projeto independente, feito por mim, com o apoio
-              de ferramentas de inteligência artificial. Eu faço as perguntas,
-              defino os caminhos da apuração, escolho as fontes, tomo as decisões
-              editoriais e sou responsável pelo que é publicado. Uso inteligência
-              artificial como ferramenta de trabalho — para pesquisar, organizar e
-              analisar dados, escrever e revisar código, testar possibilidades e
-              construir algumas das soluções que você encontra aqui.
+              O {SITE.name} é um projeto independente, feito por mim, com apoio de
+              ferramentas de inteligência artificial em programação, organização
+              de material e revisão de texto. Eu faço as perguntas, defino a
+              apuração, escolho as fontes e assino as decisões editoriais.
             </p>
           </ContextBox>
-          <ContextBox variant="importa">
+          <ContextBox variant="importa" title="Onde a IA não entra">
             <p>
-              A IA ajuda a fazer o trabalho. A responsabilidade pelo trabalho é
-              minha. Por isso, sempre que ela participa de alguma etapa
-              importante, isso é registrado como parte da transparência do
-              projeto.
+              A IA não é fonte, não gera os dados — que vêm dos arquivos oficiais
+              — e não valida os cálculos: a conferência é humana, e a
+              responsabilidade editorial pelo que está publicado é minha.
             </p>
           </ContextBox>
         </div>
