@@ -45,7 +45,7 @@ Arquivos gerados:
 - `index.html` e uma pasta por rota (`/metodo/index.html`, `/funil/index.html`, …)
   com o `head()` completo de cada página: título, descrição, `og:*`, `twitter:*`;
 - `assets/` com JS e CSS versionados por hash;
-- `assets/l5e/` com as ilustrações editoriais: o script
+- `ilustracoes/` (pasta simples na raiz do pacote) com as ilustrações editoriais: o script
   `scripts/hostgator-assets.mjs` roda ao final do build, baixa o binário de cada
   `src/assets/*.asset.json` (com cache em `.hostgator-assets/`) e reescreve todas
   as referências `/__l5e/assets-v1/...` para `/ilustracoes/...`, deixando o pacote
