@@ -27,7 +27,7 @@ import {
 } from "@/lib/tse/snapshot.functions";
 
 import { HistoryFunnel } from "@/components/historical/HistoryFunnel";
-import { PullQuote } from "@/components/editorial/PullQuote";
+
 import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
 import topoAsset from "@/assets/mulheresnotopo.webp.asset.json";
 

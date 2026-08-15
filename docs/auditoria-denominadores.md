@@ -4,7 +4,35 @@ Rodada de auditoria — sem redesign, sem mudança de metodologia. Todos os núm
 abaixo foram reconferidos linha a linha nos pacotes oficiais
 `consulta_cand_<ano>.zip` (TSE / Dados Abertos), com o mesmo código do projeto.
 
+## 0. Fotografia vigente × histórico fechado
+
+Duas naturezas de dado, nunca misturadas:
+
+- **Histórico fechado (2014, 2018, 2022)**: bases encerradas, com registro
+  julgado e resultado publicado. Valores estáveis; só mudam se o TSE republicar
+  o arquivo.
+- **Fotografia vigente (2026)**: base em curso. Cada coleta gera uma fotografia
+  nova, com data. O site publica **uma** fotografia por vez, e ela é a única
+  fonte dos números de 2026 exibidos.
+
+**Fotografia vigente de 2026** — coleta de 13/08/2026, processamento
+`2026.08.13-b7.1+2026.08.11-dic1`, conferida manualmente:
+
+| Universo | Total | Mulheres | % mulheres |
+| --- | --- | --- | --- |
+| proporcional | 17.299 | 6.109 | 35,3% |
+| majoritário | 377 | 73 | 19,4% |
+| fora dos universos (vices e suplentes) | 606 | — | — |
+| base após deduplicação | 18.282 | — | — |
+
+**Fotografia anterior (substituída, não vigente)** — coleta de 11/08/2026,
+processamento `2026.08.11-b4.1`: proporcional 12.754 (F 4.488 = 35,2%),
+majoritário 227 (F 41 = 18,1%), fora dos universos 358, base 13.339. Esses
+valores continuam citados neste documento apenas como registro de versão
+anterior; **não** devem ser publicados como número atual.
+
 ## 1. O que cada número representa
+
 
 | Ano | Universo | Filtro aplicado | Linhas brutas | Após deduplicação | Número exibido | Explicação da diferença |
 | --- | --- | --- | --- | --- | --- | --- |
