@@ -442,10 +442,10 @@ function DadosPage() {
               {prop
                 ? `Em 2026, são ${((prop.feminine / prop.total) * 100).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}% das candidaturas proporcionais`
                 : "Em 2026, o percentual de candidaturas proporcionais está em atualização"}{" "}
-              — e o resultado ainda não existe, porque a eleição acontece em
-              novembro. São dois momentos diferentes: um já terminou, o outro
-              está começando; a comparação é de entrada com entrada.
+              — a comparação possível é de entrada com entrada: um ciclo já
+              terminou, o outro está começando.
             </p>
+
           </>
         }
         source="Fonte: TSE — candidatos e resultados 2014/2018/2022/2026"
