@@ -949,6 +949,18 @@ function MetodoPage() {
             recursos, posição na lista, votos nem eleitas — e a ordenação é
             descritiva, não classificação de mérito.
           </GapNote>
+          <GapNote label="Leitura por estado: até onde a fotografia vai">
+            Por estado, a fotografia sustenta candidaturas registradas,
+            candidaturas de mulheres e cor/raça declarada, cada estado com seu
+            próprio denominador e dentro de um único universo. A combinação
+            estado × partido está gravada apenas para as candidaturas de
+            mulheres; o total de candidaturas de cada partido dentro de cada
+            estado — denominador necessário para um percentual de gênero nessa
+            célula — passou a ser contado nesta versão do processamento e
+            aparecerá nas próximas coletas. Enquanto não estiver na fotografia
+            vigente, a leitura por estado mostra os absolutos e não exibe esse
+            percentual.
+          </GapNote>
         </div>
 
         <p className="mt-6 font-mono text-[12px] text-muted-foreground">
