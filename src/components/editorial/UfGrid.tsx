@@ -8,6 +8,7 @@
  */
 
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
+import { StatusTag } from "./StatusTag";
 
 const UFS = [
   "AC","AL","AM","AP","BA","CE","DF","ES","GO","MA","MG","MS","MT","PA",
