@@ -100,7 +100,12 @@ export function UfGrid({
 
           <ul className="mt-6 grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7">
             {cells.map((c) => {
-              const b = c.share !== null ? band(c.share) : null;
+              const b =
+                c.total !== null && c.total < MIN_BASE
+                  ? null
+                  : c.share !== null
+                    ? band(c.share)
+                    : null;
               return (
                 <li
                   key={c.uf}
@@ -111,7 +116,16 @@ export function UfGrid({
                   <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.14em]">
                     {c.uf}
                   </p>
-                  {c.share !== null && c.feminine !== null && c.total !== null ? (
+                  {c.total !== null && c.total < MIN_BASE ? (
+                    <>
+                      <p className="mt-1 font-mono text-[12px] leading-tight opacity-90">
+                        {nf(c.feminine)} de {nf(c.total)}
+                      </p>
+                      <p className="mt-1">
+                        <StatusTag tone="limit">base pequena</StatusTag>
+                      </p>
+                    </>
+                  ) : c.share !== null && c.feminine !== null && c.total !== null ? (
                     <>
                       <p className="poster-figure mt-1 text-[clamp(1.05rem,4.4vw,1.35rem)]">
                         {pf(c.share)}
