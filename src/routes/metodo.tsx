@@ -564,9 +564,15 @@ function MetodoPage() {
             descritivos. Este método não isola o efeito de nenhuma regra sobre a
             presença de mulheres.
           </GapNote>
-          <GapNote label="Limitação da base">
-            O registro não capta de forma confiável identidade trans ou travesti, e
-            a categoria de cor/raça não identifica pertencimento étnico indígena.
+          <GapNote label="O que esta base não mostra">
+            Três coisas ficam fora do alcance do indicador atual, porque o
+            registro de candidaturas não as capta de forma equivalente:
+            identidade de gênero (a base traz apenas o campo de gênero, que não
+            identifica candidaturas trans ou travestis); deficiência; e detalhes
+            de pertencimento étnico ou quilombola, que dependeriam de outras
+            bases ainda não integradas. A categoria de cor/raça do TSE, por
+            exemplo, registra “indígena” como cor declarada, não pertencimento a
+            um povo.
           </GapNote>
           <GapNote label="Campo político: eixo em apuração">
             A base do TSE traz partido e forma de agremiação, não campo
