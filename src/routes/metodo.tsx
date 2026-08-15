@@ -631,11 +631,11 @@ function MetodoPage() {
           question="Que estágios a base contém"
           lead={
             <p>
-              Nenhum filtro de situação é aplicado aos indicadores: um registro
-              pode mudar de situação até a decisão final da Justiça Eleitoral.
-              Abaixo, as situações presentes na fotografia vigente.
+              As situações presentes na fotografia vigente, contadas. O critério
+              de não filtrar por situação está no passo 4 da ficha técnica.
             </p>
           }
+
         >
           <dl className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
             {Object.entries(snapshot.situationValues)
