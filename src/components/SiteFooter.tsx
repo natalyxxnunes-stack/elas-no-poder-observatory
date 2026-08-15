@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { BrandLogo } from "./BrandLogo";
 import { BrandWordmark } from "./BrandWordmark";
@@ -16,12 +15,12 @@ function br(iso: string | null | undefined): string | null {
 
 
 export function SiteFooter() {
-  const fetchStamp = useServerFn(getSnapshotStamp);
   const { data: stamp } = useQuery({
     queryKey: ["tse-snapshot-stamp"],
-    queryFn: () => fetchStamp(),
+    queryFn: () => getSnapshotStamp(),
     staleTime: 5 * 60 * 1000,
   });
+
   const generated = br(stamp?.baseGeneratedAt);
   const collected = br(stamp?.collectedAt);
 
