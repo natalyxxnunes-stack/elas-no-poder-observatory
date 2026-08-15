@@ -190,15 +190,17 @@ export async function runIngest(
 
   const indicators = computeIndicators(acc);
 
-  // Comparação de volume contra a última fotografia efetivamente publicada
-  // (ok, ou retida e liberada por conferência manual).
+  // Comparação de volume contra a última fotografia efetivamente vigente:
+  // apenas fotografias liberadas por conferência manual (`conferido = true`).
   const { data: previous } = await supabaseAdmin
     .from("tse_snapshots")
     .select("record_count")
-    .or("status.eq.ok,and(status.eq.requer_conferencia,conferido.eq.true)")
+    .eq("conferido", true)
+    .in("status", ["ok", "requer_conferencia"])
     .order("collected_at", { ascending: false })
     .limit(1)
     .maybeSingle();
+
 
   const validation = validate(acc, indicators, previous?.record_count ?? null);
 
