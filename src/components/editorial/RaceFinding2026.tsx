@@ -16,14 +16,30 @@ const pct = (v: number) =>
     maximumFractionDigits: 1,
   })}%`;
 
-/** Lê os dados de candidatura da fotografia conferida, se disponível; senão,
- *  mantém os valores curados contra o TSE. */
+/** Normaliza o rótulo literal do TSE (ex.: "PARDA", "INDÍGENA") para a chave
+ *  interna de categoria (parda, indigena). Sem agregações. */
+function normalizeRaceKey(label: string): string {
+  return label
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+/** Lê os dados de candidatura da fotografia vigente, se disponível; senão,
+ *  mantém os valores curados contra o TSE. Devolve também se a fotografia
+ *  usada passou por conferência manual explícita (`conferido = true`), para
+ *  que o rótulo nunca afirme conferência que não ocorreu. */
 function getCandidateData(snapshot: PublicSnapshot | null) {
-  const snap = snapshot?.universes.proporcional;
-  const snapCounts = snap?.raceCounts;
+  const snapCounts = snapshot?.universes.proporcional?.raceCounts;
   if (snapCounts) {
+    const normalized: Record<string, number> = {};
+    for (const [label, count] of Object.entries(snapCounts)) {
+      const key = normalizeRaceKey(label);
+      normalized[key] = (normalized[key] ?? 0) + (count ?? 0);
+    }
     const total = RACE_FINDING_CATEGORIES.reduce(
-      (sum, key) => sum + (snapCounts[key] ?? 0),
+      (sum, key) => sum + (normalized[key] ?? 0),
       0,
     );
     if (total > 0) {
@@ -32,18 +48,26 @@ function getCandidateData(snapshot: PublicSnapshot | null) {
         { count: number; percent: number }
       >;
       for (const key of RACE_FINDING_CATEGORIES) {
-        const count = snapCounts[key] ?? 0;
+        const count = normalized[key] ?? 0;
         byRace[key] = { count, percent: (count / total) * 100 };
       }
-      return { total, byRace, fromSnapshot: true };
+      return {
+        total,
+        byRace,
+        fromSnapshot: true,
+        conferido: snapshot?.conferido === true,
+      };
     }
   }
   return {
     total: CANDIDACY_FEMININE_2026_TOTAL,
     byRace: CANDIDACY_FEMININE_RACE_2026,
     fromSnapshot: false,
+    conferido: false,
   };
 }
+
+
 
 function MiniBar({
   count,
@@ -136,7 +160,7 @@ export function RaceFinding2026({
 }: {
   snapshot: PublicSnapshot | null;
 }) {
-  const { total, byRace, fromSnapshot } = getCandidateData(snapshot);
+  const { total, byRace, fromSnapshot, conferido } = getCandidateData(snapshot);
 
   const popMax = Math.max(
     ...RACE_FINDING_CATEGORIES.map((k) => POPULATION_RACE_FEMININE_2022[k].count),
@@ -146,6 +170,26 @@ export function RaceFinding2026({
     ...RACE_FINDING_CATEGORIES.map((k) => byRace[k].count),
     1,
   );
+
+  // Texto e gráfico leem os MESMOS valores: nada de número fixo no corpo.
+  const popParda = POPULATION_RACE_FEMININE_2022.parda;
+  const popBranca = POPULATION_RACE_FEMININE_2022.branca;
+  const popPreta = POPULATION_RACE_FEMININE_2022.preta;
+  const candParda = byRace.parda;
+  const candBranca = byRace.branca;
+  const candPreta = byRace.preta;
+  const gapParda = candParda.percent - popParda.percent;
+  const pp = (v: number) =>
+    `${Math.abs(v).toLocaleString("pt-BR", {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    })} p.p.`;
+  const sourceLabel = fromSnapshot
+    ? conferido
+      ? "fotografia vigente conferida"
+      : "fotografia vigente"
+    : "conferência manual dos valores curados contra o TSE";
+
 
   return (
     <div className="space-y-8">
@@ -198,8 +242,18 @@ export function RaceFinding2026({
               O que o dado mostra
             </h3>
             <p className="mt-3 leading-relaxed text-ink/70">
-              No Censo de 2022, mulheres pardas e brancas têm quase o mesmo tamanho: 44,8% e 44,4% das brasileiras. Entre as candidaturas de mulheres às proporcionais de 2026, brancas são 46% e pardas 34,9%. A candidatura parda fica quase dez pontos abaixo do tamanho da população parda feminina — a maior distância entre os cinco grupos. A candidatura preta aparece no sentido oposto: 17,4% das candidatas, contra 9,7% da população feminina.
+              No Censo de 2022, mulheres pardas e brancas têm quase o mesmo
+              tamanho: {pct(popParda.percent)} e {pct(popBranca.percent)} das
+              brasileiras. Entre as candidaturas de mulheres às proporcionais de
+              2026, brancas são {pct(candBranca.percent)} e pardas{" "}
+              {pct(candParda.percent)}. A candidatura parda fica {pp(gapParda)}{" "}
+              {gapParda < 0 ? "abaixo" : "acima"} do tamanho da população parda
+              feminina. A candidatura preta aparece no sentido oposto:{" "}
+              {pct(candPreta.percent)} das candidatas, contra{" "}
+              {pct(popPreta.percent)} da população feminina. Os percentuais deste
+              parágrafo e as barras acima vêm da mesma fonte: a {sourceLabel}.
             </p>
+
           </article>
 
           <article className="poster-frame p-5">
@@ -231,7 +285,13 @@ export function RaceFinding2026({
       <p className="font-mono text-[12px] leading-relaxed text-ink/70">
         Denominadores: {n(total)} candidaturas de mulheres nas eleições
         proporcionais de 2026
-        {fromSnapshot ? " (lidas do snapshot conferido)" : ""}; população
+        {fromSnapshot
+          ? conferido
+            ? " (lidas da fotografia vigente, conferida manualmente)"
+            : " (lidas da fotografia vigente)"
+          : ""}
+        ; população
+
         feminina 104,5 milhões (Censo 2022). Cor/raça autodeclarada, nas
         categorias do IBGE/TSE. Preta e parda são lidas separadamente; quando somadas como população negra, a soma é declarada. A
         comparação entre candidaturas (TSE proporcional 2026) e população
