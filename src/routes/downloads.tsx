@@ -35,7 +35,7 @@ export const Route = createFileRoute("/downloads")({
   component: DownloadsPage,
 });
 
-/* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
+/* Conteúdo publicado como catálogo de materiais em preparação. */
 
 /**
  * Catálogo de materiais. Estrutura preparada para gestão futura por CMS:
