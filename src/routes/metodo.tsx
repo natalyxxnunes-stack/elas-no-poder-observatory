@@ -8,7 +8,7 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
-import { PullQuote } from "@/components/editorial/PullQuote";
+import { NextAxes } from "@/components/editorial/NextAxes";
 import {
   CURRENT_INDICATORS,
   DATA_STATUS,

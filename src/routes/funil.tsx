@@ -86,8 +86,7 @@ function FunilPage() {
         lead={
           <p>
             O funil acompanha a presença das mulheres na disputa de 2026, etapa
-            por etapa, e mostra onde essa presença diminui. Cada etapa tem
-            denominador próprio: nada é subtraído de uma para a outra.
+            por etapa, e mostra onde essa presença diminui.
           </p>
         }
         image={subindoAsset.url}
