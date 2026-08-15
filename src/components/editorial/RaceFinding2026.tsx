@@ -16,8 +16,10 @@ const pct = (v: number) =>
     maximumFractionDigits: 1,
   })}%`;
 
-/** Lê os dados de candidatura da fotografia conferida, se disponível; senão,
- *  mantém os valores curados contra o TSE. */
+/** Lê os dados de candidatura da fotografia vigente, se disponível; senão,
+ *  mantém os valores curados contra o TSE. Devolve também se a fotografia
+ *  usada passou por conferência manual explícita (`conferido = true`), para
+ *  que o rótulo nunca afirme conferência que não ocorreu. */
 function getCandidateData(snapshot: PublicSnapshot | null) {
   const snap = snapshot?.universes.proporcional;
   const snapCounts = snap?.raceCounts;
@@ -35,15 +37,22 @@ function getCandidateData(snapshot: PublicSnapshot | null) {
         const count = snapCounts[key] ?? 0;
         byRace[key] = { count, percent: (count / total) * 100 };
       }
-      return { total, byRace, fromSnapshot: true };
+      return {
+        total,
+        byRace,
+        fromSnapshot: true,
+        conferido: snapshot?.conferido === true,
+      };
     }
   }
   return {
     total: CANDIDACY_FEMININE_2026_TOTAL,
     byRace: CANDIDACY_FEMININE_RACE_2026,
     fromSnapshot: false,
+    conferido: false,
   };
 }
+
 
 function MiniBar({
   count,
