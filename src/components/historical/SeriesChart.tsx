@@ -41,9 +41,9 @@ function UniverseColumn({
 
   return (
     <div>
-      <h4 className="font-mono text-[12px] uppercase tracking-[0.16em] text-plum">
+      <h3 className="font-mono text-[12px] uppercase tracking-[0.16em] text-plum">
         {UNIVERSE_LABEL[universe]}
-      </h4>
+      </h3>
 
       <div className="mt-4 flex items-end gap-3">
         {points.map((p) => (

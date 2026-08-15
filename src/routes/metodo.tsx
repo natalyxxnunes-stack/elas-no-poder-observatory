@@ -558,12 +558,17 @@ function MetodoPage() {
         {history.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[560px] border-collapse text-left">
+                <caption className="sr-only">
+                  Fotografias da base do TSE já processadas, com data de coleta,
+                  data de geração da base, número de registros e situação.
+                </caption>
               <thead>
                 <tr className="border-b border-rule">
                   {["Coleta", "Geração da base", "Registros", "Situação"].map(
                     (h) => (
                       <th
                         key={h}
+                        scope="col"
                         className="py-3 pr-4 font-mono text-[12px] uppercase tracking-wider text-muted-foreground"
                       >
                         {h}

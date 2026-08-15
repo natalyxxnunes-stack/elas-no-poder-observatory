@@ -299,7 +299,7 @@ function SobrePage() {
             <li key={c} className="poster-frame p-5">
               <span
                 aria-hidden
-                className="poster-figure block text-3xl text-coral md:text-4xl"
+                className="poster-figure block text-3xl text-coral-ink md:text-4xl"
               >
                 {String(i + 1).padStart(2, "0")}
               </span>

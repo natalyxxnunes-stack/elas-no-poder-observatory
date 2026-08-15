@@ -37,7 +37,7 @@ export function SiteFooter() {
           <p className="mt-5 max-w-md font-display text-xl leading-snug text-cream/90">
             “{COVER_QUESTION}”
           </p>
-          <p className="mt-4 max-w-md text-sm leading-relaxed text-cream/60">
+          <p className="mt-4 max-w-md text-sm leading-relaxed text-cream/75">
             {CENTRAL_THESIS}
           </p>
         </div>
@@ -61,9 +61,9 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-cream/15">
-        <div className="mx-auto max-w-6xl px-5 py-5 font-mono text-[12px] leading-relaxed text-cream/45 md:px-8">
+        <div className="mx-auto max-w-6xl px-5 py-5 font-mono text-[12px] leading-relaxed text-cream/70 md:px-8">
           {generated && (
-            <p className="text-cream/60">
+            <p className="text-cream/75">
               Última fotografia publicada: base gerada pelo TSE em {generated}
               {collected ? ` · coletada pelo observatório em ${collected}` : ""}.
             </p>

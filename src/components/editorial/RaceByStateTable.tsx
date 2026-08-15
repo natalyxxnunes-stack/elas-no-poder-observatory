@@ -117,15 +117,19 @@ export function RaceByStateTable({ snapshot }: { snapshot: PublicSnapshot | null
 
         <div className="mt-5 overflow-x-auto">
           <table className="w-full min-w-[720px] border-collapse text-left">
+            <caption className="sr-only">
+              Candidaturas de mulheres por unidade da federação e distribuição
+              por cor/raça declarada ao TSE.
+            </caption>
             <thead>
               <tr className="border-b-2 border-ink">
-                <th className="py-2 pr-3 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+                <th scope="col" className="py-2 pr-3 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                   UF
                 </th>
-                <th className="py-2 pr-3 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+                <th scope="col" className="py-2 pr-3 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                   Candidatas
                 </th>
-                <th className="py-2 pr-3 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+                <th scope="col" className="py-2 pr-3 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                   Distribuição por cor/raça
                 </th>
               </tr>

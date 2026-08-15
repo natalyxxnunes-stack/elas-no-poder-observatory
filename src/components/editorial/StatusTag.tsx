@@ -14,7 +14,7 @@ export function StatusTag({
       ? "border-plum text-plum"
       : tone === "limit"
         ? "border-muted-foreground text-muted-foreground"
-        : "border-coral text-coral";
+        : "border-coral text-coral-ink";
   return (
     <span
       className={`inline-flex items-center rounded-full border px-2.5 py-0.5 font-mono text-[12px] uppercase tracking-[0.14em] ${color}`}

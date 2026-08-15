@@ -175,7 +175,7 @@ export function HistoryFunnel() {
   return (
     <div className="space-y-8">
       <p className="font-display text-xl leading-snug text-ink md:text-2xl">
-        Olho: <span className="text-coral">Candidatar-se não é eleger-se.</span>
+        Olho: <span className="text-coral-ink">Candidatar-se não é eleger-se.</span>
       </p>
 
       <ol className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">

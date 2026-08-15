@@ -115,7 +115,7 @@ function FindingCard({
       <p className="poster-eyebrow text-ink">{tag}</p>
       {value ? (
         <>
-          <p className="poster-figure mt-4 text-[clamp(2.6rem,7vw,4rem)] text-coral">
+          <p className="poster-figure mt-4 text-[clamp(2.6rem,7vw,4rem)] text-coral-ink">
             {value}
           </p>
           <p className="mt-3 font-display text-lg leading-snug text-ink">
@@ -228,7 +228,7 @@ function DadosPage() {
         <div className="absolute inset-x-4 bottom-6 md:inset-x-0 md:bottom-14">
           <div className="mx-auto max-w-6xl md:px-8">
             <div className="max-w-xl rounded-lg border-2 border-ink bg-paper/95 p-5 shadow-[9px_9px_0_0_var(--color-plum)] backdrop-blur-sm md:max-w-2xl md:p-8">
-              <p className="poster-eyebrow border-coral text-coral">
+              <p className="poster-eyebrow border-coral text-coral-ink">
                 Edição atual · Eleições 2026 · Brasil
               </p>
               <h1 className="mt-4 font-display text-[clamp(1.6rem,5vw,3.1rem)] leading-[1.03] text-ink">
@@ -307,7 +307,7 @@ function DadosPage() {
                   </p>
                 </div>
                 <div>
-                  <p className="poster-figure text-3xl text-coral">
+                  <p className="poster-figure text-3xl text-coral-ink">
                     {maj ? nf(maj.feminine) : "—"}
                   </p>
                   <p className="mt-1 font-display text-base leading-snug text-ink">
@@ -515,7 +515,7 @@ function DadosPage() {
             <p className="mt-2 leading-relaxed text-muted-foreground">
               Presidência, governos estaduais e do Distrito Federal e Senado.
             </p>
-            <p className="mt-4 font-mono text-[12px] uppercase tracking-wider text-coral">
+            <p className="mt-4 font-mono text-[12px] uppercase tracking-wider text-coral-ink">
               sem a regra de composição de 30%–70% por gênero
             </p>
           </article>
