@@ -635,7 +635,25 @@ function MetodoPage() {
             denominador de cada universo eleitoral. Até lá, nenhum percentual por
             campo político é publicado.
           </GapNote>
+          <GapNote label="Cruzamento por partido: o que ele mede">
+            A tabela por partido em{" "}
+            <Link
+              to="/quem-sao-elas"
+              className="text-plum underline underline-offset-4"
+            >
+              Quem são elas?
+            </Link>{" "}
+            divide, dentro de cada universo, as candidaturas registradas como
+            femininas pelo total de candidaturas do mesmo partido. Nada é somado
+            entre universos. Abaixo de 20 candidaturas o percentual não é
+            exibido, só os absolutos. O recorte de cor/raça descreve apenas as
+            candidaturas de mulheres daquele partido e usa as categorias
+            declaradas ao TSE. A tabela mede composição de lista: não mede
+            recursos, posição na lista, votos nem eleitas — e a ordenação é
+            descritiva, não classificação de mérito.
+          </GapNote>
         </div>
+
         <p className="mt-6 font-mono text-[12px] text-muted-foreground">
           Como citar e política de correções em{" "}
           <Link to="/sobre" className="text-plum underline underline-offset-4">
