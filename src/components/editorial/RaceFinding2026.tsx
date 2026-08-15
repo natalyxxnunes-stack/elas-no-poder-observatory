@@ -60,13 +60,16 @@ function MiniBar({
   max,
   color,
   label,
+  category,
 }: {
   count: number;
   max: number;
   color: string;
   label: string;
+  category: RaceFindingCategory;
 }) {
   const width = max > 0 ? (count / max) * 100 : 0;
+  const isBranca = category === "branca";
   return (
     <div className="flex items-center gap-2">
       <span className="w-14 shrink-0 font-mono text-[9px] uppercase tracking-wider text-muted-foreground">
@@ -79,6 +82,7 @@ function MiniBar({
             width: count > 0 ? `${width}%` : "0%",
             background: color,
             minWidth: count > 0 ? "2px" : "0",
+            border: isBranca ? "1px solid var(--rule)" : "none",
           }}
         />
       </div>
@@ -107,14 +111,26 @@ function RacePair({
       </div>
 
       <div className="space-y-1.5">
-        <MiniBar count={pop.count} max={popMax} color={color} label="Pop." />
+        <MiniBar
+          count={pop.count}
+          max={popMax}
+          color={color}
+          label="Pop."
+          category={category}
+        />
         <p className="font-mono text-[11px] leading-tight text-muted-foreground">
-          {nf(pop.count)} · {pct(pop.percent)}
+          {n(pop.count)} · {pct(pop.percent)}
         </p>
       </div>
 
       <div className="space-y-1.5">
-        <MiniBar count={cand.count} max={candMax} color={color} label="Cand." />
+        <MiniBar
+          count={cand.count}
+          max={candMax}
+          color={color}
+          label="Cand."
+          category={category}
+        />
         <p className="font-mono text-[11px] leading-tight text-ink">
           {n(cand.count)} · {pct(cand.percent)}
         </p>
