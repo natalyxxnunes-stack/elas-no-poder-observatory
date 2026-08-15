@@ -7,6 +7,7 @@ import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
+import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 import { FunnelStages2026 } from "@/components/funnel/FunnelStages2026";
 import { PastStrip } from "@/components/funnel/PastStrip";
 import { FUNNEL_READING_RULE } from "@/data/architecture";
