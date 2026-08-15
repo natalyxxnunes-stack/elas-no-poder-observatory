@@ -175,3 +175,52 @@ export const HISTORICAL_FUNNEL: HistoricalFunnelYear[] = [
 
 export const HISTORICAL_FUNNEL_SOURCE =
   "TSE — candidatos e resultados 2014/2018/2022/2026";
+
+/* ------------------------------------------------------------------ *
+ * Taxa de eleição por gênero — indicador descritivo
+ *
+ * Numerador e denominador vêm das MESMAS fotografias históricas já gravadas
+ * pelo projeto (arquivos oficiais do TSE, 1º turno, eleições proporcionais:
+ * Câmara dos Deputados, assembleias legislativas e Câmara Legislativa do DF).
+ * Gênero é lido de DS_GENERO; resultado, de DS_SIT_TOT_TURNO.
+ *
+ * Cada taxa divide as pessoas eleitas de um gênero pelas candidaturas do MESMO
+ * gênero, ano e universo. Registros com gênero "não divulgável" (2018 e 2022)
+ * ficam fora das duas taxas e por isso a soma dos dois grupos não reconstitui o
+ * total do ano.
+ * ------------------------------------------------------------------ */
+
+export type ElectionRateRow = {
+  year: 2014 | 2018 | 2022;
+  /** candidaturas e eleitas de mulheres */
+  feminine: { candidacies: number; elected: number };
+  /** candidaturas e eleitos de homens */
+  masculine: { candidacies: number; elected: number };
+  /** ressalva específica do ano, quando existir */
+  caveat: string | null;
+};
+
+export const ELECTION_RATE_BY_GENDER: readonly ElectionRateRow[] = [
+  {
+    year: 2014,
+    feminine: { candidacies: 7930, elected: 170 },
+    masculine: { candidacies: 17237, elected: 1402 },
+    caveat: null,
+  },
+  {
+    year: 2018,
+    feminine: { candidacies: 8820, elected: 240 },
+    masculine: { candidacies: 18690, elected: 1332 },
+    caveat: null,
+  },
+  {
+    year: 2022,
+    feminine: { candidacies: 9532, elected: 267 },
+    masculine: { candidacies: 18422, elected: 1245 },
+    caveat:
+      "O arquivo oficial de 2022 não traz resultado para o Maranhão (60 cadeiras): as duas taxas do ano são calculadas sem essas cadeiras.",
+  },
+] as const;
+
+export const ELECTION_RATE_FORMULA =
+  "eleitas de um gênero ÷ candidaturas do mesmo gênero, no mesmo ano e universo × 100";
