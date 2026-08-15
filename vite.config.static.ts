@@ -24,7 +24,7 @@ export default defineConfig({
     spa: { enabled: true },
     // O shell também parte de "/", então a home precisa de um destino próprio
     // para que /index.html seja o HTML da home, com seu texto e seu head().
-    pages: [{ path: "/", prerender: { enabled: true, outputPath: "/index.html" } }],
+    pages: [{ path: "/", prerender: { enabled: true, outputPath: "/index" } }],
     prerender: {
       enabled: true,
       crawlLinks: true,
