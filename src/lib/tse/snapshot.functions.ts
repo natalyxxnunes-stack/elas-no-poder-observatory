@@ -214,13 +214,8 @@ function csvField(value: string | number): string {
  */
 export const getLatestTseSnapshotCsv = createServerFn({ method: "GET" }).handler(
   async (): Promise<{ fileName: string; content: string } | null> => {
-    const { data } = await client()
-      .from("tse_snapshots")
-      .select("*")
-      .or("status.eq.ok,and(status.eq.requer_conferencia,conferido.eq.true)")
-      .order("collected_at", { ascending: false })
-      .limit(1)
-      .maybeSingle();
+    const { data } = await publishedQuery(client(), "*").maybeSingle();
+
     if (!data) return null;
     const snap = toPublic(data);
 
