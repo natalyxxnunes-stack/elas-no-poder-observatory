@@ -52,6 +52,16 @@ export const Route = createFileRoute("/quem-sao-elas")({
 function QuemSaoElasPage() {
   const { snapshot } = Route.useLoaderData();
   const a = axis("quem-sao-elas");
+  // Carimbo da mesma fotografia que alimenta todas as visualizações da página.
+  const baseIso = snapshot?.baseGeneratedAt ?? snapshot?.collectedAt ?? null;
+  const baseStamp = baseIso
+    ? (() => {
+        const d = new Date(baseIso);
+        return Number.isNaN(d.getTime())
+          ? null
+          : d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+      })()
+    : null;
 
   return (
     <PageShell>
@@ -102,7 +112,8 @@ function QuemSaoElasPage() {
         }
         source={
           <>
-            Fonte: TSE · Candidaturas 2026 ·{" "}
+            Fonte: TSE · Candidaturas 2026
+            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
             <Link to="/metodo" className="text-plum underline underline-offset-4">
               ver o método
             </Link>
@@ -126,7 +137,8 @@ function QuemSaoElasPage() {
         }
         source={
           <>
-            Fonte: TSE · Candidaturas 2026 ·{" "}
+            Fonte: TSE · Candidaturas 2026
+            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
             <Link to="/metodo" className="text-plum underline underline-offset-4">
               ver o método
             </Link>
@@ -149,7 +161,8 @@ function QuemSaoElasPage() {
         }
         source={
           <>
-            Fonte: TSE · Candidaturas 2026 ·{" "}
+            Fonte: TSE · Candidaturas 2026
+            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
             <Link to="/metodo" className="text-plum underline underline-offset-4">
               ver o método
             </Link>
@@ -206,7 +219,8 @@ function QuemSaoElasPage() {
         }
         source={
           <>
-            Fonte: TSE · Candidaturas 2026 ·{" "}
+            Fonte: TSE · Candidaturas 2026
+            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
             <Link to="/metodo" className="text-plum underline underline-offset-4">
               ver o método
             </Link>
@@ -243,7 +257,8 @@ function QuemSaoElasPage() {
         }
         source={
           <>
-            Fonte: TSE · Candidaturas 2026 ·{" "}
+            Fonte: TSE · Candidaturas 2026
+            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
             <Link to="/metodo" className="text-plum underline underline-offset-4">
               ver o método
             </Link>
