@@ -90,6 +90,7 @@ export type Database = {
         Row: {
           anomalies: Json
           base_generated_at: string | null
+          brasil_csv_sha256: string | null
           collected_at: string
           columns_found: Json
           conferido: boolean
@@ -108,10 +109,12 @@ export type Database = {
           situation_values: Json
           status: string
           universes: Json
+          zip_sha256: string | null
         }
         Insert: {
           anomalies?: Json
           base_generated_at?: string | null
+          brasil_csv_sha256?: string | null
           collected_at?: string
           columns_found?: Json
           conferido?: boolean
@@ -130,10 +133,12 @@ export type Database = {
           situation_values?: Json
           status?: string
           universes?: Json
+          zip_sha256?: string | null
         }
         Update: {
           anomalies?: Json
           base_generated_at?: string | null
+          brasil_csv_sha256?: string | null
           collected_at?: string
           columns_found?: Json
           conferido?: boolean
@@ -152,6 +157,7 @@ export type Database = {
           situation_values?: Json
           status?: string
           universes?: Json
+          zip_sha256?: string | null
         }
         Relationships: []
       }
