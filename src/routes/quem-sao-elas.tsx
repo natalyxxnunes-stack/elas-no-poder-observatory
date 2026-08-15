@@ -7,6 +7,7 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { RaceExplorer } from "@/components/editorial/RaceExplorer";
 import { RaceByStateTable } from "@/components/editorial/RaceByStateTable";
+import { PartyGenderTable } from "@/components/editorial/PartyGenderTable";
 
 
 import { IntersectionPlan } from "@/components/editorial/IntersectionPlan";
@@ -212,7 +213,7 @@ function QuemSaoElasPage() {
         }
       >
         <PartyGenderTable snapshot={snapshot} />
-        <ContextBox label="Como ler">
+        <ContextBox variant="significa" title="Como ler">
           <p>
             O que o dado mostra: a proporção de mulheres entre as candidaturas
             registradas por cada partido, na data desta fotografia. O que ele não
