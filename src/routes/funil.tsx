@@ -98,16 +98,21 @@ function FunilPage() {
         <InBrief
           found={
             <>
-              Nas candidaturas proporcionais de 2026, a participação de mulheres
-              é bem maior do que nas majoritárias — os dois universos seguem
-              regras diferentes e são contados separadamente.
+              Nas candidaturas{" "}
+              <GlossaryTerm term="proporcional">proporcionais</GlossaryTerm> de
+              2026 — as que elegem vários nomes para um mesmo parlamento — a
+              participação de mulheres é bem maior do que nas{" "}
+              <GlossaryTerm term="majoritaria">majoritárias</GlossaryTerm>, que
+              elegem uma pessoa por cargo. Os dois grupos são contados
+              separadamente.
             </>
           }
           matters={
             <>
               O cargo em disputa muda o tamanho da porta. Entrar numa lista
-              proporcional é diferente de ser a única candidata de um partido ou
-              federação a um governo, ao Senado ou à Presidência.
+              proporcional é diferente de ser a única candidata de um partido ou{" "}
+              <GlossaryTerm term="federacao">federação</GlossaryTerm> a um
+              governo, ao Senado ou à Presidência.
             </>
           }
           unknown={
