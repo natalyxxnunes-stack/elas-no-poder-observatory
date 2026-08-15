@@ -70,6 +70,86 @@ function SobrePage() {
         }
       />
 
+      {/* Ficha do projeto — cartão institucional escaneável no topo da página */}
+      <section className="py-8 md:py-10">
+        <div className="poster-frame p-5 md:p-7">
+          <p className="kicker">Ficha do projeto</p>
+          <dl className="mt-5 grid gap-6 md:grid-cols-2 md:gap-x-8 md:gap-y-6">
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                Responsável editorial
+              </dt>
+              <dd className="mt-1 text-ink">Nataly Nunes, jornalista</dd>
+            </div>
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                O que é
+              </dt>
+              <dd className="mt-1 text-ink">
+                Observatório independente de jornalismo de dados sobre mulheres,
+                eleições e poder no Brasil
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                Fontes primárias
+              </dt>
+              <dd className="mt-1 text-ink">
+                Dados abertos do TSE (candidaturas e resultados); Censo 2022 /
+                IBGE (referência populacional)
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                Atualização
+              </dt>
+              <dd className="mt-1 text-ink">
+                Por fotografias datadas, ao longo do ciclo eleitoral de 2026
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                Método
+              </dt>
+              <dd className="mt-1 text-ink">
+                Aberto e conferível: cada número tem fonte, denominador e data
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                Uso de IA
+              </dt>
+              <dd className="mt-1 text-ink">
+                Ferramenta de apoio (pesquisa, código, análise), sob direção
+                editorial humana; sem geração de dados
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                Correções
+              </dt>
+              <dd className="mt-1 text-ink">
+                Registradas de forma transparente, com data
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                Contato
+              </dt>
+              <dd className="mt-1 text-ink">
+                <a
+                  href="mailto:contato@quemsaoelas.com.br"
+                  className="text-plum underline underline-offset-4"
+                >
+                  contato@quemsaoelas.com.br
+                </a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+
       <SectionBlock
         kicker="Quem faz"
         question="Um projeto independente, feito por mim"
