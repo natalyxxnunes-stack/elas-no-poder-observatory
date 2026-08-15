@@ -68,6 +68,7 @@ function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: s
 
 function StageColumn({
   label,
+  heading,
   femininePercent,
   feminine,
   total,
@@ -76,6 +77,7 @@ function StageColumn({
   emptyLabel,
 }: {
   label: string;
+  heading: string;
   femininePercent: number;
   feminine: number;
   total: number;
@@ -86,7 +88,7 @@ function StageColumn({
   return (
     <div className="flex flex-col">
       <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-        {label}
+        {heading}
       </p>
       <p className={`poster-figure mt-1 text-3xl leading-none ${empty ? "text-muted-foreground" : "text-plum"} md:text-4xl`}>
         {empty ? "—" : pct(femininePercent)}
@@ -101,8 +103,8 @@ function StageColumn({
         role="img"
         aria-label={
           empty
-            ? `${label} ainda não disponível`
-            : `${pct(femininePercent)} de mulheres na ${label.toLowerCase()}: ${n(feminine)} de ${n(total)}`
+            ? `${heading} ainda não disponível`
+            : `${pct(femininePercent)} de mulheres na ${heading.toLowerCase()}: ${n(feminine)} de ${n(total)}`
         }
       >
         {empty ? (
@@ -137,6 +139,7 @@ function YearCard({ year }: { year: (typeof HISTORICAL_FUNNEL)[number] }) {
       <div className="mt-6 grid gap-6">
         <StageColumn
           label="Candidatura"
+          heading="Mulheres nas candidaturas"
           femininePercent={year.candidacy.femininePercent}
           feminine={year.candidacy.feminine}
           total={year.candidacy.total}
@@ -145,6 +148,7 @@ function YearCard({ year }: { year: (typeof HISTORICAL_FUNNEL)[number] }) {
         {year.elected ? (
           <StageColumn
             label="Eleição"
+            heading="Mulheres eleitas"
             femininePercent={year.elected.femininePercent}
             feminine={year.elected.feminine}
             total={year.elected.total}
@@ -153,6 +157,7 @@ function YearCard({ year }: { year: (typeof HISTORICAL_FUNNEL)[number] }) {
         ) : (
           <StageColumn
             label="Eleição"
+            heading="Mulheres eleitas"
             femininePercent={0}
             feminine={0}
             total={0}
@@ -208,7 +213,7 @@ export function HistoryFunnel() {
       </div>
 
       <p className="font-mono text-[11px] leading-relaxed text-muted-foreground">
-        Ressalva: cada ano e cada etapa têm denominador próprio; percentuais não se
+        Recorte: Câmara dos Deputados, Assembleias Legislativas e Câmara Legislativa do DF — eleições proporcionais, 1º turno. Não inclui Senado, governos estaduais ou Presidência. Por isso os totais podem diferir de estatísticas do TSE que somam o Legislativo inteiro: aqui se conta a cadeira proporcional, não a suplência nem o Senado. Ressalva: cada ano e cada etapa têm denominador próprio; percentuais não se
         somam. Cor/raça é autodeclarada, nas categorias do TSE, coletada desde 2014 — a
         qualidade do preenchimento varia entre ciclos e, em 2014, não há registros “não
         informado”. Categorias com poucas candidaturas ou eleitas devem ser lidas pelo
