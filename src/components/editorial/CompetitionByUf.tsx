@@ -48,6 +48,8 @@ function brDate(iso: string | null | undefined): string | null {
 export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null }) {
   const [universe, setUniverse] = useState<UniverseId>("proporcional");
   const [sortBy, setSortBy] = useState<"uf" | "concorrencia">("uf");
+  const baseStamp = brDate(snapshot?.baseGeneratedAt ?? snapshot?.collectedAt);
+
 
   const data = useMemo(() => {
     const dims = snapshot?.universes[universe]?.dimensions;
