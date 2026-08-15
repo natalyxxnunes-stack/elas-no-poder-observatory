@@ -831,7 +831,11 @@ function MetodoPage() {
                     </td>
                     <td className="py-3 font-mono text-xs text-muted-foreground">
                       {statusLabel(s)}
+                      {snapshot && s.id === snapshot.id ? (
+                        <span className="text-ink"> · no ar</span>
+                      ) : null}
                     </td>
+
 
                   </tr>
                 ))}
