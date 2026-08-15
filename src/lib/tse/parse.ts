@@ -395,6 +395,9 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
     bump(tally.dimensions.totalByUf, row.uf);
     bump(tally.dimensions.totalByParty, row.partido);
     bump(tally.dimensions.totalByAgremiacao, row.agremiacao);
+    const ufKey = row.uf || "NÃO INFORMADO";
+    const partyKey = row.partido || "NÃO INFORMADO";
+    bump(tally.dimensions.totalByUfParty, `${ufKey}|${partyKey}`);
     if (isFeminine(row.genero)) {
       tally.feminine += 1;
       const race = row.corRaca || "NÃO INFORMADO";
@@ -402,8 +405,9 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
       bump(tally.dimensions.feminineByUf, row.uf);
       bump(tally.dimensions.feminineByParty, row.partido);
       bump(tally.dimensions.feminineByAgremiacao, row.agremiacao);
-      const uf = row.uf || "NÃO INFORMADO";
-      const party = row.partido || "NÃO INFORMADO";
+      const uf = ufKey;
+      const party = partyKey;
+      bump(tally.dimensions.feminineByUfParty, `${uf}|${party}`);
       bump2(tally.dimensions.raceByParty, party, race);
       bump2(tally.dimensions.raceByUf, uf, race);
       bump2(tally.dimensions.raceByUfParty, `${uf}|${party}`, race);
