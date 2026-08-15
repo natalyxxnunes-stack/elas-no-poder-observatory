@@ -64,9 +64,10 @@ function QuemSaoElasPage() {
           found={
             <>
               As candidaturas de mulheres registradas em 2026 se distribuem de
-              forma desigual entre as categorias de cor/raça declaradas ao TSE, e
-              essa distribuição muda entre o universo proporcional e o
-              majoritário.
+              forma desigual entre as categorias de cor/raça declaradas ao TSE.
+              Essa distribuição também muda entre o universo{" "}
+              <GlossaryTerm term="proporcional">proporcional</GlossaryTerm> e o{" "}
+              <GlossaryTerm term="majoritaria">majoritário</GlossaryTerm>.
             </>
           }
           matters={
