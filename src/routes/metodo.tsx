@@ -123,7 +123,7 @@ const PLAIN_STEPS: { step: string; body: React.ReactNode }[] = [
   },
   {
     step: "6. O que falta fica declarado",
-    body: "Recursos, votos, eleitas e poder ainda não têm base disponível para 2026. Onde falta dado, aparece a lacuna, com o motivo e a fonte que ainda falta.",
+    body: "Onde falta dado, aparece a lacuna, com o motivo e a fonte que ainda falta — nunca um número provisório no lugar.",
   },
 ];
 
