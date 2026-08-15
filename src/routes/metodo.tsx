@@ -788,9 +788,12 @@ function MetodoPage() {
         lead={
           <p>
             Cada atualização gera uma fotografia nova; nenhuma é sobrescrita. Assim
-            é possível saber qual base sustentava um número em determinada data.
+            é possível saber qual base sustentava um número em determinada data. Só
+            a fotografia conferida manualmente vai ao ar — a mais recente pode estar
+            coletada e ainda retida.
           </p>
         }
+
       >
         {history.length > 0 ? (
           <div className="overflow-x-auto">
