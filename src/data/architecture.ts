@@ -200,9 +200,9 @@ export const AXES: readonly Axis[] = [
     label: "Downloads",
     question: "O que posso levar daqui?",
     summary:
-      "Cartilhas, materiais educativos, infográficos e PDFs para impressão e compartilhamento.",
+      "Cartilhas, materiais educativos e infográficos para impressão e compartilhamento. A tabela da fotografia vigente já sai pelo Método.",
     dimensions: ["materiais"],
-    unpublishedReason: "Materiais em preparação.",
+    unpublishedReason: "Cartilhas e infográficos em preparação.",
     state: "arquitetura preparada",
   },
 ];
