@@ -97,6 +97,7 @@ function toPublic(row: any): PublicSnapshot {
     processingVersion: row.processing_version,
     filters: Array.isArray(row.filters) ? row.filters : [],
     situationValues: row.situation_values ?? {},
+    outOfUniverse: row.out_of_universe ?? null,
     universes: {
       proporcional: row.universes?.proporcional ?? {
         feminine: 0,
