@@ -1,7 +1,7 @@
 /**
  * Endpoint de coleta das fotografias históricas (2014, 2018, 2022).
  *
- * Chamado manualmente/por agendamento com a chave publicável no header
+ * Chamado manualmente/por agendamento com o segredo de servidor CRON_SECRET no header
  * `apikey`. Eleições encerradas: a coleta só precisa ser repetida se o TSE
  * republicar o pacote. Não devolve dados pessoais.
  */

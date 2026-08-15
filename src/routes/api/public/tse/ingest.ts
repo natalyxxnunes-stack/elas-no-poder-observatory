@@ -1,7 +1,7 @@
 /**
  * Endpoint de coleta diária da base do TSE.
  *
- * Chamado por agendamento (pg_cron) com a chave publicável no header `apikey`.
+ * Chamado por agendamento (pg_cron) com o segredo de servidor CRON_SECRET no header `apikey`.
  * Executa a ingestão e grava um novo snapshot. Não devolve dados pessoais.
  */
 import { createFileRoute } from "@tanstack/react-router";
