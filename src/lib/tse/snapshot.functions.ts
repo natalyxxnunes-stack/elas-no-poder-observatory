@@ -270,13 +270,11 @@ export const getSnapshotStamp = createServerFn({ method: "GET" }).handler(
     baseGeneratedAt: string | null;
     collectedAt: string;
   } | null> => {
-    const { data } = await client()
-      .from("tse_snapshots")
-      .select("base_generated_at, collected_at")
-      .or("status.eq.ok,and(status.eq.requer_conferencia,conferido.eq.true)")
-      .order("collected_at", { ascending: false })
-      .limit(1)
-      .maybeSingle();
+    const { data } = await publishedQuery(
+      client(),
+      "base_generated_at, collected_at",
+    ).maybeSingle();
+
     if (!data) return null;
     return {
       baseGeneratedAt: data.base_generated_at ?? null,
