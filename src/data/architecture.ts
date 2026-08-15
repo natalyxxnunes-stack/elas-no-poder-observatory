@@ -232,6 +232,7 @@ export const NAV_ITEMS = [
   navItem("direitos"),
   navItem("metodo"),
   navItem("sobre"),
+  navItem("downloads"),
 ] as const;
 
 /** Eixos publicados no lançamento. */

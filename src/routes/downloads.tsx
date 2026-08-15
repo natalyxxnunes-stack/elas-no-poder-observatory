@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -10,9 +9,10 @@ import { GapNote } from "@/components/GapNote";
 import timelineImage from "@/assets/timeline-editorial.png";
 
 /**
- * ROTA DESPUBLICADA (lançamento de 5 páginas).
- * Arquivo preservado intencionalmente para republicação futura: o conteúdo e os
- * componentes seguem intactos, apenas o acesso público está redirecionado.
+ * ROTA PUBLICADA como página em construção.
+ * O catálogo de materiais está visível e identifica o tipo, público, formato e
+ * status de cada item. Nenhum link falso é exibido: arquivos ainda não
+ * publicados aparecem como "em preparação".
  */
 export const Route = createFileRoute("/downloads")({
   head: () => ({
@@ -32,10 +32,10 @@ export const Route = createFileRoute("/downloads")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => <UnpublishedAxis axisId="downloads" />,
+  component: DownloadsPage,
 });
 
-/* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
+/* Conteúdo publicado como catálogo de materiais em preparação. */
 
 /**
  * Catálogo de materiais. Estrutura preparada para gestão futura por CMS:
