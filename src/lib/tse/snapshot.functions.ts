@@ -147,43 +147,31 @@ function toPublic(row: any): PublicSnapshot {
 }
 
 /**
- * Fotografia mais recente publicável: status `ok`, ou `requer_conferencia`
- * já liberada por conferência manual (`conferido = true`). `invalido` e
- * fotografias retidas sem conferência nunca são publicadas.
+ * Fotografia mais recente publicável: apenas fotografias conferidas
+ * manualmente (`conferido = true`) com status `ok` ou `requer_conferencia`.
+ * Uma coleta com `status = ok` e sem conferência fica retida, não vigente.
  */
 export const getLatestTseSnapshot = createServerFn({ method: "GET" }).handler(
   async (): Promise<PublicSnapshot | null> => {
-    const { data } = await client()
-      .from("tse_snapshots")
-      .select("*")
-      .or("status.eq.ok,and(status.eq.requer_conferencia,conferido.eq.true)")
-      .order("collected_at", { ascending: false })
-      .limit(1)
-      .maybeSingle();
+    const { data } = await publishedQuery(client(), "*").maybeSingle();
     return data ? toPublic(data) : null;
   },
 );
 
 /**
- * Data da fotografia retida em conferência, quando ela for mais recente que a
- * fotografia publicada. Serve apenas para informar, de forma factual, que há
- * atualização em conferência. Sem pendência, devolve null.
+ * Data da fotografia retida aguardando conferência, quando ela for mais
+ * recente que a fotografia vigente. Serve apenas para informar, de forma
+ * factual, que há atualização em conferência. Sem pendência, devolve null.
  */
 export const getPendingReviewBaseDate = createServerFn({ method: "GET" }).handler(
   async (): Promise<string | null> => {
     const db = client();
     const [{ data: published }, { data: pending }] = await Promise.all([
+      publishedQuery(db, "base_generated_at").maybeSingle(),
       db
         .from("tse_snapshots")
         .select("base_generated_at")
-        .or("status.eq.ok,and(status.eq.requer_conferencia,conferido.eq.true)")
-        .order("collected_at", { ascending: false })
-        .limit(1)
-        .maybeSingle(),
-      db
-        .from("tse_snapshots")
-        .select("base_generated_at")
-        .eq("status", "requer_conferencia")
+        .in("status", ["ok", "requer_conferencia"])
         .eq("conferido", false)
         .order("collected_at", { ascending: false })
         .limit(1)
@@ -198,6 +186,7 @@ export const getPendingReviewBaseDate = createServerFn({ method: "GET" }).handle
     return pendingDate;
   },
 );
+
 
 
 /** Histórico de fotografias, do mais recente para o mais antigo. */
