@@ -224,7 +224,7 @@ export function RaceFinding2026({
         proporcionais de 2026
         {fromSnapshot ? " (lidas do snapshot conferido)" : ""}; população
         feminina 104,5 milhões (Censo 2022). Cor/raça autodeclarada, nas
-        categorias do IBGE/TSE; Preta e parda são lidas separadamente; quando somadas como população negra, a soma é declarada. A
+        categorias do IBGE/TSE. Preta e parda são lidas separadamente; quando somadas como população negra, a soma é declarada. A
         comparação entre candidaturas (TSE proporcional 2026) e população
         feminina (Censo 2022) são dois retratos, cada um com seu denominador;
         leitura descritiva, não causal. Indígenas e amarelas: poucas
