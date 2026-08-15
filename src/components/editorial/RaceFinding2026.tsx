@@ -195,25 +195,25 @@ export function RaceFinding2026({
           <article className="poster-frame p-5">
             <h3 className="font-display text-xl text-ink">O que o número mostra</h3>
             <p className="mt-3 leading-relaxed text-ink/70">
-              No Brasil, mulheres pardas e brancas são quase do mesmo tamanho: 44,8% e 44,4% das brasileiras, no Censo de 2022. Entre as candidaturas de mulheres às proporcionais de 2026, não é o que se vê: as brancas são 46% das candidatas, e as pardas, 34,9%. O maior grupo de mulheres do país é o que mais encolhe quando se passa da população para a disputa — a candidatura parda fica quase dez pontos abaixo do tamanho da população parda feminina. Nenhum outro grupo perde tanto.
+              No Censo de 2022, mulheres pardas e brancas têm quase o mesmo tamanho: 44,8% e 44,4% das brasileiras. Entre as candidaturas de mulheres às proporcionais de 2026, brancas são 46% e pardas 34,9%. A candidatura parda fica quase dez pontos abaixo do tamanho da população parda feminina — a maior distância entre os cinco grupos. A candidatura preta aparece no sentido oposto: 17,4% das candidatas, contra 9,7% da população feminina.
             </p>
           </article>
 
           <article className="poster-frame p-5">
             <h3 className="font-display text-xl text-ink">
-              Por que o maior grupo é o que mais some
+              Como lemos esse número
             </h3>
             <p className="mt-3 leading-relaxed text-ink/70">
-              {"Olhar só o total esconde a questão. Somadas, pretas e pardas são a maioria das mulheres do país — mas o total apaga que os dois grupos se comportam de formas opostas na disputa. A candidatura preta aparece acima do peso populacional: 17,4% das candidatas, contra 9,7% da população. A parda desaba. No Brasil, \"parda\" é a categoria onde a cor mais se dissolve, na ideia de que aqui seríamos todos misturados — e é por ser o maior grupo, e o mais difuso, que a candidatura parda encolhe quase dez pontos sem que ninguém note. A distância só aparece quando se coloca o número ao lado da população."}
+              Esta é a nossa leitura, não um resultado do dado: olhar só o total esconde a questão. Somadas, pretas e pardas são a maioria das mulheres do país, e esse total apaga que os dois grupos aparecem em direções opostas na disputa. É por isso que aqui as categorias ficam separadas. A distância parda só fica visível quando o número da candidatura é colocado ao lado do da população.
             </p>
           </article>
 
           <article className="poster-frame p-5">
             <h3 className="font-display text-xl text-ink">
-              O número que parece dizer o contrário
+              O que ainda precisa ser investigado
             </h3>
             <p className="mt-3 leading-relaxed text-ink/70">
-              A candidatura preta acima do peso não é sinal de que o racismo afrouxou, e não deve ser lida assim. É o degrau mais baixo da disputa: estar na lista não é receber recursos, tempo de televisão, voto — nem chegar ao poder. A candidatura é a porta; este observatório acompanha o caminho até a sala. Medir só a entrada é parar onde a investigação começa. A seção seguinte — o funil — mostra o que a urna faz com essa presença.
+              Por que a candidatura parda fica abaixo do peso populacional, esta comparação não responde — declaração de cor/raça, seleção partidária e composição de listas são hipóteses a testar com outras fontes. Também não sabemos o que acontece depois: candidatura preta acima do peso populacional é o degrau mais baixo da disputa, e estar na lista não é receber recursos, tempo de televisão, voto ou cadeira. Esses dados de 2026 ainda não existem.
             </p>
           </article>
         </div>

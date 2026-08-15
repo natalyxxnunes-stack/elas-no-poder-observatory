@@ -195,20 +195,6 @@ function IndicatorCard({ indicator }: { indicator: Indicator }) {
   );
 }
 
-const INVESTIGATION_PLAN = [
-  {
-    n: "01",
-    text: "Fechar o dicionário de partidos e federações da base de 2026 antes de qualquer agrupamento por campo político.",
-  },
-  {
-    n: "02",
-    text: "Publicar o critério de classificação com fonte externa citável, e não uma leitura própria de conveniência.",
-  },
-  {
-    n: "03",
-    text: "Só então cruzar candidaturas de mulheres por campo, sempre com denominador por universo eleitoral.",
-  },
-];
 
 function DadosPage() {
   const { snapshot, pendingReviewBaseDate } = Route.useLoaderData();
@@ -343,8 +329,8 @@ function DadosPage() {
                   Esta é a primeira fotografia comparável do ciclo de 2026.
                   Fotografia da base de {baseDate ?? "data em atualização"} —
                   provisória: o registro ainda pode mudar por decisão da Justiça
-                  Eleitoral. Os dois universos têm denominadores próprios e não
-                  são somados.
+                  Eleitoral. Proporcional e majoritário são contados
+                  separadamente.
                 </p>
               </div>
             </>
@@ -365,11 +351,16 @@ function DadosPage() {
 
       {/* 3. TRÊS ACHADOS */}
       <section className="rule-top py-12 md:py-14">
-        <p className="kicker">Três achados desta fotografia</p>
+        <p className="kicker">2026 · fotografia em andamento</p>
         <h2 className="mt-3 max-w-3xl font-display text-[clamp(1.6rem,4.2vw,2.5rem)] leading-tight text-ink">
           O que os registros{" "}
           <span className="text-plum italic">permitem dizer agora</span>
         </h2>
+        <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
+          Tudo nesta parte da página é quem pediu registro para disputar 2026 —
+          quem entrou na disputa. Não há resultado eleitoral aqui: a eleição
+          acontece em novembro de 2026.
+        </p>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           <FindingCard
             tag="Entrada proporcional"
@@ -394,11 +385,13 @@ function DadosPage() {
             value={uf ? formatPercent(uf.share) : null}
             meaning={
               uf
-                ? `maior presença feminina proporcional entre as unidades da federação: ${uf.uf}`
-                : "maior presença feminina proporcional entre as unidades da federação"
+                ? `maior proporção de candidaturas femininas nas proporcionais entre as unidades da federação: ${uf.uf}`
+                : "maior proporção de candidaturas femininas nas proporcionais entre as unidades da federação"
             }
             denominator={
-              uf ? `${nf(uf.f)} de ${nf(uf.t)} candidaturas em ${uf.uf}` : null
+              uf
+                ? `${nf(uf.f)} de ${nf(uf.t)} candidaturas em ${uf.uf} · composição das listas registradas, não desempenho eleitoral`
+                : null
             }
             date={baseDate}
           />
@@ -420,71 +413,65 @@ function DadosPage() {
 
       </section>
 
-      {/* 4. INVESTIGAÇÃO CENTRAL — bloco amarelo chapado */}
-      <section className="my-10 rounded-lg border-2 border-ink bg-solar px-5 py-12 text-ink shadow-[7px_7px_0_0_var(--color-ink)] md:px-10 md:py-14">
-        <div className="flex flex-wrap items-center gap-3">
-          <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-plum">
-            Investigação central
-          </p>
-          <span className="poster-eyebrow bg-ink text-cream">
-            Em apuração metodológica
-          </span>
-        </div>
-        <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.6rem,4.4vw,2.6rem)] leading-tight">
-          As candidaturas de mulheres não se distribuem igualmente entre os
-          campos políticos —{" "}
-          <span className="text-plum italic">
-            mas isso só será publicado com critério auditável.
-          </span>
-        </h2>
-        <p className="mt-4 max-w-2xl leading-relaxed text-ink/80">
-          A base do TSE traz partido e forma de agremiação, não campo
-          ideológico. Qualquer agrupamento por campo é uma classificação
-          editorial, e por isso ela precisa de critério declarado antes de
-          qualquer número. Até lá, não publicamos percentual por campo.
-        </p>
-        <ol className="mt-8 grid gap-4 md:grid-cols-3">
-          {INVESTIGATION_PLAN.map((item) => (
-            <li key={item.n} className="border-t-2 border-ink pt-3">
-              <span className="poster-figure text-2xl text-plum">{item.n}</span>
-              <p className="mt-2 text-sm leading-relaxed text-ink/85">
-                {item.text}
-              </p>
-            </li>
-          ))}
-        </ol>
-      </section>
       
+
+      {/* CONTEXTO HISTÓRICO — ELEIÇÕES FECHADAS */}
+      <SectionBlock
+        kicker="Eleições já encerradas · 2014 · 2018 · 2022"
+        question="O que aconteceu depois da candidatura, nas eleições que já terminaram."
+        lead={
+          <>
+            <p>
+              Aqui não se trata de 2026. São três eleições concluídas, com
+              resultado publicado, que mostram o que acontece entre entrar na
+              disputa e ocupar a cadeira.
+            </p>
+            <p>
+              Em 2022, mulheres foram 34,1% das candidaturas proporcionais e
+              17,7% das eleitas no 1º turno. Em 2026, são 35,3% das candidaturas
+              proporcionais — e o resultado ainda não existe, porque a eleição
+              acontece em novembro. São dois momentos diferentes: um já
+              terminou, o outro está começando; a comparação é de entrada com
+              entrada.
+            </p>
+          </>
+        }
+        source="Fonte: TSE — candidatos e resultados 2014/2018/2022/2026"
+      >
+        <HistoryFunnel />
+      </SectionBlock>
 
       {/* O ACHADO RACIAL DE 2026 */}
       <SectionBlock
         kicker="O achado racial de 2026"
-        question="Dois retratos da mesma cor, com denominadores diferentes."
+        question="Dois retratos da mesma cor, lado a lado."
         lead={
           <p>
-            População feminina (Censo 2022) × candidaturas de mulheres às
-            proporcionais de 2026 (TSE). A comparação é descritiva: dois
-            retratos, cada um com seu denominador.
+            De um lado, as mulheres brasileiras no Censo de 2022. Do outro, as
+            candidaturas de mulheres às proporcionais de 2026 (TSE). São
+            contagens distintas, colocadas lado a lado para comparar tamanhos.
           </p>
         }
       >
         <RaceFinding2026 snapshot={snapshot} />
       </SectionBlock>
 
-      {/* CONTEXTO HISTÓRICO */}
+      {/* QUEM SÃO ELAS */}
       <SectionBlock
-        kicker="Como isso se compara ao passado"
-        question="O funil se repete: mais mulheres entram do que chegam."
-        lead={
-          <p>
-            Candidatura e eleição não são a mesma coisa. Para cada ano fechado,
-            o funil mostra a participação feminina no registro e a participação
-            feminina entre as eleitas — com o recorte de raça por dentro.
-          </p>
+        kicker="Quem são elas?"
+        question="Não existe uma candidata média."
+        align="wide"
+        lead={<p>{CENTRAL_PRINCIPLE}</p>}
+        source={
+          <>
+            Fonte: TSE · Candidaturas 2026 ·{" "}
+            <Link to="/metodo" className="text-plum underline underline-offset-4">
+              ver o método
+            </Link>
+          </>
         }
-        source="Fonte: TSE — candidatos e resultados 2014/2018/2022/2026"
       >
-        <HistoryFunnel />
+        <RaceBreakdown snapshot={snapshot} />
       </SectionBlock>
 
       {/* DOIS UNIVERSOS — bloco colorido */}
@@ -544,8 +531,10 @@ function DadosPage() {
         align="wide"
         lead={
           <p>
-            Contexto, competição e poder. Cada etapa tem universo, denominador e
-            fonte próprios: o funil organiza perguntas, não uma subtração.
+            “Funil” aqui é o roteiro de perguntas que este observatório persegue
+            — contexto, competição e poder —, não uma medição do que aconteceu em
+            2026: o resultado de 2026 ainda não existe. Cada etapa tem sua
+            própria fonte e será publicada quando essa fonte existir.
           </p>
         }
       >
@@ -585,23 +574,6 @@ function DadosPage() {
         </Link>
       </SectionBlock>
 
-      {/* QUEM SÃO ELAS */}
-      <SectionBlock
-        kicker="Quem são elas?"
-        question="Não existe uma candidata média."
-        align="wide"
-        lead={<p>{CENTRAL_PRINCIPLE}</p>}
-        source={
-          <>
-            Fonte: TSE · Candidaturas 2026 ·{" "}
-            <Link to="/metodo" className="text-plum underline underline-offset-4">
-              ver o método
-            </Link>
-          </>
-        }
-      >
-        <RaceBreakdown snapshot={snapshot} />
-      </SectionBlock>
 
       {/* COMO SABEMOS */}
       <SectionBlock
