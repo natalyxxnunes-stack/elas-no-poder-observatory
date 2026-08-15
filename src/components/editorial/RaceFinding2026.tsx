@@ -145,7 +145,7 @@ export function RaceFinding2026({
 }: {
   snapshot: PublicSnapshot | null;
 }) {
-  const { total, byRace, fromSnapshot } = getCandidateData(snapshot);
+  const { total, byRace, fromSnapshot, conferido } = getCandidateData(snapshot);
 
   const popMax = Math.max(
     ...RACE_FINDING_CATEGORIES.map((k) => POPULATION_RACE_FEMININE_2022[k].count),
@@ -155,6 +155,26 @@ export function RaceFinding2026({
     ...RACE_FINDING_CATEGORIES.map((k) => byRace[k].count),
     1,
   );
+
+  // Texto e gráfico leem os MESMOS valores: nada de número fixo no corpo.
+  const popParda = POPULATION_RACE_FEMININE_2022.parda;
+  const popBranca = POPULATION_RACE_FEMININE_2022.branca;
+  const popPreta = POPULATION_RACE_FEMININE_2022.preta;
+  const candParda = byRace.parda;
+  const candBranca = byRace.branca;
+  const candPreta = byRace.preta;
+  const gapParda = candParda.percent - popParda.percent;
+  const pp = (v: number) =>
+    `${Math.abs(v).toLocaleString("pt-BR", {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    })} p.p.`;
+  const sourceLabel = fromSnapshot
+    ? conferido
+      ? "fotografia vigente conferida"
+      : "fotografia vigente"
+    : "conferência manual dos valores curados contra o TSE";
+
 
   return (
     <div className="space-y-8">
