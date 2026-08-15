@@ -28,6 +28,7 @@ import {
 } from "@/lib/tse/snapshot.functions";
 
 import { HistoryFunnel } from "@/components/historical/HistoryFunnel";
+import { ElectionRateByGender } from "@/components/historical/ElectionRateByGender";
 
 import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
 import topoAsset from "@/assets/mulheresnotopo.webp.asset.json";
