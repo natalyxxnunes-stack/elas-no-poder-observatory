@@ -207,6 +207,7 @@ export async function runIngest(
       situation_values: acc.situationValues,
       universes: acc.universes,
       indicators,
+      out_of_universe: acc.outOfUniverse,
       anomalies: validation.anomalies,
       notes: `Dicionário de dados ${DICTIONARY_VERSION} (inspeção de cabeçalho real em ${INSPECTED_AT}). Unidade de análise deduplicada por SQ_CANDIDATO: ${acc.distinctCandidacies} candidaturas distintas a partir de ${acc.rawLineCount} linhas brutas (${acc.duplicateRows} linhas duplicadas e ${acc.rowsWithoutKey} sem chave, descartadas dos cálculos). Linhas fora dos universos analisados: ${acc.outOfScope}. Data da fotografia lida de DT_GERACAO/HH_GERACAO do arquivo Candidatos.${validation.notes.length > 0 ? ` Notas de rotina: ${validation.notes.join(" | ")}` : ""}`,
     })
