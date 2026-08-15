@@ -1,4 +1,5 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -17,9 +18,6 @@ import spotQuota from "@/assets/spot-quota.png";
  * componentes seguem intactos, apenas o acesso público está redirecionado.
  */
 export const Route = createFileRoute("/dinheiro")({
-  beforeLoad: () => {
-    throw redirect({ to: "/" });
-  },
   head: () => ({
     meta: [
       { title: "Dinheiro — Quem são elas? | Quem recebe condições para competir" },
@@ -38,8 +36,10 @@ export const Route = createFileRoute("/dinheiro")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: DinheiroPage,
+  component: () => <UnpublishedAxis axisId="dinheiro" />,
 });
+
+/* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
 
 /** Camadas de apuração financeira previstas, na ordem em que serão abertas. */
 const MONEY_LAYERS = [
@@ -54,8 +54,7 @@ const MONEY_LAYERS = [
     id: "partido",
     label: "Recursos por partido ou federação",
     question: "Como cada partido distribui internamente o que recebe?",
-    needs:
-      "Repasses partidários por candidatura, com denominador do próprio partido",
+    needs: "Repasses partidários por candidatura, com denominador do próprio partido",
   },
   {
     id: "cargo",
@@ -79,8 +78,7 @@ const MONEY_LAYERS = [
     id: "competitividade",
     label: "Recursos e competitividade",
     question: "Recursos acompanham as candidaturas com mais chance de disputar?",
-    needs:
-      "Indicador de competitividade previamente definido e publicado no método",
+    needs: "Indicador de competitividade previamente definido e publicado no método",
   },
 ] as const;
 
@@ -99,22 +97,21 @@ function DinheiroPage() {
         <InBrief
           found={
             <>
-              Nada ainda. A base financeira de 2026 não está disponível, e este
-              observatório não publica número estimado, projetado ou herdado de
-              ciclos anteriores.
+              Nada ainda. A base financeira de 2026 não está disponível, e este observatório não
+              publica número estimado, projetado ou herdado de ciclos anteriores.
             </>
           }
           matters={
             <>
-              Existir na lista e ter condições de competir são coisas diferentes.
-              A regra de composição de candidaturas alcança o registro; a
-              distribuição de dinheiro e propaganda tem regras próprias.
+              Existir na lista e ter condições de competir são coisas diferentes. A regra de
+              composição de candidaturas alcança o registro; a distribuição de dinheiro e propaganda
+              tem regras próprias.
             </>
           }
           unknown={
             <>
-              Quanto foi repassado a cada candidatura em 2026, por gênero,
-              cor/raça, partido, cargo, UF e titularidade.
+              Quanto foi repassado a cada candidatura em 2026, por gênero, cor/raça, partido, cargo,
+              UF e titularidade.
             </>
           }
         />
@@ -128,17 +125,16 @@ function DinheiroPage() {
         <div className="grid gap-4 md:grid-cols-2">
           <ContextBox variant="significa">
             <p>
-              A regra de composição de candidaturas de {QUOTA_RULE.floor}% a{" "}
-              {QUOTA_RULE.ceiling}% por gênero incide sobre quem é registrada nas
-              eleições proporcionais, por partido ou federação.
+              A regra de composição de candidaturas de {QUOTA_RULE.floor}% a {QUOTA_RULE.ceiling}%
+              por gênero incide sobre quem é registrada nas eleições proporcionais, por partido ou
+              federação.
             </p>
           </ContextBox>
           <ContextBox variant="importa">
             <p>
-              As regras de destinação mínima de recursos públicos de campanha e de
-              tempo de propaganda são distintas e podem alcançar disputas
-              majoritárias e proporcionais. Confundir as duas leva a conclusões
-              erradas.
+              As regras de destinação mínima de recursos públicos de campanha e de tempo de
+              propaganda são distintas e podem alcançar disputas majoritárias e proporcionais.
+              Confundir as duas leva a conclusões erradas.
             </p>
           </ContextBox>
         </div>
@@ -156,19 +152,15 @@ function DinheiroPage() {
                 <h3 className="font-display text-lg text-ink">{l.label}</h3>
                 <StatusTag tone="pending">aguardando fonte</StatusTag>
               </div>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {l.question}
-              </p>
-              <p className="mt-3 font-mono text-[11px] text-muted-foreground">
-                Exige: {l.needs}
-              </p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.question}</p>
+              <p className="mt-3 font-mono text-[11px] text-muted-foreground">Exige: {l.needs}</p>
             </li>
           ))}
         </ul>
         <div className="mt-6">
           <GapNote label="Lacuna declarada">
-            Enquanto a prestação de contas de 2026 não estiver disponível, nenhuma
-            célula deste eixo recebe valor. Dado não disponível não é zero.
+            Enquanto a prestação de contas de 2026 não estiver disponível, nenhuma célula deste eixo
+            recebe valor. Dado não disponível não é zero.
           </GapNote>
         </div>
       </SectionBlock>
@@ -187,11 +179,10 @@ function DinheiroPage() {
       >
         <ContextBox variant="calculamos">
           <p>
-            Toda leitura financeira será apresentada com valor total, universo de
-            candidaturas consideradas, denominador e data da base. Valores por
-            candidatura serão lidos em medianas, não apenas em médias, porque
-            poucos repasses muito altos distorcem a média. Recursos e votos serão
-            relacionados sem afirmar causalidade.
+            Toda leitura financeira será apresentada com valor total, universo de candidaturas
+            consideradas, denominador e data da base. Valores por candidatura serão lidos em
+            medianas, não apenas em médias, porque poucos repasses muito altos distorcem a média.
+            Recursos e votos serão relacionados sem afirmar causalidade.
           </p>
         </ContextBox>
       </SectionBlock>

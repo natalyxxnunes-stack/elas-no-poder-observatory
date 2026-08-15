@@ -1,4 +1,5 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -14,9 +15,6 @@ import timelineImage from "@/assets/timeline-editorial.png";
  * componentes seguem intactos, apenas o acesso público está redirecionado.
  */
 export const Route = createFileRoute("/downloads")({
-  beforeLoad: () => {
-    throw redirect({ to: "/" });
-  },
   head: () => ({
     meta: [
       { title: "Downloads — Quem são elas? | Cartilhas e materiais" },
@@ -28,15 +26,16 @@ export const Route = createFileRoute("/downloads")({
       { property: "og:title", content: "Downloads — Quem são elas?" },
       {
         property: "og:description",
-        content:
-          "Materiais educativos sobre mulheres, eleições e poder, prontos para circular.",
+        content: "Materiais educativos sobre mulheres, eleições e poder, prontos para circular.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: DownloadsPage,
+  component: () => <UnpublishedAxis axisId="downloads" />,
 });
+
+/* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
 
 /**
  * Catálogo de materiais. Estrutura preparada para gestão futura por CMS:
@@ -79,8 +78,7 @@ const MATERIALS: readonly Material[] = [
     id: "cartilha-funil",
     kind: "Material educativo",
     title: "O funil: candidatura, competição e poder",
-    description:
-      "Roteiro de oficina com as três camadas do funil e as perguntas de cada etapa.",
+    description: "Roteiro de oficina com as três camadas do funil e as perguntas de cada etapa.",
     audience: "Formação e sala de aula",
     format: "PDF com atividades",
     file: null,
@@ -105,9 +103,9 @@ function DownloadsPage() {
         question="O que posso levar daqui?"
         lead={
           <p>
-            Materiais para circular fora do site: cartilhas, infográficos,
-            roteiros de oficina e tabelas com dicionário de variáveis. Tudo com
-            fonte e data da base impressas na própria peça.
+            Materiais para circular fora do site: cartilhas, infográficos, roteiros de oficina e
+            tabelas com dicionário de variáveis. Tudo com fonte e data da base impressas na própria
+            peça.
           </p>
         }
         image={timelineImage}
@@ -120,9 +118,9 @@ function DownloadsPage() {
         align="wide"
         lead={
           <p>
-            A estrutura do catálogo já está publicada para que cada material entre
-            com tipo, público, formato e arquivo identificados. Nenhum link é
-            exibido antes de o arquivo existir.
+            A estrutura do catálogo já está publicada para que cada material entre com tipo,
+            público, formato e arquivo identificados. Nenhum link é exibido antes de o arquivo
+            existir.
           </p>
         }
       >
@@ -137,12 +135,8 @@ function DownloadsPage() {
                   {m.file ? "disponível" : "em preparação"}
                 </StatusTag>
               </div>
-              <h3 className="mt-2 font-display text-xl leading-snug text-ink">
-                {m.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {m.description}
-              </p>
+              <h3 className="mt-2 font-display text-xl leading-snug text-ink">{m.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{m.description}</p>
               <dl className="mt-4 space-y-1 font-mono text-[11px] text-muted-foreground">
                 <div>
                   <dt className="inline uppercase tracking-wider">Público: </dt>
@@ -172,22 +166,19 @@ function DownloadsPage() {
         </ul>
       </SectionBlock>
 
-      <SectionBlock
-        kicker="Uso"
-        question="Como usar e como creditar"
-      >
+      <SectionBlock kicker="Uso" question="Como usar e como creditar">
         <div className="grid gap-4 md:grid-cols-2">
           <ContextBox variant="importa">
             <p>
-              Os materiais são feitos para circular em oficinas, escolas,
-              coletivos e redações. Cada peça carrega a data da fotografia da base
-              para evitar que um número antigo circule como atual.
+              Os materiais são feitos para circular em oficinas, escolas, coletivos e redações. Cada
+              peça carrega a data da fotografia da base para evitar que um número antigo circule
+              como atual.
             </p>
           </ContextBox>
           <ContextBox variant="significa">
             <p>
-              Ao republicar, cite o observatório, o indicador e a data da base. A
-              forma de citação está em{" "}
+              Ao republicar, cite o observatório, o indicador e a data da base. A forma de citação
+              está em{" "}
               <Link to="/sobre" className="text-plum underline underline-offset-4">
                 Sobre
               </Link>
@@ -197,9 +188,8 @@ function DownloadsPage() {
         </div>
         <div className="mt-6">
           <GapNote label="Estrutura preparada">
-            Este catálogo será gerenciado por CMS: tipo, título, descrição,
-            público, formato, arquivo e data de publicação já são os campos
-            previstos.
+            Este catálogo será gerenciado por CMS: tipo, título, descrição, público, formato,
+            arquivo e data de publicação já são os campos previstos.
           </GapNote>
         </div>
       </SectionBlock>
