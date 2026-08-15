@@ -268,8 +268,10 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
                     nationalShare,
                   )}% no país e ${pf(stateShare)}% em ${uf} — diferença de ${pf(
                     Math.abs(diff),
-                  )} ponto${Math.abs(diff) === 1 ? "" : "s"} percentual${
-                    Math.abs(diff) === 1 ? "" : "is"
+                  )} ${
+                    Math.abs(diff) === 1
+                      ? "ponto percentual"
+                      : "pontos percentuais"
                   } (p.p.) ${
                     diff >= 0 ? "acima" : "abaixo"
                   } da média nacional. É uma diferença descritiva de composição das candidaturas: não explica por que ela existe.`
