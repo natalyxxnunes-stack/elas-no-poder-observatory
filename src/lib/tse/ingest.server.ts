@@ -154,6 +154,7 @@ export async function runIngest(
     fileUrl = resource.url!;
     fileName = fileUrl.split("/").pop() || fileName;
     bytes = await downloadZip(fileUrl);
+    zipSha256 = createHash("sha256").update(bytes).digest("hex");
   } catch (error) {
     return fail(error instanceof Error ? error.message : String(error));
   }
@@ -164,6 +165,12 @@ export async function runIngest(
     const files = unzipSync(bytes);
     const csvNames = Object.keys(files).filter((n) => /\.csv$/i.test(n));
     if (csvNames.length === 0) throw new Error("pacote sem arquivos .csv");
+    const brasilName = csvNames.find((n) => /BRASIL\.csv$/i.test(n));
+    if (brasilName) {
+      brasilCsvSha256 = createHash("sha256")
+        .update(files[brasilName]!)
+        .digest("hex");
+    }
     for (const name of csvNames) {
       ingestCsv(decodeLatin1(files[name]!), acc);
     }
