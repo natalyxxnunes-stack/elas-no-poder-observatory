@@ -274,11 +274,10 @@ function DadosPage() {
             </span>
           </h2>
           <p className="mt-5 max-w-xl leading-relaxed text-muted-foreground">
-            A hipótese que orienta esta edição é de distribuição, não de
-            ausência: quanto mais concentrado o cargo, menor a presença. É uma
+            A hipótese desta edição é de distribuição, não de ausência: quanto
+            mais concentrado o cargo, menor a presença de mulheres. É uma
             hipótese a testar etapa por etapa — registro, recursos, votos,
-            cadeiras e comando — com denominador próprio em cada uma. Nenhum
-            contraste desta página, isolado, prova causa.
+            cadeiras e comando. Cada etapa é contada sobre o seu próprio total.
           </p>
         </div>
 
