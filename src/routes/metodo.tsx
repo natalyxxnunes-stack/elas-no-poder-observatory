@@ -206,14 +206,33 @@ function MetodoPage() {
         <div className="mt-6">
           <ContextBox variant="significa" title="Como uma cadeira proporcional é preenchida">
             <p>
-              Na proporcional você vota também no partido, não só na pessoa. A
-              soma dos votos do partido — o quociente eleitoral — define quantas
-              cadeiras ele conquista; só depois, dentro do partido, a ordem dos
-              mais votados define quem as ocupa. Por isso uma candidata pode ter
-              muitos votos e não ser eleita, e outra com menos entrar: depende de
-              quanto o partido inteiro somou. É o que torna a proporcional menos
-              intuitiva — e explica por que "mais votos" não é o mesmo que
-              "eleita".
+              Na proporcional, o voto conta também para o partido, não só para a
+              pessoa. A soma dos votos do partido — o{" "}
+              <GlossaryTerm term="quociente-eleitoral" method={false}>
+                quociente eleitoral
+              </GlossaryTerm>{" "}
+              — define quantas cadeiras ele conquista. Só depois, dentro do
+              partido, a ordem dos mais votados define quem ocupa essas cadeiras.
+            </p>
+            <p className="mt-2">
+              Por isso uma candidata pode ter muitos votos e não ser eleita, e
+              outra com menos votos entrar: “mais votos” não é o mesmo que
+              “eleita”.
+            </p>
+          </ContextBox>
+        </div>
+
+        <div className="mt-6">
+          <ContextBox variant="significa" title="Como este site usa a palavra “mulheres”">
+            <p>
+              Nos indicadores eleitorais, “mulheres” corresponde às candidaturas
+              registradas como FEMININO no campo DS_GENERO da base pública do
+              TSE. É a classificação do dataset — não uma definição sociológica
+              de identidade de gênero.
+            </p>
+            <p className="mt-2">
+              O mesmo vale para cor/raça: os grupos vêm da autodeclaração no
+              registro, com as categorias que o TSE publica.
             </p>
           </ContextBox>
         </div>
