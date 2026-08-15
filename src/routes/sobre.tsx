@@ -163,23 +163,19 @@ function SobrePage() {
         }
       >
         <div className="grid gap-4 md:grid-cols-2">
-          <ContextBox variant="significa">
+          <ContextBox variant="significa" title="Onde a IA entra">
             <p>
-              O {SITE.name} é um projeto independente, feito por mim, com o apoio
-              de ferramentas de inteligência artificial. Eu faço as perguntas,
-              defino os caminhos da apuração, escolho as fontes, tomo as decisões
-              editoriais e sou responsável pelo que é publicado. Uso inteligência
-              artificial como ferramenta de trabalho — para pesquisar, organizar e
-              analisar dados, escrever e revisar código, testar possibilidades e
-              construir algumas das soluções que você encontra aqui.
+              O {SITE.name} é um projeto independente, feito por mim, com apoio de
+              ferramentas de inteligência artificial em programação, organização
+              de material e revisão de texto. Eu faço as perguntas, defino a
+              apuração, escolho as fontes e assino as decisões editoriais.
             </p>
           </ContextBox>
-          <ContextBox variant="importa">
+          <ContextBox variant="importa" title="Onde a IA não entra">
             <p>
-              A IA ajuda a fazer o trabalho. A responsabilidade pelo trabalho é
-              minha. Por isso, sempre que ela participa de alguma etapa
-              importante, isso é registrado como parte da transparência do
-              projeto.
+              A IA não é fonte, não gera os dados — que vêm dos arquivos oficiais
+              — e não valida os cálculos: a conferência é humana, e a
+              responsabilidade editorial pelo que está publicado é minha.
             </p>
           </ContextBox>
         </div>
@@ -312,17 +308,44 @@ function SobrePage() {
       </SectionBlock>
 
       <SectionBlock
-        kicker="Correções"
-        question="O que corrigimos e como"
+        kicker="Correções e erratas"
+        question="Como avisar de um erro — e o que acontece depois"
       >
-        <ul className="max-w-3xl space-y-3 text-sm leading-relaxed text-muted-foreground">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="poster-frame p-5 md:p-6">
+            <h3 className="font-display text-xl text-ink">Como comunicar</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Escreva para{" "}
+              <a
+                href="mailto:contato@quemsaoelas.com.br?subject=Correção"
+                className="text-plum underline underline-offset-4"
+              >
+                contato@quemsaoelas.com.br
+              </a>{" "}
+              com o assunto “Correção”. Ajuda muito indicar a página, o número ou
+              a frase em questão e, se possível, a fonte que sustenta a correção.
+              Toda mensagem é lida por mim.
+            </p>
+          </div>
+          <div className="poster-frame p-5 md:p-6">
+            <h3 className="font-display text-xl text-ink">
+              O que acontece depois
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Confirmada a falha, o valor ou o texto é corrigido e a correção
+              passa a ficar registrada com data no ponto em que o erro apareceu.
+              Nada é corrigido em silêncio.
+            </p>
+          </div>
+        </div>
+        <ul className="mt-5 max-w-3xl space-y-3 text-sm leading-relaxed text-muted-foreground">
           <li>
-            Erro de dado: corrigimos o valor e registramos a correção na página
-            do indicador, com data.
+            Erro de dado: o valor é corrigido e a correção fica registrada, com
+            data.
           </li>
           <li>
-            Erro de método: revisamos a fórmula, recalculamos a série e
-            explicamos o que mudou.
+            Erro de método: a fórmula é revisada, a série é recalculada e o que
+            mudou é explicado.
           </li>
           <li>
             Atualização de base: não é correção. A mudança de fotografia é

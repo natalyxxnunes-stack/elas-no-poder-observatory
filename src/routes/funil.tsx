@@ -152,28 +152,35 @@ function FunilPage() {
 
       <SectionBlock
         tone="solar"
-        kicker="Regra de leitura"
-        question="Por que as etapas não se somam nem se subtraem"
+        kicker="Como ler este funil"
+        question="Ninguém disputa uma cadeira sozinha"
         lead={<p>{FUNNEL_READING_RULE}</p>}
       >
         <div className="grid gap-4 md:grid-cols-2">
-          <ContextBox variant="significa">
+          <ContextBox variant="significa" title="Na proporcional, o voto é do partido também">
             <p>
-              “Universo” é o conjunto de registros que entra na conta.
-              Proporcional e majoritário são universos distintos: um elege por
-              lista, segundo o{" "}
+              Uma candidata a deputada não corre sozinha por uma cadeira. Os
+              votos dela entram na soma do partido ou{" "}
+              <GlossaryTerm term="federacao">federação</GlossaryTerm>, e é essa
+              soma que define quantas cadeiras o grupo conquista, pelo{" "}
               <GlossaryTerm term="quociente-eleitoral">
                 quociente eleitoral
               </GlossaryTerm>
-              ; o outro elege quem tem mais votos para um cargo único.
-              Percentuais de universos diferentes não se somam.
+              . Só depois, dentro do grupo, a ordem dos mais votados decide quem
+              ocupa essas cadeiras. Por isso ela pode ter muitos votos e não ser
+              eleita — e outra, com menos votos, entrar.
             </p>
           </ContextBox>
-          <ContextBox variant="importa">
+          <ContextBox variant="importa" title="O funil não é uma taxa individual">
             <p>
-              A unidade contada é a candidatura registrada, deduplicada pelo
-              identificador oficial de cada candidatura. Vices e suplentes não
-              entram em nenhum dos dois denominadores.
+              Cada etapa aqui é uma fotografia com o seu próprio conjunto de
+              registros: candidaturas proporcionais, candidaturas majoritárias,
+              resultado. Não é o acompanhamento das mesmas pessoas de um degrau
+              para o outro, nem a chance de uma candidata específica se eleger. E
+              a diferença entre degraus descreve o que a base mostra, sem provar
+              o que a produziu. A unidade contada é a candidatura registrada,
+              deduplicada pelo identificador oficial; vices e suplentes não
+              entram.
             </p>
           </ContextBox>
         </div>

@@ -28,6 +28,7 @@ import {
 } from "@/lib/tse/snapshot.functions";
 
 import { HistoryFunnel } from "@/components/historical/HistoryFunnel";
+import { ElectionRateByGender } from "@/components/historical/ElectionRateByGender";
 
 import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
 import topoAsset from "@/assets/mulheresnotopo.webp.asset.json";
@@ -450,18 +451,45 @@ function DadosPage() {
         source="Fonte: TSE — candidatos e resultados 2014/2018/2022/2026"
       >
         <HistoryFunnel />
+
+        <div className="mt-12">
+          <p className="kicker">Quantas candidaturas viraram cadeira</p>
+          <h3 className="mt-3 max-w-3xl font-display text-[clamp(1.3rem,3.4vw,1.9rem)] leading-tight text-ink">
+            A mesma pergunta, feita para os dois grupos:{" "}
+            <span className="text-plum italic">
+              de cada 100 candidaturas, quantas chegaram à cadeira?
+            </span>
+          </h3>
+          <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
+            Cada taxa é calculada dentro do próprio grupo: eleitas mulheres sobre
+            candidaturas de mulheres, eleitos homens sobre candidaturas de
+            homens. É uma descrição do que a base registra — não mede qualidade
+            de campanha, nem prova o que produziu a diferença.
+          </p>
+          <div className="mt-6">
+            <ElectionRateByGender />
+          </div>
+        </div>
       </SectionBlock>
 
-      {/* O ACHADO RACIAL DE 2026 */}
+      {/* SEGUNDA PERGUNTA CENTRAL — QUAIS MULHERES? */}
       <SectionBlock
-        kicker="O achado racial de 2026"
-        question="Dois retratos da mesma cor, lado a lado."
+        kicker="A segunda pergunta desta investigação"
+        question="Quais mulheres?"
         lead={
-          <p>
-            De um lado, as mulheres brasileiras no Censo de 2022. Do outro, as
-            candidaturas de mulheres às proporcionais de 2026 (TSE). São
-            contagens distintas, colocadas lado a lado para comparar tamanhos.
-          </p>
+          <>
+            <p>
+              Até aqui a pergunta foi “quantas mulheres”. Ela é insuficiente:
+              mulheres não formam um bloco homogêneo, e o caminho até o poder não
+              é o mesmo para todas. A partir daqui a investigação passa a ter
+              duas perguntas centrais, e a segunda é sobre cor/raça.
+            </p>
+            <p>
+              De um lado, as mulheres brasileiras no Censo de 2022. Do outro, as
+              candidaturas de mulheres às proporcionais de 2026 (TSE). São
+              contagens distintas, colocadas lado a lado para comparar tamanhos.
+            </p>
+          </>
         }
       >
         <RaceFinding2026 snapshot={snapshot} />

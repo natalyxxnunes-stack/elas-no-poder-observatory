@@ -360,17 +360,71 @@ function MetodoPage() {
               )}
 
               <div className="mt-4 border-t border-rule pt-4">
+                <p className="kicker">Baixar os dados</p>
+                <h3 className="mt-2 font-display text-xl text-ink">
+                  Planilha da fotografia vigente (CSV)
+                </h3>
+                <dl className="mt-3 grid gap-2 font-mono text-[12px] leading-relaxed text-muted-foreground md:grid-cols-2">
+                  <div>
+                    <dt className="inline uppercase tracking-wider">
+                      O que é:{" "}
+                    </dt>
+                    <dd className="inline">
+                      exportação dos números já processados pelo observatório —
+                      contagens de candidaturas por universo, gênero e cor/raça,
+                      não o arquivo bruto do TSE
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="inline uppercase tracking-wider">
+                      Fotografia:{" "}
+                    </dt>
+                    <dd className="inline">
+                      base do TSE gerada em{" "}
+                      {br(snapshot.baseGeneratedAt)}, processada em{" "}
+                      {br(snapshot.collectedAt)}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="inline uppercase tracking-wider">
+                      Universos:{" "}
+                    </dt>
+                    <dd className="inline">
+                      proporcional e majoritário, sempre separados, com o total
+                      de cada um na própria linha
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="inline uppercase tracking-wider">
+                      Filtros:{" "}
+                    </dt>
+                    <dd className="inline">
+                      {snapshot.filters.length
+                        ? snapshot.filters.join(" · ")
+                        : "os mesmos filtros descritos na ficha técnica acima"}
+                    </dd>
+                  </div>
+                  <div className="md:col-span-2">
+                    <dt className="inline uppercase tracking-wider">
+                      Cabeçalho do arquivo:{" "}
+                    </dt>
+                    <dd className="inline">
+                      traz fonte, datas, filtros, versão de processamento e o
+                      SHA-256 quando disponível, para o arquivo continuar
+                      identificável fora do site
+                    </dd>
+                  </div>
+                </dl>
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="inline-flex rounded-md bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+                  className="mt-4 inline-flex rounded-md bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
                 >
-                  Baixar esta fotografia (CSV)
+                  Baixar a planilha (CSV)
                 </button>
                 <p className="mt-2 font-mono text-[12px] text-muted-foreground">
-                  CSV da fotografia vigente, com a data de geração da base pelo
-                  TSE, os filtros e o universo de cada linha no cabeçalho do
-                  arquivo.
+                  O arquivo bruto original continua disponível direto no TSE, no
+                  endereço citado na ficha técnica.
                 </p>
               </div>
             </div>
@@ -388,6 +442,187 @@ function MetodoPage() {
 
         </div>
       </SectionBlock>
+
+      {/* Nota técnica reproduzível */}
+      <SectionBlock
+        kicker="Nota técnica"
+        question="Como refazer estas contas do zero"
+        align="wide"
+        lead={
+          <p>
+            Roteiro completo do que o observatório faz com o arquivo do TSE, na
+            ordem em que faz. Quem baixar o mesmo arquivo e seguir estes passos
+            deve chegar aos mesmos números da fotografia vigente.
+          </p>
+        }
+      >
+        <ol className="space-y-4">
+          <li className="poster-frame p-5">
+            <h3 className="font-display text-lg text-ink">
+              1. Arquivo e origem
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Recurso “Candidatos” do dataset{" "}
+              <a
+                href={TSE_SOURCE.datasetUrl}
+                className="break-all text-plum underline underline-offset-4"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Candidatos 2026 · TSE Dados Abertos
+              </a>
+              . Pacote:{" "}
+              <span className="break-all font-mono text-[12px]">
+                {TSE_SOURCE.resourceUrl}
+              </span>
+              . Dentro dele, o arquivo processado é{" "}
+              <span className="break-all font-mono text-[12px]">
+                {snapshot?.fileName ?? TSE_SOURCE.resourceName}
+              </span>
+              , com codificação ISO-8859-1 e separador “;”. A fotografia vigente
+              usa a base gerada pelo TSE em{" "}
+              {br(snapshot?.baseGeneratedAt ?? TSE_SOURCE.baseGeneratedAt)} e
+              processada em {br(snapshot?.collectedAt ?? null)}.
+            </p>
+          </li>
+
+          <li className="poster-frame p-5">
+            <h3 className="font-display text-lg text-ink">
+              2. Unidade de análise e deduplicação
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Cada linha lida é uma candidatura registrada. A chave é
+              SQ_CANDIDATO: linhas repetidas com a mesma chave entram uma única
+              vez, e linhas sem chave são descartadas e contadas à parte na
+              auditoria da coleta. A contagem é de candidaturas, não de pessoas —
+              a mesma pessoa em ciclos diferentes são registros diferentes.
+            </p>
+          </li>
+
+          <li className="poster-frame p-5">
+            <h3 className="font-display text-lg text-ink">
+              3. Universos (critério de inclusão e exclusão)
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              A classificação usa o cargo (DS_CARGO / CD_CARGO). Entram no
+              universo proporcional: deputado federal, deputado estadual e
+              deputado distrital. Entram no majoritário: presidente, governador e
+              senador. Fica fora do cálculo todo cargo que não seja um desses —
+              inclusive vice-presidente, vice-governador e suplente de senador.
+              Nada é somado entre os dois universos.
+            </p>
+          </li>
+
+          <li className="poster-frame p-5">
+            <h3 className="font-display text-lg text-ink">
+              4. Situação do registro
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              O projeto <strong>não</strong> filtra por situação: candidaturas
+              aptas, inaptas, com registro indeferido, sub judice ou renunciadas
+              entram todas na contagem, porque a situação muda até a decisão final
+              da Justiça Eleitoral e um filtro tornaria as fotografias
+              incomparáveis. As situações presentes na base aparecem contadas na
+              seção seguinte. O detalhe do estágio processual está em outro
+              recurso do TSE, ainda não integrado.
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              A base pública também não permite identificar candidaturas
+              fictícias (as chamadas “laranjas”): isso depende de investigação e
+              de decisão judicial caso a caso. Nenhum registro é excluído por
+              suspeita, e o projeto não estima quantas seriam.
+            </p>
+          </li>
+
+          <li className="poster-frame p-5">
+            <h3 className="font-display text-lg text-ink">
+              5. Fórmulas e denominadores
+            </h3>
+            <ul className="mt-2 space-y-2 font-mono text-[12px] leading-relaxed text-muted-foreground">
+              <li>
+                participação feminina = candidaturas com DS_GENERO = FEMININO no
+                universo ÷ total de candidaturas do mesmo universo × 100
+              </li>
+              <li>
+                distância entre universos = participação proporcional −
+                participação majoritária, expressa em p.p.
+              </li>
+              <li>
+                composição por cor/raça = candidaturas de mulheres de uma
+                categoria de DS_COR_RACA ÷ total de candidaturas de mulheres do
+                mesmo universo × 100
+              </li>
+              <li>
+                por partido = candidaturas femininas do partido ÷ total de
+                candidaturas do mesmo partido e universo × 100 (não exibido
+                abaixo de 20 candidaturas)
+              </li>
+              <li>
+                por UF = candidaturas femininas na UF ÷ total de candidaturas da
+                mesma UF e universo × 100
+              </li>
+              <li>
+                taxa de eleição (anos encerrados) = eleitas de um gênero ÷
+                candidaturas do mesmo gênero, ano e universo × 100, com resultado
+                de 1º turno lido em DS_SIT_TOT_TURNO
+              </li>
+            </ul>
+          </li>
+
+          <li className="poster-frame p-5">
+            <h3 className="font-display text-lg text-ink">
+              6. Fotografias e verificação
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Cada coleta gera uma fotografia datada e nenhuma é sobrescrita, o
+              que permite saber qual base sustentava um número em determinada
+              data. Quando disponível, o SHA-256 do pacote baixado e do arquivo de
+              onde os números saem fica publicado acima: ele confirma que o
+              arquivo é o mesmo, não que a conta está certa. Para conferir:
+              recalcule as contagens do passo 5 sobre o arquivo indicado no passo
+              1 e compare com a planilha exportada.
+            </p>
+          </li>
+        </ol>
+      </SectionBlock>
+
+      {/* Representação descritiva × substantiva */}
+      <SectionBlock
+        tone="solar"
+        kicker="O que estes números medem"
+        question="Presença não é a mesma coisa que poder de decidir"
+        lead={
+          <p>
+            Duas perguntas diferentes costumam aparecer misturadas quando se fala
+            de mulheres na política. Este projeto começa pela primeira, e isso
+            delimita o que ele pode afirmar.
+          </p>
+        }
+      >
+        <div className="grid gap-4 md:grid-cols-2">
+          <ContextBox variant="significa" title="Representação descritiva">
+            <p>
+              É a presença numérica: quantas mulheres se candidatam, quantas são
+              eleitas, quem elas são por cor/raça, em que cargos e partidos.
+              Todos os indicadores publicados aqui são deste tipo.
+            </p>
+          </ContextBox>
+          <ContextBox variant="importa" title="Representação substantiva">
+            <p>
+              É a atuação: que agendas são defendidas, quem relata projetos,
+              quem preside comissões, quem ocupa ministérios, mesas diretoras e
+              lideranças — os espaços onde a decisão acontece. Isso depende de
+              outras fontes, que o projeto ainda não integrou.
+            </p>
+          </ContextBox>
+        </div>
+        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+          Por isso um número maior de candidaturas femininas não autoriza dizer
+          que houve mais poder para mulheres, nem o contrário. São perguntas
+          encadeadas, e esta edição responde a primeira.
+        </p>
+      </SectionBlock>
+
 
       {/* Situação de candidatura */}
       {snapshot && Object.keys(snapshot.situationValues).length > 0 && (
