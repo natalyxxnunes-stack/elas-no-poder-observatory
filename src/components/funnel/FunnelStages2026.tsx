@@ -144,7 +144,10 @@ function RaceStage({
       </p>
 
       <div className="px-5 pt-4">
-        <div className="flex h-6 w-full overflow-hidden rounded-sm bg-secondary">
+        <div
+          className="flex h-6 w-full overflow-hidden rounded-sm bg-secondary"
+          aria-hidden
+        >
           {entries.map(([label, value], i) => (
             <div
               key={label}
