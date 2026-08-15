@@ -14,6 +14,16 @@ Apache compartilhada, sem servidor Node, e o que continua rodando fora dela.
 | Coleta histórica (2014, 2018, 2022) | Mesmo endpoint, sob demanda (`/api/public/tse/ingest-history`) | Eleições encerradas; só repetir se o TSE republicar |
 | Conferência e liberação de fotografia | Banco (`conferido = true`) | Regra inalterada: `status = ok` sozinho não publica |
 
+### Por que a coleta não virou Edge Function
+
+A coleta baixa o pacote oficial do TSE, descompacta e percorre linha a linha o
+CSV com os mesmos dicionários e regras de contagem usados pelo site (cerca de
+3.000 linhas em `src/lib/tse/`). Levar isso para uma Edge Function exigiria
+duplicar esse código em outro runtime, criando duas versões da metodologia que
+podem divergir — exatamente o que o Método promete que não acontece. Por isso a
+coleta permanece no ambiente de servidor já existente do projeto, que continua
+sendo o único lugar com a credencial de serviço.
+
 A coleta **não** vai para a HostGator: ela baixa e descompacta o pacote oficial
 do TSE, o que exige um servidor. Ela permanece no ambiente de servidor já
 existente do projeto, chamada pelo agendamento com o segredo `CRON_SECRET`. A
@@ -70,3 +80,11 @@ liberada no banco.
 As tabelas `tse_snapshots` e `tse_historical_snapshots` têm, para visitantes
 anônimos, **apenas leitura** — a permissão de escrita foi revogada. A gravação
 de fotografias acontece somente na coleta, com credencial de serviço.
+
+## Reversibilidade
+
+Nada do build padrão foi removido: `vite.config.ts`, os endpoints de coleta e a
+publicação atual continuam funcionando como antes. A hospedagem estática vive
+em arquivos separados — `vite.config.static.ts`, `public/.htaccess`, o script
+`build:hostgator` e este documento. Apagar esses quatro itens devolve o projeto
+ao estado anterior.
