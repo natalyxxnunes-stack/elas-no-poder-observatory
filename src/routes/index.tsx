@@ -574,8 +574,9 @@ function DadosPage() {
           <p>
             “Funil” aqui é o roteiro de perguntas que este observatório persegue
             — contexto, competição e poder —, não uma medição do que aconteceu em
-            2026: o resultado de 2026 ainda não existe. Cada etapa tem sua
-            própria fonte e será publicada quando essa fonte existir.
+            2026. Cada etapa tem sua própria fonte e será publicada quando essa
+            fonte existir.
+
           </p>
         }
       >
