@@ -187,6 +187,32 @@ function FunilPage() {
       </SectionBlock>
 
       <SectionBlock
+        kicker="Tamanho da disputa"
+        question="Quantas candidaturas existem para cada vaga?"
+        align="wide"
+        lead={
+          <p>
+            Antes de qualquer resultado, é possível medir uma coisa só com os
+            registros: o tamanho da disputa. Dividimos as candidaturas
+            registradas pelas vagas efetivamente em disputa, dentro de um mesmo
+            universo. É concorrência declarada, não chance de eleição.
+          </p>
+        }
+        source={
+          <>
+            Fonte: TSE · Candidaturas 2026 (numerador) e TSE · recurso Vagas de
+            2026 (denominador) ·{" "}
+            <Link to="/metodo" className="text-plum underline underline-offset-4">
+              definição no método
+            </Link>
+          </>
+        }
+      >
+        <CompetitionByUf snapshot={snapshot} />
+      </SectionBlock>
+
+
+      <SectionBlock
         kicker="Contexto"
         question="Como isso se compara ao passado?"
         lead={
