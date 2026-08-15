@@ -49,6 +49,15 @@ export type PublicSnapshot = {
   processingVersion: string;
   filters: string[];
   situationValues: Record<string, number>;
+  /**
+   * Candidaturas fora dos dois universos analisados, desagregadas pelo valor
+   * literal de cargo do arquivo. Nulo nas fotografias anteriores ao campo.
+   */
+  outOfUniverse: {
+    total: number;
+    byCargo: Record<string, number>;
+    feminineByCargo: Record<string, number>;
+  } | null;
   universes: {
     proporcional: PublicUniverseTally;
     majoritario: PublicUniverseTally;
