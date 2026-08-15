@@ -116,7 +116,7 @@ export function UfGrid({
                   <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.14em]">
                     {c.uf}
                   </p>
-                  {c.total !== null && c.total < MIN_BASE ? (
+                  {c.total !== null && c.total < MIN_BASE && c.feminine !== null ? (
                     <>
                       <p className="mt-1 font-mono text-[12px] leading-tight opacity-90">
                         {nf(c.feminine)} de {nf(c.total)}
