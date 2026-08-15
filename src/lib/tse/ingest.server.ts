@@ -114,6 +114,9 @@ export async function runIngest(
   let fileName = "consulta_cand_2026.zip";
   let fileUrl = "";
   let baseGeneratedAt: string | null = null;
+  let zipSha256: string | null = null;
+  let brasilCsvSha256: string | null = null;
+
 
   const fail = async (message: string): Promise<IngestOutcome> => {
     const { data } = await supabaseAdmin
