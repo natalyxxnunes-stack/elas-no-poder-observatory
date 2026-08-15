@@ -522,6 +522,19 @@ function DadosPage() {
             </p>
           </article>
         </div>
+
+        <div className="mt-6">
+          <ContextBox variant="significa" title="A cota de 30% (Lei 9.504/1997)">
+            <p>
+              A lei obriga cada partido a preencher no mínimo 30% das suas
+              candidaturas com mulheres — daí a faixa de 30%–70% por gênero. É
+              cota de candidatura, não de cadeira: garante que elas entrem na
+              disputa, não que sejam eleitas. Por isso a presença feminina nas
+              candidaturas fica perto de 30%, mas despenca entre as eleitas. A cota
+              abre a porta; não decide quem atravessa.
+            </p>
+          </ContextBox>
+        </div>
       </SectionBlock>
 
       {/* O FUNIL */}
