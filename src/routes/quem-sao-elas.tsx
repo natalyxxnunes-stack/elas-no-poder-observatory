@@ -131,10 +131,10 @@ function QuemSaoElasPage() {
         lead={
           <p>
             Cada combinação recalcula a distribuição por cor/raça daquela fatia,
-            com a base à vista. Onde a base é pequena demais, o percentual
-            desaparece e ficam só as contagens absolutas.
+            com a base à vista.
           </p>
         }
+
         source={
           <>
             Fonte: TSE · Candidaturas 2026
