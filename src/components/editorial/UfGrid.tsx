@@ -31,6 +31,8 @@ const BANDS = [
   { max: Infinity, label: "39% ou mais", bg: "bg-forest", fg: "text-cream" },
 ] as const;
 
+const MIN_BASE = 20;
+
 function band(share: number) {
   return BANDS.find((b) => share < b.max) ?? BANDS[BANDS.length - 1];
 }
