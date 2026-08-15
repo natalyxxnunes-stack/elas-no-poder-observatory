@@ -260,7 +260,7 @@ function MetodoPage() {
         question="Fonte e processamento"
       >
         <div className="editorial-card p-5 md:p-6">
-          <dl className="grid gap-3 font-mono text-[12px] leading-relaxed text-muted-foreground md:grid-cols-2">
+          <dl className="grid gap-3 break-words font-mono text-[12px] leading-relaxed text-muted-foreground md:grid-cols-2">
             <div>
               <dt className="uppercase tracking-wider">Fonte</dt>
               <dd className="text-ink">{TSE_SOURCE.name}</dd>
@@ -270,7 +270,7 @@ function MetodoPage() {
               <dd>
                 <a
                   href={TSE_SOURCE.datasetUrl}
-                  className="underline"
+                  className="break-all underline"
                   target="_blank"
                   rel="noreferrer"
                 >
