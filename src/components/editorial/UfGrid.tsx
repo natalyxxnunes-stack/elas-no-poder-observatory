@@ -75,7 +75,7 @@ export function UfGrid({
       </h3>
 
       {!hasData ? (
-        <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-5 text-sm leading-relaxed text-ink/70">
           Em atualização. Aguardando a nova fotografia da base do TSE.
         </p>
       ) : (
@@ -129,7 +129,7 @@ export function UfGrid({
         </>
       )}
 
-      <p className="mt-6 font-mono text-[12px] leading-relaxed text-muted-foreground">
+      <p className="mt-6 font-mono text-[12px] leading-relaxed text-ink/70">
         Universo: candidaturas proporcionais (Deputada Federal, Estadual e
         Distrital), com denominador próprio de cada unidade da federação. Fonte:
         TSE · Candidaturas 2026

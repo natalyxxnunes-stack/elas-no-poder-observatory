@@ -200,7 +200,7 @@ export function RaceByStateTable({ snapshot }: { snapshot: PublicSnapshot | null
         </div>
       </div>
 
-      <p className="font-mono text-[12px] leading-relaxed text-muted-foreground">
+      <p className="font-mono text-[12px] leading-relaxed text-ink/70">
         Estados com poucas candidaturas têm percentuais mais sensíveis: uma
         candidatura a mais desloca muito o percentual. Onde a base é menor que
         20, mostramos apenas contagens absolutas. Recorte: candidaturas

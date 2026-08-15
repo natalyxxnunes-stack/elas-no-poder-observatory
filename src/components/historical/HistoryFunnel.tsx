@@ -119,7 +119,7 @@ function StageColumn({
       </div>
       {!empty && race && <RaceMiniBars race={race} stageLabel={label} />}
       {empty && (
-        <p className="mt-2 font-mono text-[12px] leading-relaxed text-muted-foreground">
+        <p className="mt-2 font-mono text-[12px] leading-relaxed text-ink/70">
           Eleição de novembro de 2026 ainda não ocorreu. Nenhum valor é projetado.
         </p>
       )}
@@ -187,14 +187,14 @@ export function HistoryFunnel() {
       <div className="grid gap-6 md:grid-cols-3">
         <article className="editorial-card p-5">
           <h3 className="font-display text-lg text-ink">Tamanho do funil</h3>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-2 text-sm leading-relaxed text-ink/70">
             Em 2022, mulheres foram 34,1% das candidaturas proporcionais e 17,9% das
             eleitas — a urna cortou quase metade da participação.
           </p>
         </article>
         <article className="editorial-card p-5">
           <h3 className="font-display text-lg text-ink">No tempo</h3>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-2 text-sm leading-relaxed text-ink/70">
             O funil se repete nos três ciclos, apertando um pouco menos com o tempo —
             a queda passou de 21 pontos (2014) para 16 (2022). Avanço real, longe da
             paridade.
@@ -202,7 +202,7 @@ export function HistoryFunnel() {
         </article>
         <article className="editorial-card p-5">
           <h3 className="font-display text-lg text-ink">A cor do funil</h3>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-2 text-sm leading-relaxed text-ink/70">
             A urna não filtra por igual. Em 2022, entre as mulheres, a fatia parda caiu
             de 35,1% (3.341) na candidatura para 23,4% (66) na eleição e a preta caiu de
             18,3% (1.745) para 13,1% (37), enquanto a branca subiu de 45% (4.287) para
@@ -212,7 +212,7 @@ export function HistoryFunnel() {
         </article>
       </div>
 
-      <p className="font-mono text-[12px] leading-relaxed text-muted-foreground">
+      <p className="font-mono text-[12px] leading-relaxed text-ink/70">
         Recorte: Câmara dos Deputados, Assembleias Legislativas e Câmara Legislativa do DF — eleições proporcionais, 1º turno. Não inclui Senado, governos estaduais ou Presidência. Por isso os totais podem diferir de estatísticas do TSE que somam o Legislativo inteiro: aqui se conta a cadeira proporcional, não a suplência nem o Senado. Ressalva: cada ano e cada etapa têm denominador próprio; percentuais não se
         somam. Cor/raça é autodeclarada, nas categorias do TSE, coletada desde 2014 — a
         qualidade do preenchimento varia entre ciclos e, em 2014, não há registros “não
