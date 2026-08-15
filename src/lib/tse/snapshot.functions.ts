@@ -101,15 +101,15 @@ function client() {
 const PUBLISHABLE_STATUSES = ["ok", "requer_conferencia"] as const;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function publishedQuery(db: ReturnType<typeof client>, columns: string) {
-  return db
-    .from("tse_snapshots")
+function publishedQuery(db: ReturnType<typeof client>, columns: string): any {
+  return (db.from("tse_snapshots") as any)
     .select(columns)
     .eq("conferido", true)
     .in("status", PUBLISHABLE_STATUSES as unknown as string[])
     .order("collected_at", { ascending: false })
     .limit(1);
 }
+
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
