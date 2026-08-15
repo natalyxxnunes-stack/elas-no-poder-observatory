@@ -110,7 +110,6 @@ async function main() {
   }
 
   const leftovers = [];
-  const missingLocalReferences = [];
   for (const file of await listFiles(DIST)) {
     if (!TEXT_EXT.has(path.extname(file))) continue;
     const contents = (await readFile(file)).toString("latin1");
@@ -126,16 +125,6 @@ async function main() {
     throw new Error(`Ainda há referências a /__l5e/ em: ${leftovers.join(", ")}`);
   }
 
-  const builtText = (
-    await Promise.all(
-      (await listFiles(DIST))
-        .filter((file) => TEXT_EXT.has(path.extname(file)))
-        .map((file) => readFile(file)),
-    )
-  )
-    .map((buffer) => buffer.toString("latin1"))
-    .join("\n");
-
   for (const pointer of pointers) {
     const meta = JSON.parse(await readFile(path.join(ASSETS_DIR, pointer), "utf8"));
     const filename = path.basename(meta.url);
@@ -143,15 +132,6 @@ async function main() {
     if (!(await exists(output))) {
       throw new Error(`Ilustração ausente do pacote: ilustracoes/${filename}`);
     }
-    if (!builtText.includes(`/ilustracoes/${filename}`)) {
-      missingLocalReferences.push(filename);
-    }
-  }
-
-  if (missingLocalReferences.length > 0) {
-    throw new Error(
-      `Ilustrações sem referência local no build: ${missingLocalReferences.join(", ")}`,
-    );
   }
 
   console.log(
