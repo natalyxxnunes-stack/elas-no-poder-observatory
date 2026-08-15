@@ -209,7 +209,7 @@ export const getLatestTseSnapshotCsv = createServerFn({ method: "GET" }).handler
       `# Arquivo processado: ${snap.fileName}`,
       `# Filtros aplicados: ${snap.filters.length > 0 ? snap.filters.join(" | ") : "nenhum"}`,
       "# Unidade de analise: candidatura registrada (nao pessoa)",
-      "universo,categoria,candidaturas_mulheres,total_universo",
+      "universo,categoria,quantidade,total_mulheres_universo,total_candidaturas_universo",
     ];
 
     const universes: Array<[string, PublicUniverseTally]> = [
@@ -219,13 +219,17 @@ export const getLatestTseSnapshotCsv = createServerFn({ method: "GET" }).handler
 
     for (const [name, tally] of universes) {
       lines.push(
-        [name, "TOTAL", tally.feminine, tally.total].map(csvField).join(","),
+        [name, "TOTAL", tally.feminine, tally.feminine, tally.total]
+          .map(csvField)
+          .join(","),
       );
       for (const [category, count] of Object.entries(tally.raceCounts ?? {}).sort(
         (a, b) => b[1] - a[1],
       )) {
         lines.push(
-          [name, category, count, tally.total].map(csvField).join(","),
+          [name, category, count, tally.feminine, tally.total]
+            .map(csvField)
+            .join(","),
         );
       }
     }
