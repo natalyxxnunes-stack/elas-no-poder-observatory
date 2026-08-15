@@ -23,7 +23,7 @@ DirectoryIndex index.html
 
   # 3) Qualquer outra rota cai no app (fallback de SPA); a página 404 do
   #    próprio site trata endereços inexistentes.
-  RewriteRule ^ /index.html [L]
+  RewriteRule ^ /_shell.html [L]
 </IfModule>
 
 <IfModule mod_deflate.c>
