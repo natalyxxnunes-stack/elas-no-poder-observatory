@@ -104,7 +104,7 @@ function StageColumn({
         aria-label={
           empty
             ? `${heading} ainda não disponível`
-            : `${pct(femininePercent)} de mulheres na ${heading.toLowerCase()}: ${n(feminine)} de ${n(total)}`
+            : `${pct(femininePercent)} de mulheres na ${label.toLowerCase()}: ${n(feminine)} de ${n(total)}`
         }
       >
         {empty ? (
