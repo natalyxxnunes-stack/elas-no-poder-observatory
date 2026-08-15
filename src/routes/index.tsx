@@ -354,8 +354,9 @@ function DadosPage() {
                 Em atualização
               </p>
               <p className="mt-2 text-sm leading-relaxed text-ink/80">
-                Aguardando a nova fotografia da base do TSE. Dado não disponível
-                não é zero.
+                Aguardando a nova fotografia da base do TSE. Enquanto ela não
+                entra, nenhum número é exibido aqui — a ausência de dado não é um
+                zero.
               </p>
             </>
           )}
@@ -453,7 +454,7 @@ function DadosPage() {
           ))}
         </ol>
       </section>
-      <PullQuote>Dado não disponível não é zero.</PullQuote>
+      
 
       {/* O ACHADO RACIAL DE 2026 */}
       <SectionBlock

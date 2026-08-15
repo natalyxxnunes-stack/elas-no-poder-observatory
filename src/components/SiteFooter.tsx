@@ -42,8 +42,8 @@ export function SiteFooter() {
       <div className="border-t border-cream/15">
         <p className="mx-auto max-w-6xl px-5 py-5 font-mono text-[12px] leading-relaxed text-cream/45 md:px-8">
           Indicadores de candidatura calculados a partir de TSE / Dados Abertos /
-          Candidatos 2026. Dado não disponível não é zero. Correlação não é
-          causalidade. Lacunas e limitações estão declaradas ao longo do site.
+          Candidatos 2026. Lacunas e limitações estão declaradas ao longo do site,
+          com a data da fotografia usada em cada número.
         </p>
       </div>
     </footer>

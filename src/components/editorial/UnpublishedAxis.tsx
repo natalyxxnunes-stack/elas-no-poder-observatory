@@ -26,7 +26,10 @@ export function UnpublishedAxis({ axisId }: { axisId: string }) {
         </p>
 
         <div className="mt-8 max-w-2xl">
-          <GapNote label="Lacuna declarada">Dado não disponível não é zero.</GapNote>
+          <GapNote label="Lacuna declarada">
+            Nada é publicado neste eixo enquanto a fonte necessária não estiver
+            disponível — sem número provisório e sem estimativa.
+          </GapNote>
         </div>
 
         <nav className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-rule pt-6 font-mono text-[12px] uppercase tracking-[0.14em]">
