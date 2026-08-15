@@ -924,7 +924,7 @@ function MetodoPage() {
             <h3 className="font-display text-xl text-ink">
               {COMPETITION_DEFINITION.question}
             </h3>
-            <dl className="mt-3 space-y-2 font-mono text-[12px] leading-relaxed text-ink/80">
+            <dl className="mt-3 space-y-2 break-words font-mono text-[12px] leading-relaxed text-ink/80">
               <div>
                 <dt className="inline text-muted-foreground">Fórmula: </dt>
                 <dd className="inline">{COMPETITION_DEFINITION.formula}</dd>
@@ -946,10 +946,12 @@ function MetodoPage() {
                 <dt className="inline text-muted-foreground">Denominador: </dt>
                 <dd className="inline">
                   {COMPETITION_DEFINITION.denominatorSource} · arquivo gerado em
-                  15/08/2026 · SHA-256 do pacote {VAGAS_SOURCE.zipSha256}
+                  15/08/2026 · SHA-256 do pacote{" "}
+                  <span className="break-all">{VAGAS_SOURCE.zipSha256}</span>
                 </dd>
               </div>
             </dl>
+
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
