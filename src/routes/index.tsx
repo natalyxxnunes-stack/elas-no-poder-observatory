@@ -439,7 +439,7 @@ function DadosPage() {
               Em 2022, mulheres foram 34,1% das candidaturas proporcionais e
               17,7% das eleitas no 1º turno.{" "}
               {prop
-                ? `Em 2026, são ${prop.share.display.toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}% das candidaturas proporcionais`
+                ? `Em 2026, são ${((prop.feminine / prop.total) * 100).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}% das candidaturas proporcionais`
                 : "Em 2026, o percentual de candidaturas proporcionais está em atualização"}{" "}
               — e o resultado ainda não existe, porque a eleição acontece em
               novembro. São dois momentos diferentes: um já terminou, o outro
