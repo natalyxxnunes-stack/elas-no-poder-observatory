@@ -80,7 +80,12 @@ async function main() {
     }
 
     await copyFile(cached, path.join(OUT_DIR, filename));
-    rewrites.push({ from: meta.url, to: `/ilustracoes/${filename}` });
+    const localUrl = `/ilustracoes/${filename}`;
+    rewrites.push({ from: meta.url, to: localUrl });
+    // Também cobre URLs absolutas que possam ter sido serializadas no head e
+    // barras escapadas dentro de JSON embutido nos HTMLs pré-renderizados.
+    rewrites.push({ from: `${ORIGIN}${meta.url}`, to: localUrl });
+    rewrites.push({ from: meta.url.replaceAll("/", "\\/"), to: localUrl });
   }
 
   if (missing.length > 0) {
@@ -105,16 +110,52 @@ async function main() {
   }
 
   const leftovers = [];
+  const missingLocalReferences = [];
   for (const file of await listFiles(DIST)) {
     if (!TEXT_EXT.has(path.extname(file))) continue;
-    if ((await readFile(file)).toString("latin1").includes("/__l5e/")) leftovers.push(file);
+    const contents = (await readFile(file)).toString("latin1");
+    if (
+      contents.includes("/__l5e/") ||
+      contents.includes("\\/\\/__l5e\\/") ||
+      contents.includes("assets-v1/")
+    ) {
+      leftovers.push(file);
+    }
   }
   if (leftovers.length > 0) {
     throw new Error(`Ainda há referências a /__l5e/ em: ${leftovers.join(", ")}`);
   }
 
+  const builtText = (
+    await Promise.all(
+      (await listFiles(DIST))
+        .filter((file) => TEXT_EXT.has(path.extname(file)))
+        .map((file) => readFile(file)),
+    )
+  )
+    .map((buffer) => buffer.toString("latin1"))
+    .join("\n");
+
+  for (const pointer of pointers) {
+    const meta = JSON.parse(await readFile(path.join(ASSETS_DIR, pointer), "utf8"));
+    const filename = path.basename(meta.url);
+    const output = path.join(OUT_DIR, filename);
+    if (!(await exists(output))) {
+      throw new Error(`Ilustração ausente do pacote: ilustracoes/${filename}`);
+    }
+    if (!builtText.includes(`/ilustracoes/${filename}`)) {
+      missingLocalReferences.push(filename);
+    }
+  }
+
+  if (missingLocalReferences.length > 0) {
+    throw new Error(
+      `Ilustrações sem referência local no build: ${missingLocalReferences.join(", ")}`,
+    );
+  }
+
   console.log(
-    `[hostgator-assets] ${rewrites.length} assets copiados para ilustracoes/, ${touched} arquivos reescritos.`,
+    `[hostgator-assets] ${pointers.length} assets copiados para ilustracoes/, ${touched} arquivos reescritos e referências locais verificadas.`,
   );
 }
 
