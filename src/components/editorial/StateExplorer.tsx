@@ -381,9 +381,9 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
                 <table className="w-full min-w-[640px] border-collapse text-left">
                   <caption className="sr-only">
                     Composição das candidaturas por partido em {uf}, universo{" "}
-                    {UNIVERSE_LABEL[universe]}: candidaturas de mulheres,
+                    {UNIVERSE_LABEL[universe]}: candidaturas de mulheres
                     {hasGenderDenominatorByParty
-                      ? " total do partido no estado, percentual"
+                      ? ", total do partido no estado, percentual de mulheres"
                       : ""}{" "}
                     e cor/raça declarada.
                   </caption>
