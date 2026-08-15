@@ -211,6 +211,15 @@ export type ParseResult = {
   rowsWithoutKey: number;
   /** linhas fora dos dois universos analisados (ex.: vice, suplente) */
   outOfScope: number;
+  /**
+   * Mesmo conjunto de linhas de `outOfScope`, desagregado pelo valor literal
+   * de DS_CARGO do arquivo (nenhum cargo é suposto ou renomeado).
+   */
+  outOfUniverse: {
+    total: number;
+    byCargo: Record<string, number>;
+    feminineByCargo: Record<string, number>;
+  };
   universes: Record<UniverseId, UniverseTally>;
   /** valores originais de situação encontrados no arquivo, com contagem */
   situationValues: Record<string, number>;
@@ -261,6 +270,7 @@ export function createTally(): ParseResult {
     duplicateRows: 0,
     rowsWithoutKey: 0,
     outOfScope: 0,
+    outOfUniverse: { total: 0, byCargo: {}, feminineByCargo: {} },
     universes: { proporcional: emptyTally(), majoritario: emptyTally() },
     situationValues: {},
     seenKeys: new Set<string>(),
@@ -361,6 +371,11 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
     const universe = classifyUniverse(row.cargo);
     if (!universe) {
       acc.outOfScope += 1;
+      acc.outOfUniverse.total += 1;
+      bump(acc.outOfUniverse.byCargo, row.cargo);
+      if (isFeminine(row.genero)) {
+        bump(acc.outOfUniverse.feminineByCargo, row.cargo);
+      }
       continue;
     }
     const tally = acc.universes[universe];

@@ -49,6 +49,15 @@ export type PublicSnapshot = {
   processingVersion: string;
   filters: string[];
   situationValues: Record<string, number>;
+  /**
+   * Candidaturas fora dos dois universos analisados, desagregadas pelo valor
+   * literal de cargo do arquivo. Nulo nas fotografias anteriores ao campo.
+   */
+  outOfUniverse: {
+    total: number;
+    byCargo: Record<string, number>;
+    feminineByCargo: Record<string, number>;
+  } | null;
   universes: {
     proporcional: PublicUniverseTally;
     majoritario: PublicUniverseTally;
@@ -88,6 +97,7 @@ function toPublic(row: any): PublicSnapshot {
     processingVersion: row.processing_version,
     filters: Array.isArray(row.filters) ? row.filters : [],
     situationValues: row.situation_values ?? {},
+    outOfUniverse: row.out_of_universe ?? null,
     universes: {
       proporcional: row.universes?.proporcional ?? {
         feminine: 0,
