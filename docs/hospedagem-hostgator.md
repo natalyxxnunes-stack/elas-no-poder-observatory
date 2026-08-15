@@ -34,7 +34,6 @@ Arquivos gerados:
 
 - `index.html` e uma pasta por rota (`/metodo/index.html`, `/funil/index.html`, …)
   com o `head()` completo de cada página: título, descrição, `og:*`, `twitter:*`;
-- `_shell.html`, usado como fallback para qualquer endereço sem HTML próprio;
 - `assets/` com JS e CSS versionados por hash;
 - `.htaccess` com HTTPS forçado, resolução das rotas, fallback de SPA,
   compressão e cache.
@@ -55,8 +54,11 @@ liberada no banco.
 
 - Sem servidor não existe redirecionamento 301 nem cabeçalho HTTP dinâmico:
   tudo isso passa a viver no `.htaccess`.
-- Endereços inexistentes respondem HTTP 200 com o app, que então mostra a
-  página 404 — comportamento padrão de site estático.
+- Endereços inexistentes respondem HTTP 200 servindo o HTML da home; ao
+  carregar, o próprio site mostra a página 404. É o comportamento padrão de
+  site estático em Apache.
+- `/historico` está despublicado no site e o `.htaccess` o redireciona (301)
+  para a home, como acontece hoje.
 - A chave publicável fica visível no pacote JavaScript. É o comportamento
   previsto: a proteção real são as políticas de acesso do banco, que permitem
   apenas leitura para visitantes anônimos.
