@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
+import { buildSnapshotCsv } from "@/lib/tse/snapshot-csv";
+
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import checagemAsset from "@/assets/checagem.webp.asset.json";
