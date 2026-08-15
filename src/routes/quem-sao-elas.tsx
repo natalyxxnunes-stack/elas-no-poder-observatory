@@ -8,6 +8,7 @@ import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { RaceExplorer } from "@/components/editorial/RaceExplorer";
 import { RaceByStateTable } from "@/components/editorial/RaceByStateTable";
 import { PartyGenderTable } from "@/components/editorial/PartyGenderTable";
+import { StateExplorer } from "@/components/editorial/StateExplorer";
 
 
 import { IntersectionPlan } from "@/components/editorial/IntersectionPlan";
