@@ -10,7 +10,8 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
-  nitro: { preset: "static" },
+  // Sem nitro: o alvo é Apache estático, não um runtime de servidor.
+  nitro: false,
   tanstackStart: {
     // Mesma entrada de servidor do build padrão (src/server.ts): ela é usada
     // apenas durante o pré-render, e não vai para a hospedagem.
