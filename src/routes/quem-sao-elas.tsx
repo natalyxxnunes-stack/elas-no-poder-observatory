@@ -211,12 +211,12 @@ function QuemSaoElasPage() {
           <p>
             Quem decide o registro é o partido ou a federação. Aqui está a
             composição de cada lista: quantas das candidaturas registradas são de
-            mulheres, com o número absoluto ao lado do percentual. Trocar de
-            universo troca a tabela inteira, porque cada um tem denominador
-            próprio. Ligando o recorte de cor/raça, a mesma tabela mostra quais
-            mulheres cada partido registrou.
+            mulheres, com o número absoluto ao lado do percentual. Ligando o
+            recorte de cor/raça, a mesma tabela mostra quais mulheres cada
+            partido registrou.
           </p>
         }
+
         source={
           <>
             Fonte: TSE · Candidaturas 2026
