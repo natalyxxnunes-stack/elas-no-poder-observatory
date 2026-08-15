@@ -33,6 +33,13 @@ export type PublicUniverseTally = {
     raceByUf?: Record<string, Record<string, number>>;
     /** `SG_UF|SG_PARTIDO` → DS_COR_RACA → candidaturas de mulheres */
     raceByUfParty?: Record<string, Record<string, number>>;
+    /**
+     * `SG_UF|SG_PARTIDO` → total de candidaturas / candidaturas de mulheres.
+     * Ausente nas fotografias gravadas antes desta versão do processamento:
+     * sem essas células, nenhum percentual de gênero por UF × partido é exibido.
+     */
+    totalByUfParty?: Record<string, number>;
+    feminineByUfParty?: Record<string, number>;
   };
 };
 

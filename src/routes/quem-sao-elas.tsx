@@ -8,6 +8,7 @@ import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { RaceExplorer } from "@/components/editorial/RaceExplorer";
 import { RaceByStateTable } from "@/components/editorial/RaceByStateTable";
 import { PartyGenderTable } from "@/components/editorial/PartyGenderTable";
+import { StateExplorer } from "@/components/editorial/StateExplorer";
 
 
 import { IntersectionPlan } from "@/components/editorial/IntersectionPlan";
@@ -224,6 +225,32 @@ function QuemSaoElasPage() {
             a entrada, e a entrada é apenas a primeira etapa.
           </p>
         </ContextBox>
+      </SectionBlock>
+
+      <SectionBlock
+        kicker="Por estado"
+        question="E no seu estado?"
+        align="wide"
+        tone="solar"
+        lead={
+          <p>
+            Escolha um estado e leia a realidade daquela região: quantas
+            candidaturas foram registradas, quantas são de mulheres, como isso se
+            compara com o Brasil no mesmo universo, quais mulheres estão ali e
+            quais partidos as registraram. Dá para voltar ao Brasil ou trocar de
+            estado a qualquer momento.
+          </p>
+        }
+        source={
+          <>
+            Fonte: TSE · Candidaturas 2026 ·{" "}
+            <Link to="/metodo" className="text-plum underline underline-offset-4">
+              ver o método
+            </Link>
+          </>
+        }
+      >
+        <StateExplorer snapshot={snapshot} />
       </SectionBlock>
 
       <SectionBlock

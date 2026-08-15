@@ -185,6 +185,14 @@ export type UniverseTally = {
      * não entra na chave: cada universo já tem sua própria tabela.
      */
     raceByUfParty: Record<string, Record<string, number>>;
+    /**
+     * Denominador e numerador de gênero na mesma chave `SG_UF|SG_PARTIDO`:
+     * total de candidaturas e candidaturas de mulheres. Permite ler a
+     * composição de gênero de uma lista partidária dentro de um estado sem
+     * recompor a base. Fotografias anteriores a esta versão não têm as células.
+     */
+    totalByUfParty: Record<string, number>;
+    feminineByUfParty: Record<string, number>;
   };
 
 };
@@ -250,6 +258,8 @@ function emptyTally(): UniverseTally {
       raceByParty: {},
       raceByUf: {},
       raceByUfParty: {},
+      totalByUfParty: {},
+      feminineByUfParty: {},
     },
 
   };
@@ -385,6 +395,9 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
     bump(tally.dimensions.totalByUf, row.uf);
     bump(tally.dimensions.totalByParty, row.partido);
     bump(tally.dimensions.totalByAgremiacao, row.agremiacao);
+    const ufKey = row.uf || "NÃO INFORMADO";
+    const partyKey = row.partido || "NÃO INFORMADO";
+    bump(tally.dimensions.totalByUfParty, `${ufKey}|${partyKey}`);
     if (isFeminine(row.genero)) {
       tally.feminine += 1;
       const race = row.corRaca || "NÃO INFORMADO";
@@ -392,8 +405,9 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
       bump(tally.dimensions.feminineByUf, row.uf);
       bump(tally.dimensions.feminineByParty, row.partido);
       bump(tally.dimensions.feminineByAgremiacao, row.agremiacao);
-      const uf = row.uf || "NÃO INFORMADO";
-      const party = row.partido || "NÃO INFORMADO";
+      const uf = ufKey;
+      const party = partyKey;
+      bump(tally.dimensions.feminineByUfParty, `${uf}|${party}`);
       bump2(tally.dimensions.raceByParty, party, race);
       bump2(tally.dimensions.raceByUf, uf, race);
       bump2(tally.dimensions.raceByUfParty, `${uf}|${party}`, race);
