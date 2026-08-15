@@ -201,18 +201,13 @@ function SobrePage() {
             isso?
           </p>
           <p>
-            O {SITE.name} nasceu para transformar esses números em perguntas e
-            tentar respondê-las com jornalismo, dados públicos e transparência
-            sobre como cada resultado foi construído. Os dados têm fonte. Os
-            cálculos podem ser conferidos. As escolhas são explicadas. E fato,
-            interpretação e hipótese aparecem separados.
+            Quero transformar esses números em perguntas e tentar respondê-las
+            com jornalismo, dados públicos e transparência sobre como cada
+            resultado foi construído. Os dados têm fonte. Os cálculos podem ser
+            conferidos. As escolhas são explicadas. E fato, interpretação e
+            hipótese aparecem separados.
           </p>
-          <p>
-            A ideia é simples: você pode discordar da minha leitura, questionar
-            uma escolha metodológica, até chegar a outra conclusão — mas precisa
-            conseguir olhar para os mesmos dados e entender como eu cheguei até
-            aqui.
-          </p>
+
         </div>
       </SectionBlock>
 
