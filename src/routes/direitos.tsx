@@ -287,8 +287,10 @@ function DireitosPage() {
         <div className="grid gap-4 md:grid-cols-3">
           <ContextBox variant="significa">
             <p>
-              Apresentado, aprovado em comissão, aprovado em plenário e
-              sancionado são estágios distintos. Só o último produz norma.
+              Apresentado, aprovado em comissão, aprovado em plenário, sancionado
+              ou promulgado são estágios e situações jurídicas distintas. A
+              existência de um projeto não significa que uma nova regra já esteja
+              em vigor.
             </p>
           </ContextBox>
           <ContextBox variant="importa">
