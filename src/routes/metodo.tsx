@@ -65,20 +65,17 @@ function br(iso: string | null): string {
   return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
 }
 
+/**
+ * Situação de cada fotografia. A conferência manual (`conferido = true`) é a
+ * única coisa que libera uma fotografia para uso público: `status = ok` sozinho
+ * não basta. Fotografias coletadas e ainda não conferidas ficam retidas.
+ */
 function statusLabel(s: PublicSnapshot): string {
-  switch (s.status) {
-    case "ok":
-      return "validada";
-    case "requer_conferencia":
-      return s.conferido ? "validada" : "em conferência";
-    case "invalido":
-      return "não publicada";
-    case "falha_coleta":
-      return "falha na coleta";
-    default:
-      return s.status;
-  }
+  if (s.status === "falha_coleta") return "falha na coleta";
+  if (s.status === "invalido") return "não publicada";
+  return s.conferido ? "conferida" : "retida para conferência";
 }
+
 
 
 
