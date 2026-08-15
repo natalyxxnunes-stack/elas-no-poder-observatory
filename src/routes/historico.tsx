@@ -85,8 +85,9 @@ function HistoricoPage() {
           found={
             firstProp?.value != null && lastProp?.value != null ? (
               <>
-                Nas eleições proporcionais, a participação feminina nas
-                candidaturas passou de{" "}
+                Nas eleições{" "}
+                <GlossaryTerm term="proporcional">proporcionais</GlossaryTerm>, a
+                participação feminina nas candidaturas passou de{" "}
                 {firstProp.value.toLocaleString("pt-BR", {
                   maximumFractionDigits: 1,
                   minimumFractionDigits: 1,
@@ -96,7 +97,8 @@ function HistoricoPage() {
                   maximumFractionDigits: 1,
                   minimumFractionDigits: 1,
                 })}
-                % na fotografia de 2026. Cada ano tem denominador próprio.
+                % na fotografia de 2026. Cada ano é calculado sobre o seu próprio
+                total.
               </>
             ) : (
               <>
