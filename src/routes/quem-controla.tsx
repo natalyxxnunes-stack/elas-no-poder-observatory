@@ -1,4 +1,5 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -17,9 +18,6 @@ import spotQuota from "@/assets/spot-quota.png";
  * componentes seguem intactos, apenas o acesso público está redirecionado.
  */
 export const Route = createFileRoute("/quem-controla")({
-  beforeLoad: () => {
-    throw redirect({ to: "/" });
-  },
   head: () => ({
     meta: [
       {
@@ -41,8 +39,11 @@ export const Route = createFileRoute("/quem-controla")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: QuemControlaPage,
+  component: () => <UnpublishedAxis axisId="quem-controla" />,
 });
+
+/* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 /** Estruturas de controle investigadas, com o dado que cada uma exige. */
 const CONTROL_LEVERS = [

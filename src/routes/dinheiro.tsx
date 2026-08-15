@@ -1,4 +1,5 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -17,9 +18,6 @@ import spotQuota from "@/assets/spot-quota.png";
  * componentes seguem intactos, apenas o acesso público está redirecionado.
  */
 export const Route = createFileRoute("/dinheiro")({
-  beforeLoad: () => {
-    throw redirect({ to: "/" });
-  },
   head: () => ({
     meta: [
       { title: "Dinheiro — Quem são elas? | Quem recebe condições para competir" },
@@ -38,8 +36,11 @@ export const Route = createFileRoute("/dinheiro")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: DinheiroPage,
+  component: () => <UnpublishedAxis axisId="dinheiro" />,
 });
+
+/* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 /** Camadas de apuração financeira previstas, na ordem em que serão abertas. */
 const MONEY_LAYERS = [

@@ -1,4 +1,5 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -14,9 +15,6 @@ import timelineImage from "@/assets/timeline-editorial.png";
  * componentes seguem intactos, apenas o acesso público está redirecionado.
  */
 export const Route = createFileRoute("/downloads")({
-  beforeLoad: () => {
-    throw redirect({ to: "/" });
-  },
   head: () => ({
     meta: [
       { title: "Downloads — Quem são elas? | Cartilhas e materiais" },
@@ -35,8 +33,11 @@ export const Route = createFileRoute("/downloads")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: DownloadsPage,
+  component: () => <UnpublishedAxis axisId="downloads" />,
 });
+
+/* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 /**
  * Catálogo de materiais. Estrutura preparada para gestão futura por CMS:

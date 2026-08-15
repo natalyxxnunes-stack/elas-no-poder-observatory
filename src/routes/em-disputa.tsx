@@ -1,4 +1,5 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -19,9 +20,6 @@ import {
  * componentes seguem intactos, apenas o acesso público está redirecionado.
  */
 export const Route = createFileRoute("/em-disputa")({
-  beforeLoad: () => {
-    throw redirect({ to: "/" });
-  },
   head: () => ({
     meta: [
       { title: "Em disputa — Quem são elas? | As regras também estão em disputa" },
@@ -40,8 +38,11 @@ export const Route = createFileRoute("/em-disputa")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: EmDisputaPage,
+  component: () => <UnpublishedAxis axisId="em-disputa" />,
 });
+
+/* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 function EmDisputaPage() {
   return (

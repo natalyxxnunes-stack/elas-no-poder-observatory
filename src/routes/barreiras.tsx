@@ -1,4 +1,5 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -14,9 +15,6 @@ import { GapNote } from "@/components/GapNote";
  * componentes seguem intactos, apenas o acesso público está redirecionado.
  */
 export const Route = createFileRoute("/barreiras")({
-  beforeLoad: () => {
-    throw redirect({ to: "/" });
-  },
   head: () => ({
     meta: [
       {
@@ -38,8 +36,11 @@ export const Route = createFileRoute("/barreiras")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: BarreirasPage,
+  component: () => <UnpublishedAxis axisId="barreiras" />,
 });
+
+/* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 const BARRIER_FORMS = [
   {

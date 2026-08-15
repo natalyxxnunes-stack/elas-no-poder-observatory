@@ -1,4 +1,5 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -16,9 +17,6 @@ import spotStrength from "@/assets/spot-strength.png";
  * componentes seguem intactos, apenas o acesso público está redirecionado.
  */
 export const Route = createFileRoute("/quem-chega")({
-  beforeLoad: () => {
-    throw redirect({ to: "/" });
-  },
   head: () => ({
     meta: [
       { title: "Quem chega? — Quem são elas? | Eleitas e posições de poder" },
@@ -37,8 +35,11 @@ export const Route = createFileRoute("/quem-chega")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: QuemChegaPage,
+  component: () => <UnpublishedAxis axisId="quem-chega" />,
 });
+
+/* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 const RESULT_LAYERS = [
   {
