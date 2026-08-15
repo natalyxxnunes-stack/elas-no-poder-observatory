@@ -1,0 +1,12 @@
+{
+  "name": "Quem são elas? — Mulheres, eleições e poder",
+  "short_name": "Quem são elas?",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#5b2a86",
+  "background_color": "#f5f1e8",
+  "display": "standalone",
+  "start_url": "/"
+}
