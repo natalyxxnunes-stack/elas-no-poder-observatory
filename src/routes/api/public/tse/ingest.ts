@@ -10,9 +10,7 @@ export const Route = createFileRoute("/api/public/tse/ingest")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const expected =
-          process.env["SUPABASE_PUBLISHABLE_KEY"] ??
-          process.env["SUPABASE_ANON_KEY"];
+        const expected = process.env["CRON_SECRET"];
         const provided =
           request.headers.get("apikey") ??
           request.headers.get("authorization")?.replace("Bearer ", "");
