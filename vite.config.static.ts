@@ -12,7 +12,11 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 export default defineConfig({
   nitro: { preset: "static" },
   tanstackStart: {
+    // Mesma entrada de servidor do build padrão (src/server.ts): ela é usada
+    // apenas durante o pré-render, e não vai para a hospedagem.
+    server: { entry: "server" },
     // Fallback de SPA: qualquer rota não pré-renderizada ainda abre no cliente.
+
     spa: { enabled: true },
     prerender: {
       enabled: true,
