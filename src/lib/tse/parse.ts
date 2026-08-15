@@ -211,6 +211,15 @@ export type ParseResult = {
   rowsWithoutKey: number;
   /** linhas fora dos dois universos analisados (ex.: vice, suplente) */
   outOfScope: number;
+  /**
+   * Mesmo conjunto de linhas de `outOfScope`, desagregado pelo valor literal
+   * de DS_CARGO do arquivo (nenhum cargo é suposto ou renomeado).
+   */
+  outOfUniverse: {
+    total: number;
+    byCargo: Record<string, number>;
+    feminineByCargo: Record<string, number>;
+  };
   universes: Record<UniverseId, UniverseTally>;
   /** valores originais de situação encontrados no arquivo, com contagem */
   situationValues: Record<string, number>;
