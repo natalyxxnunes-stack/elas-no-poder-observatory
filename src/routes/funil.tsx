@@ -196,8 +196,9 @@ function FunilPage() {
             Antes de qualquer resultado, é possível medir uma coisa só com os
             registros: o tamanho da disputa. Dividimos as candidaturas
             registradas pelas vagas efetivamente em disputa, dentro de um mesmo
-            universo. É concorrência declarada, não chance de eleição.
+            universo.
           </p>
+
         }
         source={
           <>
