@@ -236,7 +236,7 @@ export const NAV_ITEMS = [
 
 
 /** Eixos publicados no lançamento. */
-export const PUBLISHED_AXES = ["dados-2026", "funil", "direitos", "metodo", "sobre"] as const;
+export const PUBLISHED_AXES = ["dados-2026", "quem-sao-elas", "funil", "direitos", "metodo", "sobre"] as const;
 
 /**
  * O funil em três camadas narrativas. Cada passagem tem universo e fonte
