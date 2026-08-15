@@ -527,6 +527,15 @@ function MetodoPage() {
             O registro não capta de forma confiável identidade trans ou travesti, e
             a categoria de cor/raça não identifica pertencimento étnico indígena.
           </GapNote>
+          <GapNote label="Campo político: eixo em apuração">
+            A base do TSE traz partido e forma de agremiação, não campo
+            ideológico. Agrupar partidos por campo é classificação editorial, e
+            só entra no ar com três passos cumpridos: dicionário fechado de
+            partidos e federações de 2026; critério de classificação publicado
+            com fonte externa citável; e só então o cruzamento por campo, com o
+            denominador de cada universo eleitoral. Até lá, nenhum percentual por
+            campo político é publicado.
+          </GapNote>
         </div>
         <p className="mt-6 font-mono text-[12px] text-muted-foreground">
           Como citar e política de correções em{" "}
