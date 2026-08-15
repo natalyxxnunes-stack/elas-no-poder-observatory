@@ -6,6 +6,8 @@ import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { RaceExplorer } from "@/components/editorial/RaceExplorer";
+import { RaceByStateTable } from "@/components/editorial/RaceByStateTable";
+
 
 import { IntersectionPlan } from "@/components/editorial/IntersectionPlan";
 import { NextAxes } from "@/components/editorial/NextAxes";
