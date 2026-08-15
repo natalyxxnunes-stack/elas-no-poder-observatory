@@ -37,6 +37,12 @@ export function PastStrip({ series }: { series: Series | null }) {
                 {p.year}
                 {p.stage === "em_curso" ? " · base em curso" : ""}
               </p>
+              {p.numerator !== null && p.denominator !== null && (
+                <p className="font-mono text-[12px] text-muted-foreground">
+                  {p.numerator.toLocaleString("pt-BR")} de{" "}
+                  {p.denominator.toLocaleString("pt-BR")}
+                </p>
+              )}
             </div>
             {i < points.length - 1 && (
               <span aria-hidden className="pb-4 text-lg text-muted-foreground">

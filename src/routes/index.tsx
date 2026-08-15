@@ -503,7 +503,8 @@ function DadosPage() {
         lead={<p>{CENTRAL_PRINCIPLE}</p>}
         source={
           <>
-            Fonte: TSE · Candidaturas 2026 ·{" "}
+            Fonte: TSE · Candidaturas 2026
+            {baseDate ? ` · fotografia da base de ${baseDate}` : ""} ·{" "}
             <Link to="/metodo" className="text-plum underline underline-offset-4">
               ver o método
             </Link>
