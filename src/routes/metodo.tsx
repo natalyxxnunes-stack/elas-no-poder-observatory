@@ -99,7 +99,7 @@ const PLAIN_STEPS = [
   },
   {
     step: "6. O que falta fica declarado",
-    body: "Recursos, votos, eleitas e poder ainda não têm base disponível para 2026. Onde falta dado, aparece a lacuna. Dado não disponível não é zero.",
+    body: "Recursos, votos, eleitas e poder ainda não têm base disponível para 2026. Onde falta dado, aparece a lacuna, com o motivo e a fonte que ainda falta.",
   },
 ] as const;
 

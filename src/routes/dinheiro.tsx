@@ -160,7 +160,7 @@ function DinheiroPage() {
         <div className="mt-6">
           <GapNote label="Lacuna declarada">
             Enquanto a prestação de contas de 2026 não estiver disponível, nenhuma célula deste eixo
-            recebe valor. Dado não disponível não é zero.
+            recebe valor.
           </GapNote>
         </div>
       </SectionBlock>

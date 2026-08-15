@@ -4,7 +4,48 @@ Rodada de auditoria — sem redesign, sem mudança de metodologia. Todos os núm
 abaixo foram reconferidos linha a linha nos pacotes oficiais
 `consulta_cand_<ano>.zip` (TSE / Dados Abertos), com o mesmo código do projeto.
 
+## 0. Fotografia vigente × histórico fechado
+
+Duas naturezas de dado, nunca misturadas:
+
+- **Histórico fechado (2014, 2018, 2022)**: bases encerradas, com registro
+  julgado e resultado publicado. Valores estáveis; só mudam se o TSE republicar
+  o arquivo.
+- **Fotografia vigente (2026)**: base em curso. Cada coleta gera uma fotografia
+  nova, com data. O site publica **uma** fotografia por vez, e ela é a única
+  fonte dos números de 2026 exibidos.
+
+**Fotografia vigente de 2026** — coleta de 13/08/2026, processamento
+`2026.08.13-b7.1+2026.08.11-dic1`, conferida manualmente:
+
+| Universo | Total | Mulheres | % mulheres |
+| --- | --- | --- | --- |
+| proporcional | 17.299 | 6.109 | 35,3% |
+| majoritário | 377 | 73 | 19,4% |
+| fora dos universos (vices e suplentes) | 606 | — | — |
+| base após deduplicação | 18.282 | — | — |
+
+**Fotografia anterior (substituída, não vigente)** — coleta de 11/08/2026,
+processamento `2026.08.11-b4.1`: proporcional 12.754 (F 4.488 = 35,2%),
+majoritário 227 (F 41 = 18,1%), fora dos universos 358, base 13.339. Esses
+valores continuam citados neste documento apenas como registro de versão
+anterior; **não** devem ser publicados como número atual.
+
+**Série publicada de eleitas proporcionais (1º turno)** — única versão válida no
+site, coerente com `src/data/historical-funnel.ts`:
+
+| Ano | Eleitas | Cadeiras contadas | % |
+| --- | --- | --- | --- |
+| 2014 | 170 | 1.572 | 10,8% |
+| 2018 | 240 | 1.572 | 15,3% |
+| 2022 | 267 | 1.512 | 17,7% |
+
+2022 conta 1.512 e não 1.572 porque o arquivo oficial não traz resultado para o
+Maranhão (60 cadeiras: 18 federais + 42 estaduais). Lacuna da fonte, não
+estimada. Valores antigos de 2022 (1.572 / 282 / 17,9%) estão **substituídos**.
+
 ## 1. O que cada número representa
+
 
 | Ano | Universo | Filtro aplicado | Linhas brutas | Após deduplicação | Número exibido | Explicação da diferença |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -23,10 +64,14 @@ abaixo foram reconferidos linha a linha nos pacotes oficiais
 | 2022 | majoritário | idem | — | — | 480 (F 100 = 20,8% · M 379 · Não divulgável 1) | — |
 | 2022 | fora dos universos | vices e suplentes | — | — | 805 | 27.977 + 480 + 805 = 29.262 ✔ |
 | 2022 | eleitos (1º turno) | idem | — | — | prop. 1.512 (F 267) · maj. 42 (F 5) | prop. está 60 abaixo do total de cadeiras: **o Maranhão não tem resultado no arquivo** — as 926 candidaturas de MA vêm com `#NULO` em DS_SIT_TOT_TURNO, e MA elege 18 federais + 42 estaduais = 60. Lacuna da fonte; não corrigida nesta rodada. Maj. = 27 senadores + 15 governadores no 1º turno |
-| 2026 | base inteira | NR_TURNO=1 (única existente), chave SQ_CANDIDATO | 26.678 | 13.339 | 13.339 candidaturas | 13.339 linhas repetidas (BRASIL). **Erro comprovado e corrigido nesta rodada**: a fotografia publicada antes usava o processamento `2026.08.11-b2`, anterior à deduplicação, e exibia 26.678 |
-| 2026 | proporcional | idem | — | — | 12.754 (F 4.488 = 35,2%) | antes exibia 25.508 e 8.976 — exatamente o dobro |
-| 2026 | majoritário | idem | — | — | 227 (F 41 = 18,1%) | antes exibia 454 e 82 — exatamente o dobro |
-| 2026 | fora dos universos | vices e suplentes | — | — | 358 | 12.754 + 227 + 358 = 13.339 ✔ |
+| 2026 (vigente, 13/08) | base inteira | NR_TURNO=1 (única existente), chave SQ_CANDIDATO | — | 18.282 | 18.282 candidaturas | fotografia vigente do site; coleta retida e reconferida contra o pacote oficial antes de publicar |
+| 2026 (vigente, 13/08) | proporcional | idem | — | — | 17.299 (F 6.109 = 35,3%) | número publicado hoje |
+| 2026 (vigente, 13/08) | majoritário | idem | — | — | 377 (F 73 = 19,4%) | número publicado hoje |
+| 2026 (vigente, 13/08) | fora dos universos | vices e suplentes | — | — | 606 | 17.299 + 377 + 606 = 18.282 ✔ |
+| 2026 (fotografia anterior, 11/08 — valor substituído) | base inteira | idem | 26.678 | 13.339 | 13.339 candidaturas | 13.339 linhas repetidas (BRASIL). Erro anterior a esta série: o processamento `2026.08.11-b2` era pré-deduplicação e exibia 26.678 |
+| 2026 (fotografia anterior — valor substituído) | proporcional | idem | — | — | 12.754 (F 4.488 = 35,2%) | **não é a fotografia vigente** |
+| 2026 (fotografia anterior — valor substituído) | majoritário | idem | — | — | 227 (F 41 = 18,1%) | **não é a fotografia vigente** |
+| 2026 (fotografia anterior — valor substituído) | fora dos universos | vices e suplentes | — | — | 358 | 12.754 + 227 + 358 = 13.339 ✔ |
 | 2026 | eleitas | — | — | — | **bloqueado** | eleição não realizada; nenhum valor é criado ou estimado |
 | 2026 | raça sobre o total de candidaturas | — | — | — | **bloqueado** | a fotografia atual grava cor/raça apenas das candidaturas de mulheres; o denominador racial total não existe no snapshot |
 

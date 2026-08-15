@@ -188,8 +188,9 @@ export function HistoryFunnel() {
         <article className="editorial-card p-5">
           <h3 className="font-display text-lg text-ink">Tamanho do funil</h3>
           <p className="mt-2 text-sm leading-relaxed text-ink/70">
-            Em 2022, mulheres foram 34,1% das candidaturas proporcionais e 17,9% das
-            eleitas — a urna cortou quase metade da participação.
+            Em 2022, mulheres foram 34,1% das candidaturas proporcionais (9.532 de
+            27.977) e 17,7% das eleitas no 1º turno (267 de 1.512) — metade da
+            participação fica no caminho.
           </p>
         </article>
         <article className="editorial-card p-5">
@@ -204,22 +205,22 @@ export function HistoryFunnel() {
           <h3 className="font-display text-lg text-ink">A cor do funil</h3>
           <p className="mt-2 text-sm leading-relaxed text-ink/70">
             A urna não filtra por igual. Em 2022, entre as mulheres, a fatia parda caiu
-            de 35,1% (3.341) na candidatura para 23,4% (66) na eleição e a preta caiu de
-            18,3% (1.745) para 13,1% (37), enquanto a branca subiu de 45% (4.287) para
-            61% (172). Indígenas (79 → 5) e amarelas (45 → 1) aparecem em números
+            de 35,1% (3.341) na candidatura para 20,6% (55) na eleição e a preta caiu de
+            18,3% (1.745) para 13,9% (37), enquanto a branca subiu de 45,0% (4.287) para
+            62,9% (168). Indígenas (79 → 5) e amarelas (45 → 1) aparecem em números
             pequenos e devem ser lidas pelo absoluto.
           </p>
         </article>
       </div>
 
       <p className="font-mono text-[12px] leading-relaxed text-ink/70">
-        Recorte: Câmara dos Deputados, Assembleias Legislativas e Câmara Legislativa do DF — eleições proporcionais, 1º turno. Não inclui Senado, governos estaduais ou Presidência. Por isso os totais podem diferir de estatísticas do TSE que somam o Legislativo inteiro: aqui se conta a cadeira proporcional, não a suplência nem o Senado. Ressalva: cada ano e cada etapa têm denominador próprio; percentuais não se
+        Recorte: Câmara dos Deputados, Assembleias Legislativas e Câmara Legislativa do DF — eleições proporcionais, 1º turno. Não inclui Senado, governos estaduais ou Presidência. Por isso os totais podem diferir de estatísticas do TSE que somam o Legislativo inteiro: aqui se conta a cadeira proporcional, não a suplência nem o Senado. Em 2022, as eleitas proporcionais somam 1.512 e não 1.572: o arquivo oficial não traz resultado para o Maranhão (60 cadeiras), lacuna da fonte que não é estimada aqui. Cada ano e cada etapa têm denominador próprio; percentuais não se
         somam. Cor/raça é autodeclarada, nas categorias do TSE, coletada desde 2014 — a
         qualidade do preenchimento varia entre ciclos e, em 2014, não há registros “não
         informado”. Categorias com poucas candidaturas ou eleitas devem ser lidas pelo
         número absoluto, não pelo percentual. Nenhuma categoria é omitida. 2026 é
         fotografia em andamento, sem eleição e sem recorte de raça publicado nesta peça.
-        Comparação descritiva, sem atribuir causa. Fonte: {HISTORICAL_FUNNEL_SOURCE}.
+        Fonte: {HISTORICAL_FUNNEL_SOURCE}.
       </p>
     </div>
   );

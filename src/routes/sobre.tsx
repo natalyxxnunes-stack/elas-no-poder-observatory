@@ -33,7 +33,7 @@ export const Route = createFileRoute("/sobre")({
 const COMMITMENTS = [
   "Fato, interpretação e hipótese são coisas diferentes.",
   "Nenhum percentual aparece sem que você saiba qual é o universo daquele cálculo.",
-  "Correlação não é causalidade.",
+  "Contraste entre grupos é descrição, não explicação de causa.",
   "Todo dado tem uma fonte, e toda fonte precisa de contexto.",
   "A metodologia precisa poder ser entendida e conferida.",
   "Erros são corrigidos de forma transparente.",
