@@ -16,8 +16,18 @@ function br(iso: string | null | undefined): string | null {
 
 
 export function SiteFooter() {
+  const fetchStamp = useServerFn(getSnapshotStamp);
+  const { data: stamp } = useQuery({
+    queryKey: ["tse-snapshot-stamp"],
+    queryFn: () => fetchStamp(),
+    staleTime: 5 * 60 * 1000,
+  });
+  const generated = br(stamp?.baseGeneratedAt);
+  const collected = br(stamp?.collectedAt);
+
   return (
     <footer className="ink-panel mt-24">
+
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.5fr_1fr] md:px-8">
         <div>
           <div className="flex items-center gap-3">
