@@ -27,9 +27,9 @@ import { VAGAS_SOURCE } from "@/data/vagas-2026";
 import { applySnapshot } from "@/lib/tse/indicators";
 import {
   getLatestTseSnapshot,
-  getLatestTseSnapshotCsv,
   listTseSnapshots,
 } from "@/lib/tse/snapshot.functions";
+
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 
 
