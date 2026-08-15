@@ -10,6 +10,7 @@ import { GapNote } from "@/components/GapNote";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 import { FunnelStages2026 } from "@/components/funnel/FunnelStages2026";
 import { PastStrip } from "@/components/funnel/PastStrip";
+import { CompetitionByUf } from "@/components/editorial/CompetitionByUf";
 import { FUNNEL_READING_RULE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import { getHistoricalSeries } from "@/lib/tse/historical.functions";
