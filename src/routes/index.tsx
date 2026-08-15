@@ -478,8 +478,7 @@ function DadosPage() {
           <p>
             Candidatura e eleição não são a mesma coisa. Para cada ano fechado,
             o funil mostra a participação feminina no registro e a participação
-            feminina entre as eleitas — com o recorte de raça por dentro. Cada
-            etapa tem denominador próprio; os percentuais não se somam.
+            feminina entre as eleitas — com o recorte de raça por dentro.
           </p>
         }
         source="Fonte: TSE — candidatos e resultados 2014/2018/2022/2026"
@@ -611,8 +610,7 @@ function DadosPage() {
         lead={
           <p>
             Todo indicador aparece com fonte, universo, denominador, fórmula e
-            data. Quando um dado ainda não existe, dizemos exatamente o que falta:
-            dado não disponível não é zero.
+            data. Quando um dado ainda não existe, dizemos exatamente o que falta.
           </p>
         }
       >
