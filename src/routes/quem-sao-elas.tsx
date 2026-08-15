@@ -132,6 +132,31 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
       <SectionBlock
+        kicker="Panorama por estado"
+        question="Cor/raça das candidaturas proporcionais, estado por estado"
+        align="wide"
+        lead={
+          <p>
+            Aqui todos os estados aparecem lado a lado para comparação, cada um
+            com seu próprio denominador. O explorador acima serve para
+            aprofundar um recorte por vez.
+          </p>
+        }
+        source={
+          <>
+            Fonte: TSE · Candidaturas 2026 ·{" "}
+            <Link to="/metodo" className="text-plum underline underline-offset-4">
+              ver o método
+            </Link>
+          </>
+        }
+      >
+        <RaceByStateTable snapshot={snapshot} />
+      </SectionBlock>
+
+
+
+      <SectionBlock
         kicker="Limites da fonte"
         question="O que a base registra — e o que ela não registra"
       >
