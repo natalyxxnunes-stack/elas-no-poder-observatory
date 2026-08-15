@@ -312,17 +312,44 @@ function SobrePage() {
       </SectionBlock>
 
       <SectionBlock
-        kicker="Correções"
-        question="O que corrigimos e como"
+        kicker="Correções e erratas"
+        question="Como avisar de um erro — e o que acontece depois"
       >
-        <ul className="max-w-3xl space-y-3 text-sm leading-relaxed text-muted-foreground">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="poster-frame p-5 md:p-6">
+            <h3 className="font-display text-xl text-ink">Como comunicar</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Escreva para{" "}
+              <a
+                href="mailto:contato@quemsaoelas.com.br?subject=Correção"
+                className="text-plum underline underline-offset-4"
+              >
+                contato@quemsaoelas.com.br
+              </a>{" "}
+              com o assunto “Correção”. Ajuda muito indicar a página, o número ou
+              a frase em questão e, se possível, a fonte que sustenta a correção.
+              Toda mensagem é lida por mim.
+            </p>
+          </div>
+          <div className="poster-frame p-5 md:p-6">
+            <h3 className="font-display text-xl text-ink">
+              O que acontece depois
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Confirmada a falha, o valor ou o texto é corrigido e a correção
+              passa a ficar registrada com data no ponto em que o erro apareceu.
+              Nada é corrigido em silêncio.
+            </p>
+          </div>
+        </div>
+        <ul className="mt-5 max-w-3xl space-y-3 text-sm leading-relaxed text-muted-foreground">
           <li>
-            Erro de dado: corrigimos o valor e registramos a correção na página
-            do indicador, com data.
+            Erro de dado: o valor é corrigido e a correção fica registrada, com
+            data.
           </li>
           <li>
-            Erro de método: revisamos a fórmula, recalculamos a série e
-            explicamos o que mudou.
+            Erro de método: a fórmula é revisada, a série é recalculada e o que
+            mudou é explicado.
           </li>
           <li>
             Atualização de base: não é correção. A mudança de fotografia é
