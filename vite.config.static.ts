@@ -20,7 +20,11 @@ export default defineConfig({
     // apenas durante o pré-render, e não vai para a hospedagem.
     server: { entry: "server" },
     // Fallback de SPA: qualquer rota não pré-renderizada ainda abre no cliente.
+    // O shell sai em /_shell.html; o .htaccess aponta para ele.
     spa: { enabled: true },
+    // O shell também parte de "/", então a home precisa de um destino próprio
+    // para que /index.html seja o HTML da home, com seu texto e seu head().
+    pages: [{ path: "/", prerender: { enabled: true, outputPath: "/index.html" } }],
     prerender: {
       enabled: true,
       crawlLinks: true,
