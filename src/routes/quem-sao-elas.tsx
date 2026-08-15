@@ -230,15 +230,13 @@ function QuemSaoElasPage() {
         <PartyGenderTable snapshot={snapshot} />
         <ContextBox variant="significa" title="Como ler">
           <p>
-            O que o dado mostra: a proporção de mulheres entre as candidaturas
-            registradas por cada partido, na data desta fotografia. O que ele não
-            mostra: quanto dinheiro e tempo de propaganda cada candidatura
-            recebeu, em que posição da lista entrou e quem foi eleita — essas
-            bases só existem depois da campanha e da votação. Por isso a tabela
-            não sustenta frases como "partido melhor para mulheres": ela descreve
-            a entrada, e a entrada é apenas a primeira etapa.
+            A tabela não sustenta frases como “partido melhor para mulheres”:
+            ela descreve a entrada, e a entrada é apenas a primeira etapa —
+            dinheiro, posição na lista e eleição só existem em bases posteriores
+            à campanha.
           </p>
         </ContextBox>
+
       </SectionBlock>
 
       <SectionBlock
