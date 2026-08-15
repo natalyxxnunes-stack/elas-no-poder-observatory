@@ -214,6 +214,7 @@ export const getLatestTseSnapshotCsv = createServerFn({ method: "GET" }).handler
       `# Geracao da base (TSE): ${snap.baseGeneratedAt ?? "nao informada"}`,
       `# Coleta pelo observatorio: ${snap.collectedAt}`,
       `# Arquivo processado: ${snap.fileName}`,
+      `# SHA-256 do arquivo processado (procedencia, nao validacao de calculo): ${snap.brasilCsvSha256 ?? snap.zipSha256 ?? "nao registrado nesta fotografia"}`,
       `# Filtros aplicados: ${snap.filters.length > 0 ? snap.filters.join(" | ") : "nenhum"}`,
       "# Unidade de analise: candidatura registrada (nao pessoa)",
       "universo,categoria,quantidade,total_mulheres_universo,total_candidaturas_universo",
