@@ -140,19 +140,25 @@ export const HISTORICAL_FUNNEL: HistoricalFunnelYear[] = [
         nao_informado: { count: 35, percent: 0.4 },
       },
     },
+    // Eleitas 2022 conforme o processamento do projeto (fotografia histórica
+    // gravada no banco): 1.512 eleituras no 1º turno, 60 abaixo das 1.572
+    // cadeiras, porque o arquivo oficial não traz resultado para o Maranhão
+    // (926 candidaturas com #NULO em DS_SIT_TOT_TURNO; MA elege 18 federais +
+    // 42 estaduais). Lacuna da fonte: não é preenchida nem estimada.
     elected: {
-      total: 1_572,
-      feminine: 282,
-      femininePercent: 17.9,
+      total: 1_512,
+      feminine: 267,
+      femininePercent: 17.7,
       race: {
-        branca: { count: 172, percent: 61.0 },
-        parda: { count: 66, percent: 23.4 },
-        preta: { count: 37, percent: 13.1 },
-        indigena: { count: 5, percent: 1.8 },
+        branca: { count: 168, percent: 62.9 },
+        parda: { count: 55, percent: 20.6 },
+        preta: { count: 37, percent: 13.9 },
+        indigena: { count: 5, percent: 1.9 },
         amarela: { count: 1, percent: 0.4 },
         nao_informado: { count: 1, percent: 0.4 },
       },
     },
+
   },
   {
     year: 2026,
