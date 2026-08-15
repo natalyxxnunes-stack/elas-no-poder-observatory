@@ -208,6 +208,61 @@ export function raceCounts(universe: UniverseId): Record<string, number> | null 
   return u.raceCounts;
 }
 
+/**
+ * O achado racial de 2026 — comparação entre a população feminina (Censo 2022,
+ * IBGE) e as candidaturas de mulheres às eleições proporcionais de 2026 (TSE).
+ * As contagens de candidaturas são curadas contra a fotografia conferida do
+ * TSE; quando o snapshot está disponível, a camada de apresentação lê dele.
+ */
+
+/** Categorias de cor/raça usadas na peça — sem "não informado", porque a
+ *  comparação é com o Censo 2022. Ordem fixa: branca, parda, preta, indígena,
+ *  amarela. */
+export const RACE_FINDING_CATEGORIES = [
+  "branca",
+  "parda",
+  "preta",
+  "indigena",
+  "amarela",
+] as const;
+
+export type RaceFindingCategory = (typeof RACE_FINDING_CATEGORIES)[number];
+
+/** População feminina no Brasil — Censo 2022, IBGE. Constante curada. */
+export const POPULATION_FEMININE_2022 = 104_500_000;
+
+/** Distribuição autodeclarada da população feminina por cor/raça, Censo 2022.
+ *  Os percentuais são os informados pelo IBGE; os absolutos são derivados do
+ *  total e podem não fechar exatamente em 100% por arredondamento. */
+export const POPULATION_RACE_FEMININE_2022: Record<
+  RaceFindingCategory,
+  { count: number; percent: number }
+> = {
+  branca: { count: 46_390_000, percent: 44.4 },
+  parda: { count: 46_820_000, percent: 44.8 },
+  preta: { count: 10_136_500, percent: 9.7 },
+  indigena: { count: 627_000, percent: 0.6 },
+  amarela: { count: 418_000, percent: 0.4 },
+};
+
+/** Candidaturas de mulheres às eleições proporcionais de 2026 por cor/raça.
+ *  Curado contra a fotografia conferida do TSE (fonte: TSE / Dados Abertos /
+ *  Candidatos 2026). Usado como fallback quando o snapshot ainda não foi
+ *  processado. */
+export const CANDIDACY_FEMININE_RACE_2026: Record<
+  RaceFindingCategory,
+  { count: number; percent: number }
+> = {
+  branca: { count: 2_810, percent: 46.0 },
+  parda: { count: 2_134, percent: 34.9 },
+  preta: { count: 1_065, percent: 17.4 },
+  indigena: { count: 71, percent: 1.2 },
+  amarela: { count: 29, percent: 0.5 },
+};
+
+/** Total de candidaturas de mulheres nas proporcionais de 2026. */
+export const CANDIDACY_FEMININE_2026_TOTAL = 6_109;
+
 /** Tese editorial do observatório. */
 export const THESIS =
   "Entre se candidatar e chegar ao poder, onde elas desaparecem?";
