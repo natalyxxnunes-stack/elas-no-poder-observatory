@@ -62,7 +62,7 @@ export function HistoryTimeline({
               </p>
             )}
             {snap && snap.anomalies.length > 0 && (
-              <p className="mt-2 font-mono text-[12px] leading-relaxed text-coral">
+              <p className="mt-2 font-mono text-[12px] leading-relaxed text-coral-ink">
                 {snap.anomalies.join(" · ")}
               </p>
             )}

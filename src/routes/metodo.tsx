@@ -260,7 +260,7 @@ function MetodoPage() {
         question="Fonte e processamento"
       >
         <div className="editorial-card p-5 md:p-6">
-          <dl className="grid gap-3 font-mono text-[12px] leading-relaxed text-muted-foreground md:grid-cols-2">
+          <dl className="grid gap-3 break-words font-mono text-[12px] leading-relaxed text-muted-foreground md:grid-cols-2">
             <div>
               <dt className="uppercase tracking-wider">Fonte</dt>
               <dd className="text-ink">{TSE_SOURCE.name}</dd>
@@ -270,7 +270,7 @@ function MetodoPage() {
               <dd>
                 <a
                   href={TSE_SOURCE.datasetUrl}
-                  className="underline"
+                  className="break-all underline"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -558,12 +558,17 @@ function MetodoPage() {
         {history.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[560px] border-collapse text-left">
+                <caption className="sr-only">
+                  Fotografias da base do TSE já processadas, com data de coleta,
+                  data de geração da base, número de registros e situação.
+                </caption>
               <thead>
                 <tr className="border-b border-rule">
                   {["Coleta", "Geração da base", "Registros", "Situação"].map(
                     (h) => (
                       <th
                         key={h}
+                        scope="col"
                         className="py-3 pr-4 font-mono text-[12px] uppercase tracking-wider text-muted-foreground"
                       >
                         {h}

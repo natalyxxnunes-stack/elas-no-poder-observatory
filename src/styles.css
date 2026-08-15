@@ -45,6 +45,8 @@
   --color-cream: var(--cream);
   --color-plum: var(--plum);
   --color-plum-soft: var(--plum-soft);
+  --color-plum-bright: var(--plum-bright);
+  --color-coral-ink: var(--coral-ink);
   --color-solar: var(--solar);
   --color-coral: var(--coral);
   --color-forest: var(--forest);
@@ -70,6 +72,9 @@
   --paper: oklch(0.98 0.008 85);
   --plum: oklch(0.39 0.16 305);
   --plum-soft: oklch(0.52 0.13 305);
+  /* Variantes tonais para texto: mesma família de cor, contraste AA. */
+  --plum-bright: oklch(0.74 0.13 305);
+  --coral-ink: oklch(0.5 0.19 32);
   --solar: oklch(0.83 0.16 84);
   --coral: oklch(0.63 0.2 34);
   --forest: #2E7D4F;
@@ -86,7 +91,7 @@
   --secondary: var(--cream);
   --secondary-foreground: var(--plum);
   --muted: oklch(0.95 0.012 85);
-  --muted-foreground: oklch(0.46 0.03 305);
+  --muted-foreground: oklch(0.41 0.03 305);
   --accent: var(--solar);
   --accent-foreground: var(--ink);
   --destructive: var(--coral);

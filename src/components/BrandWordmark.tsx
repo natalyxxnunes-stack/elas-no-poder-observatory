@@ -12,7 +12,7 @@ export function BrandWordmark({
   return (
     <span className={className}>
       Quem são{" "}
-      <em className={tone === "cream" ? "italic text-plum-soft" : "italic text-plum"}>
+      <em className={tone === "cream" ? "italic text-plum-bright" : "italic text-plum"}>
         elas
       </em>
       ?

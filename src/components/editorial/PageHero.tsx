@@ -59,7 +59,7 @@ export function PageHero({
         <div className="absolute inset-x-4 bottom-6 md:inset-x-0 md:bottom-14">
           <div className="mx-auto max-w-6xl md:px-8">
             <div className="max-w-xl rounded-lg border-2 border-ink bg-paper/95 p-5 shadow-[9px_9px_0_0_var(--color-plum)] backdrop-blur-sm md:max-w-2xl md:p-8">
-              <p className="poster-eyebrow border-coral text-coral">{kicker}</p>
+              <p className="poster-eyebrow border-coral text-coral-ink">{kicker}</p>
               <h1 className="mt-4 font-display text-[clamp(1.6rem,5vw,3.1rem)] leading-[1.03] text-ink">
                 {question}
               </h1>

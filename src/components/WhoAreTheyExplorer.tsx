@@ -52,7 +52,7 @@ export function WhoAreTheyExplorer() {
                 <span className="font-display text-lg text-ink">{row.level}</span>
                 <span
                   className={`font-mono text-[12px] uppercase tracking-wider ${
-                    counts ? "text-plum" : "text-coral"
+                    counts ? "text-plum" : "text-coral-ink"
                   }`}
                 >
                   {row.status}

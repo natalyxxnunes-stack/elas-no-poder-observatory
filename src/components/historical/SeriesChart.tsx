@@ -41,9 +41,9 @@ function UniverseColumn({
 
   return (
     <div>
-      <h4 className="font-mono text-[12px] uppercase tracking-[0.16em] text-plum">
+      <h3 className="font-mono text-[12px] uppercase tracking-[0.16em] text-plum">
         {UNIVERSE_LABEL[universe]}
-      </h4>
+      </h3>
 
       <div className="mt-4 flex items-end gap-3">
         {points.map((p) => (
@@ -95,8 +95,8 @@ function UniverseColumn({
 
       {missing.length > 0 && (
         <p className="mt-3 font-mono text-[12px] leading-relaxed text-muted-foreground">
-          Pontos vazios: {missing.map((m) => m.year).join(", ")}. Ausência de
-          dado não é zero.
+          Pontos vazios: {missing.map((m) => m.year).join(", ")} — a fonte não
+          trouxe o resultado desses anos.
         </p>
       )}
     </div>

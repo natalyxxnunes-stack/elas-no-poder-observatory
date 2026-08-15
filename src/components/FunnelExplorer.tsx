@@ -53,7 +53,7 @@ export function FunnelExplorer() {
                     <span className="font-display text-base text-ink">{s.label}</span>
                     <span
                       className={`font-mono text-[12px] uppercase tracking-wider ${
-                        known ? "text-plum" : "text-coral"
+                        known ? "text-plum" : "text-coral-ink"
                       }`}
                     >
                       {known ? formatPercent(value) : s.status}
@@ -111,7 +111,7 @@ export function FunnelExplorer() {
             </div>
           </dl>
 
-          <p className="mt-4 font-mono text-[12px] uppercase tracking-wider text-coral">
+          <p className="mt-4 font-mono text-[12px] uppercase tracking-wider text-coral-ink">
             {step.status}
           </p>
 

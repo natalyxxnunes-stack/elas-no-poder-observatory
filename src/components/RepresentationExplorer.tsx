@@ -32,12 +32,12 @@ function UniverseCard({
   return (
     <article className="editorial-card p-5">
       <div className="flex items-baseline justify-between gap-3">
-        <h4 className="font-display text-lg text-ink">
+        <h3 className="font-display text-lg text-ink">
           {quotaApplies ? "Proporcionais" : "Majoritárias"}
-        </h4>
+        </h3>
         <span
           className={`font-mono text-[12px] uppercase tracking-wider ${
-            quotaApplies ? "text-plum" : "text-coral"
+            quotaApplies ? "text-plum" : "text-coral-ink"
           }`}
         >
           {quotaApplies
@@ -66,7 +66,7 @@ function UniverseCard({
         )}
       </div>
 
-      <p className="mt-3 font-mono text-[12px] uppercase tracking-wider text-coral">
+      <p className="mt-3 font-mono text-[12px] uppercase tracking-wider text-coral-ink">
         {indicator.status}
       </p>
 
