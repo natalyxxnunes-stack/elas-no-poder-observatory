@@ -154,11 +154,11 @@ function QuemSaoElasPage() {
         align="wide"
         lead={
           <p>
-            Aqui todos os estados aparecem lado a lado para comparação, cada um
-            com seu próprio denominador. O explorador acima serve para
-            aprofundar um recorte por vez.
+            Aqui todos os estados aparecem lado a lado para comparação. O
+            explorador acima serve para aprofundar um recorte por vez.
           </p>
         }
+
         source={
           <>
             Fonte: TSE · Candidaturas 2026
