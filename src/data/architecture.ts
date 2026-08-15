@@ -232,8 +232,8 @@ export const NAV_ITEMS = [
   navItem("direitos"),
   navItem("metodo"),
   navItem("sobre"),
-  navItem("downloads"),
 ] as const;
+
 
 /** Eixos publicados no lançamento. */
 export const PUBLISHED_AXES = ["dados-2026", "funil", "direitos", "metodo", "sobre"] as const;
