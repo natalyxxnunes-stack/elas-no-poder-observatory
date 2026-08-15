@@ -227,8 +227,18 @@ export function RaceFinding2026({
               O que o dado mostra
             </h3>
             <p className="mt-3 leading-relaxed text-ink/70">
-              No Censo de 2022, mulheres pardas e brancas têm quase o mesmo tamanho: 44,8% e 44,4% das brasileiras. Entre as candidaturas de mulheres às proporcionais de 2026, brancas são 46% e pardas 34,9%. A candidatura parda fica quase dez pontos abaixo do tamanho da população parda feminina — a maior distância entre os cinco grupos. A candidatura preta aparece no sentido oposto: 17,4% das candidatas, contra 9,7% da população feminina.
+              No Censo de 2022, mulheres pardas e brancas têm quase o mesmo
+              tamanho: {pct(popParda.percent)} e {pct(popBranca.percent)} das
+              brasileiras. Entre as candidaturas de mulheres às proporcionais de
+              2026, brancas são {pct(candBranca.percent)} e pardas{" "}
+              {pct(candParda.percent)}. A candidatura parda fica {pp(gapParda)}{" "}
+              {gapParda < 0 ? "abaixo" : "acima"} do tamanho da população parda
+              feminina. A candidatura preta aparece no sentido oposto:{" "}
+              {pct(candPreta.percent)} das candidatas, contra{" "}
+              {pct(popPreta.percent)} da população feminina. Os percentuais deste
+              parágrafo e as barras acima vêm da mesma fonte: a {sourceLabel}.
             </p>
+
           </article>
 
           <article className="poster-frame p-5">
