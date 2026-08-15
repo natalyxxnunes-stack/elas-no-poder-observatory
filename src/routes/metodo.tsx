@@ -360,17 +360,71 @@ function MetodoPage() {
               )}
 
               <div className="mt-4 border-t border-rule pt-4">
+                <p className="kicker">Baixar os dados</p>
+                <h3 className="mt-2 font-display text-xl text-ink">
+                  Planilha da fotografia vigente (CSV)
+                </h3>
+                <dl className="mt-3 grid gap-2 font-mono text-[12px] leading-relaxed text-muted-foreground md:grid-cols-2">
+                  <div>
+                    <dt className="inline uppercase tracking-wider">
+                      O que é:{" "}
+                    </dt>
+                    <dd className="inline">
+                      exportação dos números já processados pelo observatório —
+                      contagens de candidaturas por universo, gênero e cor/raça,
+                      não o arquivo bruto do TSE
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="inline uppercase tracking-wider">
+                      Fotografia:{" "}
+                    </dt>
+                    <dd className="inline">
+                      base do TSE gerada em{" "}
+                      {br(snapshot.baseGeneratedAt)}, processada em{" "}
+                      {br(snapshot.collectedAt)}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="inline uppercase tracking-wider">
+                      Universos:{" "}
+                    </dt>
+                    <dd className="inline">
+                      proporcional e majoritário, sempre separados, com o total
+                      de cada um na própria linha
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="inline uppercase tracking-wider">
+                      Filtros:{" "}
+                    </dt>
+                    <dd className="inline">
+                      {snapshot.filters.length
+                        ? snapshot.filters.join(" · ")
+                        : "os mesmos filtros descritos na ficha técnica acima"}
+                    </dd>
+                  </div>
+                  <div className="md:col-span-2">
+                    <dt className="inline uppercase tracking-wider">
+                      Cabeçalho do arquivo:{" "}
+                    </dt>
+                    <dd className="inline">
+                      traz fonte, datas, filtros, versão de processamento e o
+                      SHA-256 quando disponível, para o arquivo continuar
+                      identificável fora do site
+                    </dd>
+                  </div>
+                </dl>
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="inline-flex rounded-md bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+                  className="mt-4 inline-flex rounded-md bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
                 >
-                  Baixar esta fotografia (CSV)
+                  Baixar a planilha (CSV)
                 </button>
                 <p className="mt-2 font-mono text-[12px] text-muted-foreground">
-                  CSV da fotografia vigente, com a data de geração da base pelo
-                  TSE, os filtros e o universo de cada linha no cabeçalho do
-                  arquivo.
+                  O arquivo bruto original continua disponível direto no TSE, no
+                  endereço citado na ficha técnica.
                 </p>
               </div>
             </div>
