@@ -576,14 +576,12 @@ function MetodoPage() {
               6. Fotografias e verificação
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Cada coleta gera uma fotografia datada e nenhuma é sobrescrita, o
-              que permite saber qual base sustentava um número em determinada
-              data. Quando disponível, o SHA-256 do pacote baixado e do arquivo de
-              onde os números saem fica publicado acima: ele confirma que o
-              arquivo é o mesmo, não que a conta está certa. Para conferir:
-              recalcule as contagens do passo 5 sobre o arquivo indicado no passo
-              1 e compare com a planilha exportada.
+              Cada coleta gera uma fotografia datada, listada no histórico ao fim
+              desta página com o respectivo SHA-256 quando disponível. Para
+              conferir: recalcule as contagens do passo 5 sobre o arquivo
+              indicado no passo 1 e compare com a planilha exportada.
             </p>
+
           </li>
         </ol>
       </SectionBlock>
