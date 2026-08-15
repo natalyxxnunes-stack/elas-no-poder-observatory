@@ -227,6 +227,32 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
       <SectionBlock
+        kicker="Por estado"
+        question="E no seu estado?"
+        align="wide"
+        tone="solar"
+        lead={
+          <p>
+            Escolha um estado e leia a realidade daquela região: quantas
+            candidaturas foram registradas, quantas são de mulheres, como isso se
+            compara com o Brasil no mesmo universo, quais mulheres estão ali e
+            quais partidos as registraram. Dá para voltar ao Brasil ou trocar de
+            estado a qualquer momento.
+          </p>
+        }
+        source={
+          <>
+            Fonte: TSE · Candidaturas 2026 ·{" "}
+            <Link to="/metodo" className="text-plum underline underline-offset-4">
+              ver o método
+            </Link>
+          </>
+        }
+      >
+        <StateExplorer snapshot={snapshot} />
+      </SectionBlock>
+
+      <SectionBlock
         kicker="Plano de cruzamentos"
         question="O que já é possível cruzar e o que depende de nova fonte"
         align="wide"
