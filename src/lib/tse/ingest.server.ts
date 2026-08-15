@@ -212,6 +212,8 @@ export async function runIngest(
       file_url: fileUrl,
       record_count: acc.recordCount,
       status: validation.status,
+      zip_sha256: zipSha256,
+      brasil_csv_sha256: brasilCsvSha256,
       processing_version: PROCESSING_VERSION,
       columns_found: acc.headerNames,
       filters: APPLIED_FILTERS,
