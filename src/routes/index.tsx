@@ -458,7 +458,7 @@ function DadosPage() {
       {/* O ACHADO RACIAL DE 2026 */}
       <SectionBlock
         kicker="O achado racial de 2026"
-        question="A largada já é mais branca que o país."
+        question="Dois retratos da mesma cor, com denominadores diferentes."
         lead={
           <p>
             População feminina (Censo 2022) × candidaturas de mulheres às

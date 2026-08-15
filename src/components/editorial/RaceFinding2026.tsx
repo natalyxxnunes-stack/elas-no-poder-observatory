@@ -152,8 +152,7 @@ export function RaceFinding2026({
       <p className="font-display text-xl leading-snug text-ink md:text-2xl">
         Olho:{" "}
         <span className="text-coral">
-          Antes do primeiro voto, a política já filtra. E a mulher negra é a
-          primeira a perder terreno.
+          Pardas e brancas são quase do mesmo tamanho no país. Nas candidaturas, não são.
         </span>
       </p>
 
@@ -194,33 +193,18 @@ export function RaceFinding2026({
 
         <div className="space-y-5">
           <article className="poster-frame p-5">
-            <h3 className="font-display text-xl text-ink">O fato</h3>
+            <h3 className="font-display text-xl text-ink">O que o número mostra</h3>
             <p className="mt-3 leading-relaxed text-muted-foreground">
-              A mulher negra — preta e parda somadas — é a maioria das brasileiras
-              (54,5% das mulheres, Censo 2022). Entre as candidaturas de mulheres
-              às proporcionais de 2026, deixa de ser maioria: cai para 52,4%. O
-              maior grupo de mulheres do país encolhe já na largada, e a
-              candidatura fica mais branca que o país (46% brancas).
+              No Brasil, mulheres pardas e brancas são quase do mesmo tamanho: 44,8% e 44,4% das brasileiras, no Censo de 2022. Entre as candidaturas de mulheres às proporcionais de 2026, não é o que se vê: as brancas são 46% das candidatas, e as pardas, 34,9%. O maior grupo de mulheres do país é o que mais encolhe quando se passa da população para a disputa — a candidatura parda fica quase dez pontos abaixo do tamanho da população parda feminina. Nenhum outro grupo perde tanto.
             </p>
           </article>
 
           <article className="poster-frame p-5">
             <h3 className="font-display text-xl text-ink">
-              A negritude não se divide
+              Por que o maior grupo é o que mais some
             </h3>
             <p className="mt-3 leading-relaxed text-muted-foreground">
-              A negritude não se divide, mas o apagamento se distribui: pretas e
-              pardas formam a população negra, e é como população negra que a
-              sub-representação se lê. Olhar as duas por dentro não parte essa
-              identidade — mostra como o apagamento se distribui dentro dela.
-            </p>
-            <p className="mt-3 leading-relaxed text-muted-foreground">
-              A parda, maior grupo de mulheres do país, é a que mais encolhe da
-              população para a candidatura (quase 10 pontos). A preta aparece
-              acima do seu tamanho na população. Não são histórias contrárias: o
-              racismo não escolhe entre pretas e pardas — trata a mulher negra,
-              nas suas duas formas de se declarar, de modo desigual em cada
-              etapa.
+              {"Olhar só o total esconde a questão. Somadas, pretas e pardas são a maioria das mulheres do país — mas o total apaga que os dois grupos se comportam de formas opostas na disputa. A candidatura preta aparece acima do peso populacional: 17,4% das candidatas, contra 9,7% da população. A parda desaba. No Brasil, \"parda\" é a categoria onde a cor mais se dissolve, na ideia de que aqui seríamos todos misturados — e é por ser o maior grupo, e o mais difuso, que a candidatura parda encolhe quase dez pontos sem que ninguém note. A distância só aparece quando se coloca o número ao lado da população."}
             </p>
           </article>
 
@@ -229,12 +213,7 @@ export function RaceFinding2026({
               O número que parece dizer o contrário
             </h3>
             <p className="mt-3 leading-relaxed text-muted-foreground">
-              A candidatura preta acima do peso populacional não é sinal de que o
-              racismo afrouxou, e não deve ser lida assim. É o degrau mais baixo
-              da disputa — estar na lista não é receber recursos, tempo de TV,
-              voto, nem chegar ao poder. É no caminho da candidatura até a cadeira
-              que essa presença se desfaz. A seção seguinte (o funil) mostra o
-              que a urna faz com ela.
+              A candidatura preta acima do peso não é sinal de que o racismo afrouxou, e não deve ser lida assim. É o degrau mais baixo da disputa: estar na lista não é receber recursos, tempo de televisão, voto — nem chegar ao poder. A candidatura é a porta; este observatório acompanha o caminho até a sala. Medir só a entrada é parar onde a investigação começa. A seção seguinte — o funil — mostra o que a urna faz com essa presença.
             </p>
           </article>
         </div>
@@ -245,7 +224,7 @@ export function RaceFinding2026({
         proporcionais de 2026
         {fromSnapshot ? " (lidas do snapshot conferido)" : ""}; população
         feminina 104,5 milhões (Censo 2022). Cor/raça autodeclarada, nas
-        categorias do IBGE/TSE; "negra" = preta + parda (definição oficial). A
+        categorias do IBGE/TSE; Preta e parda são lidas separadamente; quando somadas como população negra, a soma é declarada. A
         comparação entre candidaturas (TSE proporcional 2026) e população
         feminina (Censo 2022) são dois retratos, cada um com seu denominador;
         leitura descritiva, não causal. Indígenas e amarelas: poucas
