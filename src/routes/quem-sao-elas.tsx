@@ -13,6 +13,7 @@ import { IntersectionPlan } from "@/components/editorial/IntersectionPlan";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { axis, CENTRAL_PRINCIPLE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
+import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 
 
 /**
