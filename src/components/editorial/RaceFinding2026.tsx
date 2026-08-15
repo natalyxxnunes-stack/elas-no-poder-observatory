@@ -156,7 +156,7 @@ export function RaceFinding2026({
         </span>
       </p>
 
-      <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+      <div className="space-y-6">
         <article className="poster-frame p-5 md:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="poster-eyebrow text-ink">Cinco categorias, dois retratos</p>
@@ -191,7 +191,7 @@ export function RaceFinding2026({
           </ul>
         </article>
 
-        <div className="space-y-5">
+        <div className="grid gap-5 md:grid-cols-3">
           <article className="poster-frame p-5">
             <h3 className="font-display text-xl text-ink">O que o número mostra</h3>
             <p className="mt-3 leading-relaxed text-ink/70">
