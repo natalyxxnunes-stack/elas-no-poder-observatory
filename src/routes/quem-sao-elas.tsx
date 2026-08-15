@@ -179,7 +179,7 @@ function QuemSaoElasPage() {
         question="O que a base registra — e o que ela não registra"
       >
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2">
           <ContextBox variant="significa">
             <p>
               Cor/raça no registro é autodeclaração. Ela não identifica
@@ -193,14 +193,8 @@ function QuemSaoElasPage() {
               com aparência de precisão e sem base. Preferimos declarar a lacuna.
             </p>
           </ContextBox>
-          <ContextBox variant="calculamos">
-            <p>
-              Quando apresentamos leitura agregada, dizemos a agregação —
-              “negra” = preta + parda — e mantemos as categorias originais
-              visíveis na mesma tela.
-            </p>
-          </ContextBox>
         </div>
+
       </SectionBlock>
 
       <SectionBlock
