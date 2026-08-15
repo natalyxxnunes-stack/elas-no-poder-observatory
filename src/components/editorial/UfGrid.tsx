@@ -153,6 +153,8 @@ export function UfGrid({
         {baseDate ? ` · fotografia da base de ${baseDate}` : ""}. Percentual e
         tamanho da base devem ser lidos juntos: um estado com poucas
         candidaturas pode ter percentual alto com pouquíssimos casos absolutos.
+        Limiar declarado: abaixo de 20 candidaturas o percentual não aparece — o
+        absoluto continua à vista.
       </p>
     </div>
   );
