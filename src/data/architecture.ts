@@ -9,7 +9,7 @@
 
 /** Tese central da investigação. */
 export const CENTRAL_THESIS =
-  "Como gênero e raça atravessam o caminho entre candidatura, competição eleitoral e poder — e quem controla cada etapa desse caminho?";
+  "Como gênero e raça marcam o caminho entre candidatura, competição eleitoral e poder — e quem controla cada etapa desse caminho?";
 
 /** Pergunta de capa. */
 export const COVER_QUESTION = "Entre se candidatar e chegar ao poder, onde elas desaparecem?";
@@ -85,7 +85,7 @@ export const AXES: readonly Axis[] = [
     id: "quem-sao-elas",
     to: "/quem-sao-elas",
     label: "Quem são elas?",
-    question: "Quais mulheres atravessam o caminho?",
+    question: "Quem são as mulheres nesse caminho?",
     summary:
       "O eixo gênero × cor/raça. Preservamos as categorias originais do TSE e distinguimos categoria de cor/raça de pertencimento étnico indígena.",
     dimensions: ["gênero × cor/raça", "território", "cargo", "partido ou federação", "deficiência"],
