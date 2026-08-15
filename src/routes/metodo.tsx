@@ -889,6 +889,135 @@ function MetodoPage() {
         </dl>
       </SectionBlock>
 
+      {/* Competitividade */}
+      <SectionBlock
+        kicker="Competitividade"
+        question="O que chamamos — e o que não chamamos — de competitividade"
+        align="wide"
+        lead={
+          <p>
+            Não existe índice de competitividade neste site. Com uma fotografia
+            de registro de candidaturas, sem voto e sem resultado, uma só leitura
+            é possível e reproduzível:{" "}
+            <strong className="text-ink">
+              {COMPETITION_DEFINITION.label.toLowerCase()}
+            </strong>
+            . Ela está publicada em{" "}
+            <Link to="/funil" className="text-plum underline underline-offset-4">
+              O funil
+            </Link>
+            .
+          </p>
+        }
+      >
+        <div className="space-y-4">
+          <div className="poster-frame p-5 md:p-6">
+            <h3 className="font-display text-xl text-ink">
+              {COMPETITION_DEFINITION.question}
+            </h3>
+            <dl className="mt-3 space-y-2 font-mono text-[12px] leading-relaxed text-ink/80">
+              <div>
+                <dt className="inline text-muted-foreground">Fórmula: </dt>
+                <dd className="inline">{COMPETITION_DEFINITION.formula}</dd>
+              </div>
+              <div>
+                <dt className="inline text-muted-foreground">Unidade: </dt>
+                <dd className="inline">
+                  {COMPETITION_DEFINITION.unit} · unidade de análise:{" "}
+                  {COMPETITION_DEFINITION.unitOfAnalysis}
+                </dd>
+              </div>
+              <div>
+                <dt className="inline text-muted-foreground">Numerador: </dt>
+                <dd className="inline">
+                  {COMPETITION_DEFINITION.numeratorSource}
+                </dd>
+              </div>
+              <div>
+                <dt className="inline text-muted-foreground">Denominador: </dt>
+                <dd className="inline">
+                  {COMPETITION_DEFINITION.denominatorSource} · arquivo gerado em
+                  15/08/2026 · SHA-256 do pacote {VAGAS_SOURCE.zipSha256}
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <ContextBox variant="significa" title="O que este número mede">
+              <ul className="list-disc space-y-1 pl-5">
+                {COMPETITION_DEFINITION.measures.map((m) => (
+                  <li key={m}>{m}</li>
+                ))}
+              </ul>
+            </ContextBox>
+            <ContextBox variant="importa" title="O que ele não mede">
+              <ul className="list-disc space-y-1 pl-5">
+                {COMPETITION_DEFINITION.doesNotMeasure.map((m) => (
+                  <li key={m}>{m}</li>
+                ))}
+              </ul>
+            </ContextBox>
+          </div>
+
+          <div className="space-y-3">
+            {COMPETITION_DEFINITION.limitations.map((l) => (
+              <GapNote key={l} label="Limite declarado">
+                {l}
+              </GapNote>
+            ))}
+          </div>
+        </div>
+      </SectionBlock>
+
+      {/* Financiamento de campanha */}
+      <SectionBlock
+        kicker="Financiamento de campanha"
+        question="Por que este site ainda não publica dinheiro de campanha"
+        align="wide"
+        lead={
+          <p>
+            Verificamos os Dados Abertos do TSE em{" "}
+            {br(FINANCE_AVAILABILITY.checkedAt)}, conjunto por conjunto.{" "}
+            {FINANCE_AVAILABILITY.verdict}
+          </p>
+        }
+      >
+        <div className="space-y-4">
+          {FINANCE_AVAILABILITY.checked.map((c) => (
+            <article key={c.id} className="editorial-card p-5">
+              <div className="flex flex-wrap items-baseline justify-between gap-3">
+                <h3 className="font-display text-lg text-ink">{c.label}</h3>
+                <StatusTag tone="limit">{c.status}</StatusTag>
+              </div>
+              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+                {c.note}
+              </p>
+              <p className="mt-2 font-mono text-[12px] break-words text-ink/60">
+                {c.url}
+              </p>
+            </article>
+          ))}
+
+          <ContextBox variant="calculamos" title="O que entra quando a base existir">
+            <ul className="list-disc space-y-1 pl-5">
+              {FINANCE_AVAILABILITY.plannedWhenAvailable.map((p) => (
+                <li key={p}>{p}</li>
+              ))}
+            </ul>
+          </ContextBox>
+
+          <GapNote label="Lacuna declarada">
+            Até a prestação de contas de campanha de 2026 existir, nenhuma célula
+            financeira recebe valor neste site — e a regra de destinação mínima
+            de recursos e de tempo de propaganda a candidaturas de mulheres não
+            se confunde com a regra de composição de candidaturas de 30% a 70%
+            por gênero: são regras distintas, com alcances distintos.
+          </GapNote>
+        </div>
+      </SectionBlock>
+
+
       {/* Limitações */}
       <SectionBlock
         kicker="Limitações"
