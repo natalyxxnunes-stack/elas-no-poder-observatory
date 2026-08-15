@@ -135,7 +135,7 @@ function QuemChegaPage() {
                 <StatusTag tone="pending">em apuração futura</StatusTag>
               </div>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.detail}</p>
-              <p className="mt-3 font-mono text-[11px] text-muted-foreground">{l.pending}</p>
+              <p className="mt-3 font-mono text-[12px] text-muted-foreground">{l.pending}</p>
             </li>
           ))}
         </ul>
@@ -160,7 +160,7 @@ function QuemChegaPage() {
                 <StatusTag tone="pending">levantamento futuro</StatusTag>
               </div>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.detail}</p>
-              <p className="mt-3 font-mono text-[11px] text-muted-foreground">{l.pending}</p>
+              <p className="mt-3 font-mono text-[12px] text-muted-foreground">{l.pending}</p>
             </li>
           ))}
         </ul>
@@ -184,7 +184,7 @@ function QuemChegaPage() {
             oficiais correspondentes.
           </GapNote>
         </div>
-        <p className="mt-6 font-mono text-[11px] text-muted-foreground">
+        <p className="mt-6 font-mono text-[12px] text-muted-foreground">
           Critérios e fórmulas em{" "}
           <Link to="/metodo" className="text-plum underline underline-offset-4">
             Método

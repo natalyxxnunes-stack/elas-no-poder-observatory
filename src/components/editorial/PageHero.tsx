@@ -50,7 +50,7 @@ export function PageHero({
 
         {/* etiqueta opcional da página, discreta, sobre a imagem */}
         {aside && (
-          <div className="absolute right-4 top-4 rounded-md bg-paper/85 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink md:right-8 md:top-6">
+          <div className="absolute right-4 top-4 rounded-md bg-paper/85 px-3 py-1.5 font-mono text-[12px] uppercase tracking-[0.14em] text-ink md:right-8 md:top-6">
             {aside}
           </div>
         )}
@@ -76,7 +76,7 @@ export function PageHero({
         </div>
 
         {/* crédito de ilustração, discreto, sobre a imagem */}
-        <p className="absolute left-3 top-16 max-w-[70%] rounded bg-ink/70 px-2 py-1 text-right font-mono text-[9px] leading-tight text-cream/80 md:bottom-2 md:left-auto md:right-3 md:top-auto md:text-[10px]">
+        <p className="absolute left-3 top-16 max-w-[70%] rounded bg-ink/70 px-2 py-1 text-right font-mono text-[12px] leading-tight text-cream/80 md:bottom-2 md:left-auto md:right-3 md:top-auto md:text-[12px]">
           Ilustração original gerada com inteligência artificial sob direção
           editorial.
         </p>

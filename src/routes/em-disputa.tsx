@@ -97,7 +97,7 @@ function EmDisputaPage() {
             <li key={item.id} className="editorial-card p-6">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                     {item.kind}
                   </p>
                   <h3 className="mt-1 max-w-2xl font-display text-xl leading-snug text-ink">
@@ -111,26 +111,26 @@ function EmDisputaPage() {
 
               <dl className="mt-4 space-y-3 text-sm leading-relaxed">
                 <div>
-                  <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                     O que propõe
                   </dt>
                   <dd className="mt-1 text-ink">{item.proposal}</dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                     Quem seria afetado
                   </dt>
                   <dd className="mt-1 text-muted-foreground">{item.affects}</dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                     Situação
                   </dt>
                   <dd className="mt-1 text-muted-foreground">{item.statusNote}</dd>
                 </div>
               </dl>
 
-              <p className="mt-4 font-mono text-[11px] text-muted-foreground">
+              <p className="mt-4 font-mono text-[12px] text-muted-foreground">
                 Fonte:{" "}
                 <a href={item.sourceUrl} target="_blank" rel="noreferrer" className="underline">
                   {item.sourceLabel}
@@ -171,7 +171,7 @@ function EmDisputaPage() {
             </p>
           </ContextBox>
         </div>
-        <p className="mt-6 font-mono text-[11px] text-muted-foreground">
+        <p className="mt-6 font-mono text-[12px] text-muted-foreground">
           Histórico das regras em{" "}
           <Link to="/direitos" className="text-plum underline underline-offset-4">
             Direitos

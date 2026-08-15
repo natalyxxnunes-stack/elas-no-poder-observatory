@@ -41,7 +41,7 @@ function UniverseColumn({
 
   return (
     <div>
-      <h4 className="font-mono text-[11px] uppercase tracking-[0.16em] text-plum">
+      <h4 className="font-mono text-[12px] uppercase tracking-[0.16em] text-plum">
         {UNIVERSE_LABEL[universe]}
       </h4>
 
@@ -54,7 +54,7 @@ function UniverseColumn({
                   className="flex h-full w-full items-end justify-center rounded-t-sm border-x border-t border-dashed border-rule"
                   aria-hidden
                 >
-                  <span className="pb-2 font-mono text-[10px] text-muted-foreground">
+                  <span className="pb-2 font-mono text-[12px] text-muted-foreground">
                     sem dado
                   </span>
                 </div>
@@ -69,7 +69,7 @@ function UniverseColumn({
             <p className="mt-2 font-mono text-xs text-ink">
               {p.value === null ? "—" : `${fmt(p.value)}%`}
             </p>
-            <p className="font-mono text-[11px] text-muted-foreground">
+            <p className="font-mono text-[12px] text-muted-foreground">
               {p.year}
               {p.stage === "em_curso" ? "*" : ""}
             </p>
@@ -81,7 +81,7 @@ function UniverseColumn({
         {points.map((p) => (
           <div
             key={p.year}
-            className="flex items-baseline justify-between gap-3 font-mono text-[11px] text-muted-foreground"
+            className="flex items-baseline justify-between gap-3 font-mono text-[12px] text-muted-foreground"
           >
             <dt>{p.year}</dt>
             <dd className="text-right">
@@ -94,7 +94,7 @@ function UniverseColumn({
       </dl>
 
       {missing.length > 0 && (
-        <p className="mt-3 font-mono text-[10px] leading-relaxed text-muted-foreground">
+        <p className="mt-3 font-mono text-[12px] leading-relaxed text-muted-foreground">
           Pontos vazios: {missing.map((m) => m.year).join(", ")}. Ausência de
           dado não é zero.
         </p>
@@ -124,7 +124,7 @@ export function SeriesChart({
         <h3 className="font-display text-xl leading-snug text-ink">
           {series.label}
         </h3>
-        <p className="mt-1 font-mono text-[11px] leading-relaxed text-muted-foreground">
+        <p className="mt-1 font-mono text-[12px] leading-relaxed text-muted-foreground">
           {series.formula}
         </p>
       </figcaption>
@@ -139,12 +139,12 @@ export function SeriesChart({
         {series.notes.map((n) => (
           <li
             key={n}
-            className="font-mono text-[10px] leading-relaxed text-muted-foreground"
+            className="font-mono text-[12px] leading-relaxed text-muted-foreground"
           >
             {n}
           </li>
         ))}
-        <li className="font-mono text-[10px] leading-relaxed text-muted-foreground">
+        <li className="font-mono text-[12px] leading-relaxed text-muted-foreground">
           * 2026 é base em curso: candidaturas registradas, sem resultado
           eleitoral.
         </li>

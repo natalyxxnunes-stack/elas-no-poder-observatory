@@ -21,7 +21,7 @@ export function SiteHeader() {
           <BrandLogo className="h-10 w-10 shrink-0" />
           <span className="leading-tight">
             <BrandWordmark className="block font-display text-lg font-semibold text-ink" />
-            <span className="block text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+            <span className="block text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
               {SITE.tagline}
             </span>
           </span>

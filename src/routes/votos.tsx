@@ -139,7 +139,7 @@ function VotosPage() {
                 </StatusTag>
               </div>
               <p className="mt-2 max-w-3xl leading-relaxed text-muted-foreground">{c.meaning}</p>
-              <p className="mt-2 font-mono text-[11px] text-muted-foreground">{c.measurable}</p>
+              <p className="mt-2 font-mono text-[12px] text-muted-foreground">{c.measurable}</p>
             </li>
           ))}
         </ul>
@@ -176,7 +176,7 @@ function VotosPage() {
             e séries de ciclos anteriores não substituem o dado desta eleição.
           </GapNote>
         </div>
-        <p className="mt-6 font-mono text-[11px] text-muted-foreground">
+        <p className="mt-6 font-mono text-[12px] text-muted-foreground">
           Definições e fórmulas em{" "}
           <Link to="/metodo" className="text-plum underline underline-offset-4">
             Método

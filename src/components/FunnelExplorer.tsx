@@ -52,7 +52,7 @@ export function FunnelExplorer() {
                   <div className="flex items-baseline justify-between gap-4">
                     <span className="font-display text-base text-ink">{s.label}</span>
                     <span
-                      className={`font-mono text-[11px] uppercase tracking-wider ${
+                      className={`font-mono text-[12px] uppercase tracking-wider ${
                         known ? "text-plum" : "text-coral"
                       }`}
                     >
@@ -92,7 +92,7 @@ export function FunnelExplorer() {
 
           <dl className="mt-5 grid grid-cols-2 gap-4 border-t border-rule pt-4">
             <div>
-              <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+              <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                 Participação
               </dt>
               <dd className="data-figure mt-1 text-3xl text-plum">
@@ -102,7 +102,7 @@ export function FunnelExplorer() {
               </dd>
             </div>
             <div>
-              <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+              <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                 Numerador / denominador
               </dt>
               <dd className="mt-1 font-mono text-sm text-ink">
@@ -111,7 +111,7 @@ export function FunnelExplorer() {
             </div>
           </dl>
 
-          <p className="mt-4 font-mono text-[11px] uppercase tracking-wider text-coral">
+          <p className="mt-4 font-mono text-[12px] uppercase tracking-wider text-coral">
             {step.status}
           </p>
 
@@ -122,7 +122,7 @@ export function FunnelExplorer() {
           )}
 
           {ind && (
-            <dl className="mt-4 space-y-2 border-t border-rule pt-4 font-mono text-[11px] leading-relaxed text-muted-foreground">
+            <dl className="mt-4 space-y-2 border-t border-rule pt-4 font-mono text-[12px] leading-relaxed text-muted-foreground">
               <div>
                 <dt className="inline uppercase tracking-wider">Fonte: </dt>
                 <dd className="inline">{ind.source}</dd>

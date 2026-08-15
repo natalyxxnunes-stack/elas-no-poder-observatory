@@ -25,7 +25,7 @@ export function FunnelLayers({
       {FUNNEL_LAYERS.map((layer, li) => (
         <section key={layer.id} aria-labelledby={`layer-${layer.id}`}>
           <div className="flex flex-wrap items-baseline gap-3">
-            <span className="font-mono text-[11px] text-muted-foreground">
+            <span className="font-mono text-[12px] text-muted-foreground">
               camada 0{li + 1}
             </span>
             <h3
@@ -67,13 +67,13 @@ export function FunnelLayers({
                     <dl className="mt-4 grid gap-3 sm:grid-cols-2">
                       {withValue.map((i) => (
                         <div key={i.id} className="rounded-md bg-secondary p-4">
-                          <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                          <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                             {i.label}
                           </dt>
                           <dd className="data-figure mt-1 text-3xl text-plum">
                             {formatPercent(i.value)}
                           </dd>
-                          <dd className="mt-1 font-mono text-[11px] text-muted-foreground">
+                          <dd className="mt-1 font-mono text-[12px] text-muted-foreground">
                             {formatRatio(i)}
                           </dd>
                         </div>
@@ -81,7 +81,7 @@ export function FunnelLayers({
                     </dl>
                   )}
 
-                  <dl className="mt-4 space-y-1 font-mono text-[11px] text-muted-foreground">
+                  <dl className="mt-4 space-y-1 font-mono text-[12px] text-muted-foreground">
                     <div>
                       <dt className="inline uppercase tracking-wider">
                         Universo:{" "}

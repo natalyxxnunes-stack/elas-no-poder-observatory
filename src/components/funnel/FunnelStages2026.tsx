@@ -55,7 +55,7 @@ function StageBar({
     <li className="poster-frame overflow-hidden">
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
-          <span className="block font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+          <span className="block font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
             etapa{" "}
             <span className="poster-figure align-middle text-3xl text-plum md:text-4xl">
               0{step}
@@ -73,7 +73,7 @@ function StageBar({
           <p className="poster-figure text-5xl leading-none text-plum md:text-6xl">
             {pct(share)}
           </p>
-          <p className="text-right font-mono text-[11px] leading-relaxed text-muted-foreground">
+          <p className="text-right font-mono text-[12px] leading-relaxed text-muted-foreground">
             {n(feminine)} candidaturas de mulheres
             <br />
             em {n(total)} candidaturas registradas
@@ -92,7 +92,7 @@ function StageBar({
             style={{ width: `${Math.max(share, 1.5)}%` }}
           />
         </div>
-        <p className="mt-2 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+        <p className="mt-2 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
           barra lida dentro desta etapa · denominador próprio
         </p>
       </div>
@@ -124,7 +124,7 @@ function RaceStage({
     <li className="poster-frame overflow-hidden">
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
-          <span className="block font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+          <span className="block font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
             etapa{" "}
             <span className="poster-figure align-middle text-3xl text-plum md:text-4xl">
               0{step}
@@ -167,7 +167,7 @@ function RaceStage({
                   "bg-plum"
                 }`}
               />
-              <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+              <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                 {label}
               </dt>
               <dd className="ml-auto font-mono text-xs text-ink">
@@ -187,7 +187,7 @@ function RaceStage({
           </strong>{" "}
           das candidaturas de mulheres deste universo.
         </p>
-        <p className="mt-2 font-mono text-[11px] leading-relaxed text-muted-foreground">
+        <p className="mt-2 font-mono text-[12px] leading-relaxed text-muted-foreground">
           {BLACK_AGGREGATION_NOTE}
         </p>
         <div className="mt-3">
@@ -209,7 +209,7 @@ function FutureStage({ step }: { step: number }) {
     <li className="poster-frame overflow-hidden bg-secondary/40">
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
-          <span className="block font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+          <span className="block font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
             etapa{" "}
             <span className="poster-figure align-middle text-3xl text-plum md:text-4xl">
               0{step}

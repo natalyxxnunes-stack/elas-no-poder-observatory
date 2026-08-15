@@ -121,12 +121,12 @@ function FindingCard({
             {meaning}
           </p>
           {denominator && (
-            <p className="mt-2 font-mono text-[11px] text-muted-foreground">
+            <p className="mt-2 font-mono text-[12px] text-muted-foreground">
               {denominator}
             </p>
           )}
           {date && (
-            <p className="font-mono text-[11px] text-muted-foreground">
+            <p className="font-mono text-[12px] text-muted-foreground">
               Fotografia da base de {date}
             </p>
           )}
@@ -167,13 +167,13 @@ function IndicatorCard({ indicator }: { indicator: Indicator }) {
             {PLAIN_MEANING[indicator.id] ?? indicator.label}
           </p>
           {indicator.numerator !== null && indicator.denominator !== null && (
-            <p className="mt-2 font-mono text-[11px] text-muted-foreground">
+            <p className="mt-2 font-mono text-[12px] text-muted-foreground">
               {nf(indicator.numerator)} de {nf(indicator.denominator)}{" "}
               candidaturas
             </p>
           )}
           {date && (
-            <p className="font-mono text-[11px] text-muted-foreground">
+            <p className="font-mono text-[12px] text-muted-foreground">
               Fotografia da base de {date}
             </p>
           )}
@@ -234,7 +234,7 @@ function DadosPage() {
           className="block h-[78vh] min-h-[520px] w-full object-cover md:h-[80vh]"
         />
 
-        <span className="absolute right-4 top-4 rounded-md bg-paper/85 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink md:right-8 md:top-6">
+        <span className="absolute right-4 top-4 rounded-md bg-paper/85 px-3 py-1.5 font-mono text-[12px] uppercase tracking-[0.14em] text-ink md:right-8 md:top-6">
           Dados parciais · Base do TSE · {baseDate ?? "base em atualização"}
         </span>
 
@@ -269,7 +269,7 @@ function DadosPage() {
           </div>
         </div>
 
-        <p className="absolute left-3 top-16 max-w-[70%] md:left-auto md:top-auto md:bottom-2 md:right-3 rounded bg-ink/70 px-2 py-1 text-right font-mono text-[9px] leading-tight text-cream/80 md:text-[10px]">
+        <p className="absolute left-3 top-16 max-w-[70%] md:left-auto md:top-auto md:bottom-2 md:right-3 rounded bg-ink/70 px-2 py-1 text-right font-mono text-[12px] leading-tight text-cream/80 md:text-[12px]">
           Ilustração original gerada com inteligência artificial sob direção
           editorial.
         </p>
@@ -302,7 +302,7 @@ function DadosPage() {
               <p className="poster-figure mt-5 text-[clamp(2.9rem,10vw,4.75rem)] text-ink">
                 {nf(snapshot.recordCount)}
               </p>
-              <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+              <p className="mt-2 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground">
                 pedidos de registro na fotografia
               </p>
 
@@ -314,7 +314,7 @@ function DadosPage() {
                   <p className="mt-1 font-display text-base leading-snug text-ink">
                     mulheres nas proporcionais
                   </p>
-                  <p className="mt-1 font-mono text-[11px] text-muted-foreground">
+                  <p className="mt-1 font-mono text-[12px] text-muted-foreground">
                     {propShare !== null && prop
                       ? `${formatPercent(propShare)} · ${nf(prop.feminine)} de ${nf(prop.total)}`
                       : "em atualização"}
@@ -327,7 +327,7 @@ function DadosPage() {
                   <p className="mt-1 font-display text-base leading-snug text-ink">
                     mulheres nas majoritárias
                   </p>
-                  <p className="mt-1 font-mono text-[11px] text-muted-foreground">
+                  <p className="mt-1 font-mono text-[12px] text-muted-foreground">
                     {majShare !== null && maj
                       ? `${formatPercent(majShare)} · ${nf(maj.feminine)} de ${nf(maj.total)}`
                       : "em atualização"}
@@ -336,7 +336,7 @@ function DadosPage() {
               </div>
 
               <div className="mt-6 border-2 border-ink bg-ink px-4 py-3">
-                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-solar">
+                <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-solar">
                   Primeiro marco
                 </p>
                 <p className="mt-1 text-sm leading-relaxed text-cream/85">
@@ -404,13 +404,13 @@ function DadosPage() {
         </div>
         <UfGrid snapshot={snapshot} baseDate={baseDate} />
 
-        <p className="mt-6 font-mono text-[11px] text-muted-foreground">
+        <p className="mt-6 font-mono text-[12px] text-muted-foreground">
           Dados de {baseDate ?? "data em atualização"}.
           {pendingDate
             ? ` Uma atualização (dados de ${pendingDate}) está em conferência.`
             : ""}
         </p>
-        <p className="mt-2 font-mono text-[11px] text-muted-foreground">
+        <p className="mt-2 font-mono text-[12px] text-muted-foreground">
           Fonte: TSE · Candidaturas 2026 ·{" "}
           <Link to="/metodo" className="text-plum underline underline-offset-4">
             ver o método
@@ -422,7 +422,7 @@ function DadosPage() {
       {/* 4. INVESTIGAÇÃO CENTRAL — bloco amarelo chapado */}
       <section className="my-10 rounded-lg border-2 border-ink bg-solar px-5 py-12 text-ink shadow-[7px_7px_0_0_var(--color-ink)] md:px-10 md:py-14">
         <div className="flex flex-wrap items-center gap-3">
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-plum">
+          <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-plum">
             Investigação central
           </p>
           <span className="poster-eyebrow bg-ink text-cream">
@@ -507,7 +507,7 @@ function DadosPage() {
               Câmara dos Deputados, assembleias legislativas e Câmara Legislativa
               do Distrito Federal.
             </p>
-            <p className="mt-4 font-mono text-[11px] uppercase tracking-wider text-plum">
+            <p className="mt-4 font-mono text-[12px] uppercase tracking-wider text-plum">
               com a regra de composição de 30%–70% por gênero
             </p>
           </article>
@@ -516,7 +516,7 @@ function DadosPage() {
             <p className="mt-2 leading-relaxed text-muted-foreground">
               Presidência, governos estaduais e do Distrito Federal e Senado.
             </p>
-            <p className="mt-4 font-mono text-[11px] uppercase tracking-wider text-coral">
+            <p className="mt-4 font-mono text-[12px] uppercase tracking-wider text-coral">
               sem a regra de composição de 30%–70% por gênero
             </p>
           </article>
@@ -564,7 +564,7 @@ function DadosPage() {
                 {layer.steps.map((s) => (
                   <li
                     key={s.id}
-                    className="flex items-center justify-between gap-2 border-t border-rule pt-1 font-mono text-[11px] text-muted-foreground"
+                    className="flex items-center justify-between gap-2 border-t border-rule pt-1 font-mono text-[12px] text-muted-foreground"
                   >
                     <span>{s.label}</span>
                     <StatusTag tone={s.pending ? "pending" : "ok"}>

@@ -128,7 +128,7 @@ function DownloadsPage() {
           {MATERIALS.map((m) => (
             <li key={m.id} className="editorial-card flex h-full flex-col p-5">
               <div className="flex items-start justify-between gap-3">
-                <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                   {m.kind}
                 </p>
                 <StatusTag tone={m.file ? "ok" : "pending"}>
@@ -137,7 +137,7 @@ function DownloadsPage() {
               </div>
               <h3 className="mt-2 font-display text-xl leading-snug text-ink">{m.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{m.description}</p>
-              <dl className="mt-4 space-y-1 font-mono text-[11px] text-muted-foreground">
+              <dl className="mt-4 space-y-1 font-mono text-[12px] text-muted-foreground">
                 <div>
                   <dt className="inline uppercase tracking-wider">Público: </dt>
                   <dd className="inline">{m.audience}</dd>
@@ -156,7 +156,7 @@ function DownloadsPage() {
                     Baixar
                   </a>
                 ) : (
-                  <span className="font-mono text-[11px] text-muted-foreground">
+                  <span className="font-mono text-[12px] text-muted-foreground">
                     Arquivo ainda não publicado.
                   </span>
                 )}

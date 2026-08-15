@@ -75,7 +75,7 @@ export function UfGrid({
       </h3>
 
       {!hasData ? (
-        <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-5 text-sm leading-relaxed text-ink/70">
           Em atualização. Aguardando a nova fotografia da base do TSE.
         </p>
       ) : (
@@ -85,12 +85,12 @@ export function UfGrid({
             {BANDS.map((b) => (
               <li
                 key={b.label}
-                className={`rounded border-2 border-ink px-2 py-1 font-mono text-[10px] uppercase tracking-[0.1em] ${b.bg} ${b.fg}`}
+                className={`rounded border-2 border-ink px-2 py-1 font-mono text-[12px] uppercase tracking-[0.1em] ${b.bg} ${b.fg}`}
               >
                 {b.label}
               </li>
             ))}
-            <li className="rounded border-2 border-ink bg-muted px-2 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground">
+            <li className="rounded border-2 border-ink bg-muted px-2 py-1 font-mono text-[12px] uppercase tracking-[0.1em] text-muted-foreground">
               sem dado
             </li>
           </ul>
@@ -105,7 +105,7 @@ export function UfGrid({
                     b ? `${b.bg} ${b.fg}` : "bg-muted text-muted-foreground"
                   }`}
                 >
-                  <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em]">
+                  <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.14em]">
                     {c.uf}
                   </p>
                   {c.share !== null && c.feminine !== null && c.total !== null ? (
@@ -113,12 +113,12 @@ export function UfGrid({
                       <p className="poster-figure mt-1 text-[clamp(1.05rem,4.4vw,1.35rem)]">
                         {pf(c.share)}
                       </p>
-                      <p className="mt-1 font-mono text-[10px] leading-tight opacity-90">
+                      <p className="mt-1 font-mono text-[12px] leading-tight opacity-90">
                         {nf(c.feminine)} de {nf(c.total)}
                       </p>
                     </>
                   ) : (
-                    <p className="mt-2 font-mono text-[10px] leading-tight">
+                    <p className="mt-2 font-mono text-[12px] leading-tight">
                       sem dado
                     </p>
                   )}
@@ -129,7 +129,7 @@ export function UfGrid({
         </>
       )}
 
-      <p className="mt-6 font-mono text-[11px] leading-relaxed text-muted-foreground">
+      <p className="mt-6 font-mono text-[12px] leading-relaxed text-ink/70">
         Universo: candidaturas proporcionais (Deputada Federal, Estadual e
         Distrital), com denominador próprio de cada unidade da federação. Fonte:
         TSE · Candidaturas 2026

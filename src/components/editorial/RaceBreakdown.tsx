@@ -49,7 +49,7 @@ function Table({
 
       {counts && denominator ? (
         <>
-          <p className="border-b border-rule px-5 py-3 font-mono text-[11px] text-muted-foreground">
+          <p className="border-b border-rule px-5 py-3 font-mono text-[12px] text-muted-foreground">
             Denominador: {denominator.toLocaleString("pt-BR")} candidaturas de
             mulheres neste universo
           </p>
@@ -61,7 +61,7 @@ function Table({
                   key={category}
                   className="flex items-baseline gap-4 px-5 py-3"
                 >
-                  <dt className="w-32 shrink-0 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  <dt className="w-32 shrink-0 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                     {category}
                   </dt>
                   <dd className="flex-1">

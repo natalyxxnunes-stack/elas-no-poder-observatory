@@ -37,7 +37,7 @@ export function HeroNumber({ indicator }: { indicator: Indicator }) {
               das candidaturas proporcionais são de mulheres
             </p>
             {/* (d) ressalva colada: denominador, data e cautela */}
-            <div className="mt-5 border-t border-rule pt-4 font-mono text-[11px] leading-relaxed text-muted-foreground">
+            <div className="mt-5 border-t border-rule pt-4 font-mono text-[12px] leading-relaxed text-muted-foreground">
               <p>
                 {indicator.numerator!.toLocaleString("pt-BR")} de{" "}
                 {indicator.denominator!.toLocaleString("pt-BR")} candidaturas
@@ -57,7 +57,7 @@ export function HeroNumber({ indicator }: { indicator: Indicator }) {
             <p className="mt-4 max-w-xl font-display text-xl leading-snug text-ink">
               das candidaturas proporcionais são de mulheres
             </p>
-            <div className="mt-5 border-t border-rule pt-4 font-mono text-[11px] leading-relaxed text-muted-foreground">
+            <div className="mt-5 border-t border-rule pt-4 font-mono text-[12px] leading-relaxed text-muted-foreground">
               <p>
                 Aguardando a nova fotografia da base do TSE: sem denominador e
                 data, o percentual não é exibido.

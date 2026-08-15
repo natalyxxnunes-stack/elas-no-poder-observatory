@@ -62,7 +62,7 @@ function MiniBar({
   const isBranca = category === "branca";
   return (
     <div className="flex items-center gap-2">
-      <span className="w-14 shrink-0 font-mono text-[9px] uppercase tracking-wider text-muted-foreground">
+      <span className="w-14 shrink-0 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
         {label}
       </span>
       <div className="h-2 flex-1 overflow-hidden rounded-sm bg-secondary" aria-hidden>
@@ -96,7 +96,7 @@ function RacePair({
   const color = RACE_COLORS[category];
   return (
     <li className="grid items-start gap-3 border-b border-rule py-4 last:border-b-0 md:grid-cols-[7rem_1fr_1fr]">
-      <div className="font-mono text-[11px] uppercase tracking-wider text-ink">
+      <div className="font-mono text-[12px] uppercase tracking-wider text-ink">
         {RACE_LABELS[category]}
       </div>
 
@@ -108,7 +108,7 @@ function RacePair({
           label="Pop."
           category={category}
         />
-        <p className="font-mono text-[11px] leading-tight text-muted-foreground">
+        <p className="font-mono text-[12px] leading-tight text-muted-foreground">
           {n(pop.count)} · {pct(pop.percent)}
         </p>
       </div>
@@ -121,7 +121,7 @@ function RacePair({
           label="Cand."
           category={category}
         />
-        <p className="font-mono text-[11px] leading-tight text-ink">
+        <p className="font-mono text-[12px] leading-tight text-ink">
           {n(cand.count)} · {pct(cand.percent)}
         </p>
       </div>
@@ -160,19 +160,19 @@ export function RaceFinding2026({
         <article className="poster-frame p-5 md:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="poster-eyebrow text-ink">Cinco categorias, dois retratos</p>
-            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            <span className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
               população feminina × candidatas 2026
             </span>
           </div>
 
           <div className="mt-5 hidden border-b border-ink pb-2 md:grid md:grid-cols-[7rem_1fr_1fr]">
-            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            <span className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
               Cor/raça
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            <span className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
               População feminina (Censo 2022)
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            <span className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
               Candidaturas de mulheres 2026
             </span>
           </div>
@@ -194,7 +194,7 @@ export function RaceFinding2026({
         <div className="space-y-5">
           <article className="poster-frame p-5">
             <h3 className="font-display text-xl text-ink">O que o número mostra</h3>
-            <p className="mt-3 leading-relaxed text-muted-foreground">
+            <p className="mt-3 leading-relaxed text-ink/70">
               No Brasil, mulheres pardas e brancas são quase do mesmo tamanho: 44,8% e 44,4% das brasileiras, no Censo de 2022. Entre as candidaturas de mulheres às proporcionais de 2026, não é o que se vê: as brancas são 46% das candidatas, e as pardas, 34,9%. O maior grupo de mulheres do país é o que mais encolhe quando se passa da população para a disputa — a candidatura parda fica quase dez pontos abaixo do tamanho da população parda feminina. Nenhum outro grupo perde tanto.
             </p>
           </article>
@@ -203,7 +203,7 @@ export function RaceFinding2026({
             <h3 className="font-display text-xl text-ink">
               Por que o maior grupo é o que mais some
             </h3>
-            <p className="mt-3 leading-relaxed text-muted-foreground">
+            <p className="mt-3 leading-relaxed text-ink/70">
               {"Olhar só o total esconde a questão. Somadas, pretas e pardas são a maioria das mulheres do país — mas o total apaga que os dois grupos se comportam de formas opostas na disputa. A candidatura preta aparece acima do peso populacional: 17,4% das candidatas, contra 9,7% da população. A parda desaba. No Brasil, \"parda\" é a categoria onde a cor mais se dissolve, na ideia de que aqui seríamos todos misturados — e é por ser o maior grupo, e o mais difuso, que a candidatura parda encolhe quase dez pontos sem que ninguém note. A distância só aparece quando se coloca o número ao lado da população."}
             </p>
           </article>
@@ -212,14 +212,14 @@ export function RaceFinding2026({
             <h3 className="font-display text-xl text-ink">
               O número que parece dizer o contrário
             </h3>
-            <p className="mt-3 leading-relaxed text-muted-foreground">
+            <p className="mt-3 leading-relaxed text-ink/70">
               A candidatura preta acima do peso não é sinal de que o racismo afrouxou, e não deve ser lida assim. É o degrau mais baixo da disputa: estar na lista não é receber recursos, tempo de televisão, voto — nem chegar ao poder. A candidatura é a porta; este observatório acompanha o caminho até a sala. Medir só a entrada é parar onde a investigação começa. A seção seguinte — o funil — mostra o que a urna faz com essa presença.
             </p>
           </article>
         </div>
       </div>
 
-      <p className="font-mono text-[11px] leading-relaxed text-muted-foreground">
+      <p className="font-mono text-[12px] leading-relaxed text-ink/70">
         Denominadores: {n(total)} candidaturas de mulheres nas eleições
         proporcionais de 2026
         {fromSnapshot ? " (lidas do snapshot conferido)" : ""}; população

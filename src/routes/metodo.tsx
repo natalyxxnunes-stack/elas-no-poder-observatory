@@ -156,7 +156,7 @@ function MetodoPage() {
               Processada pelo observatório em {br(snapshot?.collectedAt ?? null)}
             </p>
             {snapshot && (
-              <p className="mt-3 font-mono text-[11px] text-muted-foreground">
+              <p className="mt-3 font-mono text-[12px] text-muted-foreground">
                 {snapshot.recordCount.toLocaleString("pt-BR")} candidaturas na
                 fotografia
               </p>
@@ -277,7 +277,7 @@ function MetodoPage() {
               >
                 Baixar esta fotografia (CSV)
               </button>
-              <p className="mt-2 font-mono text-[11px] text-muted-foreground">
+              <p className="mt-2 font-mono text-[12px] text-muted-foreground">
                 CSV gerado a partir da fotografia vigente, com data e filtros no
                 cabeçalho do arquivo.
               </p>
@@ -314,7 +314,7 @@ function MetodoPage() {
               .sort((a, b) => b[1] - a[1])
               .map(([k, v]) => (
                 <div key={k} className="poster-frame p-4">
-                  <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                     {k}
                   </dt>
                   <dd className="poster-figure mt-2 text-3xl text-plum md:text-4xl">
@@ -377,7 +377,7 @@ function MetodoPage() {
                   {i.status}
                 </StatusTag>
               </div>
-              <dl className="mt-4 grid gap-2 font-mono text-[11px] leading-relaxed text-muted-foreground md:grid-cols-2">
+              <dl className="mt-4 grid gap-2 font-mono text-[12px] leading-relaxed text-muted-foreground md:grid-cols-2">
                 <div>
                   <dt className="inline uppercase tracking-wider">Valor: </dt>
                   <dd className="inline">
@@ -471,7 +471,7 @@ function MetodoPage() {
                     (h) => (
                       <th
                         key={h}
-                        className="py-3 pr-4 font-mono text-[11px] uppercase tracking-wider text-muted-foreground"
+                        className="py-3 pr-4 font-mono text-[12px] uppercase tracking-wider text-muted-foreground"
                       >
                         {h}
                       </th>
@@ -528,7 +528,7 @@ function MetodoPage() {
             a categoria de cor/raça não identifica pertencimento étnico indígena.
           </GapNote>
         </div>
-        <p className="mt-6 font-mono text-[11px] text-muted-foreground">
+        <p className="mt-6 font-mono text-[12px] text-muted-foreground">
           Como citar e política de correções em{" "}
           <Link to="/sobre" className="text-plum underline underline-offset-4">
             Sobre
