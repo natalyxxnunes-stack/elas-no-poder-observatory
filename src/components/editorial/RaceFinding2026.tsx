@@ -270,7 +270,13 @@ export function RaceFinding2026({
       <p className="font-mono text-[12px] leading-relaxed text-ink/70">
         Denominadores: {n(total)} candidaturas de mulheres nas eleições
         proporcionais de 2026
-        {fromSnapshot ? " (lidas do snapshot conferido)" : ""}; população
+        {fromSnapshot
+          ? conferido
+            ? " (lidas da fotografia vigente, conferida manualmente)"
+            : " (lidas da fotografia vigente)"
+          : ""}
+        ; população
+
         feminina 104,5 milhões (Censo 2022). Cor/raça autodeclarada, nas
         categorias do IBGE/TSE. Preta e parda são lidas separadamente; quando somadas como população negra, a soma é declarada. A
         comparação entre candidaturas (TSE proporcional 2026) e população
