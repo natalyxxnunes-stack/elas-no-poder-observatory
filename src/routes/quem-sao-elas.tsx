@@ -13,7 +13,7 @@ import { IntersectionPlan } from "@/components/editorial/IntersectionPlan";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { axis, CENTRAL_PRINCIPLE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
-import spotStrength from "@/assets/spot-strength.png";
+
 
 /**
  * ROTA REPUBLICADA.
@@ -56,7 +56,6 @@ function QuemSaoElasPage() {
         kicker="Quem são elas?"
         question={a.question}
         lead={<p>{CENTRAL_PRINCIPLE}</p>}
-        image={spotStrength}
       />
 
       <div className="pb-4">
