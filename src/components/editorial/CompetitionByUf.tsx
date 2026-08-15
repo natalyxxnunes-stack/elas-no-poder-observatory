@@ -249,7 +249,8 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
           {COMPETITION_DEFINITION.unitOfAnalysis}.
         </p>
         <p>
-          Numerador: fotografia vigente do recurso Candidatos. Denominador:{" "}
+          Numerador: fotografia vigente do recurso Candidatos
+          {baseStamp ? `, base gerada em ${baseStamp}` : ""}. Denominador:{" "}
           {VAGAS_SOURCE.name}, arquivo {VAGAS_SOURCE.fileName}, gerado em
           15/08/2026. Primeiro turno em 4/10/2026.
         </p>
