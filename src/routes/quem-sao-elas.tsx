@@ -189,12 +189,50 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
       <SectionBlock
+        kicker="Partidos"
+        question="Quem lança mulheres?"
+        align="wide"
+        lead={
+          <p>
+            Quem decide o registro é o partido ou a federação. Aqui está a
+            composição de cada lista: quantas das candidaturas registradas são de
+            mulheres, com o número absoluto ao lado do percentual. Trocar de
+            universo troca a tabela inteira, porque cada um tem denominador
+            próprio. Ligando o recorte de cor/raça, a mesma tabela mostra quais
+            mulheres cada partido registrou.
+          </p>
+        }
+        source={
+          <>
+            Fonte: TSE · Candidaturas 2026 ·{" "}
+            <Link to="/metodo" className="text-plum underline underline-offset-4">
+              ver o método
+            </Link>
+          </>
+        }
+      >
+        <PartyGenderTable snapshot={snapshot} />
+        <ContextBox label="Como ler">
+          <p>
+            O que o dado mostra: a proporção de mulheres entre as candidaturas
+            registradas por cada partido, na data desta fotografia. O que ele não
+            mostra: quanto dinheiro e tempo de propaganda cada candidatura
+            recebeu, em que posição da lista entrou e quem foi eleita — essas
+            bases só existem depois da campanha e da votação. Por isso a tabela
+            não sustenta frases como "partido melhor para mulheres": ela descreve
+            a entrada, e a entrada é apenas a primeira etapa.
+          </p>
+        </ContextBox>
+      </SectionBlock>
+
+      <SectionBlock
         kicker="Plano de cruzamentos"
         question="O que já é possível cruzar e o que depende de nova fonte"
         align="wide"
       >
         <IntersectionPlan />
       </SectionBlock>
+
 
       <NextAxes ids={["funil", "direitos", "metodo"]} />
     </PageShell>
