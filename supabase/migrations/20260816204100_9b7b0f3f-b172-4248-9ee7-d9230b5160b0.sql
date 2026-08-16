@@ -1,0 +1,1 @@
+UPDATE public.tse_snapshots SET conferido = true WHERE id = '990f0153-909a-45df-a2b0-f1b0b72176c6';
