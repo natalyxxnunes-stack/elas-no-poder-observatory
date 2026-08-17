@@ -32,6 +32,7 @@ import { ElectionRateByGender } from "@/components/historical/ElectionRateByGend
 
 import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
 import topoAsset from "@/assets/mulheresnotopo.webp.asset.json";
+import { formatInt, formatPct } from "@/lib/format-br";
 
 export const Route = createFileRoute("/")({
   head: () => ({

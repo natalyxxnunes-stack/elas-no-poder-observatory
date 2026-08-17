@@ -5,6 +5,7 @@ import { snapshotRaceCounts } from "@/lib/tse/indicators";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import type { UniverseId } from "@/lib/tse/compute";
 import { ContextBox } from "./ContextBox";
+import { formatInt, formatPct } from "@/lib/format-br";
 
 /**
  * RaceBreakdown — distribuição por categoria original de cor/raça das

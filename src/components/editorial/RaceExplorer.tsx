@@ -3,6 +3,7 @@ import { GapNote } from "@/components/GapNote";
 import { ContextBox } from "./ContextBox";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import type { UniverseId } from "@/lib/tse/compute";
+import { formatInt, formatPct } from "@/lib/format-br";
 
 /**
  * RaceExplorer — explorador interativo da distribuição por cor/raça das

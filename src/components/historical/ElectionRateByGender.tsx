@@ -13,6 +13,7 @@ import {
   ELECTION_RATE_BY_GENDER,
   ELECTION_RATE_FORMULA,
 } from "@/data/historical-funnel";
+import { formatInt, formatPct } from "@/lib/format-br";
 
 const n = (v: number) => formatInt(v);
 const pct = (v: number) => formatPct(v);

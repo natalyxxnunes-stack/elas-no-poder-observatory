@@ -5,6 +5,7 @@ import { StatusTag } from "./StatusTag";
 import { RACE_LABELS } from "@/data/historical-funnel";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import type { UniverseId } from "@/lib/tse/compute";
+import { formatInt, formatDecimal } from "@/lib/format-br";
 
 /**
  * StateExplorer — leitura por estado da fotografia vigente do TSE.

@@ -1,6 +1,7 @@
 import type { Series } from "@/lib/tse/historical-compute";
 import type { UniverseId } from "@/lib/tse/compute";
 import { GapNote } from "@/components/GapNote";
+import { formatInt, formatDecimal } from "@/lib/format-br";
 
 /**
  * SeriesChart — leitura visual de uma série histórica já calculada.

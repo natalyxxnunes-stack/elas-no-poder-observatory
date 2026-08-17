@@ -20,6 +20,7 @@ import {
   type RaceBreakdown,
 } from "@/data/historical-funnel";
 import { StatusTag } from "@/components/editorial/StatusTag";
+import { formatInt, formatPct } from "@/lib/format-br";
 
 const n = (v: number) => formatInt(v);
 const pct = (v: number) => formatPct(v);

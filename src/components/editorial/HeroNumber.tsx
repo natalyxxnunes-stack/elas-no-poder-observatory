@@ -1,4 +1,5 @@
 import { formatPercent, type Indicator } from "@/data/election-2026";
+import { formatInt } from "@/lib/format-br";
 
 /**
  * HeroNumber — número-herói em quatro camadas visíveis e coladas:

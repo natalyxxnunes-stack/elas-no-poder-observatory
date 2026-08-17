@@ -3,6 +3,7 @@ import { GapNote } from "@/components/GapNote";
 import { StatusTag } from "./StatusTag";
 import { RACE_COLORS, RACE_LABELS } from "@/data/historical-funnel";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
+import { formatDecimal } from "@/lib/format-br";
 
 /**
  * RaceByStateTable — tabela panorâmica de cor/raça por UF.

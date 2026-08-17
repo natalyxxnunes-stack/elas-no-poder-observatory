@@ -8,6 +8,7 @@ import {
   type RaceFindingCategory,
 } from "@/data/election-2026";
 import { RACE_COLORS, RACE_LABELS } from "@/data/historical-funnel";
+import { formatInt, formatPct, formatDecimal } from "@/lib/format-br";
 
 const n = (v: number) => formatInt(v);
 const pct = (v: number) => formatPct(v);

@@ -5,6 +5,7 @@ import { COMPETITION_DEFINITION, UNIVERSE_SHORT } from "@/data/competitividade";
 import { VAGAS_SOURCE, totalVagas, vagasOf } from "@/data/vagas-2026";
 import type { UniverseId } from "@/lib/tse/compute";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
+import { formatInt, formatDecimal } from "@/lib/format-br";
 
 /**
  * CompetitionByUf — concorrência declarada: candidaturas registradas por vaga

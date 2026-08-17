@@ -1,6 +1,7 @@
 import type { HistoricalSnapshotMeta } from "@/lib/tse/historical.functions";
 import type { HistoricalYear } from "@/lib/tse/historical-data-dictionary";
 import { StatusTag } from "@/components/editorial/StatusTag";
+import { formatInt } from "@/lib/format-br";
 
 /**
  * HistoryTimeline — linha temporal 2014 → 2018 → 2022 → 2026 com a situação

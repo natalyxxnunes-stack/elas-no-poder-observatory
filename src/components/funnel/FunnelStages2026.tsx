@@ -18,6 +18,7 @@ import { StatusTag } from "@/components/editorial/StatusTag";
 import { BLACK_AGGREGATION_NOTE } from "@/lib/tse/historical-compute";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import type { UniverseId } from "@/lib/tse/compute";
+import { formatInt, formatPct } from "@/lib/format-br";
 
 const n = (v: number) => formatInt(v);
 const pct = (v: number) => formatPct(v);

@@ -7,6 +7,7 @@
  */
 
 import type { Series } from "@/lib/tse/historical-compute";
+import { formatInt, formatPct } from "@/lib/format-br";
 
 const pct = (v: number) => formatPct(v);
 
