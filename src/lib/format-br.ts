@@ -12,7 +12,9 @@ export function formatInt(value: number): string {
 export function formatDecimal(value: number, fractionDigits = 1): string {
   const sign = value < 0 ? "-" : "";
   const fixed = Math.abs(value).toFixed(fractionDigits);
-  const [intPart, fracPart] = fixed.split(".");
+  const parts = fixed.split(".");
+  const intPart = parts[0] ?? "0";
+  const fracPart = parts[1];
   const intT = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   return sign + intT + (fracPart ? "," + fracPart : "");
 }
