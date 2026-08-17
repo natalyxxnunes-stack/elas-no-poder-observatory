@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { formatDecimal, formatInt } from "@/lib/format-br";
 import { GapNote } from "@/components/GapNote";
 import { StatusTag } from "./StatusTag";
 import { COMPETITION_DEFINITION, UNIVERSE_SHORT } from "@/data/competitividade";
@@ -29,12 +30,8 @@ type Row = {
   masculine: number;
 };
 
-const n1 = (v: number) =>
-  v.toLocaleString("pt-BR", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  });
-const int = (v: number) => v.toLocaleString("pt-BR");
+const n1 = formatDecimal;
+const int = formatInt;
 
 /** Data da fotografia usada no numerador — lida do próprio snapshot exibido. */
 function brDate(iso: string | null | undefined): string | null {
