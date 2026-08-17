@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { formatDecimal, formatInt } from "@/lib/format-br";
 import { GapNote } from "@/components/GapNote";
 import { ContextBox } from "./ContextBox";
 import { StatusTag } from "./StatusTag";
@@ -33,12 +34,8 @@ const UNIVERSE_SCOPE: Record<UniverseId, string> = {
     "Presidência, governos estaduais e Senado, contados dentro do estado",
 };
 
-const nf = (n: number) => n.toLocaleString("pt-BR");
-const pf = (n: number) =>
-  n.toLocaleString("pt-BR", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  });
+const nf = formatInt;
+const pf = formatDecimal;
 
 function normalizeRaceLabel(raw: string) {
   const k = raw

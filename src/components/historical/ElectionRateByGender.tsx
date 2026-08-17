@@ -10,16 +10,13 @@
  */
 
 import {
+import { formatInt, formatPct } from "@/lib/format-br";
   ELECTION_RATE_BY_GENDER,
   ELECTION_RATE_FORMULA,
 } from "@/data/historical-funnel";
 
-const n = (v: number) => v.toLocaleString("pt-BR");
-const pct = (v: number) =>
-  `${v.toLocaleString("pt-BR", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  })}%`;
+const n = formatInt;
+const pct = formatPct;
 
 const rate = (elected: number, candidacies: number) =>
   candidacies > 0 ? (elected / candidacies) * 100 : null;

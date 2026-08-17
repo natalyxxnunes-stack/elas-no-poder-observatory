@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { formatDecimal, formatInt } from "@/lib/format-br";
 import { GapNote } from "@/components/GapNote";
 import { StatusTag } from "./StatusTag";
 import { RACE_COLORS, RACE_LABELS } from "@/data/historical-funnel";
@@ -55,7 +56,7 @@ function brDate(iso: string | null): string | null {
 }
 
 function pct(n: number, d: number): string {
-  return ((n / d) * 100).toLocaleString("pt-BR", { maximumFractionDigits: 1 });
+  return formatDecimal((n / d) * 100);
 }
 
 type Row = {
@@ -254,8 +255,8 @@ export function PartyGenderTable({
                       {r.party}
                     </th>
                     <td className="py-3 pr-3 font-mono text-sm text-ink">
-                      {r.feminine.toLocaleString("pt-BR")} /{" "}
-                      {r.total.toLocaleString("pt-BR")}
+                      {formatInt(r.feminine)} /{" "}
+                      {formatInt(r.total)}
                     </td>
                     <td className="py-3 pr-3">
                       {showPercent ? (
@@ -266,7 +267,7 @@ export function PartyGenderTable({
                           <span
                             className="mt-1 flex h-3 w-full max-w-[220px] overflow-hidden border-2 border-ink"
                             role="img"
-                            aria-label={`${r.feminine.toLocaleString("pt-BR")} de ${r.total.toLocaleString("pt-BR")} candidaturas do ${r.party} são de mulheres`}
+                            aria-label={`${formatInt(r.feminine)} de ${formatInt(r.total)} candidaturas do ${r.party} são de mulheres`}
                           >
 
                             <span
@@ -342,7 +343,7 @@ export function PartyGenderTable({
         {generated ? `, base gerada em ${generated}` : ""}. Universo:{" "}
         {UNIVERSE_LABEL[universe]}
         {universeTally
-          ? `, ${universeTally.total.toLocaleString("pt-BR")} candidaturas`
+          ? `, ${formatInt(universeTally.total)} candidaturas`
           : ""}
         . Numerador: candidaturas registradas como femininas no partido.
         Denominador: todas as candidaturas do mesmo partido no mesmo universo.

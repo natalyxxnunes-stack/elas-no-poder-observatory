@@ -1,4 +1,5 @@
 import type { Series } from "@/lib/tse/historical-compute";
+import { formatDecimal, formatInt } from "@/lib/format-br";
 import type { UniverseId } from "@/lib/tse/compute";
 import { GapNote } from "@/components/GapNote";
 
@@ -14,11 +15,7 @@ const UNIVERSE_LABEL: Record<UniverseId, string> = {
   majoritario: "Majoritária",
 };
 
-const fmt = (v: number) =>
-  v.toLocaleString("pt-BR", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  });
+const fmt = formatDecimal;
 
 function UniverseColumn({
   series,
@@ -86,7 +83,7 @@ function UniverseColumn({
             <dt>{p.year}</dt>
             <dd className="text-right">
               {p.numerator !== null && p.denominator !== null
-                ? `${p.numerator.toLocaleString("pt-BR")} de ${p.denominator.toLocaleString("pt-BR")}`
+                ? `${formatInt(p.numerator)} de ${formatInt(p.denominator)}`
                 : (p.unavailableReason ?? "sem dado")}
             </dd>
           </div>
