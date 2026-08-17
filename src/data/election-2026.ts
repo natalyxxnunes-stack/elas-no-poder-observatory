@@ -22,6 +22,7 @@ import {
   snapshot,
   type UniverseSnapshot,
 } from "./tse-snapshot";
+import { formatInt, formatDecimal, formatPct } from "@/lib/format-br";
 
 /** Status padronizado de qualquer indicador do observatório. */
 export const DATA_STATUS = {

@@ -4,6 +4,7 @@ import {
   raceCounts,
 } from "@/data/election-2026";
 import { GapNote } from "./GapNote";
+import { formatInt, formatPct } from "@/lib/format-br";
 
 /**
  * WhoAreTheyExplorer — eixo central do observatório: cor/raça × nível de poder.
