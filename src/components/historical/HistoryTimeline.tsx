@@ -57,7 +57,7 @@ export function HistoryTimeline({
             )}
             {snap && snap.recordCount > 0 && (
               <p className="mt-1 font-mono text-[12px] text-muted-foreground">
-                {snap.recordCount.toLocaleString("pt-BR")} candidaturas
+                {formatInt(snap.recordCount)} candidaturas
                 deduplicadas
               </p>
             )}

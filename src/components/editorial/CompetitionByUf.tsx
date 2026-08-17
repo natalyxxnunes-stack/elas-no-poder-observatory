@@ -30,11 +30,8 @@ type Row = {
 };
 
 const n1 = (v: number) =>
-  v.toLocaleString("pt-BR", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  });
-const int = (v: number) => v.toLocaleString("pt-BR");
+  formatDecimal(v);
+const int = (v: number) => formatInt(v);
 
 /** Data da fotografia usada no numerador — lida do próprio snapshot exibido. */
 function brDate(iso: string | null | undefined): string | null {

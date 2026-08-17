@@ -50,7 +50,7 @@ function Table({
       {counts && denominator ? (
         <>
           <p className="border-b border-rule px-5 py-3 font-mono text-[12px] text-muted-foreground">
-            Denominador: {denominator.toLocaleString("pt-BR")} candidaturas de
+            Denominador: {formatInt(denominator)} candidaturas de
             mulheres neste universo
           </p>
           <dl className="divide-y divide-rule">
@@ -72,12 +72,8 @@ function Table({
                     />
                   </dd>
                   <dd className="w-36 shrink-0 text-right font-mono text-xs text-ink">
-                    {value.toLocaleString("pt-BR")} ·{" "}
-                    {((value / denominator) * 100).toLocaleString("pt-BR", {
-                      minimumFractionDigits: 1,
-                      maximumFractionDigits: 1,
-                    })}
-                    %
+                    {formatInt(value)} ·{" "}
+                    {formatPct((value / denominator) * 100)}
                   </dd>
                 </div>
               ))}

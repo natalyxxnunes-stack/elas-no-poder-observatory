@@ -14,12 +14,8 @@ import {
   ELECTION_RATE_FORMULA,
 } from "@/data/historical-funnel";
 
-const n = (v: number) => v.toLocaleString("pt-BR");
-const pct = (v: number) =>
-  `${v.toLocaleString("pt-BR", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  })}%`;
+const n = (v: number) => formatInt(v);
+const pct = (v: number) => formatPct(v);
 
 const rate = (elected: number, candidacies: number) =>
   candidacies > 0 ? (elected / candidacies) * 100 : null;

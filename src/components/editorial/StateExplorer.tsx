@@ -33,12 +33,8 @@ const UNIVERSE_SCOPE: Record<UniverseId, string> = {
     "Presidência, governos estaduais e Senado, contados dentro do estado",
 };
 
-const nf = (n: number) => n.toLocaleString("pt-BR");
-const pf = (n: number) =>
-  n.toLocaleString("pt-BR", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  });
+const nf = (n: number) => formatInt(n);
+const pf = (n: number) => formatDecimal(n);
 
 function normalizeRaceLabel(raw: string) {
   const k = raw

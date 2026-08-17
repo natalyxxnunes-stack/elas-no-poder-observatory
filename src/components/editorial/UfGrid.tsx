@@ -37,9 +37,8 @@ function band(share: number) {
   return BANDS.find((b) => share < b.max) ?? BANDS[BANDS.length - 1];
 }
 
-const nf = (n: number) => n.toLocaleString("pt-BR");
-const pf = (n: number) =>
-  `${n.toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%`;
+const nf = (n: number) => formatInt(n);
+const pf = (n: number) => formatPct(n);
 
 export function UfGrid({
   snapshot,

@@ -185,10 +185,9 @@ export function RaceByStateTable({ snapshot }: { snapshot: PublicSnapshot | null
                               <>
                                 {" "}
                                 (
-                                {((r.counts[c] / r.total) * 100).toLocaleString(
-                                  "pt-BR",
-                                  { maximumFractionDigits: 1 },
-                                )}
+                                {formatDecimal(
+                                  (r.counts[c] / r.total) * 100,
+                                ).replace(/,0$/, "")}
                                 %)
                               </>
                             )}

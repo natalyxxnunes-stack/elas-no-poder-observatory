@@ -21,12 +21,8 @@ import {
 } from "@/data/historical-funnel";
 import { StatusTag } from "@/components/editorial/StatusTag";
 
-const n = (v: number) => v.toLocaleString("pt-BR");
-const pct = (v: number) =>
-  `${v.toLocaleString("pt-BR", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  })}%`;
+const n = (v: number) => formatInt(v);
+const pct = (v: number) => formatPct(v);
 
 function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: string }) {
   const maxCount = Math.max(...RACE_CATEGORIES.map((key) => race[key].count), 1);
