@@ -4,6 +4,7 @@ import {
   raceCounts,
 } from "@/data/election-2026";
 import { GapNote } from "./GapNote";
+import { formatInt, formatPct } from "@/lib/format-br";
 
 /**
  * WhoAreTheyExplorer — eixo central do observatório: cor/raça × nível de poder.
@@ -66,7 +67,7 @@ export function WhoAreTheyExplorer() {
                   {counts && denominator ? (
                     <>
                       <p className="mb-3 font-mono text-[12px] text-muted-foreground">
-                        Denominador: {denominator.toLocaleString("pt-BR")}{" "}
+                        Denominador: {formatInt(denominator)}{" "}
                         candidaturas de mulheres neste universo.
                       </p>
                       <dl className="grid gap-3 sm:grid-cols-3">
@@ -76,16 +77,10 @@ export function WhoAreTheyExplorer() {
                               {k}
                             </dt>
                             <dd className="data-figure mt-1 text-2xl text-plum">
-                              {v.toLocaleString("pt-BR")}
+                              {formatInt(v)}
                               <span className="ml-2 font-mono text-xs text-muted-foreground">
-                                {((v / denominator) * 100).toLocaleString(
-                                  "pt-BR",
-                                  {
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 1,
-                                  },
-                                )}
-                                % de {denominator.toLocaleString("pt-BR")}
+                                {formatPct((v / denominator) * 100)} de{" "}
+                                {formatInt(denominator)}
                               </span>
                             </dd>
                           </div>

@@ -9,6 +9,7 @@
 
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import { StatusTag } from "./StatusTag";
+import { formatInt, formatPct } from "@/lib/format-br";
 
 const UFS = [
   "AC","AL","AM","AP","BA","CE","DF","ES","GO","MA","MG","MS","MT","PA",
@@ -37,9 +38,8 @@ function band(share: number) {
   return BANDS.find((b) => share < b.max) ?? BANDS[BANDS.length - 1];
 }
 
-const nf = (n: number) => n.toLocaleString("pt-BR");
-const pf = (n: number) =>
-  `${n.toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%`;
+const nf = (n: number) => formatInt(n);
+const pf = (n: number) => formatPct(n);
 
 export function UfGrid({
   snapshot,

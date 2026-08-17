@@ -8,13 +8,10 @@ import {
   type RaceFindingCategory,
 } from "@/data/election-2026";
 import { RACE_COLORS, RACE_LABELS } from "@/data/historical-funnel";
+import { formatInt, formatPct, formatDecimal } from "@/lib/format-br";
 
-const n = (v: number) => v.toLocaleString("pt-BR");
-const pct = (v: number) =>
-  `${v.toLocaleString("pt-BR", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  })}%`;
+const n = (v: number) => formatInt(v);
+const pct = (v: number) => formatPct(v);
 
 /** Normaliza o rótulo literal do TSE (ex.: "PARDA", "INDÍGENA") para a chave
  *  interna de categoria (parda, indigena). Sem agregações. */
@@ -180,10 +177,7 @@ export function RaceFinding2026({
   const candPreta = byRace.preta;
   const gapParda = candParda.percent - popParda.percent;
   const pp = (v: number) =>
-    `${Math.abs(v).toLocaleString("pt-BR", {
-      minimumFractionDigits: 1,
-      maximumFractionDigits: 1,
-    })} p.p.`;
+    `${formatDecimal(Math.abs(v))} p.p.`;
   const sourceLabel = fromSnapshot
     ? conferido
       ? "fotografia vigente conferida"

@@ -5,6 +5,7 @@ import { StatusTag } from "./StatusTag";
 import { RACE_LABELS } from "@/data/historical-funnel";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import type { UniverseId } from "@/lib/tse/compute";
+import { formatInt, formatDecimal } from "@/lib/format-br";
 
 /**
  * StateExplorer — leitura por estado da fotografia vigente do TSE.
@@ -33,12 +34,8 @@ const UNIVERSE_SCOPE: Record<UniverseId, string> = {
     "Presidência, governos estaduais e Senado, contados dentro do estado",
 };
 
-const nf = (n: number) => n.toLocaleString("pt-BR");
-const pf = (n: number) =>
-  n.toLocaleString("pt-BR", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  });
+const nf = (n: number) => formatInt(n);
+const pf = (n: number) => formatDecimal(n);
 
 function normalizeRaceLabel(raw: string) {
   const k = raw

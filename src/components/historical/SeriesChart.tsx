@@ -1,6 +1,7 @@
 import type { Series } from "@/lib/tse/historical-compute";
 import type { UniverseId } from "@/lib/tse/compute";
 import { GapNote } from "@/components/GapNote";
+import { formatInt, formatDecimal } from "@/lib/format-br";
 
 /**
  * SeriesChart — leitura visual de uma série histórica já calculada.
@@ -15,10 +16,7 @@ const UNIVERSE_LABEL: Record<UniverseId, string> = {
 };
 
 const fmt = (v: number) =>
-  v.toLocaleString("pt-BR", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  });
+  formatDecimal(v);
 
 function UniverseColumn({
   series,
@@ -86,7 +84,7 @@ function UniverseColumn({
             <dt>{p.year}</dt>
             <dd className="text-right">
               {p.numerator !== null && p.denominator !== null
-                ? `${p.numerator.toLocaleString("pt-BR")} de ${p.denominator.toLocaleString("pt-BR")}`
+                ? `${formatInt(p.numerator)} de ${formatInt(p.denominator)}`
                 : (p.unavailableReason ?? "sem dado")}
             </dd>
           </div>

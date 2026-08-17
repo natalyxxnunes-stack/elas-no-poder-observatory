@@ -32,6 +32,7 @@ import { ElectionRateByGender } from "@/components/historical/ElectionRateByGend
 
 import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
 import topoAsset from "@/assets/mulheresnotopo.webp.asset.json";
+import { formatInt, formatPct } from "@/lib/format-br";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -70,7 +71,7 @@ function snapshotDate(iso: string | null): string | null {
   return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
 }
 
-const nf = (n: number) => n.toLocaleString("pt-BR");
+const nf = (n: number) => formatInt(n);
 
 const PLAIN_MEANING: Record<string, string> = {
   "participacao-feminina-proporcional":
@@ -440,7 +441,7 @@ function DadosPage() {
               Em 2022, mulheres foram 34,1% das candidaturas proporcionais e
               17,7% das eleitas no 1º turno.{" "}
               {prop
-                ? `Em 2026, são ${((prop.feminine / prop.total) * 100).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}% das candidaturas proporcionais`
+                ? `Em 2026, são ${formatPct((prop.feminine / prop.total) * 100)} das candidaturas proporcionais`
                 : "Em 2026, o percentual de candidaturas proporcionais está em atualização"}{" "}
               — a comparação possível é de entrada com entrada: um ciclo já
               terminou, o outro está começando.

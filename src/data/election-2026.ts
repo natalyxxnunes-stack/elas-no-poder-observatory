@@ -22,6 +22,7 @@ import {
   snapshot,
   type UniverseSnapshot,
 } from "./tse-snapshot";
+import { formatInt, formatDecimal, formatPct } from "@/lib/format-br";
 
 /** Status padronizado de qualquer indicador do observatório. */
 export const DATA_STATUS = {
@@ -545,22 +546,16 @@ export const SECTIONS = [
 /** Formatação: valor bruto → apresentação em pt-BR, uma casa decimal. */
 export function formatPercent(value: number | null, digits = 1): string {
   if (value === null) return "—";
-  return `${value.toLocaleString("pt-BR", {
-    minimumFractionDigits: digits,
-    maximumFractionDigits: digits,
-  })}%`;
+  return formatPct(value, digits);
 }
 
 export function formatPoints(value: number | null, digits = 1): string {
   if (value === null) return "—";
-  return `${value.toLocaleString("pt-BR", {
-    minimumFractionDigits: digits,
-    maximumFractionDigits: digits,
-  })} p.p.`;
+  return `${formatDecimal(value, digits)} p.p.`;
 }
 
 /** Denominador legível: "n de N candidaturas". */
 export function formatRatio(i: Indicator): string | null {
   if (i.numerator === null || i.denominator === null) return null;
-  return `${i.numerator.toLocaleString("pt-BR")} de ${i.denominator.toLocaleString("pt-BR")} candidaturas`;
+  return `${formatInt(i.numerator)} de ${formatInt(i.denominator)} candidaturas`;
 }
