@@ -1,4 +1,3 @@
-import { formatDecimal } from "@/lib/format-br";
 import * as React from "react";
 import * as RechartsPrimitive from "recharts";
 
@@ -223,7 +222,7 @@ const ChartTooltipContent = React.forwardRef<
                         </div>
                         {item.value && (
                           <span className="font-mono font-medium tabular-nums text-foreground">
-                            {formatDecimal(Number(item.value))}
+                            {item.value.toLocaleString()}
                           </span>
                         )}
                       </div>

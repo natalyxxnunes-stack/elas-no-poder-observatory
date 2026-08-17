@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { buildSnapshotCsv } from "@/lib/tse/snapshot-csv";
-import { formatInt } from "@/lib/format-br";
 
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
@@ -185,7 +184,7 @@ function MetodoPage() {
             </p>
             {snapshot && (
               <p className="mt-3 font-mono text-[12px] text-muted-foreground">
-                {formatInt(snapshot.recordCount)} candidaturas na
+                {snapshot.recordCount.toLocaleString("pt-BR")} candidaturas na
                 fotografia
               </p>
             )}
@@ -302,7 +301,7 @@ function MetodoPage() {
             </div>
             <div>
               <dt className="uppercase tracking-wider">Registros lidos</dt>
-              <dd>{snapshot ? formatInt(snapshot.recordCount) : "—"}</dd>
+              <dd>{snapshot?.recordCount.toLocaleString("pt-BR") ?? "—"}</dd>
             </div>
             <div className="md:col-span-2">
               <dt className="uppercase tracking-wider">Unidade de análise</dt>
@@ -650,7 +649,7 @@ function MetodoPage() {
                     {k}
                   </dt>
                   <dd className="poster-figure mt-2 text-3xl text-plum md:text-4xl">
-                    {formatInt(v)}
+                    {v.toLocaleString("pt-BR")}
                   </dd>
                 </div>
               ))}
@@ -829,7 +828,7 @@ function MetodoPage() {
                       {br(s.baseGeneratedAt)}
                     </td>
                     <td className="py-3 pr-4 font-mono text-xs text-muted-foreground">
-                      {formatInt(s.recordCount)}
+                      {s.recordCount.toLocaleString("pt-BR")}
                     </td>
                     <td className="py-3 font-mono text-xs text-muted-foreground">
                       {statusLabel(s)}

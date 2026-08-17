@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { formatPct } from "@/lib/format-br";
 import { GapNote } from "@/components/GapNote";
 import { StatusTag } from "./StatusTag";
 import { RACE_COLORS, RACE_LABELS } from "@/data/historical-funnel";
@@ -186,7 +185,11 @@ export function RaceByStateTable({ snapshot }: { snapshot: PublicSnapshot | null
                               <>
                                 {" "}
                                 (
-                                {formatPct((r.counts[c] / r.total) * 100)})
+                                {((r.counts[c] / r.total) * 100).toLocaleString(
+                                  "pt-BR",
+                                  { maximumFractionDigits: 1 },
+                                )}
+                                %)
                               </>
                             )}
                           </span>

@@ -12,7 +12,6 @@ import { getHistoricalSeries, type HistoricalSeriesPayload } from "@/lib/tse/his
 import { BLACK_AGGREGATION_NOTE } from "@/lib/tse/historical-compute";
 import timelineEditorial from "@/assets/timeline-editorial.png";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
-import { formatPct } from "@/lib/format-br";
 
 /**
  * ROTA DESPUBLICADA (lançamento de 5 páginas).
@@ -90,8 +89,16 @@ function HistoricoPage() {
                 Nas eleições{" "}
                 <GlossaryTerm term="proporcional">proporcionais</GlossaryTerm>, a
                 participação feminina nas candidaturas passou de{" "}
-                {formatPct(firstProp.value)} em 2014 para{" "}
-                {formatPct(lastProp.value)} na fotografia de 2026. Cada ano é calculado sobre o seu próprio
+                {firstProp.value.toLocaleString("pt-BR", {
+                  maximumFractionDigits: 1,
+                  minimumFractionDigits: 1,
+                })}
+                % em 2014 para{" "}
+                {lastProp.value.toLocaleString("pt-BR", {
+                  maximumFractionDigits: 1,
+                  minimumFractionDigits: 1,
+                })}
+                % na fotografia de 2026. Cada ano é calculado sobre o seu próprio
                 total.
               </>
             ) : (

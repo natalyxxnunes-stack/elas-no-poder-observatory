@@ -7,9 +7,12 @@
  */
 
 import type { Series } from "@/lib/tse/historical-compute";
-import { formatInt, formatPct } from "@/lib/format-br";
 
-const pct = formatPct;
+const pct = (v: number) =>
+  `${v.toLocaleString("pt-BR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  })}%`;
 
 export function PastStrip({ series }: { series: Series | null }) {
   const points = (series?.points ?? [])
@@ -36,8 +39,8 @@ export function PastStrip({ series }: { series: Series | null }) {
               </p>
               {p.numerator !== null && p.denominator !== null && (
                 <p className="font-mono text-[12px] text-muted-foreground">
-                  {formatInt(p.numerator)} de{" "}
-                  {formatInt(p.denominator)}
+                  {p.numerator.toLocaleString("pt-BR")} de{" "}
+                  {p.denominator.toLocaleString("pt-BR")}
                 </p>
               )}
             </div>

@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { formatInt, formatPct } from "@/lib/format-br";
 import { GapNote } from "@/components/GapNote";
 import { ContextBox } from "./ContextBox";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
@@ -209,7 +208,7 @@ export function RaceExplorer({
           <p className="poster-eyebrow text-muted-foreground">Fatia escolhida</p>
           <p className="mt-1 font-display text-lg text-ink">{scopeLabel}</p>
           <p className="mt-2 font-mono text-[12px] text-muted-foreground">
-            Base: {formatInt(base)}{" "}
+            Base: {base.toLocaleString("pt-BR")}{" "}
             {base === 1 ? "candidatura" : "candidaturas"} de mulheres
             {showPercent
               ? " — denominador de todos os percentuais abaixo"
@@ -240,9 +239,12 @@ export function RaceExplorer({
                   />
                 </dd>
                 <dd className="w-36 shrink-0 text-right font-mono text-xs text-ink">
-                  {formatInt(n)}
+                  {n.toLocaleString("pt-BR")}
                   {showPercent
-                    ? ` · ${formatPct((n / base) * 100)}`
+                    ? ` · ${((n / base) * 100).toLocaleString("pt-BR", {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1,
+                      })}%`
                     : ""}
                 </dd>
               </div>
@@ -253,7 +255,7 @@ export function RaceExplorer({
         {!showPercent && base > 0 && (
           <div className="border-t-2 border-ink p-5">
             <GapNote label="Base pequena">
-              Com {formatInt(base)}{" "}
+              Com {base.toLocaleString("pt-BR")}{" "}
               {base === 1 ? "candidatura" : "candidaturas"} nesta fatia
               (mínimo de {MIN_BASE}), um percentual daria aparência de precisão a
               um número que uma única candidatura moveria demais. Por isso aqui

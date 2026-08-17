@@ -1,5 +1,4 @@
 import { formatPercent, type Indicator } from "@/data/election-2026";
-import { formatInt } from "@/lib/format-br";
 
 /**
  * HeroNumber — número-herói em quatro camadas visíveis e coladas:
@@ -40,8 +39,8 @@ export function HeroNumber({ indicator }: { indicator: Indicator }) {
             {/* (d) ressalva colada: denominador, data e cautela */}
             <div className="mt-5 border-t border-rule pt-4 font-mono text-[12px] leading-relaxed text-muted-foreground">
               <p>
-                {formatInt(indicator.numerator)} de{" "}
-                {formatInt(indicator.denominator)} candidaturas
+                {indicator.numerator!.toLocaleString("pt-BR")} de{" "}
+                {indicator.denominator!.toLocaleString("pt-BR")} candidaturas
               </p>
               {date && <p className="mt-1">Fotografia da base de {date}</p>}
               <p className="mt-1">Fonte: TSE · Candidaturas 2026</p>
