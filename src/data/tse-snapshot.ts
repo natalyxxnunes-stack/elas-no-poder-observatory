@@ -68,6 +68,20 @@ export const snapshot: TseSnapshot | null = {
       total: 19142,
       feminine: 6756,
       raceCounts: { BRANCA: 3092, PARDA: 2378, PRETA: 1167, "INDÍGENA": 79, AMARELA: 40 },
+      dimensions: {
+        feminineByUf: {
+          AC: 125, AL: 92, AM: 152, AP: 109, BA: 402, CE: 242, DF: 213, ES: 183,
+          GO: 328, MA: 196, MG: 617, MS: 137, MT: 140, PA: 242, PB: 142, PE: 311,
+          PI: 110, PR: 352, RJ: 650, RN: 101, RO: 135, RR: 125, RS: 342, SC: 236,
+          SE: 140, SP: 825, TO: 109,
+        },
+        totalByUf: {
+          AC: 339, AL: 247, AM: 420, AP: 281, BA: 1159, CE: 659, DF: 584, ES: 537,
+          GO: 843, MA: 553, MG: 1737, MS: 373, MT: 399, PA: 668, PB: 393, PE: 902,
+          PI: 307, PR: 1020, RJ: 1950, RN: 264, RO: 384, RR: 345, RS: 995, SC: 637,
+          SE: 357, SP: 2487, TO: 302,
+        },
+      },
     },
     majoritario: {
       total: 523,
