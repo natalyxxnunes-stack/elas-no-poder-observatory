@@ -164,8 +164,8 @@ export const HISTORICAL_FUNNEL: HistoricalFunnelYear[] = [
     year: 2026,
     stage: "em_curso",
     candidacy: {
-      total: 17_299,
-      feminine: 6_109,
+      total: 19_142,
+      feminine: 6_756,
       femininePercent: 35.3,
       race: null,
     },
