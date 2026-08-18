@@ -132,21 +132,50 @@ function toPublic(row: any): PublicSnapshot {
 }
 
 /**
- * Fotografia mais recente publicável: apenas fotografias conferidas
- * manualmente (`conferido = true`) com status `ok` ou `requer_conferencia`.
- * Uma coleta com `status = ok` e sem conferência fica retida, não vigente.
+ * Fotografia cravada em código, projetada no formato público. Enquanto ela
+ * existir, nenhuma leitura de banco acontece em tempo de execução.
+ */
+function pinnedPublic(): PublicSnapshot | null {
+  if (!pinnedSnapshot) return null;
+  const { proporcional, majoritario } = pinnedSnapshot.universes;
+  return {
+    id: "pinned-" + pinnedSnapshot.baseGeneratedAt,
+    collectedAt: pinnedSnapshot.processedAt,
+    baseGeneratedAt: pinnedSnapshot.baseGeneratedAt,
+    fileName: PINNED_FILE_NAME,
+    fileUrl: pinnedSnapshot.resourceUrl,
+    recordCount: proporcional.total + majoritario.total,
+    status: "ok",
+    conferido: true,
+    zipSha256: null,
+    brasilCsvSha256: PINNED_BRASIL_CSV_SHA256,
+    processingVersion: "cravado-em-codigo",
+    filters: [...pinnedSnapshot.filters],
+    situationValues: {},
+    outOfUniverse: null,
+    universes: { proporcional, majoritario },
+  };
+}
+
+/**
+ * Fotografia vigente. Com a fotografia cravada em código, ela é a resposta.
+ * Sem ela, cai na fotografia conferida mais recente do banco (`conferido =
+ * true`) com status `ok` ou `requer_conferencia`.
  */
 export async function getLatestTseSnapshot(): Promise<PublicSnapshot | null> {
+  const pinned = pinnedPublic();
+  if (pinned) return pinned;
   const { data } = await publishedQuery("*").maybeSingle();
   return data ? toPublic(data) : null;
 }
 
 /**
  * Data da fotografia retida aguardando conferência, quando ela for mais
- * recente que a fotografia vigente. Serve apenas para informar, de forma
- * factual, que há atualização em conferência. Sem pendência, devolve null.
+ * recente que a fotografia vigente. Com a fotografia cravada em código não
+ * existe pendência a informar.
  */
 export async function getPendingReviewBaseDate(): Promise<string | null> {
+  if (pinnedSnapshot) return null;
   const [{ data: published }, { data: pending }] = await Promise.all([
     publishedQuery("base_generated_at").maybeSingle(),
     supabase
@@ -171,6 +200,8 @@ export async function getPendingReviewBaseDate(): Promise<string | null> {
 
 /** Histórico de fotografias, do mais recente para o mais antigo. */
 export async function listTseSnapshots(): Promise<PublicSnapshot[]> {
+  const pinned = pinnedPublic();
+  if (pinned) return [pinned];
   const { data } = await supabase
     .from("tse_snapshots")
     .select("*")
@@ -200,6 +231,13 @@ export async function getSnapshotStamp(): Promise<{
   baseGeneratedAt: string | null;
   collectedAt: string;
 } | null> {
+  const pinned = pinnedPublic();
+  if (pinned) {
+    return {
+      baseGeneratedAt: pinned.baseGeneratedAt,
+      collectedAt: pinned.collectedAt,
+    };
+  }
   const { data } = await publishedQuery(
     "base_generated_at, collected_at",
   ).maybeSingle();
@@ -209,3 +247,4 @@ export async function getSnapshotStamp(): Promise<{
     collectedAt: data.collected_at,
   };
 }
+
