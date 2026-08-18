@@ -175,7 +175,7 @@ export async function getLatestTseSnapshot(): Promise<PublicSnapshot | null> {
  * existe pendência a informar.
  */
 export async function getPendingReviewBaseDate(): Promise<string | null> {
-  if (pinnedSnapshot) return null;
+  if (PINNED) return null;
   const [{ data: published }, { data: pending }] = await Promise.all([
     publishedQuery("base_generated_at").maybeSingle(),
     supabase
