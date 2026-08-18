@@ -7,7 +7,7 @@
  * `consulta_cand_2026_BRASIL.csv` (dedup por SQ_CANDIDATO, encoding latin1,
  * separador `;`), SHA-256 do CSV
  * 021ea104dc491665895e79374e677a4688d877f29e8164f3c446462afe363f91,
- * base de 18/08/2026.
+ * base de 17/08/2026.
  *
  * Regra: nada aqui pode ser preenchido à mão com número plausível. Apenas
  * saída verificável do processamento de TSE / Dados Abertos / Candidatos 2026.
@@ -56,8 +56,8 @@ export const PINNED_FILE_NAME = "consulta_cand_2026.zip";
 export const snapshot: TseSnapshot | null = {
   datasetUrl: "https://dadosabertos.tse.jus.br/dataset/candidatos-2026",
   resourceUrl: "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2026.zip",
-  baseGeneratedAt: "2026-08-18",
-  processedAt: "2026-08-18T00:00:00Z",
+  baseGeneratedAt: "2026-08-17",
+  processedAt: "2026-08-17T15:36:47Z",
   filters: [
     "Dedup por SQ_CANDIDATO",
     "Universos proporcional e majoritário separados",
@@ -93,7 +93,7 @@ export const snapshot: TseSnapshot | null = {
 
 /** Origem da fotografia vigente. */
 export const LAST_FETCH_ATTEMPT = {
-  at: "2026-08-18T00:00:00Z",
+  at: "2026-08-17T15:36:47Z",
   outcome:
     "Fotografia recontada de forma independente a partir do arquivo oficial de candidaturas do TSE (consulta_cand_2026_BRASIL.csv) e cravada em código, sem consulta ao banco em tempo de execução.",
 } as const;
