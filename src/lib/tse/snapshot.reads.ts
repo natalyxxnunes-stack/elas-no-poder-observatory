@@ -9,7 +9,13 @@
  */
 
 import { supabase } from "@/integrations/supabase/client";
+import {
+  snapshot as pinnedSnapshot,
+  PINNED_BRASIL_CSV_SHA256,
+  PINNED_FILE_NAME,
+} from "@/data/tse-snapshot";
 import { buildSnapshotCsv } from "./snapshot-csv";
+
 
 export type PublicUniverseTally = {
   feminine: number;
