@@ -10,7 +10,7 @@
 
 import { supabase } from "@/integrations/supabase/client";
 import {
-  snapshot as pinnedSnapshot,
+  snapshot as PINNED,
   PINNED_BRASIL_CSV_SHA256,
   PINNED_FILE_NAME,
 } from "@/data/tse-snapshot";
