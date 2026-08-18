@@ -136,21 +136,21 @@ function toPublic(row: any): PublicSnapshot {
  * existir, nenhuma leitura de banco acontece em tempo de execução.
  */
 function pinnedPublic(): PublicSnapshot | null {
-  if (!pinnedSnapshot) return null;
-  const { proporcional, majoritario } = pinnedSnapshot.universes;
+  if (!PINNED) return null;
+  const { proporcional, majoritario } = PINNED.universes;
   return {
-    id: "pinned-" + pinnedSnapshot.baseGeneratedAt,
-    collectedAt: pinnedSnapshot.processedAt,
-    baseGeneratedAt: pinnedSnapshot.baseGeneratedAt,
+    id: "pinned-" + PINNED.baseGeneratedAt,
+    collectedAt: PINNED.processedAt,
+    baseGeneratedAt: PINNED.baseGeneratedAt,
     fileName: PINNED_FILE_NAME,
-    fileUrl: pinnedSnapshot.resourceUrl,
+    fileUrl: PINNED.resourceUrl,
     recordCount: proporcional.total + majoritario.total,
     status: "ok",
     conferido: true,
     zipSha256: null,
     brasilCsvSha256: PINNED_BRASIL_CSV_SHA256,
     processingVersion: "cravado-em-codigo",
-    filters: [...pinnedSnapshot.filters],
+    filters: [...PINNED.filters],
     situationValues: {},
     outOfUniverse: null,
     universes: { proporcional, majoritario },
