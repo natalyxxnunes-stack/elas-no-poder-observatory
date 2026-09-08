@@ -17,7 +17,7 @@ export function StatusTag({
         : "border-coral text-coral-ink";
   return (
     <span
-      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 font-mono text-[12px] uppercase tracking-[0.14em] ${color}`}
+      className={`inline-flex items-center border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] ${color}`}
     >
       {children}
     </span>

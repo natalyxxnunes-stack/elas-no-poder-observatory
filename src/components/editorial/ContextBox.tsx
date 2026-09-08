@@ -36,7 +36,7 @@ export function ContextBox({
   const v = VARIANTS[variant];
   return (
     <aside
-      className={`border-l-4 ${v.accent} ${v.tint} rounded-r-md px-5 py-4`}
+      className={`border-l-4 ${v.accent} ${v.tint} px-5 py-5`}
     >
       <h3 className="font-mono text-[12px] uppercase tracking-[0.16em] text-ink">
         {title ?? v.title}

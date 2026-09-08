@@ -15,35 +15,36 @@ export function SiteHeader() {
   const close = () => setOpen(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-rule bg-paper/95 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center gap-4 px-5 py-3 md:px-8">
-        <Link to="/" className="flex items-center gap-3" onClick={close}>
+    <header className="site-header sticky top-0 z-40 border-b border-ink bg-paper/95 backdrop-blur">
+      <div className="mx-auto flex max-w-[82rem] items-center gap-4 px-5 py-3 md:px-8 lg:px-12">
+        <Link to="/" className="group flex items-center gap-3" onClick={close}>
           <BrandLogo className="h-10 w-10 shrink-0" />
           <span className="leading-tight">
             <BrandWordmark className="block font-display text-lg font-semibold text-ink" />
-            <span className="block text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
+            <span className="block font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
               {SITE.tagline}
             </span>
           </span>
         </Link>
 
-        <nav aria-label="Principal" className="ml-auto hidden items-center gap-6 lg:flex">
-          {NAV_ITEMS.map((item) => (
+        <nav aria-label="Principal" className="ml-auto hidden items-stretch border-x border-rule lg:flex">
+          {NAV_ITEMS.map((item, index) => (
             <Link
               key={item.to}
               to={item.to}
-              className="border-b-2 border-transparent pb-0.5 text-sm text-muted-foreground transition-colors hover:text-plum"
+              className="group relative flex min-h-14 items-center border-r border-rule px-4 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-ink"
               activeOptions={{ exact: item.to === "/" }}
-              activeProps={{ className: "border-solar font-semibold text-ink" }}
+              activeProps={{ className: "bg-secondary font-semibold text-ink" }}
             >
-              {item.label}
+              <span className="mr-2 font-mono text-[9px] text-coral-ink">0{index + 1}</span>
+              <span>{item.label}</span>
             </Link>
           ))}
         </nav>
 
         <button
           type="button"
-          className="ml-auto inline-flex h-11 w-11 items-center justify-center rounded-md border border-rule text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum lg:hidden"
+          className="ml-auto inline-flex h-11 w-11 items-center justify-center border border-ink bg-paper text-ink transition-colors hover:bg-solar focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum lg:hidden"
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
           aria-controls="menu-movel"
@@ -61,14 +62,14 @@ export function SiteHeader() {
         <nav
           id="menu-movel"
           aria-label="Principal (móvel)"
-          className="max-h-[75vh] overflow-y-auto border-t border-rule bg-paper px-5 pb-6 lg:hidden"
+          className="max-h-[75vh] overflow-y-auto border-t border-ink bg-paper px-5 pb-6 lg:hidden"
         >
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.to}
               to={item.to}
               onClick={close}
-              className="block border-b border-rule py-3 font-display text-base text-ink"
+              className="block border-b border-rule py-4 font-display text-xl text-ink"
               activeOptions={{ exact: item.to === "/" }}
               activeProps={{ className: "text-plum" }}
             >

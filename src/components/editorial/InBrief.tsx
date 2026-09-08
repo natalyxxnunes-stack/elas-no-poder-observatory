@@ -19,14 +19,14 @@ export function InBrief({
   return (
     <section
       aria-label="Em poucas linhas"
-      className="editorial-card overflow-hidden"
+      className="editorial-ledger overflow-hidden border-y border-ink"
     >
-      <h2 className="border-b border-rule bg-secondary px-5 py-3 font-mono text-[12px] uppercase tracking-[0.16em] text-plum">
+      <h2 className="border-b border-ink bg-solar px-5 py-3 font-mono text-[11px] uppercase tracking-[0.16em] text-ink">
         Em poucas linhas
       </h2>
       <dl className="divide-y divide-rule">
         {rows.map((r) => (
-          <div key={r.label} className="px-5 py-4 sm:flex sm:gap-6">
+          <div key={r.label} className="grid px-5 py-5 sm:grid-cols-[12rem_1fr] sm:gap-6">
             <dt className="shrink-0 font-mono text-[12px] uppercase tracking-wider text-muted-foreground sm:w-48">
               {r.label}
             </dt>
