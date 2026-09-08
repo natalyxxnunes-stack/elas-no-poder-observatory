@@ -22,3 +22,25 @@ export function formatDecimal(value: number, fractionDigits = 1): string {
 export function formatPct(value: number, fractionDigits = 1): string {
   return `${formatDecimal(value, fractionDigits)}%`;
 }
+
+/** Formata apenas a parte civil da data ISO, sem depender do fuso do ambiente. */
+export function formatDateBR(value: string | null | undefined): string | null {
+  if (!value) return null;
+  const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(value);
+  if (!match) return null;
+  const [, year, month, day] = match;
+  return `${day}/${month}/${year}`;
+}
+
+export function formatLongDateBR(value: string | null | undefined): string | null {
+  if (!value) return null;
+  const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(value);
+  if (!match) return null;
+  const [, year, month, day] = match;
+  const months = [
+    "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+    "julho", "agosto", "setembro", "outubro", "novembro", "dezembro",
+  ];
+  const monthName = months[Number(month) - 1];
+  return monthName ? `${day} de ${monthName} de ${year}` : null;
+}

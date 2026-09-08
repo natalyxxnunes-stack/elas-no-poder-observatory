@@ -67,7 +67,7 @@ function Table({
                   </dt>
                   <dd className="flex-1">
                     <div
-                      className="h-2 rounded-full bg-plum"
+                      className="h-2 bg-plum"
                       style={{ width: `${(value / denominator) * 100}%` }}
                       aria-hidden
                     />

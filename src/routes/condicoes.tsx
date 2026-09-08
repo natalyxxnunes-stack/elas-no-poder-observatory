@@ -7,11 +7,11 @@ import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { NextAxes } from "@/components/editorial/NextAxes";
+import { EditorialArtwork } from "@/components/editorial/EditorialArtwork";
 import { GapNote } from "@/components/GapNote";
 import { QUOTA_RULE, TSE_SOURCE } from "@/data/election-2026";
 import { axis } from "@/data/architecture";
 import spotStrength from "@/assets/spot-strength.png";
-import spotQuota from "@/assets/spot-quota.png";
 
 /**
  * ROTA DESPUBLICADA (lançamento de 5 páginas).
@@ -181,15 +181,7 @@ function CondicoesPage() {
         }
       >
         <div className="grid gap-6 md:grid-cols-[auto_1fr] md:items-start">
-          <img
-            src={spotQuota}
-            alt=""
-            aria-hidden
-            loading="lazy"
-            width={640}
-            height={640}
-            className="h-28 w-28 md:h-36 md:w-36"
-          />
+          <EditorialArtwork variant="method" className="h-36 w-36" />
           <div className="grid gap-4">
             <ContextBox variant="significa">
               <p>{QUOTA_RULE.financingNote}</p>

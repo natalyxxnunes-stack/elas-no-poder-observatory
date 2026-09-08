@@ -14,6 +14,7 @@ import { FUNNEL_READING_RULE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import { getHistoricalSeries } from "@/lib/tse/historical.functions";
 import type { Series } from "@/lib/tse/historical-compute";
+import { formatLongDateBR } from "@/lib/format-br";
 
 export const Route = createFileRoute("/funil")({
   head: () => ({
@@ -70,13 +71,7 @@ function FunilPage() {
     null;
 
   const stamp = snapshot?.baseGeneratedAt ?? snapshot?.collectedAt ?? null;
-  const stampLabel = stamp
-    ? new Date(stamp).toLocaleDateString("pt-BR", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-      })
-    : null;
+  const stampLabel = formatLongDateBR(stamp);
 
   return (
     <PageShell>
