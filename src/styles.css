@@ -385,6 +385,22 @@
 .editorial-artwork-archive { background-color: var(--color-rose); }
 .editorial-artwork-method { background-color: var(--color-ink); }
 
+.finding-strip > article {
+  border: 0;
+  padding-inline: 1.5rem;
+}
+
+.finding-strip > article + article {
+  border-top: 1px solid var(--color-ink);
+}
+
+@media (min-width: 768px) {
+  .finding-strip > article + article {
+    border-top: 0;
+    border-left: 1px solid var(--color-ink);
+  }
+}
+
 @media (max-width: 1023px) {
   .editorial-artwork {
     border-left: 0;

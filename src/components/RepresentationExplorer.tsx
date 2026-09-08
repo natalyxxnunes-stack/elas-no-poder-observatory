@@ -9,7 +9,6 @@ import {
   type Indicator,
 } from "@/data/election-2026";
 import { GapNote } from "./GapNote";
-import spotQuota from "@/assets/spot-quota.png";
 
 /**
  * RepresentationExplorer — participação feminina nos dois universos de
@@ -136,15 +135,7 @@ export function RepresentationExplorer() {
             — {UNIVERSE_DIFFERENCE.status}.
           </p>
         </div>
-        <img
-          src={spotQuota}
-          alt=""
-          aria-hidden
-          loading="lazy"
-          width={640}
-          height={640}
-          className="h-24 w-24 shrink-0 md:h-32 md:w-32"
-        />
+        <span aria-hidden className="grid h-24 w-24 shrink-0 place-items-center rounded-full border-2 border-ink bg-solar font-display text-4xl text-ink md:h-32 md:w-32 md:text-5xl">30%</span>
       </div>
 
       <div className="mt-8 grid gap-6 md:grid-cols-2">

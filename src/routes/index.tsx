@@ -359,7 +359,7 @@ function DadosPage() {
           quem entrou na disputa. Não há resultado eleitoral aqui: a eleição
           acontece em novembro de 2026.
         </p>
-        <div className="mt-9 grid border-y-2 border-ink md:grid-cols-3">
+        <div className="finding-strip mt-9 grid border-y-2 border-ink md:grid-cols-3">
           <FindingCard
             tag="Entrada proporcional"
             value={propShare !== null ? formatPercent(propShare) : null}

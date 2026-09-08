@@ -1,11 +1,11 @@
 import { RACE_CATEGORY_RULE } from "@/data/architecture";
-import mulheresAsset from "@/assets/mulheres-Photoroom.png.asset.json";
 import { GapNote } from "@/components/GapNote";
 import { snapshotRaceCounts } from "@/lib/tse/indicators";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import type { UniverseId } from "@/lib/tse/compute";
 import { ContextBox } from "./ContextBox";
 import { formatInt, formatPct } from "@/lib/format-br";
+import { EditorialArtwork } from "./EditorialArtwork";
 
 /**
  * RaceBreakdown — distribuição por categoria original de cor/raça das
@@ -95,14 +95,7 @@ function Table({
 export function RaceBreakdown({ snapshot }: { snapshot: PublicSnapshot | null }) {
   return (
     <div className="space-y-8">
-      <figure className="overflow-hidden rounded-lg border border-rule bg-paper leading-none">
-        <img
-          src={mulheresAsset.url}
-          alt="Ilustração editorial: fileira de mulheres de perfil, de diferentes idades, origens e trajetórias"
-          loading="lazy"
-          className="block h-auto w-full object-contain"
-        />
-      </figure>
+      <EditorialArtwork variant="territory" className="min-h-72 border border-ink" />
 
       <div className="grid gap-6 md:grid-cols-2">
         <Table snapshot={snapshot} universe="proporcional" />

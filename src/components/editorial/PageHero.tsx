@@ -21,12 +21,9 @@ export function PageHero({
   question,
   lead,
   image,
-  imageAlt,
   aside,
   wide,
   actions,
-  /** Ajuste fino do enquadramento da ilustração no formato panorâmico. */
-  imagePosition = "50% 30%",
 }: {
   kicker: string;
   question: string | React.ReactNode;

@@ -41,7 +41,7 @@ export function GlossaryTerm({
           aria-label={`${
             typeof children === "string" ? children.trim() : entry.title
           } — ver definição`}
-          className="cursor-help rounded-sm border-b border-dashed border-plum/70 bg-transparent p-0 font-[inherit] text-[inherit] leading-[inherit] text-inherit underline-offset-4 transition-colors hover:border-solid hover:text-plum focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum"
+          className="cursor-help border-b border-dashed border-plum/70 bg-transparent p-0 font-[inherit] text-[inherit] leading-[inherit] text-inherit underline-offset-4 transition-colors hover:border-solid hover:text-plum focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum"
         >
           {children}
         </button>
@@ -53,7 +53,7 @@ export function GlossaryTerm({
         align="start"
         sideOffset={8}
         collisionPadding={12}
-        className="w-[min(20rem,calc(100vw-2rem))] rounded-md border-2 border-ink bg-paper p-4 text-left shadow-[5px_5px_0_0_var(--color-plum)]"
+        className="w-[min(20rem,calc(100vw-2rem))] border-2 border-ink bg-paper p-4 text-left"
       >
         <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-plum">
           {entry.title}
