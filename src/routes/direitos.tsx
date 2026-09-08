@@ -14,7 +14,6 @@ import {
   DISPUTE_ITEMS,
   DISPUTE_RULE,
 } from "@/data/rules-in-dispute";
-import feministasAsset from "@/assets/feministas.webp.asset.json";
 import { EditorialArtwork } from "@/components/editorial/EditorialArtwork";
 import { PullQuote } from "@/components/editorial/PullQuote";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
@@ -63,8 +62,6 @@ function DireitosPage() {
             alcance limitado e disputa própria.
           </p>
         }
-        image={feministasAsset.url}
-        imageAlt="Ilustração editorial: marcha de mulheres com cartazes e urnas"
       />
 
       <div className="pb-4">
