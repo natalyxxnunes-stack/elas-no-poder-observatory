@@ -74,7 +74,7 @@ export function FunnelExplorer() {
                         style={{ width: `${value}%` }}
                       />
                     ) : (
-                      <div className="h-full w-full bg-[repeating-linear-gradient(45deg,transparent,transparent_5px,var(--color-rule)_5px,var(--color-rule)_10px)]" />
+                      <div className="h-full w-full border-y border-dashed border-rule bg-paper" />
                     )}
                   </div>
                 </button>

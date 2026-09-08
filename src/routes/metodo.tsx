@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { buildSnapshotCsv } from "@/lib/tse/snapshot-csv";
-import { formatInt } from "@/lib/format-br";
+import { formatDateBR, formatInt } from "@/lib/format-br";
 
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
@@ -60,10 +60,7 @@ export const Route = createFileRoute("/metodo")({
 });
 
 function br(iso: string | null): string {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "—";
-  return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+  return formatDateBR(iso) ?? "—";
 }
 
 /**
@@ -421,7 +418,7 @@ function MetodoPage() {
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="mt-4 inline-flex rounded-md bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+                  className="mt-4 inline-flex border-2 border-ink bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
                 >
                   Baixar a planilha (CSV)
                 </button>

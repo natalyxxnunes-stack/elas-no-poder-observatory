@@ -1,7 +1,7 @@
 import type { HistoricalSnapshotMeta } from "@/lib/tse/historical.functions";
 import type { HistoricalYear } from "@/lib/tse/historical-data-dictionary";
 import { StatusTag } from "@/components/editorial/StatusTag";
-import { formatInt } from "@/lib/format-br";
+import { formatDateBR, formatInt } from "@/lib/format-br";
 
 /**
  * HistoryTimeline — linha temporal 2014 → 2018 → 2022 → 2026 com a situação
@@ -10,10 +10,7 @@ import { formatInt } from "@/lib/format-br";
 const YEARS: HistoricalYear[] = [2014, 2018, 2022, 2026];
 
 function fmtDate(iso: string | null) {
-  if (!iso) return null;
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return null;
-  return d.toLocaleDateString("pt-BR");
+  return formatDateBR(iso);
 }
 
 export function HistoryTimeline({

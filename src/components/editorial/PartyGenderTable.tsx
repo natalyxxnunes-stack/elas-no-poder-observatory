@@ -3,7 +3,7 @@ import { GapNote } from "@/components/GapNote";
 import { StatusTag } from "./StatusTag";
 import { RACE_COLORS, RACE_LABELS } from "@/data/historical-funnel";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
-import { formatInt, formatDecimal } from "@/lib/format-br";
+import { formatDateBR, formatInt, formatDecimal } from "@/lib/format-br";
 
 /**
  * PartyGenderTable — "Quem lança mulheres?"
@@ -48,11 +48,7 @@ function normalizeRaceKey(raw: string): Cat {
 }
 
 function brDate(iso: string | null): string | null {
-  if (!iso) return null;
-  const d = new Date(iso);
-  return Number.isNaN(d.getTime())
-    ? null
-    : d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+  return formatDateBR(iso);
 }
 
 function pct(n: number, d: number): string {

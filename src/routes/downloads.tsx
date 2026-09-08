@@ -151,14 +151,14 @@ function DownloadsPage() {
                 {m.file === "/metodo" ? (
                   <Link
                     to="/metodo"
-                    className="inline-flex rounded-md bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+                    className="inline-flex border-2 border-ink bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
                   >
                     Baixar no Método
                   </Link>
                 ) : m.file ? (
                   <a
                     href={m.file}
-                    className="inline-flex rounded-md bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+                    className="inline-flex border-2 border-ink bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
                   >
                     Baixar
                   </a>

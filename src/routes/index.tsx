@@ -32,7 +32,7 @@ import { HistoryFunnel } from "@/components/historical/HistoryFunnel";
 import { ElectionRateByGender } from "@/components/historical/ElectionRateByGender";
 
 import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
-import { formatInt, formatPct } from "@/lib/format-br";
+import { formatDateBR, formatInt, formatPct } from "@/lib/format-br";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -65,10 +65,7 @@ export const Route = createFileRoute("/")({
 });
 
 function snapshotDate(iso: string | null): string | null {
-  if (!iso) return null;
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return null;
-  return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+  return formatDateBR(iso);
 }
 
 const nf = (n: number) => formatInt(n);
@@ -598,7 +595,7 @@ function DadosPage() {
         </ol>
         <Link
           to="/funil"
-          className="mt-8 inline-flex rounded-md border-2 border-ink bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+          className="mt-8 inline-flex border-2 border-ink bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
         >
           Explorar o funil →
         </Link>
@@ -619,7 +616,7 @@ function DadosPage() {
       >
         <Link
           to="/metodo"
-          className="inline-flex rounded-md border-2 border-solar px-5 py-2.5 text-sm font-semibold text-solar transition-colors hover:bg-solar hover:text-ink"
+          className="inline-flex border-2 border-solar px-5 py-2.5 text-sm font-semibold text-solar transition-colors hover:bg-solar hover:text-ink"
         >
           Conheça o método →
         </Link>
