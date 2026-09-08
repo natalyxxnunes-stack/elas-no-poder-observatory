@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
-import subindoAsset from "@/assets/subindo.webp.asset.json";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -91,8 +90,6 @@ function FunilPage() {
             por etapa, e mostra onde essa presença diminui.
           </p>
         }
-        image={subindoAsset.url}
-        imageAlt="Ilustração editorial: mulher subindo degraus sob arcos coloridos"
       />
 
       <div className="pb-4">

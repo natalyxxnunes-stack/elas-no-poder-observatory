@@ -14,8 +14,7 @@ import {
   DISPUTE_ITEMS,
   DISPUTE_RULE,
 } from "@/data/rules-in-dispute";
-import feministasAsset from "@/assets/feministas.webp.asset.json";
-import respiroFundoAsset from "@/assets/respirocomfundo.webp.asset.json";
+import { EditorialArtwork } from "@/components/editorial/EditorialArtwork";
 import { PullQuote } from "@/components/editorial/PullQuote";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 
@@ -63,8 +62,6 @@ function DireitosPage() {
             alcance limitado e disputa própria.
           </p>
         }
-        image={feministasAsset.url}
-        imageAlt="Ilustração editorial: marcha de mulheres com cartazes e urnas"
       />
 
       <div className="pb-4">
@@ -193,14 +190,8 @@ function DireitosPage() {
       </SectionBlock>
 
       {/* RESPIRO — pausa visual entre dois blocos densos */}
-      <div className="flex justify-center py-6">
-        <img
-          src={respiroFundoAsset.url}
-          alt=""
-          aria-hidden
-          loading="lazy"
-          className="h-auto w-52 rounded-lg md:w-72"
-        />
+      <div className="py-8">
+        <EditorialArtwork variant="archive" className="mx-auto min-h-56 max-w-3xl border border-ink" />
       </div>
 
       {/* EM DISPUTA — presente das regras, na sequência da linha do tempo */}

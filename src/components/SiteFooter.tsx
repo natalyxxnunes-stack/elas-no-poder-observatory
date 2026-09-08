@@ -25,15 +25,15 @@ export function SiteFooter() {
   const collected = br(stamp?.collectedAt);
 
   return (
-    <footer className="ink-panel mt-24">
+    <footer className="ink-panel mt-24 border-t-8 border-solar">
 
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.5fr_1fr] md:px-8">
+      <div className="mx-auto grid max-w-[82rem] gap-12 px-5 py-16 md:grid-cols-[1.6fr_1fr] md:px-8 lg:px-12 lg:py-20">
         <div>
           <div className="flex items-center gap-3">
             <BrandLogo className="h-11 w-11" />
             <BrandWordmark tone="cream" className="font-display text-xl font-semibold" />
           </div>
-          <p className="mt-5 max-w-md font-display text-xl leading-snug text-cream/90">
+          <p className="mt-8 max-w-2xl font-display text-3xl leading-tight text-cream md:text-5xl">
             “{COVER_QUESTION}”
           </p>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-cream/75">
@@ -45,14 +45,14 @@ export function SiteFooter() {
           <h2 className="font-mono text-[12px] uppercase tracking-[0.18em] text-solar">
             Navegue
           </h2>
-          <ul className="mt-4 space-y-2">
-            {NAV_ITEMS.map((item) => (
+          <ul className="mt-4 border-t border-cream/20">
+            {NAV_ITEMS.map((item, index) => (
               <li key={item.to}>
                 <Link
                   to={item.to}
-                  className="text-sm text-cream/75 underline-offset-4 hover:text-solar hover:underline"
+                  className="flex justify-between border-b border-cream/20 py-3 text-sm text-cream/75 hover:text-solar"
                 >
-                  {item.label}
+                  <span>{item.label}</span><span className="font-mono text-[10px]">0{index + 1}</span>
                 </Link>
               </li>
             ))}
@@ -60,7 +60,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-cream/15">
-        <div className="mx-auto max-w-6xl px-5 py-5 font-mono text-[12px] leading-relaxed text-cream/70 md:px-8">
+        <div className="mx-auto max-w-[82rem] px-5 py-6 font-mono text-[11px] leading-relaxed text-cream/70 md:px-8 lg:px-12">
           {generated && (
             <p className="text-cream/75">
               Última fotografia publicada: base gerada pelo TSE em {generated}
