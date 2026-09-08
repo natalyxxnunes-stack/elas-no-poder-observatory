@@ -96,7 +96,7 @@ function StageColumn({
         </p>
       )}
       <div
-        className="mt-2 h-6 w-full overflow-hidden rounded-sm"
+        className="mt-2 h-6 w-full overflow-hidden"
         role="img"
         aria-label={
           empty
@@ -105,7 +105,7 @@ function StageColumn({
         }
       >
         {empty ? (
-          <div className="flex h-full w-full items-center justify-center rounded-sm border border-dashed border-rule bg-[repeating-linear-gradient(135deg,transparent,transparent_6px,var(--color-rule,#ddd)_6px,var(--color-rule,#ddd)_7px)]">
+          <div className="flex h-full w-full items-center justify-center border border-dashed border-rule bg-paper">
             <span className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
               {emptyLabel ?? "não disponível"}
             </span>

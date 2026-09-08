@@ -268,7 +268,7 @@ function SobrePage() {
               Só peço que a fonte seja identificada e que o contexto da
               informação seja preservado.
             </p>
-            <p className="mt-3 rounded-md bg-muted p-3 font-mono text-[12px] leading-relaxed text-ink">
+            <p className="mt-3 border-l-2 border-solar bg-muted p-3 font-mono text-[12px] leading-relaxed text-ink">
               Fonte: {SITE.name} — Observatório independente sobre mulheres na
               política brasileira.
             </p>

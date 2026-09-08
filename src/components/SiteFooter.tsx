@@ -5,12 +5,10 @@ import { BrandWordmark } from "./BrandWordmark";
 import { SITE } from "@/data/election-2026";
 import { CENTRAL_THESIS, COVER_QUESTION, NAV_ITEMS } from "@/data/architecture";
 import { getSnapshotStamp } from "@/lib/tse/snapshot.functions";
+import { formatDateBR } from "@/lib/format-br";
 
 function br(iso: string | null | undefined): string | null {
-  if (!iso) return null;
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return null;
-  return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+  return formatDateBR(iso);
 }
 
 

@@ -16,6 +16,7 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { axis, CENTRAL_PRINCIPLE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
+import { formatDateBR } from "@/lib/format-br";
 
 
 /**
@@ -54,14 +55,7 @@ function QuemSaoElasPage() {
   const a = axis("quem-sao-elas");
   // Carimbo da mesma fotografia que alimenta todas as visualizações da página.
   const baseIso = snapshot?.baseGeneratedAt ?? snapshot?.collectedAt ?? null;
-  const baseStamp = baseIso
-    ? (() => {
-        const d = new Date(baseIso);
-        return Number.isNaN(d.getTime())
-          ? null
-          : d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
-      })()
-    : null;
+  const baseStamp = formatDateBR(baseIso);
 
   return (
     <PageShell>

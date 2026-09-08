@@ -52,7 +52,7 @@ function UniverseCard({
         {ratio ?? "sem denominador processado — indicador não exibido"}
       </p>
 
-      <div className="relative mt-4 h-6 w-full overflow-hidden rounded-sm bg-muted">
+      <div className="relative mt-4 h-6 w-full overflow-hidden border border-ink/20 bg-muted">
         {hasValue ? (
           <div
             className={`h-full transition-all ${
@@ -61,7 +61,7 @@ function UniverseCard({
             style={{ width: `${indicator.value}%` }}
           />
         ) : (
-          <div className="h-full w-full bg-[repeating-linear-gradient(45deg,transparent,transparent_5px,var(--color-rule)_5px,var(--color-rule)_10px)]" />
+          <div className="h-full w-full border-y border-dashed border-rule bg-paper" />
         )}
       </div>
 
