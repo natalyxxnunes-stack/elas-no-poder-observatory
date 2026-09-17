@@ -1,7 +1,7 @@
 import type { HistoricalSnapshotMeta } from "@/lib/tse/historical.functions";
 import type { HistoricalYear } from "@/lib/tse/historical-data-dictionary";
 import { StatusTag } from "@/components/editorial/StatusTag";
-import { formatDateBR, formatInt } from "@/lib/format-br";
+import { formatInt } from "@/lib/format-br";
 
 /**
  * HistoryTimeline — linha temporal 2014 → 2018 → 2022 → 2026 com a situação
@@ -10,7 +10,10 @@ import { formatDateBR, formatInt } from "@/lib/format-br";
 const YEARS: HistoricalYear[] = [2014, 2018, 2022, 2026];
 
 function fmtDate(iso: string | null) {
-  return formatDateBR(iso);
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toLocaleDateString("pt-BR");
 }
 
 export function HistoryTimeline({
@@ -23,15 +26,15 @@ export function HistoryTimeline({
   currentBaseGeneratedAt: string | null;
 }) {
   return (
-    <ol className="grid border-y border-ink md:grid-cols-4">
+    <ol className="grid gap-4 md:grid-cols-4">
       {YEARS.map((year) => {
         const snap = snapshots.find((s) => s.year === year);
         const current = year === 2026;
         const missing = missingYears.includes(year);
         const date = fmtDate(current ? currentBaseGeneratedAt : (snap?.baseGeneratedAt ?? null));
         return (
-          <li key={year} className="border-b border-rule p-5 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0">
-            <p className="font-display text-5xl text-ink">{year}</p>
+          <li key={year} className="editorial-card p-5">
+            <p className="font-display text-3xl text-ink">{year}</p>
             <div className="mt-2">
               {missing ? (
                 <StatusTag tone="pending">fotografia não coletada</StatusTag>

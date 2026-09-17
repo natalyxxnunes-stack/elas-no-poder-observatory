@@ -9,6 +9,7 @@ import {
   type Indicator,
 } from "@/data/election-2026";
 import { GapNote } from "./GapNote";
+import spotQuota from "@/assets/spot-quota.png";
 
 /**
  * RepresentationExplorer — participação feminina nos dois universos de
@@ -52,7 +53,7 @@ function UniverseCard({
         {ratio ?? "sem denominador processado — indicador não exibido"}
       </p>
 
-      <div className="relative mt-4 h-6 w-full overflow-hidden border border-ink/20 bg-muted">
+      <div className="relative mt-4 h-6 w-full overflow-hidden rounded-sm bg-muted">
         {hasValue ? (
           <div
             className={`h-full transition-all ${
@@ -61,7 +62,7 @@ function UniverseCard({
             style={{ width: `${indicator.value}%` }}
           />
         ) : (
-          <div className="h-full w-full border-y border-dashed border-rule bg-paper" />
+          <div className="h-full w-full bg-[repeating-linear-gradient(45deg,transparent,transparent_5px,var(--color-rule)_5px,var(--color-rule)_10px)]" />
         )}
       </div>
 
@@ -135,7 +136,15 @@ export function RepresentationExplorer() {
             — {UNIVERSE_DIFFERENCE.status}.
           </p>
         </div>
-        <span aria-hidden className="grid h-24 w-24 shrink-0 place-items-center rounded-full border-2 border-ink bg-solar font-display text-4xl text-ink md:h-32 md:w-32 md:text-5xl">30%</span>
+        <img
+          src={spotQuota}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          width={640}
+          height={640}
+          className="h-24 w-24 shrink-0 md:h-32 md:w-32"
+        />
       </div>
 
       <div className="mt-8 grid gap-6 md:grid-cols-2">

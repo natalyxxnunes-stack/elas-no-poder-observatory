@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
+import aberturaAsset from "@/assets/aberturasobre.webp.asset.json";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
@@ -53,6 +54,8 @@ function SobrePage() {
             entender direito o que estão dizendo.
           </p>
         }
+        image={aberturaAsset.url}
+        imageAlt="Ilustração editorial: mesa de trabalho jornalística com caderno de metodologia, gráficos e recortes"
         aside={
           <div className="editorial-card p-5">
             <p className="kicker">O projeto</p>
@@ -268,7 +271,7 @@ function SobrePage() {
               Só peço que a fonte seja identificada e que o contexto da
               informação seja preservado.
             </p>
-            <p className="mt-3 border-l-2 border-solar bg-muted p-3 font-mono text-[12px] leading-relaxed text-ink">
+            <p className="mt-3 rounded-md bg-muted p-3 font-mono text-[12px] leading-relaxed text-ink">
               Fonte: {SITE.name} — Observatório independente sobre mulheres na
               política brasileira.
             </p>

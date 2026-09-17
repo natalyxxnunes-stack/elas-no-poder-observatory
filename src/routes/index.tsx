@@ -7,7 +7,6 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { UfGrid } from "@/components/editorial/UfGrid";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
-import { EditorialArtwork } from "@/components/editorial/EditorialArtwork";
 
 
 import {
@@ -32,7 +31,8 @@ import { HistoryFunnel } from "@/components/historical/HistoryFunnel";
 import { ElectionRateByGender } from "@/components/historical/ElectionRateByGender";
 
 import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
-import { formatDateBR, formatInt, formatPct } from "@/lib/format-br";
+import topoAsset from "@/assets/mulheresnotopo.webp.asset.json";
+import { formatInt, formatPct } from "@/lib/format-br";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -65,7 +65,10 @@ export const Route = createFileRoute("/")({
 });
 
 function snapshotDate(iso: string | null): string | null {
-  return formatDateBR(iso);
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
 }
 
 const nf = (n: number) => formatInt(n);
@@ -212,40 +215,53 @@ function DadosPage() {
 
   return (
     <PageShell>
-      {/* 1. CAPA — pergunta, dados e arquitetura abstrata */}
-      <section className="relative left-1/2 -ml-[50vw] w-screen border-b border-ink bg-cream">
-        <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-[90rem] lg:grid-cols-[1.08fr_0.92fr]">
-          <div className="flex flex-col justify-between px-5 pb-10 pt-16 md:px-10 md:pb-14 md:pt-24 lg:px-16">
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-ink pb-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-              <span>Edição 2026 / Brasil</span>
-              <span>Base TSE / {baseDate ?? "em atualização"}</span>
-            </div>
-            <div className="py-12 md:py-16">
-              <p className="editorial-index">Mulheres, eleições e poder</p>
-              <h1 className="mt-6 max-w-4xl font-display text-[clamp(3.4rem,8vw,7.8rem)] leading-[0.84] text-ink">
-                Mais mulheres na disputa. Mas até onde elas chegam?
-              </h1>
-              <p className="mt-8 max-w-2xl border-l-4 border-solar pl-5 font-display text-xl leading-snug text-plum md:text-3xl">
-                Entre se candidatar e chegar ao poder, onde elas desaparecem?
+      {/* 1. HERO — ilustração full-bleed + painel de texto flutuante */}
+      <section className="relative left-1/2 -ml-[50vw] w-screen">
+        <img
+          src={topoAsset.url}
+          alt="Ilustração editorial: mulheres sobem rampas e escadas em direção a uma urna eleitoral"
+          className="block h-[78vh] min-h-[520px] w-full object-cover md:h-[80vh]"
+        />
+
+        <span className="absolute right-4 top-4 rounded-md bg-paper/85 px-3 py-1.5 font-mono text-[12px] uppercase tracking-[0.14em] text-ink md:right-8 md:top-6">
+          Dados parciais · Base do TSE · {baseDate ?? "base em atualização"}
+        </span>
+
+        <div className="absolute inset-x-4 bottom-6 md:inset-x-0 md:bottom-14">
+          <div className="mx-auto max-w-6xl md:px-8">
+            <div className="max-w-xl rounded-lg border-2 border-ink bg-paper/95 p-5 shadow-[9px_9px_0_0_var(--color-plum)] backdrop-blur-sm md:max-w-2xl md:p-8">
+              <p className="poster-eyebrow border-coral text-coral-ink">
+                Edição atual · Eleições 2026 · Brasil
               </p>
-              <p className="mt-6 max-w-xl leading-relaxed text-muted-foreground">
+              <h1 className="mt-4 font-display text-[clamp(1.6rem,5vw,3.1rem)] leading-[1.03] text-ink">
+                Entre se candidatar e chegar ao poder,{" "}
+                <span className="text-plum italic">onde elas desaparecem?</span>
+              </h1>
+              <p className="mt-4 leading-relaxed text-muted-foreground md:text-lg">
                 {CENTRAL_THESIS}
               </p>
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Link to="/funil" className="border-2 border-ink bg-plum px-5 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5">
-                  Ver o funil →
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <Link
+                  to="/funil"
+                  className="rounded-md border-2 border-ink bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+                >
+                  Ver o funil
                 </Link>
-                <Link to="/metodo" className="border-2 border-ink bg-paper px-5 py-3 text-sm font-semibold text-ink transition-colors hover:bg-solar">
+                <Link
+                  to="/metodo"
+                  className="rounded-md border-2 border-ink bg-paper px-5 py-2.5 text-sm font-semibold text-plum transition-colors hover:bg-secondary"
+                >
                   Como lemos os dados
                 </Link>
               </div>
             </div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-              Pergunta → dado → interpretação
-            </p>
           </div>
-          <EditorialArtwork variant="home" className="min-h-[34rem] lg:min-h-full" />
         </div>
+
+        <p className="absolute left-3 top-16 max-w-[70%] md:left-auto md:top-auto md:bottom-2 md:right-3 rounded bg-ink/70 px-2 py-1 text-right font-mono text-[12px] leading-tight text-cream/80 md:text-[12px]">
+          Ilustração original gerada com inteligência artificial sob direção
+          editorial.
+        </p>
       </section>
 
 
@@ -345,7 +361,7 @@ function DadosPage() {
       </section>
 
       {/* 3. TRÊS ACHADOS */}
-      <section className="rule-top py-14 md:py-20">
+      <section className="rule-top py-12 md:py-14">
         <p className="kicker">2026 · fotografia em andamento</p>
         <h2 className="mt-3 max-w-3xl font-display text-[clamp(1.6rem,4.2vw,2.5rem)] leading-tight text-ink">
           O que os registros{" "}
@@ -356,7 +372,7 @@ function DadosPage() {
           quem entrou na disputa. Não há resultado eleitoral aqui: a eleição
           acontece em novembro de 2026.
         </p>
-        <div className="finding-strip mt-9 grid border-y-2 border-ink md:grid-cols-3">
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
           <FindingCard
             tag="Entrada proporcional"
             value={propShare !== null ? formatPercent(propShare) : null}
@@ -595,7 +611,7 @@ function DadosPage() {
         </ol>
         <Link
           to="/funil"
-          className="mt-8 inline-flex border-2 border-ink bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+          className="mt-8 inline-flex rounded-md border-2 border-ink bg-plum px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
         >
           Explorar o funil →
         </Link>
@@ -616,7 +632,7 @@ function DadosPage() {
       >
         <Link
           to="/metodo"
-          className="inline-flex border-2 border-solar px-5 py-2.5 text-sm font-semibold text-solar transition-colors hover:bg-solar hover:text-ink"
+          className="inline-flex rounded-md border-2 border-solar px-5 py-2.5 text-sm font-semibold text-solar transition-colors hover:bg-solar hover:text-ink"
         >
           Conheça o método →
         </Link>

@@ -59,13 +59,13 @@ export function SectionBlock({
     <section
       className={
         colored
-          ? `${TONE_WRAP[tone]} section-band my-12 px-5 py-14 md:px-10 md:py-20`
-          : "rule-top py-14 md:py-20"
+          ? `${TONE_WRAP[tone]} my-10 rounded-lg px-5 py-12 md:px-10 md:py-14`
+          : "rule-top py-12 md:py-14"
       }
     >
       <p className={TONE_KICKER[tone]}>{kicker}</p>
       <h2
-        className={`mt-4 font-display text-3xl leading-[1.02] md:text-5xl ${TONE_TITLE[tone]} ${
+        className={`mt-3 font-display text-2xl leading-snug md:text-4xl ${TONE_TITLE[tone]} ${
           align === "wide" ? "max-w-4xl" : "max-w-2xl"
         }`}
       >

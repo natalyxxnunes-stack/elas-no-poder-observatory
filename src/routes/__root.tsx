@@ -24,7 +24,7 @@ function NotFoundComponent() {
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center border-2 border-ink bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Voltar ao início
           </Link>
@@ -56,13 +56,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center border-2 border-ink bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Tentar de novo
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center border-2 border-ink bg-background px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
             Voltar ao início
           </a>
@@ -84,6 +84,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Observatório editorial sobre mulheres, eleições e poder no ciclo de 2026.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "https://quemsaoelas.com.br/__l5e/assets-v1/7a7570a2-fd3d-432a-bb83-65d2b0f008a7/mulheresnotopo.webp" },
+      { property: "og:image:alt", content: "Ilustração editorial: mulheres sobem rampas e escadas em direção a uma urna eleitoral" },
+      { name: "twitter:image", content: "https://quemsaoelas.com.br/__l5e/assets-v1/7a7570a2-fd3d-432a-bb83-65d2b0f008a7/mulheresnotopo.webp" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
@@ -104,7 +107,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap",
       },
     ],
   }),

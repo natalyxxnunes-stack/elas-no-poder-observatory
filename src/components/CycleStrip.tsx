@@ -7,17 +7,17 @@ import { Link } from "@tanstack/react-router";
 export function CycleStrip({ activeId }: { activeId?: string }) {
   return (
     <section aria-label="Ciclo analítico" className="rule-top pt-8">
-      <h2 className="editorial-index">O ciclo</h2>
+      <h2 className="kicker">O ciclo</h2>
       <p className="mt-3 max-w-2xl font-display text-2xl leading-snug text-ink md:text-3xl">
         “{THESIS}”
       </p>
-      <ol className="mt-8 grid border-y border-ink md:grid-cols-4">
+      <ol className="mt-8 grid gap-3 md:grid-cols-4">
         {CYCLE_STAGES.map((stage, i) => {
           const active = stage.id === activeId;
           return (
             <li
               key={stage.id}
-              className={`relative border-b border-rule p-5 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0 ${
+              className={`editorial-card relative p-4 ${
                 active ? "border-plum bg-secondary" : ""
               }`}
             >
@@ -28,6 +28,12 @@ export function CycleStrip({ activeId }: { activeId?: string }) {
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {stage.question}
               </p>
+              {i < CYCLE_STAGES.length - 1 && (
+                <span
+                  aria-hidden
+                  className="absolute -right-2 top-1/2 hidden h-3 w-3 -translate-y-1/2 rotate-45 border-r border-t border-rule bg-card md:block"
+                />
+              )}
             </li>
           );
         })}

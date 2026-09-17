@@ -229,7 +229,7 @@ function FutureStage({ step }: { step: number }) {
         >
           —
         </p>
-        <div className="mt-3 h-6 w-full border border-dashed border-rule bg-paper" />
+        <div className="mt-3 h-6 w-full rounded-sm border border-dashed border-rule bg-[repeating-linear-gradient(135deg,transparent,transparent_6px,var(--color-rule,#ddd)_6px,var(--color-rule,#ddd)_7px)]" />
       </div>
 
       <div className="mt-4 border-t border-rule px-5 py-4">

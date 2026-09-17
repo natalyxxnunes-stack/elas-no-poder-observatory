@@ -13,16 +13,16 @@ export function NextAxes({ ids }: { ids: readonly string[] }) {
 
   return (
     <section aria-label="Continue a investigação" className="rule-top py-12">
-      <p className="editorial-index">Próximos capítulos</p>
-      <ul className="mt-7 grid border-y border-ink md:grid-cols-3">
-        {items.map((a, index) => (
+      <p className="kicker">Continue</p>
+      <ul className="mt-6 grid gap-4 md:grid-cols-3">
+        {items.map((a) => (
           <li key={a.id}>
             <Link
               to={a.to}
-              className="group block h-full border-b border-rule p-6 transition-colors hover:bg-secondary md:border-b-0 md:border-r md:last:border-r-0"
+              className="editorial-card block h-full p-5 transition-colors hover:border-plum"
             >
-              <p className="font-mono text-[10px] uppercase tracking-wider text-coral-ink">
-                0{index + 1} / {a.label}
+              <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+                {a.label}
               </p>
               <p className="mt-2 font-display text-lg leading-snug text-ink">
                 {a.question}

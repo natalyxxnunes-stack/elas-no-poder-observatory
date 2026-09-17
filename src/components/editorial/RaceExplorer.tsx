@@ -234,7 +234,7 @@ export function RaceExplorer({
                 </dt>
                 <dd className="flex-1">
                   <div
-                    className="h-2 bg-plum"
+                    className="h-2 rounded-full bg-plum"
                     style={{ width: `${(n / base) * 100}%` }}
                     aria-hidden
                   />

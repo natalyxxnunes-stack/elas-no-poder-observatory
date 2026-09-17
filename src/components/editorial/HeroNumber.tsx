@@ -1,5 +1,5 @@
 import { formatPercent, type Indicator } from "@/data/election-2026";
-import { formatDateBR, formatInt } from "@/lib/format-br";
+import { formatInt } from "@/lib/format-br";
 
 /**
  * HeroNumber — número-herói em quatro camadas visíveis e coladas:
@@ -8,7 +8,10 @@ import { formatDateBR, formatInt } from "@/lib/format-br";
  * Nenhuma camada pode ser omitida. Todos os valores vêm do indicador.
  */
 function brDate(iso: string | null): string | null {
-  return formatDateBR(iso);
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
 }
 
 export function HeroNumber({ indicator }: { indicator: Indicator }) {

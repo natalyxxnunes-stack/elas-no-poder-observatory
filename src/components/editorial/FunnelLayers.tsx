@@ -66,7 +66,7 @@ export function FunnelLayers({
                   {isCandidaturas && withValue.length > 0 && (
                     <dl className="mt-4 grid gap-3 sm:grid-cols-2">
                       {withValue.map((i) => (
-                        <div key={i.id} className="border-l-2 border-plum bg-secondary p-4">
+                        <div key={i.id} className="rounded-md bg-secondary p-4">
                           <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                             {i.label}
                           </dt>

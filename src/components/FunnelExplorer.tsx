@@ -43,7 +43,7 @@ export function FunnelExplorer() {
                   type="button"
                   onClick={() => setSelected(s.id)}
                   aria-pressed={active}
-                  className={`group w-full border-l-4 border-y border-r px-4 py-3 text-left transition-colors ${
+                  className={`group w-full rounded-md border px-4 py-3 text-left transition-colors ${
                     active
                       ? "border-plum bg-secondary"
                       : "border-rule bg-card hover:border-plum-soft"
@@ -60,7 +60,7 @@ export function FunnelExplorer() {
                     </span>
                   </div>
                   <div
-                    className="mt-2 h-2 w-full overflow-hidden border border-ink/20 bg-muted"
+                    className="mt-2 h-3 w-full overflow-hidden rounded-sm bg-muted"
                     role="img"
                     aria-label={
                       known
@@ -74,7 +74,7 @@ export function FunnelExplorer() {
                         style={{ width: `${value}%` }}
                       />
                     ) : (
-                      <div className="h-full w-full border-y border-dashed border-rule bg-paper" />
+                      <div className="h-full w-full bg-[repeating-linear-gradient(45deg,transparent,transparent_5px,var(--color-rule)_5px,var(--color-rule)_10px)]" />
                     )}
                   </div>
                 </button>

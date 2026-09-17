@@ -5,7 +5,7 @@ import { COMPETITION_DEFINITION, UNIVERSE_SHORT } from "@/data/competitividade";
 import { VAGAS_SOURCE, totalVagas, vagasOf } from "@/data/vagas-2026";
 import type { UniverseId } from "@/lib/tse/compute";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
-import { formatDateBR, formatInt, formatDecimal } from "@/lib/format-br";
+import { formatInt, formatDecimal } from "@/lib/format-br";
 
 /**
  * CompetitionByUf — concorrência declarada: candidaturas registradas por vaga
@@ -36,7 +36,11 @@ const int = (v: number) => formatInt(v);
 
 /** Data da fotografia usada no numerador — lida do próprio snapshot exibido. */
 function brDate(iso: string | null | undefined): string | null {
-  return formatDateBR(iso);
+  if (!iso) return null;
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime())
+    ? null
+    : d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
 }
 
 export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null }) {

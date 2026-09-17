@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
+import subindoAsset from "@/assets/subindo.webp.asset.json";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -14,7 +15,6 @@ import { FUNNEL_READING_RULE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import { getHistoricalSeries } from "@/lib/tse/historical.functions";
 import type { Series } from "@/lib/tse/historical-compute";
-import { formatLongDateBR } from "@/lib/format-br";
 
 export const Route = createFileRoute("/funil")({
   head: () => ({
@@ -71,7 +71,13 @@ function FunilPage() {
     null;
 
   const stamp = snapshot?.baseGeneratedAt ?? snapshot?.collectedAt ?? null;
-  const stampLabel = formatLongDateBR(stamp);
+  const stampLabel = stamp
+    ? new Date(stamp).toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      })
+    : null;
 
   return (
     <PageShell>
@@ -85,6 +91,8 @@ function FunilPage() {
             por etapa, e mostra onde essa presença diminui.
           </p>
         }
+        image={subindoAsset.url}
+        imageAlt="Ilustração editorial: mulher subindo degraus sob arcos coloridos"
       />
 
       <div className="pb-4">
