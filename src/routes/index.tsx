@@ -470,6 +470,11 @@ function DadosPage() {
           <div className="mt-6">
             <ElectionRateByGender />
           </div>
+          <p className="mt-6 font-mono text-[12px] uppercase tracking-[0.14em]">
+            <Link to="/historico" className="text-plum underline underline-offset-4">
+              Ver a série histórica completa, 2014–2026 →
+            </Link>
+          </p>
         </div>
       </SectionBlock>
 
