@@ -6,6 +6,7 @@ import {
   formatPercent,
   formatRatio,
 } from "@/data/election-2026";
+import { DataBar } from "./DataBar";
 import { GapNote } from "./GapNote";
 
 /**
@@ -59,24 +60,16 @@ export function FunnelExplorer() {
                       {known ? formatPercent(value) : s.status}
                     </span>
                   </div>
-                  <div
-                    className="mt-2 h-3 w-full overflow-hidden rounded-sm bg-muted"
-                    role="img"
-                    aria-label={
+                  <DataBar
+                    pct={known ? value : null}
+                    label={s.label}
+                    ariaLabel={
                       known
                         ? `Participação feminina de ${formatPercent(value)}`
                         : `Etapa sem indicador calculado: ${s.status}`
                     }
-                  >
-                    {known ? (
-                      <div
-                        className="h-full bg-plum transition-all"
-                        style={{ width: `${value}%` }}
-                      />
-                    ) : (
-                      <div className="h-full w-full bg-[repeating-linear-gradient(45deg,transparent,transparent_5px,var(--color-rule)_5px,var(--color-rule)_10px)]" />
-                    )}
-                  </div>
+                    height="md"
+                  />
                 </button>
               </li>
             );

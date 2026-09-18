@@ -8,6 +8,7 @@ import {
   formatRatio,
   type Indicator,
 } from "@/data/election-2026";
+import { DataBar } from "./DataBar";
 import { GapNote } from "./GapNote";
 import spotQuota from "@/assets/spot-quota.png";
 
@@ -53,17 +54,14 @@ function UniverseCard({
         {ratio ?? "sem denominador processado — indicador não exibido"}
       </p>
 
-      <div className="relative mt-4 h-6 w-full overflow-hidden rounded-sm bg-muted">
-        {hasValue ? (
-          <div
-            className={`h-full transition-all ${
-              quotaApplies ? "bg-plum" : "bg-coral"
-            }`}
-            style={{ width: `${indicator.value}%` }}
-          />
-        ) : (
-          <div className="h-full w-full bg-[repeating-linear-gradient(45deg,transparent,transparent_5px,var(--color-rule)_5px,var(--color-rule)_10px)]" />
-        )}
+      <div className="mt-4">
+        <DataBar
+          pct={hasValue ? indicator.value : null}
+          label={quotaApplies ? "Proporcionais" : "Majoritárias"}
+          fallbackText={indicator.status}
+          height="lg"
+          tone={quotaApplies ? "plum" : "coral"}
+        />
       </div>
 
       <p className="mt-3 font-mono text-[12px] uppercase tracking-wider text-coral-ink">
