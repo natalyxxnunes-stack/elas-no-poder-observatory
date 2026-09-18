@@ -638,7 +638,7 @@ function DadosPage() {
         </Link>
       </SectionBlock>
 
-      <NextAxes ids={["funil", "direitos", "metodo"]} />
+      <NextAxes ids={["funil", "historico", "direitos"]} />
     </PageShell>
   );
 }

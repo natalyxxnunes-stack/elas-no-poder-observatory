@@ -9,11 +9,7 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { RIGHTS_TIMELINE, RIGHTS_TIMELINE_RULE } from "@/data/rights-timeline";
 import { RIGHTS_OPEN_QUESTIONS } from "@/data/election-2026";
-import {
-  DISPUTE_GAP,
-  DISPUTE_ITEMS,
-  DISPUTE_RULE,
-} from "@/data/rules-in-dispute";
+import { DISPUTE_ITEMS, DISPUTE_RULE } from "@/data/rules-in-dispute";
 import feministasAsset from "@/assets/feministas.webp.asset.json";
 import respiroFundoAsset from "@/assets/respirocomfundo.webp.asset.json";
 import { PullQuote } from "@/components/editorial/PullQuote";

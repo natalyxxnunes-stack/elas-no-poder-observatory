@@ -242,7 +242,7 @@ function FunilPage() {
         </div>
       </SectionBlock>
 
-      <NextAxes ids={["dados-2026", "direitos", "metodo"]} />
+      <NextAxes ids={["historico", "direitos", "metodo"]} />
     </PageShell>
   );
 }
