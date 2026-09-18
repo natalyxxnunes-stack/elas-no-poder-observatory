@@ -1,28 +1,21 @@
-# Direção visual "menos app fofo, mais jornal de dados" — duas propostas (decisão pendente)
+# Direção visual "Dossiê" v2 — base escolhida, ajustes pendentes de mockup
 
-Discussão apenas. Nada implementado. A paleta atual (plum, cream, coral, solar, ink — tokens de `src/styles.css`) é mantida em ambas; o que muda é tipografia, densidade, componentes de dado e uso da cor.
+Discussão/mockup apenas. Nada implementado. A paleta atual (plum, cream, coral, solar, ink — tokens de `src/styles.css`) é mantida. A dona do projeto escolheu a Direção B ("Dossiê") como base e pediu estes apertos antes da implementação:
 
-## Direção A — "Broadsheet" (página de jornal de dados impresso)
+## Regras v2 da direção Dossiê
 
-- Conceito: o site como página impressa de um diário de dados. Informação sobre papel; cor só como tinta de destaque.
-- Referências de linguagem: Reuters Graphics, La Nación (equipe de dados), cadernos de dados impressos (Folha/Estadão), linguagem The Economist (sem copiar paleta).
-- Tipografia: Fraunces mantida nos títulos (peso 600–700, escala contida); IBM Plex Mono promovida a protagonista de dados (números tabulares, kickers, tags, eixos); Work Sans menor e mais densa no corpo.
-- Componentes: fim de cards flutuantes — dados em blocos e tabelas separados por fios de 1px (`--rule`); barras finas com tick marks; cantos retos (radius 0); zero sombras; StatusTag = caixinha mono uppercase com borda 1px sem preenchimento; hover por sublinhado.
-- Espaçamento: mais denso, grid de colunas de jornal, divisórias horizontais entre seções no lugar de caixas.
-- Cor: cream/paper domina; plum é a única cor de dado; coral reservada exclusivamente à semântica de lacuna/alerta; solar só como sublinhado fino; ink para texto e réguas. Sem blocos decorativos.
-- Ilustração: ilustrações atuais saem ou viram duotone plum; foto documental P&B com legenda mono e crédito.
-
-## Direção B — "Dossiê" (ensaio visual de revista)
-
-- Conceito: o site como dossiê impresso de revista: painéis de tinta cheia, tipografia gigante, cor como arquitetura da página.
-- Referências de linguagem: The Pudding, Bloomberg Businessweek impresso, features da ProPublica, The Markup.
-- Tipografia: Fraunces em escala máxima (até ~7rem, peso 900), palavras-chave da tese em coral dentro do título; Work Sans no corpo; mono só em kickers/legendas.
-- Componentes: cards creme com borda ink 2px e sombra sólida offset (sem blur); barras grossas com borda ink; StatusTag vira chip preenchido (plum/cream; "aguardando fonte" em solar/ink); números-hero enormes.
-- Espaçamento: mais arejado, grid assimétrico com margens largas; seções alternam painéis ink full-bleed e fundo creme.
-- Cor como estrutura: painéis ink com texto cream; coral como fio narrativo da tese ("desaparecem"); solar como marca-texto; plum preenche blocos e gráficos.
+1. **Rigor visível:** todo número-manchete carrega legenda de fonte/data em mono pequeno, colada e sempre visível (nunca tooltip).
+2. **Hierarquia de números:** 1–3 números monumentais por página (o achado central); todo o resto em escala menor, claramente "de apoio".
+3. **Ilustração:** trocar a ilustração atual (pessoas fofinhas na escada). Duas variantes a decidir: (a) fotografia documental real (atos, urnas, plenário, tribunais) em duotone plum/ink; (b) ilustração só com formas geométricas abstratas (escadas, portas, urnas, prédios), sem figura humana.
+4. **Sombra offset dosada:** efeito de recorte colado só no número-manchete e no card do achado principal; barras e tabelas de apoio ficam discretas (borda fina, sem sombra).
+5. **Cor com regra semântica fixa:** coral só para lacuna/alerta declarada; solar só como marca-texto da frase-chave do achado; plum é a cor neutra de dado. Nada de cor decorativa fora disso.
+6. **Duas velocidades:** tratamento monumental (painel ink full-bleed, tipografia gigante) só na abertura de cada eixo/página (capa de capítulo); o corpo de dado (tabelas por estado/partido etc.) rola em modo consulta sóbrio, mantendo a identidade.
+7. **Cada eixo como capítulo:** rotas despublicadas (barreiras, dinheiro etc.) ganham a mesma capa de dossiê, com a lacuna já declarada como manchete de capítulo ("aguardando fonte oficial") no painel ink — estilização da mensagem existente, sem inventar dado.
+8. **Acessibilidade:** contraste WCAG AA mínimo em painel ink + creme + marca-texto solar; escala tipográfica responsiva real no mobile (não só redução proporcional).
+9. **Transição sutil entre painéis (opcional):** movimento discreto de "virada de capítulo" ao rolar, sempre respeitando `prefers-reduced-motion`.
 
 ## Próximo passo
 
-Aguardando a escolha de uma direção (A ou B — ou combinação pontual, ex.: densidade e componentes da A com painéis ink da B). Só depois da escolha sai um plano de implementação detalhado (tokens, utilitários CSS, componentes afetados), sem tocar em dados nem na fotografia TSE.
+Mockups estáticos v2 da seção de abertura (hero + primeiro achado) nas duas variantes de ilustração (v2-foto e v2-formas), para a dona escolher. Depois da escolha: plano de implementação detalhado (tokens, utilitários, componentes, capas para eixos despublicados), sem tocar em dados nem na fotografia TSE, e sem publicar.
 
-Os mockups em Files (`mockups/direcao-a-broadsheet.png`, `mockups/direcao-b-dossie.png`) são ilustrativos: os textos e números neles não são dados do projeto.
+Mockups são ilustrativos: textos e números neles não são dados do projeto.
