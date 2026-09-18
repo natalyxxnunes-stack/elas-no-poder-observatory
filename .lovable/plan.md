@@ -18,10 +18,17 @@ Discussão/mockup apenas. Nada implementado. A paleta atual (plum, cream, coral,
 
 - Direção B ("Dossiê") escolhida como base; ajustes v2 combinados (itens 1–9).
 - v2: variantes de ilustração (foto documental duotone × formas geométricas) rejeitadas pela dona.
-- v3: em decisão — dado como protagonista (semilustração) × dado como textura de fundo.
+- v3: dado como protagonista (semilustração) × dado como textura de fundo — ainda sem veredito explícito.
+- v4 (referência nova descrita pela dona): ela curtiu o estilo geral de duas colunas de referência — tipografia gráfica/pôster em blocos ("MESMAS PERGUNTAS. / NOVAS RESPOSTAS."), estatísticas grandes em fileira, painel de cor cheia "ONDE ELAS DESAPARECEM?" com etapas + mapa do Brasil, grade "Temas em destaque" com ícones simples de linha (gostou deles: plantinha, muro, megafone, pizza), faixa final de CTA com textura de papel rasgado. Rejeitou toda foto/colagem com figura humana (pessoa, rosto, corpo). A mistura das duas colunas é o layout base dos mockups v4; paleta do site (plum, cream, coral, solar, ink) substitui as cores da referência.
+
+## Variantes v4 em decisão (diferem só no topo, onde a referência tinha foto)
+
+1. **v4-icone:** pictograma simples de linha, grande (balança, prédio legislativo, urna), no mesmo estilo dos ícones de "Temas em destaque".
+2. **v4-grafico:** o próprio gráfico de dado ampliado (funil, proporcional × majoritário) como protagonista do topo.
+3. **v4-textura:** bloco de cor sólida com textura de papel rasgado/colagem, sem foto nem figura dentro — só cor e textura.
 
 ## Próximo passo
 
-Aguardando a escolha da variante de abertura (v3-semilustração × v3-texturadedado). Depois da escolha: plano de implementação detalhado (tokens, utilitários, componentes, capas para eixos despublicados), sem tocar em dados nem na fotografia TSE, e sem publicar. Mockups em Files: `mockups/direcao-b-v3-semilustracao.png` e `mockups/direcao-b-v3-texturadedado.png` (também as versões v2 rejeitadas, mantidas para registro).
+Aguardando a escolha da variante v4 (ou combinação, ex.: textura no fundo + gráfico no topo). Depois da escolha: plano de implementação detalhado (tokens, utilitários, componentes, capas para eixos despublicados), sem tocar em dados nem na fotografia TSE, e sem publicar. Mockups em Files em `mockups/` (v2 rejeitados mantidos como registro; v3 e v4 em decisão).
 
 Mockups são ilustrativos: textos e números neles não são dados do projeto.
