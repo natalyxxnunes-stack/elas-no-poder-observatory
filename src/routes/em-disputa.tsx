@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -30,10 +29,8 @@ export const Route = createFileRoute("/em-disputa")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => <UnpublishedAxis axisId="em-disputa" />,
+  component: EmDisputaPage,
 });
-
-/* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
 
 function EmDisputaPage() {
   return (
