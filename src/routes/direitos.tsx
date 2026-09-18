@@ -285,7 +285,7 @@ function DireitosPage() {
         </p>
       </SectionBlock>
 
-      <NextAxes ids={["dados-2026", "funil", "metodo"]} />
+      <NextAxes ids={["quem-controla", "em-disputa", "funil", "metodo"]} />
     </PageShell>
   );
 }

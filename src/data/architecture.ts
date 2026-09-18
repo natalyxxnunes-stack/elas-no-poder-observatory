@@ -66,8 +66,7 @@ export const AXES: readonly Axis[] = [
     summary:
       "Partidos, federações e diretórios controlam listas, recursos, propaganda e posição estratégica das candidaturas. Investigamos padrões e estruturas, não rankings morais.",
     dimensions: ["partido ou federação", "diretório", "recursos", "propaganda", "território"],
-    unpublishedReason:
-      "Depende de fechar a leitura de partido, federação e diretório sobre a base de candidatura, com critério declarado antes de qualquer agrupamento.",
+    unpublishedReason: "",
     state: "arquitetura preparada",
   },
   {
@@ -252,6 +251,7 @@ export const PUBLISHED_AXES = [
   "quem-sao-elas",
   "funil",
   "historico",
+  "quem-controla",
   "direitos",
   "em-disputa",
   "metodo",
