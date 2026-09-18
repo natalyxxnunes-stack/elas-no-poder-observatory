@@ -41,7 +41,7 @@ export const Route = createFileRoute("/quem-controla")({
   component: QuemControlaPage,
 });
 
-/* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
+/* Conteúdo da rota /quem-controla. */
 
 /** Estruturas de controle investigadas, com o dado que cada uma exige. */
 const CONTROL_LEVERS = [
