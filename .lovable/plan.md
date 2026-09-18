@@ -29,6 +29,8 @@ Discussão/mockup apenas. Nada implementado. A paleta atual (plum, cream, coral,
 
 ## Próximo passo
 
-Aguardando a escolha da variante v4 (ou combinação, ex.: textura no fundo + gráfico no topo). Depois da escolha: plano de implementação detalhado (tokens, utilitários, componentes, capas para eixos despublicados), sem tocar em dados nem na fotografia TSE, e sem publicar. Mockups em Files em `mockups/` (v2 rejeitados mantidos como registro; v3 e v4 em decisão).
+- v4: **header do v4-grafico confirmado pela dona** (gráfico de dado ampliado no topo).
+- Correção pedida e entregue (v4-grafico-v2, `mockups/direcao-b-v4-grafico-v2.png`): a fileira de estatísticas agora são **3 blocos de cor sólida contíguos** (plum → coral → solar, encostados, sem fundo neutro entre eles); no bloco solar, o link "VER TODOS OS DADOS →" em ink dentro do próprio bloco. O bloco solar é exceção deliberada à regra semântica da cor (funciona como estrutura/estado), a regra original segue valendo em título, marca-texto e alerta de lacuna.
+- Aguardando aprovação do v4-grafico-v2. Depois: plano de implementação detalhado (tokens, utilitários, componentes, capas para eixos despublicados), sem tocar em dados nem na fotografia TSE, e sem publicar. Mockups em Files em `mockups/` (v2 rejeitados mantidos como registro; v3 e v4 em decisão).
 
 Mockups são ilustrativos: textos e números neles não são dados do projeto.
