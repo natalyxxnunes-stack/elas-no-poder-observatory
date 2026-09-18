@@ -270,7 +270,7 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
 
-      <NextAxes ids={["funil", "direitos", "metodo"]} />
+      <NextAxes ids={["quem-controla", "funil", "direitos", "metodo"]} />
     </PageShell>
   );
 }

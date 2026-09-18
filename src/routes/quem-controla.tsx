@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -13,9 +12,10 @@ import { QUOTA_RULE } from "@/data/election-2026";
 import spotQuota from "@/assets/spot-quota.png";
 
 /**
- * ROTA DESPUBLICADA (lançamento de 5 páginas).
- * Arquivo preservado intencionalmente para republicação futura: o conteúdo e os
- * componentes seguem intactos, apenas o acesso público está redirecionado.
+ * ROTA PUBLICADA. Conteúdo completo: as cinco alavancas de controle, o que a
+ * regra alcança e o que fica para o partido decidir, com critério de
+ * denominador declarado. As etapas que dependem de prestação de contas e
+ * apuração de 2026 seguem marcadas "aguardando fonte".
  */
 export const Route = createFileRoute("/quem-controla")({
   head: () => ({
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/quem-controla")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => <UnpublishedAxis axisId="quem-controla" />,
+  component: QuemControlaPage,
 });
 
 /* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
