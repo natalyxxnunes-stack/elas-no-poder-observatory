@@ -24,6 +24,13 @@ export const Route = createFileRoute("/sobre")({
           "Um projeto independente de jornalismo de dados sobre mulheres, eleições e poder: quem faz, por que existe e como conferir os números.",
       },
       { property: "og:type", content: "article" },
+      { property: "og:image", content: `https://quemsaoelas.com.br${aberturaAsset.url}` },
+      {
+        property: "og:image:alt",
+        content:
+          "Ilustração editorial: mesa de trabalho jornalística com caderno de metodologia, gráficos e recortes",
+      },
+      { name: "twitter:image", content: `https://quemsaoelas.com.br${aberturaAsset.url}` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),

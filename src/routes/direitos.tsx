@@ -35,6 +35,12 @@ export const Route = createFileRoute("/direitos")({
           "As regras que abriram a disputa às mulheres, marco por marco — e o que cada uma delas ainda não alcança.",
       },
       { property: "og:type", content: "article" },
+      { property: "og:image", content: `https://quemsaoelas.com.br${feministasAsset.url}` },
+      {
+        property: "og:image:alt",
+        content: "Ilustração editorial: marcha de mulheres com cartazes e urnas",
+      },
+      { name: "twitter:image", content: `https://quemsaoelas.com.br${feministasAsset.url}` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
