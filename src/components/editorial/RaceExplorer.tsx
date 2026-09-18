@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { GapNote } from "@/components/GapNote";
+import { DataBar } from "@/components/DataBar";
 import { ContextBox } from "./ContextBox";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import type { UniverseId } from "@/lib/tse/compute";
@@ -233,15 +234,17 @@ export function RaceExplorer({
                   {race}
                 </dt>
                 <dd className="flex-1">
-                  <div
-                    className="h-2 rounded-full bg-plum"
-                    style={{ width: `${(n / base) * 100}%` }}
-                    role="img"
-                    aria-label={
+                  <DataBar
+                    pct={(n / base) * 100}
+                    label={race}
+                    ariaLabel={
                       showPercent
                         ? `${race}: ${formatPct((n / base) * 100)}`
                         : `${race}: ${formatInt(n)} ${n === 1 ? "candidatura" : "candidaturas"}`
                     }
+                    height="sm"
+                    radius="full"
+                    track={false}
                   />
                 </dd>
                 <dd className="w-36 shrink-0 text-right font-mono text-xs text-ink">
