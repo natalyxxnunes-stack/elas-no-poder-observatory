@@ -32,6 +32,12 @@ export const Route = createFileRoute("/funil")({
           "Etapa por etapa, com denominador explícito: a presença de mulheres na disputa de 2026, segundo o registro de candidaturas do TSE.",
       },
       { property: "og:type", content: "article" },
+      { property: "og:image", content: `https://quemsaoelas.com.br${subindoAsset.url}` },
+      {
+        property: "og:image:alt",
+        content: "Ilustração editorial: mulher subindo degraus sob arcos coloridos",
+      },
+      { name: "twitter:image", content: `https://quemsaoelas.com.br${subindoAsset.url}` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
@@ -236,7 +242,7 @@ function FunilPage() {
         </div>
       </SectionBlock>
 
-      <NextAxes ids={["dados-2026", "direitos", "metodo"]} />
+      <NextAxes ids={["historico", "direitos", "metodo"]} />
     </PageShell>
   );
 }

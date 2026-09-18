@@ -9,11 +9,7 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { RIGHTS_TIMELINE, RIGHTS_TIMELINE_RULE } from "@/data/rights-timeline";
 import { RIGHTS_OPEN_QUESTIONS } from "@/data/election-2026";
-import {
-  DISPUTE_GAP,
-  DISPUTE_ITEMS,
-  DISPUTE_RULE,
-} from "@/data/rules-in-dispute";
+import { DISPUTE_ITEMS, DISPUTE_RULE } from "@/data/rules-in-dispute";
 import feministasAsset from "@/assets/feministas.webp.asset.json";
 import respiroFundoAsset from "@/assets/respirocomfundo.webp.asset.json";
 import { PullQuote } from "@/components/editorial/PullQuote";
@@ -35,6 +31,12 @@ export const Route = createFileRoute("/direitos")({
           "As regras que abriram a disputa às mulheres, marco por marco — e o que cada uma delas ainda não alcança.",
       },
       { property: "og:type", content: "article" },
+      { property: "og:image", content: `https://quemsaoelas.com.br${feministasAsset.url}` },
+      {
+        property: "og:image:alt",
+        content: "Ilustração editorial: marcha de mulheres com cartazes e urnas",
+      },
+      { name: "twitter:image", content: `https://quemsaoelas.com.br${feministasAsset.url}` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
@@ -218,65 +220,31 @@ function DireitosPage() {
           </p>
         }
       >
-        <ul className="space-y-4">
+        <ul className="space-y-3">
           {DISPUTE_ITEMS.map((item) => (
-            <li key={item.id} className="poster-frame p-6">
+            <li key={item.id} className="poster-frame p-5">
               <div className="flex flex-wrap items-start justify-between gap-3">
-                <div>
-                  <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
-                    {item.kind}
-                  </p>
-                  <h3 className="mt-1 max-w-2xl font-display text-xl leading-snug text-ink">
-                    {item.title}
-                  </h3>
-                </div>
+                <h3 className="max-w-2xl font-display text-lg leading-snug text-ink">
+                  {item.title}
+                </h3>
                 <StatusTag tone={item.status === "EM VIGOR" ? "ok" : "pending"}>
                   {item.status}
                 </StatusTag>
               </div>
-
-              <dl className="mt-4 space-y-3 text-sm leading-relaxed">
-                <div>
-                  <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
-                    O que propõe
-                  </dt>
-                  <dd className="mt-1 text-ink">{item.proposal}</dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
-                    Quem seria afetado
-                  </dt>
-                  <dd className="mt-1 text-muted-foreground">{item.affects}</dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
-                    Situação
-                  </dt>
-                  <dd className="mt-1 text-muted-foreground">
-                    {item.statusNote}
-                  </dd>
-                </div>
-              </dl>
-
-              <p className="mt-4 font-mono text-[12px] text-muted-foreground">
-                Fonte:{" "}
-                <a
-                  href={item.sourceUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline"
-                >
-                  {item.sourceLabel}
-                </a>{" "}
-                · Última verificação pelo observatório:{" "}
-                {item.checkedAt ?? "a registrar"}
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {item.proposal}
               </p>
             </li>
           ))}
         </ul>
 
-        <div className="poster-frame mt-6 space-y-3 p-4">
-          <GapNote label="Lacuna declarada">{DISPUTE_GAP}</GapNote>
+        <p className="mt-6 font-mono text-[12px] uppercase tracking-[0.14em]">
+          <Link to="/em-disputa" className="text-plum underline underline-offset-4">
+            Ver todos os casos em disputa →
+          </Link>
+        </p>
+
+        <div className="poster-frame mt-6 p-4">
           <GapNote label="Regra editorial">{DISPUTE_RULE}</GapNote>
         </div>
       </SectionBlock>

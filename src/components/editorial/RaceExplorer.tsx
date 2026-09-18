@@ -236,7 +236,12 @@ export function RaceExplorer({
                   <div
                     className="h-2 rounded-full bg-plum"
                     style={{ width: `${(n / base) * 100}%` }}
-                    aria-hidden
+                    role="img"
+                    aria-label={
+                      showPercent
+                        ? `${race}: ${formatPct((n / base) * 100)}`
+                        : `${race}: ${formatInt(n)} ${n === 1 ? "candidatura" : "candidaturas"}`
+                    }
                   />
                 </dd>
                 <dd className="w-36 shrink-0 text-right font-mono text-xs text-ink">

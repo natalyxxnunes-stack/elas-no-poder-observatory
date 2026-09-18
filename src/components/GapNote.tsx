@@ -10,7 +10,7 @@ export function GapNote({
   label?: string;
 }) {
   return (
-    <p className="gap-note" data-gap="true">
+    <p className="gap-note" data-gap="true" role="status" aria-live="polite">
       <span className="font-semibold uppercase tracking-wider text-coral-ink">
         {label} ·{" "}
       </span>

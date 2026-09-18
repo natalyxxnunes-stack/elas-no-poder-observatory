@@ -50,6 +50,12 @@ export const Route = createFileRoute("/metodo")({
           "Fonte, universo, denominador, fórmula, data da base e limitações de cada indicador do observatório.",
       },
       { property: "og:type", content: "article" },
+      { property: "og:image", content: `https://quemsaoelas.com.br${checagemAsset.url}` },
+      {
+        property: "og:image:alt",
+        content: "Ilustração editorial: mãos conferindo gráficos e documentos com uma lupa",
+      },
+      { name: "twitter:image", content: `https://quemsaoelas.com.br${checagemAsset.url}` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
@@ -192,6 +198,43 @@ function MetodoPage() {
           </div>
         }
       />
+
+      {/* RESUMO DE ENTRADA — três pontos, no padrão dos blocos "Em poucas linhas" */}
+      <div className="pb-4">
+        <section
+          aria-label="Em três pontos"
+          className="editorial-card overflow-hidden"
+        >
+          <h2 className="border-b border-rule bg-secondary px-5 py-3 font-mono text-[12px] uppercase tracking-[0.16em] text-plum">
+            Em três pontos
+          </h2>
+          <dl className="divide-y divide-rule">
+            {[
+              {
+                label: "Como calculamos",
+                body: "pegamos a base oficial do TSE, separamos os universos proporcional e majoritário, e dividimos cada número pelo próprio universo — nunca misturamos os dois.",
+              },
+              {
+                label: "O que é fato, o que é leitura",
+                body: "todo número vem com fonte e data; a interpretação é separada do dado, e hipóteses em investigação são marcadas como tal.",
+              },
+              {
+                label: "O que ainda falta",
+                body: "quando um cruzamento não existe na base oficial, a página mostra isso declarado — nunca um número estimado.",
+              },
+            ].map((r) => (
+              <div key={r.label} className="px-5 py-4 sm:flex sm:gap-6">
+                <dt className="shrink-0 font-mono text-[12px] uppercase tracking-wider text-muted-foreground sm:w-48">
+                  {r.label}
+                </dt>
+                <dd className="mt-1 text-sm leading-relaxed text-ink sm:mt-0">
+                  {r.body}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      </div>
 
       {/* CAMADA 1 — linguagem simples */}
       <SectionBlock

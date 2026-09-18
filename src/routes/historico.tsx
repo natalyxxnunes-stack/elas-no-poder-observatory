@@ -1,4 +1,4 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -15,14 +15,10 @@ import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 import { formatPct } from "@/lib/format-br";
 
 /**
- * ROTA DESPUBLICADA (lançamento de 5 páginas).
- * Arquivo preservado intencionalmente para republicação futura: o conteúdo e os
- * componentes seguem intactos, apenas o acesso público está redirecionado.
+ * ROTA PUBLICADA — série histórica 2014–2026, com dado real e metodologia
+ * declarada em cada ponto.
  */
 export const Route = createFileRoute("/historico")({
-  beforeLoad: () => {
-    throw redirect({ to: "/" });
-  },
   loader: () => getHistoricalSeries(),
   head: () => ({
     meta: [

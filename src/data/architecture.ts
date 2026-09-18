@@ -93,6 +93,17 @@ export const AXES: readonly Axis[] = [
     state: "com dados de candidatura",
   },
   {
+    id: "historico",
+    to: "/historico",
+    label: "Histórico",
+    question: "Como isso mudou desde 2014?",
+    summary:
+      "Série histórica das candidaturas por gênero, 2014–2026, com metodologia declarada em cada ponto.",
+    dimensions: ["gênero", "cor/raça", "cargo", "tempo"],
+    unpublishedReason: "",
+    state: "com dados de candidatura",
+  },
+  {
     id: "dinheiro",
     to: "/dinheiro",
     label: "Dinheiro",
@@ -169,7 +180,7 @@ export const AXES: readonly Axis[] = [
     summary:
       "Projetos, resoluções e decisões em tramitação. Projeto apresentado não é projeto aprovado.",
     dimensions: ["projetos de lei", "resoluções", "decisões judiciais"],
-    unpublishedReason: "Em preparação editorial.",
+    unpublishedReason: "",
     state: "conteúdo editorial",
   },
   {
@@ -236,7 +247,16 @@ export const NAV_ITEMS = [
 
 
 /** Eixos publicados no lançamento. */
-export const PUBLISHED_AXES = ["dados-2026", "quem-sao-elas", "funil", "direitos", "metodo", "sobre"] as const;
+export const PUBLISHED_AXES = [
+  "dados-2026",
+  "quem-sao-elas",
+  "funil",
+  "historico",
+  "direitos",
+  "em-disputa",
+  "metodo",
+  "sobre",
+] as const;
 
 /**
  * O funil em três camadas narrativas. Cada passagem tem universo e fonte

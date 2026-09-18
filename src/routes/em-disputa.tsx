@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -10,11 +9,7 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { DISPUTE_GAP, DISPUTE_ITEMS, DISPUTE_RULE } from "@/data/rules-in-dispute";
 
-/**
- * ROTA DESPUBLICADA (lançamento de 5 páginas).
- * Arquivo preservado intencionalmente para republicação futura: o conteúdo e os
- * componentes seguem intactos, apenas o acesso público está redirecionado.
- */
+/** ROTA PUBLICADA — acompanhamento editorial das regras em disputa. */
 export const Route = createFileRoute("/em-disputa")({
   head: () => ({
     meta: [
@@ -34,10 +29,8 @@ export const Route = createFileRoute("/em-disputa")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => <UnpublishedAxis axisId="em-disputa" />,
+  component: EmDisputaPage,
 });
-
-/* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
 
 function EmDisputaPage() {
   return (
