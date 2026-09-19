@@ -31,7 +31,6 @@ import { HistoryFunnel } from "@/components/historical/HistoryFunnel";
 import { ElectionRateByGender } from "@/components/historical/ElectionRateByGender";
 
 import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
-import topoAsset from "@/assets/mulheresnotopo.webp.asset.json";
 import { formatInt, formatPct } from "@/lib/format-br";
 
 export const Route = createFileRoute("/")({
@@ -215,13 +214,8 @@ function DadosPage() {
 
   return (
     <PageShell>
-      {/* 1. HERO — ilustração full-bleed + painel de texto flutuante */}
-      <section className="relative left-1/2 -ml-[50vw] w-screen">
-        <img
-          src={topoAsset.url}
-          alt="Ilustração editorial: mulheres sobem rampas e escadas em direção a uma urna eleitoral"
-          className="block h-[78vh] min-h-[520px] w-full object-cover md:h-[80vh]"
-        />
+      {/* 1. HERO — fundo editorial limpo + painel de texto */}
+      <section className="paper-grain relative left-1/2 -ml-[50vw] min-h-[520px] w-screen md:min-h-[600px]">
 
         <span className="absolute right-4 top-4 rounded-md bg-paper/85 px-3 py-1.5 font-mono text-[12px] uppercase tracking-[0.14em] text-ink md:right-8 md:top-6">
           Dados parciais · Base do TSE · {baseDate ?? "base em atualização"}
@@ -229,7 +223,7 @@ function DadosPage() {
 
         <div className="absolute inset-x-4 bottom-6 md:inset-x-0 md:bottom-14">
           <div className="mx-auto max-w-6xl md:px-8">
-            <div className="max-w-xl rounded-lg border-2 border-ink bg-paper/95 p-5 shadow-[9px_9px_0_0_var(--color-plum)] backdrop-blur-sm md:max-w-2xl md:p-8">
+            <div className="max-w-xl rounded-lg border-2 border-ink bg-paper/95 p-5 shadow-[9px_9px_0_0_var(--color-plum)] md:max-w-3xl md:p-8">
               <p className="poster-eyebrow border-coral text-coral-ink">
                 Edição atual · Eleições 2026 · Brasil
               </p>
@@ -258,10 +252,6 @@ function DadosPage() {
           </div>
         </div>
 
-        <p className="absolute left-3 top-16 max-w-[70%] md:left-auto md:top-auto md:bottom-2 md:right-3 rounded bg-ink/70 px-2 py-1 text-right font-mono text-[12px] leading-tight text-cream/80 md:text-[12px]">
-          Ilustração original gerada com inteligência artificial sob direção
-          editorial.
-        </p>
       </section>
 
 
