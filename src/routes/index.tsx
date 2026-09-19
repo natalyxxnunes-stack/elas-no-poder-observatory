@@ -72,6 +72,65 @@ function snapshotDate(iso: string | null): string | null {
 
 const nf = (n: number) => formatInt(n);
 
+const UF_ORDER = [
+  "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA",
+  "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO",
+] as const;
+
+const UF_TONES = [
+  "bg-plum/15",
+  "bg-plum/20",
+  "bg-plum/25",
+  "bg-plum/30",
+  "bg-plum/35",
+  "bg-plum/40",
+  "bg-plum/45",
+] as const;
+
+function HeroUfTexture({ snapshot }: { snapshot: PublicSnapshot | null }) {
+  const dims = snapshot?.universes.proporcional.dimensions;
+  const cells = UF_ORDER.flatMap((uf) => {
+    const feminine = dims?.feminineByUf?.[uf];
+    const total = dims?.totalByUf?.[uf];
+    if (feminine === undefined || total === undefined || total <= 0) return [];
+    return [{ uf, share: (feminine / total) * 100 }];
+  });
+
+  if (cells.length !== UF_ORDER.length) return null;
+
+  const shares = cells.map(({ share }) => share);
+  const min = Math.min(...shares);
+  const max = Math.max(...shares);
+  const span = max - min;
+
+  return (
+    <figure
+      className="absolute right-4 top-8 flex items-start gap-3 md:right-8 md:top-10"
+      aria-label={`Candidaturas femininas proporcionais nas 27 unidades da federação, de ${formatPct(min)} a ${formatPct(max)}`} 
+    >
+      <figcaption className="max-w-40 text-right font-mono text-[10px] leading-relaxed text-ink/60 md:text-[11px]">
+        <span className="block uppercase">Candidaturas femininas por UF</span>
+        <span className="block">Proporção real por estado — varia entre {formatPct(min)} e {formatPct(max)}</span>
+      </figcaption>
+      <div className="grid grid-cols-9 gap-1" aria-hidden="true">
+        {cells.map(({ uf, share }) => {
+          const normalized = span > 0 ? (share - min) / span : 0;
+          const toneIndex = Math.min(
+            UF_TONES.length - 1,
+            Math.floor(normalized * UF_TONES.length),
+          );
+          return (
+            <span
+              key={uf}
+              className={`size-3 rounded-[2px] border border-plum/10 ${UF_TONES[toneIndex]}`}
+            />
+          );
+        })}
+      </div>
+    </figure>
+  );
+}
+
 const PLAIN_MEANING: Record<string, string> = {
   "participacao-feminina-proporcional":
     "Mulheres entre as candidaturas proporcionais",
@@ -216,17 +275,19 @@ function DadosPage() {
     <PageShell>
       {/* 1. HERO — fundo editorial limpo + painel de texto */}
       <section className="paper-grain relative left-1/2 -ml-[50vw] min-h-[520px] w-screen md:min-h-[600px]">
-
-        <span className="absolute right-4 top-4 rounded-md bg-paper/85 px-3 py-1.5 font-mono text-[12px] uppercase tracking-[0.14em] text-ink md:right-8 md:top-6">
-          Dados parciais · Base do TSE · {baseDate ?? "base em atualização"}
-        </span>
+        <HeroUfTexture snapshot={snapshot} />
 
         <div className="absolute inset-x-4 bottom-6 md:inset-x-0 md:bottom-14">
           <div className="mx-auto max-w-6xl md:px-8">
-            <div className="max-w-xl rounded-lg border-2 border-ink bg-paper/95 p-5 shadow-[9px_9px_0_0_var(--color-plum)] md:max-w-3xl md:p-8">
-              <p className="poster-eyebrow border-coral text-coral-ink">
-                Edição atual · Eleições 2026 · Brasil
-              </p>
+            <div className="max-w-xl rounded-lg border-2 border-ink bg-paper/95 p-5 shadow-[9px_9px_0_0_var(--color-plum)] md:max-w-[52rem] md:p-8">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="poster-eyebrow border-coral text-coral-ink">
+                  Edição atual · Eleições 2026 · Brasil
+                </p>
+                <span className="rounded-md bg-paper/85 px-3 py-1.5 font-mono text-[12px] uppercase tracking-[0.14em] text-ink">
+                  Dados parciais · Base do TSE · {baseDate ?? "base em atualização"}
+                </span>
+              </div>
               <h1 className="mt-4 font-display text-[clamp(1.6rem,5vw,3.1rem)] leading-[1.03] text-ink">
                 Entre se candidatar e chegar ao poder,{" "}
                 <span className="text-plum italic">onde elas desaparecem?</span>
