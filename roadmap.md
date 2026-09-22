@@ -1,17 +1,17 @@
 # Roadmap
 
-## Em andamento: ordem editorial (achado → leitura → cautela)
-- [ ] InBrief nas 6 rotas: reescrever `unknown`/`matters` sem pilha de negativas
-- [ ] Direitos: lead + InBrief com achado primeiro
-- [ ] Funil: redistribuir os blocos "como ler" junto das seções de dados
-- [ ] Quem são elas: mover "Limites da fonte" para depois da tabela de partidos
-- [ ] Em disputa: aliviar repetição entre regra editorial e cards
-- [ ] Método camada 1: tom afirmativo nos blocos de contexto (sem tocar limitações declaradas)
+## Ordem editorial (achado → leitura → cautela) — concluído
+- [x] InBrief nas 6 rotas: `unknown`/`matters` reescritos sem pilha de negativas
+- [x] Direitos: lead + InBrief com achado primeiro
+- [x] Funil: blocos de leitura em tom afirmativo; "O funil é uma fotografia" movido para a seção de comparação com o passado
+- [x] Quem são elas: "Limites da fonte" movida para depois de "Quem lança mulheres?"
+- [x] Em disputa: GapNote duplicada reduzida à frase não repetida; seção renomeada "Três distinções para ler uma proposição"
+- [x] Método camada 1: tom afirmativo nos passos e ContextBox (limitações declaradas intactas)
 
-## Fora do escopo (decidido)
-- FunnelStages2026 (item 7) e index.tsx (item 8): não mexer
+## Fora do escopo (decidido) — respeitado
+- FunnelStages2026 (item 7) e index.tsx (item 8): não tocados
 - Seção "Os limites declarados deste método" e itens "fora da lista": intactos
 
-## Verificação final
-- [ ] `bunx tsgo --noEmit` limpo
-- [ ] Rotas alteradas respondendo 200
+## Verificação final — concluída
+- [x] `bunx tsgo --noEmit` limpo
+- [x] 10 rotas publicadas respondendo 200
