@@ -307,6 +307,8 @@ export function FunnelStages2026({
         </li>
       )}
       <FutureStage step={4} />
-    </ol>
+      </ol>
+    </>
   );
 }
+
