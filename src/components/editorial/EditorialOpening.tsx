@@ -26,15 +26,16 @@ type EditorialOpeningProps = OpeningBase &
   );
 
 const baseTitle = "font-display text-[clamp(2.7rem,5.2vw,5.5rem)] font-semibold leading-[0.91]";
+const compactTitle = "font-display text-[clamp(2.2rem,4vw,3.75rem)] font-semibold leading-[0.95]";
 
-function OpeningText({ kicker, question, lead, inverse = false }: OpeningBase & { inverse?: boolean }) {
+function OpeningText({ kicker, question, lead, inverse = false, compact = false }: OpeningBase & { inverse?: boolean; compact?: boolean }) {
   return (
     <div className="min-w-0">
       <p className={`flex items-center gap-3 font-mono text-[10px] font-medium uppercase tracking-[0.16em] ${inverse ? "text-cream/75" : "text-ink/70"}`}>
         <span className={`h-px w-12 ${inverse ? "bg-cream/55" : "bg-ink/45"}`} aria-hidden="true" />
         {kicker}
       </p>
-      <h1 className={`mt-5 max-w-3xl ${baseTitle} ${inverse ? "text-cream" : "text-ink"}`}>{question}</h1>
+      <h1 className={`mt-5 max-w-3xl ${compact ? compactTitle : baseTitle} ${inverse ? "text-cream" : "text-ink"}`}>{question}</h1>
       <div className={`mt-5 max-w-xl text-sm leading-relaxed md:text-base ${inverse ? "text-cream/80" : "text-ink/75"}`}>{lead}</div>
     </div>
   );
@@ -90,7 +91,7 @@ function RaceOpening({ snapshot, ...text }: OpeningBase & { snapshot: PublicSnap
   return (
     <Frame className="bg-plum text-cream">
       <div className="mx-auto grid min-h-[31rem] max-w-6xl items-center gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:py-14">
-        <OpeningText {...text} inverse />
+        <OpeningText {...text} inverse compact />
         <figure aria-label="Distribuição por cor/raça das candidaturas de mulheres no universo proporcional" className="min-w-0 border-l border-cream/25 pl-4 md:pl-8">
           <div className="space-y-3">
             {entries.length === 0
@@ -129,7 +130,7 @@ function TimelineOpening({ years, ...text }: OpeningBase & { years: readonly str
   return (
     <Frame className="bg-solar">
       <div className="mx-auto grid min-h-[30rem] max-w-6xl gap-12 px-5 py-12 md:px-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
-        <OpeningText {...text} />
+        <OpeningText {...text} compact />
         <figure aria-label={`Linha histórica: ${years.join(", ")}`} className="relative min-w-0 py-12">
           <div className="absolute left-0 right-0 top-1/2 h-px bg-ink" />
           <ol className="relative grid grid-cols-2 gap-y-16 sm:grid-cols-4 sm:gap-0">
@@ -172,7 +173,7 @@ function ProcessOpening({ steps, ...text }: OpeningBase & { steps: readonly stri
     <Frame className="bg-cream">
       <div className="mx-auto grid min-h-[30rem] max-w-6xl lg:grid-cols-[0.92fr_1.08fr]">
         <div className="bg-plum px-5 py-12 text-cream md:px-8 lg:flex lg:items-center lg:px-12"><OpeningText {...text} inverse /></div>
-        <ol className="relative px-5 py-9 md:px-10 lg:py-12">
+        <ol className="relative flex flex-col justify-center px-5 py-9 md:px-10 lg:py-12">
           <div className="absolute bottom-12 left-[2.2rem] top-12 w-px bg-plum/30 md:left-[3.45rem]" aria-hidden="true" />
           {steps.map((step, index) => (
             <li key={step} className="relative grid grid-cols-[2.25rem_minmax(0,1fr)] items-center gap-4 border-b border-rule py-3.5">
@@ -281,8 +282,10 @@ function DownloadsOpening({ documents, ...text }: OpeningBase & { documents: rea
     <Frame className="bg-forest text-cream">
       <div className="mx-auto grid min-h-[30rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.76fr_1.24fr] lg:items-center">
         <OpeningText {...text} inverse />
-        <figure aria-label="Formatos dos materiais disponíveis e em preparação" className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {documents.map((document, index) => <div key={`${document.format}-${document.label}`} className={`relative min-h-48 border border-ink/25 p-4 pt-10 text-ink ${tones[index % tones.length]} [clip-path:polygon(0_0,78%_0,100%_18%,100%_100%,0_100%)]`}><span className="absolute right-0 top-0 size-10 border-b border-l border-ink/20 bg-cream/40" /><strong className="font-display text-2xl">{document.format}</strong><span className="mt-3 block text-xs leading-snug">{document.label}</span><span className="absolute bottom-4 left-4 font-mono text-[8px] uppercase">{document.available ? "disponível" : "em preparação"}</span></div>)}
+        <figure aria-label="Formatos dos materiais disponíveis e em preparação" className="flex min-w-0 flex-col justify-center">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {documents.map((document, index) => <div key={`${document.format}-${document.label}`} className={`relative min-h-48 border border-ink/25 p-4 pt-10 text-ink ${tones[index % tones.length]} [clip-path:polygon(0_0,78%_0,100%_18%,100%_100%,0_100%)]`}><span className="absolute right-0 top-0 size-10 border-b border-l border-ink/20 bg-cream/40" /><strong className="font-display text-2xl">{document.format}</strong><span className="mt-3 block text-xs leading-snug">{document.label}</span><span className="absolute bottom-4 left-4 font-mono text-[8px] uppercase">{document.available ? "disponível" : "em preparação"}</span></div>)}
+          </div>
         </figure>
       </div>
     </Frame>
