@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { BrandLogo } from "./BrandLogo";
 import { BrandWordmark } from "./BrandWordmark";
 import { SITE } from "@/data/election-2026";
-import { CENTRAL_THESIS, COVER_QUESTION, NAV_ITEMS, UTILITY_NAV_ITEMS } from "@/data/architecture";
+import { CENTRAL_THESIS, COVER_QUESTION, DATA_2026_NAV_ITEMS, NAV_ITEMS, UTILITY_NAV_ITEMS } from "@/data/architecture";
 import { getSnapshotStamp } from "@/lib/tse/snapshot.functions";
 
 function br(iso: string | null | undefined): string | null {
@@ -27,7 +27,7 @@ export function SiteFooter() {
   return (
     <footer className="ink-panel mt-24">
 
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.5fr_1fr] md:px-8">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.5fr_1fr_1fr] md:px-8">
         <div>
           <div className="flex items-center gap-3">
             <BrandLogo className="h-11 w-11" />
@@ -56,6 +56,23 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+          </ul>
+        </div>
+        <div>
+          <h2 className="font-mono text-[12px] uppercase tracking-[0.18em] text-solar">
+            Dados 2026
+          </h2>
+          <ul className="mt-4 grid grid-cols-2 gap-x-5 gap-y-2">
+            {DATA_2026_NAV_ITEMS.map((item) => {
+              const hashProps = item.hash ? { hash: item.hash } : {};
+              return (
+                <li key={item.label}>
+                  <Link to={item.to} {...hashProps} className="text-sm text-cream/75 underline-offset-4 hover:text-solar hover:underline">
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

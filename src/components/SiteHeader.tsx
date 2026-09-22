@@ -33,7 +33,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
         <div className="ml-auto hidden items-center gap-3 lg:flex">
         <nav aria-label="Principal" className={`flex items-center ${home ? "gap-5" : "gap-3 xl:gap-4"}`}>
           {NAV_ITEMS.map((item) => item.to === "/" ? (
-            <div key={item.to} className="relative" onMouseLeave={() => setDataOpen(false)}>
+            <div key={item.to} className="relative" onKeyDown={(event) => { if (event.key === "Escape") { setDataOpen(false); (event.currentTarget.querySelector("button") as HTMLButtonElement | null)?.focus(); } }}>
               <Button
                 variant="ghost"
                 className={`h-auto rounded-none border-b-2 border-transparent px-0 pb-0.5 text-muted-foreground hover:bg-transparent hover:text-plum ${home ? "text-sm" : "text-[11px] xl:text-xs"}`}
