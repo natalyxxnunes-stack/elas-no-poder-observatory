@@ -124,10 +124,17 @@ function QuemSaoElasPage() {
         question="Cor/raça declarada nas candidaturas de mulheres"
         align="wide"
         lead={
-          <p>
-            A distribuição das candidaturas de mulheres entre as categorias de
-            cor/raça que o próprio registro publica, um universo por vez.
-          </p>
+          <div className="space-y-3">
+            <p>
+              Entre as candidaturas proporcionais de mulheres, branca é a
+              categoria de cor/raça mais declarada, com 45,8%, seguida por
+              parda, com 35,2%, e preta, com 17,3%.
+            </p>
+            <p>
+              A distribuição das candidaturas de mulheres entre as categorias de
+              cor/raça que o próprio registro publica, um universo por vez.
+            </p>
+          </div>
         }
 
         source={
