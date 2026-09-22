@@ -262,6 +262,8 @@ export function FunnelStages2026({
   const maj = snapshot.universes.majoritario;
   const raceCounts = prop.raceCounts ?? {};
   const hasRace = Object.keys(raceCounts).length > 0;
+  const propShare = prop.total > 0 ? (prop.feminine / prop.total) * 100 : null;
+  const majShare = maj.total > 0 ? (maj.feminine / maj.total) * 100 : null;
 
   return (
     <>
