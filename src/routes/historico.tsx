@@ -7,6 +7,7 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { SeriesChart } from "@/components/historical/SeriesChart";
+import { HistoryFunnel } from "@/components/historical/HistoryFunnel";
 import { HistoryTimeline } from "@/components/historical/HistoryTimeline";
 import { getHistoricalSeries, type HistoricalSeriesPayload } from "@/lib/tse/historical.functions";
 import { BLACK_AGGREGATION_NOTE } from "@/lib/tse/historical-compute";
@@ -244,6 +245,9 @@ function HistoricoPage() {
         <div className="space-y-6">
           <SeriesChart series={byId("serie-mulheres-eleitas")} />
           <SeriesChart series={byId("serie-mulheres-negras-eleitas")} />
+        </div>
+        <div className="mt-8">
+          <HistoryFunnel />
         </div>
         <div className="mt-6 space-y-4">
           <GapNote label="Limite desta versão">
