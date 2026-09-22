@@ -99,7 +99,7 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
 
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden border-b border-rule bg-paper">
-      <div className="grid min-h-[min(50vh,22rem)] lg:grid-cols-[54%_46%] lg:items-start">
+      <div className="grid min-h-[min(50vh,22rem)] lg:grid-cols-[54%_46%] lg:items-center">
         <div className="relative bg-plum px-5 py-6 text-cream md:px-10 md:py-9 lg:pl-[max(2.5rem,calc((100vw-72rem)/2+2rem))] lg:pr-24">
           <p className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-cream/80">
             <span className="h-1 w-8 bg-coral" aria-hidden="true" /> Eleições 2026 · Brasil
