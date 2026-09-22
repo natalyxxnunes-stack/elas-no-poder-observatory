@@ -91,7 +91,7 @@ function RaceOpening({ snapshot, ...text }: OpeningBase & { snapshot: PublicSnap
   return (
     <Frame className="bg-plum text-cream">
       <div className="mx-auto grid min-h-[31rem] max-w-6xl items-center gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:py-14">
-        <OpeningText {...text} inverse />
+        <OpeningText {...text} inverse compact />
         <figure aria-label="Distribuição por cor/raça das candidaturas de mulheres no universo proporcional" className="min-w-0 border-l border-cream/25 pl-4 md:pl-8">
           <div className="space-y-3">
             {entries.length === 0
