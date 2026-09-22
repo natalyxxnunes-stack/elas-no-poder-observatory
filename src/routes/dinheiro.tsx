@@ -10,7 +10,6 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { axis } from "@/data/architecture";
 import { QUOTA_RULE } from "@/data/election-2026";
-import spotQuota from "@/assets/spot-quota.png";
 
 /**
  * ROTA DESPUBLICADA (lançamento de 5 páginas).

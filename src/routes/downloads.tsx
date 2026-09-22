@@ -6,7 +6,6 @@ import { StatusTag } from "@/components/editorial/StatusTag";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
-import timelineImage from "@/assets/timeline-editorial.png";
 
 /**
  * ROTA PUBLICADA como página em construção.

@@ -11,7 +11,6 @@ import { HistoryFunnel } from "@/components/historical/HistoryFunnel";
 import { HistoryTimeline } from "@/components/historical/HistoryTimeline";
 import { getHistoricalSeries, type HistoricalSeriesPayload } from "@/lib/tse/historical.functions";
 import { BLACK_AGGREGATION_NOTE } from "@/lib/tse/historical-compute";
-import timelineEditorial from "@/assets/timeline-editorial.png";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 import { formatPct } from "@/lib/format-br";
 

@@ -10,7 +10,6 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { QUOTA_RULE, TSE_SOURCE } from "@/data/election-2026";
 import { axis } from "@/data/architecture";
-import spotStrength from "@/assets/spot-strength.png";
 import spotQuota from "@/assets/spot-quota.png";
 
 /**

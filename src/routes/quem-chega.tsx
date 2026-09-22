@@ -9,7 +9,6 @@ import { StatusTag } from "@/components/editorial/StatusTag";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { axis } from "@/data/architecture";
-import spotStrength from "@/assets/spot-strength.png";
 
 /**
  * ROTA DESPUBLICADA (lançamento de 5 páginas).
