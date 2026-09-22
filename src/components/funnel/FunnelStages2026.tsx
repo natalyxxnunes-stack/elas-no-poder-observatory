@@ -310,6 +310,55 @@ export function FunnelStages2026({
       )}
       <FutureStage step={4} />
       </ol>
+
+      {propShare !== null && majShare !== null && (
+        <div className="mt-6 grid gap-5 md:grid-cols-3">
+          <article className="poster-frame p-5">
+            <p className="poster-eyebrow border-plum text-plum">Fato</p>
+            <h3 className="mt-3 font-display text-xl text-ink">
+              O que o dado mostra
+            </h3>
+            <p className="mt-3 leading-relaxed text-ink/70">
+              Nas candidaturas proporcionais, mulheres são {pct(propShare)} de{" "}
+              {n(prop.total)} registros. Nas majoritárias, {pct(majShare)} de{" "}
+              {n(maj.total)}. Os dois percentuais saem da mesma fotografia, e
+              cada etapa guarda o próprio denominador.
+            </p>
+          </article>
+
+          <article className="poster-frame p-5">
+            <p className="poster-eyebrow border-coral text-coral-ink">
+              Interpretação editorial
+            </p>
+            <h3 className="mt-3 font-display text-xl text-ink">
+              Como lemos esse contraste
+            </h3>
+            <p className="mt-3 leading-relaxed text-ink/70">
+              A porta de entrada muda de tamanho de um universo para o outro:
+              nas proporcionais, a regra de candidaturas de cada gênero incide
+              sobre a lista inteira do partido; nas majoritárias, cada partido
+              escolhe um único nome por cargo. A diferença entre os dois
+              percentuais é um contraste descritivo entre contextos, não uma
+              perda de pontos de uma etapa para a outra.
+            </p>
+          </article>
+
+          <article className="poster-frame p-5">
+            <p className="poster-eyebrow border-ink text-ink">
+              Hipótese em investigação
+            </p>
+            <h3 className="mt-3 font-display text-xl text-ink">
+              O que ainda precisa ser apurado
+            </h3>
+            <p className="mt-3 leading-relaxed text-ink/70">
+              O que acontece quando essas candidaturas viram votos e cadeiras na
+              eleição de outubro — e se a distância entre os dois universos se
+              mantém no resultado. Nenhuma das duas respostas existe na base
+              atual.
+            </p>
+          </article>
+        </div>
+      )}
     </>
   );
 }
