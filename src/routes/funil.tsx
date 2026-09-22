@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import subindoAsset from "@/assets/subindo.webp.asset.json";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
@@ -87,8 +87,8 @@ function FunilPage() {
 
   return (
     <PageShell>
-      <PageHero
-        wide
+      <EditorialOpening
+        variant="funnel"
         kicker="O funil de 2026"
         question="Onde elas ficam pelo caminho?"
         lead={
@@ -97,8 +97,8 @@ function FunilPage() {
             por etapa, e mostra onde essa presença diminui.
           </p>
         }
-        image={subindoAsset.url}
-        imageAlt="Ilustração editorial: mulher subindo degraus sob arcos coloridos"
+        snapshot={snapshot}
+        baseDate={stampLabel}
       />
 
       <div className="pb-4">

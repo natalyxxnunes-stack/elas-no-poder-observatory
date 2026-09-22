@@ -3,7 +3,7 @@ import { buildSnapshotCsv } from "@/lib/tse/snapshot-csv";
 import { formatInt } from "@/lib/format-br";
 
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import checagemAsset from "@/assets/checagem.webp.asset.json";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -166,8 +166,8 @@ function MetodoPage() {
 
   return (
     <PageShell>
-      <PageHero
-        wide
+      <EditorialOpening
+        variant="method"
         kicker="Método"
         question="Todo número precisa mostrar de onde veio."
         lead={
@@ -177,11 +177,16 @@ function MetodoPage() {
             gerada a partir da mesma camada de dados que alimenta o site.
           </p>
         }
-        image={checagemAsset.url}
-        imageAlt="Ilustração editorial: mãos conferindo gráficos e documentos com uma lupa"
+        steps={[
+          { number: "01", label: "Fonte", detail: "De onde vêm os dados?" },
+          { number: "02", label: "Universo", detail: "O que está incluído?" },
+          { number: "03", label: "Denominador", detail: "Como os percentuais são calculados?" },
+          { number: "04", label: "Cálculo", detail: "Quais as métricas utilizadas?" },
+          { number: "05", label: "Atualização", detail: "Com que frequência os dados são revisados?" },
+        ]}
         aside={
-          <div className="editorial-card p-5">
-            <p className="kicker">Fotografia vigente</p>
+          <div>
+            <p className="font-mono text-[10px] uppercase text-ink/65">Fotografia vigente</p>
             <p className="mt-2 font-display text-lg leading-snug text-ink">
               Base do TSE gerada em{" "}
               {br(snapshot?.baseGeneratedAt ?? TSE_SOURCE.baseGeneratedAt)}

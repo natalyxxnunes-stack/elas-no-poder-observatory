@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -10,7 +10,6 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { axis } from "@/data/architecture";
 import { QUOTA_RULE } from "@/data/election-2026";
-import spotQuota from "@/assets/spot-quota.png";
 
 /**
  * ROTA DESPUBLICADA (lançamento de 5 páginas).
@@ -36,7 +35,24 @@ export const Route = createFileRoute("/dinheiro")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => <UnpublishedAxis axisId="dinheiro" />,
+  component: () => {
+    const a = axis("dinheiro");
+    return (
+      <UnpublishedAxis
+        axisId="dinheiro"
+        opening={
+          <EditorialOpening
+            variant="financial"
+            kicker="Dinheiro"
+            question="O dinheiro chega às mesmas mulheres que aparecem nas candidaturas?"
+            lead={<p>{a.summary}</p>}
+            layers={MONEY_LAYERS.map((layer) => layer.label)}
+            gap={a.unpublishedReason}
+          />
+        }
+      />
+    );
+  },
 });
 
 /* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
@@ -86,11 +102,13 @@ function DinheiroPage() {
   const a = axis("dinheiro");
   return (
     <PageShell>
-      <PageHero
+      <EditorialOpening
+        variant="financial"
         kicker="Dinheiro"
         question="O dinheiro chega às mesmas mulheres que aparecem nas candidaturas?"
         lead={<p>{a.summary}</p>}
-        image={spotQuota}
+        layers={MONEY_LAYERS.map((layer) => layer.label)}
+        gap={a.unpublishedReason}
       />
 
       <div className="pb-4">

@@ -7,17 +7,22 @@ import { axis } from "@/data/architecture";
  * UnpublishedAxis — tela curta e honesta para eixos ainda não publicados.
  * O motivo vem de `unpublishedReason` em architecture.ts: nada é escrito aqui.
  */
-export function UnpublishedAxis({ axisId }: { axisId: string }) {
+export function UnpublishedAxis({ axisId, opening }: { axisId: string; opening?: React.ReactNode }) {
   const a = axis(axisId);
   return (
     <PageShell>
+      {opening}
       <section className="py-14 md:py-20">
-        <p className="kicker">{a.label}</p>
-        <h1 className="mt-4 max-w-3xl font-display text-4xl leading-[1.03] text-ink md:text-6xl">
-          {a.question}
-        </h1>
+        {!opening && (
+          <>
+            <p className="kicker">{a.label}</p>
+            <h1 className="mt-4 max-w-3xl font-display text-4xl leading-[1.03] text-ink md:text-6xl">
+              {a.question}
+            </h1>
+          </>
+        )}
 
-        <p className="mt-6 font-display text-2xl leading-snug text-plum md:text-3xl">
+        <p className={`${opening ? "mt-0" : "mt-6"} font-display text-2xl leading-snug text-plum md:text-3xl`}>
           Este eixo ainda não está publicado.
         </p>
 

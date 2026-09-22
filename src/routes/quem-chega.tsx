@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -9,7 +9,6 @@ import { StatusTag } from "@/components/editorial/StatusTag";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { axis } from "@/data/architecture";
-import spotStrength from "@/assets/spot-strength.png";
 
 /**
  * ROTA DESPUBLICADA (lançamento de 5 páginas).
@@ -35,7 +34,29 @@ export const Route = createFileRoute("/quem-chega")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => <UnpublishedAxis axisId="quem-chega" />,
+  component: () => {
+    const a = axis("quem-chega");
+    return (
+      <UnpublishedAxis
+        axisId="quem-chega"
+        opening={
+          <EditorialOpening
+            variant="representation"
+            kicker="Quem chega?"
+            question={a.question}
+            lead={
+              <p>
+                Ser eleita não equivale automaticamente a ocupar posição de poder institucional.
+                Este eixo separa resultado eleitoral de controle sobre decisões.
+              </p>
+            }
+            labels={["Mulheres", "Homens"]}
+            gap="Depende da apuração da eleição de 2026."
+          />
+        }
+      />
+    );
+  },
 });
 
 /* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
@@ -91,7 +112,8 @@ function QuemChegaPage() {
   const a = axis("quem-chega");
   return (
     <PageShell>
-      <PageHero
+      <EditorialOpening
+        variant="representation"
         kicker="Quem chega?"
         question={a.question}
         lead={
@@ -100,7 +122,8 @@ function QuemChegaPage() {
             eixo separa resultado eleitoral de controle sobre decisões.
           </p>
         }
-        image={spotStrength}
+        labels={["Mulheres", "Homens"]}
+        gap="Depende da apuração da eleição de 2026."
       />
 
       <div className="pb-4">

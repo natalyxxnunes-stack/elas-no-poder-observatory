@@ -1,12 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
-import timelineImage from "@/assets/timeline-editorial.png";
 
 /**
  * ROTA PUBLICADA como página em construção.
@@ -110,7 +109,8 @@ const MATERIALS: readonly Material[] = [
 function DownloadsPage() {
   return (
     <PageShell>
-      <PageHero
+      <EditorialOpening
+        variant="downloads"
         kicker="Downloads"
         question="O que posso levar daqui?"
         lead={
@@ -120,8 +120,11 @@ function DownloadsPage() {
             peça.
           </p>
         }
-        image={timelineImage}
-        imageAlt=""
+        documents={MATERIALS.map((material) => ({
+          format: material.format.split(/[ ,]/)[0] ?? material.format,
+          label: material.kind,
+          available: material.file !== null,
+        }))}
       />
 
       <SectionBlock

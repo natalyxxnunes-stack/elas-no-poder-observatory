@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import aberturaAsset from "@/assets/aberturasobre.webp.asset.json";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -49,8 +49,8 @@ const COMMITMENTS = [
 function SobrePage() {
   return (
     <PageShell>
-      <PageHero
-        wide
+      <EditorialOpening
+        variant="manifesto"
         kicker="Sobre"
         question="Quem faz?"
         lead={
@@ -61,11 +61,9 @@ function SobrePage() {
             entender direito o que estão dizendo.
           </p>
         }
-        image={aberturaAsset.url}
-        imageAlt="Ilustração editorial: mesa de trabalho jornalística com caderno de metodologia, gráficos e recortes"
         aside={
-          <div className="editorial-card p-5">
-            <p className="kicker">O projeto</p>
+          <div>
+            <p className="font-mono text-[10px] uppercase text-ink/65">O projeto</p>
             <p className="mt-2 font-display text-lg leading-snug text-ink">
               {SITE.name}
             </p>

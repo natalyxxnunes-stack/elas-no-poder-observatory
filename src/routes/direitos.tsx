@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -54,8 +54,8 @@ const FIELDS = [
 function DireitosPage() {
   return (
     <PageShell>
-      <PageHero
-        wide
+      <EditorialOpening
+        variant="milestones"
         kicker="Direitos"
         question="Nada foi dado. Tudo foi disputado."
         lead={
@@ -65,8 +65,7 @@ function DireitosPage() {
             alcance limitado e disputa própria.
           </p>
         }
-        image={feministasAsset.url}
-        imageAlt="Ilustração editorial: marcha de mulheres com cartazes e urnas"
+        milestones={RIGHTS_TIMELINE.slice(0, 6).map(({ year, title }) => ({ year, title }))}
       />
 
       <div className="pb-4">

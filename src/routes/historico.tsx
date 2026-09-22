@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -11,7 +11,6 @@ import { HistoryFunnel } from "@/components/historical/HistoryFunnel";
 import { HistoryTimeline } from "@/components/historical/HistoryTimeline";
 import { getHistoricalSeries, type HistoricalSeriesPayload } from "@/lib/tse/historical.functions";
 import { BLACK_AGGREGATION_NOTE } from "@/lib/tse/historical-compute";
-import timelineEditorial from "@/assets/timeline-editorial.png";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 import { formatPct } from "@/lib/format-br";
 
@@ -64,7 +63,8 @@ function HistoricoPage() {
 
   return (
     <PageShell>
-      <PageHero
+      <EditorialOpening
+        variant="timeline"
         kicker="Como chegamos até aqui?"
         question="A presença das mulheres na política mudou. Mas mudou para quem?"
         lead={
@@ -75,8 +75,7 @@ function HistoricoPage() {
             TSE.
           </p>
         }
-        image={timelineEditorial}
-        imageAlt="Ilustração editorial de uma linha do tempo eleitoral"
+        years={["2014", "2018", "2022", "2026"]}
       />
 
       <div className="pb-4">
