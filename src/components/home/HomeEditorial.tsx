@@ -99,19 +99,19 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
 
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden border-b border-rule bg-paper">
-      <div className="grid min-h-[42rem] lg:grid-cols-[54%_46%]">
-        <div className="relative bg-plum px-5 py-12 text-cream md:px-10 md:py-16 lg:pl-[max(2.5rem,calc((100vw-72rem)/2+2rem))] lg:pr-28">
+      <div className="grid min-h-[min(85vh,39rem)] lg:grid-cols-[54%_46%]">
+        <div className="relative bg-plum px-5 py-9 text-cream md:px-10 md:py-12 lg:pl-[max(2.5rem,calc((100vw-72rem)/2+2rem))] lg:pr-24">
           <p className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-cream/80">
             <span className="h-1 w-8 bg-coral" aria-hidden="true" /> Eleições 2026 · Brasil
           </p>
-          <h1 className="mt-7 max-w-3xl font-display text-[clamp(3.25rem,6vw,5.8rem)] leading-[0.93] text-cream">
+          <h1 className="mt-6 max-w-3xl font-display text-[clamp(2.85rem,5.25vw,5.2rem)] leading-[0.93] text-cream">
             Entre se<br />candidatar e<br />chegar ao poder,<br />
             <em className="text-coral">onde elas<br className="sm:hidden" /> desaparecem?</em>
           </h1>
-          <p className="mt-8 max-w-xl border-t border-cream/40 pt-5 font-display text-lg leading-snug text-cream/85 md:text-xl">
+          <p className="mt-6 max-w-xl border-t border-cream/40 pt-4 font-display text-lg leading-snug text-cream/85 md:text-xl">
             {CENTRAL_THESIS}
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-7">
+          <div className="mt-6 flex flex-wrap items-center gap-6">
             <Link to="/funil" className="inline-flex min-h-11 items-center gap-3 bg-coral px-5 py-3 text-xs font-semibold uppercase text-ink transition-colors hover:bg-solar">
               Explorar o funil <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
@@ -121,7 +121,7 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
           </div>
         </div>
 
-        <div className="relative px-5 py-10 md:px-10 lg:pl-20 lg:pr-[max(2.5rem,calc((100vw-72rem)/2+2rem))]">
+        <div className="relative px-5 py-8 md:px-10 lg:pl-20 lg:pr-[max(2.5rem,calc((100vw-72rem)/2+2rem))]">
           <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
             Dados parciais do TSE<br />Base de {baseDate ?? "data em atualização"}
           </p>
@@ -129,7 +129,7 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
             Mesmos<br />dados.<br />Mais<br />mulheres<br />no poder.
           </div>
           <div className="mt-2 border-b border-ink pb-5 pr-20">
-            <p className="font-display text-[clamp(4.5rem,9vw,7.5rem)] font-semibold leading-none text-plum">
+            <p className="font-display text-[clamp(4rem,8vw,6.75rem)] font-semibold leading-none text-plum">
               {share !== null ? formatPct(share) : "—"}
             </p>
             <h2 className="max-w-sm font-display text-xl font-semibold leading-[1.05] text-ink md:text-2xl">
@@ -238,7 +238,7 @@ export function HomeInvestigationGrid() {
             </article>
           );
         })}
-        <blockquote className="flex min-h-64 items-center bg-solar px-8 py-12 font-display text-3xl font-semibold italic leading-none text-ink md:text-4xl">“Dados para democratizar o poder.”</blockquote>
+        <blockquote className="flex min-h-64 items-center bg-solar px-8 py-12 font-display text-3xl font-semibold italic leading-none text-ink md:text-4xl">“[citação a definir]”</blockquote>
       </div>
     </section>
   );

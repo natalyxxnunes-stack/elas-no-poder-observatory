@@ -235,18 +235,26 @@ export function RaceFinding2026({
             <h3 className="mt-3 font-display text-xl text-ink">
               O que o dado mostra
             </h3>
-            <p className="mt-3 leading-relaxed text-ink/70">
-              No Censo de 2022, mulheres pardas e brancas têm quase o mesmo
-              tamanho: {pct(popParda.percent)} e {pct(popBranca.percent)} das
-              brasileiras. Entre as candidaturas de mulheres às proporcionais de
-              2026, brancas são {pct(candBranca.percent)} e pardas{" "}
-              {pct(candParda.percent)}. A candidatura parda fica {pp(gapParda)}{" "}
-              {gapParda < 0 ? "abaixo" : "acima"} do tamanho da população parda
-              feminina. A candidatura preta aparece no sentido oposto:{" "}
-              {pct(candPreta.percent)} das candidatas, contra{" "}
-              {pct(popPreta.percent)} da população feminina. Os percentuais deste
-              parágrafo e as barras acima vêm da mesma fonte: a {sourceLabel}.
-            </p>
+            <div className="mt-3 space-y-3 leading-relaxed text-ink/70">
+              <p>
+                No Censo de 2022, mulheres pardas e brancas têm quase o mesmo
+                tamanho: {pct(popParda.percent)} e {pct(popBranca.percent)} das
+                brasileiras.
+              </p>
+              <p>
+                Entre as candidaturas de mulheres às proporcionais de 2026,
+                brancas são {pct(candBranca.percent)} e pardas{" "}
+                {pct(candParda.percent)}. A candidatura parda fica {pp(gapParda)}{" "}
+                {gapParda < 0 ? "abaixo" : "acima"} do tamanho da população
+                parda feminina.
+              </p>
+              <p>
+                A candidatura preta aparece no sentido oposto:{" "}
+                {pct(candPreta.percent)} das candidatas, contra{" "}
+                {pct(popPreta.percent)} da população feminina. Os percentuais
+                deste parágrafo e as barras acima vêm da mesma fonte: a {sourceLabel}.
+              </p>
+            </div>
 
           </article>
 
@@ -257,9 +265,18 @@ export function RaceFinding2026({
             <h3 className="mt-3 font-display text-xl text-ink">
               Como lemos esse número
             </h3>
-            <p className="mt-3 leading-relaxed text-ink/70">
-              Olhar só o total esconde a questão. Somadas, pretas e pardas são a maioria das mulheres do país, e esse total apaga que os dois grupos aparecem em direções opostas na disputa. É por isso que aqui as categorias ficam separadas. A distância parda só fica visível quando o número da candidatura é colocado ao lado do da população.
-            </p>
+            <div className="mt-3 space-y-3 leading-relaxed text-ink/70">
+              <p>
+                Olhar só o total esconde a questão. Somadas, pretas e pardas são
+                a maioria das mulheres do país, e esse total apaga que os dois
+                grupos aparecem em direções opostas na disputa.
+              </p>
+              <p>
+                É por isso que aqui as categorias ficam separadas. A distância
+                parda só fica visível quando o número da candidatura é colocado
+                ao lado do da população.
+              </p>
+            </div>
           </article>
 
           <article className="poster-frame p-5">
@@ -269,9 +286,19 @@ export function RaceFinding2026({
             <h3 className="mt-3 font-display text-xl text-ink">
               O que ainda precisa ser apurado
             </h3>
-            <p className="mt-3 leading-relaxed text-ink/70">
-              Por que a candidatura parda fica abaixo do peso populacional, esta comparação não responde — declaração de cor/raça, seleção partidária e composição de listas são hipóteses a testar com outras fontes, nenhuma delas demonstrada aqui. Também não sabemos o que acontece depois: estar na lista não é receber recursos, tempo de televisão, voto ou cadeira. Esses dados de 2026 ainda não existem.
-            </p>
+            <div className="mt-3 space-y-3 leading-relaxed text-ink/70">
+              <p>
+                Por que a candidatura parda fica abaixo do peso populacional,
+                esta comparação não responde — declaração de cor/raça, seleção
+                partidária e composição de listas são hipóteses a testar com
+                outras fontes, nenhuma delas demonstrada aqui.
+              </p>
+              <p>
+                Também não sabemos o que acontece depois: estar na lista não é
+                receber recursos, tempo de televisão, voto ou cadeira. Esses
+                dados de 2026 ainda não existem.
+              </p>
+            </div>
           </article>
         </div>
       </div>

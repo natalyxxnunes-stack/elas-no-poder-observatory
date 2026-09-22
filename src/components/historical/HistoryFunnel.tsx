@@ -38,11 +38,11 @@ function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: s
           const item = race[key];
           const barWidth = (item.count / maxCount) * 100;
           return (
-            <li key={key} className="grid items-center gap-2" style={{ gridTemplateColumns: "5.5rem 1fr 4.5rem" }}>
-              <span className="truncate font-mono text-[12px] leading-none text-muted-foreground">
+            <li key={key} className="grid min-w-0 items-center gap-2" style={{ gridTemplateColumns: "5.5rem minmax(0,1fr) minmax(0,4.5rem)" }}>
+              <span className="min-w-0 truncate font-mono text-[12px] leading-none text-muted-foreground">
                 {RACE_LABELS[key]}
               </span>
-              <div className="h-1.5 w-full overflow-hidden rounded-sm bg-secondary" aria-hidden>
+              <div className="h-1.5 min-w-0 overflow-hidden rounded-sm bg-secondary" aria-hidden>
                 <div
                   className="h-full rounded-sm"
                   style={{
@@ -52,7 +52,7 @@ function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: s
                   }}
                 />
               </div>
-              <span className="text-right font-mono text-[12px] leading-none text-ink">
+              <span className="min-w-0 truncate text-right font-mono text-[12px] leading-none text-ink" title={`${n(item.count)} · ${pct(item.percent)}`}>
                 {n(item.count)} · {pct(item.percent)}
               </span>
             </li>
@@ -117,7 +117,7 @@ function StageColumn({
       {!empty && race && <RaceMiniBars race={race} stageLabel={label} />}
       {empty && (
         <p className="mt-2 font-mono text-[12px] leading-relaxed text-ink/70">
-          Eleição de novembro de 2026 ainda não ocorreu. Nenhum valor é projetado.
+          Eleição de outubro de 2026 ainda não ocorreu. Nenhum valor é projetado.
         </p>
       )}
     </div>
@@ -160,7 +160,7 @@ function YearCard({ year }: { year: (typeof HISTORICAL_FUNNEL)[number] }) {
             total={0}
             race={null}
             empty
-            emptyLabel="eleição em nov/2026"
+            emptyLabel="eleição em out/2026"
           />
         )}
       </div>
