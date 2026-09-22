@@ -112,7 +112,7 @@ function QuemControlaPage() {
           unknown={
             <>
               Como cada partido distribuiu recursos e propaganda em 2026 — e a quais mulheres, por
-              cor/raça, cargo e território. Essa base ainda não está disponível.
+              cor/raça, cargo e território — pendente da base de prestação de contas e propaganda.
             </>
           }
         />

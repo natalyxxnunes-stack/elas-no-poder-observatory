@@ -58,14 +58,14 @@ function EmDisputaPage() {
           }
           matters={
             <>
-              Uma mudança de regra altera a leitura de qualquer série histórica: comparar ciclos sem
-              considerar a regra vigente produz conclusão falsa.
+              Uma mudança de regra altera a leitura de qualquer série histórica: cada ciclo precisa
+              ser lido com a regra que estava em vigor no período.
             </>
           }
           unknown={
             <>
-              O desfecho das proposições em tramitação e o efeito concreto das normas de 2026, que
-              só poderá ser avaliado com as prestações de contas e o resultado da eleição.
+              Em aberto: o desfecho das proposições em tramitação e o efeito concreto das normas de
+              2026, avaliável com as prestações de contas e o resultado da eleição.
             </>
           }
         />

@@ -99,16 +99,16 @@ function HistoricoPage() {
           }
           matters={
             <>
-              Crescer em candidaturas não é o mesmo que crescer em cadeiras, e
-              nenhum dos dois se distribui igualmente entre mulheres brancas,
-              pretas, pardas, amarelas e indígenas.
+              Crescer em candidaturas e crescer em cadeiras são medidas
+              diferentes — e cada uma se distribui de forma própria entre
+              mulheres brancas, pretas, pardas, amarelas e indígenas.
             </>
           }
           unknown={
             <>
-              O resultado de 2026, a cor/raça de todas as candidaturas de 2026 e
-              os eleitos de 2º turno dos anos anteriores — que esta versão ainda
-              não contabiliza.
+              Em aberto nesta versão: o resultado de 2026, a cor/raça de todas
+              as candidaturas de 2026 e os eleitos de 2º turno dos anos
+              anteriores.
             </>
           }
         />

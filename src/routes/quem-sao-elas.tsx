@@ -94,10 +94,9 @@ function QuemSaoElasPage() {
           }
           unknown={
             <>
-              Recursos, votos, eleitas e posições de poder por cor/raça: as bases
-              ainda não existem para 2026. A base também não capta de forma
-              confiável identidade trans ou travesti, nem deficiência de modo
-              comparável.
+              Em aberto para 2026: recursos, votos, eleitas e posições de poder
+              por cor/raça. Identidade trans ou travesti e deficiência ficam
+              fora da leitura, porque a base não as registra de modo comparável.
             </>
           }
         />
