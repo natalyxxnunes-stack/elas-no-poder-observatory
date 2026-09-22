@@ -1,9 +1,9 @@
 # Roadmap
 
-## Fotografia TSE de 22/09/2026 — em atualização
+## Fotografia TSE de 22/09/2026 — concluída
 - [x] Substituir hash, datas, totais, gênero, cor/raça e recortes por UF no snapshot fixo
 - [x] Atualizar textos editoriais que repetem valores da fotografia anterior
-- [ ] Verificar o site
+- [x] Verificar o site: typecheck limpo, páginas principais 200 e novos valores renderizados
 - [x] Arquivo oficial: download bloqueado pelo TSE com HTTP 403; arquivamento externo necessário
 
 ## Estrutura jornalística por página — aprovado (22/09)
