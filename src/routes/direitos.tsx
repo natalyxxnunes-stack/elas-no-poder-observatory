@@ -57,7 +57,7 @@ function DireitosPage() {
       <EditorialOpening
         variant="milestones"
         kicker="Direitos"
-        question="Nada foi dado. Tudo foi disputado."
+        question="Cada direito político das mulheres tem uma data e uma disputa por trás."
         lead={
           <p>
             A presença de mulheres nas eleições brasileiras não é espontânea: é
