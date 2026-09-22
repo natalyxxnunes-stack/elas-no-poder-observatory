@@ -231,6 +231,29 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
       <SectionBlock
+        kicker="Limites da fonte"
+        question="O que a base registra — e o que ela não registra"
+      >
+
+        <div className="grid gap-4 md:grid-cols-2">
+          <ContextBox variant="significa">
+            <p>
+              Cor/raça no registro é autodeclaração. Ela não identifica
+              pertencimento étnico nem vínculo com povo ou território indígena:
+              são coisas distintas e não devem ser tratadas como equivalentes.
+            </p>
+          </ContextBox>
+          <ContextBox variant="importa">
+            <p>
+              Publicar um cruzamento que a fonte não sustenta produziria número
+              com aparência de precisão e sem base. Preferimos declarar a lacuna.
+            </p>
+          </ContextBox>
+        </div>
+
+      </SectionBlock>
+
+      <SectionBlock
         kicker="Por estado"
         question="E no seu estado?"
         align="wide"
