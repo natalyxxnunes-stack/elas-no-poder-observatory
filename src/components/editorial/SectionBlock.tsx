@@ -63,7 +63,7 @@ export function SectionBlock({
       className={
         colored
           ? `${TONE_WRAP[tone]} my-10 rounded-lg px-5 py-12 md:px-10 md:py-14`
-          : "rule-top py-12 md:py-14"
+          : "rule-top scroll-mt-20 py-12 md:py-14"
       }
     >
       <p className={TONE_KICKER[tone]}>{kicker}</p>

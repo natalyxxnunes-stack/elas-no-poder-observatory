@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { GapNote } from "@/components/GapNote";
 import { axis } from "@/data/architecture";
+import { StatusTag } from "./StatusTag";
 
 /**
  * UnpublishedAxis — tela curta e honesta para eixos ainda não publicados.
@@ -25,6 +26,7 @@ export function UnpublishedAxis({ axisId, opening }: { axisId: string; opening?:
         <p className={`${opening ? "mt-0" : "mt-6"} font-display text-2xl leading-snug text-plum md:text-3xl`}>
           Este eixo ainda não está publicado.
         </p>
+        <div className="mt-4"><StatusTag tone="pending">{a.status}</StatusTag></div>
 
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
           {a.summary} {a.unpublishedReason}

@@ -247,7 +247,7 @@ export function axis(id: string): Axis {
 }
 
 /**
- * Navegação de lançamento — menu plano de 5 itens.
+ * Navegação principal — cinco entradas; Dados 2026 abre uma segunda camada.
  *
  * Os demais eixos permanecem descritos em `AXES` e seus arquivos de rota
  * seguem preservados no projeto, mas estão despublicados: fora do menu, do
@@ -266,7 +266,7 @@ export const NAV_ITEMS = [
   navItem("metodo"),
 ] as const;
 
-export const PUBLISHED_AXES = AXES.filter((item) => item.publication === "published");
+export const PUBLISHED_AXES = AXES.filter((item) => item.publication === "published").map((item) => item.id);
 
 export const DATA_2026_NAV_ITEMS = [
   { label: "Brasil", to: "/", hash: undefined },
