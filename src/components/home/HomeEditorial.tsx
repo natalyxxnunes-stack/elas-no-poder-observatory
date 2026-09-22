@@ -39,7 +39,7 @@ function EditorialBrazilMap({ snapshot }: { snapshot: PublicSnapshot | null }) {
   const span = max - min;
 
   return (
-    <figure className="mt-5 grid grid-cols-[minmax(0,1fr)_4rem] items-end gap-4" aria-labelledby="home-map-caption">
+    <figure className="grid grid-cols-[minmax(0,1fr)_4rem] items-end gap-4" aria-labelledby="home-map-caption">
       <svg
         viewBox={brazil.viewBox}
         role="img"
@@ -48,7 +48,7 @@ function EditorialBrazilMap({ snapshot }: { snapshot: PublicSnapshot | null }) {
             ? `Mapa do Brasil: participação feminina nas candidaturas proporcionais por estado, entre ${formatPct(min)} e ${formatPct(max)}`
             : "Mapa do Brasil; dados estaduais em atualização"
         }
-        className="mx-auto block h-auto w-full max-w-[19rem]"
+        className="mx-auto block h-auto w-full max-w-[22rem] md:max-w-[28rem]"
       >
         {brazil.locations.map((location: { id: string; name: string; path: string }) => {
           const uf = STATE_CODES[location.id];
@@ -99,7 +99,7 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
 
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden border-b border-rule bg-paper">
-      <div className="grid min-h-[min(85vh,39rem)] lg:grid-cols-[54%_46%]">
+      <div className="grid min-h-[min(60vh,30rem)] lg:grid-cols-[54%_46%]">
         <div className="relative bg-plum px-5 py-9 text-cream md:px-10 md:py-12 lg:pl-[max(2.5rem,calc((100vw-72rem)/2+2rem))] lg:pr-24">
           <p className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-cream/80">
             <span className="h-1 w-8 bg-coral" aria-hidden="true" /> Eleições 2026 · Brasil
@@ -140,15 +140,26 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
             </p>
             <p className="mt-1 font-mono text-[10px] uppercase text-muted-foreground">TSE · {baseDate ?? "base em atualização"}</p>
           </div>
-          <p className="mt-4 font-mono text-[11px] font-semibold uppercase leading-tight text-ink">A entrada não é igual<br />em todo o país</p>
-          <p className="mt-2 max-w-xs text-xs leading-relaxed text-muted-foreground">Proporção de mulheres nas candidaturas proporcionais por estado</p>
-          <EditorialBrazilMap snapshot={snapshot} />
-          <Link to="/quem-sao-elas" className="mt-2 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[10px] font-semibold uppercase text-plum">
-            Explorar os dados por estado <ArrowRight className="size-3.5" aria-hidden="true" />
-          </Link>
         </div>
       </div>
       <ArchitecturalCut />
+    </section>
+  );
+}
+
+export function HomeMapSection({ snapshot }: { snapshot: PublicSnapshot | null }) {
+  return (
+    <section className="relative left-1/2 -ml-[50vw] w-screen border-b border-rule bg-paper">
+      <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:px-8 md:py-20 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
+        <div>
+          <p className="font-mono text-[11px] font-semibold uppercase leading-tight text-ink">A entrada não é igual<br />em todo o país</p>
+          <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">Proporção de mulheres nas candidaturas proporcionais por estado</p>
+          <Link to="/quem-sao-elas" className="mt-5 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[10px] font-semibold uppercase text-plum">
+            Explorar os dados por estado <ArrowRight className="size-3.5" aria-hidden="true" />
+          </Link>
+        </div>
+        <EditorialBrazilMap snapshot={snapshot} />
+      </div>
     </section>
   );
 }
