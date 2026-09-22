@@ -18,6 +18,7 @@ import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as EmDisputaRouteImport } from './routes/em-disputa'
 import { Route as FunilRouteImport } from './routes/funil'
 import { Route as HistoricoRouteImport } from './routes/historico'
+import { Route as InvestigacoesRouteImport } from './routes/investigacoes'
 import { Route as MetodoRouteImport } from './routes/metodo'
 import { Route as QuemChegaRouteImport } from './routes/quem-chega'
 import { Route as QuemControlaRouteImport } from './routes/quem-controla'
@@ -72,6 +73,11 @@ const HistoricoRoute = HistoricoRouteImport.update({
   path: '/historico',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InvestigacoesRoute = InvestigacoesRouteImport.update({
+  id: '/investigacoes',
+  path: '/investigacoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MetodoRoute = MetodoRouteImport.update({
   id: '/metodo',
   path: '/metodo',
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/em-disputa': typeof EmDisputaRoute
   '/funil': typeof FunilRoute
   '/historico': typeof HistoricoRoute
+  '/investigacoes': typeof InvestigacoesRoute
   '/metodo': typeof MetodoRoute
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
@@ -143,6 +150,7 @@ export interface FileRoutesByTo {
   '/em-disputa': typeof EmDisputaRoute
   '/funil': typeof FunilRoute
   '/historico': typeof HistoricoRoute
+  '/investigacoes': typeof InvestigacoesRoute
   '/metodo': typeof MetodoRoute
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
@@ -163,6 +171,7 @@ export interface FileRoutesById {
   '/em-disputa': typeof EmDisputaRoute
   '/funil': typeof FunilRoute
   '/historico': typeof HistoricoRoute
+  '/investigacoes': typeof InvestigacoesRoute
   '/metodo': typeof MetodoRoute
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
@@ -184,6 +193,7 @@ export interface FileRouteTypes {
     | '/em-disputa'
     | '/funil'
     | '/historico'
+    | '/investigacoes'
     | '/metodo'
     | '/quem-chega'
     | '/quem-controla'
@@ -203,6 +213,7 @@ export interface FileRouteTypes {
     | '/em-disputa'
     | '/funil'
     | '/historico'
+    | '/investigacoes'
     | '/metodo'
     | '/quem-chega'
     | '/quem-controla'
@@ -222,6 +233,7 @@ export interface FileRouteTypes {
     | '/em-disputa'
     | '/funil'
     | '/historico'
+    | '/investigacoes'
     | '/metodo'
     | '/quem-chega'
     | '/quem-controla'
@@ -242,6 +254,7 @@ export interface RootRouteChildren {
   EmDisputaRoute: typeof EmDisputaRoute
   FunilRoute: typeof FunilRoute
   HistoricoRoute: typeof HistoricoRoute
+  InvestigacoesRoute: typeof InvestigacoesRoute
   MetodoRoute: typeof MetodoRoute
   QuemChegaRoute: typeof QuemChegaRoute
   QuemControlaRoute: typeof QuemControlaRoute
@@ -317,6 +330,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HistoricoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/investigacoes': {
+      id: '/investigacoes'
+      path: '/investigacoes'
+      fullPath: '/investigacoes'
+      preLoaderRoute: typeof InvestigacoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/metodo': {
       id: '/metodo'
       path: '/metodo'
@@ -386,6 +406,7 @@ const rootRouteChildren: RootRouteChildren = {
   EmDisputaRoute: EmDisputaRoute,
   FunilRoute: FunilRoute,
   HistoricoRoute: HistoricoRoute,
+  InvestigacoesRoute: InvestigacoesRoute,
   MetodoRoute: MetodoRoute,
   QuemChegaRoute: QuemChegaRoute,
   QuemControlaRoute: QuemControlaRoute,
