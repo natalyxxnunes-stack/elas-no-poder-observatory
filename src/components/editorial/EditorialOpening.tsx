@@ -128,7 +128,7 @@ function RaceOpening({ snapshot, ...text }: OpeningBase & { snapshot: PublicSnap
 function TimelineOpening({ years, ...text }: OpeningBase & { years: readonly string[] }) {
   return (
     <Frame className="bg-solar">
-      <div className="mx-auto grid min-h-[30rem] max-w-6xl gap-12 px-5 py-12 md:px-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
+      <div className="mx-auto grid min-h-[30rem] max-w-6xl gap-12 px-5 py-12 md:px-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
         <OpeningText {...text} />
         <figure aria-label={`Linha histórica: ${years.join(", ")}`} className="relative min-w-0 py-12">
           <div className="absolute left-0 right-0 top-1/2 h-px bg-ink" />
