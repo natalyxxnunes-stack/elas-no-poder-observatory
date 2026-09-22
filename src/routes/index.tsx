@@ -126,11 +126,11 @@ function DadosPage() {
   return (
     <PageShell home>
       <HomeHeroEditorial snapshot={snapshot} baseDate={baseDate} />
+      <CurrentSnapshot snapshot={snapshot} baseDate={baseDate} pendingDate={pendingDate} />
+      <HomeInvestigationGrid />
       <HomeMapSection snapshot={snapshot} />
       <HomeStages />
       <HomeFunnelFeature />
-      <HomeInvestigationGrid />
-      <CurrentSnapshot snapshot={snapshot} baseDate={baseDate} pendingDate={pendingDate} />
       <HomeAboutBand />
     </PageShell>
   );
