@@ -254,15 +254,15 @@ export const CANDIDACY_FEMININE_RACE_2026: Record<
   RaceFindingCategory,
   { count: number; percent: number }
 > = {
-  branca: { count: 3_092, percent: 45.8 },
-  parda: { count: 2_378, percent: 35.2 },
-  preta: { count: 1_167, percent: 17.3 },
-  indigena: { count: 79, percent: 1.2 },
-  amarela: { count: 40, percent: 0.6 },
+  branca: { count: 3_252, percent: 46.8 },
+  parda: { count: 2_378, percent: 34.2 },
+  preta: { count: 1_197, percent: 17.2 },
+  indigena: { count: 82, percent: 1.2 },
+  amarela: { count: 41, percent: 0.6 },
 };
 
 /** Total de candidaturas de mulheres nas proporcionais de 2026. */
-export const CANDIDACY_FEMININE_2026_TOTAL = 6_756;
+export const CANDIDACY_FEMININE_2026_TOTAL = 6_950;
 
 /** Tese editorial do observatório. */
 export const THESIS =

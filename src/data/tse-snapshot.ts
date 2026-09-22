@@ -6,8 +6,8 @@
  * vêm de recontagem independente do arquivo oficial
  * `consulta_cand_2026_BRASIL.csv` (dedup por SQ_CANDIDATO, encoding latin1,
  * separador `;`), SHA-256 do CSV
- * 021ea104dc491665895e79374e677a4688d877f29e8164f3c446462afe363f91,
- * base de 17/08/2026.
+ * 1e08c5fa76d1af94723dbeffb6c1c5da7db5ce069732a05a5e2c7fdef6505c13,
+ * base de 22/09/2026.
  *
  * Regra: nada aqui pode ser preenchido à mão com número plausível. Apenas
  * saída verificável do processamento de TSE / Dados Abertos / Candidatos 2026.
@@ -47,7 +47,7 @@ export type TseSnapshot = {
 
 /** SHA-256 do CSV BRASIL recontado de forma independente. */
 export const PINNED_BRASIL_CSV_SHA256 =
-  "021ea104dc491665895e79374e677a4688d877f29e8164f3c446462afe363f91";
+  "1e08c5fa76d1af94723dbeffb6c1c5da7db5ce069732a05a5e2c7fdef6505c13";
 
 /** Nome do arquivo processado pelo TSE. */
 export const PINNED_FILE_NAME = "consulta_cand_2026.zip";
@@ -56,8 +56,8 @@ export const PINNED_FILE_NAME = "consulta_cand_2026.zip";
 export const snapshot: TseSnapshot | null = {
   datasetUrl: "https://dadosabertos.tse.jus.br/dataset/candidatos-2026",
   resourceUrl: "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2026.zip",
-  baseGeneratedAt: "2026-08-17",
-  processedAt: "2026-08-17T15:36:47Z",
+  baseGeneratedAt: "2026-09-22",
+  processedAt: "2026-09-22T23:21:36Z",
   filters: [
     "Dedup por SQ_CANDIDATO",
     "Universos proporcional e majoritário separados",
@@ -65,35 +65,35 @@ export const snapshot: TseSnapshot | null = {
   ],
   universes: {
     proporcional: {
-      total: 19142,
-      feminine: 6756,
-      raceCounts: { BRANCA: 3092, PARDA: 2378, PRETA: 1167, "INDÍGENA": 79, AMARELA: 40 },
+      total: 19527,
+      feminine: 6950,
+      raceCounts: { BRANCA: 3252, PARDA: 2378, PRETA: 1197, "INDÍGENA": 82, AMARELA: 41 },
       dimensions: {
         feminineByUf: {
-          AC: 125, AL: 92, AM: 152, AP: 109, BA: 402, CE: 242, DF: 213, ES: 183,
-          GO: 328, MA: 196, MG: 617, MS: 137, MT: 140, PA: 242, PB: 142, PE: 311,
-          PI: 110, PR: 352, RJ: 650, RN: 101, RO: 135, RR: 125, RS: 342, SC: 236,
-          SE: 140, SP: 825, TO: 109,
+          AC: 131, AL: 100, AM: 158, AP: 113, BA: 406, CE: 246, DF: 219, ES: 190,
+          GO: 337, MA: 204, MG: 626, MS: 138, MT: 142, PA: 251, PB: 149, PE: 317,
+          PI: 116, PR: 366, RJ: 667, RN: 103, RO: 141, RR: 134, RS: 343, SC: 240,
+          SE: 144, SP: 856, TO: 113,
         },
         totalByUf: {
-          AC: 339, AL: 247, AM: 420, AP: 281, BA: 1159, CE: 659, DF: 584, ES: 537,
-          GO: 843, MA: 553, MG: 1737, MS: 373, MT: 399, PA: 668, PB: 393, PE: 902,
-          PI: 307, PR: 1020, RJ: 1950, RN: 264, RO: 384, RR: 345, RS: 995, SC: 637,
-          SE: 357, SP: 2487, TO: 302,
+          AC: 349, AL: 262, AM: 433, AP: 285, BA: 1178, CE: 671, DF: 605, ES: 547,
+          GO: 859, MA: 567, MG: 1754, MS: 377, MT: 406, PA: 685, PB: 403, PE: 909,
+          PI: 317, PR: 1045, RJ: 1981, RN: 265, RO: 394, RR: 358, RS: 1000, SC: 645,
+          SE: 363, SP: 2562, TO: 307,
         },
       },
     },
     majoritario: {
-      total: 523,
-      feminine: 103,
-      raceCounts: { BRANCA: 64, PARDA: 23, PRETA: 15, AMARELA: 1 },
+      total: 534,
+      feminine: 107,
+      raceCounts: { BRANCA: 65, PARDA: 24, PRETA: 17, AMARELA: 1 },
     },
   },
 };
 
 /** Origem da fotografia vigente. */
 export const LAST_FETCH_ATTEMPT = {
-  at: "2026-08-17T15:36:47Z",
+  at: "2026-09-22T23:21:36Z",
   outcome:
-    "Fotografia recontada de forma independente a partir do arquivo oficial de candidaturas do TSE (consulta_cand_2026_BRASIL.csv) e cravada em código, sem consulta ao banco em tempo de execução.",
+    "Fotografia de 22/09/2026 recontada de forma independente a partir do arquivo oficial de candidaturas do TSE (consulta_cand_2026_BRASIL.csv) e cravada em código, sem consulta ao banco em tempo de execução.",
 } as const;

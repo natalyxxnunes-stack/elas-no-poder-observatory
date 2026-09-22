@@ -127,8 +127,8 @@ function QuemSaoElasPage() {
           <div className="space-y-3">
             <p>
               Entre as candidaturas proporcionais de mulheres, branca é a
-              categoria de cor/raça mais declarada, com 45,8%, seguida por
-              parda, com 35,2%, e preta, com 17,3%.
+               categoria de cor/raça mais declarada, com 46,8%, seguida por
+               parda, com 34,2%, e preta, com 17,2%.
             </p>
             <p>
               A distribuição das candidaturas de mulheres entre as categorias de
