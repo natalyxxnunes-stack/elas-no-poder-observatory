@@ -239,6 +239,7 @@ export const NAV_ITEMS = [
   navItem("dados-2026"),
   navItem("quem-sao-elas"),
   navItem("funil"),
+  navItem("historico"),
   navItem("direitos"),
   navItem("metodo"),
   navItem("sobre"),
