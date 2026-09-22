@@ -55,8 +55,10 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
         )}
         </div>
 
-        <button
+        <Button
           type="button"
+          variant="outline"
+          size="icon"
           className="ml-auto inline-flex h-10 w-10 items-center justify-center rounded-none border border-rule text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum lg:hidden"
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
@@ -68,7 +70,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
           ) : (
             <Menu className="h-5 w-5" aria-hidden="true" />
           )}
-        </button>
+        </Button>
       </div>
 
       {home && searchOpen && (

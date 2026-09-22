@@ -50,7 +50,7 @@ function EditorialBrazilMap({ snapshot }: { snapshot: PublicSnapshot | null }) {
         }
         className="mx-auto block h-auto w-full max-w-[19rem]"
       >
-        {brazil.locations.map((location) => {
+        {brazil.locations.map((location: { id: string; name: string; path: string }) => {
           const uf = STATE_CODES[location.id];
           const datum = uf ? byUf.get(uf) : undefined;
           const toneIndex = datum && span > 0
@@ -180,11 +180,11 @@ export function HomeStages() {
 
 export function HomeFunnelFeature() {
   const layers = [
-    { label: "Candidaturas", width: "100%", tone: "bg-plum" },
-    { label: "Recursos", width: "78%", tone: "bg-plum-soft" },
-    { label: "Votos", width: "58%", tone: "bg-coral" },
-    { label: "Cadeiras", width: "38%", tone: "bg-coral/55" },
-    { label: "Poder", width: "20%", tone: "bg-solar" },
+    { label: "Candidaturas", width: "w-full", tone: "bg-plum" },
+    { label: "Recursos", width: "w-[78%]", tone: "bg-plum-soft" },
+    { label: "Votos", width: "w-[58%]", tone: "bg-coral" },
+    { label: "Cadeiras", width: "w-[38%]", tone: "bg-coral/55" },
+    { label: "Poder", width: "w-1/5", tone: "bg-solar" },
   ] as const;
 
   return (
@@ -201,7 +201,7 @@ export function HomeFunnelFeature() {
             {layers.map((layer) => (
               <div key={layer.label} className="grid grid-cols-[6.5rem_1fr] items-center gap-4">
                 <span className="text-right font-mono text-[10px] uppercase text-ink">{layer.label}</span>
-                <div className={`mx-auto h-11 ${layer.tone} [clip-path:polygon(8%_0,92%_0,82%_100%,18%_100%)]`} style={{ width: layer.width }} />
+                <div className={`mx-auto h-11 ${layer.width} ${layer.tone} [clip-path:polygon(8%_0,92%_0,82%_100%,18%_100%)]`} />
               </div>
             ))}
           </div>
