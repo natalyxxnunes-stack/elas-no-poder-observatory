@@ -124,7 +124,7 @@ function QuemControlaPage() {
         align="wide"
       >
         <ul className="divide-y divide-rule border-y border-rule">
-          {CONTROL_LEVERS.map((l) => (
+          {[...CONTROL_LEVERS].sort((a, b) => Number(b.ready) - Number(a.ready)).map((l) => (
             <li key={l.lever} className="py-5">
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <h3 className="font-display text-xl text-ink">{l.lever}</h3>

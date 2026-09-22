@@ -154,45 +154,6 @@ function DireitosPage() {
         </ol>
       </SectionBlock>
 
-      <SectionBlock
-        kicker="Limites em aberto"
-        question="O que as regras ainda não alcançam"
-      >
-        <ul className="grid gap-4 md:grid-cols-2">
-          {RIGHTS_OPEN_QUESTIONS.map((q) => (
-            <li
-              key={q}
-              className="poster-frame p-5 text-sm leading-relaxed text-muted-foreground"
-            >
-              {q}
-            </li>
-          ))}
-        </ul>
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          <ContextBox variant="significa">
-            <p>
-              Uma regra pode existir e não ser implementada. Conquista, vigência e
-              efeito prático são três coisas diferentes.
-            </p>
-          </ContextBox>
-          <ContextBox variant="importa">
-            <p>
-              Sem essa distinção, a leitura pública oscila entre “já existe{" "}
-              <GlossaryTerm term="cota">cota</GlossaryTerm>, então está
-              resolvido” e “a cota não serve para nada”. Nenhuma das duas
-              descreve o que os dados mostram.
-            </p>
-          </ContextBox>
-        </div>
-        <div className="mt-6">
-          <GapNote label="Limite desta versão">
-            Marcos sinalizados como “redação a conferir” precisam de checagem
-            final contra o texto normativo antes de circularem como definitivos.
-            Nenhum marco sem fonte identificável é exibido.
-          </GapNote>
-        </div>
-      </SectionBlock>
-
       {/* RESPIRO — pausa visual entre dois blocos densos */}
       <div className="flex justify-center py-6">
         <img
@@ -245,6 +206,45 @@ function DireitosPage() {
 
         <div className="poster-frame mt-6 p-4">
           <GapNote label="Regra editorial">{DISPUTE_RULE}</GapNote>
+        </div>
+      </SectionBlock>
+
+      <SectionBlock
+        kicker="Limites em aberto"
+        question="O que as regras ainda não alcançam"
+      >
+        <ul className="grid gap-4 md:grid-cols-2">
+          {RIGHTS_OPEN_QUESTIONS.map((q) => (
+            <li
+              key={q}
+              className="poster-frame p-5 text-sm leading-relaxed text-muted-foreground"
+            >
+              {q}
+            </li>
+          ))}
+        </ul>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <ContextBox variant="significa">
+            <p>
+              Uma regra pode existir e não ser implementada. Conquista, vigência e
+              efeito prático são três coisas diferentes.
+            </p>
+          </ContextBox>
+          <ContextBox variant="importa">
+            <p>
+              Sem essa distinção, a leitura pública oscila entre “já existe{" "}
+              <GlossaryTerm term="cota">cota</GlossaryTerm>, então está
+              resolvido” e “a cota não serve para nada”. Nenhuma das duas
+              descreve o que os dados mostram.
+            </p>
+          </ContextBox>
+        </div>
+        <div className="mt-6">
+          <GapNote label="Limite desta versão">
+            Marcos sinalizados como “redação a conferir” precisam de checagem
+            final contra o texto normativo antes de circularem como definitivos.
+            Nenhum marco sem fonte identificável é exibido.
+          </GapNote>
         </div>
       </SectionBlock>
 

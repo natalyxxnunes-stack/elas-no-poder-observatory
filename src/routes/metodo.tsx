@@ -309,6 +309,65 @@ function MetodoPage() {
         </div>
       </SectionBlock>
 
+      {/* Representação descritiva × substantiva */}
+      <SectionBlock
+        tone="solar"
+        kicker="O que estes números medem"
+        question="Presença não é a mesma coisa que poder de decidir"
+        lead={
+          <p>
+            Duas perguntas diferentes costumam aparecer misturadas quando se fala
+            de mulheres na política. Este projeto começa pela primeira, e isso
+            delimita o que ele pode afirmar.
+          </p>
+        }
+      >
+        <div className="grid gap-4 md:grid-cols-2">
+          <ContextBox variant="significa" title="Representação descritiva">
+            <p>
+              É a presença numérica: quantas mulheres se candidatam, quantas são
+              eleitas, quem elas são por cor/raça, em que cargos e partidos.
+              Todos os indicadores publicados aqui são deste tipo.
+            </p>
+          </ContextBox>
+          <ContextBox variant="importa" title="Representação substantiva">
+            <p>
+              É a atuação: que agendas são defendidas, quem relata projetos,
+              quem preside comissões, quem ocupa ministérios, mesas diretoras e
+              lideranças — os espaços onde a decisão acontece. Isso depende de
+              outras fontes, que o projeto ainda não integrou.
+            </p>
+          </ContextBox>
+        </div>
+        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+          Por isso um número maior de candidaturas femininas não autoriza dizer
+          que houve mais poder para mulheres, nem o contrário. São perguntas
+          encadeadas, e esta edição responde a primeira.
+        </p>
+      </SectionBlock>
+
+
+      {/* Notas metodológicas */}
+      <SectionBlock
+        kicker="Notas metodológicas"
+        question="As decisões que valem para todo o site"
+        align="wide"
+      >
+        <div className="space-y-4">
+          {METHOD_NOTES.map((n, i) => (
+            <article key={n.title} className="poster-frame p-5 md:p-6">
+              <span className="poster-figure block text-3xl text-plum md:text-4xl">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-1 font-display text-xl text-ink">{n.title}</h3>
+              <p className="mt-2 max-w-3xl leading-relaxed text-muted-foreground">
+                {n.body}
+              </p>
+            </article>
+          ))}
+        </div>
+      </SectionBlock>
+
       {/* CAMADA 2 — ficha técnica */}
       <SectionBlock
         tone="solar"
@@ -499,6 +558,340 @@ function MetodoPage() {
         </div>
       </SectionBlock>
 
+      {/* Situação de candidatura */}
+      {snapshot && Object.keys(snapshot.situationValues).length > 0 && (
+        <SectionBlock
+          kicker="Situação de candidatura"
+          question="Que estágios a base contém"
+          lead={
+            <p>
+              As situações presentes na fotografia vigente, contadas. O critério
+              de não filtrar por situação está no passo 4 da ficha técnica.
+            </p>
+          }
+
+        >
+          <dl className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+            {Object.entries(snapshot.situationValues)
+              .sort((a, b) => b[1] - a[1])
+              .map(([k, v]) => (
+                <div key={k} className="poster-frame p-4">
+                  <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+                    {k}
+                  </dt>
+                  <dd className="poster-figure mt-2 text-3xl text-plum md:text-4xl">
+                    {formatInt(v)}
+                  </dd>
+                </div>
+              ))}
+          </dl>
+        </SectionBlock>
+      )}
+
+      {/* Histórico de fotografias */}
+      <SectionBlock
+        kicker="Histórico"
+        question="Fotografias já processadas"
+        lead={
+          <p>
+            Cada atualização gera uma fotografia nova; nenhuma é sobrescrita. Assim
+            é possível saber qual base sustentava um número em determinada data. Só
+            a fotografia conferida manualmente vai ao ar — a mais recente pode estar
+            coletada e ainda retida.
+          </p>
+        }
+
+      >
+        {history.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[560px] border-collapse text-left">
+                <caption className="sr-only">
+                  Fotografias da base do TSE já processadas, com data de coleta,
+                  data de geração da base, número de registros e situação.
+                </caption>
+              <thead>
+                <tr className="border-b border-rule">
+                  {["Coleta", "Geração da base", "Registros", "Situação"].map(
+                    (h) => (
+                      <th
+                        key={h}
+                        scope="col"
+                        className="py-3 pr-4 font-mono text-[12px] uppercase tracking-wider text-muted-foreground"
+                      >
+                        {h}
+                      </th>
+                    ),
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {history.map((s) => (
+                  <tr key={s.id} className="border-b border-rule align-top">
+                    <td className="py-3 pr-4 font-mono text-xs text-ink">
+                      {br(s.collectedAt)}
+                    </td>
+                    <td className="py-3 pr-4 font-mono text-xs text-muted-foreground">
+                      {br(s.baseGeneratedAt)}
+                    </td>
+                    <td className="py-3 pr-4 font-mono text-xs text-muted-foreground">
+                      {formatInt(s.recordCount)}
+                    </td>
+                    <td className="py-3 font-mono text-xs text-muted-foreground">
+                      {statusLabel(s)}
+                      {snapshot && s.id === snapshot.id ? (
+                        <span className="text-ink"> · no ar</span>
+                      ) : null}
+                    </td>
+
+
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <GapNote label="Histórico">
+            Nenhuma fotografia registrada até o momento.
+          </GapNote>
+        )}
+      </SectionBlock>
+
+      {/* Fato, interpretação e hipótese */}
+      <SectionBlock
+        kicker="Como ler o site"
+        question="Três registros diferentes, sempre marcados"
+        lead={
+          <p>
+            Nada aqui mistura o que o dado mostra com o que nós achamos que ele
+            significa. Os três registros aparecem separados em cada página, e o
+            bloco racial em{" "}
+            <Link
+              to="/quem-sao-elas"
+              className="text-plum underline underline-offset-4"
+            >
+              Quem são elas?
+            </Link>{" "}
+            é o exemplo mais completo.
+          </p>
+        }
+      >
+        <dl className="grid gap-4 md:grid-cols-3">
+          <div className="poster-frame p-5">
+            <dt className="poster-eyebrow border-plum text-plum">Fato</dt>
+            <dd className="mt-3 text-sm leading-relaxed text-ink/70">
+              Contagem que sai direto da base, com numerador, denominador e data.
+              É verificável: recalcule e confira.
+            </dd>
+          </div>
+          <div className="poster-frame p-5">
+            <dt className="poster-eyebrow border-coral text-coral-ink">
+              Interpretação editorial
+            </dt>
+            <dd className="mt-3 text-sm leading-relaxed text-ink/70">
+              Nossa leitura do fato: qual comparação importa, o que um total
+              esconde, por que um recorte fica separado. Assinada, discutível — e
+              nunca apresentada como resultado do cálculo.
+            </dd>
+          </div>
+          <div className="poster-frame p-5">
+            <dt className="poster-eyebrow border-ink text-ink">
+              Hipótese em investigação
+            </dt>
+            <dd className="mt-3 text-sm leading-relaxed text-ink/70">
+              Explicação possível que os dados atuais não testam. Fica marcada
+              como pergunta aberta; nenhuma delas é publicada como causa.
+            </dd>
+          </div>
+        </dl>
+      </SectionBlock>
+
+      {/* Metadados por indicador */}
+      <SectionBlock
+        kicker="Metadados por indicador"
+        question="Cada número, com sua conta aberta"
+        align="wide"
+        lead={
+          <p>
+            Valor, unidade, numerador, denominador, universo, cargos, filtros,
+            fonte, datas, fórmula, status e limitação. A lista é gerada a partir da
+            camada de dados.
+          </p>
+        }
+      >
+        <div className="space-y-4">
+          {indicators.map((i) => (
+            <article key={i.id} className="editorial-card p-5">
+              <div className="flex flex-wrap items-baseline justify-between gap-3">
+                <h3 className="font-display text-lg text-ink">{i.label}</h3>
+                <StatusTag
+                  tone={
+                    i.status === DATA_STATUS.validado
+                      ? "ok"
+                      : i.status === DATA_STATUS.provisorio
+                        ? "limit"
+                        : "pending"
+                  }
+                >
+                  {i.status}
+                </StatusTag>
+              </div>
+              <dl className="mt-4 grid gap-2 font-mono text-[12px] leading-relaxed text-muted-foreground md:grid-cols-2">
+                <div>
+                  <dt className="inline uppercase tracking-wider">Valor: </dt>
+                  <dd className="inline">
+                    {i.unit === "p.p."
+                      ? formatPoints(i.value)
+                      : i.unit === "%"
+                        ? formatPercent(i.value)
+                        : (i.value ?? "—")}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="inline uppercase tracking-wider">Unidade: </dt>
+                  <dd className="inline">{i.unit}</dd>
+                </div>
+                <div>
+                  <dt className="inline uppercase tracking-wider">
+                    Numerador / denominador:{" "}
+                  </dt>
+                  <dd className="inline">{formatRatio(i) ?? "—"}</dd>
+                </div>
+                <div>
+                  <dt className="inline uppercase tracking-wider">Cargos: </dt>
+                  <dd className="inline">{i.positions.join(", ")}</dd>
+                </div>
+                <div className="md:col-span-2">
+                  <dt className="inline uppercase tracking-wider">Universo: </dt>
+                  <dd className="inline">{i.universe}</dd>
+                </div>
+                <div className="md:col-span-2">
+                  <dt className="inline uppercase tracking-wider">Filtros: </dt>
+                  <dd className="inline">{i.filters.join(" · ")}</dd>
+                </div>
+                <div className="md:col-span-2">
+                  <dt className="inline uppercase tracking-wider">Fórmula: </dt>
+                  <dd className="inline">{i.formula}</dd>
+                </div>
+                <div>
+                  <dt className="inline uppercase tracking-wider">Fonte: </dt>
+                  <dd className="inline">
+                    {i.sourceUrl ? (
+                      <a
+                        href={i.sourceUrl}
+                        className="underline"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {i.source}
+                      </a>
+                    ) : (
+                      i.source
+                    )}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="inline uppercase tracking-wider">
+                    Geração da base / coleta:{" "}
+                  </dt>
+                  <dd className="inline">
+                    {br(i.baseGeneratedAt)} / {br(i.processedAt)}
+                  </dd>
+                </div>
+                <div className="md:col-span-2">
+                  <dt className="inline uppercase tracking-wider">
+                    Observação:{" "}
+                  </dt>
+                  <dd className="inline">{i.caveat}</dd>
+                </div>
+              </dl>
+            </article>
+          ))}
+        </div>
+      </SectionBlock>
+
+      {/* Competitividade */}
+      <SectionBlock
+        kicker="Competitividade"
+        question="O que chamamos — e o que não chamamos — de competitividade"
+        align="wide"
+        lead={
+          <p>
+            Não existe índice de competitividade neste site. Com uma fotografia
+            de registro de candidaturas, sem voto e sem resultado, uma só leitura
+            é possível e reproduzível:{" "}
+            <strong className="text-ink">
+              {COMPETITION_DEFINITION.label.toLowerCase()}
+            </strong>
+            . Ela está publicada em{" "}
+            <Link to="/funil" className="text-plum underline underline-offset-4">
+              O funil
+            </Link>
+            .
+          </p>
+        }
+      >
+        <div className="space-y-4">
+          <div className="poster-frame p-5 md:p-6">
+            <h3 className="font-display text-xl text-ink">
+              {COMPETITION_DEFINITION.question}
+            </h3>
+            <dl className="mt-3 space-y-2 break-words font-mono text-[12px] leading-relaxed text-ink/80">
+              <div>
+                <dt className="inline text-muted-foreground">Fórmula: </dt>
+                <dd className="inline">{COMPETITION_DEFINITION.formula}</dd>
+              </div>
+              <div>
+                <dt className="inline text-muted-foreground">Unidade: </dt>
+                <dd className="inline">
+                  {COMPETITION_DEFINITION.unit} · unidade de análise:{" "}
+                  {COMPETITION_DEFINITION.unitOfAnalysis}
+                </dd>
+              </div>
+              <div>
+                <dt className="inline text-muted-foreground">Numerador: </dt>
+                <dd className="inline">
+                  {COMPETITION_DEFINITION.numeratorSource}
+                </dd>
+              </div>
+              <div>
+                <dt className="inline text-muted-foreground">Denominador: </dt>
+                <dd className="inline">
+                  {COMPETITION_DEFINITION.denominatorSource} · arquivo gerado em
+                  15/08/2026 · SHA-256 do pacote{" "}
+                  <span className="break-all">{VAGAS_SOURCE.zipSha256}</span>
+                </dd>
+              </div>
+            </dl>
+
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <ContextBox variant="significa" title="O que este número mede">
+              <ul className="list-disc space-y-1 pl-5">
+                {COMPETITION_DEFINITION.measures.map((m) => (
+                  <li key={m}>{m}</li>
+                ))}
+              </ul>
+            </ContextBox>
+            <ContextBox variant="importa" title="O que ele não mede">
+              <ul className="list-disc space-y-1 pl-5">
+                {COMPETITION_DEFINITION.doesNotMeasure.map((m) => (
+                  <li key={m}>{m}</li>
+                ))}
+              </ul>
+            </ContextBox>
+          </div>
+
+          <div className="space-y-3">
+            {COMPETITION_DEFINITION.limitations.map((l) => (
+              <GapNote key={l} label="Limite declarado">
+                {l}
+              </GapNote>
+            ))}
+          </div>
+        </div>
+      </SectionBlock>
+
       {/* Nota técnica reproduzível */}
       <SectionBlock
         kicker="Nota técnica"
@@ -638,399 +1031,6 @@ function MetodoPage() {
 
           </li>
         </ol>
-      </SectionBlock>
-
-      {/* Representação descritiva × substantiva */}
-      <SectionBlock
-        tone="solar"
-        kicker="O que estes números medem"
-        question="Presença não é a mesma coisa que poder de decidir"
-        lead={
-          <p>
-            Duas perguntas diferentes costumam aparecer misturadas quando se fala
-            de mulheres na política. Este projeto começa pela primeira, e isso
-            delimita o que ele pode afirmar.
-          </p>
-        }
-      >
-        <div className="grid gap-4 md:grid-cols-2">
-          <ContextBox variant="significa" title="Representação descritiva">
-            <p>
-              É a presença numérica: quantas mulheres se candidatam, quantas são
-              eleitas, quem elas são por cor/raça, em que cargos e partidos.
-              Todos os indicadores publicados aqui são deste tipo.
-            </p>
-          </ContextBox>
-          <ContextBox variant="importa" title="Representação substantiva">
-            <p>
-              É a atuação: que agendas são defendidas, quem relata projetos,
-              quem preside comissões, quem ocupa ministérios, mesas diretoras e
-              lideranças — os espaços onde a decisão acontece. Isso depende de
-              outras fontes, que o projeto ainda não integrou.
-            </p>
-          </ContextBox>
-        </div>
-        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-          Por isso um número maior de candidaturas femininas não autoriza dizer
-          que houve mais poder para mulheres, nem o contrário. São perguntas
-          encadeadas, e esta edição responde a primeira.
-        </p>
-      </SectionBlock>
-
-
-      {/* Situação de candidatura */}
-      {snapshot && Object.keys(snapshot.situationValues).length > 0 && (
-        <SectionBlock
-          kicker="Situação de candidatura"
-          question="Que estágios a base contém"
-          lead={
-            <p>
-              As situações presentes na fotografia vigente, contadas. O critério
-              de não filtrar por situação está no passo 4 da ficha técnica.
-            </p>
-          }
-
-        >
-          <dl className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-            {Object.entries(snapshot.situationValues)
-              .sort((a, b) => b[1] - a[1])
-              .map(([k, v]) => (
-                <div key={k} className="poster-frame p-4">
-                  <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
-                    {k}
-                  </dt>
-                  <dd className="poster-figure mt-2 text-3xl text-plum md:text-4xl">
-                    {formatInt(v)}
-                  </dd>
-                </div>
-              ))}
-          </dl>
-        </SectionBlock>
-      )}
-
-      {/* Notas metodológicas */}
-      <SectionBlock
-        kicker="Notas metodológicas"
-        question="As decisões que valem para todo o site"
-        align="wide"
-      >
-        <div className="space-y-4">
-          {METHOD_NOTES.map((n, i) => (
-            <article key={n.title} className="poster-frame p-5 md:p-6">
-              <span className="poster-figure block text-3xl text-plum md:text-4xl">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-1 font-display text-xl text-ink">{n.title}</h3>
-              <p className="mt-2 max-w-3xl leading-relaxed text-muted-foreground">
-                {n.body}
-              </p>
-            </article>
-          ))}
-        </div>
-      </SectionBlock>
-
-      {/* Metadados por indicador */}
-      <SectionBlock
-        kicker="Metadados por indicador"
-        question="Cada número, com sua conta aberta"
-        align="wide"
-        lead={
-          <p>
-            Valor, unidade, numerador, denominador, universo, cargos, filtros,
-            fonte, datas, fórmula, status e limitação. A lista é gerada a partir da
-            camada de dados.
-          </p>
-        }
-      >
-        <div className="space-y-4">
-          {indicators.map((i) => (
-            <article key={i.id} className="editorial-card p-5">
-              <div className="flex flex-wrap items-baseline justify-between gap-3">
-                <h3 className="font-display text-lg text-ink">{i.label}</h3>
-                <StatusTag
-                  tone={
-                    i.status === DATA_STATUS.validado
-                      ? "ok"
-                      : i.status === DATA_STATUS.provisorio
-                        ? "limit"
-                        : "pending"
-                  }
-                >
-                  {i.status}
-                </StatusTag>
-              </div>
-              <dl className="mt-4 grid gap-2 font-mono text-[12px] leading-relaxed text-muted-foreground md:grid-cols-2">
-                <div>
-                  <dt className="inline uppercase tracking-wider">Valor: </dt>
-                  <dd className="inline">
-                    {i.unit === "p.p."
-                      ? formatPoints(i.value)
-                      : i.unit === "%"
-                        ? formatPercent(i.value)
-                        : (i.value ?? "—")}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="inline uppercase tracking-wider">Unidade: </dt>
-                  <dd className="inline">{i.unit}</dd>
-                </div>
-                <div>
-                  <dt className="inline uppercase tracking-wider">
-                    Numerador / denominador:{" "}
-                  </dt>
-                  <dd className="inline">{formatRatio(i) ?? "—"}</dd>
-                </div>
-                <div>
-                  <dt className="inline uppercase tracking-wider">Cargos: </dt>
-                  <dd className="inline">{i.positions.join(", ")}</dd>
-                </div>
-                <div className="md:col-span-2">
-                  <dt className="inline uppercase tracking-wider">Universo: </dt>
-                  <dd className="inline">{i.universe}</dd>
-                </div>
-                <div className="md:col-span-2">
-                  <dt className="inline uppercase tracking-wider">Filtros: </dt>
-                  <dd className="inline">{i.filters.join(" · ")}</dd>
-                </div>
-                <div className="md:col-span-2">
-                  <dt className="inline uppercase tracking-wider">Fórmula: </dt>
-                  <dd className="inline">{i.formula}</dd>
-                </div>
-                <div>
-                  <dt className="inline uppercase tracking-wider">Fonte: </dt>
-                  <dd className="inline">
-                    {i.sourceUrl ? (
-                      <a
-                        href={i.sourceUrl}
-                        className="underline"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {i.source}
-                      </a>
-                    ) : (
-                      i.source
-                    )}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="inline uppercase tracking-wider">
-                    Geração da base / coleta:{" "}
-                  </dt>
-                  <dd className="inline">
-                    {br(i.baseGeneratedAt)} / {br(i.processedAt)}
-                  </dd>
-                </div>
-                <div className="md:col-span-2">
-                  <dt className="inline uppercase tracking-wider">
-                    Observação:{" "}
-                  </dt>
-                  <dd className="inline">{i.caveat}</dd>
-                </div>
-              </dl>
-            </article>
-          ))}
-        </div>
-      </SectionBlock>
-
-      {/* Histórico de fotografias */}
-      <SectionBlock
-        kicker="Histórico"
-        question="Fotografias já processadas"
-        lead={
-          <p>
-            Cada atualização gera uma fotografia nova; nenhuma é sobrescrita. Assim
-            é possível saber qual base sustentava um número em determinada data. Só
-            a fotografia conferida manualmente vai ao ar — a mais recente pode estar
-            coletada e ainda retida.
-          </p>
-        }
-
-      >
-        {history.length > 0 ? (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[560px] border-collapse text-left">
-                <caption className="sr-only">
-                  Fotografias da base do TSE já processadas, com data de coleta,
-                  data de geração da base, número de registros e situação.
-                </caption>
-              <thead>
-                <tr className="border-b border-rule">
-                  {["Coleta", "Geração da base", "Registros", "Situação"].map(
-                    (h) => (
-                      <th
-                        key={h}
-                        scope="col"
-                        className="py-3 pr-4 font-mono text-[12px] uppercase tracking-wider text-muted-foreground"
-                      >
-                        {h}
-                      </th>
-                    ),
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                {history.map((s) => (
-                  <tr key={s.id} className="border-b border-rule align-top">
-                    <td className="py-3 pr-4 font-mono text-xs text-ink">
-                      {br(s.collectedAt)}
-                    </td>
-                    <td className="py-3 pr-4 font-mono text-xs text-muted-foreground">
-                      {br(s.baseGeneratedAt)}
-                    </td>
-                    <td className="py-3 pr-4 font-mono text-xs text-muted-foreground">
-                      {formatInt(s.recordCount)}
-                    </td>
-                    <td className="py-3 font-mono text-xs text-muted-foreground">
-                      {statusLabel(s)}
-                      {snapshot && s.id === snapshot.id ? (
-                        <span className="text-ink"> · no ar</span>
-                      ) : null}
-                    </td>
-
-
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <GapNote label="Histórico">
-            Nenhuma fotografia registrada até o momento.
-          </GapNote>
-        )}
-      </SectionBlock>
-
-      {/* Fato, interpretação e hipótese */}
-      <SectionBlock
-        kicker="Como ler o site"
-        question="Três registros diferentes, sempre marcados"
-        lead={
-          <p>
-            Nada aqui mistura o que o dado mostra com o que nós achamos que ele
-            significa. Os três registros aparecem separados em cada página, e o
-            bloco racial em{" "}
-            <Link
-              to="/quem-sao-elas"
-              className="text-plum underline underline-offset-4"
-            >
-              Quem são elas?
-            </Link>{" "}
-            é o exemplo mais completo.
-          </p>
-        }
-      >
-        <dl className="grid gap-4 md:grid-cols-3">
-          <div className="poster-frame p-5">
-            <dt className="poster-eyebrow border-plum text-plum">Fato</dt>
-            <dd className="mt-3 text-sm leading-relaxed text-ink/70">
-              Contagem que sai direto da base, com numerador, denominador e data.
-              É verificável: recalcule e confira.
-            </dd>
-          </div>
-          <div className="poster-frame p-5">
-            <dt className="poster-eyebrow border-coral text-coral-ink">
-              Interpretação editorial
-            </dt>
-            <dd className="mt-3 text-sm leading-relaxed text-ink/70">
-              Nossa leitura do fato: qual comparação importa, o que um total
-              esconde, por que um recorte fica separado. Assinada, discutível — e
-              nunca apresentada como resultado do cálculo.
-            </dd>
-          </div>
-          <div className="poster-frame p-5">
-            <dt className="poster-eyebrow border-ink text-ink">
-              Hipótese em investigação
-            </dt>
-            <dd className="mt-3 text-sm leading-relaxed text-ink/70">
-              Explicação possível que os dados atuais não testam. Fica marcada
-              como pergunta aberta; nenhuma delas é publicada como causa.
-            </dd>
-          </div>
-        </dl>
-      </SectionBlock>
-
-      {/* Competitividade */}
-      <SectionBlock
-        kicker="Competitividade"
-        question="O que chamamos — e o que não chamamos — de competitividade"
-        align="wide"
-        lead={
-          <p>
-            Não existe índice de competitividade neste site. Com uma fotografia
-            de registro de candidaturas, sem voto e sem resultado, uma só leitura
-            é possível e reproduzível:{" "}
-            <strong className="text-ink">
-              {COMPETITION_DEFINITION.label.toLowerCase()}
-            </strong>
-            . Ela está publicada em{" "}
-            <Link to="/funil" className="text-plum underline underline-offset-4">
-              O funil
-            </Link>
-            .
-          </p>
-        }
-      >
-        <div className="space-y-4">
-          <div className="poster-frame p-5 md:p-6">
-            <h3 className="font-display text-xl text-ink">
-              {COMPETITION_DEFINITION.question}
-            </h3>
-            <dl className="mt-3 space-y-2 break-words font-mono text-[12px] leading-relaxed text-ink/80">
-              <div>
-                <dt className="inline text-muted-foreground">Fórmula: </dt>
-                <dd className="inline">{COMPETITION_DEFINITION.formula}</dd>
-              </div>
-              <div>
-                <dt className="inline text-muted-foreground">Unidade: </dt>
-                <dd className="inline">
-                  {COMPETITION_DEFINITION.unit} · unidade de análise:{" "}
-                  {COMPETITION_DEFINITION.unitOfAnalysis}
-                </dd>
-              </div>
-              <div>
-                <dt className="inline text-muted-foreground">Numerador: </dt>
-                <dd className="inline">
-                  {COMPETITION_DEFINITION.numeratorSource}
-                </dd>
-              </div>
-              <div>
-                <dt className="inline text-muted-foreground">Denominador: </dt>
-                <dd className="inline">
-                  {COMPETITION_DEFINITION.denominatorSource} · arquivo gerado em
-                  15/08/2026 · SHA-256 do pacote{" "}
-                  <span className="break-all">{VAGAS_SOURCE.zipSha256}</span>
-                </dd>
-              </div>
-            </dl>
-
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            <ContextBox variant="significa" title="O que este número mede">
-              <ul className="list-disc space-y-1 pl-5">
-                {COMPETITION_DEFINITION.measures.map((m) => (
-                  <li key={m}>{m}</li>
-                ))}
-              </ul>
-            </ContextBox>
-            <ContextBox variant="importa" title="O que ele não mede">
-              <ul className="list-disc space-y-1 pl-5">
-                {COMPETITION_DEFINITION.doesNotMeasure.map((m) => (
-                  <li key={m}>{m}</li>
-                ))}
-              </ul>
-            </ContextBox>
-          </div>
-
-          <div className="space-y-3">
-            {COMPETITION_DEFINITION.limitations.map((l) => (
-              <GapNote key={l} label="Limite declarado">
-                {l}
-              </GapNote>
-            ))}
-          </div>
-        </div>
       </SectionBlock>
 
       {/* Financiamento de campanha */}

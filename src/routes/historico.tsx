@@ -115,33 +115,6 @@ function HistoricoPage() {
       </div>
 
       <SectionBlock
-        kicker="Linha temporal"
-        question="Quatro eleições gerais, quatro bases diferentes"
-        align="wide"
-        lead={
-          <p>
-            Anos encerrados trazem candidaturas e resultado. 2026 é base em
-            curso: só candidaturas registradas.
-          </p>
-        }
-        source="Fonte: TSE · Candidatos 2014, 2018, 2022 e 2026"
-      >
-        <HistoryTimeline
-          snapshots={data.snapshots}
-          missingYears={data.missingYears}
-          currentBaseGeneratedAt={currentBaseGeneratedAt}
-        />
-        {data.missingYears.length > 0 && (
-          <div className="mt-6">
-            <GapNote label="Lacuna declarada">
-              Anos sem fotografia gravada nesta versão:{" "}
-              {data.missingYears.join(", ")}.
-            </GapNote>
-          </div>
-        )}
-      </SectionBlock>
-
-      <SectionBlock
         kicker="Gênero"
         question="Quantas candidaturas são de mulheres, em cada eleição?"
         align="wide"
@@ -265,6 +238,33 @@ function HistoricoPage() {
             projetado.
           </GapNote>
         </div>
+      </SectionBlock>
+
+      <SectionBlock
+        kicker="Linha temporal"
+        question="Quatro eleições gerais, quatro bases diferentes"
+        align="wide"
+        lead={
+          <p>
+            Anos encerrados trazem candidaturas e resultado. 2026 é base em
+            curso: só candidaturas registradas.
+          </p>
+        }
+        source="Fonte: TSE · Candidatos 2014, 2018, 2022 e 2026"
+      >
+        <HistoryTimeline
+          snapshots={data.snapshots}
+          missingYears={data.missingYears}
+          currentBaseGeneratedAt={currentBaseGeneratedAt}
+        />
+        {data.missingYears.length > 0 && (
+          <div className="mt-6">
+            <GapNote label="Lacuna declarada">
+              Anos sem fotografia gravada nesta versão:{" "}
+              {data.missingYears.join(", ")}.
+            </GapNote>
+          </div>
+        )}
       </SectionBlock>
 
       <SectionBlock

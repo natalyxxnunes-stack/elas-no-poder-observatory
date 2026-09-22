@@ -158,30 +158,6 @@ function FunilPage() {
       </SectionBlock>
 
       <SectionBlock
-        tone="solar"
-        kicker="Como ler este funil"
-        question="Ninguém disputa uma cadeira sozinha"
-        lead={<p>{FUNNEL_READING_RULE}</p>}
-      >
-        <div className="grid gap-4 md:grid-cols-2">
-          <ContextBox variant="significa" title="Na proporcional, o voto é do partido também">
-            <p>
-              Uma candidata a deputada disputa junto com o partido ou{" "}
-              <GlossaryTerm term="federacao">federação</GlossaryTerm>: os votos
-              dela entram na soma do grupo, e é essa soma que define quantas
-              cadeiras o grupo conquista, pelo{" "}
-              <GlossaryTerm term="quociente-eleitoral">
-                quociente eleitoral
-              </GlossaryTerm>
-              . Só depois, dentro do grupo, a ordem dos mais votados decide quem
-              ocupa essas cadeiras — por isso uma candidata com muitos votos pode
-              ficar de fora e outra, com menos votos, entrar.
-            </p>
-          </ContextBox>
-        </div>
-      </SectionBlock>
-
-      <SectionBlock
         kicker="Tamanho da disputa"
         question="Quantas candidaturas existem para cada vaga?"
         align="wide"
@@ -221,6 +197,7 @@ function FunilPage() {
         source="Fonte: TSE · Candidatos 2014, 2018, 2022 e 2026"
       >
         <div className="space-y-4">
+          <PastStrip series={feminineSeries} />
           <ContextBox variant="importa" title="O funil é uma fotografia, etapa por etapa">
             <p>
               Cada etapa aqui é uma fotografia com o seu próprio conjunto de
@@ -232,12 +209,35 @@ function FunilPage() {
               suplentes ficam fora da contagem.
             </p>
           </ContextBox>
-          <PastStrip series={feminineSeries} />
           <GapNote label="Transparência">
             2026 é fotografia em andamento: o registro de candidaturas ainda
             pode mudar por decisão da Justiça Eleitoral, e o resultado eleitoral
             ainda não existe. Os anos anteriores são bases fechadas.
           </GapNote>
+        </div>
+      </SectionBlock>
+
+      <SectionBlock
+        tone="solar"
+        kicker="Como ler este funil"
+        question="Ninguém disputa uma cadeira sozinha"
+        lead={<p>{FUNNEL_READING_RULE}</p>}
+      >
+        <div className="grid gap-4 md:grid-cols-2">
+          <ContextBox variant="significa" title="Na proporcional, o voto é do partido também">
+            <p>
+              Uma candidata a deputada disputa junto com o partido ou{" "}
+              <GlossaryTerm term="federacao">federação</GlossaryTerm>: os votos
+              dela entram na soma do grupo, e é essa soma que define quantas
+              cadeiras o grupo conquista, pelo{" "}
+              <GlossaryTerm term="quociente-eleitoral">
+                quociente eleitoral
+              </GlossaryTerm>
+              . Só depois, dentro do grupo, a ordem dos mais votados decide quem
+              ocupa essas cadeiras — por isso uma candidata com muitos votos pode
+              ficar de fora e outra, com menos votos, entrar.
+            </p>
+          </ContextBox>
         </div>
       </SectionBlock>
 
