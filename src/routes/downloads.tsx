@@ -122,7 +122,7 @@ function DownloadsPage() {
           </p>
         }
         documents={MATERIALS.map((material) => ({
-          format: material.format.split(/[ ,]/)[0],
+          format: material.format.split(/[ ,]/)[0] ?? material.format,
           label: material.kind,
           available: material.file !== null,
         }))}
