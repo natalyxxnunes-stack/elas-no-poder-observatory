@@ -137,13 +137,15 @@ function EmDisputaPage() {
 
         <div className="mt-6 space-y-3">
           <GapNote label="Lacuna declarada">{DISPUTE_GAP}</GapNote>
-          <GapNote label="Regra editorial">{DISPUTE_RULE}</GapNote>
+          <GapNote label="Regra editorial">
+            Nenhuma proposição é descrita aqui como se já produzisse efeitos.
+          </GapNote>
         </div>
       </SectionBlock>
 
       <SectionBlock
         kicker="Como ler uma regra em tramitação"
-        question="Três distinções que evitam erro"
+        question="Três distinções para ler uma proposição"
       >
         <div className="grid gap-4 md:grid-cols-3">
           <ContextBox variant="significa">
