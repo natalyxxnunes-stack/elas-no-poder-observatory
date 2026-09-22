@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { BrandLogo } from "./BrandLogo";
 import { BrandWordmark } from "./BrandWordmark";
 import { SITE } from "@/data/election-2026";
-import { CENTRAL_THESIS, COVER_QUESTION, NAV_ITEMS } from "@/data/architecture";
+import { CENTRAL_THESIS, COVER_QUESTION, NAV_ITEMS, UTILITY_NAV_ITEMS } from "@/data/architecture";
 import { getSnapshotStamp } from "@/lib/tse/snapshot.functions";
 
 function br(iso: string | null | undefined): string | null {
@@ -46,7 +46,7 @@ export function SiteFooter() {
             Navegue
           </h2>
           <ul className="mt-4 space-y-2">
-            {NAV_ITEMS.map((item) => (
+            {[...NAV_ITEMS, ...UTILITY_NAV_ITEMS].map((item) => (
               <li key={item.to}>
                 <Link
                   to={item.to}

@@ -1,7 +1,7 @@
 const ROWS = [
   ["Presidente", "14", "2", "14,3%"],
   ["Vice-presidente", "14", "6", "42,9%"],
-  ["Governador", "211", "88", "41,7%"],
+  ["Governador", "201", "35", "17,4%"],
   ["Vice-governador", "211", "88", "41,7%"],
   ["Senador", "319", "70", "21,9%"],
   ["1º suplente", "349", "106", "30,4%"],

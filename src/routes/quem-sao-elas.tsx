@@ -104,7 +104,6 @@ function QuemSaoElasPage() {
       </div>
 
       <SectionBlock
-        id="estados"
         kicker="Censo 2022 × candidaturas 2026"
         question="Pardas e brancas são quase do mesmo tamanho no país. Nas candidaturas, não são."
         align="wide"
@@ -122,7 +121,6 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
       <SectionBlock
-        id="partidos"
         kicker="Categorias originais"
         question="Cor/raça declarada nas candidaturas de mulheres"
         align="wide"
@@ -177,6 +175,7 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
       <SectionBlock
+        id="estados"
         kicker="Panorama por estado"
         question="Cor/raça das candidaturas proporcionais, estado por estado"
         align="wide"
@@ -203,6 +202,7 @@ function QuemSaoElasPage() {
 
 
       <SectionBlock
+        id="partidos"
         kicker="Partidos"
         question="Quem lança mulheres?"
         align="wide"

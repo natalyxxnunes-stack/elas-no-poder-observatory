@@ -1,11 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, Menu, Search, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Menu, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "./BrandLogo";
 import { BrandWordmark } from "./BrandWordmark";
 import { SITE } from "@/data/election-2026";
-import { NAV_ITEMS } from "@/data/architecture";
+import { DATA_2026_NAV_ITEMS, NAV_ITEMS, UTILITY_NAV_ITEMS } from "@/data/architecture";
 
 /**
  * SiteHeader — menu plano de 5 itens do lançamento. Sem submenus e sem CTA:
@@ -14,6 +14,7 @@ import { NAV_ITEMS } from "@/data/architecture";
 export function SiteHeader({ home = false }: { home?: boolean }) {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [dataOpen, setDataOpen] = useState(false);
   const close = () => setOpen(false);
 
   return (
@@ -31,7 +32,27 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
 
         <div className="ml-auto hidden items-center gap-3 lg:flex">
         <nav aria-label="Principal" className={`flex items-center ${home ? "gap-5" : "gap-3 xl:gap-4"}`}>
-          {NAV_ITEMS.map((item) => (
+          {NAV_ITEMS.map((item) => item.to === "/" ? (
+            <div key={item.to} className="relative" onMouseLeave={() => setDataOpen(false)}>
+              <Button
+                variant="ghost"
+                className={`h-auto rounded-none border-b-2 border-transparent px-0 pb-0.5 text-muted-foreground hover:bg-transparent hover:text-plum ${home ? "text-sm" : "text-[11px] xl:text-xs"}`}
+                aria-expanded={dataOpen}
+                aria-controls="submenu-dados"
+                onClick={() => setDataOpen((value) => !value)}
+                onMouseEnter={() => setDataOpen(true)}
+              >
+                {item.label}<ChevronDown className="size-3" aria-hidden="true" />
+              </Button>
+              {dataOpen && (
+                <div id="submenu-dados" className="absolute left-0 top-full z-50 w-52 border border-rule bg-paper p-2 shadow-lg">
+                  {DATA_2026_NAV_ITEMS.map((subitem) => (
+                    <Link key={subitem.label} to={subitem.to} hash={subitem.hash} onClick={() => setDataOpen(false)} className="block px-3 py-2 text-xs text-ink hover:bg-solar/40 hover:text-plum">{subitem.label}</Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
             <Link
               key={item.to}
               to={item.to}
@@ -44,6 +65,9 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
           ))}
         </nav>
         <>
+            <div className="flex items-center gap-3 border-l border-rule pl-3 font-mono text-[10px] uppercase">
+              {UTILITY_NAV_ITEMS.map((item) => <Link key={item.to} to={item.to} className="text-muted-foreground hover:text-plum">{item.label}</Link>)}
+            </div>
             <Button variant="ghost" size="icon" aria-label="Abrir busca de páginas" onClick={() => setSearchOpen((value) => !value)} className="rounded-none text-ink">
               <Search className="size-4" aria-hidden="true" />
             </Button>
@@ -75,7 +99,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
         <div className="border-t border-rule bg-paper px-5 py-4 md:px-8">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2">
             <span className="font-mono text-[10px] uppercase text-muted-foreground">Ir para</span>
-            {NAV_ITEMS.map((item) => <Link key={item.to} to={item.to} onClick={() => setSearchOpen(false)} className="text-sm text-ink underline-offset-4 hover:text-plum hover:underline">{item.label}</Link>)}
+            {[...NAV_ITEMS, ...UTILITY_NAV_ITEMS].map((item) => <Link key={item.to} to={item.to} onClick={() => setSearchOpen(false)} className="text-sm text-ink underline-offset-4 hover:text-plum hover:underline">{item.label}</Link>)}
           </div>
         </div>
       )}
@@ -86,7 +110,15 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
           aria-label="Principal (móvel)"
           className="max-h-[75vh] overflow-y-auto border-t border-rule bg-paper px-5 pb-6 lg:hidden"
         >
-          {NAV_ITEMS.map((item) => (
+          <div className="border-b border-rule py-3">
+            <p className="font-display text-base text-ink">Dados 2026</p>
+            <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-2 pl-3">
+              {DATA_2026_NAV_ITEMS.map((item) => (
+                <Link key={item.label} to={item.to} hash={item.hash} onClick={close} className="text-sm text-muted-foreground hover:text-plum">{item.label}</Link>
+              ))}
+            </div>
+          </div>
+          {NAV_ITEMS.filter((item) => item.to !== "/").map((item) => (
             <Link
               key={item.to}
               to={item.to}
@@ -101,6 +133,9 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
               </span>
             </Link>
           ))}
+          <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[10px] uppercase">
+            {UTILITY_NAV_ITEMS.map((item) => <Link key={item.to} to={item.to} onClick={close} className="text-plum">{item.label}</Link>)}
+          </div>
         </nav>
       )}
     </header>
