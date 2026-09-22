@@ -1,61 +1,37 @@
-# Auditoria de ordem editorial: cautela empilhada antes do achado
+# Auditoria: achados prontos sem o tratamento Fato / Leitura / Pergunta
 
-Levantamento de leitura apenas. Nenhum arquivo do site foi alterado. Rotas publicadas verificadas: `/` (home), `/quem-sao-elas`, `/funil`, `/historico`, `/direitos`, `/em-disputa`, `/quem-controla`, `/metodo`, `/sobre`, `/downloads`.
+Levantamento de leitura apenas. Nenhum arquivo alterado. Padrão de referência: três cartões com `poster-eyebrow` — **Fato** (plum), **Interpretação editorial** (coral), **Hipótese em investigação** (ink) — usado em `RaceFinding2026` (/quem-sao-elas) e explicado na seção "Como ler o site" do Método.
 
-Critério usado: três ou mais formulações negativas ("não é", "não há", "não mede", "não prova", "nunca", "nenhum") no mesmo parágrafo ou em parágrafos/blocos consecutivos, aparecendo **antes** de qualquer número ou achado daquele trecho. Ressalvas únicas e pontuais não entraram na lista.
+## Onde o padrão já existe
+- `src/components/editorial/RaceFinding2026.tsx` — o exemplo completo (censo × candidaturas).
+- `src/routes/metodo.tsx` (~linha 905) — a taxonomia explicada.
 
-## Casos de acúmulo encontrados
+## Achados prontos SEM o tratamento — candidatos
 
-### 1. `src/components/editorial/InBrief.tsx` usado no topo de 6 páginas — campo `unknown`
-O bloco "Em poucas linhas" aparece imediatamente depois da abertura, e em várias rotas o terceiro campo já é uma pilha de negativas, antes de o leitor ter visto qualquer gráfico:
-- `/funil`: "a eleição não ocorreu e não há resultado. E a distribuição por cor/raça… que a fotografia atual não grava."
-- `/quem-sao-elas`: "as bases ainda não existem… A base também não capta de forma confiável identidade trans ou travesti, nem deficiência de modo comparável."
-- `/historico`: "o resultado de 2026, a cor/raça de todas as candidaturas… que esta versão ainda não contabiliza."
-Por que é acúmulo: o próprio campo `matters` da mesma caixa já vem negativo em `/historico` ("Crescer em candidaturas não é o mesmo que…", "nenhum dos dois se distribui igualmente"), então o leitor recebe duas negativas seguidas dentro do resumo de entrada. Não é uma ressalva isolada: é o formato do resumo que está terminando em advertência em quase toda página.
+### 1. `CurrentSnapshot` em `src/routes/index.tsx` (home) — CANDIDATO REAL
+**Achado:** "O que os registros permitem dizer agora" — participação feminina nas majoritárias (16,9%) e maior UF (39,2%, SE), apresentados como os dois números-síntese do site.
+**Problema:** fato e leitura dividem a mesma coluna de texto ("Tudo nesta parte… é quem entrou na disputa. Não há resultado eleitoral aqui"), e a pergunta em aberto não aparece como camada.
+**Recomendação:** faz sentido aplicar, em versão mínima — o número segue grande, mas ganha o selo de fato, e a frase de leitura vira camada separada. **Ressalva:** a home foi declarada intocável em decisões anteriores; só aplicar se você abrir exceção explícita.
 
-### 2. `src/routes/direitos.tsx` — abertura + `InBrief`, três negativas em sequência
-- Lead da abertura: "não é espontânea… cada uma com alcance limitado".
-- `found`: "Onze marcos entre 1932 e 2026. **Nenhum deles** produziu igualdade imediata".
-- `matters`: "evita atribuir a ela efeitos **que não estão** no seu escopo".
-- `unknown`: "O efeito isolado de cada norma… **que este eixo não faz**".
-Por que é acúmulo: o único achado positivo da página ("onze marcos") é engolido na mesma frase por uma negativa, e as três linhas seguintes são todas restrições. A linha do tempo com os marcos reais só aparece depois disso.
+### 2. `FunnelStages2026` em `src/routes/funil.tsx` — CANDIDATO REAL
+**Achado:** o contraste central do site — participação feminina nas proporcionais × majoritárias (etapas 01 e 02, números grandes).
+**Problema:** os percentuais aparecem neutros dentro da figura; a leitura editorial está fora dela (lead da seção e ContextBox), e a pergunta em aberto existe apenas como etapa 4 futura, sem rótulo de "hipótese/pergunta".
+**Recomendação:** faz sentido, de forma mínima — um fechamento em três camadas ao final da lista de etapas (fato: os dois percentuais com denominadores; leitura: o tamanho da porta muda entre universos; pergunta: o que acontece no resultado de outubro). Nada dentro das barras muda.
 
-### 3. `src/routes/funil.tsx` — seção "Como ler este funil", antes dos números de competição
-Sequência: `FUNNEL_READING_RULE` no lead ("o funil organiza perguntas, **não** faz uma subtração… **não** uma perda direta de pontos") + `ContextBox` "Na proporcional…" (termina em "pode ter muitos votos e **não** ser eleita") + `ContextBox` "O funil é uma fotografia" ("**não** o rastro das mesmas pessoas… **nem** a chance de… ficam **fora** da contagem").
-Por que é acúmulo: três blocos consecutivos, todos fechando em negativa, posicionados **entre** o funil e a seção "Tamanho da disputa". A cautela é legítima, mas está concentrada num muro só, em vez de distribuída junto de cada achado.
+### 3. Agregação "NEGRA = PRETA + PARDA" em `RaceBreakdown` (/quem-sao-elas) e na etapa 3 do funil — LIMÍTROFE
+**Achado:** percentual agregado declarado ("…% das candidaturas de mulheres deste universo").
+**Recomendação:** deixar como está. É dado derivado dentro de uma visualização, com nota de limitação ao lado, e a camada de leitura desse mesmo número já existe em `RaceFinding2026` na mesma página. Adicionar três camadas ali duplicaria hierarquia dentro da figura.
 
-### 4. `src/routes/quem-sao-elas.tsx` — seção "Limites da fonte" antes da tabela de partidos
-Dois `ContextBox` lado a lado: "não identifica pertencimento étnico nem vínculo com povo… não devem ser tratadas como equivalentes" + "Publicar um cruzamento que a fonte não sustenta produziria número… sem base".
-Por que é acúmulo: a seção inteira é de negativas e está posicionada **antes** do achado "Quem lança mulheres?" (composição por partido). Movida para depois dessa tabela, funcionaria como nota de leitura; onde está, interrompe a sequência de achados.
+## Onde NÃO faz sentido aplicar (e por quê)
 
-### 5. `src/routes/em-disputa.tsx` — regra editorial + três `ContextBox`
-Antes da lista de proposições: card "Projeto apresentado **não** é projeto aprovado / Situação em tramitação **não** antecipa resultado". Depois, a seção "Três distinções que evitam erro" tem os três cards negativos ("Só o último produz norma", "**não** cria direito novo", "**Não** atribuímos efeito estatístico… **não** é prova de causa"), e antes deles o `InBrief` já dizia "comparar ciclos sem considerar a regra vigente produz conclusão falsa".
-Por que é acúmulo: cinco blocos de advertência cercam uma lista que, em si, é o achado (o que está em vigor e o que tramita).
+- **`InBrief` (6 rotas)** — o campo `found` já é um achado pronto, mas o próprio bloco já é uma estrutura de três camadas (Encontramos / Por que importa / Em aberto), semanticamente equivalente ao padrão, com outra gramática visual. Aplicar poster-eyebrow ali criaria duas hierarquias sobrepostas.
+- **`PastStrip` (/funil)** — faixa de contexto histórico, declarada como referência; o achado correspondente já vive no `InBrief` de /historico.
+- **`CompetitionByUf` (/funil)** — explorador com ordenação descritiva; mede tamanho de disputa, não fecha uma descoberta.
+- **`RaceExplorer`, `RaceByStateTable`, `PartyGenderTable`, `StateExplorer` (/quem-sao-elas)** — ferramentas de recorte; apresentam dados brutos sob escolha do leitor, não afirmações de descoberta.
+- **`HomeFunnelFeature` (home)** — peça editorial ilustrativa declarada ("as larguras são ilustrativas"); o aside é provocação de entrada, não achado.
+- **`/direitos`** — a linha do tempo já estrutura cada marco em cinco perguntas com fonte; não há número-síntese apresentado como descoberta.
+- **`SeriesChart` / `HistoryFunnel` (/historico)** — visualizações; a leitura já está no `InBrief` e nas notas ao lado.
+- **`/em-disputa`, `/quem-controla`, `/metodo`, `/sobre`, `/downloads`** — não apresentam achados numéricos prontos; são acompanhamento, plano de apuração e documentação.
 
-### 6. `src/routes/metodo.tsx` — camada 1, cinco `ContextBox` seguidos
-Entre o passo a passo e a ficha técnica: "…**não** ser eleita… 'mais votos' **não** é o mesmo que 'eleita'" + "É a classificação do dataset — **não** uma definição sociológica" + PLAIN_STEPS já trazendo "**Nunca** somamos os dois", "**Nenhum** percentual aparece sem esse total visível", "**nunca** um número provisório", "**não** prova que uma regra causou o resultado".
-Por que é acúmulo: seis itens numerados, três deles terminando em proibição, seguidos de blocos de contexto também negativos. Em Método isso é mais defensável (é a página da metodologia), mas a **camada 1**, que se propõe a ser linguagem simples, está mais cheia de "o que você não pode concluir" do que de "como calculamos".
-
-### 7. `src/components/funnel/FunnelStages2026.tsx` — etapa racial e etapa futura
-Na etapa de cor/raça: `GapNote` com "**não** existe aqui percentual… esse denominador **não** está no snapshot e **não** é estimado", logo após a agregação declarada. Na etapa 4: "A eleição… ainda **não** ocorreu. **Não** há voto apurado **nem** cadeira… — **não** o número de candidaturas". E no fallback: "Ausência de dado **não** é ausência de mulheres negras".
-Por que é acúmulo: três negativas na mesma frase da etapa 4, dentro da própria visualização, antes de o leitor terminar de ler os degraus com dados.
-
-### 8. `src/routes/index.tsx` — bloco "O que os registros permitem dizer agora"
-Lead: "**Não há** resultado eleitoral aqui: o 1º turno é em 4 de outubro…", antes dos dois números grandes (majoritário e território).
-Por que é caso limítrofe, não acúmulo: é uma única negativa e vem seguida imediatamente do dado. Anotado só para registro; não recomendo mexer.
-
-## Fora da lista (ressalva pontual legítima, sem empilhamento)
-- `/sobre`: "Onde a IA não entra" e "Atualização de base: não é correção" — negativas isoladas, cada uma no seu bloco.
-- `/quem-controla`: as negativas estão dentro das alavancas e do critério editorial, depois do achado; ordem já correta.
-- `/metodo`, seção "Os limites declarados deste método": é o lugar próprio das limitações, no fim da página. Nenhuma `GapNote` dessa seção deve ser tocada.
-- `/downloads`, `/historico` (seções de gráfico): negativas aparecem como nota de fonte, depois do dado.
-
-## Prioridade sugerida, se você quiser corrigir depois
-1. `/direitos` — abertura e resumo (caso mais claro de cautela antes de achado).
-2. `/funil` — redistribuir os três blocos de "como ler" em vez de mantê-los num muro só.
-3. `/quem-sao-elas` — mover "Limites da fonte" para depois da tabela de partidos.
-4. `/em-disputa` — manter a regra editorial, aliviar a repetição entre ela e os três cards.
-5. `InBrief` — revisar o campo `unknown` nas seis rotas para não fechar sempre em pilha de negativas.
-6. `/metodo` camada 1 — só o tom dos blocos de contexto; nada da seção de limitações muda.
-
-Nenhuma dessas mudanças remove ressalva metodológica: o objetivo é ordem (achado → leitura → cautela) e não supressão.
+## Resumo
+Dois candidatos reais: **CurrentSnapshot** (home, com ressalva de intocabilidade) e **FunnelStages2026** (/funil). Um limítrofe que recomendo manter: a agregação negra em `RaceBreakdown`. Todo o resto já tem hierarquia equivalente (InBrief, timeline de Direitos) ou não é achado pronto (exploradores, faixas de contexto, peças ilustrativas).
