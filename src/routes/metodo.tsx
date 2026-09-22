@@ -105,7 +105,8 @@ const PLAIN_STEPS: { step: string; body: React.ReactNode }[] = [
         <GlossaryTerm term="majoritaria" method={false}>
           majoritárias
         </GlossaryTerm>{" "}
-        (Presidência, governos e Senado). Nunca somamos os dois em uma conta só.
+        (Presidência, governos e Senado). Cada universo é contado na sua própria
+        conta, sempre separado do outro.
       </>
     ),
   },
@@ -115,7 +116,7 @@ const PLAIN_STEPS: { step: string; body: React.ReactNode }[] = [
   },
   {
     step: "4. Dividimos pelo total do próprio universo",
-    body: "Candidaturas de mulheres divididas pelo total de candidaturas daquele mesmo universo. Nenhum percentual aparece sem esse total visível.",
+    body: "Candidaturas de mulheres divididas pelo total de candidaturas daquele mesmo universo. Todo percentual aparece com esse total visível ao lado.",
   },
   {
     step: "5. Diferenças em pontos percentuais",
@@ -125,13 +126,14 @@ const PLAIN_STEPS: { step: string; body: React.ReactNode }[] = [
         <GlossaryTerm term="pontos-percentuais" method={false}>
           p.p.
         </GlossaryTerm>{" "}
-        — uma leitura descritiva, que não prova que uma regra causou o resultado.
+        — uma leitura descritiva do contraste, sem atribuir efeito causal a
+        nenhuma regra.
       </>
     ),
   },
   {
     step: "6. O que falta fica declarado",
-    body: "Onde falta dado, aparece a lacuna, com o motivo e a fonte que ainda falta — nunca um número provisório no lugar.",
+    body: "Onde falta dado, aparece a lacuna, com o motivo e a fonte que ainda falta — em vez de um número provisório no lugar.",
   },
 ];
 
@@ -269,9 +271,9 @@ function MetodoPage() {
               partido, a ordem dos mais votados define quem ocupa essas cadeiras.
             </p>
             <p className="mt-2">
-              Por isso uma candidata pode ter muitos votos e não ser eleita, e
-              outra com menos votos entrar: “mais votos” não é o mesmo que
-              “eleita”.
+              Por isso a ordem dos mais votados dentro do partido decide quem
+              ocupa cada cadeira: uma candidata com muitos votos pode ficar de
+              fora, e outra com menos votos, entrar.
             </p>
           </ContextBox>
         </div>
@@ -281,8 +283,8 @@ function MetodoPage() {
             <p>
               Nos indicadores eleitorais, “mulheres” corresponde às candidaturas
               registradas como FEMININO no campo DS_GENERO da base pública do
-              TSE. É a classificação do dataset — não uma definição sociológica
-              de identidade de gênero.
+              TSE. É a classificação do dataset, uma categoria administrativa —
+              distinta de uma definição sociológica de identidade de gênero.
             </p>
             <p className="mt-2">
               O mesmo vale para cor/raça: os grupos vêm da autodeclaração no
