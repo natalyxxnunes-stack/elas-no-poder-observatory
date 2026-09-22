@@ -124,9 +124,9 @@ function FunilPage() {
           }
           unknown={
             <>
-              Quem se elege em 2026: a eleição não ocorreu e não há resultado. E
-              a distribuição por cor/raça do total de candidaturas, que a
-              fotografia atual não grava.
+              Em aberto: quem se elege em 2026 — a eleição acontece em outubro e
+              o resultado entra depois — e a distribuição por cor/raça do total
+              de candidaturas, dimensão que a fotografia atual não grava.
             </>
           }
         />
@@ -166,27 +166,16 @@ function FunilPage() {
         <div className="grid gap-4 md:grid-cols-2">
           <ContextBox variant="significa" title="Na proporcional, o voto é do partido também">
             <p>
-              Uma candidata a deputada não corre sozinha por uma cadeira. Os
-              votos dela entram na soma do partido ou{" "}
-              <GlossaryTerm term="federacao">federação</GlossaryTerm>, e é essa
-              soma que define quantas cadeiras o grupo conquista, pelo{" "}
+              Uma candidata a deputada disputa junto com o partido ou{" "}
+              <GlossaryTerm term="federacao">federação</GlossaryTerm>: os votos
+              dela entram na soma do grupo, e é essa soma que define quantas
+              cadeiras o grupo conquista, pelo{" "}
               <GlossaryTerm term="quociente-eleitoral">
                 quociente eleitoral
               </GlossaryTerm>
               . Só depois, dentro do grupo, a ordem dos mais votados decide quem
-              ocupa essas cadeiras. Por isso ela pode ter muitos votos e não ser
-              eleita — e outra, com menos votos, entrar.
-            </p>
-          </ContextBox>
-          <ContextBox variant="importa" title="O funil é uma fotografia, etapa por etapa">
-            <p>
-              Cada etapa aqui é uma fotografia com o seu próprio conjunto de
-              registros: candidaturas proporcionais, candidaturas majoritárias,
-              resultado. A diferença entre degraus descreve o que a base mostra —
-              um retrato, não o rastro das mesmas pessoas de um degrau para o
-              outro, nem a chance de uma candidata específica se eleger. A unidade
-              contada é a candidatura registrada, deduplicada pelo identificador
-              oficial; vices e suplentes ficam fora da contagem.
+              ocupa essas cadeiras — por isso uma candidata com muitos votos pode
+              ficar de fora e outra, com menos votos, entrar.
             </p>
           </ContextBox>
         </div>
@@ -232,6 +221,17 @@ function FunilPage() {
         source="Fonte: TSE · Candidatos 2014, 2018, 2022 e 2026"
       >
         <div className="space-y-4">
+          <ContextBox variant="importa" title="O funil é uma fotografia, etapa por etapa">
+            <p>
+              Cada etapa aqui é uma fotografia com o seu próprio conjunto de
+              registros: candidaturas proporcionais, candidaturas majoritárias,
+              resultado. A diferença entre degraus descreve o que a base mostra —
+              um retrato de cada universo, e não o rastro das mesmas pessoas de
+              um degrau para o outro. A unidade contada é a candidatura
+              registrada, deduplicada pelo identificador oficial; vices e
+              suplentes ficam fora da contagem.
+            </p>
+          </ContextBox>
           <PastStrip series={feminineSeries} />
           <GapNote label="Transparência">
             2026 é fotografia em andamento: o registro de candidaturas ainda

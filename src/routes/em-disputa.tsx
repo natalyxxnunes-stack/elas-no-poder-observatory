@@ -7,7 +7,7 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
-import { DISPUTE_GAP, DISPUTE_ITEMS, DISPUTE_RULE } from "@/data/rules-in-dispute";
+import { DISPUTE_GAP, DISPUTE_ITEMS } from "@/data/rules-in-dispute";
 
 /** ROTA PUBLICADA — acompanhamento editorial das regras em disputa. */
 export const Route = createFileRoute("/em-disputa")({
@@ -58,14 +58,14 @@ function EmDisputaPage() {
           }
           matters={
             <>
-              Uma mudança de regra altera a leitura de qualquer série histórica: comparar ciclos sem
-              considerar a regra vigente produz conclusão falsa.
+              Uma mudança de regra altera a leitura de qualquer série histórica: cada ciclo precisa
+              ser lido com a regra que estava em vigor no período.
             </>
           }
           unknown={
             <>
-              O desfecho das proposições em tramitação e o efeito concreto das normas de 2026, que
-              só poderá ser avaliado com as prestações de contas e o resultado da eleição.
+              Em aberto: o desfecho das proposições em tramitação e o efeito concreto das normas de
+              2026, avaliável com as prestações de contas e o resultado da eleição.
             </>
           }
         />
@@ -137,13 +137,15 @@ function EmDisputaPage() {
 
         <div className="mt-6 space-y-3">
           <GapNote label="Lacuna declarada">{DISPUTE_GAP}</GapNote>
-          <GapNote label="Regra editorial">{DISPUTE_RULE}</GapNote>
+          <GapNote label="Regra editorial">
+            Nenhuma proposição é descrita aqui como se já produzisse efeitos.
+          </GapNote>
         </div>
       </SectionBlock>
 
       <SectionBlock
         kicker="Como ler uma regra em tramitação"
-        question="Três distinções que evitam erro"
+        question="Três distinções para ler uma proposição"
       >
         <div className="grid gap-4 md:grid-cols-3">
           <ContextBox variant="significa">

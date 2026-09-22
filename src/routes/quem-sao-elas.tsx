@@ -94,10 +94,9 @@ function QuemSaoElasPage() {
           }
           unknown={
             <>
-              Recursos, votos, eleitas e posições de poder por cor/raça: as bases
-              ainda não existem para 2026. A base também não capta de forma
-              confiável identidade trans ou travesti, nem deficiência de modo
-              comparável.
+              Em aberto para 2026: recursos, votos, eleitas e posições de poder
+              por cor/raça. Identidade trans ou travesti e deficiência ficam
+              fora da leitura, porque a base não as registra de modo comparável.
             </>
           }
         />
@@ -196,29 +195,6 @@ function QuemSaoElasPage() {
 
 
       <SectionBlock
-        kicker="Limites da fonte"
-        question="O que a base registra — e o que ela não registra"
-      >
-
-        <div className="grid gap-4 md:grid-cols-2">
-          <ContextBox variant="significa">
-            <p>
-              Cor/raça no registro é autodeclaração. Ela não identifica
-              pertencimento étnico nem vínculo com povo ou território indígena:
-              são coisas distintas e não devem ser tratadas como equivalentes.
-            </p>
-          </ContextBox>
-          <ContextBox variant="importa">
-            <p>
-              Publicar um cruzamento que a fonte não sustenta produziria número
-              com aparência de precisão e sem base. Preferimos declarar a lacuna.
-            </p>
-          </ContextBox>
-        </div>
-
-      </SectionBlock>
-
-      <SectionBlock
         kicker="Partidos"
         question="Quem lança mulheres?"
         align="wide"
@@ -251,6 +227,29 @@ function QuemSaoElasPage() {
             à campanha.
           </p>
         </ContextBox>
+
+      </SectionBlock>
+
+      <SectionBlock
+        kicker="Limites da fonte"
+        question="O que a base registra — e o que ela não registra"
+      >
+
+        <div className="grid gap-4 md:grid-cols-2">
+          <ContextBox variant="significa">
+            <p>
+              Cor/raça no registro é autodeclaração. Ela não identifica
+              pertencimento étnico nem vínculo com povo ou território indígena:
+              são coisas distintas e não devem ser tratadas como equivalentes.
+            </p>
+          </ContextBox>
+          <ContextBox variant="importa">
+            <p>
+              Publicar um cruzamento que a fonte não sustenta produziria número
+              com aparência de precisão e sem base. Preferimos declarar a lacuna.
+            </p>
+          </ContextBox>
+        </div>
 
       </SectionBlock>
 
