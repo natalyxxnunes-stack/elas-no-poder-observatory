@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -91,7 +91,8 @@ function QuemChegaPage() {
   const a = axis("quem-chega");
   return (
     <PageShell>
-      <PageHero
+      <EditorialOpening
+        variant="representation"
         kicker="Quem chega?"
         question={a.question}
         lead={
@@ -100,7 +101,8 @@ function QuemChegaPage() {
             eixo separa resultado eleitoral de controle sobre decisões.
           </p>
         }
-        image={spotStrength}
+        labels={["Mulheres", "Homens"]}
+        gap="Depende da apuração da eleição de 2026."
       />
 
       <div className="pb-4">

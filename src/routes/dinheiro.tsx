@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -86,11 +86,13 @@ function DinheiroPage() {
   const a = axis("dinheiro");
   return (
     <PageShell>
-      <PageHero
+      <EditorialOpening
+        variant="financial"
         kicker="Dinheiro"
         question="O dinheiro chega às mesmas mulheres que aparecem nas candidaturas?"
         lead={<p>{a.summary}</p>}
-        image={spotQuota}
+        layers={MONEY_LAYERS.map((layer) => layer.label)}
+        gap={a.unpublishedReason}
       />
 
       <div className="pb-4">

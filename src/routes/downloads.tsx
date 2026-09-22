@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -110,7 +110,8 @@ const MATERIALS: readonly Material[] = [
 function DownloadsPage() {
   return (
     <PageShell>
-      <PageHero
+      <EditorialOpening
+        variant="downloads"
         kicker="Downloads"
         question="O que posso levar daqui?"
         lead={
@@ -120,8 +121,11 @@ function DownloadsPage() {
             peça.
           </p>
         }
-        image={timelineImage}
-        imageAlt=""
+        documents={MATERIALS.map((material) => ({
+          format: material.format.split(/[ ,]/)[0],
+          label: material.kind,
+          available: material.file !== null,
+        }))}
       />
 
       <SectionBlock

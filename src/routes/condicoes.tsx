@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { UnpublishedAxis } from "@/components/editorial/UnpublishedAxis";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -91,7 +91,8 @@ function CondicoesPage() {
   const a = axis("condicoes");
   return (
     <PageShell>
-      <PageHero
+      <EditorialOpening
+        variant="process"
         kicker="Condições"
         question={a.question}
         lead={
@@ -101,7 +102,7 @@ function CondicoesPage() {
             tem base de dados própria.
           </p>
         }
-        image={spotStrength}
+        steps={CONDITIONS.slice(0, 5).map((condition) => condition.title)}
       />
 
       <div className="pb-4">

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -82,7 +82,8 @@ function QuemControlaPage() {
   const a = axis("quem-controla");
   return (
     <PageShell>
-      <PageHero
+      <EditorialOpening
+        variant="power-flow"
         kicker="Quem controla?"
         question={a.question}
         lead={
@@ -92,7 +93,7 @@ function QuemControlaPage() {
             candidatura entra na disputa.
           </p>
         }
-        image={spotQuota}
+        levers={CONTROL_LEVERS.map(({ lever, ready }) => ({ label: lever, ready }))}
       />
 
       <div className="pb-4">
