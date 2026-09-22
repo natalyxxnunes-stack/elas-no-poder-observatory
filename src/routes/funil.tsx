@@ -178,17 +178,6 @@ function FunilPage() {
               ficar de fora e outra, com menos votos, entrar.
             </p>
           </ContextBox>
-          <ContextBox variant="importa" title="O funil é uma fotografia, etapa por etapa">
-            <p>
-              Cada etapa aqui é uma fotografia com o seu próprio conjunto de
-              registros: candidaturas proporcionais, candidaturas majoritárias,
-              resultado. A diferença entre degraus descreve o que a base mostra —
-              um retrato de cada universo, e não o rastro das mesmas pessoas de
-              um degrau para o outro. A unidade contada é a candidatura
-              registrada, deduplicada pelo identificador oficial; vices e
-              suplentes ficam fora da contagem.
-            </p>
-          </ContextBox>
         </div>
       </SectionBlock>
 
@@ -232,6 +221,17 @@ function FunilPage() {
         source="Fonte: TSE · Candidatos 2014, 2018, 2022 e 2026"
       >
         <div className="space-y-4">
+          <ContextBox variant="importa" title="O funil é uma fotografia, etapa por etapa">
+            <p>
+              Cada etapa aqui é uma fotografia com o seu próprio conjunto de
+              registros: candidaturas proporcionais, candidaturas majoritárias,
+              resultado. A diferença entre degraus descreve o que a base mostra —
+              um retrato de cada universo, e não o rastro das mesmas pessoas de
+              um degrau para o outro. A unidade contada é a candidatura
+              registrada, deduplicada pelo identificador oficial; vices e
+              suplentes ficam fora da contagem.
+            </p>
+          </ContextBox>
           <PastStrip series={feminineSeries} />
           <GapNote label="Transparência">
             2026 é fotografia em andamento: o registro de candidaturas ainda
