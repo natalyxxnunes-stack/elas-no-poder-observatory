@@ -51,6 +51,12 @@ const CONTROL_LEVERS = [
     ready: true,
   },
   {
+    lever: "Onde a candidatura é lançada",
+    what: "A escolha do território altera a competição: uma mesma candidatura enfrenta concorrências muito diferentes conforme a UF e o município.",
+    needs: "UF e município do registro, cruzados com gênero e cor/raça",
+    ready: true,
+  },
+  {
     lever: "Quem recebe recursos",
     what: "A distribuição dos recursos públicos de campanha é feita pelo partido entre suas candidaturas, observando as regras de destinação mínima.",
     needs: "Prestação de contas de campanha de 2026",
@@ -68,12 +74,6 @@ const CONTROL_LEVERS = [
     needs:
       "Campos de posição/titularidade do registro e definição declarada de posição estratégica",
     ready: false,
-  },
-  {
-    lever: "Onde a candidatura é lançada",
-    what: "A escolha do território altera a competição: uma mesma candidatura enfrenta concorrências muito diferentes conforme a UF e o município.",
-    needs: "UF e município do registro, cruzados com gênero e cor/raça",
-    ready: true,
   },
 ] as const;
 
