@@ -8,7 +8,7 @@
 - [x] Histórico: séries antes da comparabilidade entre bases
 - [x] Método: blocos agrupados em Como ler, Fontes, Contas e Limites
 - [ ] Frases-achado: propostas separadas para revisão, sem publicação
-- [ ] Verificação final: typecheck e rotas 200
+- [x] Verificação final: typecheck e rotas 200
 
 ## Fechamento em três camadas no funil — aprovado (22/09)
 - [x] FunnelStages2026: bloco Fato / Interpretação editorial / Hipótese em investigação após a lista de etapas, sem mexer nas barras
