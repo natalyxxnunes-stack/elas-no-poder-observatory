@@ -2,8 +2,9 @@
 
 ## Fotografia TSE de 22/09/2026 — em atualização
 - [x] Substituir hash, datas, totais, gênero, cor/raça e recortes por UF no snapshot fixo
-- [ ] Atualizar textos editoriais que repetem valores da fotografia anterior
-- [ ] Verificar o site e documentar o resultado da tentativa de arquivar o arquivo oficial
+- [x] Atualizar textos editoriais que repetem valores da fotografia anterior
+- [ ] Verificar o site
+- [x] Arquivo oficial: download bloqueado pelo TSE com HTTP 403; arquivamento externo necessário
 
 ## Estrutura jornalística por página — aprovado (22/09)
 - [x] Direitos: evidência presente antes dos limites
