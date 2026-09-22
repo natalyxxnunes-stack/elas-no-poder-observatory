@@ -60,9 +60,9 @@ function DireitosPage() {
         question="Cada direito político das mulheres tem uma data e uma disputa por trás."
         lead={
           <p>
-            A presença de mulheres nas eleições brasileiras não é espontânea: é
-            resultado de normas conquistadas em momentos distintos, cada uma com
-            alcance limitado e disputa própria.
+            A presença de mulheres nas eleições brasileiras é resultado de
+            normas conquistadas em momentos distintos — cada uma com alcance
+            próprio e uma disputa para sair do papel.
           </p>
         }
         milestones={RIGHTS_TIMELINE.slice(0, 6).map(({ year, title }) => ({ year, title }))}
@@ -72,22 +72,22 @@ function DireitosPage() {
         <InBrief
           found={
             <>
-              Onze marcos entre 1932 e 2026. Nenhum deles produziu igualdade
-              imediata: cada um criou uma regra nova e, com ela, uma nova disputa
-              sobre implementação.
+              Onze marcos entre 1932 e 2026. Cada um criou uma regra nova e, com
+              ela, uma nova disputa sobre implementação.
             </>
           }
           matters={
             <>
-              Saber o que cada regra alcança evita atribuir a ela efeitos que não
-              estão no seu escopo — como esperar que uma regra sobre registro de
-              candidaturas resolva a distribuição de dinheiro.
+              Cada regra alcança uma parte do caminho: a de registro de
+              candidaturas, por exemplo, é uma coisa; a distribuição de dinheiro
+              de campanha, outra. Ler cada marco no seu escopo mostra onde a
+              disputa acontece hoje.
             </>
           }
           unknown={
             <>
-              O efeito isolado de cada norma sobre a presença de mulheres. Medir
-              isso exigiria desenho metodológico próprio, que este eixo não faz.
+              Em aberto: o efeito isolado de cada norma sobre a presença de
+              mulheres, que só um desenho metodológico próprio permitiria medir.
             </>
           }
         />
