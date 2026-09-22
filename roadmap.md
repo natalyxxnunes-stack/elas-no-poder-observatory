@@ -1,5 +1,15 @@
 # Roadmap
 
+## Estrutura jornalística por página — aprovado (22/09)
+- [x] Direitos: evidência presente antes dos limites
+- [x] Funil: evidências antes dos blocos de contexto
+- [x] Quem controla: alavancas investigáveis antes das pendentes
+- [x] Quem são elas: tabelas antes das explorações; limites depois
+- [x] Histórico: séries antes da comparabilidade entre bases
+- [x] Método: blocos agrupados em Como ler, Fontes, Contas e Limites
+- [ ] Frases-achado: propostas separadas para revisão, sem publicação
+- [ ] Verificação final: typecheck e rotas 200
+
 ## Fechamento em três camadas no funil — aprovado (22/09)
 - [x] FunnelStages2026: bloco Fato / Interpretação editorial / Hipótese em investigação após a lista de etapas, sem mexer nas barras
 - [x] Verificação: typecheck limpo + /funil 200
