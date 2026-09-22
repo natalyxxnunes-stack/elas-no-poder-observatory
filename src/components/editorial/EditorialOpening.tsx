@@ -26,15 +26,16 @@ type EditorialOpeningProps = OpeningBase &
   );
 
 const baseTitle = "font-display text-[clamp(2.7rem,5.2vw,5.5rem)] font-semibold leading-[0.91]";
+const compactTitle = "font-display text-[clamp(2.2rem,4vw,3.75rem)] font-semibold leading-[0.95]";
 
-function OpeningText({ kicker, question, lead, inverse = false }: OpeningBase & { inverse?: boolean }) {
+function OpeningText({ kicker, question, lead, inverse = false, compact = false }: OpeningBase & { inverse?: boolean; compact?: boolean }) {
   return (
     <div className="min-w-0">
       <p className={`flex items-center gap-3 font-mono text-[10px] font-medium uppercase tracking-[0.16em] ${inverse ? "text-cream/75" : "text-ink/70"}`}>
         <span className={`h-px w-12 ${inverse ? "bg-cream/55" : "bg-ink/45"}`} aria-hidden="true" />
         {kicker}
       </p>
-      <h1 className={`mt-5 max-w-3xl ${baseTitle} ${inverse ? "text-cream" : "text-ink"}`}>{question}</h1>
+      <h1 className={`mt-5 max-w-3xl ${compact ? compactTitle : baseTitle} ${inverse ? "text-cream" : "text-ink"}`}>{question}</h1>
       <div className={`mt-5 max-w-xl text-sm leading-relaxed md:text-base ${inverse ? "text-cream/80" : "text-ink/75"}`}>{lead}</div>
     </div>
   );
