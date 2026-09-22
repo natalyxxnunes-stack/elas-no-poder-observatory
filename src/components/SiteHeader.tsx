@@ -46,9 +46,10 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
               </Button>
               {dataOpen && (
                 <div id="submenu-dados" className="absolute left-0 top-full z-50 w-52 border border-rule bg-paper p-2 shadow-lg">
-                  {DATA_2026_NAV_ITEMS.map((subitem) => (
-                    <Link key={subitem.label} to={subitem.to} hash={subitem.hash} onClick={() => setDataOpen(false)} className="block px-3 py-2 text-xs text-ink hover:bg-solar/40 hover:text-plum">{subitem.label}</Link>
-                  ))}
+                  {DATA_2026_NAV_ITEMS.map((subitem) => {
+                    const hashProps = subitem.hash ? { hash: subitem.hash } : {};
+                    return <Link key={subitem.label} to={subitem.to} {...hashProps} onClick={() => setDataOpen(false)} className="block px-3 py-2 text-xs text-ink hover:bg-solar/40 hover:text-plum">{subitem.label}</Link>;
+                  })}
                 </div>
               )}
             </div>
@@ -113,9 +114,10 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
           <div className="border-b border-rule py-3">
             <p className="font-display text-base text-ink">Dados 2026</p>
             <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-2 pl-3">
-              {DATA_2026_NAV_ITEMS.map((item) => (
-                <Link key={item.label} to={item.to} hash={item.hash} onClick={close} className="text-sm text-muted-foreground hover:text-plum">{item.label}</Link>
-              ))}
+              {DATA_2026_NAV_ITEMS.map((item) => {
+                const hashProps = item.hash ? { hash: item.hash } : {};
+                return <Link key={item.label} to={item.to} {...hashProps} onClick={close} className="text-sm text-muted-foreground hover:text-plum">{item.label}</Link>;
+              })}
             </div>
           </div>
           {NAV_ITEMS.filter((item) => item.to !== "/").map((item) => (
