@@ -1,8 +1,8 @@
 # Roadmap
 
 ## Fechamento em três camadas no funil — aprovado (22/09)
-- [ ] FunnelStages2026: bloco Fato / Interpretação editorial / Hipótese em investigação após a lista de etapas, sem mexer nas barras
-- [ ] Verificação: typecheck limpo + /funil 200
+- [x] FunnelStages2026: bloco Fato / Interpretação editorial / Hipótese em investigação após a lista de etapas, sem mexer nas barras
+- [x] Verificação: typecheck limpo + /funil 200
 
 ## Decidido nesta rodada — respeitado
 - Candidato 1 (CurrentSnapshot/home): NÃO implementar agora — home é zona protegida, aguarda confirmação com a Naty
