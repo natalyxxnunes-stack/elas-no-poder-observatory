@@ -7,7 +7,7 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
-import { DISPUTE_GAP, DISPUTE_ITEMS, DISPUTE_RULE } from "@/data/rules-in-dispute";
+import { DISPUTE_GAP, DISPUTE_ITEMS } from "@/data/rules-in-dispute";
 
 /** ROTA PUBLICADA — acompanhamento editorial das regras em disputa. */
 export const Route = createFileRoute("/em-disputa")({
