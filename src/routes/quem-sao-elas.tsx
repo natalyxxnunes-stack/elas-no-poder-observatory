@@ -5,6 +5,7 @@ import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
+import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
 import { RaceExplorer } from "@/components/editorial/RaceExplorer";
 import { RaceByStateTable } from "@/components/editorial/RaceByStateTable";
 import { PartyGenderTable } from "@/components/editorial/PartyGenderTable";
@@ -99,6 +100,23 @@ function QuemSaoElasPage() {
           }
         />
       </div>
+
+      <SectionBlock
+        kicker="Censo 2022 × candidaturas 2026"
+        question="Pardas e brancas são quase do mesmo tamanho no país. Nas candidaturas, não são."
+        align="wide"
+        source={
+          <>
+            Fontes: IBGE · Censo 2022; TSE · Candidaturas 2026
+            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
+            <Link to="/metodo" className="text-plum underline underline-offset-4">
+              ver o método
+            </Link>
+          </>
+        }
+      >
+        <RaceFinding2026 snapshot={snapshot} />
+      </SectionBlock>
 
       <SectionBlock
         kicker="Categorias originais"

@@ -1,0 +1,7 @@
+- [x] Corrigir datas eleitorais de 2026 mencionadas na home e no funil histórico.
+- [x] Reduzir a altura do hero da home sem alterar identidade visual ou dados.
+- [x] Impedir vazamento de texto nas barras de cor/raça do funil histórico.
+- [x] Quebrar os textos densos dos cartões de RaceFinding2026 sem alterar conteúdo.
+- [x] Enxugar a home e mover RaceFinding2026 para /quem-sao-elas.
+- [x] Trocar a citação duplicada da grade de investigações por placeholder.
+- [x] Validar typecheck e resposta 200 da home.
