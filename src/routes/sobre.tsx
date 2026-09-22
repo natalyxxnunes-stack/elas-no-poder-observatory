@@ -240,14 +240,12 @@ function SobrePage() {
 
       <SectionBlock
         kicker="Transparência"
-        question="Nada aqui é definitivo demais para ser corrigido"
+        question="Este projeto mostra como chegou a cada número."
         lead={
           <p>
-            Não existe pesquisa perfeita, banco de dados perfeito ou análise que
-            não possa ser melhorada. Por isso, as fontes, os critérios e a
-            metodologia estão disponíveis. Quando uma escolha precisar ser
-            explicada, ela será explicada. Quando um dado precisar ser corrigido,
-            será corrigido.
+            As fontes, os critérios e a metodologia estão abertos. Quando uma
+            escolha precisar ser explicada, ela será explicada. Quando um dado
+            precisar ser corrigido, será corrigido, com data e registro público.
           </p>
         }
       >
