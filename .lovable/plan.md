@@ -1,36 +1,44 @@
-# Direção visual "Dossiê" v2 — base escolhida, ajustes pendentes de mockup
+# Redesign editorial da página inicial
 
-Discussão/mockup apenas. Nada implementado. A paleta atual (plum, cream, coral, solar, ink — tokens de `src/styles.css`) é mantida. A dona do projeto escolheu a Direção B ("Dossiê") como base e pediu estes apertos antes da implementação:
+## Objetivo
 
-## Regras v2 da direção Dossiê
+Reconstruir exclusivamente a página inicial como uma reprodução fiel da composição da referência anexada: veículo profissional de jornalismo de dados, com contraste alto, grandes campos de cor, tipografia editorial e o dado funcionando como imagem. Preservar integralmente textos factuais, números, fontes, cálculos, consultas, links, rotas e páginas internas.
 
-1. **Rigor visível:** todo número-manchete carrega legenda de fonte/data em mono pequeno, colada e sempre visível (nunca tooltip).
-2. **Hierarquia de números:** 1–3 números monumentais por página (o achado central); todo o resto em escala menor, claramente "de apoio".
-3. **Abertura sem ilustração:** a ilustração figurativa foi rejeitada pela dona (geometria abstrata "feia"; foto gerada por IA nunca convincente). O elemento gráfico principal da abertura passa a ser o próprio dado, em duas variantes a decidir: (a) **v3-semilustração** — o gráfico do dado ampliado (funil, proporcional × majoritário) ocupando o espaço da ilustração dentro do painel ink, sem desenho decorativo; (b) **v3-texturadedado** — textura de fundo do painel ink gerada a partir do dado real (trama fina de pontos/barrinhas cuja densidade sugere candidaturas individuais), abstrato mas não decorativo.
-4. **Sombra offset dosada:** efeito de recorte colado só no número-manchete e no card do achado principal; barras e tabelas de apoio ficam discretas (borda fina, sem sombra).
-5. **Cor com regra semântica fixa:** coral só para lacuna/alerta declarada; solar só como marca-texto da frase-chave do achado; plum é a cor neutra de dado. Nada de cor decorativa fora disso.
-6. **Duas velocidades:** tratamento monumental (painel ink full-bleed, tipografia gigante) só na abertura de cada eixo/página (capa de capítulo); o corpo de dado (tabelas por estado/partido etc.) rola em modo consulta sóbrio, mantendo a identidade.
-7. **Cada eixo como capítulo:** rotas despublicadas (barreiras, dinheiro etc.) ganham a mesma capa de dossiê, com a lacuna já declarada como manchete de capítulo ("aguardando fonte oficial") no painel ink — estilização da mensagem existente, sem inventar dado.
-8. **Acessibilidade:** contraste WCAG AA mínimo em painel ink + creme + marca-texto solar; escala tipográfica responsiva real no mobile (não só redução proporcional).
-9. **Transição sutil entre painéis (opcional):** movimento discreto de "virada de capítulo" ao rolar, sempre respeitando `prefers-reduced-motion`.
+## Estrutura visual
 
-## Histórico de decisão
+1. **Cabeçalho compacto:** manter a marca original; navegação horizontal discreta; busca por ícone; apoio ao projeto como ação compacta. No celular, manter o menu existente e a hierarquia editorial.
+2. **Abertura em duas áreas:** campo plum profundo à esquerda (cerca de 54%) e painel paper à direita. A headline terá quatro linhas, com “onde elas desaparecem?” em coral e itálico. CTAs baixos, sem sombra e sem aparência de aplicativo.
+3. **Corte arquitetônico sem imagem:** criar entre as duas áreas uma composição geométrica própria em CSS, sem pessoas, fotografia falsa ou geração por IA. Sua função será apenas marcar a divisão vertical, como na referência.
+4. **Dado principal e mapa:** usar o percentual proporcional, numerador, denominador, data e amplitude por UF já derivados do snapshot vigente. A visualização territorial será uma silhueta vetorial limpa do Brasil, colorida por intensidade a partir dos 27 valores reais, sem moldura de card.
+5. **Índice do funil:** faixa contínua de cinco etapas, separadas por fios finos, com número, título, pergunta existente e link para o eixo correspondente.
+6. **Destaque do funil:** composição única em três colunas — explicação, funil gráfico e texto editorial — sem cards. O visual deixa explícito que as etapas têm universos próprios e não representa uma falsa conversão numérica.
+7. **Investigações:** três colunas editoriais para Histórico, Direitos e Dinheiro, usando somente títulos e descrições já existentes. Dinheiro mantém sua lacuna declarada. Um bloco solar contém uma frase factual já publicada no projeto.
+8. **Faixa sobre o projeto:** banda full-bleed em ink/plum, com texto existente e links reais para Método, base vigente, glossário e downloads.
+9. **Rodapé:** preservar o rodapé funcional, ajustando apenas sua relação visual com a nova faixa final quando necessário.
 
-- Direção B ("Dossiê") escolhida como base; ajustes v2 combinados (itens 1–9).
-- v2: variantes de ilustração (foto documental duotone × formas geométricas) rejeitadas pela dona.
-- v3: dado como protagonista (semilustração) × dado como textura de fundo — ainda sem veredito explícito.
-- v4 (referência nova descrita pela dona): ela curtiu o estilo geral de duas colunas de referência — tipografia gráfica/pôster em blocos ("MESMAS PERGUNTAS. / NOVAS RESPOSTAS."), estatísticas grandes em fileira, painel de cor cheia "ONDE ELAS DESAPARECEM?" com etapas + mapa do Brasil, grade "Temas em destaque" com ícones simples de linha (gostou deles: plantinha, muro, megafone, pizza), faixa final de CTA com textura de papel rasgado. Rejeitou toda foto/colagem com figura humana (pessoa, rosto, corpo). A mistura das duas colunas é o layout base dos mockups v4; paleta do site (plum, cream, coral, solar, ink) substitui as cores da referência.
+## Conteúdo atual preservado
 
-## Variantes v4 em decisão (diferem só no topo, onde a referência tinha foto)
+- Os blocos detalhados de dados, histórico, raça, regra 30%–70%, método e continuidade permanecem na página após a abertura editorial redesenhada.
+- O “Diário da entrada” não será removido; seus dados continuam visíveis, porém integrados ao ritmo editorial sem card flutuante.
+- Nenhum dado será criado para reproduzir elementos da referência. Onde a eleição de 2026 ainda não produziu resultado, a lacuna continuará explícita.
 
-1. **v4-icone:** pictograma simples de linha, grande (balança, prédio legislativo, urna), no mesmo estilo dos ícones de "Temas em destaque".
-2. **v4-grafico:** o próprio gráfico de dado ampliado (funil, proporcional × majoritário) como protagonista do topo.
-3. **v4-textura:** bloco de cor sólida com textura de papel rasgado/colagem, sem foto nem figura dentro — só cor e textura.
+## Direção de arte
 
-## Próximo passo
+- Usar apenas os tokens atuais: plum, plum-soft, coral, solar, paper/cream, ink e forest quando já codifica dado.
+- Grandes áreas estruturais em plum/ink; paper como respiro, não como cor dominante.
+- Fraunces nas manchetes; Work Sans no corpo; IBM Plex Mono nos metadados; Archivo nos números quando já fizer sentido.
+- Sem gradientes, imagens de IA, sombras deslocadas, excesso de arredondamento ou coleção de cards.
+- Espaçamento editorial amplo e grid consistente de 12 colunas no desktop.
 
-- v4: **header do v4-grafico confirmado pela dona** (gráfico de dado ampliado no topo).
-- Correção pedida e entregue (v4-grafico-v2, `mockups/direcao-b-v4-grafico-v2.png`): a fileira de estatísticas agora são **3 blocos de cor sólida contíguos** (plum → coral → solar, encostados, sem fundo neutro entre eles); no bloco solar, o link "VER TODOS OS DADOS →" em ink dentro do próprio bloco. O bloco solar é exceção deliberada à regra semântica da cor (funciona como estrutura/estado), a regra original segue valendo em título, marca-texto e alerta de lacuna.
-- Aguardando aprovação do v4-grafico-v2. Depois: plano de implementação detalhado (tokens, utilitários, componentes, capas para eixos despublicados), sem tocar em dados nem na fotografia TSE, e sem publicar. Mockups em Files em `mockups/` (v2 rejeitados mantidos como registro; v3 e v4 em decisão).
+## Implementação técnica
 
-Mockups são ilustrativos: textos e números neles não são dados do projeto.
+- Extrair os novos blocos visuais da home em componentes locais focados, sem duplicar componentes de dados nem alterar suas regras.
+- Reaproveitar o snapshot e os cálculos atuais; o mapa e o dado principal recebem valores por propriedades.
+- Adicionar somente utilitários de apresentação necessários aos tokens globais, mantendo Tailwind v4 e acessibilidade AA.
+- Preservar a ordem móvel: headline, dado principal, mapa, funil e investigações.
+
+## Validação
+
+- Comparar lado a lado a captura final em desktop com a referência anexada, verificando proporções, hierarquia, distribuição de cor e ritmo vertical.
+- Conferir também tablet e celular para evitar sobreposição, corte de texto ou sequência de cards.
+- Rodar o typecheck e validar resposta 200 da home, links principais, console e ausência de regressões nas páginas internas.
