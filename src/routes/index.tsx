@@ -5,6 +5,7 @@ import {
   HomeFunnelFeature,
   HomeHeroEditorial,
   HomeInvestigationGrid,
+  HomeMapSection,
   HomeStages,
 } from "@/components/home/HomeEditorial";
 import { formatPercent } from "@/data/election-2026";
@@ -125,6 +126,7 @@ function DadosPage() {
   return (
     <PageShell home>
       <HomeHeroEditorial snapshot={snapshot} baseDate={baseDate} />
+      <HomeMapSection snapshot={snapshot} />
       <HomeStages />
       <HomeFunnelFeature />
       <HomeInvestigationGrid />
