@@ -1,0 +1,270 @@
+import { Link } from "@tanstack/react-router";
+import brazil from "@svg-maps/brazil";
+import { ArrowRight } from "lucide-react";
+import { AXES, CENTRAL_THESIS } from "@/data/architecture";
+import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
+import { formatInt, formatPct } from "@/lib/format-br";
+
+const UF_ORDER = [
+  "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA",
+  "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO",
+] as const;
+
+const STATE_CODES: Record<string, string> = {
+  ac: "AC", al: "AL", ap: "AP", am: "AM", ba: "BA", ce: "CE", df: "DF", es: "ES", go: "GO",
+  ma: "MA", mt: "MT", ms: "MS", mg: "MG", pa: "PA", pb: "PB", pr: "PR", pe: "PE", pi: "PI",
+  rj: "RJ", rn: "RN", rs: "RS", ro: "RO", rr: "RR", sc: "SC", sp: "SP", se: "SE", to: "TO",
+};
+
+const MAP_TONES = ["fill-plum/25", "fill-plum/40", "fill-plum/55", "fill-plum/70", "fill-plum/85", "fill-plum"];
+
+type UfDatum = { uf: string; feminine: number; total: number; share: number };
+
+function getUfData(snapshot: PublicSnapshot | null): UfDatum[] {
+  const dimensions = snapshot?.universes.proporcional.dimensions;
+  return UF_ORDER.flatMap((uf) => {
+    const feminine = dimensions?.feminineByUf?.[uf];
+    const total = dimensions?.totalByUf?.[uf];
+    if (feminine === undefined || total === undefined || total <= 0) return [];
+    return [{ uf, feminine, total, share: (feminine / total) * 100 }];
+  });
+}
+
+function EditorialBrazilMap({ snapshot }: { snapshot: PublicSnapshot | null }) {
+  const data = getUfData(snapshot);
+  const byUf = new Map(data.map((item) => [item.uf, item]));
+  const shares = data.map((item) => item.share);
+  const min = shares.length ? Math.min(...shares) : 0;
+  const max = shares.length ? Math.max(...shares) : 0;
+  const span = max - min;
+
+  return (
+    <figure className="mt-5 grid grid-cols-[minmax(0,1fr)_4rem] items-end gap-4" aria-labelledby="home-map-caption">
+      <svg
+        viewBox={brazil.viewBox}
+        role="img"
+        aria-label={
+          data.length
+            ? `Mapa do Brasil: participação feminina nas candidaturas proporcionais por estado, entre ${formatPct(min)} e ${formatPct(max)}`
+            : "Mapa do Brasil; dados estaduais em atualização"
+        }
+        className="mx-auto block h-auto w-full max-w-[19rem]"
+      >
+        {brazil.locations.map((location) => {
+          const uf = STATE_CODES[location.id];
+          const datum = uf ? byUf.get(uf) : undefined;
+          const toneIndex = datum && span > 0
+            ? Math.min(MAP_TONES.length - 1, Math.floor(((datum.share - min) / span) * MAP_TONES.length))
+            : 0;
+          return (
+            <path
+              key={location.id}
+              d={location.path}
+              className={`${MAP_TONES[toneIndex]} stroke-paper stroke-[1.5] transition-opacity hover:opacity-75`}
+            >
+              <title>
+                {datum
+                  ? `${location.name}: ${formatPct(datum.share)} — ${formatInt(datum.feminine)} de ${formatInt(datum.total)} candidaturas`
+                  : `${location.name}: em atualização`}
+              </title>
+            </path>
+          );
+        })}
+      </svg>
+      <figcaption id="home-map-caption" className="pb-3 font-mono text-[10px] leading-relaxed text-muted-foreground">
+        <span className="block border-l-4 border-plum pl-2">Mais mulheres<br />{data.length ? formatPct(max) : "—"}</span>
+        <span className="mt-14 block border-l-4 border-plum/25 pl-2">Menos mulheres<br />{data.length ? formatPct(min) : "—"}</span>
+      </figcaption>
+    </figure>
+  );
+}
+
+function ArchitecturalCut() {
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-[54%] z-10 hidden w-40 -translate-x-1/2 overflow-hidden lg:block">
+      <div className="absolute inset-y-0 left-8 w-24 bg-cream" />
+      <div className="absolute left-0 top-24 size-40 rounded-full bg-coral" />
+      <div className="absolute bottom-0 left-4 h-[58%] w-16 border-x border-cream/25 bg-ink [clip-path:polygon(12%_8%,100%_0,100%_100%,0_100%,0_12%)]" />
+      <div className="absolute bottom-0 left-20 h-[68%] w-20 border-x border-ink/20 bg-paper [clip-path:polygon(0_10%,72%_0,100%_100%,0_100%)]" />
+      <div className="absolute bottom-0 left-7 h-[55%] w-px bg-cream/45" />
+      <div className="absolute bottom-0 left-12 h-[58%] w-px bg-cream/25" />
+      <div className="absolute bottom-0 left-24 h-[65%] w-px bg-ink/20" />
+    </div>
+  );
+}
+
+export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnapshot | null; baseDate: string | null }) {
+  const proportional = snapshot?.universes.proporcional ?? null;
+  const share = proportional && proportional.total > 0 ? (proportional.feminine / proportional.total) * 100 : null;
+
+  return (
+    <section className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden border-b border-rule bg-paper">
+      <div className="grid min-h-[42rem] lg:grid-cols-[54%_46%]">
+        <div className="relative bg-plum px-5 py-12 text-cream md:px-10 md:py-16 lg:pl-[max(2.5rem,calc((100vw-72rem)/2+2rem))] lg:pr-28">
+          <p className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-cream/80">
+            <span className="h-1 w-8 bg-coral" aria-hidden="true" /> Eleições 2026 · Brasil
+          </p>
+          <h1 className="mt-7 max-w-3xl font-display text-[clamp(3.25rem,6vw,5.8rem)] leading-[0.93] text-cream">
+            Entre se<br />candidatar e<br />chegar ao poder,<br />
+            <em className="text-coral">onde elas<br className="sm:hidden" /> desaparecem?</em>
+          </h1>
+          <p className="mt-8 max-w-xl border-t border-cream/40 pt-5 font-display text-lg leading-snug text-cream/85 md:text-xl">
+            {CENTRAL_THESIS}
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-7">
+            <Link to="/funil" className="inline-flex min-h-11 items-center gap-3 bg-coral px-5 py-3 text-xs font-semibold uppercase text-ink transition-colors hover:bg-solar">
+              Explorar o funil <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+            <Link to="/metodo" className="inline-flex items-center gap-2 border-b border-cream/70 pb-1 text-xs font-semibold uppercase text-cream hover:border-solar hover:text-solar">
+              Ver os dados <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+
+        <div className="relative px-5 py-10 md:px-10 lg:pl-20 lg:pr-[max(2.5rem,calc((100vw-72rem)/2+2rem))]">
+          <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+            Dados parciais do TSE<br />Base de {baseDate ?? "data em atualização"}
+          </p>
+          <div className="absolute right-4 top-7 rotate-[-5deg] font-mono text-[10px] uppercase leading-tight text-ink md:right-8">
+            Mesmos<br />dados.<br />Mais<br />mulheres<br />no poder.
+          </div>
+          <div className="mt-2 border-b border-ink pb-5 pr-20">
+            <p className="font-display text-[clamp(4.5rem,9vw,7.5rem)] font-semibold leading-none text-plum">
+              {share !== null ? formatPct(share) : "—"}
+            </p>
+            <h2 className="max-w-sm font-display text-xl font-semibold leading-[1.05] text-ink md:text-2xl">
+              das candidaturas proporcionais são de mulheres
+            </h2>
+            <p className="mt-3 text-sm text-ink">
+              {proportional ? `${formatInt(proportional.feminine)} de ${formatInt(proportional.total)} candidaturas` : "Dados em atualização"}
+            </p>
+            <p className="mt-1 font-mono text-[10px] uppercase text-muted-foreground">TSE · {baseDate ?? "base em atualização"}</p>
+          </div>
+          <p className="mt-4 font-mono text-[11px] font-semibold uppercase leading-tight text-ink">A entrada não é igual<br />em todo o país</p>
+          <p className="mt-2 max-w-xs text-xs leading-relaxed text-muted-foreground">Proporção de mulheres nas candidaturas proporcionais por estado</p>
+          <EditorialBrazilMap snapshot={snapshot} />
+          <Link to="/quem-sao-elas" className="mt-2 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[10px] font-semibold uppercase text-plum">
+            Explorar os dados por estado <ArrowRight className="size-3.5" aria-hidden="true" />
+          </Link>
+        </div>
+      </div>
+      <ArchitecturalCut />
+    </section>
+  );
+}
+
+const STAGES = [
+  { n: "01", label: "Candidatura", question: "Quem pode se candidatar e em que condições?", to: "/quem-sao-elas", color: "bg-plum" },
+  { n: "02", label: "Competição", question: "Como as mulheres disputam e com que recursos?", to: "/quem-controla", color: "bg-coral" },
+  { n: "03", label: "Votos", question: "Quantos votos recebem e como são distribuídos?", to: "/funil", color: "bg-solar" },
+  { n: "04", label: "Cadeiras", question: "Quantas mulheres são eleitas e onde elas chegam?", to: "/historico", color: "bg-forest" },
+  { n: "05", label: "Poder", question: "Quem ocupa os espaços de decisão?", to: "/quem-controla", color: "bg-muted-foreground" },
+] as const;
+
+export function HomeStages() {
+  return (
+    <nav aria-label="Etapas da investigação" className="relative left-1/2 -ml-[50vw] w-screen border-b border-rule bg-paper">
+      <ol className="mx-auto grid max-w-6xl grid-cols-2 px-5 md:grid-cols-5 md:px-8">
+        {STAGES.map((stage, index) => (
+          <li key={stage.n} className={`min-w-0 py-7 md:px-6 ${index > 0 ? "border-l border-rule" : ""} ${index === 0 ? "md:pl-0" : ""}`}>
+            <p className="flex items-center gap-3 font-mono text-xs font-semibold text-plum"><span>{stage.n}</span><span className={`h-px w-10 ${stage.color}`} /></p>
+            <h2 className="mt-3 font-display text-xl leading-none text-ink md:text-2xl">{stage.label}</h2>
+            <p className="mt-3 max-w-36 text-xs leading-relaxed text-muted-foreground">{stage.question}</p>
+            <Link to={stage.to} aria-label={`Explorar ${stage.label}`} className="mt-3 inline-flex text-ink hover:text-plum"><ArrowRight className="size-4" aria-hidden="true" /></Link>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
+
+export function HomeFunnelFeature() {
+  const layers = [
+    { label: "Candidaturas", width: "100%", tone: "bg-plum" },
+    { label: "Recursos", width: "78%", tone: "bg-plum-soft" },
+    { label: "Votos", width: "58%", tone: "bg-coral" },
+    { label: "Cadeiras", width: "38%", tone: "bg-coral/55" },
+    { label: "Poder", width: "20%", tone: "bg-solar" },
+  ] as const;
+
+  return (
+    <section className="py-20 md:py-28">
+      <div className="grid items-center gap-12 lg:grid-cols-12">
+        <div className="lg:col-span-4">
+          <p className="flex items-center gap-3 font-mono text-[11px] uppercase text-muted-foreground"><span className="h-1 w-3 bg-coral" /> Em destaque</p>
+          <h2 className="mt-5 font-display text-4xl leading-[0.98] text-ink md:text-5xl">O funil da<br />desigualdade</h2>
+          <p className="mt-5 max-w-sm leading-relaxed text-muted-foreground">Entre entrar na disputa e chegar ao poder, há um caminho — e ele filtra. Cada etapa tem sua própria fonte e seu próprio universo.</p>
+          <Link to="/funil" className="mt-6 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[11px] font-semibold uppercase text-plum">Ver a análise <ArrowRight className="size-4" /></Link>
+        </div>
+        <figure className="lg:col-span-5" aria-label="Funil editorial das etapas investigadas; as larguras são ilustrativas e não representam uma taxa calculada">
+          <div className="space-y-1.5">
+            {layers.map((layer) => (
+              <div key={layer.label} className="grid grid-cols-[6.5rem_1fr] items-center gap-4">
+                <span className="text-right font-mono text-[10px] uppercase text-ink">{layer.label}</span>
+                <div className={`mx-auto h-11 ${layer.tone} [clip-path:polygon(8%_0,92%_0,82%_100%,18%_100%)]`} style={{ width: layer.width }} />
+              </div>
+            ))}
+          </div>
+          <figcaption className="mt-4 text-center font-mono text-[10px] leading-relaxed text-muted-foreground">Esquema editorial: cada etapa tem universo, denominador, fonte e data próprios.</figcaption>
+        </figure>
+        <aside className="border-l border-rule pl-8 lg:col-span-3">
+          <p className="font-display text-xl leading-snug text-ink md:text-2xl">Nem todas as etapas têm os mesmos pontos de partida. E nem todas têm as mesmas chances de chegada.</p>
+          <Link to="/funil" className="mt-8 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[11px] font-semibold uppercase text-plum">Entenda o funil <ArrowRight className="size-4" /></Link>
+        </aside>
+      </div>
+    </section>
+  );
+}
+
+const INVESTIGATIONS = [
+  { id: "historico", title: "A participação aumentou. Mas a distância permanece.", to: "/historico", link: "Ver a série histórica" },
+  { id: "direitos", title: "As regras mudaram. E isso importa.", to: "/direitos", link: "Ver a linha do tempo" },
+  { id: "dinheiro", title: "Quem tem recursos para disputar?", to: "/dinheiro", link: "Explorar o eixo" },
+] as const;
+
+export function HomeInvestigationGrid() {
+  return (
+    <section className="relative left-1/2 -ml-[50vw] w-screen border-y border-rule bg-paper">
+      <div className="mx-auto grid max-w-6xl md:grid-cols-[repeat(3,minmax(0,1fr))_0.75fr]">
+        {INVESTIGATIONS.map((item) => {
+          const axis = AXES.find((candidate) => candidate.id === item.id);
+          return (
+            <article key={item.id} className="border-b border-rule px-6 py-12 md:border-b-0 md:border-r md:px-8 md:py-16">
+              <p className="flex items-center gap-3 font-mono text-[10px] uppercase text-muted-foreground"><span className={`h-1 w-3 ${item.id === "dinheiro" ? "bg-solar" : "bg-coral"}`} /> {axis?.label}</p>
+              <h2 className="mt-5 font-display text-2xl leading-[1.02] text-ink md:text-3xl">{item.title}</h2>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{axis?.summary}</p>
+              {axis?.unpublishedReason && <p className="mt-3 font-mono text-[10px] leading-relaxed text-coral-ink">Lacuna: {axis.unpublishedReason}</p>}
+              <Link to={item.to} className="mt-7 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[10px] font-semibold uppercase text-plum">{item.link} <ArrowRight className="size-3.5" /></Link>
+            </article>
+          );
+        })}
+        <blockquote className="flex min-h-64 items-center bg-solar px-8 py-12 font-display text-3xl font-semibold italic leading-none text-ink md:text-4xl">“Dados para democratizar o poder.”</blockquote>
+      </div>
+    </section>
+  );
+}
+
+export function HomeAboutBand() {
+  return (
+    <section className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-cream">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 md:grid-cols-12 md:px-8 md:py-20">
+        <div className="md:col-span-4">
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cream/70">Sobre o projeto</p>
+          <h2 className="mt-4 font-display text-4xl leading-[0.95] text-cream md:text-5xl">Dados para<br />democratizar<br />o poder.</h2>
+        </div>
+        <div className="border-cream/25 md:col-span-5 md:border-l md:pl-10">
+          <p className="max-w-md text-sm leading-relaxed text-cream/80">O Quem são elas? é um observatório independente de dados sobre mulheres, eleições e poder. Transformamos números públicos em perguntas verificáveis, com fonte, denominador e método à vista.</p>
+          <Link to="/sobre" className="mt-7 inline-flex items-center gap-2 border-b border-cream/60 pb-1 font-mono text-[10px] uppercase text-cream hover:text-solar">Saiba mais <ArrowRight className="size-3.5" /></Link>
+        </div>
+        <nav aria-label="Transparência do projeto" className="border-cream/25 md:col-span-3 md:border-l md:pl-10">
+          <ul className="divide-y divide-cream/25 border-y border-cream/25 font-mono text-[10px] uppercase">
+            <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-solar">Metodologia</Link></li>
+            <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-solar">Bases de dados</Link></li>
+            <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-solar">Glossário</Link></li>
+            <li><Link to="/downloads" className="block py-3 text-cream/80 hover:text-solar">Downloads</Link></li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+  );
+}
