@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import { formatInt, formatPct } from "@/lib/format-br";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
+import { snapshotRaceCounts } from "@/lib/tse/indicators";
+import { RACE_COLORS, RACE_LABELS, type RaceCategory } from "@/data/historical-funnel";
 
 type OpeningBase = {
   kicker: string;
@@ -11,6 +13,7 @@ type OpeningBase = {
 type EditorialOpeningProps = OpeningBase &
   (
     | { variant: "funnel"; snapshot: PublicSnapshot | null; baseDate?: string | null }
+    | { variant: "race"; snapshot: PublicSnapshot | null }
     | { variant: "timeline"; years: readonly string[] }
     | { variant: "milestones"; milestones: readonly { year: string; title: string }[] }
     | { variant: "process"; steps: readonly string[] }
