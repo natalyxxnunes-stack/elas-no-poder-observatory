@@ -8,8 +8,8 @@ import { SITE } from "@/data/election-2026";
 import { DATA_2026_NAV_ITEMS, NAV_ITEMS, UTILITY_NAV_ITEMS } from "@/data/architecture";
 
 /**
- * SiteHeader — menu plano de 5 itens do lançamento. Sem submenus e sem CTA:
- * os eixos despublicados continuam no projeto, mas fora da navegação.
+ * SiteHeader — cinco entradas principais, submenu de Dados 2026 e utilitários.
+ * Os eixos despublicados continuam fora da navegação principal.
  */
 export function SiteHeader({ home = false }: { home?: boolean }) {
   const [open, setOpen] = useState(false);
@@ -40,7 +40,6 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
                 aria-expanded={dataOpen}
                 aria-controls="submenu-dados"
                 onClick={() => setDataOpen((value) => !value)}
-                onMouseEnter={() => setDataOpen(true)}
               >
                 {item.label}<ChevronDown className="size-3" aria-hidden="true" />
               </Button>
