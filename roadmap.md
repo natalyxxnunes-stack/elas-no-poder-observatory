@@ -7,7 +7,7 @@
 - [x] Quem são elas: tabelas antes das explorações; limites depois
 - [x] Histórico: séries antes da comparabilidade entre bases
 - [x] Método: blocos agrupados em Como ler, Fontes, Contas e Limites
-- [ ] Frases-achado: propostas separadas para revisão, sem publicação
+- [x] Frases-achado: propostas separadas para revisão, sem publicação
 - [x] Verificação final: typecheck e rotas 200
 
 ## Fechamento em três camadas no funil — aprovado (22/09)
