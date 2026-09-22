@@ -72,7 +72,6 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
   baseDate: string | null;
   pendingDate: string | null;
 }) {
-  const proportional = snapshot?.universes.proporcional ?? null;
   const majoritarian = snapshot?.universes.majoritario ?? null;
   const highestUf = topUf(snapshot);
   const majoritarianShare = majoritarian && majoritarian.total > 0
