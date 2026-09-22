@@ -18,24 +18,24 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
 
   return (
     <header className="sticky top-0 z-40 border-b border-rule bg-paper/95 backdrop-blur">
-      <div className={`mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-5 md:px-8 ${home ? "max-w-none py-2" : "max-w-6xl py-3"}`}>
+      <div className={`mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-5 md:px-8 ${home ? "max-w-none py-2" : "max-w-none py-1.5"}`}>
         <Link to="/" className="flex items-center gap-3" onClick={close}>
-          <BrandLogo className="h-10 w-10 shrink-0" />
+          <BrandLogo className={`${home ? "h-10 w-10" : "h-8 w-8"} shrink-0`} />
           <span className="leading-tight">
-            <BrandWordmark className="block font-display text-lg font-semibold text-ink" />
-            <span className="block text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
+            <BrandWordmark className={`block font-display font-semibold text-ink ${home ? "text-lg" : "text-base"}`} />
+            <span className={`${home ? "block" : "hidden xl:block"} text-[12px] uppercase tracking-[0.16em] text-muted-foreground`}>
               {SITE.tagline}
             </span>
           </span>
         </Link>
 
-        <div className="ml-auto hidden items-center gap-4 lg:flex">
-        <nav aria-label="Principal" className="flex items-center gap-5">
+        <div className="ml-auto hidden items-center gap-3 lg:flex">
+        <nav aria-label="Principal" className={`flex items-center ${home ? "gap-5" : "gap-3 xl:gap-4"}`}>
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="border-b-2 border-transparent pb-0.5 text-sm text-muted-foreground transition-colors hover:text-plum"
+              className={`border-b-2 border-transparent pb-0.5 text-muted-foreground transition-colors hover:text-plum ${home ? "text-sm" : "text-[11px] xl:text-xs"}`}
               activeOptions={{ exact: item.to === "/" }}
               activeProps={{ className: "border-solar font-semibold text-ink" }}
             >
@@ -43,16 +43,14 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
             </Link>
           ))}
         </nav>
-        {home && (
-          <>
+        <>
             <Button variant="ghost" size="icon" aria-label="Abrir busca de páginas" onClick={() => setSearchOpen((value) => !value)} className="rounded-none text-ink">
               <Search className="size-4" aria-hidden="true" />
             </Button>
-            <Button asChild className="h-10 rounded-none bg-plum px-5 font-mono text-[10px] uppercase tracking-[0.08em] text-primary-foreground hover:bg-coral hover:text-ink">
+            {home && <Button asChild className="h-10 rounded-none bg-plum px-5 font-mono text-[10px] uppercase tracking-[0.08em] text-primary-foreground hover:bg-coral hover:text-ink">
               <Link to="/sobre">Apoie o projeto <ArrowRight className="size-3.5" /></Link>
-            </Button>
+            </Button>}
           </>
-        )}
         </div>
 
         <Button
@@ -73,7 +71,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
         </Button>
       </div>
 
-      {home && searchOpen && (
+      {searchOpen && (
         <div className="border-t border-rule bg-paper px-5 py-4 md:px-8">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2">
             <span className="font-mono text-[10px] uppercase text-muted-foreground">Ir para</span>
