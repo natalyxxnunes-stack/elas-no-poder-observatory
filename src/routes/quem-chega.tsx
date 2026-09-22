@@ -34,7 +34,29 @@ export const Route = createFileRoute("/quem-chega")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => <UnpublishedAxis axisId="quem-chega" />,
+  component: () => {
+    const a = axis("quem-chega");
+    return (
+      <UnpublishedAxis
+        axisId="quem-chega"
+        opening={
+          <EditorialOpening
+            variant="representation"
+            kicker="Quem chega?"
+            question={a.question}
+            lead={
+              <p>
+                Ser eleita não equivale automaticamente a ocupar posição de poder institucional.
+                Este eixo separa resultado eleitoral de controle sobre decisões.
+              </p>
+            }
+            labels={["Mulheres", "Homens"]}
+            gap="Depende da apuração da eleição de 2026."
+          />
+        }
+      />
+    );
+  },
 });
 
 /* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */

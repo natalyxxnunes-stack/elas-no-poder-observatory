@@ -36,7 +36,29 @@ export const Route = createFileRoute("/condicoes")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => <UnpublishedAxis axisId="condicoes" />,
+  component: () => {
+    const a = axis("condicoes");
+    return (
+      <UnpublishedAxis
+        axisId="condicoes"
+        opening={
+          <EditorialOpening
+            variant="process"
+            kicker="Condições"
+            question={a.question}
+            lead={
+              <p>
+                Uma candidatura não nasce igual à outra. Regras de composição, recursos públicos,
+                tempo de propaganda, posição na chapa e território formam as condições da disputa —
+                e cada uma tem base de dados própria.
+              </p>
+            }
+            steps={CONDITIONS.slice(0, 5).map((condition) => condition.title)}
+          />
+        }
+      />
+    );
+  },
 });
 
 /* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */

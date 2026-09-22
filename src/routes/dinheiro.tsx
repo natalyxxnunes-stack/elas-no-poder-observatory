@@ -35,7 +35,24 @@ export const Route = createFileRoute("/dinheiro")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => <UnpublishedAxis axisId="dinheiro" />,
+  component: () => {
+    const a = axis("dinheiro");
+    return (
+      <UnpublishedAxis
+        axisId="dinheiro"
+        opening={
+          <EditorialOpening
+            variant="financial"
+            kicker="Dinheiro"
+            question="O dinheiro chega às mesmas mulheres que aparecem nas candidaturas?"
+            lead={<p>{a.summary}</p>}
+            layers={MONEY_LAYERS.map((layer) => layer.label)}
+            gap={a.unpublishedReason}
+          />
+        }
+      />
+    );
+  },
 });
 
 /* Conteúdo preservado para publicação futura deste eixo (não referenciado pela rota). */
