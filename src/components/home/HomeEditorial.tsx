@@ -99,19 +99,19 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
 
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden border-b border-rule bg-paper">
-      <div className="grid min-h-[min(60vh,30rem)] lg:grid-cols-[54%_46%]">
-        <div className="relative bg-plum px-5 py-9 text-cream md:px-10 md:py-12 lg:pl-[max(2.5rem,calc((100vw-72rem)/2+2rem))] lg:pr-24">
+      <div className="grid min-h-[min(50vh,22rem)] lg:grid-cols-[54%_46%] lg:items-start">
+        <div className="relative bg-plum px-5 py-6 text-cream md:px-10 md:py-9 lg:pl-[max(2.5rem,calc((100vw-72rem)/2+2rem))] lg:pr-24">
           <p className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-cream/80">
             <span className="h-1 w-8 bg-coral" aria-hidden="true" /> Eleições 2026 · Brasil
           </p>
-          <h1 className="mt-6 max-w-3xl font-display text-[clamp(2.85rem,5.25vw,5.2rem)] leading-[0.93] text-cream">
+          <h1 className="mt-4 max-w-3xl font-display text-[clamp(2.1rem,3.6vw,3.75rem)] leading-[0.93] text-cream">
             Entre se<br />candidatar e<br />chegar ao poder,<br />
             <em className="text-coral">onde elas<br className="sm:hidden" /> desaparecem?</em>
           </h1>
-          <p className="mt-6 max-w-xl border-t border-cream/40 pt-4 font-display text-lg leading-snug text-cream/85 md:text-xl">
+          <p className="mt-4 max-w-xl border-t border-cream/40 pt-3 font-display text-base leading-snug text-cream/85 md:text-lg">
             {CENTRAL_THESIS}
           </p>
-          <div className="mt-6 flex flex-wrap items-center gap-6">
+          <div className="mt-5 flex flex-wrap items-center gap-6">
             <Link to="/funil" className="inline-flex min-h-11 items-center gap-3 bg-coral px-5 py-3 text-xs font-semibold uppercase text-ink transition-colors hover:bg-solar">
               Explorar o funil <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
