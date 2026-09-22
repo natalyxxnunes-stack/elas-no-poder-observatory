@@ -178,16 +178,15 @@ function FunilPage() {
               eleita — e outra, com menos votos, entrar.
             </p>
           </ContextBox>
-          <ContextBox variant="importa" title="O funil não é uma taxa individual">
+          <ContextBox variant="importa" title="O funil é uma fotografia, etapa por etapa">
             <p>
               Cada etapa aqui é uma fotografia com o seu próprio conjunto de
               registros: candidaturas proporcionais, candidaturas majoritárias,
-              resultado. Não é o acompanhamento das mesmas pessoas de um degrau
-              para o outro, nem a chance de uma candidata específica se eleger. E
-              a diferença entre degraus descreve o que a base mostra, sem provar
-              o que a produziu. A unidade contada é a candidatura registrada,
-              deduplicada pelo identificador oficial; vices e suplentes não
-              entram.
+              resultado. A diferença entre degraus descreve o que a base mostra —
+              um retrato, não o rastro das mesmas pessoas de um degrau para o
+              outro, nem a chance de uma candidata específica se eleger. A unidade
+              contada é a candidatura registrada, deduplicada pelo identificador
+              oficial; vices e suplentes ficam fora da contagem.
             </p>
           </ContextBox>
         </div>

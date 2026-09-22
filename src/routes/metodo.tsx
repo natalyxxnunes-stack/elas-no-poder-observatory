@@ -1082,7 +1082,7 @@ function MetodoPage() {
       {/* Limitações */}
       <SectionBlock
         kicker="Limitações"
-        question="O que este método não faz"
+        question="Os limites declarados deste método"
       >
         <div className="space-y-3">
           <GapNote label="Não disponível não é zero">
