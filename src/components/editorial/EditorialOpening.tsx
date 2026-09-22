@@ -251,11 +251,14 @@ function PowerFlowOpening({ levers, ...text }: OpeningBase & { levers: readonly 
 function MethodOpening({ steps, aside, ...text }: OpeningBase & { steps: readonly { number: string; label: string; detail: string }[]; aside?: ReactNode }) {
   return (
     <Frame className="bg-solar">
-      <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
-        <div><OpeningText {...text} />{aside && <div className="mt-6 border-t border-ink/30 pt-4">{aside}</div>}</div>
-        <ol className="divide-y divide-ink/25 border-y border-ink/25">
-          {steps.map((step) => <li key={step.number} className="grid grid-cols-[3.5rem_7rem_minmax(0,1fr)] items-baseline gap-3 py-3"><strong className="font-display text-3xl text-ink">{step.number}</strong><span className="font-mono text-[10px] font-semibold uppercase text-ink">{step.label}</span><span className="text-xs text-ink/65">{step.detail}</span></li>)}
-        </ol>
+      <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-10 md:px-8 lg:grid-cols-[1fr_1fr] lg:items-center">
+        <OpeningText {...text} />
+        <div>
+          <ol className="divide-y divide-ink/25 border-y border-ink/25">
+            {steps.map((step) => <li key={step.number} className="grid grid-cols-[3.5rem_7rem_minmax(0,1fr)] items-baseline gap-3 py-3"><strong className="font-display text-3xl text-ink">{step.number}</strong><span className="font-mono text-[10px] font-semibold uppercase text-ink">{step.label}</span><span className="text-xs text-ink/65">{step.detail}</span></li>)}
+          </ol>
+          {aside && <div className="mt-6 border-t border-ink/30 pt-4">{aside}</div>}
+        </div>
       </div>
     </Frame>
   );
