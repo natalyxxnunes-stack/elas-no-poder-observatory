@@ -264,7 +264,18 @@ export function FunnelStages2026({
   const hasRace = Object.keys(raceCounts).length > 0;
 
   return (
-    <ol className="space-y-4">
+    <>
+      <p className="mb-5 border-l-2 border-plum pl-3">
+        <span className="block font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
+          leitura do funil
+        </span>
+        <span className="mt-1 block font-display text-base italic leading-snug text-ink">
+          O tamanho de cada etapa não representa as mesmas pessoas. Representa
+          universos diferentes da disputa.
+        </span>
+      </p>
+      <ol className="space-y-4">
+
       {prop.total > 0 && (
         <StageBar
           step={1}
@@ -296,6 +307,8 @@ export function FunnelStages2026({
         </li>
       )}
       <FutureStage step={4} />
-    </ol>
+      </ol>
+    </>
   );
 }
+
