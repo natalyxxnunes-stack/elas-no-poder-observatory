@@ -37,6 +37,7 @@ const TONE_LEAD: Record<Tone, string> = {
 };
 
 export function SectionBlock({
+  id,
   kicker,
   question,
   lead,
@@ -45,6 +46,7 @@ export function SectionBlock({
   source,
   tone = "paper",
 }: {
+  id?: string;
   kicker: string;
   question: string;
   lead?: React.ReactNode;
@@ -57,6 +59,7 @@ export function SectionBlock({
 
   return (
     <section
+      id={id}
       className={
         colored
           ? `${TONE_WRAP[tone]} my-10 rounded-lg px-5 py-12 md:px-10 md:py-14`

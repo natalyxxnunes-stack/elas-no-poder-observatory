@@ -80,7 +80,7 @@ const CONTROL_LEVERS = [
 function QuemControlaPage() {
   const a = axis("quem-controla");
   return (
-    <PageShell>
+    <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Quem controla?" }]}>
       <EditorialOpening
         variant="power-flow"
         kicker="Quem controla?"

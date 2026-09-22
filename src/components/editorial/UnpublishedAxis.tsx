@@ -10,7 +10,7 @@ import { axis } from "@/data/architecture";
 export function UnpublishedAxis({ axisId, opening }: { axisId: string; opening?: React.ReactNode }) {
   const a = axis(axisId);
   return (
-    <PageShell>
+    <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: a.label }]}>
       {opening}
       <section className="py-14 md:py-20">
         {!opening && (

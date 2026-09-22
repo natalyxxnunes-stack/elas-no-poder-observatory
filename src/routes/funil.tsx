@@ -49,7 +49,7 @@ export const Route = createFileRoute("/funil")({
     return { snapshot, historical };
   },
   errorComponent: () => (
-    <PageShell>
+    <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "O funil" }]}>
       <div className="py-24">
         <GapNote label="Dados em atualização">
           Não foi possível ler a fotografia do registro de candidaturas agora.
