@@ -392,7 +392,7 @@ export const FUNNEL_LAYERS: readonly FunnelLayer[] = [
 
 /** Regra editorial explícita sobre leitura do funil. */
 export const FUNNEL_READING_RULE =
-  "Cada etapa do funil tem universo, denominador, fórmula, fonte e data próprios. Diferenças entre percentuais de etapas com denominadores diferentes não podem ser lidas como “as mulheres desapareceram X pontos”. O funil organiza perguntas; não é uma subtração.";
+  "Cada etapa do funil tem universo, denominador, fórmula, fonte e data próprios: o funil organiza perguntas, não faz uma subtração. Diferenças entre percentuais de etapas com denominadores diferentes mostram contextos distintos — não uma perda direta de pontos entre as mulheres.";
 
 /** Cruzamentos previstos no eixo gênero × raça, com o que falta para publicar. */
 export const INTERSECTION_PLAN = [
