@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -35,7 +35,8 @@ export const Route = createFileRoute("/em-disputa")({
 function EmDisputaPage() {
   return (
     <PageShell>
-      <PageHero
+      <EditorialOpening
+        variant="process"
         kicker="Em disputa"
         question="As regras também estão em disputa"
         lead={
@@ -44,17 +45,7 @@ function EmDisputaPage() {
             por lei, por resolução e por decisão judicial — muitas vezes no meio do ciclo eleitoral.
           </p>
         }
-        aside={
-          <div className="editorial-card p-5">
-            <p className="kicker">Regra editorial</p>
-            <p className="mt-2 font-display text-lg leading-snug text-ink">
-              Projeto apresentado não é projeto aprovado.
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Situação em tramitação não antecipa resultado.
-            </p>
-          </div>
-        }
+        steps={DISPUTE_ITEMS.map((item) => item.title)}
       />
 
       <div className="pb-4">
@@ -85,6 +76,16 @@ function EmDisputaPage() {
         question="O que está em vigor e o que segue em discussão"
         align="wide"
       >
+        <div className="poster-frame mb-6 p-5">
+          <p className="kicker">Regra editorial</p>
+          <p className="mt-2 font-display text-lg leading-snug text-ink">
+            Projeto apresentado não é projeto aprovado.
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            Situação em tramitação não antecipa resultado.
+          </p>
+        </div>
+
         <ul className="space-y-4">
           {DISPUTE_ITEMS.map((item) => (
             <li key={item.id} className="editorial-card p-6">
