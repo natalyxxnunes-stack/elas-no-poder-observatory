@@ -81,6 +81,50 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
   );
 }
 
+function RaceOpening({ snapshot, ...text }: OpeningBase & { snapshot: PublicSnapshot | null }) {
+  const counts = snapshotRaceCounts(snapshot, "proporcional");
+  const denominator = counts ? Object.values(counts).reduce((a, b) => a + b, 0) : null;
+  const entries = counts
+    ? Object.entries(counts).sort((a, b) => b[1] - a[1])
+    : [];
+  return (
+    <Frame className="bg-plum text-cream">
+      <div className="mx-auto grid min-h-[31rem] max-w-6xl items-center gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:py-14">
+        <OpeningText {...text} inverse />
+        <figure aria-label="Distribuição por cor/raça das candidaturas de mulheres no universo proporcional" className="min-w-0 border-l border-cream/25 pl-4 md:pl-8">
+          <div className="space-y-3">
+            {entries.length === 0
+              ? [0, 1, 2, 3].map((index) => (
+                  <div key={index} className="grid min-w-0 grid-cols-[7rem_minmax(0,1fr)_4.5rem] items-center gap-3">
+                    <span className="truncate font-mono text-[10px] font-semibold uppercase text-cream/70">—</span>
+                    <div className="h-4 w-full border border-cream/25 bg-cream/10" />
+                    <span className="font-mono text-xs font-semibold text-cream">—</span>
+                  </div>
+                ))
+              : entries.map(([category, value]) => {
+                  const key = category as RaceCategory;
+                  const pct = denominator ? (value / denominator) * 100 : 0;
+                  return (
+                    <div key={category} className="grid min-w-0 grid-cols-[7rem_minmax(0,1fr)_4.5rem] items-center gap-3">
+                      <span className="truncate font-mono text-[10px] font-semibold uppercase text-cream/85">{RACE_LABELS[key] ?? category}</span>
+                      <div className="h-4 w-full border border-cream/25 bg-cream/10">
+                        <div className="h-full" style={{ width: `${pct}%`, backgroundColor: RACE_COLORS[key] ?? "var(--coral)" }} />
+                      </div>
+                      <span className="font-mono text-xs font-semibold text-cream">{formatPct(pct)}</span>
+                    </div>
+                  );
+                })}
+          </div>
+          <figcaption className="mt-5 border-t border-cream/25 pt-3 font-mono text-[10px] leading-relaxed text-cream/65">
+            Candidaturas de mulheres · universo proporcional · categorias originais do TSE
+            {denominator ? ` · denominador: ${formatInt(denominator)}` : " · dimensão não gravada nesta fotografia"}
+          </figcaption>
+        </figure>
+      </div>
+    </Frame>
+  );
+}
+
 function TimelineOpening({ years, ...text }: OpeningBase & { years: readonly string[] }) {
   return (
     <Frame className="bg-solar">
@@ -245,6 +289,7 @@ function DownloadsOpening({ documents, ...text }: OpeningBase & { documents: rea
 export function EditorialOpening(props: EditorialOpeningProps) {
   switch (props.variant) {
     case "funnel": return <FunnelOpening {...props} />;
+    case "race": return <RaceOpening {...props} />;
     case "timeline": return <TimelineOpening {...props} />;
     case "milestones": return <MilestonesOpening {...props} />;
     case "process": return <ProcessOpening {...props} />;
