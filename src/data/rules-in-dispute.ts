@@ -45,23 +45,23 @@ export const DISPUTE_ITEMS: readonly DisputeItem[] = [
     sourceLabel: "TSE — Resolução nº 23.752/2026",
     sourceUrl:
       "https://www.tse.jus.br/legislacao/compilada/res/2026/resolucao-no-23-752-de-26-de-fevereiro-de-2026",
-    checkedAt: null,
+    checkedAt: "2026-09-22",
   },
   {
     id: "ec-111-2021",
     kind: "Emenda constitucional",
     title: "Contagem em dobro de votos para distribuição de recursos (EC 111/2021)",
     proposal:
-      "Contagem em dobro, por período determinado, de votos dados a mulheres e a pessoas negras para fins de distribuição do fundo partidário e do tempo de propaganda.",
+      "Contagem em dobro dos votos dados a candidaturas de mulheres e de pessoas negras à Câmara dos Deputados, nas eleições de 2022, 2026 e 2030, para fins de distribuição do fundo partidário e do tempo de propaganda entre os partidos.",
     affects:
       "Partidos, na divisão de recursos entre si. Não altera a atribuição de cadeiras nem o resultado da eleição.",
     status: "EM VIGOR",
     statusNote:
-      "Regra com prazo definido no texto constitucional. Os efeitos sobre candidaturas dependem da redistribuição interna feita por cada partido.",
+      "Regra válida para os ciclos de 2022, 2026 e 2030, restrita aos votos para a Câmara dos Deputados. Os efeitos sobre candidaturas dependem da redistribuição interna feita por cada partido.",
     sourceLabel: "Emenda Constitucional nº 111/2021",
     sourceUrl:
       "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm",
-    checkedAt: null,
+    checkedAt: "2026-09-22",
   },
   {
     id: "fraude-cota",
@@ -76,7 +76,7 @@ export const DISPUTE_ITEMS: readonly DisputeItem[] = [
       "Cada caso é analisado individualmente, conforme as circunstâncias e as provas. Não há efeito automático sobre o resultado de uma eleição.",
     sourceLabel: "TSE — jurisprudência eleitoral",
     sourceUrl: "https://www.tse.jus.br/jurisprudencia",
-    checkedAt: null,
+    checkedAt: "2026-09-22",
   },
 ];
 

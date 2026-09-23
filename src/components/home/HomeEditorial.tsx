@@ -165,17 +165,16 @@ export function HomeMapSection({ snapshot }: { snapshot: PublicSnapshot | null }
 }
 
 const STAGES = [
-  { n: "01", label: "Candidatura", question: "Quem pode se candidatar e em que condições?", to: "/quem-sao-elas", color: "bg-plum" },
-  { n: "02", label: "Competição", question: "Como as mulheres disputam e com que recursos?", to: "/quem-controla", color: "bg-coral" },
-  { n: "03", label: "Votos", question: "Quantos votos recebem e como são distribuídos?", to: "/funil", color: "bg-solar" },
-  { n: "04", label: "Cadeiras", question: "Quantas mulheres são eleitas e onde elas chegam?", to: "/historico", color: "bg-forest" },
-  { n: "05", label: "Poder", question: "Quem ocupa os espaços de decisão?", to: "/quem-controla", color: "bg-muted-foreground" },
+  { n: "01", label: "Registros", question: "Quantas conseguem entrar na disputa — e sob qual regra?", to: "/quem-sao-elas", color: "bg-plum" },
+  { n: "02", label: "Recursos", question: "Quanto dinheiro e tempo de mídia chegam até elas?", to: "/dinheiro", color: "bg-solar" },
+  { n: "03", label: "Votos e eleitas", question: "Quantos votos viram cadeira?", to: "/funil", color: "bg-coral" },
+  { n: "04", label: "Poder e decisões", question: "Quem comanda comissões, executivos e orçamento?", to: "/quem-controla", color: "bg-forest" },
 ] as const;
 
 export function HomeStages() {
   return (
     <nav aria-label="Etapas da investigação" className="relative left-1/2 -ml-[50vw] w-screen border-b border-rule bg-paper">
-      <ol className="mx-auto grid max-w-6xl grid-cols-2 px-5 md:grid-cols-5 md:px-8">
+      <ol className="mx-auto grid max-w-6xl grid-cols-2 px-5 md:grid-cols-4 md:px-8">
         {STAGES.map((stage, index) => (
           <li key={stage.n} className={`min-w-0 py-7 md:px-6 ${index > 0 ? "border-l border-rule" : ""} ${index === 0 ? "md:pl-0" : ""}`}>
             <p className="flex items-center gap-3 font-mono text-xs font-semibold text-plum"><span>{stage.n}</span><span className={`h-px w-10 ${stage.color}`} /></p>
