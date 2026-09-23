@@ -72,7 +72,7 @@ const CONDITIONS = [
   },
   {
     title: "Recursos públicos de campanha",
-    body: "Desde 2018, recursos públicos de campanha devem observar percentual mínimo destinado a candidaturas de mulheres. Essas regras de financiamento são distintas da regra de composição de candidaturas e podem alcançar disputas proporcionais e majoritárias.",
+    body: `Desde 2018, recursos públicos de campanha devem observar percentual mínimo destinado a candidaturas de mulheres. ${QUOTA_RULE.financingNote}`,
     status: "lacuna" as const,
     note: "Ainda não disponível: valores por partido, federação e candidatura serão integrados a partir das bases de prestação de contas do TSE.",
   },

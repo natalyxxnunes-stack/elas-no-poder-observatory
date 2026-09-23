@@ -149,11 +149,7 @@ function DinheiroPage() {
             </p>
           </ContextBox>
           <ContextBox variant="importa">
-            <p>
-              As regras de destinação mínima de recursos públicos de campanha e de tempo de
-              propaganda são distintas e podem alcançar disputas majoritárias e proporcionais.
-              Confundir as duas leva a conclusões erradas.
-            </p>
+            <p>Confundir as duas leva a conclusões erradas.</p>
           </ContextBox>
         </div>
       </SectionBlock>

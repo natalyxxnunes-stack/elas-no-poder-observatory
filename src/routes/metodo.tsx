@@ -15,6 +15,7 @@ import {
   CURRENT_INDICATORS,
   DATA_STATUS,
   METHOD_NOTES,
+  QUOTA_RULE,
   TSE_SOURCE,
   formatPercent,
   formatPoints,
@@ -1072,10 +1073,7 @@ function MetodoPage() {
 
           <GapNote label="Lacuna declarada">
             Até a prestação de contas de campanha de 2026 existir, nenhuma célula
-            financeira recebe valor neste site — e a regra de destinação mínima
-            de recursos e de tempo de propaganda a candidaturas de mulheres não
-            se confunde com a regra de composição de candidaturas de 30% a 70%
-            por gênero: são regras distintas, com alcances distintos.
+            financeira recebe valor neste site. {QUOTA_RULE.financingNote}
           </GapNote>
         </div>
       </SectionBlock>
