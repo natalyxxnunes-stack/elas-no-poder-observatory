@@ -1,3 +1,6 @@
+import { GapNote } from "@/components/GapNote";
+import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
+
 type OfficeDatum = {
   label: string;
   total: number;
@@ -11,26 +14,33 @@ type OfficeGroup = {
   apoio: readonly OfficeDatum[];
 };
 
-const GROUPS: readonly OfficeGroup[] = [
-  {
-    label: "Presidência",
-    titular: { label: "Presidente", total: 14, women: 2, share: 14.3 },
-    apoio: [{ label: "Vice-presidente", total: 14, women: 6, share: 42.9 }],
-  },
-  {
-    label: "Governos",
-    titular: { label: "Governador", total: 201, women: 35, share: 17.4 },
-    apoio: [{ label: "Vice-governador", total: 211, women: 88, share: 41.7 }],
-  },
-  {
-    label: "Senado",
-    titular: { label: "Senador", total: 319, women: 70, share: 21.9 },
-    apoio: [
-      { label: "1º suplente", total: 349, women: 106, share: 30.4 },
-      { label: "2º suplente", total: 350, women: 107, share: 30.6 },
-    ],
-  },
-] as const;
+function datum(label: string, total?: number, women?: number): OfficeDatum | null {
+  if (total === undefined || women === undefined || total === 0) return null;
+  return { label, total, women, share: (women / total) * 100 };
+}
+
+function buildGroups(snapshot: PublicSnapshot | null): OfficeGroup[] | null {
+  if (!snapshot) return null;
+  const maj = snapshot.universes.majoritario.dimensions;
+  const out = snapshot.outOfUniverse;
+  if (!maj?.totalByCargo || !maj?.feminineByCargo || !out) return null;
+
+  const presidente = datum("Presidente", maj.totalByCargo["PRESIDENTE"], maj.feminineByCargo["PRESIDENTE"]);
+  const vicePresidente = datum("Vice-presidente", out.byCargo["VICE-PRESIDENTE"], out.feminineByCargo["VICE-PRESIDENTE"]);
+  const governador = datum("Governador", maj.totalByCargo["GOVERNADOR"], maj.feminineByCargo["GOVERNADOR"]);
+  const viceGovernador = datum("Vice-governador", out.byCargo["VICE-GOVERNADOR"], out.feminineByCargo["VICE-GOVERNADOR"]);
+  const senador = datum("Senador", maj.totalByCargo["SENADOR"], maj.feminineByCargo["SENADOR"]);
+  const suplente1 = datum("1º suplente", out.byCargo["1º SUPLENTE"], out.feminineByCargo["1º SUPLENTE"]);
+  const suplente2 = datum("2º suplente", out.byCargo["2º SUPLENTE"], out.feminineByCargo["2º SUPLENTE"]);
+
+  if (!presidente || !vicePresidente || !governador || !viceGovernador || !senador || !suplente1 || !suplente2) return null;
+
+  return [
+    { label: "Presidência", titular: presidente, apoio: [vicePresidente] },
+    { label: "Governos", titular: governador, apoio: [viceGovernador] },
+    { label: "Senado", titular: senador, apoio: [suplente1, suplente2] },
+  ];
+}
 
 const formatInt = (value: number) => value.toLocaleString("pt-BR");
 const formatPct = (value: number) => `${value.toFixed(1).replace(".", ",")}%`;
@@ -58,7 +68,17 @@ function OfficeBar({ datum, tone }: { datum: OfficeDatum; tone: "titular" | "apo
   );
 }
 
-export function OfficePairChart() {
+export function OfficePairChart({ snapshot }: { snapshot: PublicSnapshot | null }) {
+  const groups = buildGroups(snapshot);
+
+  if (!groups) {
+    return (
+      <GapNote label="Dado não disponível">
+        A fotografia vigente não trouxe a contagem por cargo individual (Presidente, Governador, Senador e as posições de apoio à chapa) necessária para este gráfico. Nenhum valor é estimado no lugar dela.
+      </GapNote>
+    );
+  }
+
   return (
     <figure className="poster-frame p-5 md:p-6">
       <figcaption className="flex flex-wrap items-end justify-between gap-4 border-b border-ink pb-4">
@@ -75,7 +95,7 @@ export function OfficePairChart() {
       </figcaption>
 
       <div className="grid gap-px bg-rule lg:grid-cols-3">
-        {GROUPS.map((group) => {
+        {groups.map((group) => {
           const differences = group.apoio.map((item) => item.share - group.titular.share);
           const ariaComparison = group.apoio
             .map((item, index) => `${item.label}: ${formatPct(item.share)}, diferença de ${formatPp(differences[index] ?? 0)}`)

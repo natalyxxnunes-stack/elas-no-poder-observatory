@@ -173,7 +173,7 @@ function QuemSaoElasPage() {
         }
       >
         <div className="space-y-8">
-          <OfficePairChart />
+          <OfficePairChart snapshot={snapshot} />
 
           <div className="grid gap-5 md:grid-cols-3">
             <article className="poster-frame p-5">
@@ -200,7 +200,7 @@ function QuemSaoElasPage() {
 
           <div>
             <p className="poster-eyebrow mb-4 text-ink">Tabela completa de referência</p>
-            <OfficeTable />
+            <OfficeTable snapshot={snapshot} />
           </div>
         </div>
       </SectionBlock>

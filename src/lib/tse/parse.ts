@@ -163,6 +163,10 @@ export type UniverseTally = {
     feminineByUf: Record<string, number>;
     /** total de candidaturas por UF */
     totalByUf: Record<string, number>;
+    /** total de candidaturas por cargo (DS_CARGO), dentro deste universo */
+    totalByCargo: Record<string, number>;
+    /** candidaturas de mulheres por cargo (DS_CARGO), dentro deste universo */
+    feminineByCargo: Record<string, number>;
     /** candidaturas de mulheres por partido (SG_PARTIDO) */
     feminineByParty: Record<string, number>;
     /** total de candidaturas por partido */
@@ -251,6 +255,8 @@ function emptyTally(): UniverseTally {
     dimensions: {
       feminineByUf: {},
       totalByUf: {},
+      totalByCargo: {},
+      feminineByCargo: {},
       feminineByParty: {},
       totalByParty: {},
       feminineByAgremiacao: {},
@@ -393,6 +399,7 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
     tally.situationCounts[situation] =
       (tally.situationCounts[situation] ?? 0) + 1;
     bump(tally.dimensions.totalByUf, row.uf);
+    bump(tally.dimensions.totalByCargo, row.cargo);
     bump(tally.dimensions.totalByParty, row.partido);
     bump(tally.dimensions.totalByAgremiacao, row.agremiacao);
     const ufKey = row.uf || "NÃO INFORMADO";
@@ -403,6 +410,7 @@ export function ingestCsv(csv: string, acc: ParseResult): ParseResult {
       const race = row.corRaca || "NÃO INFORMADO";
       tally.raceCounts[race] = (tally.raceCounts[race] ?? 0) + 1;
       bump(tally.dimensions.feminineByUf, row.uf);
+      bump(tally.dimensions.feminineByCargo, row.cargo);
       bump(tally.dimensions.feminineByParty, row.partido);
       bump(tally.dimensions.feminineByAgremiacao, row.agremiacao);
       const uf = ufKey;
