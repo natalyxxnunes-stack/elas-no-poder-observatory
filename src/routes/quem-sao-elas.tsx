@@ -186,7 +186,7 @@ function QuemSaoElasPage() {
             <article className="poster-frame p-5">
               <p className="poster-eyebrow border-coral text-coral-ink">Interpretação editorial</p>
               <p className="mt-3 leading-relaxed text-ink/70">
-                A vice-presidência e a vice-governadoria não exercem o comando direto enquanto o titular estiver no cargo — são posições de composição de chapa, historicamente usadas para equilibrar coligações e equilibrar a composição política da chapa sem disputar o centro do poder. Quando o cargo é o de comando único, a presença de mulheres cai.
+                A vice-presidência e a vice-governadoria não exercem o comando direto enquanto o titular estiver no cargo — são posições de composição de chapa, historicamente usadas para equilibrar coligações e a composição política da chapa, sem disputar o centro do poder. Quando o cargo é o de comando único, a presença de mulheres cai.
               </p>
             </article>
 
