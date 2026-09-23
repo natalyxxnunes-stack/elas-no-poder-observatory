@@ -9,9 +9,9 @@
 - [x] Validar tipos, rotas publicadas e ausência de alterações na home
 
 ## Tratamento editorial de Cargos — aprovado (23/09)
-- [ ] Adicionar visualização titular × vice/suplência aos três pares fornecidos
-- [ ] Adicionar Fato / Interpretação editorial / Hipótese em investigação com os textos aprovados
-- [ ] Preservar a tabela completa e validar todas as rotas sem alterar a home
+- [x] Adicionar visualização titular × vice/suplência aos três pares fornecidos
+- [x] Adicionar Fato / Interpretação editorial / Hipótese em investigação com os textos aprovados
+- [x] Preservar a tabela completa e validar todas as rotas sem alterar a home
 
 ## Fotografia TSE de 22/09/2026 — concluída
 - [x] Substituir hash, datas, totais, gênero, cor/raça e recortes por UF no snapshot fixo
