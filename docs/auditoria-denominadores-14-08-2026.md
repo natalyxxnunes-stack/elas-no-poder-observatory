@@ -1,3 +1,5 @@
+> **Nota (22/09/2026):** esta auditoria é um retrato fixo da fotografia de 14/08/2026. Os números "vigentes" descritos abaixo não refletem a fotografia atual do site. Para a auditoria da fotografia corrente, ver `docs/auditoria-denominadores-22-09-2026.md`. As seções sobre as eleições de 2014, 2018 e 2022 (reconciliação histórica de denominadores) continuam válidas e não mudam com novas fotografias de 2026.
+
 # Auditoria dos denominadores da série histórica (2014 · 2018 · 2022 · 2026)
 
 Rodada de auditoria — sem redesign, sem mudança de metodologia. Todos os números

@@ -2,6 +2,8 @@ import { Link } from "@tanstack/react-router";
 import brazil from "@svg-maps/brazil";
 import { ArrowRight } from "lucide-react";
 import { AXES, CENTRAL_THESIS } from "@/data/architecture";
+import { formatPoints } from "@/data/election-2026";
+import type { HistoricalSeriesPayload } from "@/lib/tse/historical.functions";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import { formatInt, formatPct } from "@/lib/format-br";
 
@@ -159,6 +161,68 @@ export function HomeMapSection({ snapshot }: { snapshot: PublicSnapshot | null }
           </Link>
         </div>
         <EditorialBrazilMap snapshot={snapshot} />
+      </div>
+    </section>
+  );
+}
+
+const HISTORY_YEARS = [2014, 2018, 2022, 2026] as const;
+
+export function HomeHistoryHighlight({ historical }: { historical: HistoricalSeriesPayload | null }) {
+  const feminine = historical?.series.find((s) => s.id === "serie-mulheres-candidaturas");
+  const points = HISTORY_YEARS.map((year) => ({
+    year,
+    point: feminine?.points.find((p) => p.universe === "proporcional" && p.year === year) ?? null,
+  }));
+  const first = points[0]?.point;
+  const last = points[points.length - 1]?.point;
+
+  if (!first || first.value === null || !last || last.value === null) return null;
+
+  const delta = last.value - first.value;
+  const numericValues = points
+    .map((p) => p.point?.value ?? null)
+    .filter((v): v is number => v !== null);
+  const max = numericValues.length ? Math.max(...numericValues) : 0;
+
+  return (
+    <section className="relative left-1/2 -ml-[50vw] w-screen border-b border-rule bg-paper">
+      <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:grid-cols-[1.1fr_minmax(0,20rem)] md:px-8 md:py-20">
+        <div>
+          <p className="flex items-center gap-3 font-mono text-[11px] uppercase text-muted-foreground">
+            <span className="h-1 w-3 bg-plum" aria-hidden="true" /> Como chegamos até aqui
+          </p>
+          <h2 className="mt-5 font-display text-3xl leading-[1.05] text-ink md:text-4xl">
+            De {formatPct(first.value)} em {first.year} para {formatPct(last.value)} na fotografia de {last.year}
+          </h2>
+          <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+            {formatPoints(delta)} de diferença entre as candidaturas proporcionais de {first.year} e a fotografia atual. Cada eleição é calculada sobre o seu próprio total — os valores não são somados.
+          </p>
+          <Link to="/historico" className="mt-6 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[11px] font-semibold uppercase text-plum">
+            Ver a série completa <ArrowRight className="size-4" aria-hidden="true" />
+          </Link>
+        </div>
+        <div
+          className="flex items-end justify-between gap-4"
+          role="img"
+          aria-label={`Participação feminina nas candidaturas proporcionais por eleição: ${points.map((p) => `${p.year}, ${p.point?.value !== null && p.point?.value !== undefined ? formatPct(p.point.value) : "sem dado"}`).join("; ")}`}
+        >
+          {points.map(({ year, point }) => {
+            const value = point?.value ?? null;
+            const heightPct = value !== null && max > 0 ? Math.max(12, (value / max) * 100) : 0;
+            return (
+              <div key={year} className="flex flex-1 flex-col items-center gap-2" aria-hidden="true">
+                <div className="flex h-28 w-full items-end">
+                  <div
+                    className={`w-full ${year === last.year ? "bg-plum" : "bg-plum/35"}`}
+                    style={{ height: value !== null ? `${heightPct}%` : "2px" }}
+                  />
+                </div>
+                <span className="font-mono text-[10px] text-muted-foreground">{year}</span>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
