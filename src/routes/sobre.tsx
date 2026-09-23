@@ -48,7 +48,7 @@ const COMMITMENTS = [
 
 function SobrePage() {
   return (
-    <PageShell>
+    <PageShell breadcrumb={[{ label: "Projeto", to: "/investigacoes" }, { label: "Sobre" }]}>
       <EditorialOpening
         variant="manifesto"
         kicker="Sobre"

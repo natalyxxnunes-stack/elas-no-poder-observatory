@@ -108,7 +108,7 @@ const MATERIALS: readonly Material[] = [
 
 function DownloadsPage() {
   return (
-    <PageShell>
+    <PageShell breadcrumb={[{ label: "Materiais", to: "/investigacoes" }, { label: "Downloads" }]}>
       <EditorialOpening
         variant="downloads"
         kicker="Downloads"

@@ -30,14 +30,14 @@ export function NextAxes({ ids }: { ids: readonly string[] }) {
               <div className="mt-3">
                 <StatusTag
                   tone={
-                    a.state === "com dados de candidatura"
+                    a.status === "publicado"
                       ? "ok"
-                      : a.state === "conteúdo editorial"
+                      : a.status === "em apuração" || a.status === "pesquisa"
                         ? "limit"
                         : "pending"
                   }
                 >
-                  {a.state}
+                  {a.status}
                 </StatusTag>
               </div>
             </Link>

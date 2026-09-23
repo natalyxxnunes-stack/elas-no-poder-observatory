@@ -167,7 +167,7 @@ function MetodoPage() {
 
 
   return (
-    <PageShell>
+    <PageShell breadcrumb={[{ label: "Projeto", to: "/sobre" }, { label: "Método" }]}>
       <EditorialOpening
         variant="method"
         kicker="Método"

@@ -62,7 +62,7 @@ function HistoricoPage() {
   );
 
   return (
-    <PageShell>
+    <PageShell breadcrumb={[{ label: "Dados 2026", to: "/" }, { label: "Histórico" }]}>
       <EditorialOpening
         variant="timeline"
         kicker="Como chegamos até aqui?"

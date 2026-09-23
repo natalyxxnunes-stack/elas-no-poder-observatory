@@ -49,7 +49,7 @@ export const Route = createFileRoute("/funil")({
     return { snapshot, historical };
   },
   errorComponent: () => (
-    <PageShell>
+    <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "O funil" }]}>
       <div className="py-24">
         <GapNote label="Dados em atualização">
           Não foi possível ler a fotografia do registro de candidaturas agora.
@@ -59,7 +59,7 @@ export const Route = createFileRoute("/funil")({
     </PageShell>
   ),
   notFoundComponent: () => (
-    <PageShell>
+    <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "O funil" }]}>
       <div className="py-24">
         <p className="text-muted-foreground">Página não encontrada.</p>
       </div>
@@ -86,7 +86,7 @@ function FunilPage() {
     : null;
 
   return (
-    <PageShell>
+    <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "O funil" }]}>
       <EditorialOpening
         variant="funnel"
         kicker="O funil de 2026"

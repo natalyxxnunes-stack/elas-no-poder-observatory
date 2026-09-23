@@ -34,7 +34,7 @@ export const Route = createFileRoute("/em-disputa")({
 
 function EmDisputaPage() {
   return (
-    <PageShell>
+    <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Em disputa" }]}>
       <EditorialOpening
         variant="process"
         kicker="Em disputa"

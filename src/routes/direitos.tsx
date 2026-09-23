@@ -53,7 +53,7 @@ const FIELDS = [
 
 function DireitosPage() {
   return (
-    <PageShell>
+    <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Direitos" }]}>
       <EditorialOpening
         variant="milestones"
         kicker="Direitos"

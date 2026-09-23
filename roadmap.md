@@ -1,5 +1,13 @@
 # Roadmap
 
+## Arquitetura de informação — aprovada (22/09)
+- [x] Consolidar publicação, andamento, grupo e parentesco dos eixos em uma fonte única
+- [x] Reorganizar menu principal e criar submenu de Dados 2026
+- [x] Adicionar breadcrumb explícito às páginas, sem alterar a home
+- [x] Criar a página /investigacoes com a matriz editorial completa
+- [x] Publicar a seção Cargos em /quem-sao-elas com os números fornecidos
+- [ ] Validar tipos, rotas publicadas e ausência de alterações na home
+
 ## Fotografia TSE de 22/09/2026 — concluída
 - [x] Substituir hash, datas, totais, gênero, cor/raça e recortes por UF no snapshot fixo
 - [x] Atualizar textos editoriais que repetem valores da fotografia anterior

@@ -10,6 +10,7 @@ import { RaceExplorer } from "@/components/editorial/RaceExplorer";
 import { RaceByStateTable } from "@/components/editorial/RaceByStateTable";
 import { PartyGenderTable } from "@/components/editorial/PartyGenderTable";
 import { StateExplorer } from "@/components/editorial/StateExplorer";
+import { OfficeTable } from "@/components/editorial/OfficeTable";
 
 
 import { IntersectionPlan } from "@/components/editorial/IntersectionPlan";
@@ -65,7 +66,7 @@ function QuemSaoElasPage() {
     : null;
 
   return (
-    <PageShell>
+    <PageShell breadcrumb={[{ label: "Dados 2026", to: "/" }, { label: "Quem são elas?" }]}>
       <EditorialOpening
         variant="race"
         kicker="Quem são elas?"
@@ -151,6 +152,30 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
       <SectionBlock
+        id="cargos"
+        kicker="Cargos"
+        question="Nos mesmos páreos, mulheres aparecem mais entre vices e suplentes"
+        align="wide"
+        lead={
+          <p>
+            A presença é maior nas candidaturas a vice do que aos cargos titulares:
+            42,9% entre vices à Presidência, contra 14,3% entre candidaturas à
+            Presidência; e 41,7% entre vices aos governos, contra 17,4% entre
+            candidaturas a governadora.
+          </p>
+        }
+        source={
+          <>
+            Fonte: TSE · Candidaturas 2026 · fotografia da base de 22/09/2026 ·{" "}
+            <Link to="/metodo" className="text-plum underline underline-offset-4">ver o método</Link>
+          </>
+        }
+      >
+        <OfficeTable />
+      </SectionBlock>
+
+      <SectionBlock
+        id="estados"
         kicker="Panorama por estado"
         question="Cor/raça das candidaturas proporcionais, estado por estado"
         align="wide"
@@ -177,6 +202,7 @@ function QuemSaoElasPage() {
 
 
       <SectionBlock
+        id="partidos"
         kicker="Partidos"
         question="Quem lança mulheres?"
         align="wide"
