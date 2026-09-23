@@ -1,10 +1,10 @@
 # Roadmap
 
 ## Dimensão por cargo na fotografia TSE — em andamento (23/09)
-- [ ] Contar total e candidaturas de mulheres por cargo dentro de cada universo
-- [ ] Transportar a dimensão por cargo e os cargos fora dos universos até a fotografia pública
-- [ ] Alimentar gráfico e tabela de Cargos pela fotografia, com lacuna explícita quando incompleta
-- [ ] Validar tipos, diff dos seis arquivos e os dez percentuais publicados
+- [x] Contar total e candidaturas de mulheres por cargo dentro de cada universo
+- [x] Transportar a dimensão por cargo e os cargos fora dos universos até a fotografia pública
+- [x] Alimentar gráfico e tabela de Cargos pela fotografia, com lacuna explícita quando incompleta
+- [x] Validar tipos, diff dos seis arquivos e os dez percentuais publicados
 
 ## Arquitetura de informação — aprovada (22/09)
 - [x] Consolidar publicação, andamento, grupo e parentesco dos eixos em uma fonte única
