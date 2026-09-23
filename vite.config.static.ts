@@ -10,7 +10,7 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 /** Rotas despublicadas: existem no código, mas redirecionam para a home. */
-const UNPUBLISHED = ["/historico"];
+const UNPUBLISHED: string[] = [];
 
 export default defineConfig({
   // Sem nitro: o alvo é Apache estático, não um runtime de servidor.
