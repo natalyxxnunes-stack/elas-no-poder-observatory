@@ -3,6 +3,7 @@ import { PageShell } from "@/components/PageShell";
 import {
   HomeAboutBand,
   HomeFunnelFeature,
+  HomeHistoryHighlight,
   HomeHeroEditorial,
   HomeInvestigationGrid,
   HomeMapSection,
@@ -10,6 +11,10 @@ import {
 } from "@/components/home/HomeEditorial";
 import { formatPercent } from "@/data/election-2026";
 import { formatInt } from "@/lib/format-br";
+import {
+  getHistoricalSeries,
+  type HistoricalSeriesPayload,
+} from "@/lib/tse/historical.functions";
 import {
   getLatestTseSnapshot,
   getPendingReviewBaseDate,
@@ -36,11 +41,12 @@ export const Route = createFileRoute("/")({
     ],
   }),
   loader: async () => {
-    const [snapshot, pendingReviewBaseDate] = await Promise.all([
+    const [snapshot, pendingReviewBaseDate, historical] = await Promise.all([
       getLatestTseSnapshot(),
       getPendingReviewBaseDate(),
+      getHistoricalSeries(),
     ]);
-    return { snapshot, pendingReviewBaseDate };
+    return { snapshot, pendingReviewBaseDate, historical };
   },
   component: DadosPage,
 });
@@ -119,7 +125,11 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
 }
 
 function DadosPage() {
-  const { snapshot, pendingReviewBaseDate } = Route.useLoaderData();
+  const { snapshot, pendingReviewBaseDate, historical } = Route.useLoaderData() as {
+    snapshot: PublicSnapshot | null;
+    pendingReviewBaseDate: string | null;
+    historical: HistoricalSeriesPayload | null;
+  };
   const baseDate = snapshotDate(snapshot?.baseGeneratedAt ?? null);
   const pendingDate = snapshotDate(pendingReviewBaseDate ?? null);
 
@@ -129,6 +139,7 @@ function DadosPage() {
       <CurrentSnapshot snapshot={snapshot} baseDate={baseDate} pendingDate={pendingDate} />
       <HomeInvestigationGrid />
       <HomeMapSection snapshot={snapshot} />
+      <HomeHistoryHighlight historical={historical} />
       <HomeStages />
       <HomeFunnelFeature />
       <HomeAboutBand />
