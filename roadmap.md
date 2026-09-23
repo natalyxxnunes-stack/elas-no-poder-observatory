@@ -6,7 +6,12 @@
 - [x] Adicionar breadcrumb explícito às páginas, sem alterar a home
 - [x] Criar a página /investigacoes com a matriz editorial completa
 - [x] Publicar a seção Cargos em /quem-sao-elas com os números fornecidos
-- [ ] Validar tipos, rotas publicadas e ausência de alterações na home
+- [x] Validar tipos, rotas publicadas e ausência de alterações na home
+
+## Tratamento editorial de Cargos — aprovado (23/09)
+- [x] Adicionar visualização titular × vice/suplência aos três pares fornecidos
+- [x] Adicionar Fato / Interpretação editorial / Hipótese em investigação com os textos aprovados
+- [x] Preservar a tabela completa e validar todas as rotas sem alterar a home
 
 ## Fotografia TSE de 22/09/2026 — concluída
 - [x] Substituir hash, datas, totais, gênero, cor/raça e recortes por UF no snapshot fixo
