@@ -187,13 +187,6 @@ export function RaceFinding2026({
 
   return (
     <div className="space-y-8">
-      <p className="font-display text-xl leading-snug text-ink md:text-2xl">
-        Olho:{" "}
-        <span className="text-coral-ink">
-          Pardas e brancas são quase do mesmo tamanho no país. Nas candidaturas, não são.
-        </span>
-      </p>
-
       <div className="space-y-6">
         <article className="poster-frame p-5 md:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
