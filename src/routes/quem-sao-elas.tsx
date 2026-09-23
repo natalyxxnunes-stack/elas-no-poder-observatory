@@ -7,8 +7,6 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
 import { RaceExplorer } from "@/components/editorial/RaceExplorer";
-import { RaceByStateTable } from "@/components/editorial/RaceByStateTable";
-import { PartyGenderTable } from "@/components/editorial/PartyGenderTable";
 import { StateExplorer } from "@/components/editorial/StateExplorer";
 import { OfficeTable } from "@/components/editorial/OfficeTable";
 import { OfficePairChart } from "@/components/editorial/OfficePairChart";
@@ -203,70 +201,6 @@ function QuemSaoElasPage() {
             <OfficeTable snapshot={snapshot} />
           </div>
         </div>
-      </SectionBlock>
-
-      <SectionBlock
-        id="estados"
-        kicker="Panorama por estado"
-        question="Cor/raça das candidaturas proporcionais, estado por estado"
-        align="wide"
-        lead={
-          <p>
-            Aqui todos os estados aparecem lado a lado para comparação. O
-            explorador acima serve para aprofundar um recorte por vez.
-          </p>
-        }
-
-        source={
-          <>
-            Fonte: TSE · Candidaturas 2026
-            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
-            <Link to="/metodo" className="text-plum underline underline-offset-4">
-              ver o método
-            </Link>
-          </>
-        }
-      >
-        <RaceByStateTable snapshot={snapshot} />
-      </SectionBlock>
-
-
-
-      <SectionBlock
-        id="partidos"
-        kicker="Partidos"
-        question="Quem lança mulheres?"
-        align="wide"
-        lead={
-          <p>
-            Quem decide o registro é o partido ou a federação. Aqui está a
-            composição de cada lista: quantas das candidaturas registradas são de
-            mulheres, com o número absoluto ao lado do percentual. Ligando o
-            recorte de cor/raça, a mesma tabela mostra quais mulheres cada
-            partido registrou.
-          </p>
-        }
-
-        source={
-          <>
-            Fonte: TSE · Candidaturas 2026
-            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
-            <Link to="/metodo" className="text-plum underline underline-offset-4">
-              ver o método
-            </Link>
-          </>
-        }
-      >
-        <PartyGenderTable snapshot={snapshot} />
-        <ContextBox variant="significa" title="Como ler">
-          <p>
-            A tabela não sustenta frases como “partido melhor para mulheres”:
-            ela descreve a entrada, e a entrada é apenas a primeira etapa —
-            dinheiro, posição na lista e eleição só existem em bases posteriores
-            à campanha.
-          </p>
-        </ContextBox>
-
       </SectionBlock>
 
       <SectionBlock
