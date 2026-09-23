@@ -127,9 +127,6 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
           <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
             Dados parciais do TSE<br />Base de {baseDate ?? "data em atualização"}
           </p>
-          <div className="absolute right-4 top-7 rotate-[-5deg] font-mono text-[10px] uppercase leading-tight text-ink md:right-8">
-            Mesmos<br />dados.<br />Mais<br />mulheres<br />no poder.
-          </div>
           <div className="mt-2 border-b border-ink pb-5 pr-20">
             <p className="font-display text-[clamp(4rem,8vw,6.75rem)] font-semibold leading-none text-plum">
               {share !== null ? formatPct(share) : "—"}
