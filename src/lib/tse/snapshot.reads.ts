@@ -30,6 +30,8 @@ export type PublicUniverseTally = {
   dimensions?: {
     feminineByUf?: Record<string, number>;
     totalByUf?: Record<string, number>;
+    totalByCargo?: Record<string, number>;
+    feminineByCargo?: Record<string, number>;
     feminineByParty?: Record<string, number>;
     totalByParty?: Record<string, number>;
     feminineByAgremiacao?: Record<string, number>;
@@ -152,7 +154,7 @@ function pinnedPublic(): PublicSnapshot | null {
     processingVersion: "cravado-em-codigo",
     filters: [...PINNED.filters],
     situationValues: {},
-    outOfUniverse: null,
+    outOfUniverse: PINNED.outOfUniverse ?? null,
     universes: { proporcional, majoritario },
   };
 }

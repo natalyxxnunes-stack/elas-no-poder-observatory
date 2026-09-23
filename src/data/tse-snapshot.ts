@@ -29,6 +29,8 @@ export type UniverseSnapshot = {
   dimensions?: {
     feminineByUf?: Record<string, number>;
     totalByUf?: Record<string, number>;
+    totalByCargo?: Record<string, number>;
+    feminineByCargo?: Record<string, number>;
   };
 };
 
@@ -43,6 +45,11 @@ export type TseSnapshot = {
   /** filtros efetivamente aplicados na leitura das linhas */
   filters: string[];
   universes: Record<UniverseId, UniverseSnapshot>;
+  outOfUniverse?: {
+    total: number;
+    byCargo: Record<string, number>;
+    feminineByCargo: Record<string, number>;
+  };
 };
 
 /** SHA-256 do CSV BRASIL recontado de forma independente. */
@@ -81,12 +88,49 @@ export const snapshot: TseSnapshot | null = {
           PI: 317, PR: 1045, RJ: 1981, RN: 265, RO: 394, RR: 358, RS: 1000, SC: 645,
           SE: 363, SP: 2562, TO: 307,
         },
+        totalByCargo: {
+          "DEPUTADO FEDERAL": 7801,
+          "DEPUTADO ESTADUAL": 11293,
+          "DEPUTADO DISTRITAL": 433,
+        },
+        feminineByCargo: {
+          "DEPUTADO FEDERAL": 2869,
+          "DEPUTADO ESTADUAL": 3929,
+          "DEPUTADO DISTRITAL": 152,
+        },
       },
     },
     majoritario: {
       total: 534,
       feminine: 107,
       raceCounts: { BRANCA: 65, PARDA: 24, PRETA: 17, AMARELA: 1 },
+      dimensions: {
+        totalByCargo: {
+          PRESIDENTE: 14,
+          GOVERNADOR: 201,
+          SENADOR: 319,
+        },
+        feminineByCargo: {
+          PRESIDENTE: 2,
+          GOVERNADOR: 35,
+          SENADOR: 70,
+        },
+      },
+    },
+  },
+  outOfUniverse: {
+    total: 924,
+    byCargo: {
+      "VICE-PRESIDENTE": 14,
+      "VICE-GOVERNADOR": 211,
+      "1º SUPLENTE": 349,
+      "2º SUPLENTE": 350,
+    },
+    feminineByCargo: {
+      "VICE-PRESIDENTE": 6,
+      "VICE-GOVERNADOR": 88,
+      "1º SUPLENTE": 106,
+      "2º SUPLENTE": 107,
     },
   },
 };
