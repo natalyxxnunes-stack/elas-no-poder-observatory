@@ -314,7 +314,7 @@ export function HomeInvestigationGrid() {
         })}
         <aside className="flex min-h-64 flex-col justify-center gap-4 bg-solar px-8 py-12 text-ink md:px-8">
           <p className="font-mono text-[10px] uppercase tracking-wide text-ink/70">Achado</p>
-          <p className="font-display text-3xl font-semibold not-italic leading-tight md:text-4xl">
+          <p className="font-display text-xl font-semibold not-italic leading-snug sm:text-2xl md:text-4xl">
             Entre as candidatas à Presidência, mulheres são 14,3%. Entre as candidatas a vice, são 42,9%.
           </p>
         </aside>
