@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import { GapNote } from "@/components/GapNote";
 import { ContextBox } from "./ContextBox";
-import { StatusTag } from "./StatusTag";
 import { RACE_LABELS } from "@/data/historical-funnel";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import type { UniverseId } from "@/lib/tse/compute";
@@ -253,7 +252,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
                   {stateTotal >= MIN_BASE ? (
                     `${pf(stateShare)}%`
                   ) : (
-                    <StatusTag tone="limit">base pequena</StatusTag>
+                    <span className="font-mono text-sm text-muted-foreground">base pequena</span>
                   )}
                 </dd>
               </div>
@@ -443,7 +442,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
                               {p.total !== null && p.total >= MIN_BASE ? (
                                 `${pf((p.feminine / p.total) * 100)}%`
                               ) : (
-                                <StatusTag tone="limit">base pequena</StatusTag>
+                                <span className="font-mono text-sm text-muted-foreground">base pequena</span>
                               )}
                             </td>
                           )}

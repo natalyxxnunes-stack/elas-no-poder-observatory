@@ -121,9 +121,6 @@ function DireitosPage() {
                   <p className="poster-figure text-[2rem] text-plum md:text-[2.6rem]">
                     {m.year}
                   </p>
-                  {m.needsReview && (
-                    <StatusTag tone="limit">redação a conferir</StatusTag>
-                  )}
                 </div>
                 <h3 className="mt-1 max-w-2xl font-display text-xl leading-snug text-ink">
                   {m.title}
@@ -241,13 +238,6 @@ function DireitosPage() {
               descreve o que os dados mostram.
             </p>
           </ContextBox>
-        </div>
-        <div className="mt-6">
-          <GapNote label="Limite desta versão">
-            Marcos sinalizados como “redação a conferir” precisam de checagem
-            final contra o texto normativo antes de circularem como definitivos.
-            Nenhum marco sem fonte identificável é exibido.
-          </GapNote>
         </div>
       </SectionBlock>
 

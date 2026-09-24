@@ -13,7 +13,6 @@ export function IntersectionPlan() {
     <div>
       <ul className="divide-y divide-rule border-y border-rule">
         {INTERSECTION_PLAN.map((row) => {
-          const ready = row.state.startsWith("possível");
           return (
             <li
               key={row.crossing}
@@ -25,7 +24,7 @@ export function IntersectionPlan() {
                   Exige: {row.requires}
                 </p>
               </div>
-              <StatusTag tone={ready ? "ok" : "pending"}>{row.state}</StatusTag>
+              <StatusTag tone={row.status === "disponível" ? "ok" : row.status === "parcial" ? "limit" : "pending"}>{row.status}</StatusTag>
             </li>
           );
         })}

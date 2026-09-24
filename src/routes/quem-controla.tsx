@@ -132,7 +132,7 @@ function QuemControlaPage() {
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <h3 className="font-display text-xl text-ink">{l.lever}</h3>
                 <StatusTag tone={l.ready === "yes" ? "ok" : l.ready === "partial" ? "limit" : "pending"}>
-                  {l.ready === "yes" ? "investigável agora" : l.ready === "partial" ? "parcialmente investigável" : "aguardando fonte"}
+                  {l.ready === "yes" ? "disponível" : l.ready === "partial" ? "parcial" : "aguardando dado"}
                 </StatusTag>
               </div>
               <p className="mt-2 max-w-3xl leading-relaxed text-muted-foreground">{l.what}</p>

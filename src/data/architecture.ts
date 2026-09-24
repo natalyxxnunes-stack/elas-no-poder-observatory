@@ -406,42 +406,42 @@ export const INTERSECTION_PLAN = [
   {
     crossing: "gênero × cor/raça",
     requires: "Campos de gênero e cor/raça no registro de candidatura",
-    state: "possível na base de candidaturas de 2026",
+    status: "disponível",
   },
   {
     crossing: "gênero × cor/raça × território",
     requires: "UF e município do registro",
-    state: "possível na base de candidaturas de 2026",
+    status: "disponível",
   },
   {
     crossing: "gênero × cor/raça × partido ou federação",
     requires: "Partido e federação do registro",
-    state: "possível na base de candidaturas de 2026",
+    status: "disponível",
   },
   {
     crossing: "gênero × cor/raça × cargo",
     requires: "Cargo do registro, com universos separados",
-    state: "possível na base de candidaturas de 2026",
+    status: "disponível",
   },
   {
     crossing: "gênero × cor/raça × recursos",
     requires: "Despesas contratadas/pagas e doador originário da prestação de contas de 2026",
-    state: "publicado (fase 1: receita, em /dinheiro); despesa e doador originário aguardando",
+    status: "parcial",
   },
   {
     crossing: "gênero × cor/raça × votos",
     requires: "Resultado nominal apurado de 2026",
-    state: "aguardando apuração",
+    status: "aguardando dado",
   },
   {
     crossing: "gênero × cor/raça × resultado",
     requires: "Eleitas e diplomadas de 2026",
-    state: "aguardando apuração",
+    status: "aguardando dado",
   },
   {
     crossing: "gênero × cor/raça × poder",
     requires: "Levantamento de posições institucionais",
-    state: "aguardando levantamento próprio",
+    status: "aguardando dado",
   },
 ] as const;
 

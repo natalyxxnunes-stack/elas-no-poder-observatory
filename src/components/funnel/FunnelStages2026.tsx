@@ -14,7 +14,6 @@
  */
 
 import { GapNote } from "@/components/GapNote";
-import { StatusTag } from "@/components/editorial/StatusTag";
 import { BLACK_AGGREGATION_NOTE } from "@/lib/tse/historical-compute";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import type { UniverseId } from "@/lib/tse/compute";
@@ -62,7 +61,6 @@ function StageBar({
             {UNIVERSE_LABEL[universe]}
           </h3>
         </div>
-        <StatusTag tone="ok">fotografia em andamento</StatusTag>
       </div>
 
       <div className="px-5 pt-4">
@@ -131,7 +129,6 @@ function RaceStage({
             Quem são essas mulheres
           </h3>
         </div>
-        <StatusTag tone="limit">denominador restrito</StatusTag>
       </div>
 
       <p className="px-5 pt-2 text-sm leading-relaxed text-muted-foreground">
@@ -219,7 +216,6 @@ function FutureStage({ step }: { step: number }) {
             Eleitas e eleitos
           </h3>
         </div>
-        <StatusTag tone="pending">ainda não disponível</StatusTag>
       </div>
 
       <div className="px-5 pt-4">

@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
-import { StatusTag } from "@/components/editorial/StatusTag";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
@@ -146,9 +145,6 @@ function DownloadsPage() {
                 <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                   {m.kind}
                 </p>
-                <StatusTag tone={m.file ? "ok" : "pending"}>
-                  {m.file ? "disponível" : "em preparação"}
-                </StatusTag>
               </div>
               <h3 className="mt-2 font-display text-xl leading-snug text-ink">{m.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{m.description}</p>
