@@ -14,7 +14,6 @@ import { OfficePairChart } from "@/components/editorial/OfficePairChart";
 
 import { IntersectionPlan } from "@/components/editorial/IntersectionPlan";
 import { NextAxes } from "@/components/editorial/NextAxes";
-import { axis, CENTRAL_PRINCIPLE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 import { formatInt, formatPct, formatUmEmCada } from "@/lib/format-br";
@@ -53,7 +52,6 @@ export const Route = createFileRoute("/quem-sao-elas")({
 
 function QuemSaoElasPage() {
   const { snapshot } = Route.useLoaderData();
-  const a = axis("quem-sao-elas");
   // Carimbo da mesma fotografia que alimenta todas as visualizações da página.
   const baseIso = snapshot?.baseGeneratedAt ?? snapshot?.collectedAt ?? null;
   const baseStamp = baseIso
@@ -94,8 +92,9 @@ function QuemSaoElasPage() {
     counts && total > 0
       ? ((counts.PRETA ?? 0) + (counts.PARDA ?? 0)) / total * 100
       : Number.NaN;
-  const proportionalWhite = formatPct(raceShare(proportionalRaceCounts, "BRANCA", proportionalRaceTotal));
-  const majoritarianWhite = formatPct(raceShare(majoritarianRaceCounts, "BRANCA", majoritarianRaceTotal));
+  const formattedRaceShare = (value: number) => Number.isFinite(value) ? formatPct(value) : "—";
+  const proportionalWhite = formattedRaceShare(raceShare(proportionalRaceCounts, "BRANCA", proportionalRaceTotal));
+  const majoritarianWhite = formattedRaceShare(raceShare(majoritarianRaceCounts, "BRANCA", majoritarianRaceTotal));
   const majoritarianBlackCount = majoritarianRaceCounts
     ? (majoritarianRaceCounts.PRETA ?? 0) + (majoritarianRaceCounts.PARDA ?? 0)
     : null;

@@ -7,7 +7,6 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { GapNote } from "@/components/GapNote";
-import { axis } from "@/data/architecture";
 import { QUOTA_RULE } from "@/data/election-2026";
 
 /**
