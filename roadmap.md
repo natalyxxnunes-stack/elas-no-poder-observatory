@@ -51,9 +51,9 @@
 - [x] Em disputa: GapNote duplicada reduzida à frase não repetida; seção renomeada "Três distinções para ler a proposição"
 - [x] Método camada 1: tom afirmativo nos passos e ContextBox (limitações declaradas intactas)
 
-## Dinheiro — fase 1 (receitas) — em andamento (24/09)
+## Dinheiro — fase 1 (receitas) — concluída (24/09)
 - [x] Criar fotografia fixa da prestação de contas de 23/09/2026
 - [x] Publicar receita por gênero, cor/raça, cargo, partido e UF
 - [x] Manter titularidade/suplência e competitividade como lacunas declaradas
 - [x] Atualizar matriz editorial e card da home
-- [ ] Validar tipos, página e números renderizados
+- [x] Validar tipos, página e números renderizados

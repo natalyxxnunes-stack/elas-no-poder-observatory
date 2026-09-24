@@ -60,6 +60,15 @@ export const FINANCE_SOURCE_FILE = "receitas_candidatos_2026_BRASIL.csv";
 /** A mesma classificação de cargos usada na fotografia de candidaturas. */
 export const classifyFinanceUniverse = classifyUniverse;
 
+export const APPLIED_FILTERS = [
+  "Unidade de análise: candidatura (SQ_CANDIDATO), com receita agregada pela soma de todas as linhas de VR_RECEITA da candidatura",
+  "Gênero e cor/raça lidos diretamente de DS_GENERO e DS_COR_RACA no arquivo de receitas, sem cruzamento com o arquivo de candidaturas",
+  "Universos proporcional e majoritário classificados por DS_CARGO com a mesma função classifyUniverse usada na fotografia de candidaturas",
+  "Sem filtro por TP_PRESTACAO_CONTAS: receitas de Parcial e Relatório Financeiro são somadas; a distribuição das linhas é preservada para transparência",
+  "Prestação de contas em andamento: os valores não representam o resultado final pós-eleição e mudam até o fim da apuração",
+  "Cor/raça preservada nas categorias originais do TSE, sem agregação",
+] as const;
+
 export const financeSnapshot: TseFinanceSnapshot = {
   datasetUrl: "https://dadosabertos.tse.jus.br/dataset/prestacao-de-contas-eleitorais-2026",
   resourceUrl:
@@ -70,14 +79,7 @@ export const financeSnapshot: TseFinanceSnapshot = {
   revenueRowsProcessed: 125149,
   candidaciesWithRevenue: 19069,
   tipoPrestacaoContas: { PARCIAL: 50098, "RELATÓRIO FINANCEIRO": 75051 },
-  filters: [
-    "Unidade de análise: candidatura (SQ_CANDIDATO), com receita agregada pela soma de todas as linhas de VR_RECEITA da candidatura",
-    "Gênero e cor/raça lidos diretamente de DS_GENERO e DS_COR_RACA no arquivo de receitas, sem cruzamento com o arquivo de candidaturas",
-    "Universos proporcional e majoritário classificados por DS_CARGO com a mesma função classifyUniverse usada na fotografia de candidaturas",
-    "Sem filtro por TP_PRESTACAO_CONTAS: receitas de Parcial e Relatório Financeiro são somadas; a distribuição das linhas é preservada para transparência",
-    "Prestação de contas em andamento: os valores não representam o resultado final pós-eleição e mudam até o fim da apuração",
-    "Cor/raça preservada nas categorias originais do TSE, sem agregação",
-  ],
+  filters: [...APPLIED_FILTERS],
   universes: {
     proporcional: {
       registeredCandidacies: 19527,
