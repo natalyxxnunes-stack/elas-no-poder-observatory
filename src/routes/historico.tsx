@@ -5,6 +5,7 @@ import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
+import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { GapNote } from "@/components/GapNote";
 import { SeriesChart } from "@/components/historical/SeriesChart";
 import { HistoryFunnel } from "@/components/historical/HistoryFunnel";
@@ -154,23 +155,6 @@ function HistoricoPage() {
         source="Fonte: TSE · Candidatos (DS_GENERO)"
       >
         <SeriesChart series={feminine} />
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          <ContextBox variant="significa" title="Dois universos que nunca se somam">
-            <p>
-              Proporcional reúne Câmara dos Deputados, assembleias legislativas e
-              Câmara Legislativa do DF. Majoritária reúne Presidência, governos e
-              Senado — universo pequeno, que deve ser lido em contagens
-              absolutas.
-            </p>
-          </ContextBox>
-          <ContextBox variant="calculamos" title="Como o percentual é calculado">
-            <p>
-              Candidaturas de mulheres divididas pelo total de candidaturas do
-              mesmo universo e do mesmo ano. Cada candidatura entra uma única vez
-              (deduplicação por candidatura).
-            </p>
-          </ContextBox>
-        </div>
       </SectionBlock>
 
       <SectionBlock
@@ -188,9 +172,6 @@ function HistoricoPage() {
       >
         <SeriesChart series={byId("serie-negras-negros-candidaturas")} />
         <div className="mt-6 space-y-4">
-          <ContextBox variant="significa" title="O que “negra” agrega aqui">
-            <p>{BLACK_AGGREGATION_NOTE}</p>
-          </ContextBox>
           <GapNote label="Limite de 2026">
             A fotografia atual de 2026 guarda cor/raça apenas das candidaturas de
             mulheres. Por isso a participação negra sobre o total de candidaturas
@@ -254,10 +235,6 @@ function HistoricoPage() {
             eleitos, e as senadoras eleitas aparecem como 6 (o Senado registra 7).
             A lacuna é da base publicada e não é preenchida por estimativa.
           </GapNote>
-          <GapNote label="2026">
-            Nenhuma eleita de 2026 é exibida: não há resultado eleitoral e nada é
-            projetado.
-          </GapNote>
         </div>
       </SectionBlock>
 
@@ -288,54 +265,17 @@ function HistoricoPage() {
         )}
       </SectionBlock>
 
-      <SectionBlock
-        kicker="Território e cargo"
-        question="E a leitura por estado e por cargo?"
-        align="wide"
-        source="Pendência técnica declarada — sem novo cálculo nesta rodada"
-      >
-        <GapNote label="Pendência">
-          A coleta histórica guarda cortes por cargo e por unidade da federação,
-          mas nesta versão não existe indicador histórico auditado publicado para
-          esses cortes. Nada é calculado aqui para preencher o espaço: o bloco
-          fica declarado como pendência.
-        </GapNote>
-      </SectionBlock>
-
-      <SectionBlock
-        kicker="Síntese"
-        question="O que os dados permitem dizer"
-        align="wide"
-        source="Fonte: TSE · Candidatos 2014, 2018, 2022 e 2026"
-      >
-        <ul className="max-w-3xl space-y-4 text-base leading-relaxed text-muted-foreground">
-          <li>
-            A participação feminina nas candidaturas proporcionais é maior em cada
-            eleição da série do que na anterior. É uma descrição da série, não uma
-            explicação de causa.
-          </li>
-          <li>
-            Candidatura e resultado são universos distintos: a participação entre
-            eleitas e eleitos é lida com denominador próprio e não pode ser
-            subtraída da participação nas candidaturas.
-          </li>
-          <li>
-            Onde a base não traz o dado — cor/raça de todas as candidaturas em
-            2026, resultado de 2026 ou registros nulos nos arquivos históricos —
-            o ponto fica vazio. Não há estimativa em nenhum ponto desta página.
-          </li>
-        </ul>
-        <p className="mt-8 font-mono text-[12px] text-muted-foreground">
-          Fórmulas, filtros e versões de processamento em{" "}
-          <Link to="/metodo" className="text-plum underline underline-offset-4">
-            Método
-          </Link>{" "}
-          · condições de entrada na disputa em{" "}
-          <Link to="/quem-controla" className="text-plum underline underline-offset-4">
-            Quem controla
-          </Link>
-        </p>
-      </SectionBlock>
+      <ComoSabemos
+        fonte="TSE, Candidatos 2014, 2018 e 2022 (candidaturas e resultado de 1º e 2º turno); TSE, Candidaturas 2026."
+        universo="Proporcional (Câmara, assembleias e Câmara Legislativa do DF) e majoritário (Presidência, governos e Senado), nunca somados. Cada candidatura entra uma vez em cada ano."
+        calculo={<>Candidaturas de mulheres divididas pelo total de candidaturas do mesmo universo e do mesmo ano. {BLACK_AGGREGATION_NOTE}</>}
+        limites={[
+          "2026 não tem resultado: a eleição ainda não ocorreu, e nenhuma eleita é projetada.",
+          "Em 2026, a base guarda cor/raça só das candidaturas de mulheres.",
+          "Os recortes históricos por cargo e por UF já foram coletados, mas ainda não têm indicador auditado publicado.",
+          "Onde a base oficial não traz o dado, o ponto fica vazio. Nenhum ponto desta página é estimado.",
+        ]}
+      />
 
       <NextAxes ids={["quem-sao-elas", "funil", "metodo"]} />
     </PageShell>
