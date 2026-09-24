@@ -26,7 +26,7 @@ type EditorialOpeningProps = OpeningBase &
     | { variant: "downloads"; documents: readonly { format: string; label: string; available: boolean }[] }
   );
 
-const baseTitle = "font-display text-[clamp(2.7rem,5.2vw,5.5rem)] font-semibold leading-[0.91]";
+const baseTitle = "font-display text-[clamp(2.2rem,4vw,3.75rem)] font-semibold leading-[0.95]";
 const compactTitle = "font-display text-[clamp(2.2rem,4vw,3.75rem)] font-semibold leading-[0.95]";
 
 function OpeningText({ kicker, question, lead, inverse = false, compact = false }: OpeningBase & { inverse?: boolean; compact?: boolean }) {
