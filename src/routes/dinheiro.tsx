@@ -17,13 +17,20 @@ import { formatInt, formatPct } from "@/lib/format-br";
 export const Route = createFileRoute("/dinheiro")({
   head: () => ({
     meta: [
-      { title: "Dinheiro — Quem são elas? | Quem recebe condições para competir" },
+      {
+        title:
+          "Quanto mais alto o cargo, menos dinheiro de campanha chega às mulheres | Quem são elas?",
+      },
       {
         name: "description",
         content:
           "Receitas declaradas nas campanhas de 2026 por gênero, cor/raça, cargo, partido e UF, com cobertura, denominadores e limites da base em andamento.",
       },
-      { property: "og:title", content: "Dinheiro nas eleições de 2026: quem recebe?" },
+      {
+        property: "og:title",
+        content:
+          "Quanto mais alto o cargo, menos dinheiro de campanha chega às mulheres",
+      },
       {
         property: "og:description",
         content:
