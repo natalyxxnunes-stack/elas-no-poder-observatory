@@ -64,3 +64,11 @@
 - [x] Rodar typecheck e coleta de 2014, 2018 e 2022
 - [x] Conferir as três fotografias novas e invalidá-las em conjunto se alguma trava falhar
 - [x] Entregar tabelas completas, secondRoundElected e arquivos tocados
+
+## Lote H2 — fechamento do 2º turno
+- [x] Impedir dupla contagem de eleitos já reconhecidos no 1º turno
+- [x] Atualizar a fotografia editorial proporcional de 2022 republicada pelo TSE
+- [x] Atualizar a lacuna documentada do Senado em Mato Grosso em 2018
+- [x] Rodar typecheck e nova coleta de 2014, 2018 e 2022
+- [x] Validar candidaturas, eleitos proporcionais e eleitos majoritários por UF
+- [x] Entregar tabelas, status finais e arquivos tocados

@@ -140,20 +140,15 @@ export const HISTORICAL_FUNNEL: HistoricalFunnelYear[] = [
         nao_informado: { count: 35, percent: 0.4 },
       },
     },
-    // Eleitas 2022 conforme o processamento do projeto (fotografia histórica
-    // gravada no banco): 1.512 eleituras no 1º turno, 60 abaixo das 1.572
-    // cadeiras, porque o arquivo oficial não traz resultado para o Maranhão
-    // (926 candidaturas com #NULO em DS_SIT_TOT_TURNO; MA elege 18 federais +
-    // 42 estaduais). Lacuna da fonte: não é preenchida nem estimada.
     elected: {
-      total: 1_512,
-      feminine: 267,
-      femininePercent: 17.7,
+      total: 1_572,
+      feminine: 281,
+      femininePercent: 17.9,
       race: {
-        branca: { count: 168, percent: 62.9 },
-        parda: { count: 55, percent: 20.6 },
-        preta: { count: 37, percent: 13.9 },
-        indigena: { count: 5, percent: 1.9 },
+        branca: { count: 170, percent: 60.5 },
+        parda: { count: 68, percent: 24.2 },
+        preta: { count: 37, percent: 13.2 },
+        indigena: { count: 4, percent: 1.4 },
         amarela: { count: 1, percent: 0.4 },
         nao_informado: { count: 1, percent: 0.4 },
       },
@@ -215,10 +210,9 @@ export const ELECTION_RATE_BY_GENDER: readonly ElectionRateRow[] = [
   },
   {
     year: 2022,
-    feminine: { candidacies: 9532, elected: 267 },
-    masculine: { candidacies: 18422, elected: 1245 },
-    caveat:
-      "O arquivo oficial de 2022 não traz resultado para o Maranhão (60 cadeiras): as duas taxas do ano são calculadas sem essas cadeiras.",
+    feminine: { candidacies: 9532, elected: 281 },
+    masculine: { candidacies: 18422, elected: 1291 },
+    caveat: null,
   },
 ] as const;
 
