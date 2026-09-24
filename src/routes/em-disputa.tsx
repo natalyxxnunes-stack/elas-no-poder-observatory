@@ -50,6 +50,9 @@ function EmDisputaPage() {
 
       <div className="pb-4">
         <InBrief
+          foundLabel="O que vale hoje"
+          mattersLabel="Por que a data da regra importa"
+          unknownLabel="O que pode mudar depois daqui"
           found={
             <>
               As regras em vigor no ciclo de 2026 combinam composição de candidaturas, destinação de
@@ -148,22 +151,24 @@ function EmDisputaPage() {
         question="Três distinções para ler uma proposição"
       >
         <div className="grid gap-4 md:grid-cols-3">
-          <ContextBox variant="significa">
+          <ContextBox variant="significa" title="Estágios de uma proposta em andamento">
             <p>
               Apresentado, aprovado em comissão, aprovado em plenário e sancionado são estágios
               distintos. Só o último produz norma.
             </p>
           </ContextBox>
-          <ContextBox variant="importa">
+          <ContextBox variant="importa" title="Até onde uma resolução do TSE vai">
             <p>
-              Resolução do TSE organiza a aplicação das regras de um ciclo; não cria direito novo
-              além do que a lei e a Constituição autorizam.
+              Aqui o alcance é o inverso: uma resolução do TSE só organiza a aplicação de regras já
+              existentes dentro do ciclo de 2026, sem criar direito novo. Uma proposta que muda esse
+              alcance depende de lei ou de decisão do próprio Judiciário.
             </p>
           </ContextBox>
-          <ContextBox variant="calculamos">
+          <ContextBox variant="calculamos" title="Por que não existe efeito pra medir ainda">
             <p>
-              Não atribuímos efeito estatístico a uma regra sem desenho metodológico que permita
-              isolar esse efeito. Contraste antes e depois não é prova de causa.
+              Enquanto uma proposição está em tramitação, não existe efeito para medir: não há antes
+              e depois, só um “antes” e uma expectativa. Qualquer leitura de impacto aqui seria
+              estimativa, e o site não publica estimativa.
             </p>
           </ContextBox>
         </div>
