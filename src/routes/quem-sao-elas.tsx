@@ -167,6 +167,7 @@ function QuemSaoElasPage() {
       </div>
 
       <SectionBlock
+        id="raca"
         kicker="Censo 2022 × candidaturas 2026"
         question="Pardas e brancas são quase do mesmo tamanho no país. Nas candidaturas, não são."
         align="wide"
