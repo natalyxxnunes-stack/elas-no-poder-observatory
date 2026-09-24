@@ -218,7 +218,7 @@ export async function runHistoricalIngest(
       filters: HISTORICAL_FILTERS,
       aggregates,
       anomalies,
-      notes: `Fotografia histórica de ${year}. ${acc.recordCount} candidaturas distintas a partir de ${acc.rawLineCount} linhas brutas (${acc.duplicateRows} duplicadas, ${acc.rowsWithoutKey} sem chave, ${acc.otherRounds} de outro turno, ${acc.otherElectionTypes} de eleição não ordinária). Fora dos universos analisados: ${acc.outOfScope}; ${acc.secondRoundElected} eleitas e eleitos em 2º turno incorporados. Diagnóstico temporário: ${acc.secondRoundRows.size} linhas únicas de 2º turno.`,
+      notes: `Fotografia histórica de ${year}. ${acc.recordCount} candidaturas distintas a partir de ${acc.rawLineCount} linhas brutas (${acc.duplicateRows} duplicadas, ${acc.rowsWithoutKey} sem chave, ${acc.otherRounds} de outro turno, ${acc.otherElectionTypes} de eleição não ordinária). Fora dos universos analisados: ${acc.outOfScope}; ${acc.secondRoundElected} eleitas e eleitos em 2º turno incorporados. Diagnóstico temporário: ${JSON.stringify(Array.from(acc.secondRoundRows.entries()).slice(0, 3).map(([key, row]) => ({ key, cargo: row.cargo, resultado: row.sitTotTurno, sameCandidate: Array.from(acc.seenKeys).find((seen) => seen.endsWith(`|${row.sqCandidato}`)) ?? null })))}.`,
     })
     .select("id")
     .single();
