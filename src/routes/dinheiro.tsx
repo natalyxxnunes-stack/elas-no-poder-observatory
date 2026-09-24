@@ -5,7 +5,6 @@ import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
-import { GapNote } from "@/components/GapNote";
 import { axis } from "@/data/architecture";
 import { QUOTA_RULE } from "@/data/election-2026";
 import { financeSnapshot } from "@/data/tse-finance-snapshot";

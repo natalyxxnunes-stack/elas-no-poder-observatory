@@ -274,32 +274,6 @@ export const SITE = {
   cycle: "Eleições gerais de 2026 — Brasil",
 } as const;
 
-/** O ciclo analítico que organiza todo o site. */
-export const CYCLE_STAGES = [
-  {
-    id: "registros",
-    label: "Registros",
-    question: "Quantas conseguem entrar na disputa — e sob qual regra?",
-  },
-  {
-    id: "recursos",
-    label: "Recursos",
-    question: "Quanto dinheiro e tempo de mídia chegam até elas?",
-  },
-  {
-    id: "votos-eleitas",
-    label: "Votos e eleitas",
-    question: "Quantos votos viram cadeira?",
-  },
-  {
-    id: "poder-decisoes",
-    label: "Poder e decisões",
-    question: "Quem comanda comissões, executivos e orçamento?",
-  },
-] as const;
-
-export type CycleStageId = (typeof CYCLE_STAGES)[number]["id"];
-
 /** Regra de composição de candidaturas por gênero. */
 export const QUOTA_RULE = {
   /** faixa legal */
@@ -316,90 +290,6 @@ export const QUOTA_RULE = {
     "As regras de destinação mínima de recursos públicos de campanha e de tempo de propaganda a candidaturas de mulheres são distintas da regra de composição de candidaturas e podem alcançar disputas majoritárias e proporcionais.",
   sourceUrl: TSE_SOURCE.legalUrl,
 } as const;
-
-/**
- * Funil candidatura → poder. Os degraus posteriores ao registro não têm valor
- * e não recebem estimativa.
- */
-export type FunnelStep = {
-  id: string;
-  stage: CycleStageId;
-  label: string;
-  description: string;
-  indicator: Indicator | null;
-  /** status do degrau quando não há indicador calculável */
-  status: DataStatus;
-  /** o que falta, quando falta */
-  pending: string | null;
-};
-
-export const FUNNEL_STEPS: FunnelStep[] = [
-  {
-    id: "candidaturas-proporcionais",
-    stage: "registros",
-    label: "Candidaturas · proporcionais",
-    description:
-      "Câmara dos Deputados, assembleias legislativas e Câmara Legislativa do Distrito Federal — eleições proporcionais, submetidas à regra de composição de candidaturas de 30%–70% por gênero.",
-    indicator: PROPORTIONAL_SHARE,
-    status: PROPORTIONAL_SHARE.status,
-    pending:
-      PROPORTIONAL_SHARE.value === null
-        ? "Aguardando processamento da base oficial de Candidatos 2026."
-        : null,
-  },
-  {
-    id: "candidaturas-majoritarias",
-    stage: "registros",
-    label: "Candidaturas · majoritárias",
-    description:
-      "Presidência, governos estaduais e do Distrito Federal e Senado — disputas de cargo único, sem a regra de composição de candidaturas de 30%–70% por gênero.",
-    indicator: MAJORITARIAN_SHARE,
-    status: MAJORITARIAN_SHARE.status,
-    pending:
-      MAJORITARIAN_SHARE.value === null
-        ? "Aguardando processamento da base oficial de Candidatos 2026."
-        : null,
-  },
-  {
-    id: "recursos",
-    stage: "recursos",
-    label: "Recursos de campanha",
-    description:
-      "Recursos públicos de campanha e tempo de propaganda efetivamente destinados a candidaturas de mulheres.",
-    indicator: null,
-    status: DATA_STATUS.indisponivel,
-    pending:
-      "Ainda não disponível: será integrado em módulo próprio, a partir das bases de prestação de contas do TSE.",
-  },
-  {
-    id: "votos",
-    stage: "votos-eleitas",
-    label: "Votos recebidos",
-    description: "Votação nominal válida dirigida a candidaturas de mulheres.",
-    indicator: null,
-    status: DATA_STATUS.indisponivel,
-    pending: "Ainda não disponível antes da eleição de 2026.",
-  },
-  {
-    id: "eleitas",
-    stage: "votos-eleitas",
-    label: "Eleitas",
-    description: "Cadeiras efetivamente ocupadas por mulheres.",
-    indicator: null,
-    status: DATA_STATUS.indisponivel,
-    pending: "Ainda não disponível antes da apuração da eleição de 2026.",
-  },
-  {
-    id: "poder",
-    stage: "poder-decisoes",
-    label: "Poder e decisões",
-    description:
-      "Presidências de comissão, lideranças partidárias, mesas diretoras e secretarias.",
-    indicator: null,
-    status: DATA_STATUS.indisponivel,
-    pending: "Módulo posterior, a levantar após a diplomação e a posse.",
-  },
-];
 
 /** Raça × nível de poder — eixo central do observatório. */
 export const RACE_BY_POWER_LEVEL: {
