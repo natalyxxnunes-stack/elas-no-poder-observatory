@@ -101,7 +101,6 @@ function QuemSaoElasPage() {
   const majoritarianBlackCount = majoritarianRaceCounts
     ? (majoritarianRaceCounts["PRETA"] ?? 0) + (majoritarianRaceCounts["PARDA"] ?? 0)
     : null;
-  const proportionalBlackFrequency = formatUmEmCada(blackShare(proportionalRaceCounts, proportionalRaceTotal));
   const proportionalPardaFrequency = formatUmEmCada(raceShare(proportionalRaceCounts, "PARDA", proportionalRaceTotal));
   const majoritarianPardaFrequency = formatUmEmCada(raceShare(majoritarianRaceCounts, "PARDA", majoritarianRaceTotal));
   const share = (feminine: number | undefined, total: number | undefined) =>
@@ -132,10 +131,10 @@ function QuemSaoElasPage() {
       <EditorialOpening
         variant="race"
         kicker="Quem são elas?"
-        question={`Quanto mais alto o cargo, mais brancas são as candidatas: ${proportionalWhite} nas disputas a deputada, ${majoritarianWhite} nas de presidente, governadora e senadora.`}
+        question="Quanto mais alto o cargo, mais brancas são as candidatas"
         lead={
           <p>
-            Das {majoritarianRaceTotal > 0 ? formatInt(majoritarianRaceTotal) : "—"} mulheres que disputam Presidência, governos e Senado, {majoritarianRaceCounts ? formatInt(majoritarianRaceCounts["BRANCA"] ?? 0) : "—"} são brancas e {majoritarianBlackCount !== null ? formatInt(majoritarianBlackCount) : "—"} são negras, somando pretas e pardas. Nas listas a deputada, as candidatas negras são {proportionalBlackFrequency}. A queda está sobretudo nas pardas: eram {proportionalPardaFrequency} candidatas a deputada e viram {majoritarianPardaFrequency} nos cargos de um único titular. Aqui gênero e cor/raça são lidos juntos, por cargo, estado e partido.
+            Brancas são {proportionalWhite} das candidatas a deputada e {majoritarianWhite} das que disputam Presidência, governos e Senado. Nessas disputas de cargo único, das {majoritarianRaceTotal > 0 ? formatInt(majoritarianRaceTotal) : "—"} mulheres, {majoritarianRaceCounts ? formatInt(majoritarianRaceCounts["BRANCA"] ?? 0) : "—"} são brancas e {majoritarianBlackCount !== null ? formatInt(majoritarianBlackCount) : "—"} são negras, somando pretas e pardas. A queda está sobretudo nas pardas: eram {proportionalPardaFrequency} candidatas a deputada e viram {majoritarianPardaFrequency} nos cargos de um único titular.
           </p>
         }
         snapshot={snapshot}

@@ -221,3 +221,8 @@
   border-radius: 0;
   padding: 0.15rem 0.5rem;
 }
+
+html,
+body {
+  overflow-x: clip;
+}

@@ -131,8 +131,8 @@ function DinheiroPage() {
       <EditorialOpening
         variant="financial"
         kicker="Dinheiro"
-        question={`Na corrida à Presidência, mulheres são ${presidentialFeminine !== undefined ? formatInt(presidentialFeminine) : "—"} das ${presidentialTotal !== undefined ? formatInt(presidentialTotal) : "—"} candidaturas e recebem ${presidente} do dinheiro declarado.`}
-        lead={<p>Entre as candidaturas que já declararam receita, a fatia das mulheres encolhe à medida que o cargo sobe: {deputadoEstadual} do dinheiro nas assembleias legislativas, {senador} no Senado, {governador} nos governos e {presidente} na Presidência.</p>}
+        question="Quanto mais alto o cargo, menos dinheiro chega às mulheres"
+        lead={<p>Na corrida à Presidência, mulheres são {presidentialFeminine !== undefined ? formatInt(presidentialFeminine) : "—"} das {presidentialTotal !== undefined ? formatInt(presidentialTotal) : "—"} candidaturas e recebem {presidente} do dinheiro declarado. Entre as candidaturas que já declararam receita, a fatia das mulheres encolhe à medida que o cargo sobe: {deputadoEstadual} do dinheiro nas assembleias legislativas, {senador} no Senado, {governador} nos governos e {presidente} na Presidência.</p>}
         layers={MONEY_LAYERS.map((layer) => layer.label)}
         gap="Prestação de contas em andamento · receita, não despesa · valores sujeitos a atualização"
         snapshot={financeSnapshot}

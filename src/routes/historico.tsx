@@ -85,14 +85,10 @@ function HistoricoPage() {
       <EditorialOpening
         variant="timeline"
         kicker="Como chegamos até aqui?"
-        question={`Em ${historyYear ?? "—"}, 1 em cada ${feminineElectionRatio ?? "—"} candidatas a deputada se elegeu. Entre os homens, 1 em cada ${masculineElectionRatio ?? "—"}.`}
+        question="Candidatar-se não é eleger-se"
         lead={
           <p>
-            Desde 2014, a presença de mulheres cresceu nas listas e nas cadeiras,
-            mas a distância entre as duas continua. Em {historical2022?.year ?? "—"},
-            mulheres eram {candidacyFrequency} candidaturas a deputada e {electedFrequency}
-            eleitas. A série mostra também quem ficou com esse crescimento, por
-            cor/raça.
+            Em {historyYear ?? "—"}, 1 em cada {feminineElectionRatio ?? "—"} candidatas a deputada se elegeu. Entre os homens, 1 em cada {masculineElectionRatio ?? "—"}. Desde 2014, a presença de mulheres cresceu nas listas e nas cadeiras, mas a distância entre as duas continua. Em {historical2022?.year ?? "—"}, mulheres eram {candidacyFrequency} candidaturas a deputada e {electedFrequency} eleitas.
           </p>
         }
         years={["2014", "2018", "2022", "2026"]}

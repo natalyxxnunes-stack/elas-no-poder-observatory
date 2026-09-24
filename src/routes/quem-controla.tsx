@@ -91,7 +91,7 @@ function QuemControlaPage() {
       <EditorialOpening
         variant="power-flow"
         kicker="Quem controla?"
-        question="Antes do voto, o partido decide quem entra na lista, quem recebe dinheiro e em que posição."
+        question="Antes do voto, quem decide é o partido."
         lead={
           <p>
             A lei fixa pisos de candidaturas e de recursos para mulheres. Dentro desses pisos, a divisão do fundo, do tempo de TV e das posições de chapa fica com o partido ou a federação. Das {numberWords[leverTotal] ?? leverTotal} decisões mapeadas aqui, {numberWords[readyTotal] ?? readyTotal} já podem ser medidas com dado público e {numberWords[partialTotal] ?? partialTotal}, em parte.
