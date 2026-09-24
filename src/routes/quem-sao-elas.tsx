@@ -17,7 +17,7 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { axis, CENTRAL_PRINCIPLE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
-import { formatPct } from "@/lib/format-br";
+import { formatInt, formatPct, formatUmEmCada } from "@/lib/format-br";
 
 
 /**
@@ -84,6 +84,24 @@ function QuemSaoElasPage() {
   const firstRace = raceAt(0);
   const secondRace = raceAt(1);
   const thirdRace = raceAt(2);
+  const majoritarianRaceCounts = snapshot?.universes.majoritario.raceCounts;
+  const majoritarianRaceTotal = majoritarianRaceCounts
+    ? Object.values(majoritarianRaceCounts).reduce((sum, count) => sum + count, 0)
+    : 0;
+  const raceShare = (counts: Record<string, number> | undefined, category: string, total: number) =>
+    counts && total > 0 ? (counts[category] ?? 0) / total * 100 : Number.NaN;
+  const blackShare = (counts: Record<string, number> | undefined, total: number) =>
+    counts && total > 0
+      ? ((counts.PRETA ?? 0) + (counts.PARDA ?? 0)) / total * 100
+      : Number.NaN;
+  const proportionalWhite = formatPct(raceShare(proportionalRaceCounts, "BRANCA", proportionalRaceTotal));
+  const majoritarianWhite = formatPct(raceShare(majoritarianRaceCounts, "BRANCA", majoritarianRaceTotal));
+  const majoritarianBlackCount = majoritarianRaceCounts
+    ? (majoritarianRaceCounts.PRETA ?? 0) + (majoritarianRaceCounts.PARDA ?? 0)
+    : null;
+  const proportionalBlackFrequency = formatUmEmCada(blackShare(proportionalRaceCounts, proportionalRaceTotal));
+  const proportionalPardaFrequency = formatUmEmCada(raceShare(proportionalRaceCounts, "PARDA", proportionalRaceTotal));
+  const majoritarianPardaFrequency = formatUmEmCada(raceShare(majoritarianRaceCounts, "PARDA", majoritarianRaceTotal));
   const share = (feminine: number | undefined, total: number | undefined) =>
     feminine !== undefined && total !== undefined && total > 0
       ? formatPct((feminine / total) * 100)
@@ -112,8 +130,12 @@ function QuemSaoElasPage() {
       <EditorialOpening
         variant="race"
         kicker="Quem são elas?"
-        question={a.question}
-        lead={<p>{CENTRAL_PRINCIPLE}</p>}
+        question={`Quanto mais alto o cargo, mais brancas são as candidatas: ${proportionalWhite} nas disputas a deputada, ${majoritarianWhite} nas de presidente, governadora e senadora.`}
+        lead={
+          <p>
+            Das {majoritarianRaceTotal > 0 ? formatInt(majoritarianRaceTotal) : "—"} mulheres que disputam Presidência, governos e Senado, {majoritarianRaceCounts ? formatInt(majoritarianRaceCounts.BRANCA ?? 0) : "—"} são brancas e {majoritarianBlackCount !== null ? formatInt(majoritarianBlackCount) : "—"} são negras, somando pretas e pardas. Nas listas a deputada, as candidatas negras são {proportionalBlackFrequency}. A queda está sobretudo nas pardas: eram {proportionalPardaFrequency} candidatas a deputada e viram {majoritarianPardaFrequency} nos cargos de um único titular. Aqui gênero e cor/raça são lidos juntos, por cargo, estado e partido.
+          </p>
+        }
         snapshot={snapshot}
       />
 

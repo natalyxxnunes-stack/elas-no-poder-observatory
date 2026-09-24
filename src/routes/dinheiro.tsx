@@ -8,6 +8,7 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { axis } from "@/data/architecture";
 import { QUOTA_RULE } from "@/data/election-2026";
 import { financeSnapshot } from "@/data/tse-finance-snapshot";
+import { snapshot } from "@/data/tse-snapshot";
 import { FinanceByOffice, FinanceByUf, FinanceCoverage, FinanceParties, FinanceRace } from "@/components/editorial/FinanceOverview";
 import { formatInt, formatPct } from "@/lib/format-br";
 
@@ -84,7 +85,6 @@ const MONEY_LAYERS = [
 ] as const;
 
 function DinheiroPage() {
-  const a = axis("dinheiro");
   const revenueShare = (feminine: number | undefined, total: number | undefined) =>
     feminine !== undefined && total !== undefined && total > 0
       ? formatPct((feminine / total) * 100)
@@ -117,13 +117,15 @@ function DinheiroPage() {
     proportional.byOffice["DEPUTADO ESTADUAL"]?.feminine,
     proportional.byOffice["DEPUTADO ESTADUAL"]?.total,
   );
+  const presidentialFeminine = snapshot?.universes.majoritario.dimensions?.feminineByCargo?.PRESIDENTE;
+  const presidentialTotal = snapshot?.universes.majoritario.dimensions?.totalByCargo?.PRESIDENTE;
   return (
     <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Dinheiro" }]}>
       <EditorialOpening
         variant="financial"
         kicker="Dinheiro"
-        question="O dinheiro chega às mesmas mulheres que aparecem nas candidaturas?"
-        lead={<p>{a.summary}</p>}
+        question={`Na corrida à Presidência, mulheres são ${presidentialFeminine !== undefined ? formatInt(presidentialFeminine) : "—"} das ${presidentialTotal !== undefined ? formatInt(presidentialTotal) : "—"} candidaturas e recebem ${presidente} do dinheiro declarado.`}
+        lead={<p>Entre as candidaturas que já declararam receita, a fatia das mulheres encolhe à medida que o cargo sobe: {deputadoEstadual} do dinheiro nas assembleias legislativas, {senador} no Senado, {governador} nos governos e {presidente} na Presidência. Os valores vêm da prestação de contas em andamento, base de 23/09/2026.</p>}
         layers={MONEY_LAYERS.map((layer) => layer.label)}
         gap="Prestação de contas em andamento · receita, não despesa · valores sujeitos a atualização"
         snapshot={financeSnapshot}

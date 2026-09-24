@@ -15,6 +15,7 @@ import { FUNNEL_READING_RULE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import { getHistoricalSeries } from "@/lib/tse/historical.functions";
 import type { Series } from "@/lib/tse/historical-compute";
+import { formatUmEmCada } from "@/lib/format-br";
 
 export const Route = createFileRoute("/funil")({
   head: () => ({
@@ -84,6 +85,18 @@ function FunilPage() {
         year: "numeric",
       })
     : null;
+  const frequency = (feminine: number | undefined, total: number | undefined) =>
+    feminine !== undefined && total !== undefined && total > 0
+      ? formatUmEmCada((feminine / total) * 100)
+      : "—";
+  const proportionalFrequency = frequency(
+    snapshot?.universes.proporcional.feminine,
+    snapshot?.universes.proporcional.total,
+  );
+  const majoritarianFrequency = frequency(
+    snapshot?.universes.majoritario.feminine,
+    snapshot?.universes.majoritario.total,
+  );
 
   return (
     <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "O funil" }]}>
@@ -93,8 +106,7 @@ function FunilPage() {
         question="Onde elas ficam pelo caminho?"
         lead={
           <p>
-            O funil acompanha a presença das mulheres na disputa de 2026, etapa
-            por etapa, e mostra onde essa presença diminui.
+            Mulheres são {proportionalFrequency} candidaturas a deputada e {majoritarianFrequency} nas disputas por Presidência, governos e Senado. Nos cargos de um único titular, a presença cai. A partir de outubro, o funil ganha as etapas de voto e cadeira.
           </p>
         }
         snapshot={snapshot}

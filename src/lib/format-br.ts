@@ -26,3 +26,13 @@ export function formatPct(value: number, fractionDigits = 1): string {
 export function formatBRL(value: number): string {
   return `R$ ${formatDecimal(value, 2)}`;
 }
+
+/** Converte percentual em frequência legível: "metade", "1 em cada 3", "pouco mais de 1 em cada 3". */
+export function formatUmEmCada(share: number): string {
+  if (!Number.isFinite(share) || share <= 0) return "—";
+  const ratio = 100 / share;
+  const k = Math.round(ratio);
+  if (k === 2 && Math.abs(ratio - 2) < 0.1) return "metade";
+  if (k >= 10 || Math.abs(ratio - k) < 0.1) return `1 em cada ${k}`;
+  return share > 100 / k ? `pouco mais de 1 em cada ${k}` : `pouco menos de 1 em cada ${k}`;
+}
