@@ -77,7 +77,7 @@
   --coral-ink: oklch(0.5 0.19 32);
   --solar: oklch(0.83 0.16 84);
   --coral: oklch(0.63 0.2 34);
-  --forest: #2E7D4F;
+  --forest: oklch(0.5285447567 0.1061414179 154.602856299);
   --rule: oklch(0.86 0.02 85);
 
   --background: var(--paper);

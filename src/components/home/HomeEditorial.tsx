@@ -117,7 +117,7 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
             <Link to="/funil" className="inline-flex min-h-11 items-center gap-3 bg-coral px-5 py-3 text-xs font-semibold uppercase text-ink transition-colors hover:bg-solar">
               Explorar o funil <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
-            <Link to="/metodo" className="inline-flex items-center gap-2 border-b border-cream/70 pb-1 text-xs font-semibold uppercase text-cream hover:border-solar hover:text-solar">
+            <Link to="/quem-sao-elas" className="inline-flex items-center gap-2 border-b border-cream/70 pb-1 text-xs font-semibold uppercase text-cream hover:border-solar hover:text-solar">
               Ver os dados <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
           </div>
