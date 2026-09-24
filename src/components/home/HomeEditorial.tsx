@@ -172,11 +172,12 @@ export function HomeHistoryHighlight({ historical }: { historical: HistoricalSer
     point: feminine?.points.find((p) => p.universe === "proporcional" && p.year === year) ?? null,
   }));
   const first = points[0]?.point;
+  const previousElection = points[points.length - 2]?.point;
   const last = points[points.length - 1]?.point;
 
-  if (!first || first.value === null || !last || last.value === null) return null;
+  if (!previousElection || previousElection.value === null || !last || last.value === null) return null;
 
-  const delta = last.value - first.value;
+  const delta = last.value - previousElection.value;
   const numericValues = points
     .map((p) => p.point?.value ?? null)
     .filter((v): v is number => v !== null);
@@ -190,11 +191,16 @@ export function HomeHistoryHighlight({ historical }: { historical: HistoricalSer
             <span className="h-1 w-3 bg-plum" aria-hidden="true" /> Como chegamos até aqui
           </p>
           <h2 className="mt-5 font-display text-3xl leading-[1.05] text-ink md:text-4xl">
-            De {formatPct(first.value)} em {first.year} para {formatPct(last.value)} na fotografia de {last.year}
+            De {formatPct(previousElection.value)} em 2022 para {formatPct(last.value)} na fotografia atual
           </h2>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-            {formatPoints(delta)} de diferença entre as candidaturas proporcionais de {first.year} e a fotografia atual. Cada eleição é calculada sobre o seu próprio total — os valores não são somados.
+            {formatPoints(delta)} de diferença desde a última eleição. Cada eleição é calculada sobre o seu próprio total — os valores não são somados.
           </p>
+          {first && first.value !== null && (
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+              Olhando mais atrás, era {formatPct(first.value)} em {first.year} — {formatPoints(last.value - first.value)} de diferença ao longo de quatro eleições.
+            </p>
+          )}
           <Link to="/historico" className="mt-6 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[11px] font-semibold uppercase text-plum">
             Ver a série completa <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
