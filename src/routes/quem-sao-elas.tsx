@@ -204,6 +204,7 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
       <SectionBlock
+        id="partidos"
         kicker="Explorador"
         question="Escolha o cargo, o estado e o partido — e veja quem são elas ali"
         align="wide"
@@ -244,6 +245,7 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
       <SectionBlock
+        id="estados"
         kicker="Por estado"
         question="E no seu estado?"
         align="wide"
