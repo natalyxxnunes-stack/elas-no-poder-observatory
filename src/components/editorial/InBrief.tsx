@@ -1,20 +1,28 @@
 /**
  * InBrief — bloco "Em poucas linhas": o que encontramos, por que importa e o
- * que ainda não sabemos. Obrigatório em páginas de texto longo.
+ * que ainda não sabemos. Obrigatório em páginas de texto longo. Os três
+ * rótulos têm um valor padrão, mas cada página pode substituí-los por um
+ * rótulo específico ao achado que está sendo apresentado.
  */
 export function InBrief({
   found,
   matters,
   unknown,
+  foundLabel = "O que encontramos",
+  mattersLabel = "Por que importa",
+  unknownLabel = "O que ainda não sabemos",
 }: {
   found: React.ReactNode;
   matters: React.ReactNode;
   unknown: React.ReactNode;
+  foundLabel?: string;
+  mattersLabel?: string;
+  unknownLabel?: string;
 }) {
   const rows = [
-    { label: "O que encontramos", body: found },
-    { label: "Por que importa", body: matters },
-    { label: "O que ainda não sabemos", body: unknown },
+    { label: foundLabel, body: found },
+    { label: mattersLabel, body: matters },
+    { label: unknownLabel, body: unknown },
   ];
   return (
     <section

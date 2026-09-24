@@ -81,15 +81,17 @@ function HistoricoPage() {
 
       <div className="pb-4">
         <InBrief
+          foundLabel="O achado"
+          mattersLabel="O que esse número não mostra"
+          unknownLabel="Fora da curva"
           found={
             firstProp?.value != null && lastProp?.value != null ? (
               <>
-                Nas eleições{" "}
-                <GlossaryTerm term="proporcional">proporcionais</GlossaryTerm>, a
-                participação feminina nas candidaturas passou de{" "}
-                {formatPct(firstProp.value)} em 2014 para{" "}
-                {formatPct(lastProp.value)} na fotografia de 2026. Cada ano é calculado sobre o seu próprio
-                total.
+                A participação feminina nas candidaturas{" "}
+                <GlossaryTerm term="proporcional">proporcionais</GlossaryTerm> foi
+                de {formatPct(firstProp.value)} em 2014 para{" "}
+                {formatPct(lastProp.value)} na fotografia de 2026. Cada ano é
+                calculado sobre o seu próprio total.
               </>
             ) : (
               <>
@@ -100,9 +102,14 @@ function HistoricoPage() {
           }
           matters={
             <>
-              Crescer em candidaturas e crescer em cadeiras são medidas
-              diferentes — e cada uma se distribui de forma própria entre
-              mulheres brancas, pretas, pardas, amarelas e indígenas.
+              Mais mulher concorrendo não é o mesmo que mais mulher no poder:
+              candidatura e cadeira são medidas diferentes, e cada uma se
+              distribui de forma própria entre mulheres brancas, pretas, pardas,
+              amarelas e indígenas. Quem decide essa distribuição está em{" "}
+              <Link to="/quem-controla" className="text-plum underline underline-offset-4">
+                Quem controla
+              </Link>
+              .
             </>
           }
           unknown={
@@ -130,7 +137,7 @@ function HistoricoPage() {
       >
         <SeriesChart series={feminine} />
         <div className="mt-6 grid gap-4 md:grid-cols-2">
-          <ContextBox variant="significa">
+          <ContextBox variant="significa" title="Dois universos que nunca se somam">
             <p>
               Proporcional reúne Câmara dos Deputados, assembleias legislativas e
               Câmara Legislativa do DF. Majoritária reúne Presidência, governos e
@@ -138,7 +145,7 @@ function HistoricoPage() {
               absolutas.
             </p>
           </ContextBox>
-          <ContextBox variant="calculamos">
+          <ContextBox variant="calculamos" title="Como o percentual é calculado">
             <p>
               Candidaturas de mulheres divididas pelo total de candidaturas do
               mesmo universo e do mesmo ano. Cada candidatura entra uma única vez
@@ -163,7 +170,7 @@ function HistoricoPage() {
       >
         <SeriesChart series={byId("serie-negras-negros-candidaturas")} />
         <div className="mt-6 space-y-4">
-          <ContextBox variant="significa">
+          <ContextBox variant="significa" title="O que “negra” agrega aqui">
             <p>{BLACK_AGGREGATION_NOTE}</p>
           </ContextBox>
           <GapNote label="Limite de 2026">
@@ -192,7 +199,7 @@ function HistoricoPage() {
           <SeriesChart series={byId("serie-mulheres-negras-entre-mulheres")} />
         </div>
         <div className="mt-6">
-          <ContextBox variant="importa">
+          <ContextBox variant="importa" title="Por que separar por cor muda a leitura">
             <p>
               Um mesmo aumento de candidaturas femininas pode se concentrar em um
               grupo racial e não em outro. Ler só o total de mulheres esconde essa

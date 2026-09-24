@@ -70,6 +70,9 @@ function DireitosPage() {
 
       <div className="pb-4">
         <InBrief
+          foundLabel="Onze marcos, uma linha"
+          mattersLabel="Onde cada regra para"
+          unknownLabel="O que a linha não mede"
           found={
             <>
               Onze marcos entre 1932 e 2026. Cada um criou uma regra nova e, com
@@ -224,13 +227,13 @@ function DireitosPage() {
           ))}
         </ul>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
-          <ContextBox variant="significa">
+          <ContextBox variant="significa" title="Conquista não é igual a efeito">
             <p>
               Uma regra pode existir e não ser implementada. Conquista, vigência e
               efeito prático são três coisas diferentes.
             </p>
           </ContextBox>
-          <ContextBox variant="importa">
+          <ContextBox variant="importa" title="Entre “já resolvido” e “não serve pra nada”">
             <p>
               Sem essa distinção, a leitura pública oscila entre “já existe{" "}
               <GlossaryTerm term="cota">cota</GlossaryTerm>, então está
@@ -254,7 +257,7 @@ function DireitosPage() {
         question="Três distinções que evitam erro"
       >
         <div className="grid gap-4 md:grid-cols-3">
-          <ContextBox variant="significa">
+          <ContextBox variant="significa" title="Estágios de uma proposta">
             <p>
               Apresentado, aprovado em comissão, aprovado em plenário, sancionado
               ou promulgado são estágios e situações jurídicas distintas. A
@@ -262,17 +265,20 @@ function DireitosPage() {
               em vigor.
             </p>
           </ContextBox>
-          <ContextBox variant="importa">
+          <ContextBox variant="importa" title="O que uma resolução do TSE pode e não pode">
             <p>
-              Resolução do TSE organiza a aplicação das regras de um ciclo; não
-              cria direito novo além do que a lei e a Constituição autorizam.
+              Nesta linha do tempo, tratamos como marco só o que já virou lei,
+              resolução ou decisão publicada. Resolução do TSE organiza a
+              aplicação de uma regra dentro de um ciclo eleitoral; não cria
+              direito novo além do que a lei e a Constituição já autorizam.
             </p>
           </ContextBox>
-          <ContextBox variant="calculamos">
+          <ContextBox variant="calculamos" title="Por que não atribuímos causa">
             <p>
-              Não atribuímos efeito estatístico a uma regra sem desenho
-              metodológico que permita isolar esse efeito. Contraste antes e
-              depois não é prova de causa.
+              Nenhum marco desta página é lido como causa isolada de uma mudança
+              nos números. Contraste antes e depois de uma lei não é prova de
+              causa — para isso seria preciso um desenho metodológico dedicado,
+              que esta página não tem.
             </p>
           </ContextBox>
         </div>

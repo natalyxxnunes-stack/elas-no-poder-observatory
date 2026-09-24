@@ -97,6 +97,9 @@ function QuemControlaPage() {
 
       <div className="pb-4">
         <InBrief
+          foundLabel="Quem decide"
+          mattersLabel="Por que contar não basta"
+          unknownLabel="O que ainda não dá pra abrir"
           found={
             <>
               O controle da porta de entrada é partidário. As regras eleitorais fixam pisos, mas a
@@ -145,10 +148,10 @@ function QuemControlaPage() {
         lead={<p>{QUOTA_RULE.scope}</p>}
       >
         <div className="grid gap-4 md:grid-cols-2">
-          <ContextBox variant="significa">
+          <ContextBox variant="significa" title="O que a cota não alcança">
             <p>{QUOTA_RULE.outOfScope}</p>
           </ContextBox>
-          <ContextBox variant="importa">
+          <ContextBox variant="importa" title="Onde entra o dinheiro">
             <p>{QUOTA_RULE.financingNote}</p>
           </ContextBox>
         </div>
@@ -180,7 +183,7 @@ function QuemControlaPage() {
           </>
         }
       >
-        <ContextBox variant="calculamos">
+        <ContextBox variant="calculamos" title="Como calculamos por partido">
           <p>
             Para cada partido ou federação, calculamos a proporção de candidaturas de mulheres sobre
             o total de candidaturas daquele partido no mesmo universo eleitoral — nunca sobre o
