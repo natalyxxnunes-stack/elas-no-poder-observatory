@@ -9,7 +9,7 @@ import { axis } from "@/data/architecture";
 import { QUOTA_RULE } from "@/data/election-2026";
 import { financeSnapshot } from "@/data/tse-finance-snapshot";
 import { FinanceByOffice, FinanceByUf, FinanceCoverage, FinanceParties, FinanceRace } from "@/components/editorial/FinanceOverview";
-import { formatInt } from "@/lib/format-br";
+import { formatInt, formatPct } from "@/lib/format-br";
 
 /**
  * Fase 1 publicada: receitas declaradas por gênero, cor/raça, cargo, partido e UF.
@@ -85,6 +85,38 @@ const MONEY_LAYERS = [
 
 function DinheiroPage() {
   const a = axis("dinheiro");
+  const revenueShare = (feminine: number | undefined, total: number | undefined) =>
+    feminine !== undefined && total !== undefined && total > 0
+      ? formatPct((feminine / total) * 100)
+      : "—";
+  const proportional = financeSnapshot.universes.proporcional;
+  const majoritarian = financeSnapshot.universes.majoritario;
+  const prop = revenueShare(proportional.feminineRevenue, proportional.totalRevenue);
+  const maj = revenueShare(majoritarian.feminineRevenue, majoritarian.totalRevenue);
+  const presidente = revenueShare(
+    majoritarian.byOffice.PRESIDENTE?.feminine,
+    majoritarian.byOffice.PRESIDENTE?.total,
+  );
+  const governador = revenueShare(
+    majoritarian.byOffice.GOVERNADOR?.feminine,
+    majoritarian.byOffice.GOVERNADOR?.total,
+  );
+  const senador = revenueShare(
+    majoritarian.byOffice.SENADOR?.feminine,
+    majoritarian.byOffice.SENADOR?.total,
+  );
+  const deputadoFederal = revenueShare(
+    proportional.byOffice["DEPUTADO FEDERAL"]?.feminine,
+    proportional.byOffice["DEPUTADO FEDERAL"]?.total,
+  );
+  const deputadoDistrital = revenueShare(
+    proportional.byOffice["DEPUTADO DISTRITAL"]?.feminine,
+    proportional.byOffice["DEPUTADO DISTRITAL"]?.total,
+  );
+  const deputadoEstadual = revenueShare(
+    proportional.byOffice["DEPUTADO ESTADUAL"]?.feminine,
+    proportional.byOffice["DEPUTADO ESTADUAL"]?.total,
+  );
   return (
     <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Dinheiro" }]}>
       <EditorialOpening
@@ -101,7 +133,7 @@ function DinheiroPage() {
         <InBrief
           found={
             <>
-              Entre as receitas já informadas, mulheres recebem 35,2% do total no universo proporcional e 16,8% no majoritário. Por cargo, a fatia cai nos postos de comando mais altos: chega a 1,3% na Presidência.
+              Entre as receitas já informadas, mulheres recebem {prop} do total no universo proporcional e {maj} no majoritário. Por cargo, a fatia cai nos postos de comando mais altos: chega a {presidente} na Presidência.
             </>
           }
           matters={
@@ -121,7 +153,7 @@ function DinheiroPage() {
         <FinanceCoverage snapshot={financeSnapshot} />
       </SectionBlock>
 
-      <SectionBlock kicker="Por cargo" question="Quanto mais alto o cargo, menor a fatia da receita que chega às mulheres" align="wide" tone="solar" lead={<p>Na fotografia atual, mulheres recebem 1,3% da receita declarada para a Presidência, 12,1% para governos, 26,5% para o Senado, 33,4% para a Câmara dos Deputados, 30,0% para a Câmara Legislativa do DF e 39,1% para assembleias legislativas.</p>}>
+      <SectionBlock kicker="Por cargo" question="Quanto mais alto o cargo, menor a fatia da receita que chega às mulheres" align="wide" tone="solar" lead={<p>Na fotografia atual, mulheres recebem {presidente} da receita declarada para a Presidência, {governador} para governos, {senador} para o Senado, {deputadoFederal} para a Câmara dos Deputados, {deputadoDistrital} para a Câmara Legislativa do DF e {deputadoEstadual} para assembleias legislativas.</p>}>
         <FinanceByOffice snapshot={financeSnapshot} />
       </SectionBlock>
 

@@ -17,6 +17,7 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { axis, CENTRAL_PRINCIPLE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
+import { formatPct } from "@/lib/format-br";
 
 
 /**
@@ -63,6 +64,48 @@ function QuemSaoElasPage() {
           : d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
       })()
     : null;
+  const proportionalRaceCounts = snapshot?.universes.proporcional.raceCounts;
+  const proportionalRaceTotal = proportionalRaceCounts
+    ? Object.values(proportionalRaceCounts).reduce((sum, count) => sum + count, 0)
+    : 0;
+  const rankedRaces = proportionalRaceCounts
+    ? Object.entries(proportionalRaceCounts).sort(([, a], [, b]) => b - a)
+    : [];
+  const raceAt = (index: number) => {
+    const entry = rankedRaces[index];
+    return {
+      label: entry?.[0].toLocaleLowerCase("pt-BR") ?? "—",
+      share:
+        entry && proportionalRaceTotal > 0
+          ? formatPct((entry[1] / proportionalRaceTotal) * 100)
+          : "—",
+    };
+  };
+  const firstRace = raceAt(0);
+  const secondRace = raceAt(1);
+  const thirdRace = raceAt(2);
+  const share = (feminine: number | undefined, total: number | undefined) =>
+    feminine !== undefined && total !== undefined && total > 0
+      ? formatPct((feminine / total) * 100)
+      : "—";
+  const majoritarianDimensions = snapshot?.universes.majoritario.dimensions;
+  const outOfUniverse = snapshot?.outOfUniverse;
+  const p = share(
+    majoritarianDimensions?.feminineByCargo?.PRESIDENTE,
+    majoritarianDimensions?.totalByCargo?.PRESIDENTE,
+  );
+  const g = share(
+    majoritarianDimensions?.feminineByCargo?.GOVERNADOR,
+    majoritarianDimensions?.totalByCargo?.GOVERNADOR,
+  );
+  const vp = share(
+    outOfUniverse?.feminineByCargo?.["VICE-PRESIDENTE"],
+    outOfUniverse?.byCargo?.["VICE-PRESIDENTE"],
+  );
+  const vg = share(
+    outOfUniverse?.feminineByCargo?.["VICE-GOVERNADOR"],
+    outOfUniverse?.byCargo?.["VICE-GOVERNADOR"],
+  );
 
   return (
     <PageShell breadcrumb={[{ label: "Dados 2026", to: "/" }, { label: "Quem são elas?" }]}>
@@ -126,9 +169,10 @@ function QuemSaoElasPage() {
         lead={
           <div className="space-y-3">
             <p>
-              Entre as candidaturas proporcionais de mulheres, branca é a
-               categoria de cor/raça mais declarada, com 46,8%, seguida por
-               parda, com 34,2%, e preta, com 17,2%.
+              Entre as candidaturas proporcionais de mulheres, {firstRace.label} é a
+              categoria de cor/raça mais declarada, com {firstRace.share}, seguida por{" "}
+              {secondRace.label}, com {secondRace.share}, e {thirdRace.label}, com{" "}
+              {thirdRace.share}.
             </p>
             <p>
               A distribuição das candidaturas de mulheres entre as categorias de
@@ -158,14 +202,15 @@ function QuemSaoElasPage() {
         lead={
           <p>
             A presença é maior nas candidaturas a vice do que aos cargos titulares:
-            42,9% entre vices à Presidência, contra 14,3% entre candidaturas à
-            Presidência; e 41,7% entre vices aos governos, contra 17,4% entre
+            {" "}{vp} entre vices à Presidência, contra {p} entre candidaturas à
+            Presidência; e {vg} entre vices aos governos, contra {g} entre
             candidaturas a governadora.
           </p>
         }
         source={
           <>
-            Fonte: TSE · Candidaturas 2026 · fotografia da base de 22/09/2026 ·{" "}
+            Fonte: TSE · Candidaturas 2026
+            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
             <Link to="/metodo" className="text-plum underline underline-offset-4">ver o método</Link>
           </>
         }
@@ -177,7 +222,7 @@ function QuemSaoElasPage() {
             <article className="poster-frame p-5">
               <p className="record-label border-plum text-plum">Fato</p>
               <p className="mt-3 leading-relaxed text-ink/70">
-                Nos comandos únicos mais altos — Presidência e Governo —, a presença de mulheres cai para os menores números do levantamento: 14,3% nas candidaturas à Presidência e 17,4% às candidaturas a governadora. Nas candidaturas a vice desses mesmos pleitos, a proporção mais que dobra: 42,9% e 41,7%.
+                Nos comandos únicos mais altos, Presidência e Governo, a presença de mulheres fica nos menores números do levantamento: {p} nas candidaturas à Presidência e {g} nas candidaturas a governadora. Nas candidaturas a vice desses mesmos pleitos, a proporção sobe para {vp} e {vg}.
               </p>
             </article>
 

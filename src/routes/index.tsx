@@ -136,7 +136,7 @@ function DadosPage() {
     <PageShell home>
       <HomeHeroEditorial snapshot={snapshot} baseDate={baseDate} />
       <CurrentSnapshot snapshot={snapshot} baseDate={baseDate} pendingDate={pendingDate} />
-      <HomeInvestigationGrid />
+      <HomeInvestigationGrid snapshot={snapshot} />
       <HomeMapSection snapshot={snapshot} />
       <HomeHistoryHighlight historical={historical} />
       <HomeStages />
