@@ -7,7 +7,6 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { GapNote } from "@/components/GapNote";
-import { axis } from "@/data/architecture";
 import { QUOTA_RULE } from "@/data/election-2026";
 
 /**
@@ -78,18 +77,19 @@ const CONTROL_LEVERS = [
 ] as const;
 
 function QuemControlaPage() {
-  const a = axis("quem-controla");
+  const numberWords = ["zero", "uma", "duas", "três", "quatro", "cinco"] as const;
+  const leverTotal = CONTROL_LEVERS.length;
+  const readyTotal = CONTROL_LEVERS.filter((lever) => lever.ready === "yes").length;
+  const partialTotal = CONTROL_LEVERS.filter((lever) => lever.ready === "partial").length;
   return (
     <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Quem controla?" }]}>
       <EditorialOpening
         variant="power-flow"
         kicker="Quem controla?"
-        question={a.question}
+        question="Antes do voto, o partido decide quem entra na lista, quem recebe dinheiro e em que posição."
         lead={
           <p>
-            Antes de qualquer voto, existem decisões internas. Partidos, federações e diretórios
-            definem quem é registrada, quem recebe dinheiro e propaganda e em que posição cada
-            candidatura entra na disputa.
+            A lei fixa pisos de candidaturas e de recursos para mulheres. Dentro desses pisos, a divisão do fundo, do tempo de TV e das posições de chapa fica com o partido ou a federação. Das {numberWords[leverTotal] ?? leverTotal} decisões mapeadas aqui, {numberWords[readyTotal] ?? readyTotal} já podem ser medidas com dado público e {numberWords[partialTotal] ?? partialTotal}, em parte.
           </p>
         }
         levers={CONTROL_LEVERS.map(({ lever, ready }) => ({ label: lever, ready }))}

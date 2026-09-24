@@ -12,7 +12,8 @@ import { HistoryTimeline } from "@/components/historical/HistoryTimeline";
 import { getHistoricalSeries, type HistoricalSeriesPayload } from "@/lib/tse/historical.functions";
 import { BLACK_AGGREGATION_NOTE } from "@/lib/tse/historical-compute";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
-import { formatPct } from "@/lib/format-br";
+import { ELECTION_RATE_BY_GENDER, HISTORICAL_FUNNEL } from "@/data/historical-funnel";
+import { formatPct, formatUmEmCada } from "@/lib/format-br";
 
 /**
  * ROTA PUBLICADA — série histórica 2014–2026, com dado real e metodologia
@@ -60,19 +61,35 @@ function HistoricoPage() {
   const lastProp = feminine?.points.find(
     (p) => p.universe === "proporcional" && p.year === 2026,
   );
+  const latestElectionRate = ELECTION_RATE_BY_GENDER.at(-1);
+  const historical2022 = HISTORICAL_FUNNEL.find((row) => row.year === 2022);
+  const historyYear = latestElectionRate?.year ?? historical2022?.year;
+  const feminineElectionRatio = latestElectionRate && latestElectionRate.feminine.elected > 0
+    ? Math.round(latestElectionRate.feminine.candidacies / latestElectionRate.feminine.elected)
+    : null;
+  const masculineElectionRatio = latestElectionRate && latestElectionRate.masculine.elected > 0
+    ? Math.round(latestElectionRate.masculine.candidacies / latestElectionRate.masculine.elected)
+    : null;
+  const candidacyFrequency = historical2022
+    ? formatUmEmCada(historical2022.candidacy.femininePercent)
+    : "—";
+  const electedFrequency = historical2022?.elected
+    ? formatUmEmCada(historical2022.elected.femininePercent)
+    : "—";
 
   return (
     <PageShell breadcrumb={[{ label: "Dados 2026", to: "/" }, { label: "Histórico" }]}>
       <EditorialOpening
         variant="timeline"
         kicker="Como chegamos até aqui?"
-        question="A presença das mulheres na política mudou. Mas mudou para quem?"
+        question={`Em ${historyYear ?? "—"}, 1 em cada ${feminineElectionRatio ?? "—"} candidatas a deputada se elegeu. Entre os homens, 1 em cada ${masculineElectionRatio ?? "—"}.`}
         lead={
           <p>
-            Esta página acompanha a participação de mulheres nas eleições gerais
-            ao longo do tempo — 2014, 2018, 2022 e a fotografia de 2026 — usando
-            apenas os indicadores já calculados a partir dos arquivos oficiais do
-            TSE.
+            Desde 2014, a presença de mulheres cresceu nas listas e nas cadeiras,
+            mas a distância entre as duas continua. Em {historical2022?.year ?? "—"},
+            mulheres eram {candidacyFrequency} candidaturas a deputada e {electedFrequency}
+            eleitas. A série mostra também quem ficou com esse crescimento, por
+            cor/raça.
           </p>
         }
         years={["2014", "2018", "2022", "2026"]}
