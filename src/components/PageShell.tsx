@@ -19,7 +19,7 @@ export type BreadcrumbTrail = readonly [
 /** Moldura comum das páginas do observatório. */
 export function PageShell({ children, home = false, breadcrumb }: { children: ReactNode; home?: boolean; breadcrumb?: BreadcrumbTrail }) {
   return (
-    <div className="paper-grain min-h-screen">
+    <div className="min-h-screen bg-background">
       <SiteHeader home={home} />
       <main className="mx-auto max-w-6xl px-5 md:px-8">
         {!home && breadcrumb && (

@@ -70,7 +70,7 @@
 
   --ink: oklch(0.19 0.035 310);
   --cream: oklch(0.965 0.014 85);
-  --paper: oklch(0.98 0.008 85);
+  --paper: oklch(0.985 0.004 305);
   --plum: oklch(0.39 0.16 305);
   --plum-soft: oklch(0.52 0.13 305);
   /* Variantes tonais para texto: mesma família de cor, contraste AA. */
@@ -80,7 +80,7 @@
   --coral: oklch(0.63 0.2 34);
   --home-highlight: #f0c84b;
   --forest: oklch(0.5285447567 0.1061414179 154.602856299);
-  --rule: oklch(0.86 0.02 85);
+  --rule: oklch(0.87 0.014 305);
 
   --background: var(--paper);
   --foreground: var(--ink);
@@ -90,9 +90,9 @@
   --popover-foreground: var(--ink);
   --primary: var(--plum);
   --primary-foreground: var(--cream);
-  --secondary: var(--cream);
+  --secondary: var(--muted);
   --secondary-foreground: var(--plum);
-  --muted: oklch(0.95 0.012 85);
+  --muted: oklch(0.955 0.008 305);
   --muted-foreground: oklch(0.41 0.03 305);
   --accent: var(--solar);
   --accent-foreground: var(--ink);
