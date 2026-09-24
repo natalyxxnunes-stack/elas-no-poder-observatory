@@ -18,7 +18,12 @@ const STATE_CODES: Record<string, string> = {
   rj: "RJ", rn: "RN", rs: "RS", ro: "RO", rr: "RR", sc: "SC", sp: "SP", se: "SE", to: "TO",
 };
 
-const MAP_TONES = ["fill-plum/25", "fill-plum/40", "fill-plum/55", "fill-plum/70", "fill-plum/85", "fill-plum"];
+const MAP_BINS = [
+  { max: 34, label: "abaixo de 34%", tone: "fill-plum/25", swatch: "bg-plum/25" },
+  { max: 36, label: "34% a 35,9%", tone: "fill-plum/50", swatch: "bg-plum/50" },
+  { max: 38, label: "36% a 37,9%", tone: "fill-plum/75", swatch: "bg-plum/75" },
+  { max: Infinity, label: "38% ou mais", tone: "fill-plum", swatch: "bg-plum" },
+] as const;
 
 type UfDatum = { uf: string; feminine: number; total: number; share: number };
 
@@ -38,16 +43,22 @@ function EditorialBrazilMap({ snapshot }: { snapshot: PublicSnapshot | null }) {
   const shares = data.map((item) => item.share);
   const min = shares.length ? Math.min(...shares) : 0;
   const max = shares.length ? Math.max(...shares) : 0;
-  const span = max - min;
+  const binCounts = MAP_BINS.map((bin) => ({
+    ...bin,
+    count: data.filter((item) => {
+      const roundedShare = Math.round(item.share * 10) / 10;
+      return MAP_BINS.find((candidate) => roundedShare < candidate.max) === bin;
+    }).length,
+  }));
 
   return (
-    <figure className="grid grid-cols-[minmax(0,1fr)_4rem] items-end gap-4" aria-labelledby="home-map-caption">
+    <figure className="grid items-end gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(9rem,auto)]" aria-labelledby="home-map-caption">
       <svg
         viewBox={brazil.viewBox}
         role="img"
         aria-label={
           data.length
-            ? `Mapa do Brasil: participação feminina nas candidaturas proporcionais por estado, entre ${formatPct(min)} e ${formatPct(max)}`
+            ? `Mapa do Brasil: participação feminina nas candidaturas proporcionais por estado, em faixas fixas de 2 pontos, de ${formatPct(min)} a ${formatPct(max)}`
             : "Mapa do Brasil; dados estaduais em atualização"
         }
         className="mx-auto block h-auto w-full max-w-[22rem] md:max-w-[28rem]"
@@ -55,14 +66,13 @@ function EditorialBrazilMap({ snapshot }: { snapshot: PublicSnapshot | null }) {
         {brazil.locations.map((location: { id: string; name: string; path: string }) => {
           const uf = STATE_CODES[location.id];
           const datum = uf ? byUf.get(uf) : undefined;
-          const toneIndex = datum && span > 0
-            ? Math.min(MAP_TONES.length - 1, Math.floor(((datum.share - min) / span) * MAP_TONES.length))
-            : 0;
+          const roundedShare = datum ? Math.round(datum.share * 10) / 10 : null;
+          const bin = roundedShare === null ? undefined : MAP_BINS.find((candidate) => roundedShare < candidate.max);
           return (
             <path
               key={location.id}
               d={location.path}
-              className={`${MAP_TONES[toneIndex]} stroke-paper stroke-[1.5] transition-opacity hover:opacity-75`}
+              className={`${bin?.tone ?? "fill-muted"} stroke-paper stroke-[1.5] transition-opacity hover:opacity-75`}
             >
               <title>
                 {datum
@@ -74,8 +84,17 @@ function EditorialBrazilMap({ snapshot }: { snapshot: PublicSnapshot | null }) {
         })}
       </svg>
       <figcaption id="home-map-caption" className="pb-3 font-mono text-[10px] leading-relaxed text-muted-foreground">
-        <span className="block border-l-4 border-plum pl-2">Mais mulheres<br />{data.length ? formatPct(max) : "—"}</span>
-        <span className="mt-14 block border-l-4 border-plum/25 pl-2">Menos mulheres<br />{data.length ? formatPct(min) : "—"}</span>
+        <ul className="space-y-2">
+          {binCounts.map((bin) => (
+            <li key={bin.label} className="flex items-center gap-2">
+              <span className={`size-3 shrink-0 ${bin.swatch}`} aria-hidden="true" />
+              <span>{bin.label} · {bin.count} UFs</span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-5 border-t border-rule pt-3">
+          Diferença entre o maior e o menor estado: {data.length ? formatPoints(max - min) : "—"}
+        </p>
       </figcaption>
     </figure>
   );

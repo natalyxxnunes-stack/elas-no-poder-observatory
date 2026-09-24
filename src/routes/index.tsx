@@ -58,20 +58,23 @@ function snapshotDate(iso: string | null): string | null {
   return date.toLocaleDateString("pt-BR", { timeZone: "UTC" });
 }
 
-function topUf(snapshot: PublicSnapshot | null) {
+function ufRange(snapshot: PublicSnapshot | null) {
   const dimensions = snapshot?.universes.proporcional.dimensions;
   const feminine = dimensions?.feminineByUf;
   const total = dimensions?.totalByUf;
   if (!feminine || !total) return null;
 
-  let best: { uf: string; share: number; feminine: number; total: number } | null = null;
+  let min: { uf: string; share: number; feminine: number; total: number } | null = null;
+  let max: { uf: string; share: number; feminine: number; total: number } | null = null;
   for (const [uf, denominator] of Object.entries(total)) {
     if (!denominator || denominator <= 0) continue;
     const numerator = feminine[uf] ?? 0;
     const share = (numerator / denominator) * 100;
-    if (!best || share > best.share) best = { uf, share, feminine: numerator, total: denominator };
+    const datum = { uf, share, feminine: numerator, total: denominator };
+    if (!min || share < min.share) min = datum;
+    if (!max || share > max.share) max = datum;
   }
-  return best;
+  return min && max ? { min, max } : null;
 }
 
 function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
@@ -80,7 +83,8 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
   pendingDate: string | null;
 }) {
   const majoritarian = snapshot?.universes.majoritario ?? null;
-  const highestUf = topUf(snapshot);
+  const territory = ufRange(snapshot);
+  const territoryCeiling = territory ? Math.ceil(territory.max.share / 10) * 10 : null;
   const majoritarianShare = majoritarian && majoritarian.total > 0
     ? (majoritarian.feminine / majoritarian.total) * 100
     : null;
@@ -113,9 +117,17 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
           </article>
           <article className="border-t border-rule pt-7">
             <p className="font-mono text-[10px] uppercase text-muted-foreground">Território</p>
-            <p className="mt-2 font-display text-5xl font-semibold leading-none text-plum md:text-6xl">{highestUf ? formatPercent(highestUf.share) : "—"}</p>
-            <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink">maior proporção entre as UFs: {highestUf?.uf ?? "em atualização"}</p>
-            <p className="mt-2 font-mono text-[10px] text-muted-foreground">{highestUf ? `${formatInt(highestUf.feminine)} de ${formatInt(highestUf.total)}` : "em atualização"}</p>
+            <p className="mt-2 font-display text-5xl font-semibold leading-none text-plum md:text-6xl">{territory ? formatPercent(territory.max.share) : "—"}</p>
+            <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink">
+              {territory && territoryCeiling !== null
+                ? `é o teto entre as UFs: em nenhum estado as mulheres chegam a ${territoryCeiling}% das candidaturas a deputada`
+                : "em atualização"}
+            </p>
+            <p className="mt-2 font-mono text-[10px] text-muted-foreground">
+              {territory
+                ? `de ${formatPercent(territory.min.share)} em ${territory.min.uf} (${formatInt(territory.min.feminine)} de ${formatInt(territory.min.total)}) a ${formatPercent(territory.max.share)} em ${territory.max.uf} (${formatInt(territory.max.feminine)} de ${formatInt(territory.max.total)})`
+                : "em atualização"}
+            </p>
           </article>
         </div>
       </div>
