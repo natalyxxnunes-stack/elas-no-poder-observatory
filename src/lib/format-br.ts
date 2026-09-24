@@ -36,3 +36,8 @@ export function formatUmEmCada(share: number): string {
   if (k >= 10 || Math.abs(ratio - k) < 0.1) return `1 em cada ${k}`;
   return share > 100 / k ? `pouco mais de 1 em cada ${k}` : `pouco menos de 1 em cada ${k}`;
 }
+
+export function formatDateBR(iso: string): string {
+  const [y, m, d] = iso.split("-");
+  return `${d}/${m}/${y}`;
+}

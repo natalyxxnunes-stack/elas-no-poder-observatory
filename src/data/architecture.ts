@@ -180,13 +180,13 @@ export const AXES: readonly Axis[] = [
     id: "em-disputa",
     to: "/em-disputa",
     label: "Em disputa",
-    question: "As regras também estão em disputa?",
+    question: "Que regras valem em 2026?",
     summary:
-      "Projetos, resoluções e decisões em tramitação. Projeto apresentado não é projeto aprovado.",
+      "As regras em vigor no ciclo de 2026, com fonte e data de verificação. Projetos em tramitação entram só com situação conferida na fonte oficial.",
     dimensions: ["projetos de lei", "resoluções", "decisões judiciais"],
     unpublishedReason: "",
     state: "conteúdo editorial",
-    publication: "published", status: "publicado", statusNote: "Acompanhamento editorial das regras em disputa.", group: "investigacao",
+    publication: "published", status: "publicado", statusNote: "Regras em vigor em 2026; projetos em tramitação ainda não listados.", group: "investigacao",
   },
   {
     id: "metodo",

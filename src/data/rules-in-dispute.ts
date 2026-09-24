@@ -10,12 +10,11 @@
 export type DisputeStatus =
   | "EM TRAMITAÇÃO"
   | "EM VIGOR"
-  | "EM DISCUSSÃO"
-  | "A VERIFICAR";
+  | "EM DISCUSSÃO";
 
 export type DisputeItem = {
   id: string;
-  kind: "Projeto de lei" | "Resolução" | "Decisão judicial" | "Emenda constitucional";
+  kind: "Projeto de lei" | "Resolução" | "Decisão judicial" | "Emenda constitucional" | "Súmula";
   title: string;
   /** o que propõe, em linguagem comum */
   proposal: string;
@@ -26,8 +25,8 @@ export type DisputeItem = {
   statusNote: string;
   sourceLabel: string;
   sourceUrl: string;
-  /** data em que o observatório verificou a situação */
-  checkedAt: string | null;
+  /** data (AAAA-MM-DD) em que o observatório verificou a situação; item sem data não entra na lista */
+  checkedAt: string;
 };
 
 export const DISPUTE_ITEMS: readonly DisputeItem[] = [
@@ -64,19 +63,19 @@ export const DISPUTE_ITEMS: readonly DisputeItem[] = [
     checkedAt: "2026-09-22",
   },
   {
-    id: "fraude-cota",
-    kind: "Decisão judicial",
-    title: "Apuração de fraude à regra de composição por gênero",
+    id: "sumula-73-tse",
+    kind: "Súmula",
+    title: "Fraude à cota de gênero (Súmula TSE nº 73/2024)",
     proposal:
-      "Candidaturas registradas apenas para cumprir o percentual mínimo por gênero podem ser apuradas pela Justiça Eleitoral.",
+      "Define quando uma candidatura de mulher registrada só para cumprir o mínimo de 30% configura fraude: votação zerada ou inexpressiva, prestação de contas zerada ou padronizada e ausência de atos efetivos de campanha. Basta um ou alguns desses elementos.",
     affects:
-      "Partidos, federações e candidaturas envolvidas no caso concreto examinado.",
-    status: "EM DISCUSSÃO",
+      "O partido ou federação e toda a chapa. Reconhecida a fraude, o registro da chapa (Drap) e os diplomas são cassados, os votos do partido são anulados, os quocientes eleitoral e partidário são recalculados, e quem praticou ou anuiu com a conduta pode ficar inelegível.",
+    status: "EM VIGOR",
     statusNote:
-      "Cada caso é analisado individualmente, conforme as circunstâncias e as provas. Não há efeito automático sobre o resultado de uma eleição.",
-    sourceLabel: "TSE — jurisprudência eleitoral",
-    sourceUrl: "https://www.tse.jus.br/jurisprudencia",
-    checkedAt: "2026-09-22",
+      "Aprovada pelo TSE em 16/05/2024. A fraude é reconhecida em processo judicial, caso a caso, com base nas provas de cada chapa.",
+    sourceLabel: "TSE, Súmula nº 73",
+    sourceUrl: "https://www.tse.jus.br/legislacao/codigo-eleitoral/sumulas/sumulas-do-tse/sumula-tse-n-73",
+    checkedAt: "2026-09-24",
   },
 ];
 
