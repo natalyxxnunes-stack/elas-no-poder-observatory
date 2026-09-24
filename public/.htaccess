@@ -4,6 +4,8 @@
 Options -MultiViews
 DirectoryIndex index.html
 
+Redirect 301 /condicoes /quem-controla
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
 

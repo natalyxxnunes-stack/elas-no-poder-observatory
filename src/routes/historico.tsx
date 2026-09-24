@@ -12,7 +12,6 @@ import { HistoryTimeline } from "@/components/historical/HistoryTimeline";
 import { getHistoricalSeries, type HistoricalSeriesPayload } from "@/lib/tse/historical.functions";
 import { BLACK_AGGREGATION_NOTE } from "@/lib/tse/historical-compute";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
-import { StatusTag } from "@/components/editorial/StatusTag";
 import { formatPct } from "@/lib/format-br";
 
 /**
@@ -318,12 +317,9 @@ function HistoricoPage() {
             Método
           </Link>{" "}
           · condições de entrada na disputa em{" "}
-          <span className="inline-flex flex-wrap items-center gap-2">
-            <Link to="/condicoes" className="text-plum underline underline-offset-4">
-              Condições
-            </Link>
-            <StatusTag>aguardando dado</StatusTag>
-          </span>
+          <Link to="/quem-controla" className="text-plum underline underline-offset-4">
+            Quem controla
+          </Link>
         </p>
       </SectionBlock>
 

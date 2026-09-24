@@ -7,7 +7,7 @@ export const Route = createFileRoute("/investigacoes")({
     { title: "Índice da investigação — Quem são elas?" },
     { name: "description", content: "Todas as frentes do projeto Quem são elas?, com o andamento editorial e as lacunas declaradas." },
     { property: "og:title", content: "Índice da investigação — Quem são elas?" },
-    { property: "og:description", content: "O que está publicado, em apuração, aguardando dados, em pesquisa ou em estruturação." },
+    { property: "og:description", content: "O que está publicado, o que está publicado em parte e o que aguarda dado." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ] }),
@@ -20,7 +20,7 @@ function InvestigacoesPage() {
       <header className="border-b border-ink py-12 md:py-16">
         <p className="kicker">Índice da investigação</p>
         <h1 className="mt-4 max-w-4xl font-display text-4xl leading-none text-ink md:text-6xl">O que já publicamos — e o que ainda está em trabalho</h1>
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">Cada frente mantém seu estado editorial visível. Uma página acessível pode continuar em apuração ou em estrutura, sem transformar lacuna em promessa.</p>
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">Cada frente mantém seu estado editorial visível: publicada, publicada em parte ou aguardando dado. Lacuna declarada não é promessa.</p>
       </header>
       <div className="py-12 md:py-16"><InvestigationIndex /></div>
     </PageShell>

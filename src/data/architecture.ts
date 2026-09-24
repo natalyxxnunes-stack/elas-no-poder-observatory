@@ -20,7 +20,7 @@ export const CENTRAL_PRINCIPLE =
 /** Estado editorial de um eixo — não é status de indicador. */
 export type AxisState = "com dados de candidatura" | "arquitetura preparada" | "conteúdo editorial";
 export type AxisPublication = "published" | "unpublished";
-export type AxisStatus = "publicado" | "em apuração" | "aguardando dado" | "pesquisa" | "estrutura";
+export type AxisStatus = "publicado" | "parcial" | "aguardando dado";
 export type AxisGroup = "investigacao" | "projeto" | "materiais";
 
 export type Axis = {
@@ -56,19 +56,6 @@ export const AXES: readonly Axis[] = [
     publication: "published", status: "publicado", statusNote: "Fotografia vigente das candidaturas de 2026.", group: "investigacao",
   },
   {
-    id: "condicoes",
-    to: "/condicoes",
-    label: "Condições",
-    question: "Quem consegue entrar na disputa?",
-    summary:
-      "As condições anteriores à urna: regras eleitorais, composição de candidaturas, partido ou federação, cargo, território, recursos, posição da candidatura e propaganda.",
-    dimensions: ["gênero × cor/raça", "partido ou federação", "cargo", "território", "regras"],
-    unpublishedReason:
-      "Depende de cruzamentos da base de candidatura que ainda estão sendo fechados, com denominador por universo.",
-    state: "com dados de candidatura",
-    publication: "unpublished", status: "em apuração", statusNote: "parte das fontes existe, cruzamentos ainda em fechamento", group: "investigacao", parentId: "dados-2026",
-  },
-  {
     id: "quem-controla",
     to: "/quem-controla",
     label: "Quem controla?",
@@ -78,7 +65,7 @@ export const AXES: readonly Axis[] = [
     dimensions: ["partido ou federação", "diretório", "recursos", "propaganda", "território"],
     unpublishedReason: "",
     state: "arquitetura preparada",
-    publication: "published", status: "em apuração", statusNote: "2 de 5 alavancas investigáveis agora", group: "investigacao",
+    publication: "published", status: "parcial", statusNote: "2 alavancas com dado, 1 parcial, 2 aguardando fonte", group: "investigacao",
   },
   {
     id: "funil",
@@ -175,7 +162,7 @@ export const AXES: readonly Axis[] = [
     unpublishedReason:
       "Depende de fontes comparáveis sobre violência política de gênero e raça, com método defensável — ainda não integradas.",
     state: "arquitetura preparada",
-    publication: "unpublished", status: "pesquisa", statusNote: "fontes comparáveis ainda não integradas", group: "investigacao",
+    publication: "unpublished", status: "aguardando dado", statusNote: "fontes comparáveis ainda não integradas", group: "investigacao",
   },
   {
     id: "direitos",
@@ -235,7 +222,7 @@ export const AXES: readonly Axis[] = [
     dimensions: ["materiais"],
     unpublishedReason: "Cartilhas e infográficos em preparação.",
     state: "arquitetura preparada",
-    publication: "published", status: "estrutura", statusNote: "catálogo publicado, materiais majoritariamente em preparação", group: "materiais",
+    publication: "published", status: "parcial", statusNote: "catálogo publicado; 1 de 4 materiais disponível", group: "materiais",
   },
 ];
 
