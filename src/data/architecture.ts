@@ -130,10 +130,9 @@ export const AXES: readonly Axis[] = [
       "UF",
       "titularidade/suplência",
     ],
-    unpublishedReason:
-      "Depende da prestação de contas de 2026, ainda não divulgada pelo TSE. Este observatório não publica valor estimado, projetado ou herdado de ciclos anteriores.",
-    state: "arquitetura preparada",
-    publication: "unpublished", status: "aguardando dado", statusNote: "prestação de contas de 2026 ainda não divulgada", group: "investigacao",
+    unpublishedReason: "",
+    state: "conteúdo editorial",
+    publication: "published", status: "publicado", statusNote: "Receitas declaradas na prestação de contas em andamento, base de 23/09/2026; os valores mudam até o fim da apuração.", group: "investigacao",
   },
   {
     id: "votos",
