@@ -19,6 +19,7 @@ import {
   RACE_LABELS,
   type RaceBreakdown,
 } from "@/data/historical-funnel";
+import { formatPoints } from "@/data/election-2026";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { formatInt, formatPct } from "@/lib/format-br";
 
@@ -169,10 +170,20 @@ function YearCard({ year }: { year: (typeof HISTORICAL_FUNNEL)[number] }) {
 }
 
 export function HistoryFunnel() {
+  const year2014 = HISTORICAL_FUNNEL.find((year) => year.year === 2014);
+  const year2022 = HISTORICAL_FUNNEL.find((year) => year.year === 2022);
+  const elected2022 = year2022?.elected;
+  const candidacyRace2022 = year2022?.candidacy.race;
+  const electedRace2022 = elected2022?.race;
+
+  if (!year2014 || !year2022 || !elected2022 || !candidacyRace2022 || !electedRace2022) {
+    return null;
+  }
+
   return (
     <div className="space-y-8">
       <p className="font-display text-xl leading-snug text-ink md:text-2xl">
-        Olho: <span className="text-coral-ink">Candidatar-se não é eleger-se.</span>
+        <span className="text-coral-ink">Candidatar-se não é eleger-se.</span>
       </p>
 
       <ol className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -185,33 +196,28 @@ export function HistoryFunnel() {
         <article className="editorial-card p-5">
           <h3 className="font-display text-lg text-ink">Tamanho do funil</h3>
           <p className="mt-2 text-sm leading-relaxed text-ink/70">
-            Em 2022, mulheres foram 34,1% das candidaturas proporcionais (9.532 de
-            27.977) e 17,7% das eleitas no 1º turno (267 de 1.512) — metade da
-            participação fica no caminho.
+            Em 2022, mulheres foram {pct(year2022.candidacy.femininePercent)} das
+            candidaturas proporcionais ({n(year2022.candidacy.feminine)} de {n(year2022.candidacy.total)}) e {pct(elected2022.femininePercent)} das eleitas ({n(elected2022.feminine)} de {n(elected2022.total)}).
           </p>
         </article>
         <article className="editorial-card p-5">
           <h3 className="font-display text-lg text-ink">No tempo</h3>
           <p className="mt-2 text-sm leading-relaxed text-ink/70">
-            O funil se repete nos três ciclos, apertando um pouco menos com o tempo —
-            a queda passou de 21 pontos (2014) para 16 (2022). Avanço real, longe da
-            paridade.
+            A distância entre a participação nas candidaturas e entre as eleitas era
+            de {formatPoints(year2014.candidacy.femininePercent - (year2014.elected?.femininePercent ?? 0))} em 2014 e de {formatPoints(year2022.candidacy.femininePercent - elected2022.femininePercent)} em 2022. Avanço real, longe da paridade.
           </p>
         </article>
         <article className="editorial-card p-5">
           <h3 className="font-display text-lg text-ink">A cor do funil</h3>
           <p className="mt-2 text-sm leading-relaxed text-ink/70">
-            A urna não filtra por igual. Em 2022, entre as mulheres, a fatia parda caiu
-            de 35,1% (3.341) na candidatura para 20,6% (55) na eleição e a preta caiu de
-            18,3% (1.745) para 13,9% (37), enquanto a branca subiu de 45,0% (4.287) para
-            62,9% (168). Indígenas (79 → 5) e amarelas (45 → 1) aparecem em números
-            pequenos e devem ser lidas pelo absoluto.
+            A urna não filtra por igual. Em 2022, entre as mulheres, a fatia parda foi
+            de {pct(candidacyRace2022.parda.percent)} ({n(candidacyRace2022.parda.count)}) na candidatura para {pct(electedRace2022.parda.percent)} ({n(electedRace2022.parda.count)}) na eleição; a preta, de {pct(candidacyRace2022.preta.percent)} ({n(candidacyRace2022.preta.count)}) para {pct(electedRace2022.preta.percent)} ({n(electedRace2022.preta.count)}); a branca, de {pct(candidacyRace2022.branca.percent)} ({n(candidacyRace2022.branca.count)}) para {pct(electedRace2022.branca.percent)} ({n(electedRace2022.branca.count)}). Indígenas ({n(candidacyRace2022.indigena.count)} → {n(electedRace2022.indigena.count)}) e amarelas ({n(candidacyRace2022.amarela.count)} → {n(electedRace2022.amarela.count)}) aparecem em números pequenos e devem ser lidas pelo absoluto.
           </p>
         </article>
       </div>
 
       <p className="font-mono text-[12px] leading-relaxed text-ink/70">
-        Recorte: Câmara dos Deputados, Assembleias Legislativas e Câmara Legislativa do DF — eleições proporcionais, 1º turno. Não inclui Senado, governos estaduais ou Presidência. Por isso os totais podem diferir de estatísticas do TSE que somam o Legislativo inteiro: aqui se conta a cadeira proporcional, não a suplência nem o Senado. Em 2022, as eleitas proporcionais somam 1.512 e não 1.572: o arquivo oficial não traz resultado para o Maranhão (60 cadeiras), lacuna da fonte que não é estimada aqui. Cada ano e cada etapa têm denominador próprio; percentuais não se
+        Recorte: Câmara dos Deputados, Assembleias Legislativas e Câmara Legislativa do DF — eleições proporcionais. Não inclui Senado, governos estaduais ou Presidência. Por isso os totais podem diferir de estatísticas do TSE que somam o Legislativo inteiro: aqui se conta a cadeira proporcional, não a suplência nem o Senado. Cada ano e cada etapa têm denominador próprio; percentuais não se
         somam. Cor/raça é autodeclarada, nas categorias do TSE, coletada desde 2014 — a
         qualidade do preenchimento varia entre ciclos e, em 2014, não há registros “não
         informado”. Categorias com poucas candidaturas ou eleitas devem ser lidas pelo
