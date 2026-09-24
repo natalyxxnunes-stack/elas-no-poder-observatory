@@ -10,7 +10,7 @@
  * Regras aplicadas aqui e devolvidas em `HISTORICAL_FILTERS` para auditoria:
  *  - unidade de análise: CANDIDATURA, deduplicada por
  *    (ANO_ELEICAO, CD_ELEICAO, SQ_CANDIDATO);
- *  - apenas 1º turno (NR_TURNO = 1), para não contar duas vezes quem foi a 2º;
+ *  - candidaturas contadas no 1º turno; resultado majoritário final incorpora o 2º;
  *  - apenas eleição ordinária (CD_TIPO_ELEICAO = 2) — suplementares fora;
  *  - universos proporcional e majoritário separados, com denominadores próprios;
  *  - gênero e cor/raça sempre nas categorias originais do TSE, sem conversão.
@@ -25,7 +25,7 @@ import {
 import { generationStampToIso, splitCsvLine } from "./parse";
 
 /** Versão do processamento histórico — muda quando o cálculo muda. */
-export const HISTORICAL_PROCESSING_VERSION = `2026.08.11-b5.1+${HISTORICAL_DICTIONARY_VERSION}`;
+export const HISTORICAL_PROCESSING_VERSION = `2026.08.11-b5.1+${HISTORICAL_DICTIONARY_VERSION}+2turno`;
 
 /** Colunas usadas na série histórica, com o nome REAL do arquivo do TSE. */
 export const HISTORICAL_COLUMNS = {
@@ -81,7 +81,7 @@ export function categoryOrUnknown(value: string): string {
   return NULL_TOKENS.has(norm(v)) ? "NÃO INFORMADO" : v;
 }
 
-/** Situações de resultado que caracterizam candidatura eleita (1º turno). */
+/** Situações de resultado que caracterizam candidatura eleita. */
 export const ELECTED_SITUATIONS = [
   "ELEITO",
   "ELEITO POR QP",
@@ -185,7 +185,7 @@ export type UniverseHistorical = {
   byRegion: Record<string, CrossTally>;
   /** eleitas/eleitos, quando o resultado oficial existe no arquivo do ano */
   elected: {
-    /** total de candidaturas com resultado de eleito no 1º turno */
+    /** total de candidaturas com resultado final de eleito */
     all: CrossTally;
     byCargo: Record<string, CrossTally>;
     byUf: Record<string, CrossTally>;
@@ -221,6 +221,10 @@ export type HistoricalTally = {
   rowsWithoutKey: number;
   /** linhas descartadas por não serem 1º turno */
   otherRounds: number;
+  /** linhas do 2º turno, deduplicadas pela mesma chave da candidatura */
+  secondRoundRows: Map<string, HistoricalRow>;
+  /** eleitas e eleitos majoritários incorporados do resultado do 2º turno */
+  secondRoundElected: number;
   /** linhas descartadas por não serem eleição ordinária */
   otherElectionTypes: number;
   /** candidaturas fora dos dois universos (vice, suplente, prefeito etc.) */
@@ -235,6 +239,8 @@ export type HistoricalTally = {
   /** marcas DT_GERACAO+HH_GERACAO em ISO, com contagem de linhas */
   generationStamps: Counter;
   seenKeys: Set<string>;
+  /** candidaturas vistas no 1º turno, indexadas por ANO_ELEICAO + SQ_CANDIDATO */
+  seenCandidateKeys: Set<string>;
 };
 
 export function createHistoricalTally(year: HistoricalYear): HistoricalTally {
@@ -248,6 +254,8 @@ export function createHistoricalTally(year: HistoricalYear): HistoricalTally {
     duplicateRows: 0,
     rowsWithoutKey: 0,
     otherRounds: 0,
+    secondRoundRows: new Map<string, HistoricalRow>(),
+    secondRoundElected: 0,
     otherElectionTypes: 0,
     outOfScope: 0,
     universes: { proporcional: emptyUniverse(), majoritario: emptyUniverse() },
@@ -256,6 +264,7 @@ export function createHistoricalTally(year: HistoricalYear): HistoricalTally {
     electionValues: {},
     generationStamps: {},
     seenKeys: new Set<string>(),
+    seenCandidateKeys: new Set<string>(),
   };
 }
 
@@ -352,9 +361,14 @@ export function ingestHistoricalCsv(
       acc.otherElectionTypes += 1;
       continue;
     }
-    // Somente 1º turno: evita contar duas vezes quem disputou o 2º.
+    // Candidaturas são contadas no 1º turno; o resultado majoritário do 2º
+    // fica separado para incorporação depois da leitura de todos os arquivos.
     if (row.nrTurno && row.nrTurno !== "1") {
       acc.otherRounds += 1;
+      if (row.nrTurno === "2" && row.sqCandidato) {
+        const key = `${row.anoEleicao}|${row.cdEleicao}|${row.sqCandidato}`;
+        if (!acc.secondRoundRows.has(key)) acc.secondRoundRows.set(key, row);
+      }
       continue;
     }
 
@@ -368,6 +382,7 @@ export function ingestHistoricalCsv(
       continue;
     }
     acc.seenKeys.add(key);
+    acc.seenCandidateKeys.add(`${row.anoEleicao}|${row.sqCandidato}`);
     acc.recordCount += 1;
 
     bump(acc.electionValues, categoryOrUnknown(at("dsEleicao")));
@@ -402,6 +417,29 @@ export function ingestHistoricalCsv(
   return acc;
 }
 
+/** Incorpora o resultado final dos cargos majoritários decididos em 2º turno. */
+export function finalizeSecondRound(acc: HistoricalTally): HistoricalTally {
+  for (const row of acc.secondRoundRows.values()) {
+    if (!acc.seenCandidateKeys.has(`${row.anoEleicao}|${row.sqCandidato}`)) continue;
+    if (classifyUniverse(row.cargo) !== "majoritario") continue;
+    if (!isElected(row.sitTotTurno)) continue;
+
+    const gender = categoryOrUnknown(row.genero);
+    const race = categoryOrUnknown(row.corRaca);
+    const cargo = categoryOrUnknown(row.cargo);
+    const uf = categoryOrUnknown(row.uf);
+    const region = regionOf(row.uf);
+    const elected = acc.universes.majoritario.elected;
+
+    addToCross(elected.all, gender, race);
+    addToCross(crossFor(elected.byCargo, cargo), gender, race);
+    addToCross(crossFor(elected.byUf, uf), gender, race);
+    addToCross(crossFor(elected.byRegion, region), gender, race);
+    acc.secondRoundElected += 1;
+  }
+  return acc;
+}
+
 /** Data oficial da base histórica, lida do próprio arquivo. */
 export function resolveHistoricalGeneratedAt(acc: HistoricalTally): {
   value: string | null;
@@ -426,13 +464,13 @@ export const HISTORICAL_FILTERS = [
   "Fonte: arquivos oficiais `consulta_cand_<ano>` do TSE / Dados Abertos, um pacote por eleição geral",
   "Apenas eleições gerais: nenhum arquivo municipal é lido, e linhas com CD_TIPO_ELEICAO diferente de 2 (eleição ordinária) são descartadas",
   "Unidade de análise: candidatura, deduplicada pela chave (ANO_ELEICAO, CD_ELEICAO, SQ_CANDIDATO)",
-  "Somente NR_TURNO = 1, para não contar duas vezes candidaturas que foram a segundo turno",
+  "Candidaturas contadas pela linha do 1º turno (NR_TURNO = 1), sem dupla contagem de quem foi a segundo turno",
   "Universo proporcional: deputado federal, deputado estadual e deputado distrital",
   "Universo majoritário: presidente, governador e senador",
   "Cada eleição mantém universo e denominador próprios; anos e universos nunca são somados",
   "Gênero conforme DS_GENERO e cor/raça conforme DS_COR_RACA, sempre nas categorias originais do TSE, sem conversão e sem inferência por nome",
   "Gênero × raça: cada candidatura entra em exatamente uma célula da tabela cruzada, sem duplicação",
-  "Eleitas/eleitos identificados por DS_SIT_TOT_TURNO (ELEITO, ELEITO POR QP, ELEITO POR MÉDIA, MÉDIA) no 1º turno; anos sem resultado publicado ficam sem indicador, nunca estimados",
+  "Eleitas/eleitos identificados por DS_SIT_TOT_TURNO (ELEITO, ELEITO POR QP, ELEITO POR MÉDIA, MÉDIA); para cargos majoritários decididos em segundo turno, vale o resultado da linha NR_TURNO = 2",
   "Data da fotografia lida de DT_GERACAO + HH_GERACAO do próprio arquivo, separada da data da coleta",
   `Colunas lidas conforme o dicionário histórico versionado ${HISTORICAL_DICTIONARY_VERSION}`,
 ];

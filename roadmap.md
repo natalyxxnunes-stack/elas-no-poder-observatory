@@ -59,8 +59,8 @@
 - [x] Validar tipos, página e números renderizados
 
 ## Lote H — resultado de 2º turno na série histórica
-- [ ] Incorporar eleitos majoritários do 2º turno sem alterar o universo proporcional
-- [ ] Atualizar metodologia e texto da página histórica
-- [ ] Rodar typecheck e coleta de 2014, 2018 e 2022
-- [ ] Conferir as três fotografias novas e invalidá-las em conjunto se alguma trava falhar
-- [ ] Entregar tabelas completas, secondRoundElected e arquivos tocados
+- [x] Incorporar eleitos majoritários do 2º turno sem alterar o universo proporcional
+- [x] Atualizar metodologia e texto da página histórica
+- [x] Rodar typecheck e coleta de 2014, 2018 e 2022
+- [x] Conferir as três fotografias novas e invalidá-las em conjunto se alguma trava falhar
+- [x] Entregar tabelas completas, secondRoundElected e arquivos tocados

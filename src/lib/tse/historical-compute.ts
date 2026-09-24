@@ -95,6 +95,7 @@ export type HistoricalAggregates = {
     duplicateRows: number;
     rowsWithoutKey: number;
     otherRounds: number;
+    secondRoundElected: number;
     otherElectionTypes: number;
     outOfScope: number;
   };
@@ -122,6 +123,7 @@ export function toHistoricalAggregates(
       duplicateRows: acc.duplicateRows,
       rowsWithoutKey: acc.rowsWithoutKey,
       otherRounds: acc.otherRounds,
+      secondRoundElected: acc.secondRoundElected,
       otherElectionTypes: acc.otherElectionTypes,
       outOfScope: acc.outOfScope,
     },
@@ -390,10 +392,9 @@ export function electedWomenSeries(years: YearSnapshot[]): Series {
     id: "serie-mulheres-eleitas",
     label: "Mulheres entre as eleitas e eleitos",
     formula:
-      "eleitas mulheres ÷ total de eleitas e eleitos do mesmo universo e ano × 100 (resultado de 1º turno, DS_SIT_TOT_TURNO)",
+      "eleitas mulheres ÷ total de eleitas e eleitos do mesmo universo e ano × 100 (resultado final: 1º turno e, quando houve, 2º turno)",
     notes: [
       "Somente anos com resultado eleitoral publicado. 2026 não tem resultado: o ponto fica vazio, sem estimativa.",
-      "Resultado lido de DS_SIT_TOT_TURNO no 1º turno; cargos majoritários decididos em 2º turno aparecem na base do 1º turno como não eleitos e por isso o universo majoritário deve ser lido com essa ressalva.",
     ],
     points: UNIVERSES.flatMap((universe) =>
       years.map((y) =>

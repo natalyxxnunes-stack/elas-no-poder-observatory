@@ -131,8 +131,8 @@ function HistoricoPage() {
           unknown={
             <>
               Em aberto nesta versão: o resultado de 2026, a cor/raça de todas
-              as candidaturas de 2026 e os eleitos de 2º turno dos anos
-              anteriores.
+              as candidaturas de 2026 e as lacunas documentadas nos arquivos
+              históricos oficiais.
             </>
           }
         />
@@ -236,7 +236,7 @@ function HistoricoPage() {
             ainda não ocorreu.
           </p>
         }
-        source="Fonte: TSE · Candidatos (DS_SIT_TOT_TURNO, 1º turno)"
+        source="Fonte: TSE · Candidatos (DS_SIT_TOT_TURNO, 1º e 2º turno)"
       >
         <div className="space-y-6">
           <SeriesChart series={byId("serie-mulheres-eleitas")} />
@@ -246,11 +246,6 @@ function HistoricoPage() {
           <HistoryFunnel />
         </div>
         <div className="mt-6 space-y-4">
-          <GapNote label="Limite desta versão">
-            O resultado histórico considera apenas o 1º turno. Cargos majoritários
-            decididos em 2º turno não entram na contagem de eleitas e eleitos
-            desta versão; a correção está pendente e não foi feita nesta rodada.
-          </GapNote>
           <GapNote label="Lacunas já documentadas">
             Em 2018 e 2022 há registros com resultado marcado como nulo no arquivo
             oficial — 22 linhas de Senado em 2018 e 926 linhas do Maranhão em
@@ -324,8 +319,8 @@ function HistoricoPage() {
           </li>
           <li>
             Onde a base não traz o dado — cor/raça de todas as candidaturas em
-            2026, resultado de 2026, cadeiras decididas em 2º turno — o ponto fica
-            vazio. Não há estimativa em nenhum ponto desta página.
+            2026, resultado de 2026 ou registros nulos nos arquivos históricos —
+            o ponto fica vazio. Não há estimativa em nenhum ponto desta página.
           </li>
         </ul>
         <p className="mt-8 font-mono text-[12px] text-muted-foreground">
