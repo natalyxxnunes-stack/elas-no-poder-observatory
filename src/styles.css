@@ -145,15 +145,6 @@
   border-top: 1px solid var(--color-rule);
 }
 
-@utility paper-grain {
-  background-color: var(--color-paper);
-  background-image: radial-gradient(
-    oklch(0.39 0.16 305 / 0.07) 1px,
-    transparent 1px
-  );
-  background-size: 4px 4px;
-}
-
 @utility ink-panel {
   background-color: var(--color-ink);
   color: var(--color-cream);
@@ -163,7 +154,6 @@
   background-color: var(--color-card);
   border: 1px solid var(--color-rule);
   border-radius: var(--radius-lg);
-  box-shadow: 4px 4px 0 0 oklch(0.39 0.16 305 / 0.09);
 }
 
 @utility data-figure {
@@ -187,6 +177,12 @@
 /* --- direção de arte cartaz (home) --- */
 
 @utility poster-frame {
+  background-color: var(--color-card);
+  border: 1px solid oklch(0.19 0.035 310 / 0.25);
+  border-radius: var(--radius-lg);
+}
+
+@utility poster-frame-accent {
   background-color: var(--color-card);
   border: 2px solid var(--color-ink);
   border-radius: var(--radius-lg);

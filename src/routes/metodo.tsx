@@ -659,14 +659,14 @@ function MetodoPage() {
         }
       >
         <dl className="grid gap-4 md:grid-cols-3">
-          <div className="poster-frame p-5">
+          <div className="poster-frame-accent p-5">
             <dt className="record-label border-plum text-plum">Fato</dt>
             <dd className="mt-3 text-sm leading-relaxed text-ink/70">
               Contagem que sai direto da base, com numerador, denominador e data.
               É verificável: recalcule e confira.
             </dd>
           </div>
-          <div className="poster-frame p-5">
+          <div className="poster-frame-accent p-5">
             <dt className="record-label border-coral text-coral-ink">
               Interpretação editorial
             </dt>
@@ -676,7 +676,7 @@ function MetodoPage() {
               nunca apresentada como resultado do cálculo.
             </dd>
           </div>
-          <div className="poster-frame p-5">
+          <div className="poster-frame-accent p-5">
             <dt className="record-label border-ink text-ink">
               Hipótese em investigação
             </dt>
