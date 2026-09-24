@@ -175,21 +175,21 @@ function QuemSaoElasPage() {
 
           <div className="grid gap-5 md:grid-cols-3">
             <article className="poster-frame p-5">
-              <p className="poster-eyebrow border-plum text-plum">Fato</p>
+              <p className="record-label border-plum text-plum">Fato</p>
               <p className="mt-3 leading-relaxed text-ink/70">
                 Nos comandos únicos mais altos — Presidência e Governo —, a presença de mulheres cai para os menores números do levantamento: 14,3% nas candidaturas à Presidência e 17,4% às candidaturas a governadora. Nas candidaturas a vice desses mesmos pleitos, a proporção mais que dobra: 42,9% e 41,7%.
               </p>
             </article>
 
             <article className="poster-frame p-5">
-              <p className="poster-eyebrow border-coral text-coral-ink">Interpretação editorial</p>
+              <p className="record-label border-coral text-coral-ink">Interpretação editorial</p>
               <p className="mt-3 leading-relaxed text-ink/70">
                 A vice-presidência e a vice-governadoria não exercem o comando direto enquanto o titular estiver no cargo — são posições de composição de chapa, historicamente usadas para equilibrar coligações e a composição política da chapa, sem disputar o centro do poder. Quando o cargo é o de comando único, a presença de mulheres cai.
               </p>
             </article>
 
             <article className="poster-frame p-5">
-              <p className="poster-eyebrow border-ink text-ink">Hipótese em investigação</p>
+              <p className="record-label border-ink text-ink">Hipótese em investigação</p>
               <p className="mt-3 leading-relaxed text-ink/70">
                 Esse padrão se repete em eleições anteriores ou é particular a 2026? Comparar 2014, 2018 e 2022 pode indicar se mulheres são sistematicamente mais aceitas em posições de apoio à chapa do que no comando direto — ou se a distância deste ano é uma anomalia.
               </p>

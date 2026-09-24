@@ -243,7 +243,7 @@ export function RaceExplorer({
                         : `${race}: ${formatInt(n)} ${n === 1 ? "candidatura" : "candidaturas"}`
                     }
                     height="sm"
-                    radius="full"
+                    radius="sm"
                     track={false}
                   />
                 </dd>
