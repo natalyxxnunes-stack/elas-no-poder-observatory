@@ -116,8 +116,8 @@ function DinheiroPage() {
     proportional.byOffice["DEPUTADO ESTADUAL"]?.feminine,
     proportional.byOffice["DEPUTADO ESTADUAL"]?.total,
   );
-  const presidentialFeminine = snapshot?.universes.majoritario.dimensions?.feminineByCargo?.PRESIDENTE;
-  const presidentialTotal = snapshot?.universes.majoritario.dimensions?.totalByCargo?.PRESIDENTE;
+  const presidentialFeminine = snapshot?.universes.majoritario.dimensions?.feminineByCargo?.["PRESIDENTE"];
+  const presidentialTotal = snapshot?.universes.majoritario.dimensions?.totalByCargo?.["PRESIDENTE"];
   return (
     <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Dinheiro" }]}>
       <EditorialOpening

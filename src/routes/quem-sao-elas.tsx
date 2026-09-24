@@ -90,13 +90,13 @@ function QuemSaoElasPage() {
     counts && total > 0 ? (counts[category] ?? 0) / total * 100 : Number.NaN;
   const blackShare = (counts: Record<string, number> | undefined, total: number) =>
     counts && total > 0
-      ? ((counts.PRETA ?? 0) + (counts.PARDA ?? 0)) / total * 100
+      ? ((counts["PRETA"] ?? 0) + (counts["PARDA"] ?? 0)) / total * 100
       : Number.NaN;
   const formattedRaceShare = (value: number) => Number.isFinite(value) ? formatPct(value) : "—";
   const proportionalWhite = formattedRaceShare(raceShare(proportionalRaceCounts, "BRANCA", proportionalRaceTotal));
   const majoritarianWhite = formattedRaceShare(raceShare(majoritarianRaceCounts, "BRANCA", majoritarianRaceTotal));
   const majoritarianBlackCount = majoritarianRaceCounts
-    ? (majoritarianRaceCounts.PRETA ?? 0) + (majoritarianRaceCounts.PARDA ?? 0)
+    ? (majoritarianRaceCounts["PRETA"] ?? 0) + (majoritarianRaceCounts["PARDA"] ?? 0)
     : null;
   const proportionalBlackFrequency = formatUmEmCada(blackShare(proportionalRaceCounts, proportionalRaceTotal));
   const proportionalPardaFrequency = formatUmEmCada(raceShare(proportionalRaceCounts, "PARDA", proportionalRaceTotal));
@@ -132,7 +132,7 @@ function QuemSaoElasPage() {
         question={`Quanto mais alto o cargo, mais brancas são as candidatas: ${proportionalWhite} nas disputas a deputada, ${majoritarianWhite} nas de presidente, governadora e senadora.`}
         lead={
           <p>
-            Das {majoritarianRaceTotal > 0 ? formatInt(majoritarianRaceTotal) : "—"} mulheres que disputam Presidência, governos e Senado, {majoritarianRaceCounts ? formatInt(majoritarianRaceCounts.BRANCA ?? 0) : "—"} são brancas e {majoritarianBlackCount !== null ? formatInt(majoritarianBlackCount) : "—"} são negras, somando pretas e pardas. Nas listas a deputada, as candidatas negras são {proportionalBlackFrequency}. A queda está sobretudo nas pardas: eram {proportionalPardaFrequency} candidatas a deputada e viram {majoritarianPardaFrequency} nos cargos de um único titular. Aqui gênero e cor/raça são lidos juntos, por cargo, estado e partido.
+            Das {majoritarianRaceTotal > 0 ? formatInt(majoritarianRaceTotal) : "—"} mulheres que disputam Presidência, governos e Senado, {majoritarianRaceCounts ? formatInt(majoritarianRaceCounts["BRANCA"] ?? 0) : "—"} são brancas e {majoritarianBlackCount !== null ? formatInt(majoritarianBlackCount) : "—"} são negras, somando pretas e pardas. Nas listas a deputada, as candidatas negras são {proportionalBlackFrequency}. A queda está sobretudo nas pardas: eram {proportionalPardaFrequency} candidatas a deputada e viram {majoritarianPardaFrequency} nos cargos de um único titular. Aqui gênero e cor/raça são lidos juntos, por cargo, estado e partido.
           </p>
         }
         snapshot={snapshot}
