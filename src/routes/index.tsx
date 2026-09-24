@@ -86,9 +86,9 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
     : null;
 
   return (
-    <section className="border-t border-rule py-16 md:py-24">
-      <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-        <div>
+    <section className="border-t border-rule py-12 md:py-16">
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-stretch lg:gap-16">
+        <div className="flex min-w-0 flex-col">
           <p className="font-mono text-[11px] uppercase text-muted-foreground">2026 · fotografia em andamento</p>
           <h2 className="mt-4 font-display text-4xl leading-none text-ink md:text-5xl">O que os registros permitem dizer agora</h2>
           <p className="mt-5 max-w-md leading-relaxed text-muted-foreground">
@@ -99,27 +99,26 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
               {formatInt(snapshot.recordCount)} pedidos de registro nesta fotografia.
             </p>
           )}
+          <p className="mt-7 max-w-xl font-mono text-[11px] leading-relaxed text-muted-foreground lg:mt-auto lg:pt-7">
+            Dados de {baseDate ?? "data em atualização"}.{pendingDate ? ` Uma atualização (dados de ${pendingDate}) está em conferência.` : ""} Fonte: TSE · Candidaturas 2026 · <Link to="/metodo" className="text-plum underline underline-offset-4">ver o método</Link>
+          </p>
         </div>
 
-        <div className="grid border-y border-ink sm:grid-cols-2">
-          <article className="border-b border-rule py-7 sm:border-b-0 sm:border-r sm:px-6">
+        <div className="flex min-w-0 flex-col justify-center lg:border-l lg:border-rule lg:pl-12">
+          <article className="pb-7">
             <p className="font-mono text-[10px] uppercase text-muted-foreground">Comando majoritário</p>
-            <p className="mt-3 font-display text-5xl font-semibold text-coral-ink">{majoritarianShare !== null ? formatPercent(majoritarianShare) : "—"}</p>
-            <p className="mt-3 text-sm leading-relaxed text-ink">das candidaturas majoritárias, de cargo único, são de mulheres</p>
+            <p className="mt-2 font-display text-5xl font-semibold leading-none text-plum md:text-6xl">{majoritarianShare !== null ? formatPercent(majoritarianShare) : "—"}</p>
+            <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink">das candidaturas majoritárias, de cargo único, são de mulheres</p>
             <p className="mt-2 font-mono text-[10px] text-muted-foreground">{majoritarian ? `${formatInt(majoritarian.feminine)} de ${formatInt(majoritarian.total)}` : "em atualização"}</p>
           </article>
-          <article className="py-7 sm:px-6">
+          <article className="border-t border-rule pt-7">
             <p className="font-mono text-[10px] uppercase text-muted-foreground">Território</p>
-            <p className="mt-3 font-display text-5xl font-semibold text-forest">{highestUf ? formatPercent(highestUf.share) : "—"}</p>
-            <p className="mt-3 text-sm leading-relaxed text-ink">maior proporção entre as UFs: {highestUf?.uf ?? "em atualização"}</p>
+            <p className="mt-2 font-display text-5xl font-semibold leading-none text-plum md:text-6xl">{highestUf ? formatPercent(highestUf.share) : "—"}</p>
+            <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink">maior proporção entre as UFs: {highestUf?.uf ?? "em atualização"}</p>
             <p className="mt-2 font-mono text-[10px] text-muted-foreground">{highestUf ? `${formatInt(highestUf.feminine)} de ${formatInt(highestUf.total)}` : "em atualização"}</p>
           </article>
         </div>
       </div>
-
-      <p className="mt-6 font-mono text-[11px] leading-relaxed text-muted-foreground">
-        Dados de {baseDate ?? "data em atualização"}.{pendingDate ? ` Uma atualização (dados de ${pendingDate}) está em conferência.` : ""} Fonte: TSE · Candidaturas 2026 · <Link to="/metodo" className="text-plum underline underline-offset-4">ver o método</Link>
-      </p>
     </section>
   );
 }
