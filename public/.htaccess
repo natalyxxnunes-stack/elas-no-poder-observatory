@@ -7,6 +7,10 @@ DirectoryIndex index.html
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # Canonicaliza o domínio sem www, preservando caminho e querystring.
+  RewriteCond %{HTTP_HOST} ^www\.quemsaoelas\.com\.br$ [NC]
+  RewriteRule ^ https://quemsaoelas.com.br%{REQUEST_URI} [L,R=301]
+
   # Força HTTPS: o site lê o banco via fetch e conteúdo misto é bloqueado.
   RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP:X-Forwarded-Proto} !https
