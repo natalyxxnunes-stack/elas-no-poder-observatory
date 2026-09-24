@@ -239,6 +239,8 @@ export type HistoricalTally = {
   /** marcas DT_GERACAO+HH_GERACAO em ISO, com contagem de linhas */
   generationStamps: Counter;
   seenKeys: Set<string>;
+  /** candidaturas vistas no 1º turno, indexadas por ANO_ELEICAO + SQ_CANDIDATO */
+  seenCandidateKeys: Set<string>;
 };
 
 export function createHistoricalTally(year: HistoricalYear): HistoricalTally {
@@ -262,6 +264,7 @@ export function createHistoricalTally(year: HistoricalYear): HistoricalTally {
     electionValues: {},
     generationStamps: {},
     seenKeys: new Set<string>(),
+    seenCandidateKeys: new Set<string>(),
   };
 }
 
@@ -379,6 +382,7 @@ export function ingestHistoricalCsv(
       continue;
     }
     acc.seenKeys.add(key);
+    acc.seenCandidateKeys.add(`${row.anoEleicao}|${row.sqCandidato}`);
     acc.recordCount += 1;
 
     bump(acc.electionValues, categoryOrUnknown(at("dsEleicao")));
@@ -415,12 +419,8 @@ export function ingestHistoricalCsv(
 
 /** Incorpora o resultado final dos cargos majoritários decididos em 2º turno. */
 export function finalizeSecondRound(acc: HistoricalTally): HistoricalTally {
-  for (const [key, row] of acc.secondRoundRows) {
-    const candidateKey = key.slice(key.indexOf("|", key.indexOf("|") + 1) + 1);
-    const appearedInFirstRound = Array.from(acc.seenKeys).some((seenKey) =>
-      seenKey.endsWith(`|${candidateKey}`),
-    );
-    if (!appearedInFirstRound) continue;
+  for (const row of acc.secondRoundRows.values()) {
+    if (!acc.seenCandidateKeys.has(`${row.anoEleicao}|${row.sqCandidato}`)) continue;
     if (classifyUniverse(row.cargo) !== "majoritario") continue;
     if (!isElected(row.sitTotTurno)) continue;
 
