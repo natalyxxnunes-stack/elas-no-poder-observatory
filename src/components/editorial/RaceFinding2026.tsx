@@ -224,7 +224,7 @@ export function RaceFinding2026({
 
         <div className="grid gap-5 md:grid-cols-3">
           <article className="poster-frame p-5">
-            <p className="poster-eyebrow border-plum text-plum">Fato</p>
+            <p className="record-label border-plum text-plum">Fato</p>
             <h3 className="mt-3 font-display text-xl text-ink">
               O que o dado mostra
             </h3>
@@ -252,7 +252,7 @@ export function RaceFinding2026({
           </article>
 
           <article className="poster-frame p-5">
-            <p className="poster-eyebrow border-coral text-coral-ink">
+            <p className="record-label border-coral text-coral-ink">
               Interpretação editorial
             </p>
             <h3 className="mt-3 font-display text-xl text-ink">
@@ -273,7 +273,7 @@ export function RaceFinding2026({
           </article>
 
           <article className="poster-frame p-5">
-            <p className="poster-eyebrow border-ink text-ink">
+            <p className="record-label border-ink text-ink">
               Hipótese em investigação
             </p>
             <h3 className="mt-3 font-display text-xl text-ink">
@@ -306,7 +306,7 @@ export function RaceFinding2026({
           : ""}
         ; população
 
-        feminina 104,5 milhões (Censo 2022). Cor/raça autodeclarada, nas
+        feminina {n(POPULATION_FEMININE_2022)} (Censo 2022). Cor/raça autodeclarada, nas
         categorias do IBGE/TSE. Preta e parda são lidas separadamente; quando somadas como população negra, a soma é declarada. A
         comparação entre candidaturas (TSE proporcional 2026) e população
         feminina (Censo 2022) são dois retratos, cada um com seu denominador;

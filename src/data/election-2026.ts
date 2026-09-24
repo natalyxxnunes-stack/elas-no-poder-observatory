@@ -230,20 +230,20 @@ export const RACE_FINDING_CATEGORIES = [
 export type RaceFindingCategory = (typeof RACE_FINDING_CATEGORIES)[number];
 
 /** População feminina no Brasil — Censo 2022, IBGE. Constante curada. */
-export const POPULATION_FEMININE_2022 = 104_500_000;
+export const POPULATION_FEMININE_2022 = 104_548_325;
 
-/** Distribuição autodeclarada da população feminina por cor/raça, Censo 2022.
- *  Os percentuais são os informados pelo IBGE; os absolutos são derivados do
- *  total e podem não fechar exatamente em 100% por arredondamento. */
+/** População feminina por cor ou raça, Censo 2022 (IBGE, SIDRA tabela 9606).
+ *  Absolutos exatos da tabela; percentuais sobre o total de mulheres, que inclui
+ *  pessoas sem declaração de cor ou raça. */
 export const POPULATION_RACE_FEMININE_2022: Record<
   RaceFindingCategory,
   { count: number; percent: number }
 > = {
-  branca: { count: 46_390_000, percent: 44.4 },
-  parda: { count: 46_820_000, percent: 44.8 },
-  preta: { count: 10_136_500, percent: 9.7 },
-  indigena: { count: 627_000, percent: 0.6 },
-  amarela: { count: 418_000, percent: 0.4 },
+  branca: { count: 46_463_555, percent: 44.4 },
+  parda: { count: 46_883_709, percent: 44.8 },
+  preta: { count: 10_130_438, percent: 9.7 },
+  indigena: { count: 616_574, percent: 0.6 },
+  amarela: { count: 449_273, percent: 0.4 },
 };
 
 /** Candidaturas de mulheres às eleições proporcionais de 2026 por cor/raça.

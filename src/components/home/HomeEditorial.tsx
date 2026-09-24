@@ -299,7 +299,22 @@ const INVESTIGATIONS = [
   { id: "dinheiro", title: "Quem tem recursos para disputar?", to: "/dinheiro", link: "Ver quem recebe" },
 ] as const;
 
-export function HomeInvestigationGrid() {
+export function HomeInvestigationGrid({ snapshot }: { snapshot: PublicSnapshot | null }) {
+  const majoritarianDimensions = snapshot?.universes.majoritario.dimensions;
+  const outOfUniverse = snapshot?.outOfUniverse;
+  const share = (feminine: number | undefined, total: number | undefined) =>
+    feminine !== undefined && total !== undefined && total > 0
+      ? formatPct((feminine / total) * 100)
+      : "—";
+  const p = share(
+    majoritarianDimensions?.feminineByCargo?.["PRESIDENTE"],
+    majoritarianDimensions?.totalByCargo?.["PRESIDENTE"],
+  );
+  const vp = share(
+    outOfUniverse?.feminineByCargo?.["VICE-PRESIDENTE"],
+    outOfUniverse?.byCargo?.["VICE-PRESIDENTE"],
+  );
+
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen border-y border-rule bg-paper">
       <div className="mx-auto grid max-w-6xl md:grid-cols-[repeat(3,minmax(0,1fr))_0.75fr]">
@@ -317,7 +332,7 @@ export function HomeInvestigationGrid() {
         <aside className="flex min-h-64 flex-col justify-center gap-4 bg-solar px-8 py-12 text-ink md:px-8">
           <p className="font-mono text-[10px] uppercase tracking-wide text-ink/70">Achado</p>
           <p className="font-display text-lg font-semibold not-italic leading-snug sm:text-xl md:text-2xl">
-            Entre as candidatas à Presidência, mulheres são 14,3%. Entre as candidatas a vice, são 42,9%.
+            Entre as candidaturas à Presidência, mulheres são {p}. Entre as candidaturas a vice, são {vp}.
           </p>
         </aside>
       </div>
