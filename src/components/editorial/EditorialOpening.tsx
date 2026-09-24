@@ -191,9 +191,9 @@ function ProcessOpening({ steps, ...text }: OpeningBase & { steps: readonly stri
 function FinancialOpening({ layers, gap, snapshot, ...text }: OpeningBase & { layers: readonly string[]; gap: string; snapshot?: TseFinanceSnapshot }) {
   const proportional = snapshot?.universes.proporcional;
   const majoritarian = snapshot?.universes.majoritario;
-  const values = [
-    proportional ? (proportional.feminineRevenue / proportional.totalRevenue) * 100 : null,
-    majoritarian ? (majoritarian.feminineRevenue / majoritarian.totalRevenue) * 100 : null,
+  const rows = [
+    { label: "Proporcional", value: proportional ? (proportional.feminineRevenue / proportional.totalRevenue) * 100 : null },
+    { label: "Majoritário", value: majoritarian ? (majoritarian.feminineRevenue / majoritarian.totalRevenue) * 100 : null },
   ];
   return (
     <Frame className="bg-ink text-cream">
@@ -202,14 +202,15 @@ function FinancialOpening({ layers, gap, snapshot, ...text }: OpeningBase & { la
         <figure aria-label="Participação das mulheres na receita declarada nos universos proporcional e majoritário" className="min-w-0">
           <p className="border-b border-cream/25 pb-3 font-mono text-[10px] uppercase text-cream/60">Receita declarada · base de 23/09/2026</p>
           <div className="mt-5 space-y-4">
-            {layers.slice(0, 4).map((layer, index) => (
-              <div key={layer} className="grid grid-cols-[7rem_minmax(0,1fr)_2rem] items-center gap-3">
-                <span className="truncate font-mono text-[9px] uppercase text-cream/70">{layer}</span>
-                <div className="h-8 border border-cream/20 bg-cream/5"><div className={`h-full ${index % 2 ? "bg-solar" : "bg-plum-soft"}`} style={{ width: `${values[index % 2] ?? 0}%` }} /></div>
-                <span className="font-mono text-xs text-cream">{values[index % 2] === null ? "—" : formatPct(values[index % 2] ?? 0)}</span>
+            {rows.map((row, index) => (
+              <div key={row.label} className="grid grid-cols-[7rem_minmax(0,1fr)_3rem] items-center gap-3">
+                <span className="truncate font-mono text-[9px] uppercase text-cream/70">{row.label}</span>
+                <div className="h-8 border border-cream/20 bg-cream/5"><div className={`h-full ${index ? "bg-solar" : "bg-plum-soft"}`} style={{ width: `${row.value ?? 0}%` }} /></div>
+                <span className="font-mono text-xs text-cream">{row.value === null ? "—" : formatPct(row.value)}</span>
               </div>
             ))}
           </div>
+          <p className="mt-5 font-mono text-[9px] uppercase leading-relaxed text-cream/50">Camadas publicadas: {layers.slice(0, 4).join(" · ")}</p>
           <figcaption className="mt-6 border-l-2 border-solar pl-3 font-mono text-[10px] leading-relaxed text-cream/65">{gap}</figcaption>
         </figure>
       </div>
