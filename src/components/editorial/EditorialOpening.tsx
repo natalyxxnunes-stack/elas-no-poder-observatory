@@ -62,7 +62,7 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
     <Frame className="bg-plum text-cream">
       <div className="mx-auto grid min-h-[31rem] max-w-6xl items-center gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:py-14">
         <OpeningText {...text} inverse />
-        <figure aria-label="Funil de 2026 com universos e denominadores próprios" className="min-w-0 border-l border-cream/25 pl-4 md:pl-8">
+        <figure aria-label="Funil de 2026 com universos e denominadores próprios; as larguras de Eleitas e Poder são ilustrativas e não representam taxa calculada" className="min-w-0 border-l border-cream/25 pl-4 md:pl-8">
           <div className="space-y-2">
             {layers.map((layer) => (
               <div key={layer.label} className="grid min-w-0 grid-cols-[minmax(0,1fr)_4.5rem] items-center gap-3">
@@ -74,7 +74,7 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
             ))}
           </div>
           <figcaption className="mt-5 border-t border-cream/25 pt-3 font-mono text-[10px] leading-relaxed text-cream/65">
-            Cada etapa tem universo próprio · TSE · {baseDate ?? "base em atualização"}
+            Cada etapa tem universo próprio · TSE · {baseDate ?? "base em atualização"}. As larguras de “Eleitas” e “Poder” são ilustrativas e não representam taxa calculada.
           </figcaption>
         </figure>
       </div>

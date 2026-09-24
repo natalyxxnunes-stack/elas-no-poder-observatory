@@ -534,15 +534,6 @@ export const METHOD_NOTES = [
   },
 ] as const;
 
-/** Rotas do observatório, na ordem editorial. */
-export const SECTIONS = [
-  { to: "/", label: "Dados 2026" },
-  { to: "/condicoes", label: "Condições" },
-  { to: "/em-disputa", label: "Em disputa" },
-  { to: "/direitos", label: "Direitos" },
-  { to: "/metodo", label: "Método" },
-] as const;
-
 /** Formatação: valor bruto → apresentação em pt-BR, uma casa decimal. */
 export function formatPercent(value: number | null, digits = 1): string {
   if (value === null) return "—";
