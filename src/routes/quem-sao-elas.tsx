@@ -168,25 +168,8 @@ function QuemSaoElasPage() {
 
       <SectionBlock
         id="raca"
-        kicker="Censo 2022 × candidaturas 2026"
-        question="Pardas e brancas são quase do mesmo tamanho no país. Nas candidaturas, não são."
-        align="wide"
-        source={
-          <>
-            Fontes: IBGE · Censo 2022; TSE · Candidaturas 2026
-            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
-            <Link to="/metodo" className="text-plum underline underline-offset-4">
-              ver o método
-            </Link>
-          </>
-        }
-      >
-        <RaceFinding2026 snapshot={snapshot} />
-      </SectionBlock>
-
-      <SectionBlock
         kicker="Categorias originais"
-        question="Cor/raça declarada nas candidaturas de mulheres"
+        question="Deputada × cargo único: quais mulheres estão em cada disputa"
         align="wide"
         lead={
           <div className="space-y-3">
@@ -214,6 +197,23 @@ function QuemSaoElasPage() {
         }
       >
         <RaceBreakdown snapshot={snapshot} />
+      </SectionBlock>
+
+      <SectionBlock
+        kicker="Censo 2022 × candidaturas 2026"
+        question="Pardas e brancas são quase do mesmo tamanho no país. Nas candidaturas, não são."
+        align="wide"
+        source={
+          <>
+            Fontes: IBGE · Censo 2022; TSE · Candidaturas 2026
+            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
+            <Link to="/metodo" className="text-plum underline underline-offset-4">
+              ver o método
+            </Link>
+          </>
+        }
+      >
+        <RaceFinding2026 snapshot={snapshot} />
       </SectionBlock>
 
       <SectionBlock
@@ -269,6 +269,13 @@ function QuemSaoElasPage() {
           </div>
         </div>
       </SectionBlock>
+
+      <SectionBlock
+        tone="ink"
+        kicker="Explore os dados"
+        question="Daqui pra baixo, a consulta é sua"
+        lead={<p>Filtre por cargo, estado e partido. Cada recorte mostra o próprio denominador, e abaixo de 20 candidaturas aparecem só os números absolutos.</p>}
+      />
 
       <SectionBlock
         id="partidos"
