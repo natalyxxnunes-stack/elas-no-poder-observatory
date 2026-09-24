@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -6,7 +6,7 @@ import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { StatusTag } from "@/components/editorial/StatusTag";
-import { GapNote } from "@/components/GapNote";
+import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { QUOTA_RULE } from "@/data/election-2026";
 
 /**
@@ -173,43 +173,17 @@ function QuemControlaPage() {
             <p>{QUOTA_RULE.financingNote}</p>
           </ContextBox>
         </div>
-        <div className="mt-6">
-          <GapNote label="Critério editorial">
-            Não publicamos ranking de partidos com juízo moral. Investigamos padrões e estruturas de
-            distribuição, sempre com denominador por partido ou federação declarado. Diferenças
-            entre partidos não são lidas, por si, como intenção.
-          </GapNote>
-        </div>
       </SectionBlock>
 
-      <SectionBlock
-        kicker="Como vamos apurar"
-        question="Do registro à distribuição de condições"
-        lead={
-          <p>
-            A primeira camada usa a base de candidaturas já processada: composição por partido ou
-            federação, cargo, UF, gênero e cor/raça. A segunda depende das contas de campanha de
-            2026.
-          </p>
-        }
-        source={
-          <>
-            Fonte da primeira camada: TSE · Candidaturas 2026 ·{" "}
-            <Link to="/metodo" className="text-plum underline underline-offset-4">
-              ver o método
-            </Link>
-          </>
-        }
-      >
-        <ContextBox variant="calculamos" title="Como calculamos por partido">
-          <p>
-            Para cada partido ou federação, calculamos a proporção de candidaturas de mulheres sobre
-            o total de candidaturas daquele partido no mesmo universo eleitoral — nunca sobre o
-            total do país. Percentuais entre partidos com número muito pequeno de candidaturas são
-            apresentados em contagens absolutas.
-          </p>
-        </ContextBox>
-      </SectionBlock>
+      <ComoSabemos
+        fonte="TSE, Candidaturas 2026; TSE, Prestação de Contas Eleitorais 2026; Lei 9.504/1997, art. 10, §3º."
+        universo="Candidaturas registradas em 2026 por partido ou federação, cargo e UF."
+        calculo="Para cada partido ou federação, dividimos as candidaturas de mulheres pelo total de candidaturas daquele partido no mesmo universo, nunca pelo total do país. Partidos com poucas candidaturas aparecem em números absolutos. Diferenças entre partidos descrevem padrões de distribuição: não publicamos ranking nem lemos diferença como intenção."
+        limites={[
+          "A primeira camada usa o registro de candidaturas. A distribuição de recursos e de propaganda depende das contas de campanha de 2026.",
+          "Propaganda e posição estratégica na chapa ainda não têm fonte pública integrada.",
+        ]}
+      />
 
       <NextAxes ids={["quem-sao-elas", "dinheiro", "funil"]} />
     </PageShell>

@@ -1,12 +1,11 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
-import { ContextBox } from "@/components/editorial/ContextBox";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { NextAxes } from "@/components/editorial/NextAxes";
-import { GapNote } from "@/components/GapNote";
+import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { DISPUTE_GAP, DISPUTE_ITEMS, DISPUTE_RULE } from "@/data/rules-in-dispute";
 import { formatDateBR } from "@/lib/format-br";
 
@@ -132,45 +131,17 @@ function EmDisputaPage() {
           ))}
         </ul>
 
-        <div className="mt-6 space-y-3">
-          <GapNote label="Lacuna declarada">{DISPUTE_GAP}</GapNote>
-          <GapNote label="Regra editorial">{DISPUTE_RULE}</GapNote>
-        </div>
       </SectionBlock>
 
-      <SectionBlock
-        kicker="Como ler uma regra em tramitação"
-        question="Três distinções para ler uma proposição"
-      >
-        <div className="grid gap-4 md:grid-cols-3">
-          <ContextBox variant="significa" title="Estágios de uma proposta em andamento">
-            <p>
-              Apresentado, aprovado em comissão, aprovado em plenário e sancionado são estágios
-              distintos. Só o último produz norma.
-            </p>
-          </ContextBox>
-          <ContextBox variant="importa" title="Até onde uma resolução do TSE vai">
-            <p>
-              Aqui o alcance é o inverso: uma resolução do TSE só organiza a aplicação de regras já
-              existentes dentro do ciclo de 2026, sem criar direito novo. Uma proposta que muda esse
-              alcance depende de lei ou de decisão do próprio Judiciário.
-            </p>
-          </ContextBox>
-          <ContextBox variant="calculamos" title="Por que não existe efeito pra medir ainda">
-            <p>
-              Enquanto uma proposição está em tramitação, não existe efeito para medir: não há antes
-              e depois, só um “antes” e uma expectativa. Qualquer leitura de impacto aqui seria
-              estimativa, e o site não publica estimativa.
-            </p>
-          </ContextBox>
-        </div>
-        <p className="mt-6 font-mono text-[12px] text-muted-foreground">
-          Histórico das regras em{" "}
-          <Link to="/direitos" className="text-plum underline underline-offset-4">
-            Direitos
-          </Link>
-        </p>
-      </SectionBlock>
+      <ComoSabemos
+        fonte="Texto oficial de cada norma, com link em cada item da lista."
+        universo="Normas em vigor no ciclo de 2026 que afetam a participação de mulheres: composição de candidaturas, destinação de recursos e fraude à cota."
+        limites={[
+          DISPUTE_GAP,
+          DISPUTE_RULE,
+          "Resolução do TSE organiza a aplicação de regras já existentes no ciclo, sem criar direito novo.",
+        ]}
+      />
 
       <NextAxes ids={["direitos", "metodo", "quem-controla"]} />
     </PageShell>
