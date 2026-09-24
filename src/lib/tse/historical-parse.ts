@@ -416,7 +416,11 @@ export function ingestHistoricalCsv(
 /** Incorpora o resultado final dos cargos majoritários decididos em 2º turno. */
 export function finalizeSecondRound(acc: HistoricalTally): HistoricalTally {
   for (const [key, row] of acc.secondRoundRows) {
-    if (!acc.seenKeys.has(key)) continue;
+    const candidateKey = key.slice(key.indexOf("|", key.indexOf("|") + 1) + 1);
+    const appearedInFirstRound = Array.from(acc.seenKeys).some((seenKey) =>
+      seenKey.endsWith(`|${candidateKey}`),
+    );
+    if (!appearedInFirstRound) continue;
     if (classifyUniverse(row.cargo) !== "majoritario") continue;
     if (!isElected(row.sitTotTurno)) continue;
 
