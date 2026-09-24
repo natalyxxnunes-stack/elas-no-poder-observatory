@@ -168,7 +168,7 @@ function DinheiroPage() {
             <li key={l.id} className="editorial-card p-5">
               <div className="flex items-start justify-between gap-3">
                 <h3 className="font-display text-lg text-ink">{l.label}</h3>
-                <StatusTag tone={l.ready ? "ready" : "pending"}>{l.ready ? "publicado" : "aguardando dado"}</StatusTag>
+                <StatusTag tone={l.ready ? "ok" : "pending"}>{l.ready ? "publicado" : "aguardando dado"}</StatusTag>
               </div>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.question}</p>
               <p className="mt-3 font-mono text-[12px] text-muted-foreground">Exige: {l.needs}</p>
@@ -196,7 +196,7 @@ function DinheiroPage() {
       >
         <ContextBox variant="calculamos">
           <p>
-            Esta página lê receita: dinheiro informado como recebido, não despesa contratada ou paga. A receita é somada por candidatura; cobertura, total, mediana, universo e data da base ficam à vista. “Parcial” e “Relatório Financeiro” não são usados como filtro: as {formatInt(financeSnapshot.tipoPrestacaoContas.PARCIAL)} linhas parciais e as {formatInt(financeSnapshot.tipoPrestacaoContas["RELATÓRIO FINANCEIRO"])} linhas de relatório financeiro entram na soma.
+            Esta página lê receita: dinheiro informado como recebido, não despesa contratada ou paga. A receita é somada por candidatura; cobertura, total, mediana, universo e data da base ficam à vista. “Parcial” e “Relatório Financeiro” não são usados como filtro: as {formatInt(financeSnapshot.tipoPrestacaoContas["PARCIAL"] ?? 0)} linhas parciais e as {formatInt(financeSnapshot.tipoPrestacaoContas["RELATÓRIO FINANCEIRO"] ?? 0)} linhas de relatório financeiro entram na soma.
           </p>
         </ContextBox>
       </SectionBlock>
