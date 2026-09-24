@@ -307,8 +307,8 @@ export function HomeInvestigationGrid({ snapshot }: { snapshot: PublicSnapshot |
       ? formatPct((feminine / total) * 100)
       : "—";
   const p = share(
-    majoritarianDimensions?.feminineByCargo?.PRESIDENTE,
-    majoritarianDimensions?.totalByCargo?.PRESIDENTE,
+    majoritarianDimensions?.feminineByCargo?.["PRESIDENTE"],
+    majoritarianDimensions?.totalByCargo?.["PRESIDENTE"],
   );
   const vp = share(
     outOfUniverse?.feminineByCargo?.["VICE-PRESIDENTE"],

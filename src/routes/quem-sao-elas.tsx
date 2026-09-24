@@ -91,12 +91,12 @@ function QuemSaoElasPage() {
   const majoritarianDimensions = snapshot?.universes.majoritario.dimensions;
   const outOfUniverse = snapshot?.outOfUniverse;
   const p = share(
-    majoritarianDimensions?.feminineByCargo?.PRESIDENTE,
-    majoritarianDimensions?.totalByCargo?.PRESIDENTE,
+    majoritarianDimensions?.feminineByCargo?.["PRESIDENTE"],
+    majoritarianDimensions?.totalByCargo?.["PRESIDENTE"],
   );
   const g = share(
-    majoritarianDimensions?.feminineByCargo?.GOVERNADOR,
-    majoritarianDimensions?.totalByCargo?.GOVERNADOR,
+    majoritarianDimensions?.feminineByCargo?.["GOVERNADOR"],
+    majoritarianDimensions?.totalByCargo?.["GOVERNADOR"],
   );
   const vp = share(
     outOfUniverse?.feminineByCargo?.["VICE-PRESIDENTE"],

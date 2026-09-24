@@ -94,16 +94,16 @@ function DinheiroPage() {
   const prop = revenueShare(proportional.feminineRevenue, proportional.totalRevenue);
   const maj = revenueShare(majoritarian.feminineRevenue, majoritarian.totalRevenue);
   const presidente = revenueShare(
-    majoritarian.byOffice.PRESIDENTE?.feminine,
-    majoritarian.byOffice.PRESIDENTE?.total,
+    majoritarian.byOffice["PRESIDENTE"]?.feminine,
+    majoritarian.byOffice["PRESIDENTE"]?.total,
   );
   const governador = revenueShare(
-    majoritarian.byOffice.GOVERNADOR?.feminine,
-    majoritarian.byOffice.GOVERNADOR?.total,
+    majoritarian.byOffice["GOVERNADOR"]?.feminine,
+    majoritarian.byOffice["GOVERNADOR"]?.total,
   );
   const senador = revenueShare(
-    majoritarian.byOffice.SENADOR?.feminine,
-    majoritarian.byOffice.SENADOR?.total,
+    majoritarian.byOffice["SENADOR"]?.feminine,
+    majoritarian.byOffice["SENADOR"]?.total,
   );
   const deputadoFederal = revenueShare(
     proportional.byOffice["DEPUTADO FEDERAL"]?.feminine,
