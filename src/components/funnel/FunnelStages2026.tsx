@@ -309,7 +309,7 @@ export function FunnelStages2026({
 
       {propShare !== null && majShare !== null && (
         <div className="mt-6 grid gap-5 md:grid-cols-3">
-          <article className="poster-frame p-5">
+          <article className="poster-frame-accent p-5">
             <p className="record-label border-plum text-plum">Fato</p>
             <h3 className="mt-3 font-display text-xl text-ink">
               O que o dado mostra
@@ -322,7 +322,7 @@ export function FunnelStages2026({
             </p>
           </article>
 
-          <article className="poster-frame p-5">
+          <article className="poster-frame-accent p-5">
             <p className="record-label border-coral text-coral-ink">
               Interpretação editorial
             </p>
@@ -339,7 +339,7 @@ export function FunnelStages2026({
             </p>
           </article>
 
-          <article className="poster-frame p-5">
+          <article className="poster-frame-accent p-5">
             <p className="record-label border-ink text-ink">
               Hipótese em investigação
             </p>
