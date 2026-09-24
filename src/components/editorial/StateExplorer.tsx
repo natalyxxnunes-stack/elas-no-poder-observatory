@@ -364,16 +364,20 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
           <p className="poster-eyebrow text-ink">
             Partidos em {uf} · {UNIVERSE_LABEL[universe]}
           </p>
-          {parties.length === 0 ? (
-            <div className="mt-4">
-              <GapNote label="Dado não disponível">
-                Nenhuma célula de partido foi gravada para {uf} neste universo
-                nesta fotografia.
-              </GapNote>
-            </div>
-          ) : (
-            <>
-              <div className="mt-4 overflow-x-auto">
+          <details className="mt-4">
+            <summary className="cursor-pointer font-mono text-[12px] uppercase tracking-wider text-plum underline underline-offset-4">
+              Ver por partido em {uf}
+            </summary>
+            {parties.length === 0 ? (
+              <div className="mt-4">
+                <GapNote label="Dado não disponível">
+                  Nenhuma célula de partido foi gravada para {uf} neste universo
+                  nesta fotografia.
+                </GapNote>
+              </div>
+            ) : (
+              <>
+                <div className="mt-4 overflow-x-auto">
                 <table className="w-full min-w-[640px] border-collapse text-left">
                   <caption className="sr-only">
                     Composição das candidaturas por partido em {uf}, universo{" "}
@@ -470,26 +474,27 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
                     })}
                   </tbody>
                 </table>
-              </div>
+                </div>
 
-              <p className="mt-4 font-mono text-[12px] leading-relaxed text-ink/70">
-                Ordem descritiva, por tamanho da lista no estado — não é
-                classificação de mérito nem ranking de partidos. Limiar
-                declarado: abaixo de {MIN_BASE} candidaturas na célula o
-                percentual não aparece e ficam só os absolutos.
-                {!hasGenderDenominatorByParty && (
-                  <>
-                    {" "}
-                    Nesta fotografia, o total de candidaturas por estado ×
-                    partido (o denominador de gênero dessa combinação) não foi
-                    gravado: por isso aqui aparecem apenas as candidaturas de
-                    mulheres, sem percentual. O percentual de mulheres por
-                    partido no país inteiro está na tabela nacional acima.
-                  </>
-                )}
-              </p>
-            </>
-          )}
+                <p className="mt-4 font-mono text-[12px] leading-relaxed text-ink/70">
+                  Ordem descritiva, por tamanho da lista no estado — não é
+                  classificação de mérito nem ranking de partidos. Limiar
+                  declarado: abaixo de {MIN_BASE} candidaturas na célula o
+                  percentual não aparece e ficam só os absolutos.
+                  {!hasGenderDenominatorByParty && (
+                    <>
+                      {" "}
+                      Nesta fotografia, o total de candidaturas por estado ×
+                      partido (o denominador de gênero dessa combinação) não foi
+                      gravado: por isso aqui aparecem apenas as candidaturas de
+                      mulheres, sem percentual. O percentual de mulheres por
+                      partido no país inteiro está na tabela nacional acima.
+                    </>
+                  )}
+                </p>
+              </>
+            )}
+          </details>
         </div>
       )}
 
