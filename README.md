@@ -1,32 +1,55 @@
-# Welcome to your Lovable project
+# Quem são elas?
 
-This project was built with [Lovable](https://lovable.dev).
+Observatório de jornalismo de dados sobre mulheres, eleições e poder no Brasil. Publicado em <https://quemsaoelas.com.br>.
 
-## Build with Lovable
+## Propósito
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Mostrar como gênero e cor/raça marcam o caminho entre candidatura, competição eleitoral e poder nas eleições gerais de 2026, com série histórica desde 2014. Cada número publicado declara fonte, universo, denominador e data da base.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+## Equipe
 
-## Development
+Nataly Nunes Pinto, jornalista. Idealização, apuração, edição e desenvolvimento do produto.
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Metodologia
+
+- A unidade de análise é a candidatura (`SQ_CANDIDATO`), contada uma vez em cada ano.
+- Proporcional (Câmara dos Deputados, assembleias legislativas e Câmara Legislativa do DF) e majoritário (Presidência, governos e Senado) são universos separados e nunca somados.
+- Cor/raça fica nas categorias originais do TSE. "Negra" = preta + parda, sempre declarada como agregação.
+- Nada é estimado: onde a base oficial não traz o dado, o ponto fica vazio.
+- O método para leitores está em `/metodo`; cada página de dado termina com o bloco "Como sabemos" (fonte, universo, base, cálculo e limites).
+
+## Dados
+
+| Fonte | Uso |
+|---|---|
+| TSE, Candidatos 2014, 2018, 2022 e 2026 (dadosabertos.tse.jus.br) | Candidaturas, gênero, cor/raça e resultado de 1º e 2º turno |
+| TSE, Vagas 2026 | Candidaturas por vaga |
+| TSE, Prestação de Contas Eleitorais 2026 | Receitas declaradas |
+| IBGE, Censo Demográfico 2022 (SIDRA, tabela 9606) | Cor/raça da população |
+
+## Atualização
+
+- 2026: a fotografia do registro de candidaturas é coletada por rotina agendada (`POST /api/public/tse/ingest`, protegido por `CRON_SECRET`) e gravada em `tse_snapshots` com a data de geração do TSE, a data da coleta e a versão de processamento.
+- 2014, 2018 e 2022: bases fechadas em `tse_historical_snapshots` (`POST /api/public/tse/ingest-history`).
+- O resultado de 2026 entra depois da apuração: 1º turno em 4 de outubro, 2º turno em 25 de outubro.
+- O site público é estático: cada atualização de dados exige novo build e novo pacote de publicação.
+
+## Stack
+
+TanStack Start (React e TypeScript), Tailwind CSS v4 e Supabase (PostgreSQL, com leitura pública por RLS e escrita só no servidor). Desenvolvido no Lovable.
+
+O backend usa as variáveis públicas geradas pelo Lovable (`VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`). A coleta exige `SUPABASE_SERVICE_ROLE_KEY` e `CRON_SECRET` configurados como segredos do servidor, nunca no `.env`.
+
+## Publicação
+
+O site público fica na HostGator, em versão estática. `bun run build:hostgator` gera `dist/client` com as páginas pré-renderizadas e o `.htaccess` de redirecionamentos; o conteúdo sobe para `public_html`. Detalhes em `docs/hospedagem-hostgator.md`.
+
+## Reprodução
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+bun install
+bun run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
 
 ## Dicionário de dados do TSE (Bloco 4)
 
@@ -141,7 +164,7 @@ rodada — o Bloco 5 aqui é dicionário e matriz de comparabilidade.
 
 ## Auditoria dos denominadores (2014 · 2018 · 2022 · 2026)
 
-`docs/auditoria-denominadores.md` traz a tabela completa: por ano e universo,
+`docs/auditoria-denominadores-22-09-2026.md` traz a tabela completa: por ano e universo,
 filtro aplicado, linhas brutas, linhas após deduplicação, número exibido e a
 explicação de cada diferença.
 
@@ -153,6 +176,4 @@ Três pontos estruturais que ficam registrados aqui:
 - **candidaturas e eleitos são universos diferentes**, assim como proporcional e
   majoritário, e 2026 (base em curso) e os anos fechados. Nada é somado entre
   universos para "fechar" um total;
-- **eleitos são contados apenas no 1º turno**: quem venceu no 2º turno não entra
-  no total de eleitos majoritários. Identificado e documentado, ainda não
-  corrigido.
+- **eleitos majoritários incluem o 2º turno**: a série lê as linhas de `NR_TURNO` = 2 e conta cada candidatura eleita uma única vez por ano (chave ano + `SQ_CANDIDATO`). Em 2018, uma cadeira de Senado de Mato Grosso tem resultado nulo no arquivo oficial e fica fora da contagem.

@@ -85,9 +85,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Observatório editorial sobre mulheres, eleições e poder no ciclo de 2026.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "https://quemsaoelas.lovable.app/og/quem-sao-elas-2026.png" },
+      { property: "og:image", content: "https://quemsaoelas.com.br/og/quem-sao-elas-2026.png" },
       { property: "og:image:alt", content: "Quem são elas? Dados 2026: 35,6% das candidaturas proporcionais são de mulheres" },
-      { name: "twitter:image", content: "https://quemsaoelas.lovable.app/og/quem-sao-elas-2026.png" },
+      { name: "twitter:image", content: "https://quemsaoelas.com.br/og/quem-sao-elas-2026.png" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
