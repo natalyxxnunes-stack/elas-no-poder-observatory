@@ -247,10 +247,10 @@ function HistoricoPage() {
         </div>
         <div className="mt-6 space-y-4">
           <GapNote label="Lacunas já documentadas">
-            Em 2018 e 2022 há registros com resultado marcado como nulo no arquivo
-            oficial — 22 linhas de Senado em 2018 e 926 linhas do Maranhão em
-            2022, o que deixa cadeiras fora da contagem de eleitos. A lacuna é da
-            base publicada e não é preenchida por estimativa.
+            Em 2018, parte das linhas de Senado veio com resultado nulo no arquivo
+            oficial; por isso uma cadeira de Mato Grosso fica fora da contagem de
+            eleitos, e as senadoras eleitas aparecem como 6 (o Senado registra 7).
+            A lacuna é da base publicada e não é preenchida por estimativa.
           </GapNote>
           <GapNote label="2026">
             Nenhuma eleita de 2026 é exibida: não há resultado eleitoral e nada é
