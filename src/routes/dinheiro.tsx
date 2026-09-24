@@ -4,7 +4,6 @@ import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
-import { StatusTag } from "@/components/editorial/StatusTag";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { axis } from "@/data/architecture";
@@ -155,30 +154,6 @@ function DinheiroPage() {
           <ContextBox variant="importa">
             <p>Confundir as duas leva a conclusões erradas.</p>
           </ContextBox>
-        </div>
-      </SectionBlock>
-
-      <SectionBlock
-        kicker="Andamento da investigação"
-        question="Quatro camadas abertas; duas continuam aguardando dado e método"
-        align="wide"
-      >
-        <ul className="grid gap-4 md:grid-cols-2">
-          {MONEY_LAYERS.map((l) => (
-            <li key={l.id} className="editorial-card p-5">
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="font-display text-lg text-ink">{l.label}</h3>
-                <StatusTag tone={l.ready ? "ok" : "pending"}>{l.ready ? "publicado" : "aguardando dado"}</StatusTag>
-              </div>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.question}</p>
-              <p className="mt-3 font-mono text-[12px] text-muted-foreground">Exige: {l.needs}</p>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-6">
-          <GapNote label="O que ainda falta">
-            Esta fase não inclui despesas, doador originário, titularidade ou suplência nem relação entre receita e competitividade. Nenhum desses valores é estimado.
-          </GapNote>
         </div>
       </SectionBlock>
 

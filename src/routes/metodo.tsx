@@ -7,13 +7,11 @@ import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import checagemAsset from "@/assets/checagem.webp.asset.json";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
-import { StatusTag } from "@/components/editorial/StatusTag";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 import {
   CURRENT_INDICATORS,
-  DATA_STATUS,
   METHOD_NOTES,
   QUOTA_RULE,
   TSE_SOURCE,
@@ -708,17 +706,6 @@ function MetodoPage() {
             <article key={i.id} className="editorial-card p-5">
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <h3 className="font-display text-lg text-ink">{i.label}</h3>
-                <StatusTag
-                  tone={
-                    i.status === DATA_STATUS.validado
-                      ? "ok"
-                      : i.status === DATA_STATUS.provisorio
-                        ? "limit"
-                        : "pending"
-                  }
-                >
-                  {i.status}
-                </StatusTag>
               </div>
               <dl className="mt-4 grid gap-2 font-mono text-[12px] leading-relaxed text-muted-foreground md:grid-cols-2">
                 <div>
@@ -734,6 +721,10 @@ function MetodoPage() {
                 <div>
                   <dt className="inline uppercase tracking-wider">Unidade: </dt>
                   <dd className="inline">{i.unit}</dd>
+                </div>
+                <div>
+                  <dt className="inline uppercase tracking-wider">Status: </dt>
+                  <dd className="inline">{i.status.toLowerCase()}</dd>
                 </div>
                 <div>
                   <dt className="inline uppercase tracking-wider">
@@ -1045,8 +1036,8 @@ function MetodoPage() {
             <article key={c.id} className="editorial-card p-5">
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <h3 className="font-display text-lg text-ink">{c.label}</h3>
-                <StatusTag tone="limit">{c.status}</StatusTag>
               </div>
+              <p className="mt-1 font-mono text-[12px] text-muted-foreground">Situação: {c.status}</p>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
                 {c.note}
               </p>

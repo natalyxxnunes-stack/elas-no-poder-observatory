@@ -1,24 +1,11 @@
 /**
- * StatusTag — etiqueta de status padronizada. Usa apenas os status já
- * definidos na camada de dados/arquitetura; não cria categorias novas.
+ * StatusTag — nota de margem: mono pequeno, filete curto, sem moldura.
  */
-export function StatusTag({
-  children,
-  tone = "pending",
-}: {
-  children: React.ReactNode;
-  tone?: "ok" | "pending" | "limit";
-}) {
-  const color =
-    tone === "ok"
-      ? "border-plum text-plum"
-      : tone === "limit"
-        ? "border-muted-foreground text-muted-foreground"
-        : "border-coral text-coral-ink";
+export function StatusTag({ children, tone = "pending" }: { children: React.ReactNode; tone?: "ok" | "pending" | "limit" }) {
+  const color = tone === "ok" ? "text-plum" : tone === "limit" ? "text-muted-foreground" : "text-coral-ink";
   return (
-    <span
-      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 font-mono text-[12px] uppercase tracking-[0.14em] ${color}`}
-    >
+    <span className={`inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] ${color}`}>
+      <span aria-hidden className="h-px w-3 bg-current" />
       {children}
     </span>
   );

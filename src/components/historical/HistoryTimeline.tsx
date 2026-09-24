@@ -1,6 +1,5 @@
 import type { HistoricalSnapshotMeta } from "@/lib/tse/historical.functions";
 import type { HistoricalYear } from "@/lib/tse/historical-data-dictionary";
-import { StatusTag } from "@/components/editorial/StatusTag";
 import { formatInt } from "@/lib/format-br";
 
 /**
@@ -37,11 +36,11 @@ export function HistoryTimeline({
             <p className="font-display text-3xl text-ink">{year}</p>
             <div className="mt-2">
               {missing ? (
-                <StatusTag tone="pending">fotografia não coletada</StatusTag>
+                <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">fotografia não coletada</p>
               ) : current ? (
-                <StatusTag tone="pending">base em curso</StatusTag>
+                <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">base em curso</p>
               ) : (
-                <StatusTag tone="ok">eleição encerrada</StatusTag>
+                <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">eleição encerrada</p>
               )}
             </div>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

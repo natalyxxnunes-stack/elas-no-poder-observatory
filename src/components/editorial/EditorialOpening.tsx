@@ -247,7 +247,7 @@ function PowerFlowOpening({ levers, ...text }: OpeningBase & { levers: readonly 
           <div className="mx-auto bg-plum px-6 py-3 font-mono text-[10px] uppercase text-cream">Partidos e federações</div>
           <div className="mx-auto h-7 w-px bg-ink/35" />
           <div className="grid grid-cols-3 gap-2">
-            {levers.slice(0, 3).map((lever, index) => <div key={lever.label} className={`${index === 0 ? "bg-coral" : index === 1 ? "bg-paper" : "bg-solar"} border border-ink/30 px-2 py-4 text-center font-mono text-[9px] uppercase text-ink`}>{lever.label}<span className="mt-2 block text-[8px] opacity-60">{lever.ready === "yes" ? "investigável" : lever.ready === "partial" ? "parcial" : "aguardando fonte"}</span></div>)}
+            {levers.slice(0, 3).map((lever, index) => <div key={lever.label} className={`${index === 0 ? "bg-coral" : index === 1 ? "bg-paper" : "bg-solar"} border border-ink/30 px-2 py-4 text-center font-mono text-[9px] uppercase text-ink`}>{lever.label}<span className="mt-2 block text-[8px] opacity-60">{lever.ready === "yes" ? "disponível" : lever.ready === "partial" ? "parcial" : "aguardando dado"}</span></div>)}
           </div>
           <div className="mx-auto h-7 w-px bg-ink/35" />
           <div className="mx-auto bg-ink px-7 py-3 font-mono text-[10px] uppercase text-cream">Acesso ao poder</div>

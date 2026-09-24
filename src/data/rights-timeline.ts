@@ -4,9 +4,7 @@
  *
  * Cada marco é estruturado em conquista → regra → disputa → implementação →
  * consequência. As fontes apontam para o texto normativo ou a decisão
- * específica, e não para páginas iniciais de instituições. Marcos cuja redação
- * ainda precisa de conferência contra o texto legal estão sinalizados em
- * `needsReview`.
+ * específica, e não para páginas iniciais de instituições.
  */
 
 export type RightsMilestone = {
@@ -24,8 +22,6 @@ export type RightsMilestone = {
   consequence: string;
   sourceLabel: string;
   sourceUrl: string;
-  /** true quando a redação depende de conferência final contra a fonte */
-  needsReview?: boolean;
 };
 
 export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
@@ -218,4 +214,4 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
 
 /** Regra editorial da cronologia. */
 export const RIGHTS_TIMELINE_RULE =
-  "Cada marco é apresentado como conquista, regra, disputa, implementação e consequência. Nenhum marco é exibido sem indicação de fonte normativa ou decisão identificável, e a redação de itens sinalizados para revisão deve ser conferida contra o texto original antes de circular como definitiva.";
+  "Cada marco é apresentado como conquista, regra, disputa, implementação e consequência. Nenhum marco é exibido sem indicação de fonte normativa ou decisão identificável.";
