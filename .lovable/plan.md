@@ -1,13 +1,23 @@
-# Extensão do pipeline por cargo
+# Publicação do eixo Dinheiro — fase 1
+
+## Objetivo
+Publicar `/dinheiro` com a fotografia fixa de receitas de campanha fornecida, cobrindo gênero, cor/raça, cargo, partido e UF, sem recalcular dados externos e sem incluir despesas.
 
 ## Implementação
-1. Ampliar a contagem do parser com total e candidaturas de mulheres por `DS_CARGO` dentro de cada universo.
-2. Transportar essas dimensões e `outOfUniverse` pelos tipos e pela fotografia fixa auditada de 22/09/2026.
-3. Substituir os números fixos do gráfico e da tabela de Cargos por valores derivados da fotografia, com lacuna explícita se faltar qualquer célula.
-4. Passar a fotografia carregada pela rota aos dois componentes, sem mudar o visual ou os textos editoriais.
+1. Criar `src/data/tse-finance-snapshot.ts` com tipos, metadados, filtros, integridade e todos os valores fornecidos para os universos proporcional e majoritário.
+2. Adicionar ao formatador brasileiro uma função determinística para reais.
+3. Atualizar a matriz editorial para marcar Dinheiro como publicado, com aviso de que a prestação de contas está em andamento.
+4. Criar componentes financeiros focados para:
+   - cobertura, totais e medianas por universo;
+   - participação das mulheres na receita por cargo;
+   - distribuição da receita de mulheres por cor/raça;
+   - cinco maiores partidos por arrecadação no proporcional;
+   - valores por UF no proporcional.
+5. Ativar `DinheiroPage`, reorganizar o texto em achado → leitura → cautela, mostrar denominadores e manter titularidade/suplência e competitividade como lacunas declaradas.
+6. Atualizar metadados da rota e o card da home para refletir o eixo publicado.
+7. Validar tipos e, no navegador, a abertura, os números principais e o card da home.
 
-## Verificação
-- Rodar o typecheck.
-- Inspecionar o diff restrito aos seis arquivos solicitados.
-- Abrir `/quem-sao-elas` e confirmar os dez percentuais esperados: 14,3%; 42,9%; 17,4%; 41,7%; 21,9%; 30,4%; 30,6%; 36,8%; 35,1%; 34,8%.
-- Parar e informar antes de qualquer publicação se houver divergência. Nenhuma publicação será feita.
+## Limites
+- Nenhum dado será recalculado, estimado ou buscado externamente.
+- Não serão publicados dados de despesa nem de doador originário.
+- A fotografia ficará cravada no código e identificada como base parcial de 23/09/2026.
