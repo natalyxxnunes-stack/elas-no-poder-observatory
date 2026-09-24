@@ -1,9 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
-import { ContextBox } from "@/components/editorial/ContextBox";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
 import { RaceExplorer } from "@/components/editorial/RaceExplorer";
@@ -14,6 +13,7 @@ import { OfficePairChart } from "@/components/editorial/OfficePairChart";
 
 import { IntersectionPlan } from "@/components/editorial/IntersectionPlan";
 import { NextAxes } from "@/components/editorial/NextAxes";
+import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 import { formatInt, formatPct, formatUmEmCada } from "@/lib/format-br";
@@ -175,27 +175,18 @@ function QuemSaoElasPage() {
         question="Deputada × cargo único: quais mulheres estão em cada disputa"
         align="wide"
         lead={
-          <div className="space-y-3">
-            <p>
-              Entre as candidaturas proporcionais de mulheres, {firstRace.label} é a
-              categoria de cor/raça mais declarada, com {firstRace.share}, seguida por{" "}
-              {secondRace.label}, com {secondRace.share}, e {thirdRace.label}, com{" "}
-              {thirdRace.share}.
-            </p>
-            <p>
-              A distribuição das candidaturas de mulheres entre as categorias de
-              cor/raça que o próprio registro publica, um universo por vez.
-            </p>
-          </div>
+          <p>
+            Entre as candidaturas proporcionais de mulheres, {firstRace.label} é a
+            categoria de cor/raça mais declarada, com {firstRace.share}, seguida por{" "}
+            {secondRace.label}, com {secondRace.share}, e {thirdRace.label}, com{" "}
+            {thirdRace.share}.
+          </p>
         }
 
         source={
           <>
             Fonte: TSE · Candidaturas 2026
-            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
-            <Link to="/metodo" className="text-plum underline underline-offset-4">
-              ver o método
-            </Link>
+            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""}
           </>
         }
       >
@@ -209,10 +200,7 @@ function QuemSaoElasPage() {
         source={
           <>
             Fontes: IBGE · Censo 2022; TSE · Candidaturas 2026
-            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
-            <Link to="/metodo" className="text-plum underline underline-offset-4">
-              ver o método
-            </Link>
+            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""}
           </>
         }
       >
@@ -235,8 +223,7 @@ function QuemSaoElasPage() {
         source={
           <>
             Fonte: TSE · Candidaturas 2026
-            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
-            <Link to="/metodo" className="text-plum underline underline-offset-4">ver o método</Link>
+            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""}
           </>
         }
       >
@@ -296,29 +283,11 @@ function QuemSaoElasPage() {
         source={
           <>
             Fonte: TSE · Candidaturas 2026
-            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
-            <Link to="/metodo" className="text-plum underline underline-offset-4">
-              ver o método
-            </Link>
+            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""}
           </>
         }
       >
         <RaceExplorer snapshot={snapshot} />
-        <div className="mt-6">
-          <ContextBox variant="importa" title="O que o recorte por partido mede">
-            <p>
-              Dentro de cada universo, o recorte por partido divide as
-              candidaturas registradas como femininas pelo total de
-              candidaturas do mesmo partido. Nada é somado entre universos.
-              Abaixo de 20 candidaturas o percentual não é exibido, só os
-              absolutos. O recorte de cor/raça descreve apenas as candidaturas
-              de mulheres daquele partido, nas categorias declaradas ao TSE.
-              Mede composição de lista: não mede recursos, posição na lista,
-              votos nem eleitas, e a ordenação é descritiva, não classificação
-              de mérito.
-            </p>
-          </ContextBox>
-        </div>
       </SectionBlock>
 
       <SectionBlock
@@ -339,63 +308,34 @@ function QuemSaoElasPage() {
         source={
           <>
             Fonte: TSE · Candidaturas 2026
-            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""} ·{" "}
-            <Link to="/metodo" className="text-plum underline underline-offset-4">
-              ver o método
-            </Link>
+            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""}
           </>
         }
       >
         <StateExplorer snapshot={snapshot} />
-        <div className="mt-6">
-          <ContextBox variant="importa" title="Até onde a fotografia por estado vai">
-            <p>
-              Por estado, a fotografia sustenta candidaturas registradas,
-              candidaturas de mulheres e cor/raça declarada, cada estado com
-              seu próprio denominador e dentro de um único universo. A
-              combinação estado × partido está gravada apenas para as
-              candidaturas de mulheres; o total de candidaturas de cada
-              partido dentro de cada estado, denominador necessário para um
-              percentual de gênero nessa célula, passou a ser contado nesta
-              versão do processamento e aparecerá nas próximas coletas.
-              Enquanto isso, a leitura por estado mostra os absolutos e não
-              exibe esse percentual.
-            </p>
-          </ContextBox>
-        </div>
       </SectionBlock>
 
-      <SectionBlock
-        kicker="Limites da fonte"
-        question="O que a base registra — e o que ela não registra"
+      <ComoSabemos
+        fonte="TSE, Candidaturas 2026; IBGE, Censo Demográfico 2022 (SIDRA, tabela 9606)."
+        universo="Candidaturas de mulheres registradas em 2026, com proporcional e majoritário lidos separadamente. Vices e suplentes entram só na comparação por cargo."
+        base={baseStamp}
+        calculo="Cada recorte é dividido pelo seu próprio total, dentro de um único universo. Abaixo de 20 candidaturas, aparecem só os números absolutos. No recorte por partido, a fatia de mulheres usa o total de candidaturas daquele partido; a distribuição por cor/raça usa as candidaturas de mulheres do partido. A ordem dos partidos é descritiva e não classifica mérito."
+        limites={[
+          "Cor/raça é autodeclaração ao TSE e não identifica pertencimento étnico nem vínculo com povo ou território indígena.",
+          "Por estado, a fatia de mulheres dentro de cada partido ainda não aparece: o total de candidaturas por partido em cada estado passou a ser contado nesta versão e entra nas próximas coletas. Até lá, só números absolutos.",
+          "Recursos, votos, eleitas e posições de poder por cor/raça dependem de fontes de 2026 ainda não disponíveis.",
+          "Identidade trans ou travesti e deficiência ficam fora, porque a base não as registra de modo comparável.",
+        ]}
       >
-
-        <div className="grid gap-4 md:grid-cols-2">
-          <ContextBox variant="significa">
-            <p>
-              Cor/raça no registro é autodeclaração. Ela não identifica
-              pertencimento étnico nem vínculo com povo ou território indígena:
-              são coisas distintas e não devem ser tratadas como equivalentes.
-            </p>
-          </ContextBox>
-          <ContextBox variant="importa">
-            <p>
-              Publicar um cruzamento que a fonte não sustenta produziria número
-              com aparência de precisão e sem base. Preferimos declarar a lacuna.
-            </p>
-          </ContextBox>
-        </div>
-
-      </SectionBlock>
-
-      <SectionBlock
-        kicker="Plano de cruzamentos"
-        question="O que já é possível cruzar e o que depende de nova fonte"
-        align="wide"
-      >
-        <IntersectionPlan />
-      </SectionBlock>
-
+        <details className="border-b border-rule pb-4">
+          <summary className="cursor-pointer font-mono text-[12px] uppercase tracking-wider text-plum">
+            O que já é possível cruzar
+          </summary>
+          <div className="mt-4">
+            <IntersectionPlan />
+          </div>
+        </details>
+      </ComoSabemos>
 
       <NextAxes ids={["quem-controla", "funil", "direitos", "metodo"]} />
     </PageShell>
