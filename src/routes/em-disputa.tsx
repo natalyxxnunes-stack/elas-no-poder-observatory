@@ -7,23 +7,24 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
-import { DISPUTE_GAP, DISPUTE_ITEMS } from "@/data/rules-in-dispute";
+import { DISPUTE_GAP, DISPUTE_ITEMS, DISPUTE_RULE } from "@/data/rules-in-dispute";
+import { formatDateBR } from "@/lib/format-br";
 
 /** ROTA PUBLICADA — acompanhamento editorial das regras em disputa. */
 export const Route = createFileRoute("/em-disputa")({
   head: () => ({
     meta: [
-      { title: "Em disputa — Quem são elas? | As regras também estão em disputa" },
+      { title: "As regras que valem em 2026 | Quem são elas?" },
       {
         name: "description",
         content:
-          "Projetos, resoluções e decisões que podem mudar as regras da participação de mulheres nas eleições — com situação verificada e a regra de que projeto apresentado não é projeto aprovado.",
+          "As regras que organizam a participação de mulheres nas eleições de 2026, com fonte e data de verificação de cada uma, e o que ainda pode mudá-las.",
       },
-      { property: "og:title", content: "As regras também estão em disputa" },
+      { property: "og:title", content: "As regras que valem em 2026, e o que pode mudá-las" },
       {
         property: "og:description",
         content:
-          "O que propõe, quem seria afetado, em que situação está e qual é a fonte de cada regra em discussão.",
+          "O que cada regra determina, quem ela afeta, em que situação está e qual é a fonte.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -33,19 +34,22 @@ export const Route = createFileRoute("/em-disputa")({
 });
 
 function EmDisputaPage() {
+  const PUBLISHED_ITEMS = DISPUTE_ITEMS.filter((item) => Boolean(item.checkedAt));
+
   return (
     <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Em disputa" }]}>
       <EditorialOpening
         variant="process"
         kicker="Em disputa"
-        question="As regras também estão em disputa"
+        question="As regras que valem em 2026, e o que pode mudá-las"
         lead={
           <p>
-            As normas que organizam a participação de mulheres nas eleições não são estáveis: mudam
-            por lei, por resolução e por decisão judicial — muitas vezes no meio do ciclo eleitoral.
+            As normas que organizam a participação de mulheres nas eleições mudam por lei, por
+            resolução e por decisão judicial, muitas vezes no meio do ciclo eleitoral. Aqui ficam as
+            que valem em 2026, cada uma com fonte e data de verificação.
           </p>
         }
-        steps={DISPUTE_ITEMS.map((item) => item.title)}
+        steps={PUBLISHED_ITEMS.map((item) => item.title)}
       />
 
       <div className="pb-4">
@@ -76,21 +80,11 @@ function EmDisputaPage() {
 
       <SectionBlock
         kicker="Acompanhamento"
-        question="O que está em vigor e o que segue em discussão"
+        question="O que está em vigor em 2026"
         align="wide"
       >
-        <div className="poster-frame mb-6 p-5">
-          <p className="kicker">Regra editorial</p>
-          <p className="mt-2 font-display text-lg leading-snug text-ink">
-            Projeto apresentado não é projeto aprovado.
-          </p>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            Situação em tramitação não antecipa resultado.
-          </p>
-        </div>
-
         <ul className="space-y-4">
-          {DISPUTE_ITEMS.map((item) => (
+          {PUBLISHED_ITEMS.map((item) => (
             <li key={item.id} className="editorial-card p-6">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
@@ -132,7 +126,7 @@ function EmDisputaPage() {
                 <a href={item.sourceUrl} target="_blank" rel="noreferrer" className="underline">
                   {item.sourceLabel}
                 </a>{" "}
-                · Última verificação pelo observatório: {item.checkedAt ?? "a registrar"}
+                · Verificado em {formatDateBR(item.checkedAt)}
               </p>
             </li>
           ))}
@@ -140,9 +134,7 @@ function EmDisputaPage() {
 
         <div className="mt-6 space-y-3">
           <GapNote label="Lacuna declarada">{DISPUTE_GAP}</GapNote>
-          <GapNote label="Regra editorial">
-            Nenhuma proposição é descrita aqui como se já produzisse efeitos.
-          </GapNote>
+          <GapNote label="Regra editorial">{DISPUTE_RULE}</GapNote>
         </div>
       </SectionBlock>
 
