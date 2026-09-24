@@ -346,7 +346,8 @@ export const FUNNEL_LAYERS: readonly FunnelLayer[] = [
         universe:
           "Receitas e despesas declaradas por candidatura; universo próprio, distinto do universo de candidaturas",
         source: "TSE — prestação de contas de campanha",
-        pending: "Base financeira ainda não disponível para 2026. Nenhum valor é estimado.",
+        pending:
+          "Receita por gênero, cor/raça, cargo, partido e UF publicada em /dinheiro. Despesa e doador originário ainda não entraram.",
       },
       {
         id: "competitividade",
@@ -437,8 +438,8 @@ export const INTERSECTION_PLAN = [
   },
   {
     crossing: "gênero × cor/raça × recursos",
-    requires: "Base de prestação de contas de 2026",
-    state: "aguardando fonte",
+    requires: "Despesas contratadas/pagas e doador originário da prestação de contas de 2026",
+    state: "publicado (fase 1: receita, em /dinheiro); despesa e doador originário aguardando",
   },
   {
     crossing: "gênero × cor/raça × votos",
