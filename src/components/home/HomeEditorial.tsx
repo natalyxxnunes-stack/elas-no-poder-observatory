@@ -296,7 +296,7 @@ export function HomeFunnelFeature() {
 const INVESTIGATIONS = [
   { id: "historico", title: "A participação aumentou. Mas a distância permanece.", to: "/historico", link: "Ver a série histórica" },
   { id: "direitos", title: "As regras mudaram. E isso importa.", to: "/direitos", link: "Ver a linha do tempo" },
-  { id: "dinheiro", title: "Quem tem recursos para disputar?", to: "/dinheiro", link: "Explorar o eixo" },
+  { id: "dinheiro", title: "Quem tem recursos para disputar?", to: "/dinheiro", link: "Ver quem recebe" },
 ] as const;
 
 export function HomeInvestigationGrid() {
@@ -307,10 +307,9 @@ export function HomeInvestigationGrid() {
           const axis = AXES.find((candidate) => candidate.id === item.id);
           return (
             <article key={item.id} className="border-b border-rule px-6 py-12 md:border-b-0 md:border-r md:px-8 md:py-16">
-              <p className="flex items-center gap-3 font-mono text-[10px] uppercase text-muted-foreground"><span className={`h-1 w-3 ${item.id === "dinheiro" ? "bg-solar" : "bg-coral"}`} /> {axis?.label}</p>
+              <p className="flex items-center gap-3 font-mono text-[10px] uppercase text-muted-foreground"><span className="h-1 w-3 bg-coral" /> {axis?.label}</p>
               <h2 className="mt-5 font-display text-2xl leading-[1.02] text-ink md:text-3xl">{item.title}</h2>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{axis?.summary}</p>
-              {axis?.unpublishedReason && <p className="mt-3 font-mono text-[10px] leading-relaxed text-coral-ink">Lacuna: {axis.unpublishedReason}</p>}
               <Link to={item.to} className="mt-7 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[10px] font-semibold uppercase text-plum">{item.link} <ArrowRight className="size-3.5" /></Link>
             </article>
           );

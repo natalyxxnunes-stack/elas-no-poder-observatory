@@ -22,3 +22,7 @@ export function formatDecimal(value: number, fractionDigits = 1): string {
 export function formatPct(value: number, fractionDigits = 1): string {
   return `${formatDecimal(value, fractionDigits)}%`;
 }
+
+export function formatBRL(value: number): string {
+  return `R$ ${formatDecimal(value, 2)}`;
+}
