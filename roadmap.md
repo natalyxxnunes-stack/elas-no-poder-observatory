@@ -69,6 +69,6 @@
 - [x] Impedir dupla contagem de eleitos já reconhecidos no 1º turno
 - [x] Atualizar a fotografia editorial proporcional de 2022 republicada pelo TSE
 - [x] Atualizar a lacuna documentada do Senado em Mato Grosso em 2018
-- [ ] Rodar typecheck e nova coleta de 2014, 2018 e 2022
-- [ ] Validar candidaturas, eleitos proporcionais e eleitos majoritários por UF
-- [ ] Entregar tabelas, status finais e arquivos tocados
+- [x] Rodar typecheck e nova coleta de 2014, 2018 e 2022
+- [x] Validar candidaturas, eleitos proporcionais e eleitos majoritários por UF
+- [x] Entregar tabelas, status finais e arquivos tocados
