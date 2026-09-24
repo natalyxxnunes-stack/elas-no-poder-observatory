@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, ChevronDown, Menu, Search, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "./BrandLogo";
 import { BrandWordmark } from "./BrandWordmark";
@@ -13,7 +13,6 @@ import { DATA_2026_NAV_ITEMS, NAV_ITEMS, UTILITY_NAV_ITEMS } from "@/data/archit
  */
 export function SiteHeader({ home = false }: { home?: boolean }) {
   const [open, setOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const [dataOpen, setDataOpen] = useState(false);
   const close = () => setOpen(false);
 
@@ -68,9 +67,6 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
             <div className="flex items-center gap-3 border-l border-rule pl-3 font-mono text-[10px] uppercase">
               {UTILITY_NAV_ITEMS.map((item) => <Link key={item.to} to={item.to} className="text-muted-foreground hover:text-plum">{item.label}</Link>)}
             </div>
-            <Button variant="ghost" size="icon" aria-label="Abrir busca de páginas" onClick={() => setSearchOpen((value) => !value)} className="rounded-none text-ink">
-              <Search className="size-4" aria-hidden="true" />
-            </Button>
             {home && <Button asChild className="h-10 rounded-none bg-plum px-5 font-mono text-[10px] uppercase tracking-[0.08em] text-primary-foreground hover:bg-coral hover:text-ink">
               <Link to="/sobre">Apoie o projeto <ArrowRight className="size-3.5" /></Link>
             </Button>}
@@ -94,15 +90,6 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
           )}
         </Button>
       </div>
-
-      {searchOpen && (
-        <div className="border-t border-rule bg-paper px-5 py-4 md:px-8">
-          <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2">
-            <span className="font-mono text-[10px] uppercase text-muted-foreground">Ir para</span>
-            {[...NAV_ITEMS, ...UTILITY_NAV_ITEMS].map((item) => <Link key={item.to} to={item.to} onClick={() => setSearchOpen(false)} className="text-sm text-ink underline-offset-4 hover:text-plum hover:underline">{item.label}</Link>)}
-          </div>
-        </div>
-      )}
 
       {open && (
         <nav

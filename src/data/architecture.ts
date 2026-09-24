@@ -259,7 +259,7 @@ export const DATA_2026_NAV_ITEMS = [
   { label: "Estados", to: "/quem-sao-elas", hash: "estados" },
   { label: "Partidos", to: "/quem-sao-elas", hash: "partidos" },
   { label: "Cargos", to: "/quem-sao-elas", hash: "cargos" },
-  { label: "Raça", to: "/quem-sao-elas", hash: undefined },
+  { label: "Raça", to: "/quem-sao-elas", hash: "raca" },
   { label: "Histórico", to: "/historico", hash: undefined },
 ] as const;
 
