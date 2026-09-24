@@ -29,14 +29,17 @@ export const Route = createFileRoute("/quem-sao-elas")({
     meta: [
       {
         title:
-          "Quem são elas? — gênero e raça | Quais mulheres atravessam o caminho",
+          "Quanto mais alto o cargo, mais brancas são as candidatas | Quem são elas?",
       },
       {
         name: "description",
         content:
           "Gênero e cor/raça como eixo central: a distribuição das candidaturas de mulheres nas categorias originais do TSE, com denominador explícito e cruzamentos declarados.",
       },
-      { property: "og:title", content: "Quais mulheres atravessam o caminho?" },
+      {
+        property: "og:title",
+        content: "Quanto mais alto o cargo, mais brancas são as candidatas",
+      },
       {
         property: "og:description",
         content:

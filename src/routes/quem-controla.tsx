@@ -19,14 +19,19 @@ export const Route = createFileRoute("/quem-controla")({
   head: () => ({
     meta: [
       {
-        title: "Quem controla? — Quem são elas? | Partidos, federações e condições de disputa",
+        title:
+          "Antes do voto, o partido decide quem entra, quem recebe e em que posição | Quem são elas?",
       },
       {
         name: "description",
         content:
           "Partidos, federações e diretórios decidem quem entra nas listas e quem recebe recursos, propaganda e posição estratégica. Investigamos padrões e estruturas, não rankings.",
       },
-      { property: "og:title", content: "Quem controla a porta de entrada?" },
+      {
+        property: "og:title",
+        content:
+          "Antes do voto, o partido decide quem entra, quem recebe e em que posição",
+      },
       {
         property: "og:description",
         content:

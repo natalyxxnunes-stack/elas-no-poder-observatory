@@ -24,7 +24,8 @@ export const Route = createFileRoute("/historico")({
   head: () => ({
     meta: [
       {
-        title: "Como chegamos até aqui? — Quem são elas? | Série 2014–2026",
+        title:
+          "Candidatar-se não é eleger-se: mulheres nas eleições de 2014 a 2022 | Quem são elas?",
       },
       {
         name: "description",
@@ -33,7 +34,8 @@ export const Route = createFileRoute("/historico")({
       },
       {
         property: "og:title",
-        content: "A presença das mulheres na política mudou. Mas mudou para quem?",
+        content:
+          "Candidatar-se não é eleger-se: mulheres nas eleições de 2014 a 2022",
       },
       {
         property: "og:description",
