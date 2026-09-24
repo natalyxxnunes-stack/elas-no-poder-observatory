@@ -48,32 +48,32 @@ const CONTROL_LEVERS = [
     lever: "Quem entra na lista",
     what: "O partido ou federação define quais candidaturas são registradas em cada circunscrição, respeitando a faixa de composição por gênero nas eleições proporcionais.",
     needs: "Registro de candidaturas por partido, federação, cargo e UF",
-    ready: true,
+    ready: "yes",
   },
   {
     lever: "Onde a candidatura é lançada",
     what: "A escolha do território altera a competição: uma mesma candidatura enfrenta concorrências muito diferentes conforme a UF e o município.",
     needs: "UF e município do registro, cruzados com gênero e cor/raça",
-    ready: true,
+    ready: "yes",
   },
   {
     lever: "Quem recebe recursos",
-    what: "A distribuição dos recursos públicos de campanha é feita pelo partido entre suas candidaturas, observando as regras de destinação mínima.",
-    needs: "Prestação de contas de campanha de 2026",
-    ready: false,
+    what: "A distribuição dos recursos públicos de campanha é feita pelo partido entre suas candidaturas, observando as regras de destinação mínima. A receita por partido já está publicada para os 5 maiores partidos, cruzada com gênero — falta despesa e os demais partidos.",
+    needs: "Receita já disponível para os 5 maiores partidos em /dinheiro; despesa contratada e paga, e os partidos fora do top 5, seguem pendentes",
+    ready: "partial",
   },
   {
     lever: "Quem aparece na propaganda",
     what: "O tempo de rádio e TV e a inserção nas peças de campanha também são distribuídos internamente.",
     needs: "Registros de propaganda eleitoral e planos de mídia",
-    ready: false,
+    ready: "no",
   },
   {
     lever: "Que posição a candidatura ocupa",
     what: "Estar na lista não é o mesmo que ocupar posição estratégica: cabeça de chapa, titularidade, suplência e concentração territorial mudam a chance real de competir.",
     needs:
       "Campos de posição/titularidade do registro e definição declarada de posição estratégica",
-    ready: false,
+    ready: "no",
   },
 ] as const;
 
@@ -131,8 +131,8 @@ function QuemControlaPage() {
             <li key={l.lever} className="py-5">
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <h3 className="font-display text-xl text-ink">{l.lever}</h3>
-                <StatusTag tone={l.ready ? "ok" : "pending"}>
-                  {l.ready ? "investigável agora" : "aguardando fonte"}
+                <StatusTag tone={l.ready === "yes" ? "ok" : l.ready === "partial" ? "limit" : "pending"}>
+                  {l.ready === "yes" ? "investigável agora" : l.ready === "partial" ? "parcialmente investigável" : "aguardando fonte"}
                 </StatusTag>
               </div>
               <p className="mt-2 max-w-3xl leading-relaxed text-muted-foreground">{l.what}</p>
