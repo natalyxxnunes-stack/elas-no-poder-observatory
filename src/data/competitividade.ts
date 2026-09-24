@@ -61,16 +61,16 @@ export const UNIVERSE_SHORT: Record<UniverseId, string> = {
  * publicada no Método possa ser auditada e refeita.
  */
 export const FINANCE_AVAILABILITY = {
-  checkedAt: "2026-08-15",
+  checkedAt: "2026-09-24",
   verdict:
-    "Não existe, hoje, base de prestação de contas de campanha de 2026. Nenhum número de financiamento por candidatura é publicado por este observatório.",
+    "A prestação de contas eleitorais de 2026 já existe, em base parcial (23/09/2026). Receita por candidatura está publicada em /dinheiro desde 24/09, por gênero, cor/raça, cargo, partido e UF. Despesas contratadas, despesas pagas e doador originário ainda não têm número neste site.",
   checked: [
     {
       id: "contas-eleitorais-2026",
       label: "Prestação de contas eleitorais de 2026",
-      url: "https://dadosabertos.tse.jus.br/dataset/?q=presta%C3%A7%C3%A3o+de+contas",
-      status: "não existe",
-      note: "O conjunto de prestação de contas eleitorais existe para 2024, 2022, 2020 e anos anteriores. Para 2026 não há conjunto publicado: receitas e despesas por candidatura ainda não foram entregues nem divulgadas.",
+      url: "https://dadosabertos.tse.jus.br/dataset/prestacao-de-contas-eleitorais-2026",
+      status: "receita publicada; despesa e doador originário pendentes",
+      note: "O conjunto passou a existir para 2026, em base parcial atualizada até o fim da apuração. Receita por candidatura já foi processada e está publicada em Dinheiro. Despesas contratadas, despesas pagas e o doador originário do financiamento coletivo ainda não entraram no pipeline do observatório.",
     },
     {
       id: "contas-partidarias-2026",
@@ -87,11 +87,11 @@ export const FINANCE_AVAILABILITY = {
       note: "Patrimônio declarado no registro é riqueza pessoal anterior à campanha, não dinheiro de campanha. Usar um no lugar do outro seria erro factual.",
     },
   ],
-  /** o que o observatório publicará quando a base existir */
+  /** o que o observatório ainda vai publicar quando processar o restante da base */
   plannedWhenAvailable: [
-    "Mediana de recursos por candidatura, por gênero, com distribuição e concentração — não apenas média, porque poucos repasses muito altos distorcem a média.",
-    "Recorte por partido ou federação e por cor/raça declarada, sempre com denominador do próprio grupo.",
-    "Universos proporcional e majoritário separados, com período e data da base declarados.",
-    "Valores ausentes tratados como ausentes: nunca convertidos em zero.",
+    "Despesas contratadas e pagas por candidatura, com o mesmo recorte de gênero, cor/raça, cargo, partido e UF já publicado para receita.",
+    "Rastreio de doador originário no financiamento coletivo, hoje ligado só ao prestador de contas, sem chave direta para a candidatura.",
+    "Relação entre receita e titularidade ou suplência.",
+    "Leitura de competitividade financeira: posição relativa de recursos dentro do próprio universo, não ranking entre candidaturas.",
   ],
 } as const;
