@@ -3,10 +3,8 @@ import { AXES, type Axis, type AxisStatus } from "@/data/architecture";
 
 const STATUS_TONE: Record<AxisStatus, string> = {
   publicado: "border-forest text-forest",
-  "em apuração": "border-coral text-coral-ink",
-  "aguardando dado": "border-solar text-ink",
-  pesquisa: "border-plum text-plum",
-  estrutura: "border-ink text-ink",
+  parcial: "border-ink text-ink",
+  "aguardando dado": "border-coral text-coral-ink",
 };
 
 const GROUP_LABELS: Record<Axis["group"], string> = {

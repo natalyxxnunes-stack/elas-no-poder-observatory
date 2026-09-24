@@ -146,6 +146,19 @@ function QuemControlaPage() {
         kicker="As regras que incidem"
         question="O que a regra alcança — e o que ela deixa para o partido decidir"
         lead={<p>{QUOTA_RULE.scope}</p>}
+        source={
+          <>
+            Base legal:{" "}
+            <a
+              href={QUOTA_RULE.sourceUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-plum underline underline-offset-4"
+            >
+              Lei 9.504/1997, art. 10, §3º
+            </a>
+          </>
+        }
       >
         <div className="grid gap-4 md:grid-cols-2">
           <ContextBox variant="significa" title="O que a cota não alcança">
@@ -193,7 +206,7 @@ function QuemControlaPage() {
         </ContextBox>
       </SectionBlock>
 
-      <NextAxes ids={["condicoes", "dinheiro", "funil"]} />
+      <NextAxes ids={["quem-sao-elas", "dinheiro", "funil"]} />
     </PageShell>
   );
 }

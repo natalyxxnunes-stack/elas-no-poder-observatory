@@ -201,7 +201,7 @@ function DinheiroPage() {
         </ContextBox>
       </SectionBlock>
 
-      <NextAxes ids={["quem-controla", "votos", "quem-sao-elas"]} />
+      <NextAxes ids={["quem-controla", "funil", "quem-sao-elas"]} />
     </PageShell>
   );
 }

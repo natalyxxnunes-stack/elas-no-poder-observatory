@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { AXES, type Axis } from "@/data/architecture";
-import { StatusTag } from "./StatusTag";
 
 /**
  * NextAxes — navegação editorial no fim de cada página: para onde a leitura
@@ -27,19 +26,11 @@ export function NextAxes({ ids }: { ids: readonly string[] }) {
               <p className="mt-2 font-display text-lg leading-snug text-ink">
                 {a.question}
               </p>
-              <div className="mt-3">
-                <StatusTag
-                  tone={
-                    a.status === "publicado"
-                      ? "ok"
-                      : a.status === "em apuração" || a.status === "pesquisa"
-                        ? "limit"
-                        : "pending"
-                  }
-                >
-                  {a.status}
-                </StatusTag>
-              </div>
+              {a.publication === "unpublished" && (
+                <p className="mt-3 font-mono text-[11px] uppercase text-muted-foreground">
+                  ainda não publicado
+                </p>
+              )}
             </Link>
           </li>
         ))}
