@@ -152,15 +152,15 @@ function TimelineOpening({ years, ...text }: OpeningBase & { years: readonly str
 function MilestonesOpening({ milestones, ...text }: OpeningBase & { milestones: readonly { year: string; title: string }[] }) {
   return (
     <Frame className="bg-coral">
-      <div className="absolute inset-y-0 right-[18%] hidden w-px rotate-[14deg] bg-ink/25 md:block" />
+      <div className="absolute inset-y-0 right-[18%] hidden w-px rotate-[14deg] bg-cream/25 md:block" />
       <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
-        <OpeningText {...text} />
-        <ol className="relative border-l border-ink/55 pl-7">
+        <OpeningText {...text} inverse />
+        <ol className="relative border-l border-cream/55 pl-7">
           {milestones.map((milestone, index) => (
-            <li key={`${milestone.year}-${milestone.title}`} className="relative grid grid-cols-[4.5rem_minmax(0,1fr)] gap-3 border-b border-ink/25 py-3">
-              <span className="absolute -left-[2.05rem] top-5 size-2.5 rounded-full bg-ink" />
-              <strong className="font-display text-xl text-ink">{milestone.year}</strong>
-              <span className="text-xs leading-snug text-ink/75">{milestone.title}</span>
+            <li key={`${milestone.year}-${milestone.title}`} className="relative grid grid-cols-[4.5rem_minmax(0,1fr)] gap-3 border-b border-cream/25 py-3">
+              <span className="absolute -left-[2.05rem] top-5 size-2.5 rounded-full bg-cream" />
+              <strong className="font-display text-xl text-cream">{milestone.year}</strong>
+              <span className="text-xs leading-snug text-cream/75">{milestone.title}</span>
             </li>
           ))}
         </ol>

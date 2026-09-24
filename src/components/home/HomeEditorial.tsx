@@ -108,7 +108,7 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
           </p>
           <h1 className="mt-4 max-w-3xl font-display text-[clamp(2.1rem,3.6vw,3.75rem)] leading-[0.93] text-cream">
             Entre se<br />candidatar e<br />chegar ao poder,<br />
-            <em className="text-coral">onde elas<br className="sm:hidden" /> desaparecem?</em>
+            <em className="text-home-highlight">onde elas<br className="sm:hidden" /> desaparecem?</em>
           </h1>
           <p className="mt-4 max-w-xl border-t border-cream/40 pt-3 font-display text-base leading-snug text-cream/85 md:text-lg">
             {CENTRAL_THESIS}

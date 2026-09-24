@@ -49,6 +49,7 @@
   --color-coral-ink: var(--coral-ink);
   --color-solar: var(--solar);
   --color-coral: var(--coral);
+  --color-home-highlight: var(--home-highlight);
   --color-forest: var(--forest);
   --color-paper: var(--paper);
   --color-rule: var(--rule);
@@ -77,6 +78,7 @@
   --coral-ink: oklch(0.5 0.19 32);
   --solar: oklch(0.83 0.16 84);
   --coral: oklch(0.63 0.2 34);
+  --home-highlight: #f0c84b;
   --forest: oklch(0.5285447567 0.1061414179 154.602856299);
   --rule: oklch(0.86 0.02 85);
 
