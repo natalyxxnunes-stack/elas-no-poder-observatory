@@ -346,29 +346,6 @@ function MetodoPage() {
           encadeadas, e esta edição responde a primeira.
         </p>
       </SectionBlock>
-
-
-      {/* Notas metodológicas */}
-      <SectionBlock
-        kicker="Notas metodológicas"
-        question="As decisões que valem para todo o site"
-        align="wide"
-      >
-        <div className="space-y-4">
-          {METHOD_NOTES.map((n, i) => (
-            <article key={n.title} className="poster-frame p-5 md:p-6">
-              <span className="poster-figure block text-3xl text-plum md:text-4xl">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-1 font-display text-xl text-ink">{n.title}</h3>
-              <p className="mt-2 max-w-3xl leading-relaxed text-muted-foreground">
-                {n.body}
-              </p>
-            </article>
-          ))}
-        </div>
-      </SectionBlock>
-
       {/* CAMADA 2 — ficha técnica */}
       <SectionBlock
         tone="solar"
@@ -655,6 +632,13 @@ function MetodoPage() {
             Nenhuma fotografia registrada até o momento.
           </GapNote>
         )}
+        <div className="mt-4">
+          <ContextBox variant="importa" title="Por que uma fotografia pode ficar retida">
+            <p>
+              {METHOD_NOTES.find((n) => n.title === "Conferência de atualizações")?.body}
+            </p>
+          </ContextBox>
+        </div>
       </SectionBlock>
 
       {/* Fato, interpretação e hipótese */}
@@ -1017,6 +1001,11 @@ function MetodoPage() {
                 de 1º turno lido em DS_SIT_TOT_TURNO
               </li>
             </ul>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              O valor bruto é preservado na camada de dados; o arredondamento
+              acontece só na apresentação, e toda diferença entre percentuais
+              aparece em pontos percentuais (p.p.), nunca em pontos absolutos.
+            </p>
           </li>
 
           <li className="poster-frame p-5">
@@ -1037,13 +1026,17 @@ function MetodoPage() {
       {/* Financiamento de campanha */}
       <SectionBlock
         kicker="Financiamento de campanha"
-        question="Por que este site ainda não publica dinheiro de campanha"
+        question="O que este site já publica sobre dinheiro de campanha"
         align="wide"
         lead={
           <p>
             Verificamos os Dados Abertos do TSE em{" "}
             {br(FINANCE_AVAILABILITY.checkedAt)}, conjunto por conjunto.{" "}
-            {FINANCE_AVAILABILITY.verdict}
+            {FINANCE_AVAILABILITY.verdict} Receita por candidatura está em{" "}
+            <Link to="/dinheiro" className="text-plum underline underline-offset-4">
+              Dinheiro
+            </Link>
+            .
           </p>
         }
       >
@@ -1063,7 +1056,7 @@ function MetodoPage() {
             </article>
           ))}
 
-          <ContextBox variant="calculamos" title="O que entra quando a base existir">
+          <ContextBox variant="calculamos" title="O que ainda falta publicar">
             <ul className="list-disc space-y-1 pl-5">
               {FINANCE_AVAILABILITY.plannedWhenAvailable.map((p) => (
                 <li key={p}>{p}</li>
@@ -1072,8 +1065,8 @@ function MetodoPage() {
           </ContextBox>
 
           <GapNote label="Lacuna declarada">
-            Até a prestação de contas de campanha de 2026 existir, nenhuma célula
-            financeira recebe valor neste site. {QUOTA_RULE.financingNote}
+            Despesas contratadas, despesas pagas e doador originário ainda não
+            têm número neste site. {QUOTA_RULE.financingNote}
           </GapNote>
         </div>
       </SectionBlock>
@@ -1085,15 +1078,13 @@ function MetodoPage() {
         question="Os limites declarados deste método"
       >
         <div className="space-y-3">
-          <GapNote label="Não disponível não é zero">
-            Recursos de campanha, votos, eleitas, posições de poder e barreiras à
-            permanência não têm base disponível para 2026. Onde não há fonte, não
-            há número — nem estimativa.
-          </GapNote>
-          <GapNote label="Correlação não é causalidade">
-            Contrastes entre universos, partidos, territórios ou grupos são
-            descritivos. Este método não isola o efeito de nenhuma regra sobre a
-            presença de mulheres.
+          <GapNote label="Dois princípios que valem pro site inteiro">
+            Onde não há fonte, não há número, nunca uma estimativa no lugar —
+            hoje é o caso de despesa de campanha, doador originário, votos,
+            eleitas, posições de poder e barreiras à permanência. E contraste
+            não é causa: diferenças entre universos, partidos, territórios ou
+            grupos são descritivas, este método não isola o efeito de nenhuma
+            regra sobre a presença de mulheres.
           </GapNote>
           <GapNote label="Deficiência, povos indígenas e quilombolas">
             Verificamos coluna por coluna o que a base de 2026 permite. Não há
@@ -1122,34 +1113,14 @@ function MetodoPage() {
             denominador de cada universo eleitoral. Até lá, nenhum percentual por
             campo político é publicado.
           </GapNote>
-          <GapNote label="Cruzamento por partido: o que ele mede">
-            A tabela por partido em{" "}
-            <Link
-              to="/quem-sao-elas"
-              className="text-plum underline underline-offset-4"
-            >
+          <GapNote label="Cruzamentos por partido e por estado">
+            Os limites específicos de cada cruzamento (o que a tabela mede, o
+            que não mede, quando o percentual não é exibido) estão junto da
+            própria visualização, em{" "}
+            <Link to="/quem-sao-elas" className="text-plum underline underline-offset-4">
               Quem são elas?
-            </Link>{" "}
-            divide, dentro de cada universo, as candidaturas registradas como
-            femininas pelo total de candidaturas do mesmo partido. Nada é somado
-            entre universos. Abaixo de 20 candidaturas o percentual não é
-            exibido, só os absolutos. O recorte de cor/raça descreve apenas as
-            candidaturas de mulheres daquele partido e usa as categorias
-            declaradas ao TSE. A tabela mede composição de lista: não mede
-            recursos, posição na lista, votos nem eleitas — e a ordenação é
-            descritiva, não classificação de mérito.
-          </GapNote>
-          <GapNote label="Leitura por estado: até onde a fotografia vai">
-            Por estado, a fotografia sustenta candidaturas registradas,
-            candidaturas de mulheres e cor/raça declarada, cada estado com seu
-            próprio denominador e dentro de um único universo. A combinação
-            estado × partido está gravada apenas para as candidaturas de
-            mulheres; o total de candidaturas de cada partido dentro de cada
-            estado — denominador necessário para um percentual de gênero nessa
-            célula — passou a ser contado nesta versão do processamento e
-            aparecerá nas próximas coletas. Enquanto não estiver na fotografia
-            vigente, a leitura por estado mostra os absolutos e não exibe esse
-            percentual.
+            </Link>
+            .
           </GapNote>
         </div>
 

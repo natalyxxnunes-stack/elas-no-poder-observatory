@@ -226,6 +226,21 @@ function QuemSaoElasPage() {
         }
       >
         <RaceExplorer snapshot={snapshot} />
+        <div className="mt-6">
+          <ContextBox variant="importa" title="O que o recorte por partido mede">
+            <p>
+              Dentro de cada universo, o recorte por partido divide as
+              candidaturas registradas como femininas pelo total de
+              candidaturas do mesmo partido. Nada é somado entre universos.
+              Abaixo de 20 candidaturas o percentual não é exibido, só os
+              absolutos. O recorte de cor/raça descreve apenas as candidaturas
+              de mulheres daquele partido, nas categorias declaradas ao TSE.
+              Mede composição de lista: não mede recursos, posição na lista,
+              votos nem eleitas, e a ordenação é descritiva, não classificação
+              de mérito.
+            </p>
+          </ContextBox>
+        </div>
       </SectionBlock>
 
       <SectionBlock
@@ -253,6 +268,22 @@ function QuemSaoElasPage() {
         }
       >
         <StateExplorer snapshot={snapshot} />
+        <div className="mt-6">
+          <ContextBox variant="importa" title="Até onde a fotografia por estado vai">
+            <p>
+              Por estado, a fotografia sustenta candidaturas registradas,
+              candidaturas de mulheres e cor/raça declarada, cada estado com
+              seu próprio denominador e dentro de um único universo. A
+              combinação estado × partido está gravada apenas para as
+              candidaturas de mulheres; o total de candidaturas de cada
+              partido dentro de cada estado, denominador necessário para um
+              percentual de gênero nessa célula, passou a ser contado nesta
+              versão do processamento e aparecerá nas próximas coletas.
+              Enquanto isso, a leitura por estado mostra os absolutos e não
+              exibe esse percentual.
+            </p>
+          </ContextBox>
+        </div>
       </SectionBlock>
 
       <SectionBlock
