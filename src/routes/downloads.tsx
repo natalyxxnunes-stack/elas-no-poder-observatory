@@ -30,7 +30,7 @@ export const Route = createFileRoute("/downloads")({
       { property: "og:type", content: "website" },
       {
         property: "og:image",
-        content: "https://www.quemsaoelas.com.br/og/timeline-editorial.png",
+        content: "https://quemsaoelas.com.br/og/timeline-editorial.png",
       },
       {
         property: "og:image:alt",
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/downloads")({
       },
       {
         name: "twitter:image",
-        content: "https://www.quemsaoelas.com.br/og/timeline-editorial.png",
+        content: "https://quemsaoelas.com.br/og/timeline-editorial.png",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
