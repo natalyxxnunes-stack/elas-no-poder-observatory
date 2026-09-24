@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import subindoAsset from "@/assets/subindo.webp.asset.json";
@@ -11,6 +11,7 @@ import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 import { FunnelStages2026 } from "@/components/funnel/FunnelStages2026";
 import { PastStrip } from "@/components/funnel/PastStrip";
 import { CompetitionByUf } from "@/components/editorial/CompetitionByUf";
+import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { FUNNEL_READING_RULE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import { getHistoricalSeries } from "@/lib/tse/historical.functions";
@@ -159,10 +160,7 @@ function FunilPage() {
         source={
           <>
             Fonte: TSE · Candidaturas 2026
-            {stampLabel ? ` · base gerada em ${stampLabel}` : ""} ·{" "}
-            <Link to="/metodo" className="text-plum underline underline-offset-4">
-              ver o método
-            </Link>
+            {stampLabel ? ` · base gerada em ${stampLabel}` : ""}
           </>
         }
       >
@@ -185,10 +183,7 @@ function FunilPage() {
         source={
           <>
             Fonte: TSE · Candidaturas 2026 (numerador) e TSE · recurso Vagas de
-            2026 (denominador) ·{" "}
-            <Link to="/metodo" className="text-plum underline underline-offset-4">
-              definição no método
-            </Link>
+            2026 (denominador)
           </>
         }
       >
@@ -200,40 +195,17 @@ function FunilPage() {
         kicker="Contexto"
         question="Como isso se compara ao passado?"
         lead={
-          <p>
-            Referência curta, com os percentuais já auditados das eleições
-            gerais anteriores. Nenhum número novo é calculado aqui, e a
-            comparação é descritiva.
-          </p>
+          <p>A mesma medida nas três eleições gerais anteriores.</p>
         }
         source="Fonte: TSE · Candidatos 2014, 2018, 2022 e 2026"
       >
-        <div className="space-y-4">
-          <PastStrip series={feminineSeries} />
-          <ContextBox variant="importa" title="O funil é uma fotografia, etapa por etapa">
-            <p>
-              Cada etapa aqui é uma fotografia com o seu próprio conjunto de
-              registros: candidaturas proporcionais, candidaturas majoritárias,
-              resultado. A diferença entre degraus descreve o que a base mostra —
-              um retrato de cada universo, e não o rastro das mesmas pessoas de
-              um degrau para o outro. A unidade contada é a candidatura
-              registrada, deduplicada pelo identificador oficial; vices e
-              suplentes ficam fora da contagem.
-            </p>
-          </ContextBox>
-          <GapNote label="Transparência">
-            2026 é fotografia em andamento: o registro de candidaturas ainda
-            pode mudar por decisão da Justiça Eleitoral, e o resultado eleitoral
-            ainda não existe. Os anos anteriores são bases fechadas.
-          </GapNote>
-        </div>
+        <PastStrip series={feminineSeries} />
       </SectionBlock>
 
       <SectionBlock
         tone="solar"
-        kicker="Como ler este funil"
+        kicker="Antes do resultado"
         question="Ninguém disputa uma cadeira sozinha"
-        lead={<p>{FUNNEL_READING_RULE}</p>}
       >
         <div className="grid gap-4 md:grid-cols-2">
           <ContextBox variant="significa" title="Na proporcional, o voto é do partido também">
@@ -252,6 +224,18 @@ function FunilPage() {
           </ContextBox>
         </div>
       </SectionBlock>
+
+      <ComoSabemos
+        fonte="TSE, Candidaturas 2026 e Vagas 2026; TSE, Candidatos 2014, 2018 e 2022."
+        universo="Candidaturas registradas, cada uma contada uma vez pelo identificador oficial. Proporcional (Câmara, assembleias e Câmara Legislativa do DF) e majoritário (Presidência, governos e Senado) são contados separadamente. Vices e suplentes ficam fora."
+        base={stampLabel}
+        calculo={FUNNEL_READING_RULE}
+        limites={[
+          "2026 é fotografia em andamento: o registro ainda pode mudar por decisão da Justiça Eleitoral.",
+          "O resultado de 2026 ainda não existe. As etapas de voto e cadeira entram depois da apuração.",
+          "Cada etapa é o retrato de um universo, e não o rastro das mesmas pessoas de um degrau para o outro.",
+        ]}
+      />
 
       <NextAxes ids={["historico", "direitos", "metodo"]} />
     </PageShell>

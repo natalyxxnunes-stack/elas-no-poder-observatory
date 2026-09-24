@@ -1,10 +1,11 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
+import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { QUOTA_RULE } from "@/data/election-2026";
 import { financeSnapshot } from "@/data/tse-finance-snapshot";
 import { snapshot } from "@/data/tse-snapshot";
@@ -131,7 +132,7 @@ function DinheiroPage() {
         variant="financial"
         kicker="Dinheiro"
         question={`Na corrida à Presidência, mulheres são ${presidentialFeminine !== undefined ? formatInt(presidentialFeminine) : "—"} das ${presidentialTotal !== undefined ? formatInt(presidentialTotal) : "—"} candidaturas e recebem ${presidente} do dinheiro declarado.`}
-        lead={<p>Entre as candidaturas que já declararam receita, a fatia das mulheres encolhe à medida que o cargo sobe: {deputadoEstadual} do dinheiro nas assembleias legislativas, {senador} no Senado, {governador} nos governos e {presidente} na Presidência. Os valores vêm da prestação de contas em andamento, base de 23/09/2026.</p>}
+        lead={<p>Entre as candidaturas que já declararam receita, a fatia das mulheres encolhe à medida que o cargo sobe: {deputadoEstadual} do dinheiro nas assembleias legislativas, {senador} no Senado, {governador} nos governos e {presidente} na Presidência.</p>}
         layers={MONEY_LAYERS.map((layer) => layer.label)}
         gap="Prestação de contas em andamento · receita, não despesa · valores sujeitos a atualização"
         snapshot={financeSnapshot}
@@ -157,7 +158,7 @@ function DinheiroPage() {
         />
       </div>
 
-      <SectionBlock kicker="Fotografia da receita" question="Quanto já entrou — e quantas candidaturas aparecem nesta base" align="wide" lead={<p>A unidade de análise é a candidatura. Todas as linhas de receita de cada SQ_CANDIDATO são somadas; os universos proporcional e majoritário permanecem separados.</p>} source={<>Fonte: TSE · Prestação de Contas Eleitorais 2026 · base gerada em 23/09/2026 · {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita</>}>
+      <SectionBlock kicker="Fotografia da receita" question="Quanto já entrou — e quantas candidaturas aparecem nesta base" align="wide" lead={<p>Quantas candidaturas já declararam receita e quanto elas somam, em cada universo.</p>} source={<>Fonte: TSE · Prestação de Contas Eleitorais 2026 · base gerada em 23/09/2026 · {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita</>}>
         <FinanceCoverage snapshot={financeSnapshot} />
       </SectionBlock>
 
@@ -182,7 +183,7 @@ function DinheiroPage() {
         question="Financiamento não é a mesma coisa que cota de candidaturas"
         lead={<p>{QUOTA_RULE.financingNote}</p>}
       >
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4">
           <ContextBox variant="significa">
             <p>
               A regra de composição de candidaturas de {QUOTA_RULE.floor}% a {QUOTA_RULE.ceiling}%
@@ -190,30 +191,20 @@ function DinheiroPage() {
               federação.
             </p>
           </ContextBox>
-          <ContextBox variant="importa">
-            <p>Confundir as duas leva a conclusões erradas.</p>
-          </ContextBox>
         </div>
       </SectionBlock>
 
-      <SectionBlock
-        kicker="Como calculamos"
-        question="Denominador antes do número"
-        source={
-          <>
-            Método completo em{" "}
-            <Link to="/metodo" className="text-plum underline underline-offset-4">
-              Como sabemos?
-            </Link>
-          </>
-        }
-      >
-        <ContextBox variant="calculamos">
-          <p>
-            Esta página lê receita: dinheiro informado como recebido, não despesa contratada ou paga. A receita é somada por candidatura; cobertura, total, mediana, universo e data da base ficam à vista. “Parcial” e “Relatório Financeiro” não são usados como filtro: as {formatInt(financeSnapshot.tipoPrestacaoContas["PARCIAL"] ?? 0)} linhas parciais e as {formatInt(financeSnapshot.tipoPrestacaoContas["RELATÓRIO FINANCEIRO"] ?? 0)} linhas de relatório financeiro entram na soma.
-          </p>
-        </ContextBox>
-      </SectionBlock>
+      <ComoSabemos
+        fonte={<>TSE, Prestação de Contas Eleitorais 2026 · {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita.</>}
+        universo="Candidaturas de 2026 que já declararam receita, com proporcional e majoritário separados. A unidade de análise é a candidatura: todas as linhas de receita de cada uma são somadas."
+        base="23/09/2026"
+        calculo={<>Receita é o dinheiro informado como recebido. Cobertura, total, mediana, universo e data da base ficam à vista em cada recorte. As {formatInt(financeSnapshot.tipoPrestacaoContas["PARCIAL"] ?? 0)} linhas de prestação parcial e as {formatInt(financeSnapshot.tipoPrestacaoContas["RELATÓRIO FINANCEIRO"] ?? 0)} de relatório financeiro entram na soma.</>}
+        limites={[
+          "Despesa contratada ou paga ainda não entra: esta fase lê só receita.",
+          "A prestação de contas está em andamento, e os valores mudam até o fim da apuração.",
+          "Doador originário, titularidade e suplência e a relação entre recursos e competitividade ficam para as próximas fases.",
+        ]}
+      />
 
       <NextAxes ids={["quem-controla", "funil", "quem-sao-elas"]} />
     </PageShell>
