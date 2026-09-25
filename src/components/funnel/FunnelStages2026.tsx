@@ -32,7 +32,7 @@ const UNIVERSE_POSITIONS: Record<UniverseId, string> = {
   proporcional:
     "Câmara dos Deputados, assembleias legislativas e Câmara Legislativa do DF",
   majoritario:
-    "Presidência, governos estaduais e do DF e Senado — cargo único por disputa",
+    "Presidência, governos estaduais e do DF e Senado: cargo único por disputa",
 };
 
 /** Faixa de uma etapa: barra preenchida pela participação feminina do universo. */
@@ -100,7 +100,7 @@ function StageBar({
   );
 }
 
-/** Etapa 3: cor/raça DENTRO das candidaturas de mulheres. */
+/** Recorte da etapa 1: cor/raça DENTRO das candidaturas de mulheres (não é etapa). */
 function RaceStage({
   step,
   counts,
@@ -125,10 +125,7 @@ function RaceStage({
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
           <span className="block font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
-            etapa{" "}
-            <span className="poster-figure align-middle text-3xl text-plum md:text-4xl">
-              0{step}
-            </span>
+            recorte da etapa 0{step} · quem são as candidatas a deputada
           </span>
           <h3 className="font-display text-xl text-ink md:text-2xl">
             Quem são essas mulheres
@@ -188,7 +185,7 @@ function RaceStage({
   );
 }
 
-/** Etapa 4: resultado eleitoral — futura, nunca zero. */
+/** Etapa 3: resultado eleitoral, futura, nunca zero. */
 function FutureStage({ step }: { step: number }) {
   return (
     <li className="poster-frame overflow-hidden bg-secondary/40">
@@ -218,10 +215,10 @@ function FutureStage({ step }: { step: number }) {
 
       <div className="mt-4 border-t border-rule px-5 py-4">
         <p className="text-sm leading-relaxed text-muted-foreground">
-          A eleição de 2026 ainda não ocorreu. Não há voto apurado nem cadeira
-          atribuída: nenhum valor é exibido, nem como zero. Quando o resultado
+          A eleição de 2026 acontece em 4 de outubro. Esta etapa fica em
+          branco até a apuração. Quando o resultado
           for publicado, o denominador desta etapa será o número de cadeiras em
-          disputa — não o número de candidaturas.
+          disputa, não o número de candidaturas.
         </p>
       </div>
     </li>
@@ -270,6 +267,20 @@ export function FunnelStages2026({
           total={prop.total}
         />
       )}
+      {hasRace ? (
+        <RaceStage
+          step={1}
+          counts={raceCounts}
+          universeLabel="nas eleições proporcionais"
+        />
+      ) : (
+        <li className="poster-frame p-5">
+          <GapNote label="Lacuna declarada">
+            A fotografia atual não trouxe cor/raça das candidaturas de mulheres
+            neste universo. Sem esse dado, a distribuição por cor/raça fica de fora desta etapa.
+          </GapNote>
+        </li>
+      )}
       {maj.total > 0 && (
         <StageBar
           step={2}
@@ -278,21 +289,7 @@ export function FunnelStages2026({
           total={maj.total}
         />
       )}
-      {hasRace ? (
-        <RaceStage
-          step={3}
-          counts={raceCounts}
-          universeLabel="nas eleições proporcionais"
-        />
-      ) : (
-        <li className="poster-frame p-5">
-          <GapNote label="Lacuna declarada">
-            A fotografia atual não trouxe cor/raça das candidaturas de mulheres
-            neste universo. Ausência de dado não é ausência de mulheres negras.
-          </GapNote>
-        </li>
-      )}
-      <FutureStage step={4} />
+      <FutureStage step={3} />
       </ol>
 
       {propShare !== null && majShare !== null && (
@@ -336,7 +333,7 @@ export function FunnelStages2026({
             </h3>
             <p className="mt-3 leading-relaxed text-ink/70">
               O que acontece quando essas candidaturas viram votos e cadeiras na
-              eleição de outubro — e se a distância entre os dois universos se
+              eleição de outubro, e se a distância entre os dois universos se
               mantém no resultado. Nenhuma das duas respostas existe na base
               atual.
             </p>

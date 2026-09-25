@@ -135,9 +135,8 @@ export function RaceExplorer({
   if (!cells || !slice) {
     return (
       <GapNote label="Lacuna declarada">
-        A fotografia atual do TSE ainda não trouxe os cruzamentos de cor/raça por
-        UF e partido para este universo. Sem essas células, o explorador fica sem
-        número — nada é estimado no lugar.
+        Ainda não processamos os cruzamentos de cor/raça por estado e partido
+        para este universo. Enquanto isso, o explorador fica sem número.
       </GapNote>
     );
   }
@@ -213,8 +212,8 @@ export function RaceExplorer({
             Base: {formatInt(base)}{" "}
             {base === 1 ? "candidatura" : "candidaturas"} de mulheres
             {showPercent
-              ? " — denominador de todos os percentuais abaixo"
-              : ` — abaixo de ${MIN_BASE}: só contagens absolutas`}
+              ? ", denominador de todos os percentuais abaixo"
+              : `, abaixo de ${MIN_BASE}: só contagens absolutas`}
           </p>
         </header>
 

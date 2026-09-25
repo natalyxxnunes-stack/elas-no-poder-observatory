@@ -124,7 +124,7 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
             <GapNote label="Dado não disponível">
               A fotografia vigente não trouxe a contagem de candidaturas por
               unidade eleitoral neste universo. Sem numerador por estado, a
-              divisão não é feita — nenhum valor é estimado.
+              divisão não é feita: nenhum valor é estimado.
             </GapNote>
           </div>
         ) : (
@@ -161,10 +161,8 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
               disputa e {int(data.total)} candidaturas registradas:{" "}
               {n1(data.total / data.vagasTotal)} candidaturas por vaga. Dessas
               candidaturas, {int(data.feminine)} são de mulheres (
-              {n1(data.feminine / data.vagasTotal)} por vaga) e{" "}
-              {int(data.masculine)} de homens (
-              {n1(data.masculine / data.vagasTotal)} por vaga). As vagas não têm
-              gênero: a separação está apenas nas candidaturas.
+              {n1((data.feminine / data.total) * 100)}%) e{" "}
+              {int(data.masculine)} de homens.
               {universe === "majoritario"
                 ? " A Presidência (14 candidaturas, 1 vaga) é disputa nacional e fica fora desta tabela."
                 : ""}
@@ -209,7 +207,7 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
                       "Vagas",
                       "Candidaturas",
                       "Por vaga",
-                      "Mulheres (por vaga)",
+                      "Mulheres (% das candidaturas)",
                     ].map((h) => (
                       <th
                         key={h}
@@ -245,10 +243,10 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
                       </td>
                       <td className="py-3 pr-3 font-mono text-sm text-ink">
                         {int(r.feminine)}
-                        {r.vagas ? (
+                        {r.total > 0 ? (
                           <span className="text-muted-foreground">
                             {" "}
-                            ({n1(r.feminine / r.vagas)})
+                            ({n1((r.feminine / r.total) * 100)}%)
                           </span>
                         ) : null}
                       </td>

@@ -157,7 +157,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
         {ufOptions.length === 0 ? (
           <div className="mt-4">
             <GapNote label="Dado não disponível">
-              A fotografia atual do TSE não trouxe as contagens por unidade da federação neste universo. Sem essas células o estado fica sem número — nada é estimado no lugar.
+              Ainda não processamos as contagens por estado neste universo. Enquanto isso, o estado fica sem número.
             </GapNote>
           </div>
         ) : <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
@@ -211,7 +211,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
               <p className="mt-4 font-mono text-sm leading-relaxed text-ink">
                 Referência nacional: {nf(national.feminine)} candidaturas de
                 mulheres em {nf(national.total)} candidaturas registradas neste
-                universo — {pf(nationalShare)}%.
+                universo: {pf(nationalShare)}%.
               </p>
             ) : (
               <p className="mt-4 font-mono text-sm text-muted-foreground">
@@ -262,7 +262,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
               {stateTotal >= MIN_BASE && diff !== null && nationalShare !== null
                 ? `Comparação com o Brasil no mesmo universo: ${pf(
                     nationalShare,
-                  )}% no país e ${pf(stateShare)}% em ${uf} — diferença de ${pf(
+                  )}% no país e ${pf(stateShare)}% em ${uf}, diferença de ${pf(
                     Math.abs(diff),
                   )} ${
                     Math.abs(diff) === 1
@@ -342,7 +342,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
               </table>
               <p className="mt-4 text-sm leading-relaxed text-ink/70">
                 Denominador: {nf(raceBase)} candidaturas de mulheres neste
-                universo em {uf}. Categorias como declaradas ao TSE — preta e
+                universo em {uf}. Categorias como declaradas ao TSE: preta e
                 parda não são somadas nesta tabela.
               </p>
             </>
@@ -460,7 +460,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
                 </div>
 
                 <p className="mt-4 text-sm leading-relaxed text-ink/70">
-                  Ordem descritiva, por tamanho da lista no estado — não é
+                  Ordem descritiva, por tamanho da lista no estado; não é
                   classificação de mérito nem ranking de partidos. Limiar
                   declarado: abaixo de {MIN_BASE} candidaturas na célula o
                   percentual não aparece e ficam só os absolutos.
@@ -485,7 +485,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
 
       <ContextBox variant="calculamos" title="Como este recorte é montado">
         <p>
-          Somamos as células já contadas na fotografia vigente do TSE dentro do
+          Somamos os cruzamentos já contados na fotografia vigente do TSE dentro do
           estado escolhido: candidaturas registradas, candidaturas de mulheres,
           cor/raça declarada e partido. O estado é a unidade eleitoral do
           registro (SG_UF); nada é redistribuído entre estados e nenhum estado é

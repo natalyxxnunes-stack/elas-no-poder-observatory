@@ -96,7 +96,7 @@ const BASE_FILTERS = [
   "Unidade de análise: candidatura registrada (não pessoa)",
   "Gênero conforme categoria DS_GENERO da base, autodeclarado no registro",
   "Cargos filtrados por DS_CARGO; universos calculados separadamente e nunca somados",
-  "Nenhum filtro por situação de candidatura aplicado — o registro pode mudar até a decisão final da Justiça Eleitoral",
+  "Nenhum filtro por situação de candidatura aplicado: o registro pode mudar até a decisão final da Justiça Eleitoral",
 ];
 
 function feminineShareIndicator(universe: UniverseId): Indicator {
@@ -229,21 +229,23 @@ export const RACE_FINDING_CATEGORIES = [
 
 export type RaceFindingCategory = (typeof RACE_FINDING_CATEGORIES)[number];
 
-/** População feminina no Brasil — Censo 2022, IBGE. Constante curada. */
-export const POPULATION_FEMININE_2022 = 104_548_325;
+/** Mulheres de 18 anos ou mais no Brasil — Censo 2022, IBGE (SIDRA, tabela 9606).
+ *  Recorte adulto, o mesmo das candidatas: total de mulheres menos as de 0 a 17 anos. */
+export const POPULATION_FEMININE_2022 = 80_665_632;
 
-/** População feminina por cor ou raça, Censo 2022 (IBGE, SIDRA tabela 9606).
- *  Absolutos exatos da tabela; percentuais sobre o total de mulheres, que inclui
- *  pessoas sem declaração de cor ou raça. */
+/** Mulheres de 18 anos ou mais por cor ou raça, Censo 2022 (IBGE, SIDRA tabela 9606,
+ *  variável 93, sexo = mulheres, idade = total menos 0 a 4, 5 a 9, 10 a 14, 15, 16 e 17 anos).
+ *  Percentuais sobre o total de mulheres adultas, que inclui pessoas sem declaração de cor ou raça.
+ *  Conferido em 25/09/2026. */
 export const POPULATION_RACE_FEMININE_2022: Record<
   RaceFindingCategory,
   { count: number; percent: number }
 > = {
-  branca: { count: 46_463_555, percent: 44.4 },
-  parda: { count: 46_883_709, percent: 44.8 },
-  preta: { count: 10_130_438, percent: 9.7 },
-  indigena: { count: 616_574, percent: 0.6 },
-  amarela: { count: 449_273, percent: 0.4 },
+  branca: { count: 36_453_254, percent: 45.2 },
+  parda: { count: 35_100_797, percent: 43.5 },
+  preta: { count: 8_336_378, percent: 10.3 },
+  indigena: { count: 381_806, percent: 0.5 },
+  amarela: { count: 389_581, percent: 0.5 },
 };
 
 /** Candidaturas de mulheres às eleições proporcionais de 2026 por cor/raça.
@@ -271,7 +273,7 @@ export const THESIS =
 export const SITE = {
   name: "Quem são elas?",
   tagline: "Mulheres, eleições e poder",
-  cycle: "Eleições gerais de 2026 — Brasil",
+  cycle: "Eleições gerais de 2026, Brasil",
 } as const;
 
 /** Regra de composição de candidaturas por gênero. */
@@ -352,7 +354,7 @@ export const RIGHTS_MILESTONES = [
   },
   {
     year: "1997",
-    title: "Lei 9.504 — composição de 30% a 70% por gênero",
+    title: "Lei 9.504: composição de 30% a 70% por gênero",
     body: "Cada partido ou federação preenche no mínimo 30% e no máximo 70% das candidaturas em eleições proporcionais com cada gênero (art. 10, §3º).",
     sourceUrl: TSE_SOURCE.legalUrl,
   },
@@ -388,7 +390,7 @@ export const RIGHTS_OPEN_QUESTIONS = [
 export const METHOD_NOTES = [
   {
     title: "Fonte e data",
-    body: `Fonte única dos indicadores: ${TSE_SOURCE.name}. Data de geração da base informada pelo TSE: ${TSE_SOURCE.baseGeneratedAt}. Data/hora de processamento: ${TSE_SOURCE.processedAt ?? "ainda não processada"}. Última tentativa de obtenção do arquivo: ${TSE_SOURCE.lastFetchAttempt.at} — ${TSE_SOURCE.lastFetchAttempt.outcome}`,
+    body: `Fonte única dos indicadores: ${TSE_SOURCE.name}. Data de geração da base informada pelo TSE: ${TSE_SOURCE.baseGeneratedAt}. Data/hora de processamento: ${TSE_SOURCE.processedAt ?? "ainda não processada"}. Última tentativa de obtenção do arquivo: ${TSE_SOURCE.lastFetchAttempt.at}, ${TSE_SOURCE.lastFetchAttempt.outcome}`,
   },
   {
     title: "Unidade de análise",
@@ -412,7 +414,7 @@ export const METHOD_NOTES = [
   },
   {
     title: "Dados provisórios",
-    body: "O registro de candidaturas de 2026 segue sujeito a alteração pelo TSE — deferimentos, indeferimentos, substituições e recursos. Indicadores derivados dessa base são marcados como provisórios.",
+    body: "O registro de candidaturas de 2026 segue sujeito a alteração pelo TSE: deferimentos, indeferimentos, substituições e recursos. Indicadores derivados dessa base são marcados como provisórios.",
   },
   {
     title: "Etapas em aberto",

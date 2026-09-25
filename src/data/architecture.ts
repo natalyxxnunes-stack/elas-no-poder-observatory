@@ -9,7 +9,7 @@
 
 /** Tese central da investigação. */
 export const CENTRAL_THESIS =
-  "Como gênero e raça marcam o caminho entre candidatura, competição eleitoral e poder — e quem controla cada etapa desse caminho?";
+  "Como gênero e raça marcam o caminho entre candidatura, competição eleitoral e poder, e quem controla cada etapa desse caminho?";
 
 /** Pergunta de capa. */
 export const COVER_QUESTION = "Entre se candidatar e chegar ao poder, onde elas desaparecem?";
@@ -73,7 +73,7 @@ export const AXES: readonly Axis[] = [
     label: "O funil",
     question: "Onde elas desaparecem?",
     summary:
-      "O funil é metáfora jornalística, não uma única conta. Cada etapa tem universo, denominador e fonte próprios — e é lida separadamente.",
+      "O funil é metáfora jornalística, não uma única conta. Cada etapa tem universo, denominador e fonte próprios, e é lida separadamente.",
     dimensions: ["contexto", "competição", "poder"],
     unpublishedReason: "",
     state: "com dados de candidatura",
@@ -139,7 +139,7 @@ export const AXES: readonly Axis[] = [
     label: "Quem chega?",
     question: "Quais mulheres chegam a quais lugares?",
     summary:
-      "Resultado eleitoral por gênero, cor/raça, cargo, UF e partido — e, depois, as posições institucionais. Ser eleita não equivale a ocupar posição de poder.",
+      "Resultado eleitoral por gênero, cor/raça, cargo, UF e partido, e, depois, as posições institucionais. Ser eleita não equivale a ocupar posição de poder.",
     dimensions: [
       "gênero × cor/raça × resultado",
       "cargo",
@@ -160,7 +160,7 @@ export const AXES: readonly Axis[] = [
       "Eixo transversal sobre violência política de gênero, racismo, transfobia, ameaças, assédio e ataques digitais. Só entra com fontes comparáveis e método defensável.",
     dimensions: ["gênero", "cor/raça", "identidade de gênero", "território"],
     unpublishedReason:
-      "Depende de fontes comparáveis sobre violência política de gênero e raça, com método defensável — ainda não integradas.",
+      "Depende de fontes comparáveis sobre violência política de gênero e raça, com método defensável. Essas fontes ainda não foram integradas.",
     state: "arquitetura preparada",
     publication: "unpublished", status: "aguardando dado", statusNote: "fontes comparáveis ainda não integradas", group: "investigacao",
   },
@@ -179,7 +179,7 @@ export const AXES: readonly Axis[] = [
   {
     id: "em-disputa",
     to: "/em-disputa",
-    label: "Em disputa",
+    label: "Regras de 2026",
     question: "Que regras valem em 2026?",
     summary:
       "As regras em vigor no ciclo de 2026, com fonte e data de verificação. Projetos em tramitação entram só com situação conferida na fonte oficial.",
@@ -318,4 +318,4 @@ export const INTERSECTION_PLAN = [
 ] as const;
 
 export const RACE_CATEGORY_RULE =
-  "Preservamos as categorias originais declaradas ao TSE — branca, preta, parda, amarela, indígena e não informado. Categoria de cor/raça não é o mesmo que pertencimento étnico indígena: a base registra uma autodeclaração de cor/raça e não substitui identificação étnica ou vínculo com povo indígena. Quando apresentamos uma leitura agregada, declaramos a agregação (“negra” = preta + parda) e mantemos as categorias originais visíveis.";
+  "Preservamos as categorias originais declaradas ao TSE: branca, preta, parda, amarela, indígena e não informado. Categoria de cor/raça não é o mesmo que pertencimento étnico indígena: a base registra uma autodeclaração de cor/raça e não substitui identificação étnica ou vínculo com povo indígena. Quando apresentamos uma leitura agregada, declaramos a agregação (“negra” = preta + parda) e mantemos as categorias originais visíveis.";
