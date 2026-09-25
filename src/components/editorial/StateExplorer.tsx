@@ -189,7 +189,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
           )}
         </div>}
 
-        <p className="mt-3 font-mono text-[12px] leading-relaxed text-ink/70">
+        <p className="mt-3 text-sm leading-relaxed text-ink/70">
           {UNIVERSE_SCOPE[universe]}. Trocar o universo troca todos os números
           desta seção: eles não se somam.
         </p>
@@ -340,7 +340,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
                     ))}
                 </tbody>
               </table>
-              <p className="mt-4 font-mono text-[12px] leading-relaxed text-ink/70">
+              <p className="mt-4 text-sm leading-relaxed text-ink/70">
                 Denominador: {nf(raceBase)} candidaturas de mulheres neste
                 universo em {uf}. Categorias como declaradas ao TSE — preta e
                 parda não são somadas nesta tabela.
@@ -459,7 +459,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
                 </table>
                 </div>
 
-                <p className="mt-4 font-mono text-[12px] leading-relaxed text-ink/70">
+                <p className="mt-4 text-sm leading-relaxed text-ink/70">
                   Ordem descritiva, por tamanho da lista no estado — não é
                   classificação de mérito nem ranking de partidos. Limiar
                   declarado: abaixo de {MIN_BASE} candidaturas na célula o

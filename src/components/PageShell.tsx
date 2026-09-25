@@ -2,6 +2,7 @@ import { Fragment, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
+import { PageIndex } from "./editorial/PageIndex";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -43,7 +44,8 @@ export function PageShell({ children, home = false, breadcrumb }: { children: Re
         )}
         {children}
       </main>
-      <SiteFooter />
+      {!home && <PageIndex />}
+      <SiteFooter flush={home} />
     </div>
   );
 }

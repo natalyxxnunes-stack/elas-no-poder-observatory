@@ -7,6 +7,17 @@ import type { HistoricalSeriesPayload } from "@/lib/tse/historical.functions";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import { formatInt, formatPct } from "@/lib/format-br";
 
+/** Número de capítulo da home: guia o olho pela sequência 01 a 06. */
+export function ChapterKicker({ n, label, dark = false }: { n: string; label: string; dark?: boolean }) {
+  return (
+    <p className={`flex items-baseline gap-3 font-mono text-xs uppercase tracking-[0.16em] ${dark ? "text-cream/85" : "text-plum"}`}>
+      <span className={`font-display text-2xl font-semibold leading-none tracking-normal ${dark ? "text-cream" : "text-coral-ink"}`}>{n}</span>
+      <span className={`h-px w-6 ${dark ? "bg-cream/60" : "bg-coral"}`} aria-hidden="true" />
+      {label}
+    </p>
+  );
+}
+
 const UF_ORDER = [
   "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA",
   "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO",
@@ -72,7 +83,7 @@ function EditorialBrazilMap({ snapshot }: { snapshot: PublicSnapshot | null }) {
             <path
               key={location.id}
               d={location.path}
-              className={`${bin?.tone ?? "fill-muted"} stroke-paper stroke-[1.5] transition-opacity hover:opacity-75`}
+              className={`${bin?.tone ?? "fill-paper"} stroke-lilac stroke-[1.5] transition-opacity hover:opacity-75`}
             >
               <title>
                 {datum
@@ -104,7 +115,7 @@ function EditorialBrazilMap({ snapshot }: { snapshot: PublicSnapshot | null }) {
           ))}
         </tbody>
       </table>
-      <figcaption id="home-map-caption" className="pb-3 font-mono text-xs leading-relaxed text-muted-foreground">
+      <figcaption id="home-map-caption" className="pb-3 text-sm leading-relaxed text-muted-foreground">
         <ul className="space-y-2">
           {binCounts.map((bin) => (
             <li key={bin.label} className="flex items-center gap-2">
@@ -138,10 +149,10 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
 
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden border-b border-rule bg-paper">
-      <div className="grid min-h-[min(50vh,22rem)] lg:grid-cols-[54%_46%] lg:items-center">
-        <div className="relative bg-plum px-5 py-6 text-cream md:px-10 md:py-9 lg:pl-[max(2.5rem,calc((100vw-72rem)/2+2rem))] lg:pr-24">
+      <div className="grid min-h-[min(50vh,22rem)] lg:grid-cols-[54%_46%] lg:items-stretch">
+        <div className="relative bg-plum px-5 py-6 text-cream md:px-10 md:py-9 lg:flex lg:flex-col lg:justify-center lg:pl-[max(2.5rem,calc((100vw-72rem)/2+2rem))] lg:pr-24">
           <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.16em] text-cream/80">
-            <span className="h-1 w-8 bg-coral" aria-hidden="true" /> Eleições 2026 · Brasil
+            <span className="h-1 w-8 bg-cream/70" aria-hidden="true" /> Eleições 2026 · Brasil
           </p>
           <h1 className="mt-4 max-w-3xl font-display text-[clamp(2.1rem,3.6vw,3.75rem)] leading-[0.93] text-cream">
             Entre se<br />candidatar e<br />chegar ao poder,<br />
@@ -151,7 +162,7 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
             {CENTRAL_THESIS}
           </p>
           <div className="mt-5 flex flex-wrap items-center gap-6">
-            <Link to="/funil" className="inline-flex min-h-11 items-center gap-3 bg-coral px-5 py-3 text-xs font-semibold uppercase text-ink transition-colors hover:bg-cream">
+            <Link to="/funil" className="inline-flex min-h-11 items-center gap-3 bg-cream px-5 py-3 text-xs font-semibold uppercase text-plum transition-colors hover:bg-paper">
               Explorar o funil <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
             <Link to="/quem-sao-elas" className="inline-flex items-center gap-2 border-b border-cream/70 pb-1 text-xs font-semibold uppercase text-cream hover:border-cream hover:text-cream">
@@ -160,7 +171,8 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
           </div>
         </div>
 
-        <div className="relative px-5 py-8 md:px-10 lg:pl-20 lg:pr-[max(2.5rem,calc((100vw-72rem)/2+2rem))]">
+        <div className="relative bg-butter px-5 py-8 md:px-10 lg:flex lg:flex-col lg:justify-center lg:pl-20 lg:pr-[max(2.5rem,calc((100vw-72rem)/2+2rem))]">
+          <span className="mb-4 block h-1 w-12 bg-coral" aria-hidden="true" />
           <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
             Dados parciais do TSE<br />Base de {baseDate ?? "data em atualização"}
           </p>
@@ -185,11 +197,12 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
 
 export function HomeMapSection({ snapshot }: { snapshot: PublicSnapshot | null }) {
   return (
-    <section className="relative left-1/2 -ml-[50vw] w-screen border-b border-rule bg-paper">
+    <section className="relative left-1/2 -ml-[50vw] w-screen bg-lilac">
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:px-8 md:py-20 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
         <div>
-          <p className="font-mono text-xs font-semibold uppercase leading-tight text-ink">A entrada não é igual<br />em todo o país</p>
-          <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">Proporção de mulheres nas candidaturas proporcionais por estado</p>
+          <ChapterKicker n="04" label="Território" />
+          <h2 className="mt-5 font-display text-3xl leading-[1.05] text-ink md:text-4xl">A entrada não é igual em todo o país</h2>
+          <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink/80">Proporção de mulheres nas candidaturas proporcionais por estado</p>
           <Link to="/quem-sao-elas" className="mt-5 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-xs font-semibold uppercase text-plum">
             Explorar os dados por estado <ArrowRight className="size-3.5" aria-hidden="true" />
           </Link>
@@ -209,47 +222,55 @@ export function HomeHistoryHighlight({ historical: _historical }: { historical: 
     { year: HISTORY_YEARS[2], value: 34.1, candidacies: "9.532" },
     { year: HISTORY_YEARS[3], value: 35.6, candidacies: "6.951" },
   ];
+  const maxCount = 9532;
   return (
-    <section className="relative left-1/2 -ml-[50vw] w-screen border-b border-rule bg-paper">
-      <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:grid-cols-[1.1fr_minmax(0,20rem)] md:px-8 md:py-20">
+    <section className="relative left-1/2 -ml-[50vw] w-screen bg-plum text-cream">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-16 md:grid-cols-[1.1fr_minmax(0,24rem)] md:px-8 md:py-24">
         <div>
-          <p className="flex items-center gap-3 font-mono text-xs uppercase text-muted-foreground">
-            <span className="h-1 w-3 bg-plum" aria-hidden="true" /> Como chegamos até aqui
-          </p>
-          <h2 className="mt-5 font-display text-3xl leading-[1.05] text-ink md:text-4xl">
-            2.581 candidatas a menos que em 2022
+          <ChapterKicker n="05" label="Como chegamos até aqui" dark />
+          <p className="mt-6 font-display text-[clamp(4rem,9vw,7rem)] font-semibold leading-[0.9] text-cream">2.581</p>
+          <h2 className="mt-3 max-w-md font-display text-2xl leading-[1.1] text-cream md:text-3xl">
+            candidatas a deputada a menos que em 2022
           </h2>
-          <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-5 max-w-md text-base leading-relaxed text-cream/90">
             Os pedidos de registro para deputada e deputado caíram 30% em relação a 2022, em todos os 27 estados. Entre as mulheres, a queda foi de 27%; entre os homens, de 32%. Por isso a presença feminina subiu de 34,1% para 35,6%, num campo menor.
           </p>
-          <p className="mt-3 max-w-md font-mono text-xs leading-relaxed text-muted-foreground">
+          <p className="mt-4 max-w-md text-sm leading-relaxed text-cream/80">
             Comparação entre pedidos de registro. Em 2022, 9,6% deles terminaram inaptos; o arquivo de 2026 ainda não informa a situação das candidaturas.
           </p>
-          <Link to="/historico" className="mt-6 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-xs font-semibold uppercase text-plum">
+          <Link to="/historico" className="mt-7 inline-flex items-center gap-2 border-b border-cream pb-1 font-mono text-xs font-semibold uppercase text-cream">
             Ver a série completa <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
         </div>
-        <div
-          className="flex items-end justify-between gap-4"
-          role="img"
-          aria-label={`Participação feminina nas candidaturas proporcionais por eleição: ${points.map((p) => `${p.year}, ${formatPct(p.value)}, ${p.candidacies} candidatas`).join("; ")}`}
-        >
-          {points.map(({ year, value, candidacies }) => {
-            return (
-              <div key={year} className="flex flex-1 flex-col items-center gap-2" aria-hidden="true">
-                <span className="font-mono text-xs font-semibold text-ink">{formatPct(value)}</span>
-                <div className="flex h-28 w-full items-end">
-                  <div
-                    className={`w-full ${year === 2026 ? "bg-plum" : "bg-plum/35"}`}
-                    style={{ height: `${value}%` }}
-                  />
-                </div>
-                <span className="font-mono text-xs text-muted-foreground">{year}</span>
-                <span className="text-center font-mono text-xs text-muted-foreground">{candidacies} candidatas</span>
-              </div>
-            );
-          })}
-        </div>
+        <figure>
+          <figcaption className="font-mono text-xs uppercase tracking-[0.14em] text-cream/85">Candidatas a deputada, por eleição</figcaption>
+          <ol
+            className="mt-5 space-y-4"
+            aria-label={`Candidatas a deputada por eleição: ${points.map((p) => `${p.year}, ${p.candidacies}, ${formatPct(p.value)} do total`).join("; ")}`}
+          >
+            {points.map(({ year, value, candidacies }) => {
+              const count = Number(candidacies.replace(".", ""));
+              const current = year === 2026;
+              return (
+                <li key={year} className="grid grid-cols-[3rem_minmax(0,1fr)] items-center gap-3">
+                  <span className={`font-mono text-sm ${current ? "font-semibold text-cream" : "text-cream/80"}`}>{year}</span>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-3">
+                      <span
+                        className={`block h-6 ${current ? "bg-cream" : "bg-cream/45"}`}
+                        style={{ width: `${(count / maxCount) * 75}%` }}
+                        aria-hidden="true"
+                      />
+                      <span className={`whitespace-nowrap font-display text-lg leading-none ${current ? "font-semibold text-cream" : "text-cream/90"}`}>{candidacies}</span>
+                    </div>
+                    <p className="mt-1 font-mono text-xs text-cream/75">{formatPct(value)} das candidaturas</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+          <p className="mt-5 border-t border-cream/30 pt-3 text-sm leading-relaxed text-cream/75">Barras na mesma régua, de zero. Fonte: TSE, candidaturas de 2014 a 2026.</p>
+        </figure>
       </div>
     </section>
   );
@@ -268,12 +289,12 @@ export function HomeFunnelFeature({ snapshot }: { snapshot: PublicSnapshot | nul
   ];
   return (
     <section className="py-16 md:py-24" aria-labelledby="funil-home-titulo">
-      <p className="flex items-center gap-3 font-mono text-xs uppercase text-muted-foreground"><span className="h-1 w-3 bg-coral" aria-hidden="true" /> O funil</p>
+      <ChapterKicker n="06" label="O funil" />
       <h2 id="funil-home-titulo" className="mt-4 max-w-3xl font-display text-3xl leading-[1.05] text-ink md:text-4xl">Quatro etapas entre a candidatura e o poder. Hoje, só a primeira tem número.</h2>
-      <ol className="mt-10 grid border-t-2 border-ink sm:grid-cols-2 lg:grid-cols-4">
+      <ol className="mt-10 grid border-t-4 border-coral sm:grid-cols-2 lg:grid-cols-4">
         {steps.map((step, index) => (
           <li key={step.n} className={`min-w-0 border-b border-rule py-6 sm:px-5 ${index > 0 ? "lg:border-l" : "sm:pl-0"}`}>
-            <p className="font-mono text-xs font-semibold text-plum">{step.n}</p>
+            <p className="font-mono text-xs font-semibold text-coral-ink">{step.n}</p>
             <h3 className="mt-2 font-display text-2xl text-ink">{step.label}</h3>
             <p className={`mt-4 font-display text-5xl font-semibold leading-none ${step.figure === "?" ? "text-muted-foreground" : "text-plum"}`}>{step.figure}</p>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{step.note}</p>
@@ -285,7 +306,7 @@ export function HomeFunnelFeature({ snapshot }: { snapshot: PublicSnapshot | nul
           </li>
         ))}
       </ol>
-      <p className="mt-4 font-mono text-xs leading-relaxed text-muted-foreground">Cada etapa tem universo, fonte e data próprios. <Link to="/funil" className="text-plum underline underline-offset-4">Entenda o funil</Link></p>
+      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Cada etapa tem universo, fonte e data próprios. <Link to="/funil" className="text-plum underline underline-offset-4">Entenda o funil</Link></p>
     </section>
   );
 }
@@ -298,20 +319,23 @@ const INVESTIGATIONS = [
 
 export function HomeInvestigationGrid({ snapshot: _snapshot }: { snapshot: PublicSnapshot | null }) {
   return (
-    <section className="relative left-1/2 -ml-[50vw] w-screen border-y border-rule bg-paper">
-      <div className="mx-auto grid max-w-6xl md:grid-cols-3">
+    <section className="relative left-1/2 -ml-[50vw] w-screen bg-paper">
+      <div className="mx-auto max-w-6xl px-5 pt-16 md:px-8 md:pt-20">
+        <ChapterKicker n="03" label="Investigações" />
+      </div>
+      <div className="mx-auto max-w-6xl px-5 pb-6 md:px-8"><div className="mt-6 grid border-t-4 border-coral md:grid-cols-3">
         {INVESTIGATIONS.map((item) => {
           const axis = AXES.find((candidate) => candidate.id === item.id);
           return (
-            <article key={item.id} className="border-b border-rule px-6 py-12 md:border-b-0 md:border-r md:px-8 md:py-16">
-              <p className="flex items-center gap-3 font-mono text-xs uppercase text-muted-foreground"><span className="h-1 w-3 bg-coral" /> {axis?.label}</p>
-              <h2 className="mt-5 font-display text-2xl leading-[1.02] text-ink md:text-3xl">{item.title}</h2>
+            <article key={item.id} className="border-b border-rule py-10 md:border-b-0 md:border-r md:px-8 md:py-14 md:first:pl-0 md:last:border-r-0 md:last:pr-0">
+              <p className="flex items-center gap-3 font-mono text-xs uppercase text-muted-foreground"><span className="h-1 w-3 bg-coral" aria-hidden="true" /> {axis?.label}</p>
+              <h3 className="mt-5 font-display text-2xl leading-[1.08] text-ink md:text-3xl">{item.title}</h3>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.support}</p>
               <Link to={item.to} className="mt-7 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-xs font-semibold uppercase text-plum">{item.link} <ArrowRight className="size-3.5" /></Link>
             </article>
           );
         })}
-      </div>
+      </div></div>
     </section>
   );
 }

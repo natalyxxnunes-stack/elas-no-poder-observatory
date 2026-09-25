@@ -36,7 +36,7 @@ export function InvestigationIndex() {
                   <span className={`border px-2 py-1 font-mono text-xs uppercase ${STATUS_TONE[item.status]}`}>{item.status}</span>
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.question}</p>
-                <p className="mt-4 border-l-2 border-rule pl-3 font-mono text-xs leading-relaxed text-ink/75">{item.statusNote}</p>
+                <p className="mt-4 border-l-2 border-rule pl-3 text-sm leading-relaxed text-ink/75">{item.statusNote}</p>
               </li>
             ))}
           </ul>
