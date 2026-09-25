@@ -27,6 +27,19 @@ export function formatBRL(value: number): string {
   return `R$ ${formatDecimal(value, 2)}`;
 }
 
+export function formatBRLCompact(value: number): string {
+  const absolute = Math.abs(value);
+  if (absolute >= 1_000_000_000) {
+    return `R$ ${formatDecimal(value / 1_000_000_000, 2).replace(/,00$/, "")} bilhões`;
+  }
+  if (absolute >= 1_000_000) {
+    const amount = formatDecimal(value / 1_000_000, 1).replace(/,0$/, "");
+    return `R$ ${amount} ${Math.abs(value / 1_000_000) < 2 ? "milhão" : "milhões"}`;
+  }
+  if (absolute >= 1_000) return `R$ ${formatInt(value / 1_000)} mil`;
+  return formatBRL(value);
+}
+
 /** Converte percentual em frequência legível: "metade", "1 em cada 3", "pouco mais de 1 em cada 3". */
 export function formatUmEmCada(share: number): string {
   if (!Number.isFinite(share) || share <= 0) return "—";

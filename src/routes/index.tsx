@@ -85,6 +85,15 @@ function ufRange(snapshot: PublicSnapshot | null) {
   return min && max ? { min, max, runnerUp } : null;
 }
 
+const UF_NAMES: Record<string, string> = {
+  AC: "Acre", AL: "Alagoas", AP: "Amapá", AM: "Amazonas", BA: "Bahia", CE: "Ceará",
+  DF: "Distrito Federal", ES: "Espírito Santo", GO: "Goiás", MA: "Maranhão", MT: "Mato Grosso",
+  MS: "Mato Grosso do Sul", MG: "Minas Gerais", PA: "Pará", PB: "Paraíba", PR: "Paraná",
+  PE: "Pernambuco", PI: "Piauí", RJ: "Rio de Janeiro", RN: "Rio Grande do Norte",
+  RS: "Rio Grande do Sul", RO: "Rondônia", RR: "Roraima", SC: "Santa Catarina",
+  SP: "São Paulo", SE: "Sergipe", TO: "Tocantins",
+};
+
 function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
   snapshot: PublicSnapshot | null;
   baseDate: string | null;
@@ -92,7 +101,6 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
 }) {
   const majoritarian = snapshot?.universes.majoritario ?? null;
   const territory = ufRange(snapshot);
-  const territoryCeiling = territory ? Math.ceil(territory.max.share / 10) * 10 : null;
   const majoritarianShare = majoritarian && majoritarian.total > 0
     ? (majoritarian.feminine / majoritarian.total) * 100
     : null;
@@ -125,7 +133,7 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
 
         <div className="flex min-w-0 flex-col justify-center lg:border-l lg:border-rule lg:pl-12">
           <article className="pb-7">
-            <p className="font-mono text-[10px] uppercase text-muted-foreground">Comando majoritário</p>
+            <p className="font-mono text-[10px] uppercase text-muted-foreground">Presidência, governos e Senado</p>
             <p className="mt-2 font-display text-5xl font-semibold leading-none text-plum md:text-6xl">{majoritarianShare !== null ? formatPercent(majoritarianShare) : "—"}</p>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink">das candidaturas majoritárias são de mulheres</p>
             <p className="mt-2 font-mono text-[10px] text-muted-foreground">{majoritarian ? `${formatInt(majoritarian.feminine)} de ${formatInt(majoritarian.total)}` : "em atualização"}</p>
@@ -134,8 +142,8 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
             <p className="font-mono text-[10px] uppercase text-muted-foreground">Território</p>
             <p className="mt-2 font-display text-5xl font-semibold leading-none text-plum md:text-6xl">{territory ? formatPercent(territory.max.share) : "—"}</p>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink">
-              {territory && territoryCeiling !== null
-                ? `é o teto entre as UFs: em nenhum estado as mulheres chegam a ${territoryCeiling}% das candidaturas a deputada`
+              {territory
+                ? `${UF_NAMES[territory.max.uf] ?? territory.max.uf} tem a maior proporção de candidatas a deputada (${formatPercent(territory.max.share)}) e ${UF_NAMES[territory.min.uf] ?? territory.min.uf}, a menor (${formatPercent(territory.min.share)}). Em todos os estados a proporção fica acima de 30%, o mínimo que a lei exige de cada lista partidária.`
                 : "em atualização"}
             </p>
             <p className="mt-2 font-mono text-[10px] text-muted-foreground">

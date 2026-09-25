@@ -302,7 +302,7 @@ function MetodoPage() {
       <SectionBlock
         tone="solar"
         kicker="O que estes números medem"
-        question="Presença não é a mesma coisa que poder de decidir"
+        question="Presença e poder de decidir são medidas diferentes"
         lead={
           <p>
             Duas perguntas diferentes costumam aparecer misturadas quando se fala
@@ -777,9 +777,7 @@ function MetodoPage() {
         align="wide"
         lead={
           <p>
-            Não existe índice de competitividade neste site. Com uma fotografia
-            de registro de candidaturas, sem voto e sem resultado, uma só leitura
-            é possível e reproduzível:{" "}
+            Com uma fotografia de registro de candidaturas, sem voto e sem resultado, a leitura possível e reproduzível é uma só:{" "}
             <strong className="text-ink">
               {COMPETITION_DEFINITION.label.toLowerCase()}
             </strong>

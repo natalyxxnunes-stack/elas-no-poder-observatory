@@ -221,9 +221,7 @@ export function RaceExplorer({
         {base === 0 ? (
           <div className="p-5">
             <GapNote label="Sem candidaturas nesta fatia">
-              A fotografia atual não registra nenhuma candidatura de mulher nesta
-              combinação de cargo, UF e partido. Isso é ausência de candidatura
-              no arquivo, não falha de leitura.
+              O arquivo não registra candidatura de mulher nesta combinação.
             </GapNote>
           </div>
         ) : (
