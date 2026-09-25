@@ -7,7 +7,11 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { QUOTA_RULE } from "@/data/election-2026";
-import { financeSnapshot } from "@/data/tse-finance-snapshot";
+import {
+  DUPLICATE_ROWS_REMOVED,
+  FINANCE_BASE_LABEL,
+  financeSnapshot,
+} from "@/data/tse-finance-snapshot";
 import { snapshot } from "@/data/tse-snapshot";
 import { FinanceByOffice, FinanceByUf, FinanceCoverage, FinanceParties, FinanceRace } from "@/components/editorial/FinanceOverview";
 import { formatInt, formatPct } from "@/lib/format-br";
@@ -34,8 +38,7 @@ export const Route = createFileRoute("/dinheiro")({
       },
       {
         property: "og:description",
-        content:
-          "Quanto foi declarado como receita pelas candidaturas de mulheres na prestação de contas parcial, por cargo, cor/raça, partido e UF.",
+        content: `Receitas declaradas pelas candidaturas de mulheres nas contas de campanha em andamento, por cargo, cor/raça, partido e UF. Fotografia de ${FINANCE_BASE_LABEL}.`,
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -158,7 +161,7 @@ function DinheiroPage() {
         />
       </div>
 
-      <SectionBlock kicker="Fotografia da receita" question="Quanto foi declarado como receita, e por quantas candidaturas" align="wide" lead={<p>Quantas candidaturas já declararam receita e quanto elas somam, em cada universo.</p>} source={<>Fonte: TSE · Prestação de Contas Eleitorais 2026 · base gerada em 23/09/2026 · {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita</>}>
+      <SectionBlock kicker="Fotografia da receita" question="Quanto foi declarado como receita, e por quantas candidaturas" align="wide" lead={<p>Quantas candidaturas já declararam receita e quanto elas somam, em cada universo.</p>} source={<>Fonte: TSE · Prestação de Contas Eleitorais 2026 · base gerada em {FINANCE_BASE_LABEL} · {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita</>}>
         <FinanceCoverage snapshot={financeSnapshot} />
       </SectionBlock>
 
@@ -197,11 +200,13 @@ function DinheiroPage() {
       <ComoSabemos
         fonte={<>TSE, Prestação de Contas Eleitorais 2026 · {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita.</>}
         universo="Candidaturas de 2026 que já declararam receita, com proporcional e majoritário separados. A unidade de análise é a candidatura: todas as linhas de receita de cada uma são somadas."
-        base="23/09/2026"
-        calculo={<>Receita é o dinheiro informado como recebido. Cobertura, total, mediana, universo e data da base ficam à vista em cada recorte. As {formatInt(financeSnapshot.tipoPrestacaoContas["PARCIAL"] ?? 0)} linhas de prestação parcial e as {formatInt(financeSnapshot.tipoPrestacaoContas["RELATÓRIO FINANCEIRO"] ?? 0)} de relatório financeiro entram na soma.</>}
+        base={FINANCE_BASE_LABEL}
+        calculo={<>Receita é o dinheiro informado como recebido. O arquivo do TSE traz, para cada candidatura, uma única entrega: a prestação parcial ou o relatório financeiro mais recente. Conferimos que nenhuma candidatura aparece nos dois tipos, então somar as linhas não conta a mesma receita duas vezes. Linhas idênticas em todas as colunas entram uma única vez ({DUPLICATE_ROWS_REMOVED} removidas nesta base); linhas que dividem um mesmo recibo em partes são somadas. Gênero e cor/raça do arquivo de receitas foram conferidos, candidatura por candidatura, contra o registro de candidaturas.</>}
         limites={[
           "Despesa contratada ou paga ainda não entra: esta fase lê só receita.",
-          "A prestação de contas está em andamento, e os valores mudam até o fim da apuração.",
+          "A data de corte varia por candidatura: para cerca de 2 em cada 3, os valores vão até a prestação parcial, que registra a movimentação até 08/09/2026; para as demais, até o relatório financeiro mais recente.",
+          "As contas de campanha estão em andamento, e os valores mudam até a prestação final.",
+          "Os percentuais que o TSE usa para distribuir o Fundo Partidário e o FEFC (divulgados em 21/08/2026) partem de outro universo: 20.560 candidaturas com pedido aceito até 18/08/2026, fixado para esse fim. Por isso diferem dos números deste site, que acompanham o registro atualizado.",
           "Doador originário, titularidade e suplência e a relação entre recursos e competitividade ficam para as próximas fases.",
         ]}
       />
