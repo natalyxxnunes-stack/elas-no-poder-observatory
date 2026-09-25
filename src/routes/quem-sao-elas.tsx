@@ -238,16 +238,44 @@ function QuemSaoElasPage() {
             <article className="poster-frame-accent p-5">
               <p className="record-label border-coral text-coral-ink">Interpretação editorial</p>
               <p className="mt-3 leading-relaxed text-ink/70">
-                A vice-presidência e a vice-governadoria não exercem o comando direto enquanto o titular estiver no cargo — são posições de composição de chapa, historicamente usadas para equilibrar coligações e a composição política da chapa, sem disputar o centro do poder. Quando a candidatura é à titularidade do Executivo, a presença de mulheres cai.
+                A vice-presidência e a vice-governadoria não exercem o comando enquanto o titular estiver no cargo. Quando a candidatura é ao comando, a presença de mulheres cai.
               </p>
             </article>
 
             <article className="poster-frame-accent p-5">
-              <p className="record-label border-ink text-ink">Hipótese em investigação</p>
+              <p className="record-label border-ink text-ink">Fato, em série</p>
               <p className="mt-3 leading-relaxed text-ink/70">
-                Esse padrão se repete em eleições anteriores ou é particular a 2026? Comparar 2014, 2018 e 2022 pode indicar se mulheres são sistematicamente mais aceitas em posições de apoio à chapa do que no comando direto — ou se a distância deste ano é uma anomalia.
+                Nos governos, o padrão se repete em todas as eleições desde 2014 e aumentou: mulheres passaram de 12,0% para 17,4% das candidaturas a titular e de 24,0% para 41,7% das candidaturas a vice. No Senado, a diferença oscila: em 2022, havia proporcionalmente mais mulheres entre as titulares (23,9%) do que entre as primeiras suplentes (23,4%).
               </p>
             </article>
+          </div>
+
+          <div>
+            <p className="poster-eyebrow mb-4 text-ink">Titular e vice, de 2014 a 2026</p>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[980px] border-collapse text-left text-sm">
+                <caption className="sr-only">Participação de mulheres entre candidaturas titulares, vices e suplentes de 2014 a 2026</caption>
+                <thead>
+                  <tr className="border-b-2 border-ink">
+                    {['Ano', 'Governadora', 'Vice-governadora', 'Senadora', '1ª suplente', '2ª suplente', 'Presidenta', 'Vice-presidenta'].map((label) => <th key={label} scope="col" className="py-2 pr-4 font-mono text-[10px] uppercase text-muted-foreground">{label}</th>)}
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ['2014', '12,0% (23 de 192)', '24,0% (49 de 204)', '18,9% (35 de 185)', '20,6% (43 de 209)', '19,2% (41 de 214)', '3 de 12', '4 de 12'],
+                    ['2018', '14,7% (30 de 204)', '36,0% (76 de 211)', '16,6% (64 de 385)', '22,9% (95 de 414)', '28,5% (121 de 424)', '2 de 14', '5 de 14'],
+                    ['2022', '17,5% (40 de 228)', '38,6% (95 de 246)', '23,9% (58 de 243)', '23,4% (64 de 274)', '34,4% (95 de 276)', '4 de 13', '5 de 13'],
+                    ['2026', '17,4% (35 de 201)', '41,7% (88 de 211)', '21,9% (70 de 319)', '30,4% (106 de 349)', '30,6% (107 de 350)', '2 de 14', '6 de 14'],
+                  ].map(([year, ...cells]) => (
+                    <tr key={year} className="border-b border-rule">
+                      <th scope="row" className="py-3 pr-4 font-display text-lg text-ink">{year}</th>
+                      {cells.map((cell, index) => <td key={`${year}-${index}`} className="whitespace-nowrap py-3 pr-4 font-mono text-[11px] text-ink">{cell}</td>)}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-3 font-mono text-[10px] leading-relaxed text-muted-foreground">Pedidos de registro de cada eleição. O número de vices e suplentes pode diferir do de titulares por substituições e registros indeferidos que permanecem no arquivo. Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026 (base de 25/09/2026).</p>
           </div>
 
           <div>

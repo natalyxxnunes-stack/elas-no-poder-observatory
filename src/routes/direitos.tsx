@@ -98,7 +98,7 @@ function DireitosPage() {
         lead={
           <>
             <p className="font-display text-xl leading-snug text-ink">
-              Uma lei é um marco. Não é a linha de chegada.
+              Cada lei abriu uma disputa nova.
             </p>
             <p className="mt-3">{RIGHTS_TIMELINE_RULE}</p>
           </>
@@ -208,7 +208,7 @@ function DireitosPage() {
           ))}
         </ul>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
-          <ContextBox variant="significa" title="Conquista não é igual a efeito">
+          <ContextBox variant="significa" title="Conquista, vigência e efeito">
             <p>
               Uma regra pode existir e não ser implementada. Conquista, vigência e
               efeito prático são três coisas diferentes.

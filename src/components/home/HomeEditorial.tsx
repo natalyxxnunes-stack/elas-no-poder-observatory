@@ -177,6 +177,9 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
             <p className="mt-3 text-sm text-ink">
               {proportional ? `${formatInt(proportional.feminine)} de ${formatInt(proportional.total)} candidaturas` : "Dados em atualização"}
             </p>
+            <p className="mt-2 max-w-md text-xs leading-relaxed text-muted-foreground">
+              A lei exige no mínimo 30% e no máximo 70% de cada gênero na lista de cada partido ou federação. Em 2022, mulheres eram 34,1% das candidaturas.
+            </p>
             <p className="mt-1 font-mono text-[10px] uppercase text-muted-foreground">TSE · {baseDate ?? "base em atualização"}</p>
           </div>
         </div>
@@ -205,19 +208,13 @@ export function HomeMapSection({ snapshot }: { snapshot: PublicSnapshot | null }
 
 const HISTORY_YEARS = [2014, 2018, 2022, 2026] as const;
 
-export function HomeHistoryHighlight({ historical }: { historical: HistoricalSeriesPayload | null }) {
-  const feminine = historical?.series.find((s) => s.id === "serie-mulheres-candidaturas");
-  const points = HISTORY_YEARS.map((year) => ({
-    year,
-    point: feminine?.points.find((p) => p.universe === "proporcional" && p.year === year) ?? null,
-  }));
-  const first = points[0]?.point;
-  const previousElection = points[points.length - 2]?.point;
-  const last = points[points.length - 1]?.point;
-
-  if (!previousElection || previousElection.value === null || !last || last.value === null) return null;
-
-  const delta = last.value - previousElection.value;
+export function HomeHistoryHighlight({ historical: _historical }: { historical: HistoricalSeriesPayload | null }) {
+  const points = [
+    { year: HISTORY_YEARS[0], value: 31.5, candidacies: "7.930" },
+    { year: HISTORY_YEARS[1], value: 32.0, candidacies: "8.820" },
+    { year: HISTORY_YEARS[2], value: 34.1, candidacies: "9.532" },
+    { year: HISTORY_YEARS[3], value: 35.6, candidacies: "6.951" },
+  ];
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen border-b border-rule bg-paper">
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:grid-cols-[1.1fr_minmax(0,20rem)] md:px-8 md:py-20">
@@ -226,16 +223,14 @@ export function HomeHistoryHighlight({ historical }: { historical: HistoricalSer
             <span className="h-1 w-3 bg-plum" aria-hidden="true" /> Como chegamos até aqui
           </p>
           <h2 className="mt-5 font-display text-3xl leading-[1.05] text-ink md:text-4xl">
-            De {formatPct(previousElection.value)} em 2022 para {formatPct(last.value)} na fotografia atual
+            2.581 candidatas a menos que em 2022
           </h2>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-            {formatPoints(delta)} de diferença desde a última eleição. Cada eleição é calculada sobre o seu próprio total — os valores não são somados.
+            Os pedidos de registro para deputada e deputado caíram 30% em relação a 2022, em todos os 27 estados. Entre as mulheres, a queda foi de 27%; entre os homens, de 32%. Por isso a presença feminina subiu de 34,1% para 35,6%, num campo menor.
           </p>
-          {first && first.value !== null && (
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-              Olhando mais atrás, era {formatPct(first.value)} em {first.year} — {formatPoints(last.value - first.value)} de diferença entre {first.year} e a fotografia de 2026.
-            </p>
-          )}
+          <p className="mt-3 max-w-md font-mono text-[10px] leading-relaxed text-muted-foreground">
+            Comparação entre pedidos de registro. Em 2022, 9,6% deles terminaram inaptos; o arquivo de 2026 ainda não informa a situação das candidaturas.
+          </p>
           <Link to="/historico" className="mt-6 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[11px] font-semibold uppercase text-plum">
             Ver a série completa <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
@@ -243,20 +238,20 @@ export function HomeHistoryHighlight({ historical }: { historical: HistoricalSer
         <div
           className="flex items-end justify-between gap-4"
           role="img"
-          aria-label={`Participação feminina nas candidaturas proporcionais por eleição: ${points.map((p) => `${p.year}, ${p.point?.value !== null && p.point?.value !== undefined ? formatPct(p.point.value) : "sem dado"}`).join("; ")}`}
+          aria-label={`Participação feminina nas candidaturas proporcionais por eleição: ${points.map((p) => `${p.year}, ${formatPct(p.value)}, ${p.candidacies} candidatas`).join("; ")}`}
         >
-          {points.map(({ year, point }) => {
-            const value = point?.value ?? null;
-            const heightPct = value !== null ? value : 0;
+          {points.map(({ year, value, candidacies }) => {
             return (
               <div key={year} className="flex flex-1 flex-col items-center gap-2" aria-hidden="true">
+                <span className="font-mono text-[10px] font-semibold text-ink">{formatPct(value)}</span>
                 <div className="flex h-28 w-full items-end">
                   <div
-                    className={`w-full ${year === last.year ? "bg-plum" : "bg-plum/35"}`}
-                    style={{ height: value !== null ? `${heightPct}%` : "2px" }}
+                    className={`w-full ${year === 2026 ? "bg-plum" : "bg-plum/35"}`}
+                    style={{ height: `${value}%` }}
                   />
                 </div>
                 <span className="font-mono text-[10px] text-muted-foreground">{year}</span>
+                <span className="text-center font-mono text-[10px] text-muted-foreground">{candidacies} candidatas</span>
               </div>
             );
           })}
@@ -329,9 +324,9 @@ export function HomeFunnelFeature() {
 }
 
 const INVESTIGATIONS = [
-  { id: "historico", title: "A participação aumentou. Mas a distância permanece.", to: "/historico", link: "Ver a série histórica" },
-  { id: "direitos", title: "As regras mudaram. E isso importa.", to: "/direitos", link: "Ver a linha do tempo" },
-  { id: "dinheiro", title: "Quem tem recursos para disputar?", to: "/dinheiro", link: "Ver quem recebe" },
+  { id: "historico", title: "Em 2022, 1 em cada 34 candidatas a deputada se elegeu. Entre os homens, 1 em cada 14.", support: "Candidaturas e eleitas em cada eleição geral, de 2014 a 2026.", to: "/historico", link: "Ver a série histórica" },
+  { id: "direitos", title: "Treze marcos, de 1932 a 2026", support: "Cada lei, decisão e emenda que mudou o acesso das mulheres às urnas e ao dinheiro de campanha, com o texto oficial.", to: "/direitos", link: "Ver a linha do tempo" },
+  { id: "dinheiro", title: "Candidata a deputada branca declarou R$ 130 mil nos maiores partidos. Parda, R$ 87 mil.", support: "Receitas declaradas até 25/09, por gênero, cor/raça, cargo, partido e estado.", to: "/dinheiro", link: "Ver quem recebe" },
 ] as const;
 
 export function HomeInvestigationGrid({ snapshot: _snapshot }: { snapshot: PublicSnapshot | null }) {
@@ -344,7 +339,7 @@ export function HomeInvestigationGrid({ snapshot: _snapshot }: { snapshot: Publi
             <article key={item.id} className="border-b border-rule px-6 py-12 md:border-b-0 md:border-r md:px-8 md:py-16">
               <p className="flex items-center gap-3 font-mono text-[10px] uppercase text-muted-foreground"><span className="h-1 w-3 bg-coral" /> {axis?.label}</p>
               <h2 className="mt-5 font-display text-2xl leading-[1.02] text-ink md:text-3xl">{item.title}</h2>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{axis?.summary}</p>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.support}</p>
               <Link to={item.to} className="mt-7 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[10px] font-semibold uppercase text-plum">{item.link} <ArrowRight className="size-3.5" /></Link>
             </article>
           );
@@ -360,7 +355,7 @@ export function HomeAboutBand() {
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 md:grid-cols-12 md:px-8 md:py-20">
         <div className="md:col-span-4">
           <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cream/70">Sobre o projeto</p>
-          <h2 className="mt-4 font-display text-4xl leading-[0.95] text-cream md:text-5xl">Dados para<br />democratizar<br />o poder.</h2>
+          <h2 className="mt-4 font-display text-4xl leading-[0.95] text-cream md:text-5xl">Da candidatura<br />ao poder, com<br />a conta aberta.</h2>
         </div>
         <div className="border-cream/25 md:col-span-5 md:border-l md:pl-10">
           <p className="max-w-md text-sm leading-relaxed text-cream/80">O Quem são elas? é um observatório independente de dados sobre mulheres, eleições e poder. Transformamos números públicos em perguntas verificáveis, com fonte, denominador e método à vista.</p>

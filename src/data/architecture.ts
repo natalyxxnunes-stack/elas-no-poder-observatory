@@ -15,7 +15,7 @@ export const CENTRAL_THESIS =
 export const COVER_QUESTION = "Entre se candidatar e chegar ao poder, onde elas desaparecem?";
 
 export const CENTRAL_PRINCIPLE =
-  "Gênero e raça são dimensões estruturantes da investigação, não filtros decorativos. Território, partido, cargo, recursos, votos, resultado e poder são as dimensões pelas quais investigamos essas perguntas.";
+  "Gênero e raça estruturam a investigação. Território, partido, cargo, recursos, votos, resultado e poder são os recortes.";
 
 /** Estado editorial de um eixo — não é status de indicador. */
 export type AxisState = "com dados de candidatura" | "arquitetura preparada" | "conteúdo editorial";
@@ -271,7 +271,7 @@ export const UTILITY_NAV_ITEMS = [navItem("sobre")] as const;
 
 /** Regra editorial explícita sobre leitura do funil. */
 export const FUNNEL_READING_RULE =
-  "Cada etapa do funil tem universo, denominador, fórmula, fonte e data próprios: o funil organiza perguntas, não faz uma subtração. Diferenças entre percentuais de etapas com denominadores diferentes mostram contextos distintos — não uma perda direta de pontos entre as mulheres.";
+  "Cada etapa do funil tem universo, denominador, fórmula, fonte e data próprios. Percentuais de etapas diferentes descrevem contextos diferentes e não se subtraem.";
 
 /** Cruzamentos previstos no eixo gênero × raça, com o que falta para publicar. */
 export const INTERSECTION_PLAN = [

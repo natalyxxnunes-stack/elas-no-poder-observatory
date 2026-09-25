@@ -272,11 +272,7 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
           {VAGAS_SOURCE.name}, arquivo {VAGAS_SOURCE.fileName}, gerado em
           15/08/2026. Primeiro turno em 4/10/2026.
         </p>
-        <p>
-          Concorrência descreve o tamanho da disputa. Não é chance de eleição,
-          não é desempenho, não é quociente eleitoral — e não explica a ausência
-          de mulheres.
-        </p>
+        <p>Concorrência mede quantas candidaturas disputam cada vaga. Chance de eleição depende de voto e de quociente eleitoral, que só existem depois da apuração de 4/10.</p>
       </div>
     </div>
   );
