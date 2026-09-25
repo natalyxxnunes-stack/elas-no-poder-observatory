@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "./BrandLogo";
 import { BrandWordmark } from "./BrandWordmark";
@@ -63,14 +63,9 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
             </Link>
           ))}
         </nav>
-        <>
-            <div className="flex items-center gap-3 border-l border-rule pl-3 font-mono text-[10px] uppercase">
-              {UTILITY_NAV_ITEMS.map((item) => <Link key={item.to} to={item.to} className="text-muted-foreground hover:text-plum">{item.label}</Link>)}
-            </div>
-            {home && <Button asChild className="h-10 rounded-none bg-plum px-5 font-mono text-[10px] uppercase tracking-[0.08em] text-primary-foreground hover:bg-coral hover:text-ink">
-              <Link to="/sobre">Apoie o projeto <ArrowRight className="size-3.5" /></Link>
-            </Button>}
-          </>
+          <div className="flex items-center gap-3 border-l border-rule pl-3 font-mono text-[10px] uppercase">
+            {UTILITY_NAV_ITEMS.map((item) => <Link key={item.to} to={item.to} className="text-muted-foreground hover:text-plum">{item.label}</Link>)}
+          </div>
         </div>
 
         <Button

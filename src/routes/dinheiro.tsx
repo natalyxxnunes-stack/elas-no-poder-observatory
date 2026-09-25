@@ -20,7 +20,7 @@ export const Route = createFileRoute("/dinheiro")({
     meta: [
       {
         title:
-          "Quanto mais alto o cargo, menos dinheiro de campanha chega às mulheres | Quem são elas?",
+          "Nos cargos majoritários, elas recebem fatia menor da receita | Quem são elas?",
       },
       {
         name: "description",
@@ -30,12 +30,12 @@ export const Route = createFileRoute("/dinheiro")({
       {
         property: "og:title",
         content:
-          "Quanto mais alto o cargo, menos dinheiro de campanha chega às mulheres",
+          "Nos cargos majoritários, elas recebem fatia menor da receita",
       },
       {
         property: "og:description",
         content:
-          "Quanto já chegou às candidaturas de mulheres na prestação de contas em andamento, por cargo, cor/raça, partido e UF.",
+          "Quanto foi declarado como receita pelas candidaturas de mulheres na prestação de contas parcial, por cargo, cor/raça, partido e UF.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -131,8 +131,8 @@ function DinheiroPage() {
       <EditorialOpening
         variant="financial"
         kicker="Dinheiro"
-        question="Quanto mais alto o cargo, menos dinheiro chega às mulheres"
-        lead={<p>Na corrida à Presidência, mulheres são {presidentialFeminine !== undefined ? formatInt(presidentialFeminine) : "—"} das {presidentialTotal !== undefined ? formatInt(presidentialTotal) : "—"} candidaturas e recebem {presidente} do dinheiro declarado. Entre as candidaturas que já declararam receita, a fatia das mulheres encolhe à medida que o cargo sobe: {deputadoEstadual} do dinheiro nas assembleias legislativas, {senador} no Senado, {governador} nos governos e {presidente} na Presidência.</p>}
+        question="Nos cargos majoritários, elas recebem fatia menor da receita"
+        lead={<p>Na corrida à Presidência, mulheres são {presidentialFeminine !== undefined ? formatInt(presidentialFeminine) : "—"} das {presidentialTotal !== undefined ? formatInt(presidentialTotal) : "—"} candidaturas e recebem {presidente} do dinheiro declarado. No universo proporcional, mulheres têm {prop} da receita declarada; no majoritário, {maj}.</p>}
         layers={MONEY_LAYERS.map((layer) => layer.label)}
         gap="Prestação de contas em andamento · receita, não despesa · valores sujeitos a atualização"
         snapshot={financeSnapshot}
@@ -142,7 +142,7 @@ function DinheiroPage() {
         <InBrief
           found={
             <>
-              Entre as receitas já informadas, mulheres recebem {prop} do total no universo proporcional e {maj} no majoritário. Por cargo, a fatia cai nos postos de comando mais altos: chega a {presidente} na Presidência.
+              Na receita declarada até agora, mulheres recebem {prop} do total no universo proporcional e {maj} no majoritário. Na Presidência, a fatia é de {presidente}.
             </>
           }
           matters={
@@ -158,11 +158,11 @@ function DinheiroPage() {
         />
       </div>
 
-      <SectionBlock kicker="Fotografia da receita" question="Quanto já entrou — e quantas candidaturas aparecem nesta base" align="wide" lead={<p>Quantas candidaturas já declararam receita e quanto elas somam, em cada universo.</p>} source={<>Fonte: TSE · Prestação de Contas Eleitorais 2026 · base gerada em 23/09/2026 · {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita</>}>
+      <SectionBlock kicker="Fotografia da receita" question="Quanto foi declarado como receita, e por quantas candidaturas" align="wide" lead={<p>Quantas candidaturas já declararam receita e quanto elas somam, em cada universo.</p>} source={<>Fonte: TSE · Prestação de Contas Eleitorais 2026 · base gerada em 23/09/2026 · {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita</>}>
         <FinanceCoverage snapshot={financeSnapshot} />
       </SectionBlock>
 
-      <SectionBlock kicker="Por cargo" question="Quanto mais alto o cargo, menor a fatia da receita que chega às mulheres" align="wide" tone="solar" lead={<p>Na fotografia atual, mulheres recebem {presidente} da receita declarada para a Presidência, {governador} para governos, {senador} para o Senado, {deputadoFederal} para a Câmara dos Deputados, {deputadoDistrital} para a Câmara Legislativa do DF e {deputadoEstadual} para assembleias legislativas.</p>}>
+      <SectionBlock kicker="Por cargo" question="A fatia da receita declarada, cargo a cargo" align="wide" tone="solar" lead={<p>Na fotografia atual, mulheres recebem {presidente} da receita declarada para a Presidência, {governador} para governos, {senador} para o Senado, {deputadoFederal} para a Câmara dos Deputados, {deputadoDistrital} para a Câmara Legislativa do DF e {deputadoEstadual} para assembleias legislativas.</p>}>
         <FinanceByOffice snapshot={financeSnapshot} />
       </SectionBlock>
 

@@ -51,7 +51,7 @@ export const DISPUTE_ITEMS: readonly DisputeItem[] = [
     kind: "Emenda constitucional",
     title: "Contagem em dobro de votos para distribuição de recursos (EC 111/2021)",
     proposal:
-      "Contagem em dobro dos votos dados a candidaturas de mulheres e de pessoas negras à Câmara dos Deputados, nas eleições de 2022, 2026 e 2030, para fins de distribuição do fundo partidário e do tempo de propaganda entre os partidos.",
+      "Os votos dados a candidatas mulheres ou a candidatos negros para a Câmara dos Deputados nas eleições de 2022 a 2030 são contados em dobro, uma única vez, para fins de distribuição entre os partidos dos recursos do Fundo Partidário e do FEFC.",
     affects:
       "Partidos, na divisão de recursos entre si. Não altera a atribuição de cadeiras nem o resultado da eleição.",
     status: "EM VIGOR",
@@ -60,7 +60,7 @@ export const DISPUTE_ITEMS: readonly DisputeItem[] = [
     sourceLabel: "Emenda Constitucional nº 111/2021",
     sourceUrl:
       "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm",
-    checkedAt: "2026-09-22",
+    checkedAt: "2026-09-24",
   },
   {
     id: "sumula-73-tse",

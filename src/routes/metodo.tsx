@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { buildSnapshotCsv } from "@/lib/tse/snapshot-csv";
-import { formatInt } from "@/lib/format-br";
+import { formatDateBR, formatInt } from "@/lib/format-br";
+import { INSPECTED_AT } from "@/lib/tse/data-dictionary";
 
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
@@ -197,8 +198,7 @@ function MetodoPage() {
             </p>
             {snapshot && (
               <p className="mt-3 font-mono text-[12px] text-muted-foreground">
-                {formatInt(snapshot.recordCount)} candidaturas na
-                fotografia
+                {formatInt(snapshot.recordCount)} candidaturas nos dois universos
               </p>
             )}
           </div>
@@ -386,7 +386,7 @@ function MetodoPage() {
               <dd>{br(snapshot?.collectedAt ?? null)}</dd>
             </div>
             <div>
-              <dt className="uppercase tracking-wider">Registros lidos</dt>
+              <dt className="uppercase tracking-wider">Candidaturas nos dois universos</dt>
               <dd>{snapshot ? formatInt(snapshot.recordCount) : "—"}</dd>
             </div>
             <div className="md:col-span-2">
@@ -832,8 +832,7 @@ function MetodoPage() {
               <div>
                 <dt className="inline text-muted-foreground">Denominador: </dt>
                 <dd className="inline">
-                  {COMPETITION_DEFINITION.denominatorSource} · arquivo gerado em
-                  15/08/2026 · SHA-256 do pacote{" "}
+                  {COMPETITION_DEFINITION.denominatorSource} · Fonte: TSE · arquivo de vagas gerado em 15/08/2026 · SHA-256 do pacote{" "}
                   <span className="break-all">{VAGAS_SOURCE.zipSha256}</span>
                 </dd>
               </div>
@@ -1078,10 +1077,7 @@ function MetodoPage() {
             regra sobre a presença de mulheres.
           </GapNote>
           <GapNote label="Deficiência, povos indígenas e quilombolas">
-            Verificamos coluna por coluna o que a base de 2026 permite. Não há
-            nenhuma coluna de deficiência no arquivo público de Candidatos nem no
-            de Informações complementares: esse recorte é impossível hoje, e não
-            será inferido. Pertencimento quilombola (ST_QUILOMBOLA) e etnia
+            O requerimento de registro de 2026 coleta a condição de pessoa com deficiência e o tipo de deficiência (Res. TSE 23.754/2026, art. 24). Esses campos não aparecem nos arquivos públicos que processamos, Candidatos e Informações complementares, com cabeçalhos lidos em {formatDateBR(INSPECTED_AT)}. Por isso não publicamos esse recorte nem o inferimos. Pertencimento quilombola (ST_QUILOMBOLA) e etnia
             indígena (DS_ETNIA_INDIGENA) existem, mas apenas no recurso
             complementar, que o observatório ainda não ingere — enquanto ele não
             for processado e auditado como a base principal, nenhum percentual
@@ -1090,10 +1086,7 @@ function MetodoPage() {
             um povo, e uma não substitui a outra.
           </GapNote>
           <GapNote label="Identidade de gênero">
-            A base traz um único campo de gênero, com valores masculino e
-            feminino. Ele não identifica candidaturas trans ou travestis, e por
-            isso este site não afirma nada sobre elas — nem por nome social, nem
-            por qualquer outra inferência.
+            O registro de 2026 também coleta identidade de gênero, mas o campo não aparece nos arquivos públicos que processamos: eles trazem um único campo de gênero, com valores masculino e feminino. Por isso este site não afirma nada sobre candidaturas trans ou travestis, nem por nome social, nem por qualquer outra inferência.
           </GapNote>
           <GapNote label="Campo político: eixo em apuração">
             A base do TSE traz partido e forma de agremiação, não campo
