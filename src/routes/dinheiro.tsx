@@ -14,7 +14,7 @@ import {
 } from "@/data/tse-finance-snapshot";
 import { snapshot } from "@/data/tse-snapshot";
 import { FinanceByOffice, FinanceByUf, FinanceCoverage, FinanceParties, FinanceRace } from "@/components/editorial/FinanceOverview";
-import { formatInt, formatPct } from "@/lib/format-br";
+import { formatInt } from "@/lib/format-br";
 
 /**
  * Fase 1 publicada: receitas declaradas por gênero, cor/raça, cargo, partido e UF.
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/dinheiro")({
     meta: [
       {
         title:
-          "Nos cargos majoritários, elas recebem fatia menor da receita | Quem são elas?",
+          "Entre as candidatas a deputada, as brancas recebem mais, até nos maiores partidos | Quem são elas?",
       },
       {
         name: "description",
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/dinheiro")({
       {
         property: "og:title",
         content:
-          "Nos cargos majoritários, elas recebem fatia menor da receita",
+          "Entre as candidatas a deputada, as brancas recebem mais, até nos maiores partidos",
       },
       {
         property: "og:description",
@@ -95,47 +95,13 @@ const MONEY_LAYERS = [
 ] as const;
 
 function DinheiroPage() {
-  const revenueShare = (feminine: number | undefined, total: number | undefined) =>
-    feminine !== undefined && total !== undefined && total > 0
-      ? formatPct((feminine / total) * 100)
-      : "—";
-  const proportional = financeSnapshot.universes.proporcional;
-  const majoritarian = financeSnapshot.universes.majoritario;
-  const prop = revenueShare(proportional.feminineRevenue, proportional.totalRevenue);
-  const maj = revenueShare(majoritarian.feminineRevenue, majoritarian.totalRevenue);
-  const presidente = revenueShare(
-    majoritarian.byOffice["PRESIDENTE"]?.feminine,
-    majoritarian.byOffice["PRESIDENTE"]?.total,
-  );
-  const governador = revenueShare(
-    majoritarian.byOffice["GOVERNADOR"]?.feminine,
-    majoritarian.byOffice["GOVERNADOR"]?.total,
-  );
-  const senador = revenueShare(
-    majoritarian.byOffice["SENADOR"]?.feminine,
-    majoritarian.byOffice["SENADOR"]?.total,
-  );
-  const deputadoFederal = revenueShare(
-    proportional.byOffice["DEPUTADO FEDERAL"]?.feminine,
-    proportional.byOffice["DEPUTADO FEDERAL"]?.total,
-  );
-  const deputadoDistrital = revenueShare(
-    proportional.byOffice["DEPUTADO DISTRITAL"]?.feminine,
-    proportional.byOffice["DEPUTADO DISTRITAL"]?.total,
-  );
-  const deputadoEstadual = revenueShare(
-    proportional.byOffice["DEPUTADO ESTADUAL"]?.feminine,
-    proportional.byOffice["DEPUTADO ESTADUAL"]?.total,
-  );
-  const presidentialFeminine = snapshot?.universes.majoritario.dimensions?.feminineByCargo?.["PRESIDENTE"];
-  const presidentialTotal = snapshot?.universes.majoritario.dimensions?.totalByCargo?.["PRESIDENTE"];
   return (
     <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Dinheiro" }]}>
       <EditorialOpening
         variant="financial"
         kicker="Dinheiro"
-        question="Nos cargos majoritários, elas recebem fatia menor da receita"
-        lead={<p>Na corrida à Presidência, mulheres são {presidentialFeminine !== undefined ? formatInt(presidentialFeminine) : "—"} das {presidentialTotal !== undefined ? formatInt(presidentialTotal) : "—"} candidaturas e concentram {presidente} da receita declarada para o cargo. No universo proporcional, mulheres têm {prop} da receita declarada; no majoritário, {maj}.</p>}
+        question="Entre as candidatas a deputada, as brancas recebem mais, até nos maiores partidos"
+        lead={<p>Nas disputas para deputada, mulheres são 36,0% das candidaturas com receita declarada até 25/09 e ficam com 34,9% do dinheiro, fatia próxima da presença delas. A diferença aparece dentro do grupo. Nos 12 partidos com mais receita, que concentram 90% do dinheiro, a mediana das candidatas brancas é R$ 130 mil; a das pardas, R$ 87 mil; a das pretas, R$ 75 mil. Nas disputas por governo, Senado e Presidência, pesa sobretudo quem lança a candidata: 13 das 17 candidatas pretas são de partidos menores, com pouca receita.</p>}
         layers={MONEY_LAYERS.map((layer) => layer.label)}
         gap="Prestação de contas em andamento · receita, não despesa · valores sujeitos a atualização"
         snapshot={financeSnapshot}
@@ -145,17 +111,17 @@ function DinheiroPage() {
         <InBrief
           found={
             <>
-              Na receita declarada até agora, mulheres recebem {prop} do total no universo proporcional e {maj} no majoritário. Na Presidência, a fatia é de {presidente}.
+              Nas listas para deputada, a fatia das mulheres no dinheiro (34,9%) fica perto da presença delas entre as candidaturas com receita (36,0%). Nas disputas majoritárias, elas ficam com 16,5% do dinheiro e são 20,5% das candidaturas com receita.
             </>
           }
           matters={
             <>
-              A presença nas listas e a participação no dinheiro não são a mesma medida. O recorte por cargo mostra onde a distância se amplia, sem afirmar que o recurso, sozinho, causa o resultado eleitoral.
+              Contar mulheres em bloco esconde onde o dinheiro se concentra. Nas listas para deputada, as candidatas brancas recebem uma fatia maior do que o peso delas entre as candidatas com receita, também dentro dos maiores partidos.
             </>
           }
           unknown={
             <>
-              Despesas contratadas ou pagas, doador originário, titularidade e suplência e a relação entre recursos e competitividade. Essas etapas ficam fora desta fase.
+              Despesas, doador originário e a relação entre dinheiro e voto. As contas seguem abertas e os valores mudam até a prestação final.
             </>
           }
         />
@@ -165,12 +131,16 @@ function DinheiroPage() {
         <FinanceCoverage snapshot={financeSnapshot} />
       </SectionBlock>
 
-      <SectionBlock kicker="Por cargo" question="A fatia da receita declarada, cargo a cargo" align="wide" tone="solar" lead={<p>Na fotografia atual, mulheres recebem {presidente} da receita declarada para a Presidência, {governador} para governos, {senador} para o Senado, {deputadoFederal} para a Câmara dos Deputados, {deputadoDistrital} para a Câmara Legislativa do DF e {deputadoEstadual} para assembleias legislativas.</p>}>
+      <SectionBlock kicker="Por cargo" question="Presença e receita, cargo a cargo" align="wide" tone="solar" lead={<p>Em duas disputas as mulheres recebem mais do que a presença delas: assembleias legislativas (38,7% da receita, 35,2% das candidaturas com receita) e Senado (26,3% e 22,4%). Nas outras, recebem menos: Câmara dos Deputados (33,1% e 37,1%), Câmara Legislativa do DF (30,0% e 35,9%) e governos estaduais (12,0% e 17,9%). Na Presidência, as mulheres são 2 das 13 candidaturas com receita e ficam com 1,3% do dinheiro declarado.</p>}>
         <FinanceByOffice snapshot={financeSnapshot} />
       </SectionBlock>
 
       <SectionBlock kicker="Gênero × cor/raça × receita" question="Entre as mulheres, para quais categorias declaradas o dinheiro chegou?" align="wide" lead={<p>Os valores mostram a distribuição da receita declarada por candidaturas de mulheres. Cor/raça permanece nas categorias originais do TSE, sem agregar preta e parda.</p>}>
         <FinanceRace snapshot={financeSnapshot} />
+        <div className="mt-5 space-y-2 text-sm leading-relaxed text-muted-foreground">
+          <p>Mediana é o valor do meio: metade das candidatas declarou mais, metade declarou menos. Ela resiste melhor do que a soma a poucas campanhas muito grandes.</p>
+          <p className="font-mono text-[10px]">Maiores partidos = os 12 com mais receita declarada até 25/09 (MDB, PDT, PL, PODE, PP, PSB, PSD, PSDB, PSOL, PT, Republicanos e União), que somam 89,8% do dinheiro.</p>
+        </div>
       </SectionBlock>
 
       <SectionBlock kicker="Partidos" question="Os cinco partidos com maior receita no universo proporcional" align="wide" lead={<p>O recorte ordena os partidos pelo total de receita declarada e mostra, dentro de cada um, quanto foi declarado por candidaturas de mulheres. Não é ranking de equidade.</p>}>
@@ -183,7 +153,7 @@ function DinheiroPage() {
 
       <SectionBlock
         kicker="A regra"
-        question="Financiamento não é a mesma coisa que cota de candidaturas"
+        question="Cota de candidaturas e cota de dinheiro são regras diferentes"
         lead={<p>{QUOTA_RULE.financingNote}</p>}
       >
         <div className="grid gap-4">
