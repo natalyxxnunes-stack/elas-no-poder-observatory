@@ -129,8 +129,7 @@ function FunilPage() {
           unknown={
             <>
               Em aberto: quem se elege em 2026 — a eleição acontece em outubro e
-              o resultado entra depois — e a distribuição por cor/raça do total
-              de candidaturas, dimensão que a fotografia atual não grava.
+              o resultado entra depois.
             </>
           }
         />

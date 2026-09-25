@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { GapNote } from "@/components/GapNote";
 import { StatusTag } from "./StatusTag";
 import { COMPETITION_DEFINITION, UNIVERSE_SHORT } from "@/data/competitividade";
-import { VAGAS_SOURCE, totalVagas, vagasOf } from "@/data/vagas-2026";
+import { VAGAS_SOURCE, vagasOf } from "@/data/vagas-2026";
 import type { UniverseId } from "@/lib/tse/compute";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import { formatInt, formatDecimal } from "@/lib/format-br";
@@ -68,13 +68,18 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
       };
     });
 
-    const tally = snapshot!.universes[universe];
+    const total = rows.reduce((sum, row) => sum + row.total, 0);
+    const feminine = rows.reduce((sum, row) => sum + row.feminine, 0);
+    const vagasTotal = rows.reduce(
+      (sum, row) => sum + (row.vagas ?? 0),
+      0,
+    );
     return {
       rows,
-      vagasTotal: totalVagas(universe),
-      total: tally.total,
-      feminine: tally.feminine,
-      masculine: Math.max(tally.total - tally.feminine, 0),
+      vagasTotal,
+      total,
+      feminine,
+      masculine: Math.max(total - feminine, 0),
     };
   }, [snapshot, universe]);
 
@@ -160,6 +165,9 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
               {int(data.masculine)} de homens (
               {n1(data.masculine / data.vagasTotal)} por vaga). As vagas não têm
               gênero: a separação está apenas nas candidaturas.
+              {universe === "majoritario"
+                ? " A Presidência (14 candidaturas, 1 vaga) é disputa nacional e fica fora desta tabela."
+                : ""}
             </p>
 
             <div className="mt-5 flex flex-wrap items-center gap-2">

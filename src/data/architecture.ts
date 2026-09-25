@@ -119,7 +119,7 @@ export const AXES: readonly Axis[] = [
     ],
     unpublishedReason: "",
     state: "conteúdo editorial",
-    publication: "published", status: "publicado", statusNote: "Receitas declaradas na prestação de contas em andamento, base de 24/09/2026; os valores ainda podem mudar até a prestação final.", group: "investigacao",
+    publication: "published", status: "publicado", statusNote: "Receitas declaradas na prestação de contas em andamento, base de 25/09/2026; os valores ainda podem mudar até a prestação final.", group: "investigacao",
   },
   {
     id: "votos",
@@ -260,6 +260,7 @@ export const PUBLISHED_AXES = AXES.filter((item) => item.publication === "publis
 export const DATA_2026_NAV_ITEMS = [
   { label: "Brasil", to: "/", hash: undefined },
   { label: "Estados", to: "/quem-sao-elas", hash: "estados" },
+  { label: "Partidos", to: "/quem-sao-elas", hash: "partidos" },
   { label: "Cargos", to: "/quem-sao-elas", hash: "cargos" },
   { label: "Raça", to: "/quem-sao-elas", hash: "raca" },
   { label: "Dinheiro", to: "/dinheiro", hash: undefined },

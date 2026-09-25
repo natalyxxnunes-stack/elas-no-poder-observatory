@@ -418,7 +418,7 @@ function MetodoPage() {
                     )}
                     <div>
                       <dt className="uppercase tracking-wider">Conferência</dt>
-                      <dd>recontagem independente em 22/09/2026</dd>
+                      <dd>recontagem independente em 25/09/2026</dd>
                     </div>
                   </dl>
                   <p className="mt-2 font-mono text-[12px] text-muted-foreground">
@@ -932,7 +932,9 @@ function MetodoPage() {
               entram todas na contagem, porque a situação muda até a decisão final
               da Justiça Eleitoral e um filtro tornaria as fotografias
               incomparáveis. O detalhe do estágio processual está em outro
-              recurso do TSE, ainda não integrado.
+               recurso do TSE, ainda não integrado. No arquivo de 2026, o TSE
+               não preenche a situação da candidatura (valor #NE em todas as
+               linhas).
             </p>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               A base pública também não permite identificar candidaturas

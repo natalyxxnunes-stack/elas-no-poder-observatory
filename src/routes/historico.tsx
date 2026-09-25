@@ -129,9 +129,8 @@ function HistoricoPage() {
           }
           unknown={
             <>
-              Em aberto nesta versão: o resultado de 2026, a cor/raça de todas
-              as candidaturas de 2026 e as lacunas documentadas nos arquivos
-              históricos oficiais.
+              Em aberto nesta versão: o resultado de 2026 e as lacunas
+              documentadas nos arquivos históricos oficiais.
             </>
           }
         />
@@ -167,13 +166,6 @@ function HistoricoPage() {
         source="Fonte: TSE · Candidatos (DS_COR_RACA)"
       >
         <SeriesChart series={byId("serie-negras-negros-candidaturas")} />
-        <div className="mt-6 space-y-4">
-          <GapNote label="Limite de 2026">
-            A fotografia atual de 2026 guarda cor/raça apenas das candidaturas de
-            mulheres. Por isso a participação negra sobre o total de candidaturas
-            de 2026 aparece vazia — não como zero.
-          </GapNote>
-        </div>
       </SectionBlock>
 
       <SectionBlock
@@ -267,7 +259,6 @@ function HistoricoPage() {
         calculo={<>Candidaturas de mulheres divididas pelo total de candidaturas do mesmo universo e do mesmo ano. {BLACK_AGGREGATION_NOTE}</>}
         limites={[
           "2026 não tem resultado: a eleição ainda não ocorreu, e nenhuma eleita é projetada.",
-          "Em 2026, a base guarda cor/raça só das candidaturas de mulheres.",
           "Os recortes históricos por cargo e por UF já foram coletados, mas ainda não têm indicador auditado publicado.",
           "Onde a base oficial não traz o dado, o ponto fica vazio. Nenhum ponto desta página é estimado.",
         ]}

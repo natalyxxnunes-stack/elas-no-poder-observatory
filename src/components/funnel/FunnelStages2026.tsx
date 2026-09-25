@@ -183,14 +183,6 @@ function RaceStage({
         <p className="mt-2 font-mono text-[12px] leading-relaxed text-muted-foreground">
           {BLACK_AGGREGATION_NOTE}
         </p>
-        <div className="mt-3">
-          <GapNote label="Limitação declarada">
-            A fotografia atual de 2026 grava cor/raça apenas das candidaturas de
-            mulheres. Por isso não existe aqui percentual de candidaturas negras
-            sobre o total de candidaturas de 2026: esse denominador não está no
-            snapshot e não é estimado.
-          </GapNote>
-        </div>
       </div>
     </li>
   );

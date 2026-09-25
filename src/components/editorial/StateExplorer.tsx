@@ -30,7 +30,7 @@ const UNIVERSE_SCOPE: Record<UniverseId, string> = {
   proporcional:
     "Deputada e deputado federal, estadual e distrital, contados dentro do estado",
   majoritario:
-    "Presidência, governos estaduais e Senado, contados dentro do estado",
+    "Governos estaduais e Senado, contados dentro do estado. A Presidência é disputa nacional e fica fora do recorte por estado.",
 };
 
 const nf = (n: number) => formatInt(n);

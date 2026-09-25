@@ -122,14 +122,14 @@ export async function getHistoricalSeries(): Promise<HistoricalSeriesPayload> {
         proporcional: {
           total: current.universes.proporcional.total,
           feminine: current.universes.proporcional.feminine,
-          raceAll: null,
+          raceAll: current.universes.proporcional.raceAllCounts ?? null,
           raceFeminine: current.universes.proporcional.raceCounts,
           elected: null,
         },
         majoritario: {
           total: current.universes.majoritario.total,
           feminine: current.universes.majoritario.feminine,
-          raceAll: null,
+          raceAll: current.universes.majoritario.raceAllCounts ?? null,
           raceFeminine: current.universes.majoritario.raceCounts,
           elected: null,
         },
