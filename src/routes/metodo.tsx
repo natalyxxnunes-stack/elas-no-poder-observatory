@@ -264,8 +264,7 @@ function MetodoPage() {
               Na eleição proporcional, os votos válidos são usados para calcular o{" "}
               <GlossaryTerm term="quociente-eleitoral" method={false}>
                 quociente eleitoral
-              </GlossaryTerm>{" "}
-              . A votação de cada partido ou federação define a distribuição inicial das cadeiras, e as vagas restantes são distribuídas pelas regras previstas na legislação. Só depois, dentro de cada partido ou federação, a ordem dos mais votados define quem ocupa essas cadeiras.
+              </GlossaryTerm>. A votação de cada partido ou federação define a distribuição inicial das cadeiras, e as vagas restantes são distribuídas pelas regras previstas na legislação. Só depois, dentro de cada partido ou federação, a ordem dos mais votados define quem ocupa essas cadeiras.
             </p>
             <p className="mt-2">
               Por isso a ordem dos mais votados dentro do partido decide quem

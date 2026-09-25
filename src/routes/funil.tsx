@@ -213,8 +213,7 @@ function FunilPage() {
               dela entram na votação do grupo, e é essa votação, comparada ao{" "}
               <GlossaryTerm term="quociente-eleitoral">
                 quociente eleitoral
-              </GlossaryTerm>
-              , que define quantas cadeiras o grupo conquista. Só depois, dentro do grupo, a ordem dos mais votados decide quem
+              </GlossaryTerm>, que define quantas cadeiras o grupo conquista. Só depois, dentro do grupo, a ordem dos mais votados decide quem
               ocupa essas cadeiras — por isso uma candidata com muitos votos pode
               ficar de fora e outra, com menos votos, entrar.
             </p>
