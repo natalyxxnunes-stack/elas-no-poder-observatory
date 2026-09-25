@@ -12,7 +12,7 @@ import {
 } from "./ui/breadcrumb";
 
 export type BreadcrumbTrail = readonly [
-  { label: string; to: string },
+  { label: string; to?: string },
   ...{ label: string; to?: string }[],
 ];
 
