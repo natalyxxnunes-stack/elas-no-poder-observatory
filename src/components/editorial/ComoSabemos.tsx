@@ -47,9 +47,12 @@ export function ComoSabemos({
         ))}
       </dl>
       {children && <div className="mt-6 max-w-4xl">{children}</div>}
-      <p className="mt-6 font-mono text-[12px] text-muted-foreground">
+      <p className="mt-6 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[12px] text-muted-foreground">
         <Link to="/metodo" className="text-plum underline underline-offset-4">
           Fórmulas, filtros e versões no Método
+        </Link>
+        <Link to="/investigacoes" className="text-plum underline underline-offset-4">
+          Ver o índice da investigação
         </Link>
       </p>
     </section>

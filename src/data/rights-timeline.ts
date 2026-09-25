@@ -29,11 +29,11 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     year: "1932",
     title: "Código Eleitoral admite o voto de mulheres",
     achievement:
-      "O Código Eleitoral de 1932 passa a admitir o alistamento e o voto de mulheres.",
+      "O Código Eleitoral de 1932 (Decreto 21.076) define como eleitor “o cidadão maior de 21 anos, sem distinção de sexo”.",
     rule:
-      "O alistamento feminino é admitido, mas em condições distintas das aplicadas aos homens: não havia equiparação imediata de obrigatoriedade nem de condições de exercício.",
+      "O voto passa a ser direito das mulheres, mas facultativo: o art. 121 permitia que mulheres de qualquer idade se isentassem de qualquer obrigação eleitoral, enquanto para os homens a obrigação ia até os 60 anos.",
     dispute:
-      "A extensão do direito conviveu com restrições de fato ligadas a situação civil, ocupação e alfabetização, e seguiu sendo objeto de disputa nas normas seguintes.",
+      "O Código não impôs às mulheres condição de estado civil ou de renda. A exclusão de analfabetos valia para homens e mulheres. A obrigatoriedade igual ficou para as normas seguintes.",
     implementation:
       "A aplicação foi gradual e desigual entre estados, dependendo da estrutura de alistamento existente.",
     consequence:
@@ -80,13 +80,13 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     year: "1995",
     title: "Primeira reserva de vagas de candidatura",
     achievement:
-      "A Lei 9.100/1995 estabelece percentual mínimo de vagas de candidatura para mulheres nas eleições municipais.",
+      "A Lei 9.100/1995 cria a primeira cota de candidaturas de mulheres, para as eleições municipais de 1996.",
     rule:
-      "Percentual mínimo de vagas reservadas nas listas partidárias das eleições proporcionais municipais.",
+      "No mínimo 20% das vagas de cada partido ou coligação nas eleições proporcionais municipais deviam ser preenchidas por candidaturas de mulheres (art. 11, §3º).",
     dispute:
-      "Reservar vaga não obrigava o partido a preencher a vaga: a regra podia ser cumprida no papel e ignorada na prática.",
+      "A mesma lei aumentou o número de candidaturas permitidas por partido. As vagas destinadas a mulheres podiam ficar vazias sem reduzir as demais.",
     implementation:
-      "Aplicada nas eleições municipais seguintes, com listas frequentemente incompletas.",
+      "Aplicada nas eleições municipais de 1996, com listas frequentemente incompletas.",
     consequence:
       "Ficou evidente a diferença entre reservar espaço e efetivamente lançar candidaturas.",
     sourceLabel: "Lei nº 9.100/1995",
@@ -98,14 +98,14 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     achievement:
       "A Lei 9.504/1997 fixa faixa de composição por gênero nas candidaturas proporcionais.",
     rule:
-      "Cada partido ou federação preenche no mínimo 30% e no máximo 70% das candidaturas em eleições proporcionais com cada gênero (art. 10, §3º).",
+      "Na redação original do art. 10, §3º, cada partido ou coligação devia reservar no mínimo 30% e no máximo 70% das candidaturas para cada sexo. Nas eleições de 1998, valeu a faixa de transição de 25% a 75% (art. 80).",
     dispute:
       "A regra alcança o registro de candidaturas, não a distribuição de recursos, propaganda ou posição na lista.",
     implementation:
-      "Aplicada a cada partido ou federação, por circunscrição, nas eleições proporcionais.",
+      "Aplicada a cada partido ou coligação, por circunscrição, nas eleições proporcionais. Federações partidárias só passaram a existir em 2021.",
     consequence:
       "Passou a existir um piso de candidaturas; a competitividade dessas candidaturas continuou fora do alcance da regra.",
-    sourceLabel: "Lei nº 9.504/1997, art. 10, §3º",
+    sourceLabel: "Lei nº 9.504/1997, art. 10, §3º (redação original) e art. 80",
     sourceUrl: "https://www.planalto.gov.br/ccivil_03/leis/l9504.htm",
   },
   {
@@ -152,10 +152,10 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     dispute:
       "A eficácia depende de fiscalização e de dados de cor/raça confiáveis no registro; a série histórica comparável é curta.",
     implementation:
-      "Efeitos antecipados para as eleições municipais de 2020, com aplicação nas eleições seguintes.",
+      "O TSE fixou a regra para as eleições de 2022; o STF, na ADPF 738, determinou a aplicação imediata, já nas eleições municipais de 2020.",
     consequence:
       "Tornou-se possível — e obrigatório — investigar recursos no cruzamento entre gênero e cor/raça.",
-    sourceLabel: "TSE — Consulta nº 0600306-47.2019.6.00.0000",
+    sourceLabel: "TSE, Consulta nº 0600306-47.2019.6.00.0000; STF, ADPF 738",
     sourceUrl:
       "https://www.tse.jus.br/comunicacao/noticias/2020/Agosto/tse-decide-que-recursos-de-campanha-devem-ser-distribuidos-proporcionalmente-a-candidaturas-negras",
   },
@@ -167,7 +167,7 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     rule:
       "Para a distribuição, entre os partidos, dos recursos do Fundo Partidário e do FEFC, os votos dados a candidatas mulheres ou a candidatos negros para a Câmara dos Deputados nas eleições de 2022 a 2030 são contados em dobro. A contagem incide sobre a partilha dos fundos entre os partidos — não sobre a atribuição de cadeiras: nenhuma candidata se elege com voto duplicado.",
     dispute:
-      "É um incentivo com prazo definido (2022–2030) e aplicação única por eleição. Sua eficácia depende de como cada partido redistribui internamente o que recebe, e a regra de aplicação única desfavorece especificamente mulheres negras, que se enquadram nos dois critérios mas têm o voto contado em dobro uma só vez.",
+      "É um incentivo com prazo definido (2022 a 2030), e cada voto é contado em dobro uma única vez. Sua eficácia depende de como cada partido redistribui internamente o que recebe.",
     implementation:
       "Em vigor desde as eleições de 2022, por ter entrado em vigência um ano antes.",
     consequence:
@@ -175,6 +175,22 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     sourceLabel: "Emenda Constitucional nº 111/2021, art. 2º",
     sourceUrl:
       "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm",
+  },
+  {
+    year: "2022",
+    title: "EC 117: a cota de recursos e de propaganda entra na Constituição",
+    achievement:
+      "A Emenda Constitucional 117/2022 leva para a Constituição a destinação mínima de recursos e de tempo de propaganda a candidaturas de mulheres.",
+    rule:
+      "O FEFC, a parcela do Fundo Partidário usada em campanhas e o tempo de propaganda gratuita no rádio e na TV devem ir, no mínimo em 30%, para candidaturas de mulheres, na proporção das candidatas (art. 17, §8º). Os partidos também devem aplicar no mínimo 5% do Fundo Partidário em programas de participação política das mulheres (art. 17, §7º).",
+    dispute:
+      "A mesma emenda impediu sanções, inclusive devolução de valores e multas, a partidos que não cumpriram as cotas de recursos por sexo e raça em eleições anteriores à promulgação (art. 3º).",
+    implementation:
+      "Promulgada em 5 de abril de 2022, antes das eleições gerais daquele ano.",
+    consequence:
+      "A cota de recursos ganhou status constitucional, e o descumprimento anterior ficou sem punição.",
+    sourceLabel: "Emenda Constitucional nº 117/2022",
+    sourceUrl: "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc117.htm",
   },
   {
     year: "2024",
@@ -191,7 +207,22 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
       "O cumprimento apenas formal da regra deixou de encerrar a discussão: registrar 30% no papel não basta se as candidaturas não forem reais.",
     sourceLabel: "Súmula 73 do TSE; Lei nº 9.504/1997, art. 10, §3º",
     sourceUrl:
-      "https://www.tse.jus.br/jurisprudencia/sumulas/sumulas-do-tse",
+      "https://www.tse.jus.br/legislacao/codigo-eleitoral/sumulas/sumulas-do-tse/sumula-tse-n-73",
+  },
+  {
+    year: "2024",
+    title: "EC 133: 30% dos recursos para candidaturas negras",
+    achievement:
+      "A Emenda Constitucional 133/2024, promulgada em 22 de agosto de 2024, leva para a Constituição uma destinação mínima de recursos a candidaturas de pessoas pretas e pardas.",
+    rule:
+      "Dos recursos do FEFC e do Fundo Partidário destinados às campanhas, os partidos devem aplicar 30% em candidaturas de pessoas pretas e pardas (art. 17, §9º), a partir das eleições de 2024.",
+    dispute:
+      "A emenda considerou cumpridos os valores já aplicados nessas candidaturas antes da promulgação e criou um programa de regularização de dívidas dos partidos, com perdão de juros e multas.",
+    implementation: "Aplicada desde as eleições municipais de 2024.",
+    consequence:
+      "A regra racial de recursos, antes construída por decisões judiciais, passou a ter base constitucional própria, com percentual fixo de 30%.",
+    sourceLabel: "Emenda Constitucional nº 133/2024",
+    sourceUrl: "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc133.htm",
   },
   {
     year: "2026",
@@ -199,14 +230,14 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     achievement:
       "As eleições de 2026 são regidas por um conjunto de resoluções do TSE que organizam, em normas separadas, o registro de candidaturas, a arrecadação e a prestação de contas, e a distribuição de recursos públicos de campanha — incorporando as regras de destinação a candidaturas de mulheres, pessoas negras e indígenas construídas ao longo dos ciclos anteriores.",
     rule:
-      "A destinação mínima de recursos do FEFC e do Fundo Partidário a essas candidaturas continua regida pela Resolução TSE nº 23.607/2019 (art. 17, §4º, e art. 19), com piso de 30% para candidaturas de mulheres, apoiada na ADI 5.617/DF e na ADPF 738/DF. Para o ciclo de 2026, a Resolução TSE nº 23.752/2026 (arrecadação e prestação de contas) alterou dispositivos da 23.607/2019, e o registro de candidaturas é tratado pela Resolução TSE nº 23.754/2026.",
+      "A destinação mínima de recursos do FEFC e do Fundo Partidário a essas candidaturas continua regida pela Resolução TSE nº 23.607/2019 (art. 17, §4º, e art. 19), com piso de 30% para candidaturas de mulheres, apoiada na ADI 5.617/DF e na ADPF 738/DF. Para o ciclo de 2026, a Resolução TSE nº 23.752/2026 (arrecadação e prestação de contas) alterou dispositivos da 23.607/2019, e o registro de candidaturas é tratado pela Resolução TSE nº 23.754/2026. A Resolução TSE nº 23.755/2026 alterou as regras de propaganda: o tempo de rádio e TV é distribuído na proporção das candidaturas de mulheres negras e não negras, de homens negros e não negros e de indígenas, com compensação semanal, e os tribunais passam a divulgar o tempo destinado a cada grupo.",
     dispute:
       "É o ciclo em curso: prazos, deferimentos e indeferimentos seguem em andamento e podem alterar o quadro de candidaturas. A eficácia das regras de destinação depende de fiscalização na prestação de contas, verificada apenas após o pleito.",
     implementation:
       "Aplicação corrente, acompanhada pelo calendário eleitoral de 2026.",
     consequence:
       "Os dados que este observatório publica em 2026 são provisórios por natureza, porque a própria aplicação das regras está em curso.",
-    sourceLabel: "Resolução TSE nº 23.607/2019; Resoluções TSE nº 23.752/2026 e nº 23.754/2026",
+    sourceLabel: "Resolução TSE nº 23.607/2019; Resoluções TSE nº 23.752/2026, nº 23.754/2026 e nº 23.755/2026",
     sourceUrl:
       "https://www.tse.jus.br/legislacao/compilada/res/2019/resolucao-no-23-607-de-17-de-dezembro-de-2019",
   },
