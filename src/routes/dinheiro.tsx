@@ -12,7 +12,6 @@ import {
   FINANCE_BASE_LABEL,
   financeSnapshot,
 } from "@/data/tse-finance-snapshot";
-import { snapshot } from "@/data/tse-snapshot";
 import { FinanceByOffice, FinanceByUf, FinanceCoverage, FinanceParties, FinanceRace } from "@/components/editorial/FinanceOverview";
 import { formatInt } from "@/lib/format-br";
 
