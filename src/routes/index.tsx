@@ -111,9 +111,11 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
               <p className="font-display text-2xl leading-tight text-ink">
                 {formatInt(snapshot.recordCount)} candidaturas nos universos proporcional e majoritário.
               </p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Outras {formatInt(snapshot.outOfUniverse.total)}, de vices e suplentes, ficam fora da conta.
-              </p>
+              {snapshot.outOfUniverse && (
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Outras {formatInt(snapshot.outOfUniverse.total)}, de vices e suplentes, ficam fora da conta.
+                </p>
+              )}
             </div>
           )}
           <p className="mt-7 max-w-xl font-mono text-[11px] leading-relaxed text-muted-foreground lg:mt-auto lg:pt-7">
