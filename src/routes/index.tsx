@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
+import { AchadoCard } from "@/components/editorial/AchadoCard";
 import {
   HomeAboutBand,
   HomeFunnelFeature,
@@ -10,6 +11,7 @@ import {
   HomeStages,
 } from "@/components/home/HomeEditorial";
 import { formatPercent } from "@/data/election-2026";
+import { ACHADOS_RECENTES } from "@/data/achados";
 import { formatInt } from "@/lib/format-br";
 import {
   getHistoricalSeries,
@@ -66,15 +68,21 @@ function ufRange(snapshot: PublicSnapshot | null) {
 
   let min: { uf: string; share: number; feminine: number; total: number } | null = null;
   let max: { uf: string; share: number; feminine: number; total: number } | null = null;
+  let runnerUp: { uf: string; share: number; feminine: number; total: number } | null = null;
   for (const [uf, denominator] of Object.entries(total)) {
     if (!denominator || denominator <= 0) continue;
     const numerator = feminine[uf] ?? 0;
     const share = (numerator / denominator) * 100;
     const datum = { uf, share, feminine: numerator, total: denominator };
     if (!min || share < min.share) min = datum;
-    if (!max || share > max.share) max = datum;
+    if (!max || share > max.share) {
+      runnerUp = max;
+      max = datum;
+    } else if (!runnerUp || share > runnerUp.share) {
+      runnerUp = datum;
+    }
   }
-  return min && max ? { min, max } : null;
+  return min && max ? { min, max, runnerUp } : null;
 }
 
 function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
@@ -125,7 +133,7 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
             </p>
             <p className="mt-2 font-mono text-[10px] text-muted-foreground">
               {territory
-                ? `de ${formatPercent(territory.min.share)} em ${territory.min.uf} (${formatInt(territory.min.feminine)} de ${formatInt(territory.min.total)}) a ${formatPercent(territory.max.share)} em ${territory.max.uf} (${formatInt(territory.max.feminine)} de ${formatInt(territory.max.total)})`
+                ? `de ${formatPercent(territory.min.share)} em ${territory.min.uf} (${formatInt(territory.min.feminine)} de ${formatInt(territory.min.total)}) a ${formatPercent(territory.max.share)} em ${territory.max.uf} (${formatInt(territory.max.feminine)} de ${formatInt(territory.max.total)})${territory.runnerUp && territory.max.share - territory.runnerUp.share < 0.1 ? ` e ${formatPercent(territory.runnerUp.share)} em ${territory.runnerUp.uf} (${formatInt(territory.runnerUp.feminine)} de ${formatInt(territory.runnerUp.total)}), praticamente empatados` : ""}`
                 : "em atualização"}
             </p>
           </article>
@@ -148,6 +156,14 @@ function DadosPage() {
     <PageShell home>
       <HomeHeroEditorial snapshot={snapshot} baseDate={baseDate} />
       <CurrentSnapshot snapshot={snapshot} baseDate={baseDate} pendingDate={pendingDate} />
+      <section className="border-t border-rule py-12 md:py-16">
+        <p className="kicker">Achados</p>
+        <h2 className="mt-3 font-display text-3xl leading-tight text-ink md:text-4xl">O que encontramos</h2>
+        <div className="mt-8 grid gap-10 md:grid-cols-3">
+          {ACHADOS_RECENTES.map((achado) => <AchadoCard key={achado.id} achado={achado} />)}
+        </div>
+        <p className="mt-8"><Link to="/achados" className="text-sm text-plum underline underline-offset-4">Todos os achados →</Link></p>
+      </section>
       <HomeInvestigationGrid snapshot={snapshot} />
       <HomeMapSection snapshot={snapshot} />
       <HomeHistoryHighlight historical={historical} />

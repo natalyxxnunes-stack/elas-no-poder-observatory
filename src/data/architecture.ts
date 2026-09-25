@@ -246,6 +246,7 @@ const navItem = (id: string) => {
 
 export const NAV_ITEMS = [
   navItem("dados-2026"),
+  { to: "/achados", label: "Achados", question: "O que encontramos?" },
   navItem("funil"),
   navItem("quem-sao-elas"),
   navItem("direitos"),
