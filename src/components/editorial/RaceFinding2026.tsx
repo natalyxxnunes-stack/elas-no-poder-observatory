@@ -7,7 +7,8 @@ import {
   CANDIDACY_FEMININE_2026_TOTAL,
   type RaceFindingCategory,
 } from "@/data/election-2026";
-import { RACE_COLORS, RACE_LABELS } from "@/data/historical-funnel";
+import { RACE_LABELS } from "@/data/historical-funnel";
+import { ChartBar, ChartFrame, ChartScale, LegendSwatch } from "@/components/editorial/ChartFrame";
 import { formatInt, formatPct, formatDecimal } from "@/lib/format-br";
 
 const n = (v: number) => formatInt(v);
@@ -66,38 +67,13 @@ function getCandidateData(snapshot: PublicSnapshot | null) {
 
 
 
-function MiniBar({
-  percent,
-  color,
-  label,
-  category,
-}: {
-  percent: number;
-  color: string;
-  label: string;
-  category: RaceFindingCategory;
-}) {
-  const width = Math.min(Math.max(percent * 2, 0), 100);
-  const isBranca = category === "branca";
-  return (
-    <div className="flex items-center gap-2">
-      <span className="w-14 shrink-0 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
-        {label}
-      </span>
-      <div className="h-2 flex-1 overflow-hidden rounded-sm bg-secondary" aria-hidden>
-        <div
-          className="h-full rounded-sm"
-          style={{
-            width: percent > 0 ? `${width}%` : "0%",
-            background: color,
-            minWidth: percent > 0 ? "2px" : "0",
-            border: isBranca ? "1px solid var(--rule)" : "none",
-          }}
-        />
-      </div>
-    </div>
-  );
-}
+const RACE_BAR_CLASS: Record<RaceFindingCategory, string> = {
+  branca: "bg-[var(--race-branca)]",
+  parda: "bg-[var(--race-parda)]",
+  preta: "bg-plum",
+  indigena: "bg-forest",
+  amarela: "bg-[var(--race-amarela)]",
+} as Record<RaceFindingCategory, string>;
 
 function RacePair({
   category,
@@ -108,36 +84,12 @@ function RacePair({
   pop: { count: number; percent: number };
   cand: { count: number; percent: number };
 }) {
-  const color = RACE_COLORS[category];
+  const bar = RACE_BAR_CLASS[category] ?? "bg-plum";
   return (
-    <li className="grid items-start gap-3 border-b border-rule py-4 last:border-b-0 md:grid-cols-[7rem_1fr_1fr]">
-      <div className="font-mono text-[12px] uppercase tracking-wider text-ink">
-        {RACE_LABELS[category]}
-      </div>
-
-      <div className="space-y-1.5">
-        <MiniBar
-          percent={pop.percent}
-          color={color}
-          label="Pop."
-          category={category}
-        />
-        <p className="font-mono text-[12px] leading-tight text-muted-foreground">
-          {n(pop.count)} · {pct(pop.percent)}
-        </p>
-      </div>
-
-      <div className="space-y-1.5">
-        <MiniBar
-          percent={cand.percent}
-          color={color}
-          label="Cand."
-          category={category}
-        />
-        <p className="font-mono text-[12px] leading-tight text-ink">
-          {n(cand.count)} · {pct(cand.percent)}
-        </p>
-      </div>
+    <li className="space-y-2 border-b border-rule py-4 first:pt-0 last:border-b-0">
+      <p className="font-display text-lg text-ink">{RACE_LABELS[category]}</p>
+      <ChartBar label="População" base={`${n(pop.count)} mulheres`} value={pop.percent} scaleMax={50} display={pct(pop.percent)} barClass={`${bar} opacity-45`} valueClass="text-muted-foreground" />
+      <ChartBar label="Candidatas 2026" base={`${n(cand.count)} candidatas`} value={cand.percent} scaleMax={50} display={pct(cand.percent)} barClass={bar} />
     </li>
   );
 }
@@ -171,26 +123,13 @@ export function RaceFinding2026({
   return (
     <div className="space-y-8">
       <div className="space-y-6">
-        <article className="poster-frame p-5 md:p-6">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="poster-eyebrow text-ink">Cinco categorias, dois retratos</p>
-            <span className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
-              população feminina × candidatas 2026
-            </span>
-          </div>
-
-          <div className="mt-5 hidden border-b border-ink pb-2 md:grid md:grid-cols-[7rem_1fr_1fr]">
-            <span className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
-              Cor/raça
-            </span>
-            <span className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
-              População feminina (Censo 2022)
-            </span>
-            <span className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
-              Candidaturas de mulheres 2026
-            </span>
-          </div>
-
+        <ChartFrame
+          eyebrow="Cinco categorias, dois retratos"
+          title="População feminina (Censo 2022) × candidatas a deputada (2026)"
+          legend={<><LegendSwatch className="bg-plum opacity-45">População</LegendSwatch><LegendSwatch className="bg-plum">Candidatas</LegendSwatch></>}
+          note="Cada categoria na sua cor; a barra clara é a população, a escura, as candidatas. Régua de 0 a 50%."
+          source="Fontes: IBGE, Censo 2022; TSE, Candidaturas 2026"
+        >
           <ul>
             {RACE_FINDING_CATEGORIES.map((category) => (
               <RacePair
@@ -201,7 +140,8 @@ export function RaceFinding2026({
               />
             ))}
           </ul>
-        </article>
+          <ChartScale max={50} />
+        </ChartFrame>
 
         <div className="grid gap-5 md:grid-cols-3">
           <article className="poster-frame-accent p-5">
@@ -233,7 +173,7 @@ export function RaceFinding2026({
           </article>
 
           <article className="poster-frame-accent p-5">
-            <p className="record-label border-coral text-coral-ink">
+            <p className="record-label border-ink text-ink [border-style:dashed]">
               Interpretação editorial
             </p>
             <h3 className="mt-3 font-display text-xl text-ink">
@@ -277,7 +217,7 @@ export function RaceFinding2026({
         </div>
       </div>
 
-      <p className="font-mono text-[12px] leading-relaxed text-ink/70">
+      <p className="text-sm leading-relaxed text-ink/70">
         Denominadores: {n(total)} candidaturas de mulheres nas eleições
         proporcionais de 2026
         {fromSnapshot

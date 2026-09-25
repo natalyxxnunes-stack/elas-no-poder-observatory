@@ -53,7 +53,7 @@ function Cell({
       <p className="poster-figure text-2xl text-ink">
         {value === null ? "—" : pct(value)}
       </p>
-      <p className="mt-1 font-mono text-[12px] leading-relaxed text-muted-foreground">
+      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
         {n(elected)} eleitas de {n(candidacies)} candidaturas
       </p>
       <div
@@ -133,7 +133,7 @@ export function ElectionRateByGender() {
         </table>
       </div>
 
-      <p className="font-mono text-[12px] leading-relaxed text-ink/70">
+      <p className="text-sm leading-relaxed text-ink/70">
         Fórmula: {ELECTION_RATE_FORMULA}. Recorte: eleições proporcionais
         (Câmara dos Deputados, assembleias legislativas e Câmara Legislativa do
         DF), resultado de 1º turno. Registros com gênero “não divulgável” (2018 e

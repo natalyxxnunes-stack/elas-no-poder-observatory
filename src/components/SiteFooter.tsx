@@ -14,7 +14,7 @@ function br(iso: string | null | undefined): string | null {
 }
 
 
-export function SiteFooter() {
+export function SiteFooter({ flush = false }: { flush?: boolean }) {
   const { data: stamp } = useQuery({
     queryKey: ["tse-snapshot-stamp"],
     queryFn: () => getSnapshotStamp(),
@@ -25,7 +25,7 @@ export function SiteFooter() {
   const collected = br(stamp?.collectedAt);
 
   return (
-    <footer className="ink-panel mt-24">
+    <footer className={`ink-panel ${flush ? "border-t border-cream/15" : "mt-24"}`}>
 
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.5fr_1fr_1fr] md:px-8">
         <div>
@@ -77,7 +77,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-cream/15">
-        <div className="mx-auto max-w-6xl px-5 py-5 font-mono text-[12px] leading-relaxed text-cream/70 md:px-8">
+        <div className="mx-auto max-w-6xl px-5 py-5 text-sm leading-relaxed text-cream/70 md:px-8">
           {generated && (
             <p className="text-cream/75">
               Última fotografia publicada: base gerada pelo TSE em {generated}

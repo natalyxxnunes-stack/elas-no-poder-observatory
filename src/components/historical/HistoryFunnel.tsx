@@ -90,7 +90,7 @@ function StageColumn({
         {empty ? "—" : pct(femininePercent)}
       </p>
       {!empty && (
-        <p className="mt-1 font-mono text-[12px] leading-relaxed text-muted-foreground">
+        <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
           {n(feminine)} de {n(total)} {label === "Candidatura" ? "candidaturas" : "eleitas"}
         </p>
       )}
@@ -115,7 +115,7 @@ function StageColumn({
       </div>
       {!empty && race && <RaceMiniBars race={race} stageLabel={label} />}
       {empty && (
-        <p className="mt-2 font-mono text-[12px] leading-relaxed text-ink/70">
+        <p className="mt-2 text-sm leading-relaxed text-ink/70">
           Eleição de outubro de 2026 ainda não ocorreu. Nenhum valor é projetado.
         </p>
       )}
@@ -210,7 +210,7 @@ export function HistoryFunnel() {
         </article>
       </div>
 
-      <p className="font-mono text-[12px] leading-relaxed text-ink/70">
+      <p className="text-sm leading-relaxed text-ink/70">
         Recorte: Câmara dos Deputados, Assembleias Legislativas e Câmara Legislativa do DF — eleições proporcionais. Não inclui Senado, governos estaduais ou Presidência. Por isso os totais podem diferir de estatísticas do TSE que somam o Legislativo inteiro: aqui se conta a cadeira proporcional, não a suplência nem o Senado. Eleitas: resultado do 1º turno, o único da eleição proporcional. Cada ano e cada etapa têm denominador próprio; percentuais não se
         somam. Cor/raça é autodeclarada, nas categorias do TSE, coletada desde 2014 — a
         qualidade do preenchimento varia entre ciclos e, em 2014, não há registros “não

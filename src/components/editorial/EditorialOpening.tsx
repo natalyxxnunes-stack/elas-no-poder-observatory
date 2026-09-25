@@ -3,7 +3,7 @@ import { FINANCE_BASE_LABEL } from "@/data/tse-finance-snapshot";
 import { formatInt, formatPct } from "@/lib/format-br";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import { snapshotRaceCounts } from "@/lib/tse/indicators";
-import { RACE_COLORS, RACE_LABELS, type RaceCategory } from "@/data/historical-funnel";
+import { RACE_LABELS, type RaceCategory } from "@/data/historical-funnel";
 import type { TseFinanceSnapshot } from "@/data/tse-finance-snapshot";
 
 type OpeningBase = {
@@ -56,7 +56,7 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
   const maj = snapshot?.universes.majoritario;
   const layers = [
     { label: "Proporcionais", value: prop && prop.total > 0 ? (prop.feminine / prop.total) * 100 : null, tone: "bg-cream text-ink" },
-    { label: "Majoritárias", value: maj && maj.total > 0 ? (maj.feminine / maj.total) * 100 : null, tone: "bg-coral text-cream" },
+    { label: "Majoritárias", value: maj && maj.total > 0 ? (maj.feminine / maj.total) * 100 : null, tone: "bg-lilac text-ink" },
   ] as const;
   return (
     <Frame className="bg-plum text-cream">
@@ -81,7 +81,7 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
               </div>
             ))}
           </div>
-          <figcaption className="mt-5 border-t border-cream/25 pt-3 font-mono text-xs leading-relaxed text-cream/85">
+          <figcaption className="mt-5 border-t border-cream/25 pt-3 text-sm leading-relaxed text-cream/85">
             Proporcionais e majoritárias são universos paralelos, cada um com seu total. Eleitas e poder entram quando houver resultado. · TSE · {baseDate ?? "base em atualização"}.
           </figcaption>
         </figure>
@@ -117,14 +117,14 @@ function RaceOpening({ snapshot, ...text }: OpeningBase & { snapshot: PublicSnap
                     <div key={category} className="grid min-w-0 grid-cols-[7rem_minmax(0,1fr)_4.5rem] items-center gap-3">
                       <span className="truncate font-mono text-xs font-semibold uppercase text-cream/85">{RACE_LABELS[key] ?? category}</span>
                       <div className="h-4 w-full border border-cream/25 bg-cream/10">
-                        <div className="h-full" style={{ width: `${pct}%`, backgroundColor: RACE_COLORS[key] ?? "var(--coral)" }} />
+                        <div className="h-full bg-cream" style={{ width: `${pct}%` }} />
                       </div>
                       <span className="font-mono text-xs font-semibold text-cream">{formatPct(pct)}</span>
                     </div>
                   );
                 })}
           </div>
-          <figcaption className="mt-5 border-t border-cream/25 pt-3 font-mono text-xs leading-relaxed text-cream/85">
+          <figcaption className="mt-5 border-t border-cream/25 pt-3 text-sm leading-relaxed text-cream/85">
             Candidaturas de mulheres · universo proporcional · categorias originais do TSE
             {denominator ? ` · denominador: ${formatInt(denominator)}` : " · dimensão não gravada nesta fotografia"}
           </figcaption>
@@ -202,22 +202,22 @@ function FinancialOpening({ layers, gap, snapshot, ...text }: OpeningBase & { la
     { label: "Majoritário", value: majoritarian ? (majoritarian.feminineRevenue / majoritarian.totalRevenue) * 100 : null },
   ];
   return (
-    <Frame className="bg-ink text-cream">
+    <Frame className="bg-plum text-cream">
       <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <OpeningText {...text} inverse />
         <figure aria-label="Participação das mulheres na receita declarada nos universos proporcional e majoritário" className="min-w-0">
-          <p className="border-b border-cream/25 pb-3 font-mono text-xs uppercase text-cream/60">Receita declarada · fotografia de {FINANCE_BASE_LABEL}</p>
+          <p className="border-b border-cream/25 pb-3 font-mono text-xs uppercase text-cream/85">Receita declarada · fotografia de {FINANCE_BASE_LABEL}</p>
           <div className="mt-5 space-y-4">
             {rows.map((row, index) => (
               <div key={row.label} className="grid grid-cols-[7rem_minmax(0,1fr)_3rem] items-center gap-3">
-                <span className="truncate font-mono text-xs uppercase text-cream/70">{row.label}</span>
-                <div className="h-8 border border-cream/20 bg-cream/5"><div className={`h-full ${index ? "bg-lilac" : "bg-plum-soft"}`} style={{ width: `${row.value ?? 0}%` }} /></div>
+                <span className="truncate font-mono text-xs uppercase text-cream/85">{row.label}</span>
+                <div className="h-8 border border-cream/20 bg-cream/5"><div className={`h-full ${index ? "bg-cream/60" : "bg-cream"}`} style={{ width: `${row.value ?? 0}%` }} /></div>
                 <span className="font-mono text-xs text-cream">{row.value === null ? "—" : formatPct(row.value)}</span>
               </div>
             ))}
           </div>
           <p className="mt-5 font-mono text-xs uppercase leading-relaxed text-cream/80">Camadas publicadas: {layers.slice(0, 4).join(" · ")}</p>
-          <figcaption className="mt-6 border-l-2 border-coral pl-3 font-mono text-xs leading-relaxed text-cream/85">{gap}</figcaption>
+          <figcaption className="mt-6 border-l-2 border-cream/60 pl-3 text-sm leading-relaxed text-cream/85">{gap}</figcaption>
         </figure>
       </div>
     </Frame>
@@ -253,7 +253,7 @@ function PowerFlowOpening({ levers, ...text }: OpeningBase & { levers: readonly 
           <div className="mx-auto bg-plum px-6 py-3 font-mono text-xs uppercase text-cream">Partidos e federações</div>
           <div className="mx-auto h-7 w-px bg-ink/35" />
           <div className="grid grid-cols-3 gap-2">
-            {levers.slice(0, 3).map((lever, index) => <div key={lever.label} className={`${index === 0 ? "bg-coral" : index === 1 ? "bg-paper" : "bg-lilac"} border border-ink/30 px-2 py-4 text-center font-mono text-xs uppercase text-ink`}>{lever.label}<span className="mt-2 block text-xs opacity-60">{lever.ready === "yes" ? "disponível" : lever.ready === "partial" ? "parcial" : "aguardando dado"}</span></div>)}
+            {levers.slice(0, 3).map((lever, index) => <div key={lever.label} className={`${index === 1 ? "bg-paper" : "bg-lilac"} border border-ink/30 px-2 py-4 text-center font-mono text-xs uppercase text-ink`}>{lever.label}<span className="mt-2 block text-xs opacity-60">{lever.ready === "yes" ? "disponível" : lever.ready === "partial" ? "parcial" : "aguardando dado"}</span></div>)}
           </div>
           <div className="mx-auto h-7 w-px bg-ink/35" />
           <div className="mx-auto bg-ink px-7 py-3 font-mono text-xs uppercase text-cream">Acesso ao poder</div>
@@ -290,7 +290,7 @@ function ManifestoOpening({ aside, ...text }: OpeningBase & { aside?: ReactNode 
 }
 
 function DownloadsOpening({ documents, ...text }: OpeningBase & { documents: readonly { format: string; label: string; available: boolean }[] }) {
-  const tones = ["bg-paper", "bg-coral", "bg-lilac", "bg-cream"] as const;
+  const tones = ["bg-paper", "bg-lilac", "bg-cream", "bg-lilac"] as const;
   return (
     <Frame className="bg-plum text-cream">
       <div className="mx-auto grid min-h-[30rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.76fr_1.24fr] lg:items-center">

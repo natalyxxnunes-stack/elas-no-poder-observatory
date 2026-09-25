@@ -69,7 +69,7 @@ function StageBar({
           <p className="poster-figure text-5xl leading-none text-plum md:text-6xl">
             {pct(share)}
           </p>
-          <p className="text-right font-mono text-[12px] leading-relaxed text-muted-foreground">
+          <p className="text-right text-sm leading-relaxed text-muted-foreground">
             {n(feminine)} candidaturas de mulheres
             <br />
             em {n(total)} candidaturas registradas
@@ -180,7 +180,7 @@ function RaceStage({
           NEGRA = PRETA + PARDA · {n(black)} candidaturas · {pct((black / denominator) * 100)}{" "}
           das candidaturas de mulheres deste universo.
         </p>
-        <p className="mt-2 font-mono text-[12px] leading-relaxed text-muted-foreground">
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           {BLACK_AGGREGATION_NOTE}
         </p>
       </div>
@@ -311,7 +311,7 @@ export function FunnelStages2026({
           </article>
 
           <article className="poster-frame-accent p-5">
-            <p className="record-label border-coral text-coral-ink">
+            <p className="record-label border-ink text-ink [border-style:dashed]">
               Interpretação editorial
             </p>
             <h3 className="mt-3 font-display text-xl text-ink">

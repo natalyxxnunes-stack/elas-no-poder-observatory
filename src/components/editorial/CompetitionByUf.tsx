@@ -156,7 +156,7 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
               </p>
             </div>
 
-            <p className="mt-3 font-mono text-[12px] leading-relaxed text-ink/70">
+            <p className="mt-3 text-sm leading-relaxed text-ink/70">
               No Brasil, no universo {label}, há {int(data.vagasTotal)} vagas em
               disputa e {int(data.total)} candidaturas registradas:{" "}
               {n1(data.total / data.vagasTotal)} candidaturas por vaga. Dessas
@@ -261,7 +261,7 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
         )}
       </div>
 
-      <div className="space-y-2 font-mono text-[12px] leading-relaxed text-ink/70">
+      <div className="space-y-2 text-sm leading-relaxed text-ink/70">
         <p>
           Fórmula: {COMPETITION_DEFINITION.formula}. Unidade de análise:{" "}
           {COMPETITION_DEFINITION.unitOfAnalysis}.

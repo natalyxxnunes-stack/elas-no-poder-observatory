@@ -3,6 +3,7 @@ import type { UniverseId } from "@/lib/tse/compute";
 import { GapNote } from "@/components/GapNote";
 import { formatInt, formatDecimal } from "@/lib/format-br";
 import { RACE_COLORS } from "@/data/historical-funnel";
+import { ChartFrame, LegendSwatch } from "@/components/editorial/ChartFrame";
 
 /**
  * SeriesChart — leitura visual de uma série histórica já calculada.
@@ -68,7 +69,7 @@ function UniverseColumn({
                 </div>
               ) : (
                 <div
-                  className="w-full rounded-t-sm bg-plum"
+                  className={`w-full rounded-t-sm ${p.year === 2026 ? "bg-coral" : "bg-plum"}`}
                   style={{ height: `${(p.value / scale) * 100}%` }}
                   aria-hidden
                 />
@@ -77,7 +78,7 @@ function UniverseColumn({
             <p className={`mt-2 font-mono text-ink ${isSplitRace ? "text-xs" : "text-xs"}`}>
               {p.value === null ? "—" : isSplitRace ? `(${fmt(p.value)}%)` : `${fmt(p.value)}%`}
             </p>
-            <p className="font-mono text-[12px] text-muted-foreground">
+            <p className={`font-mono text-[12px] ${p.year === 2026 ? "font-semibold text-coral-ink" : "text-muted-foreground"}`}>
               {p.year}
               {p.stage === "em_curso" ? "*" : ""}
             </p>
@@ -102,7 +103,7 @@ function UniverseColumn({
       </dl>
 
       {missing.length > 0 && (
-        <p className="mt-3 font-mono text-[12px] leading-relaxed text-muted-foreground">
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
           Pontos vazios: {missing.map((m) => m.year).join(", ")} — a fonte não
           trouxe o resultado desses anos.
         </p>
@@ -127,36 +128,22 @@ export function SeriesChart({
     );
   }
   return (
-    <figure className="editorial-card p-5 md:p-6">
-      <figcaption>
-        <h3 className="font-display text-xl leading-snug text-ink">
-          {series.label}
-        </h3>
-        <p className="mt-1 font-mono text-[12px] leading-relaxed text-muted-foreground">
-          {series.formula}
-        </p>
-      </figcaption>
-
-      <div className="mt-6 grid gap-8 md:grid-cols-2">
+    <ChartFrame
+      eyebrow="Série histórica · 2014 a 2026"
+      title={series.label}
+      legend={<><LegendSwatch className="bg-plum">2014 a 2022</LegendSwatch><LegendSwatch className="bg-coral">2026</LegendSwatch></>}
+      note={
+        <>
+          {series.formula}. {series.notes.join(" ")} 2026 (*) é base em curso: candidaturas registradas, sem resultado eleitoral.
+        </>
+      }
+      source="Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026"
+    >
+      <div className="grid gap-8 md:grid-cols-2">
         {universes.map((u) => (
           <UniverseColumn key={u} series={series} universe={u} />
         ))}
       </div>
-
-      <ul className="mt-6 space-y-1 border-t border-rule pt-4">
-        {series.notes.map((n) => (
-          <li
-            key={n}
-            className="font-mono text-[12px] leading-relaxed text-muted-foreground"
-          >
-            {n}
-          </li>
-        ))}
-        <li className="font-mono text-[12px] leading-relaxed text-muted-foreground">
-          * 2026 é base em curso: candidaturas registradas, sem resultado
-          eleitoral.
-        </li>
-      </ul>
-    </figure>
+    </ChartFrame>
   );
 }
