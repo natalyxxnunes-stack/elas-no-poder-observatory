@@ -135,7 +135,7 @@ function DinheiroPage() {
         variant="financial"
         kicker="Dinheiro"
         question="Nos cargos majoritários, elas recebem fatia menor da receita"
-        lead={<p>Na corrida à Presidência, mulheres são {presidentialFeminine !== undefined ? formatInt(presidentialFeminine) : "—"} das {presidentialTotal !== undefined ? formatInt(presidentialTotal) : "—"} candidaturas e recebem {presidente} da receita declarada. No universo proporcional, mulheres têm {prop} da receita declarada; no majoritário, {maj}.</p>}
+        lead={<p>Na corrida à Presidência, mulheres são {presidentialFeminine !== undefined ? formatInt(presidentialFeminine) : "—"} das {presidentialTotal !== undefined ? formatInt(presidentialTotal) : "—"} candidaturas e concentram {presidente} da receita declarada para o cargo. No universo proporcional, mulheres têm {prop} da receita declarada; no majoritário, {maj}.</p>}
         layers={MONEY_LAYERS.map((layer) => layer.label)}
         gap="Prestação de contas em andamento · receita, não despesa · valores sujeitos a atualização"
         snapshot={financeSnapshot}

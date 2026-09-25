@@ -119,7 +119,7 @@ export const AXES: readonly Axis[] = [
     ],
     unpublishedReason: "",
     state: "conteúdo editorial",
-    publication: "published", status: "publicado", statusNote: "Receitas declaradas na prestação de contas em andamento, base de 23/09/2026; os valores mudam até o fim da apuração.", group: "investigacao",
+    publication: "published", status: "publicado", statusNote: "Receitas declaradas na prestação de contas em andamento, base de 24/09/2026; os valores ainda podem mudar até a prestação final.", group: "investigacao",
   },
   {
     id: "votos",

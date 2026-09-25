@@ -104,7 +104,7 @@ export const ACHADOS: Achado[] = [
     id: "quanto-mais-alto-mais-brancas",
     numero: "01",
     data: "2026-09-24",
-    titulo: "Quanto mais alto o cargo, mais brancas",
+    titulo: "A cor das candidatas muda com o cargo em disputa",
     texto: `Brancas são ${pct(brancaProporcional)} das candidatas a deputada e ${pct(brancaMajoritaria)} das candidatas a presidente, governadora e senadora. As pardas fazem o caminho inverso: são ${formatUmEmCada(pardaProporcional)} candidatas a deputada e ${formatUmEmCada(pardaMajoritaria)} nas candidaturas majoritárias.`,
     barras: [
       { rotulo: "Deputada", valor: brancaProporcional },
@@ -120,7 +120,7 @@ export const ACHADOS: Achado[] = [
     numero: "02",
     data: "2026-09-24",
     titulo: "Na Presidência, quase nada da receita declarada",
-    texto: `Mulheres são ${formatInt(M.dimensions.feminineByCargo?.["PRESIDENTE"] ?? 0)} das ${formatInt(M.dimensions.totalByCargo?.["PRESIDENTE"] ?? 0)} candidaturas à Presidência e receberam ${pct(presidencia)} da receita declarada até agora. Por cargo, a fatia das mulheres na receita declarada é de ${pct(estadual)} nas assembleias, ${pct(federal)} na Câmara dos Deputados, ${pct(distrital)} na Câmara Legislativa do DF, ${pct(senado)} no Senado e ${pct(governo)} nos governos.`,
+    texto: `Mulheres são ${formatInt(M.dimensions.feminineByCargo?.["PRESIDENTE"] ?? 0)} das ${formatInt(M.dimensions.totalByCargo?.["PRESIDENTE"] ?? 0)} candidaturas à Presidência e concentram ${pct(presidencia)} da receita declarada para esse cargo até agora. Por cargo, a fatia das mulheres na receita declarada é de ${pct(estadual)} nas assembleias, ${pct(federal)} na Câmara dos Deputados, ${pct(distrital)} na Câmara Legislativa do DF, ${pct(senado)} no Senado e ${pct(governo)} nos governos.`,
     barras: [
       { rotulo: "Assembleias", valor: estadual },
       { rotulo: "Câmara", valor: federal },
@@ -139,15 +139,15 @@ export const ACHADOS: Achado[] = [
     id: "dinheiro-chega-mais-as-brancas",
     numero: "03",
     data: "2026-09-24",
-    titulo: "Entre as mulheres, o dinheiro chega mais às brancas",
-    texto: `Nas disputas por Presidência, governos e Senado, brancas são ${formatInt(M.raceCounts["BRANCA"] ?? 0)} das ${formatInt(somaM)} candidatas e ficaram com ${pct(brancasDinheiro)} da receita declarada por mulheres até agora. Negras, somando pretas e pardas, são ${formatInt(negrasCandidatas)} e ficaram com ${pct(negrasDinheiro)}.`,
+    titulo: "Entre as candidatas, a receita não acompanha a presença",
+    texto: `Nas disputas por Presidência, governos e Senado, brancas são ${formatInt(M.raceCounts["BRANCA"] ?? 0)} das ${formatInt(somaM)} candidatas (${pct(brancaMajoritaria)}) e concentram ${pct(brancasDinheiro)} da receita declarada por mulheres até agora. Negras, somando pretas e pardas, são ${formatInt(negrasCandidatas)} (${pct(share(negrasCandidatas, somaM))}) e concentram ${pct(negrasDinheiro)}. A comparação é entre fatias do grupo, não entre valores recebidos por cada candidata.`,
     barras: [
       { rotulo: "Brancas · candidatas", valor: brancaMajoritaria },
       { rotulo: "Brancas · dinheiro", valor: brancasDinheiro },
       { rotulo: "Negras · candidatas", valor: share(negrasCandidatas, somaM) },
       { rotulo: "Negras · dinheiro", valor: negrasDinheiro },
     ],
-    legenda: "Presidência, governos e Senado",
+    legenda: "Presidência, governos e Senado: fatia nas candidaturas × fatia na receita declarada",
     fonte:
       "TSE, Candidaturas 2026 e Prestação de Contas Eleitorais 2026 · receita em andamento",
     to: "/dinheiro",

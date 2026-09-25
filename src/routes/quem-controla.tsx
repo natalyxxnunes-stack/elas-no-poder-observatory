@@ -68,8 +68,8 @@ const CONTROL_LEVERS = [
   },
   {
     lever: "Quem aparece na propaganda",
-    what: "A Constituição manda destinar às candidatas pelo menos 30% do tempo de propaganda gratuita no rádio e na TV, na proporção das candidaturas de mulheres (EC 117/2022). Como esse tempo se divide entre elas fica com o partido. O projeto ainda não tem base integrada para medir essa distribuição.",
-    needs: "Registros de propaganda eleitoral e planos de mídia",
+    what: "A regulamentação de 2026 manda distribuir o tempo de propaganda gratuita no rádio e na TV na proporção das candidaturas de mulheres, de pessoas negras e, agora, também de indígenas, com piso de 30% para mulheres (EC 117/2022; Res. TSE 23.610, art. 77, alterado pela Res. 23.755/2026). A divisão entre as candidaturas fica com o partido. Os tribunais eleitorais passaram a ter de publicar o tempo destinado a cada grupo; o projeto ainda não integrou esses dados.",
+    needs: "Tempo destinado a mulheres, pessoas negras e indígenas, publicado pelos tribunais eleitorais (Res. 23.610, art. 77, §9º)",
     ready: "no",
   },
   {
@@ -181,6 +181,7 @@ function QuemControlaPage() {
         limites={[
           "A primeira camada usa o registro de candidaturas. A distribuição de recursos e de propaganda depende das contas de campanha de 2026.",
           "Propaganda e posição estratégica na chapa ainda não têm fonte pública integrada.",
+          "Os dados mostram decisões e distribuições; não permitem inferir intenção ou estratégia política de cada partido.",
         ]}
       />
 
