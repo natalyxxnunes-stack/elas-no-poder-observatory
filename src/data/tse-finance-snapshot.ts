@@ -5,8 +5,16 @@
  * sempre estes números, sem consultar o banco em tempo de execução. Os valores
  * vêm de recontagem independente do arquivo oficial
  * `receitas_candidatos_2026_BRASIL.csv` (encoding latin1, separador `;`),
- * SHA-256 ef4dbd6e93eb99ffcb7597e79fde42ab5009b8625cd3250c3b8b876c0c2ce0be,
- * base gerada em 23/09/2026 às 04:05:59, horário de Brasília.
+ * SHA-256 9ee710ae089a53515e2fc3e9f85ef37ed384fb97b5c0af624c9c62387773ed7e,
+ * base gerada pelo TSE em 24/09/2026 às 04:05:21, cruzado por SQ_CANDIDATO com
+ * `consulta_cand_2026_BRASIL.csv` gerado em 24/09/2026 às 16:30:45
+ * (SHA-256 519cf90eb30ca876b2451e0f500249206a3238abd010dd96f27982f065035215).
+ *
+ * Auditoria desta fotografia: 128.121 linhas brutas; 176 linhas idênticas em
+ * todas as colunas removidas (R$ 215.775,58); 127.945 linhas somadas. As 19.092
+ * candidaturas com receita têm par no registro, com gênero, cor/raça, cargo e UF
+ * idênticos. Nenhuma candidatura aparece com prestação parcial e relatório
+ * financeiro ao mesmo tempo: o arquivo traz uma entrega por candidatura.
  *
  * Regra: nada aqui pode ser preenchido à mão com número plausível. Apenas
  * saída verificável do processamento de TSE / Dados Abertos / Prestação de
@@ -53,19 +61,26 @@ export type TseFinanceSnapshot = {
 };
 
 export const FINANCE_CSV_SHA256 =
-  "ef4dbd6e93eb99ffcb7597e79fde42ab5009b8625cd3250c3b8b876c0c2ce0be";
+  "9ee710ae089a53515e2fc3e9f85ef37ed384fb97b5c0af624c9c62387773ed7e";
 
 export const FINANCE_SOURCE_FILE = "receitas_candidatos_2026_BRASIL.csv";
+
+/** Data da base financeira, para texto (DD/MM/AAAA). */
+export const FINANCE_BASE_LABEL = "24/09/2026";
+
+/** Linhas idênticas em todas as colunas removidas nesta base (auditoria). */
+export const DUPLICATE_ROWS_REMOVED = 176;
 
 /** A mesma classificação de cargos usada na fotografia de candidaturas. */
 export const classifyFinanceUniverse = classifyUniverse;
 
 export const APPLIED_FILTERS = [
   "Unidade de análise: candidatura (SQ_CANDIDATO), com receita agregada pela soma de todas as linhas de VR_RECEITA da candidatura",
-  "Gênero e cor/raça lidos diretamente de DS_GENERO e DS_COR_RACA no arquivo de receitas, sem cruzamento com o arquivo de candidaturas",
+  "Gênero e cor/raça lidos de DS_GENERO e DS_COR_RACA no arquivo de receitas; conferidos por SQ_CANDIDATO contra o registro de candidaturas de 24/09/2026, com 100% de coincidência",
   "Universos proporcional e majoritário classificados por DS_CARGO com a mesma função classifyUniverse usada na fotografia de candidaturas",
-  "Sem filtro por TP_PRESTACAO_CONTAS: receitas de Parcial e Relatório Financeiro são somadas; a distribuição das linhas é preservada para transparência",
-  "Prestação de contas em andamento: os valores não representam o resultado final pós-eleição e mudam até o fim da apuração",
+  "Deduplicação: linhas idênticas em todas as colunas entram uma única vez (176 linhas removidas nesta base). Linhas com o mesmo SQ_RECEITA e descrição ou valor diferentes são rateio de um mesmo recibo e são somadas",
+  "Prestação parcial e relatório financeiro: cada candidatura aparece no arquivo com uma única entrega, a mais recente; nenhuma aparece nos dois tipos, então a soma não conta a mesma receita duas vezes. A data de corte varia por candidatura",
+  "Contas de campanha em andamento: os valores não representam o resultado final pós-eleição e mudam até o fim da apuração",
   "Cor/raça preservada nas categorias originais do TSE, sem agregação",
 ] as const;
 
@@ -75,50 +90,68 @@ export const financeSnapshot: TseFinanceSnapshot = {
     "https://cdn.tse.jus.br/estatistica/sead/odsele/prestacao_contas/prestacao_de_contas_eleitorais_candidatos_2026.zip",
   sourceFile: FINANCE_SOURCE_FILE,
   csvSha256: FINANCE_CSV_SHA256,
-  baseGeneratedAt: "2026-09-23T04:05:59-03:00",
-  revenueRowsProcessed: 125149,
-  candidaciesWithRevenue: 19069,
-  tipoPrestacaoContas: { PARCIAL: 50098, "RELATÓRIO FINANCEIRO": 75051 },
+  baseGeneratedAt: "2026-09-24T04:05:21-03:00",
+  revenueRowsProcessed: 127945,
+  candidaciesWithRevenue: 19092,
+  tipoPrestacaoContas: { PARCIAL: 47957, "RELATÓRIO FINANCEIRO": 79988 },
   filters: [...APPLIED_FILTERS],
   universes: {
     proporcional: {
-      registeredCandidacies: 19527,
-      candidaciesWithRevenue: 18548,
-      registeredFeminineCandidacies: 6950,
-      feminineCandidaciesWithRevenue: 6678,
-      totalRevenue: 4669595752.32,
-      feminineRevenue: 1645449830.33,
-      feminineMedian: 52529.42,
-      masculineMedian: 47639.82,
+      registeredCandidacies: 19528,
+      candidaciesWithRevenue: 18571,
+      registeredFeminineCandidacies: 6951,
+      feminineCandidaciesWithRevenue: 6686,
+      totalRevenue: 4710460488.32,
+      feminineRevenue: 1652595257.81,
+      feminineMedian: 53000.0,
+      masculineMedian: 50000.0,
       feminineRevenueByRace: {
-        BRANCA: { value: 915206585.22, candidacies: 3140 },
-        PARDA: { value: 457686638.71, candidacies: 2263 },
-        PRETA: { value: 239133482.94, candidacies: 1156 },
-        "INDÍGENA": { value: 26367493.4, candidacies: 80 },
-        AMARELA: { value: 7055630.06, candidacies: 39 },
+        "BRANCA": { value: 919492810.84, candidacies: 3143 },
+        "PARDA": { value: 459838283.3, candidacies: 2267 },
+        "PRETA": { value: 239788595.21, candidacies: 1157 },
+        "INDÍGENA": { value: 26402938.4, candidacies: 80 },
+        "AMARELA": { value: 7072630.06, candidacies: 39 },
       },
       byOffice: {
-        "DEPUTADO FEDERAL": { total: 3124543875.63, feminine: 1044825126.05, candidacies: 7417, feminineCandidacies: 2753 },
-        "DEPUTADO ESTADUAL": { total: 1507459676.46, feminine: 589340075.55, candidacies: 10719, feminineCandidacies: 3777 },
-        "DEPUTADO DISTRITAL": { total: 37592200.23, feminine: 11284628.73, candidacies: 412, feminineCandidacies: 148 },
+        "DEPUTADO ESTADUAL": { total: 1526494094.51, feminine: 593155068.99, candidacies: 10735, feminineCandidacies: 3784 },
+        "DEPUTADO FEDERAL": { total: 3145544163.89, feminine: 1047855568.39, candidacies: 7424, feminineCandidacies: 2754 },
+        "DEPUTADO DISTRITAL": { total: 38422229.92, feminine: 11584620.43, candidacies: 412, feminineCandidacies: 148 },
       },
       topParties: {
-        PL: { total: 779178927.57, feminine: 229086735.76 },
-        "UNIÃO": { total: 515228838.36, feminine: 202860579.8 },
-        REPUBLICANOS: { total: 428442849.47, feminine: 147009989.77 },
-        PT: { total: 426489540.26, feminine: 208147732.79 },
-        PP: { total: 420325747.35, feminine: 142639034.02 },
+        "PL": { total: 783803293.86, feminine: 230248604.5 },
+        "UNIÃO": { total: 520561102.91, feminine: 204033224.02 },
+        "REPUBLICANOS": { total: 431198976.97, feminine: 147542767.23 },
+        "PT": { total: 429110314.94, feminine: 208607949.57 },
+        "PP": { total: 422215197.35, feminine: 143358744.02 },
       },
       byUf: {
-        SP: { total: 747189388.37, feminine: 253722732.54 }, MG: { total: 392134150.2, feminine: 121888944.95 }, RJ: { total: 391466301.65, feminine: 141843254.25 },
-        BA: { total: 278976391.13, feminine: 93208010.99 }, PR: { total: 249507181.3, feminine: 84178402.02 }, RS: { total: 236744502.53, feminine: 81128556.3 },
-        PE: { total: 194109526.1, feminine: 65249972.72 }, CE: { total: 183671968.53, feminine: 69599777.61 }, MA: { total: 171092244.24, feminine: 58562037.5 },
-        SC: { total: 160095746.95, feminine: 53486489.93 }, GO: { total: 154620613.14, feminine: 60836112.49 }, PA: { total: 144766451.92, feminine: 55516523.49 },
-        PI: { total: 110030611.4, feminine: 37506900.48 }, DF: { total: 107141785.05, feminine: 29620714.95 }, AM: { total: 104256090.97, feminine: 33927400.3 },
-        PB: { total: 103509509.65, feminine: 32866467.86 }, MT: { total: 100703099.98, feminine: 38735382.4 }, ES: { total: 95011977.78, feminine: 31818648.82 },
-        RO: { total: 93788777.68, feminine: 35839856.14 }, MS: { total: 92119105.08, feminine: 35304443.26 }, AL: { total: 85415529.32, feminine: 29286522.83 },
-        RR: { total: 85184759.21, feminine: 38768849.27 }, AP: { total: 85098794.99, feminine: 39702790.09 }, SE: { total: 83482200.86, feminine: 33655085.87 },
-        TO: { total: 75364042.68, feminine: 25332724.55 }, AC: { total: 74545549.78, feminine: 31849486.05 }, RN: { total: 69569451.83, feminine: 32013742.67 },
+        "SP": { total: 755716258.91, feminine: 254884258.86 },
+        "MG": { total: 395818075.33, feminine: 122710735.84 },
+        "RJ": { total: 393704961.23, feminine: 142108884.59 },
+        "BA": { total: 280466514.39, feminine: 93523954.32 },
+        "PR": { total: 253253806.24, feminine: 84279532.26 },
+        "RS": { total: 238384967.62, feminine: 81203238.78 },
+        "PE": { total: 195055421.11, feminine: 65320619.22 },
+        "CE": { total: 184558558.99, feminine: 69769587.61 },
+        "MA": { total: 172271399.24, feminine: 58588367.5 },
+        "SC": { total: 161400830.5, feminine: 53641551.23 },
+        "GO": { total: 156629119.09, feminine: 61229329.98 },
+        "PA": { total: 146400365.92, feminine: 56368623.49 },
+        "PI": { total: 110218963.77, feminine: 37606900.48 },
+        "DF": { total: 109247284.74, feminine: 30318906.65 },
+        "AM": { total: 105339832.47, feminine: 34599395.3 },
+        "PB": { total: 104292894.65, feminine: 32985657.86 },
+        "MT": { total: 101508654.88, feminine: 38976060.56 },
+        "ES": { total: 95544775.88, feminine: 31913211.82 },
+        "RO": { total: 94587715.17, feminine: 35904293.64 },
+        "MS": { total: 93073990.93, feminine: 35607268.26 },
+        "AP": { total: 87428714.99, feminine: 39707290.09 },
+        "AL": { total: 85481163.32, feminine: 29294722.83 },
+        "RR": { total: 85382659.21, feminine: 38768849.27 },
+        "SE": { total: 84107642.19, feminine: 33926731.2 },
+        "TO": { total: 75610982.61, feminine: 25457057.45 },
+        "AC": { total: 74864049.78, feminine: 31884486.05 },
+        "RN": { total: 70110885.16, feminine: 32015742.67 },
       },
     },
     majoritario: {
@@ -126,20 +159,20 @@ export const financeSnapshot: TseFinanceSnapshot = {
       candidaciesWithRevenue: 521,
       registeredFeminineCandidacies: 107,
       feminineCandidaciesWithRevenue: 107,
-      totalRevenue: 1135925425.1,
-      feminineRevenue: 190764332.93,
-      feminineMedian: 130419.49,
-      masculineMedian: 255000,
+      totalRevenue: 1153957982.71,
+      feminineRevenue: 190991666.11,
+      feminineMedian: 130855.49,
+      masculineMedian: 255000.0,
       feminineRevenueByRace: {
-        BRANCA: { value: 153265564.6, candidacies: 65 },
-        PARDA: { value: 23038841.55, candidacies: 24 },
-        PRETA: { value: 14435611.78, candidacies: 17 },
-        AMARELA: { value: 24315, candidacies: 1 },
+        "BRANCA": { value: 153368631.1, candidacies: 65 },
+        "PARDA": { value: 23042748.23, candidacies: 24 },
+        "PRETA": { value: 14555971.78, candidacies: 17 },
+        "AMARELA": { value: 24315.0, candidacies: 1 },
       },
       byOffice: {
-        PRESIDENTE: { total: 137949190.58, feminine: 1795720, candidacies: 13, feminineCandidacies: 2 },
-        GOVERNADOR: { total: 526733584.75, feminine: 63899477.33, candidacies: 195, feminineCandidacies: 35 },
-        SENADOR: { total: 471242649.77, feminine: 125069135.6, candidacies: 313, feminineCandidacies: 70 },
+        "GOVERNADOR": { total: 531269212.68, feminine: 64011903.83, candidacies: 195, feminineCandidacies: 35 },
+        "SENADOR": { total: 474415904.92, feminine: 125184042.28, candidacies: 313, feminineCandidacies: 70 },
+        "PRESIDENTE": { total: 148272865.11, feminine: 1795720.0, candidacies: 13, feminineCandidacies: 2 },
       },
     },
   },
