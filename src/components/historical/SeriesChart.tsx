@@ -59,7 +59,7 @@ function UniverseColumn({
                 </div>
               ) : isSplitRace && p.denominator && p.pretaNumerator !== undefined && p.pardaNumerator !== undefined ? (
                 <div className="flex h-full w-full flex-col justify-end" aria-hidden>
-                  <div className="flex w-full items-center justify-center font-mono text-[10px] text-ink" style={{ height: `${((p.pretaNumerator / p.denominator) * 100 / scale) * 100}%`, backgroundColor: RACE_COLORS.preta }}>
+                  <div className="flex w-full items-center justify-center font-mono text-[10px] text-paper" style={{ height: `${((p.pretaNumerator / p.denominator) * 100 / scale) * 100}%`, backgroundColor: RACE_COLORS.preta }}>
                     {fmt((p.pretaNumerator / p.denominator) * 100)}%
                   </div>
                   <div className="flex w-full items-center justify-center font-mono text-[10px] text-ink" style={{ height: `${((p.pardaNumerator / p.denominator) * 100 / scale) * 100}%`, backgroundColor: RACE_COLORS.parda }}>
@@ -74,7 +74,7 @@ function UniverseColumn({
                 />
               )}
             </div>
-            <p className="mt-2 font-mono text-xs text-ink">
+            <p className={`mt-2 font-mono text-ink ${isSplitRace ? "text-[10px]" : "text-xs"}`}>
               {p.value === null ? "—" : isSplitRace ? `(${fmt(p.value)}%)` : `${fmt(p.value)}%`}
             </p>
             <p className="font-mono text-[12px] text-muted-foreground">
