@@ -215,7 +215,7 @@ function HistoricoPage() {
             ainda não ocorreu.
           </p>
         }
-        source="Fonte: TSE · Candidatos (DS_SIT_TOT_TURNO, 1º e 2º turno)"
+        source="Fonte: TSE · Candidatos (DS_SIT_TOT_TURNO). Proporcional: resultado do 1º turno, o único da eleição proporcional. Majoritário: resultado final, com 2º turno onde houve."
       >
         <div className="space-y-6">
           <SeriesChart series={byId("serie-mulheres-eleitas")} />
@@ -262,7 +262,7 @@ function HistoricoPage() {
       </SectionBlock>
 
       <ComoSabemos
-        fonte="TSE, Candidatos 2014, 2018 e 2022 (candidaturas e resultado de 1º e 2º turno); TSE, Candidaturas 2026."
+        fonte="TSE, Candidatos 2014, 2018 e 2022 (resultado do 1º turno no proporcional; resultado final, com 2º turno, no majoritário); TSE, Candidaturas 2026."
         universo="Proporcional (Câmara, assembleias e Câmara Legislativa do DF) e majoritário (Presidência, governos e Senado), nunca somados. Cada candidatura entra uma vez em cada ano."
         calculo={<>Candidaturas de mulheres divididas pelo total de candidaturas do mesmo universo e do mesmo ano. {BLACK_AGGREGATION_NOTE}</>}
         limites={[

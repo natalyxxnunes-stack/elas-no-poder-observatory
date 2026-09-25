@@ -94,7 +94,7 @@ function QuemControlaPage() {
         question="Antes do voto, muito se decide no partido"
         lead={
           <p>
-            A lei fixa pisos de candidaturas e de recursos para mulheres. Dentro desses pisos, a divisão do fundo, do tempo de TV e das posições de chapa fica com o partido ou a federação. Das {numberWords[leverTotal] ?? leverTotal} decisões mapeadas aqui, {numberWords[readyTotal] ?? readyTotal} já podem ser medidas com dado público e {numberWords[partialTotal] ?? partialTotal}, em parte.
+            A lei e a Constituição fixam pisos de candidaturas, de recursos e de tempo de propaganda para mulheres. Dentro desses pisos, a divisão concreta fica com o partido ou a federação. A Justiça Eleitoral julga os registros, confere a cota e analisa as contas. Das {numberWords[leverTotal] ?? leverTotal} decisões mapeadas aqui, {numberWords[readyTotal] ?? readyTotal} já podem ser medidas com dado público e {numberWords[partialTotal] ?? partialTotal}, em parte.
           </p>
         }
         levers={CONTROL_LEVERS.map(({ lever, ready }) => ({ label: lever, ready }))}

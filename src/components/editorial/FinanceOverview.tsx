@@ -50,7 +50,7 @@ export function FinanceByOffice({ snapshot }: { snapshot: TseFinanceSnapshot }) 
           </div>
         ))}
       </div>
-      <figcaption className="border-t border-rule px-5 py-3 font-mono text-[10px] leading-relaxed text-muted-foreground">Fatia da receita total do cargo destinada a candidaturas de mulheres. Receita, não despesa.</figcaption>
+      <figcaption className="border-t border-rule px-5 py-3 font-mono text-[10px] leading-relaxed text-muted-foreground">Fatia da receita declarada do cargo que foi para candidaturas de mulheres. Prestação de contas parcial, base de 23/09/2026. Receita, não despesa.</figcaption>
     </figure>
   );
 }
@@ -60,7 +60,7 @@ export function FinanceRace({ snapshot }: { snapshot: TseFinanceSnapshot }) {
     <div className="grid gap-5 md:grid-cols-2">
       {(["proporcional", "majoritario"] as const).map((universe) => {
         const data = snapshot.universes[universe];
-        return <article key={universe} className="poster-frame overflow-hidden"><header className="border-b border-rule px-5 py-4"><h3 className="font-display text-xl text-ink">{UNIVERSE_LABEL[universe]}</h3><p className="mt-1 font-mono text-[10px] text-muted-foreground">Denominador: {formatBRL(data.feminineRevenue)} arrecadados por mulheres</p></header><dl className="divide-y divide-rule">{Object.entries(data.feminineRevenueByRace).sort((a, b) => b[1].value - a[1].value).map(([race, datum]) => <div key={race} className="grid grid-cols-[5rem_minmax(0,1fr)_7rem] items-center gap-3 px-5 py-3"><dt className="font-mono text-[10px] text-muted-foreground">{race}</dt><dd className="h-2 bg-secondary"><div className="h-full bg-plum" style={{ width: `${share(datum.value, data.feminineRevenue)}%` }} /></dd><dd className="text-right font-mono text-[10px] text-ink">{formatPct(share(datum.value, data.feminineRevenue))}<span className="block text-muted-foreground">{formatInt(datum.candidacies)} candidaturas</span></dd></div>)}</dl></article>;
+        return <article key={universe} className="poster-frame overflow-hidden"><header className="border-b border-rule px-5 py-4"><h3 className="font-display text-xl text-ink">{UNIVERSE_LABEL[universe]}</h3><p className="mt-1 font-mono text-[10px] text-muted-foreground">Denominador: {formatBRL(data.feminineRevenue)} de receita declarada por candidaturas de mulheres</p></header><dl className="divide-y divide-rule">{Object.entries(data.feminineRevenueByRace).sort((a, b) => b[1].value - a[1].value).map(([race, datum]) => <div key={race} className="grid grid-cols-[5rem_minmax(0,1fr)_7rem] items-center gap-3 px-5 py-3"><dt className="font-mono text-[10px] text-muted-foreground">{race}</dt><dd className="h-2 bg-secondary"><div className="h-full bg-plum" style={{ width: `${share(datum.value, data.feminineRevenue)}%` }} /></dd><dd className="text-right font-mono text-[10px] text-ink">{formatPct(share(datum.value, data.feminineRevenue))}<span className="block text-muted-foreground">{formatInt(datum.candidacies)} candidaturas</span></dd></div>)}</dl></article>;
       })}
     </div>
   );
