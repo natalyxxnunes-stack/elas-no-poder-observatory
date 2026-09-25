@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
-import subindoAsset from "@/assets/subindo.webp.asset.json";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -34,12 +33,6 @@ export const Route = createFileRoute("/funil")({
           "Etapa por etapa, com denominador explícito: a presença de mulheres na disputa de 2026, segundo o registro de candidaturas do TSE.",
       },
       { property: "og:type", content: "article" },
-      { property: "og:image", content: `https://quemsaoelas.com.br${subindoAsset.url}` },
-      {
-        property: "og:image:alt",
-        content: "Ilustração editorial: mulher subindo degraus sob arcos coloridos",
-      },
-      { name: "twitter:image", content: `https://quemsaoelas.com.br${subindoAsset.url}` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),

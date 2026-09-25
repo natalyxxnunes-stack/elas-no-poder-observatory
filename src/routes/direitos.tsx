@@ -10,8 +10,6 @@ import { GapNote } from "@/components/GapNote";
 import { RIGHTS_TIMELINE, RIGHTS_TIMELINE_RULE } from "@/data/rights-timeline";
 import { RIGHTS_OPEN_QUESTIONS } from "@/data/election-2026";
 import { DISPUTE_ITEMS, DISPUTE_RULE } from "@/data/rules-in-dispute";
-import feministasAsset from "@/assets/feministas.webp.asset.json";
-import respiroFundoAsset from "@/assets/respirocomfundo.webp.asset.json";
 import { PullQuote } from "@/components/editorial/PullQuote";
 import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 
@@ -31,12 +29,6 @@ export const Route = createFileRoute("/direitos")({
           "As regras que abriram a disputa às mulheres, marco por marco — e o que cada uma delas ainda não alcança.",
       },
       { property: "og:type", content: "article" },
-      { property: "og:image", content: `https://quemsaoelas.com.br${feministasAsset.url}` },
-      {
-        property: "og:image:alt",
-        content: "Ilustração editorial: marcha de mulheres com cartazes e urnas",
-      },
-      { name: "twitter:image", content: `https://quemsaoelas.com.br${feministasAsset.url}` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
@@ -153,17 +145,6 @@ function DireitosPage() {
           ))}
         </ol>
       </SectionBlock>
-
-      {/* RESPIRO — pausa visual entre dois blocos densos */}
-      <div className="flex justify-center py-6">
-        <img
-          src={respiroFundoAsset.url}
-          alt=""
-          aria-hidden
-          loading="lazy"
-          className="h-auto w-52 rounded-lg md:w-72"
-        />
-      </div>
 
       {/* EM DISPUTA — presente das regras, na sequência da linha do tempo */}
       <SectionBlock
