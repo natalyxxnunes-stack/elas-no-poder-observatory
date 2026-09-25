@@ -60,6 +60,10 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
   const [uf, setUf] = useState("");
 
   const dims = snapshot?.universes[universe]?.dimensions;
+  const hasMajoritarianUf = Boolean(snapshot?.universes.majoritario.dimensions?.totalByUf);
+  const visibleUniverses: UniverseId[] = hasMajoritarianUf
+    ? ["proporcional", "majoritario"]
+    : ["proporcional"];
 
   const ufOptions = useMemo(() => {
     const tot = dims?.totalByUf ?? {};
@@ -127,16 +131,6 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
 
   const hasGenderDenominatorByParty = parties.some((p) => p.total !== null);
 
-  if (ufOptions.length === 0) {
-    return (
-      <GapNote label="Dado não disponível">
-        A fotografia atual do TSE não trouxe as contagens por unidade da
-        federação neste universo. Sem essas células o estado fica sem número —
-        nada é estimado no lugar.
-      </GapNote>
-    );
-  }
-
   const btn = (active: boolean) =>
     `border-2 border-ink px-2.5 py-1 font-mono text-[12px] uppercase tracking-wider focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum ${
       active ? "bg-ink text-paper" : "bg-paper text-ink"
@@ -147,7 +141,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
       <div className="poster-frame p-4 md:p-5">
         <div className="flex flex-wrap items-center gap-2">
           <span className="poster-eyebrow text-muted-foreground">Universo</span>
-          {(["proporcional", "majoritario"] as UniverseId[]).map((u) => (
+          {visibleUniverses.map((u) => (
             <button
               key={u}
               type="button"
@@ -160,7 +154,13 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
           ))}
         </div>
 
-        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
+        {ufOptions.length === 0 ? (
+          <div className="mt-4">
+            <GapNote label="Dado não disponível">
+              A fotografia atual do TSE não trouxe as contagens por unidade da federação neste universo. Sem essas células o estado fica sem número — nada é estimado no lugar.
+            </GapNote>
+          </div>
+        ) : <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
           <label className="block w-full sm:max-w-xs">
             <span className="poster-eyebrow block text-muted-foreground">
               Estado
@@ -187,7 +187,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
               voltar ao Brasil
             </button>
           )}
-        </div>
+        </div>}
 
         <p className="mt-3 font-mono text-[12px] leading-relaxed text-ink/70">
           {UNIVERSE_SCOPE[universe]}. Trocar o universo troca todos os números
@@ -196,7 +196,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
       </div>
 
       {/* Retrato do recorte escolhido */}
-      <div className="poster-frame p-5 md:p-7">
+      {ufOptions.length > 0 && <div className="poster-frame p-5 md:p-7">
         <p className="poster-eyebrow text-ink">
           {uf ? `${uf} · ` : "Brasil · "}
           {UNIVERSE_LABEL[universe]}
@@ -277,23 +277,15 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
             </p>
           </>
         )}
-      </div>
+      </div>}
 
       {/* Cor/raça no estado */}
-      {uf && (
+      {uf && stateRaces && raceBase > 0 && (
         <div className="poster-frame p-5 md:p-7">
           <p className="poster-eyebrow text-ink">
             Quais mulheres · {uf} · {UNIVERSE_LABEL[universe]}
           </p>
-          {!stateRaces || raceBase === 0 ? (
-            <div className="mt-4">
-              <GapNote label="Dado não disponível">
-                A fotografia atual não trouxe cor/raça das candidaturas de
-                mulheres deste universo em {uf}.
-              </GapNote>
-            </div>
-          ) : (
-            <>
+          <>
               <table className="mt-4 w-full border-collapse text-left">
                 <caption className="sr-only">
                   Cor/raça declarada ao TSE entre as {raceBase} candidaturas de
@@ -354,12 +346,11 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
                 parda não são somadas nesta tabela.
               </p>
             </>
-          )}
         </div>
       )}
 
       {/* Partido × gênero × raça dentro do estado */}
-      {uf && (
+      {uf && parties.length > 0 && (
         <div className="poster-frame p-4 md:p-5">
           <p className="poster-eyebrow text-ink">
             Partidos em {uf} · {UNIVERSE_LABEL[universe]}
@@ -368,14 +359,6 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
             <summary className="cursor-pointer font-mono text-[12px] uppercase tracking-wider text-plum underline underline-offset-4">
               Ver por partido em {uf}
             </summary>
-            {parties.length === 0 ? (
-              <div className="mt-4">
-                <GapNote label="Dado não disponível">
-                  Nenhuma célula de partido foi gravada para {uf} neste universo
-                  nesta fotografia.
-                </GapNote>
-              </div>
-            ) : (
               <>
                 <div className="mt-4 overflow-x-auto">
                 <table className="w-full min-w-[640px] border-collapse text-left">
@@ -487,15 +470,17 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
                       Nesta fotografia, o total de candidaturas por estado ×
                       partido (o denominador de gênero dessa combinação) não foi
                       gravado: por isso aqui aparecem apenas as candidaturas de
-                      mulheres, sem percentual. O percentual de mulheres por
-                      partido no país inteiro está na tabela nacional acima.
+                      mulheres, sem percentual.
                     </>
                   )}
                 </p>
               </>
-            )}
           </details>
         </div>
+      )}
+
+      {uf && (!stateRaces || raceBase === 0 || parties.length === 0) && (
+        <p className="font-mono text-[12px] text-muted-foreground">Cor/raça e partido por estado entram na próxima atualização.</p>
       )}
 
       <ContextBox variant="calculamos" title="Como este recorte é montado">

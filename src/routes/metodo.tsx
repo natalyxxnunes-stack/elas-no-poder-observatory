@@ -417,10 +417,8 @@ function MetodoPage() {
                       </div>
                     )}
                     <div>
-                      <dt className="uppercase tracking-wider">
-                        Versão de processamento
-                      </dt>
-                      <dd>{snapshot.processingVersion}</dd>
+                      <dt className="uppercase tracking-wider">Conferência</dt>
+                      <dd>recontagem independente em 22/09/2026</dd>
                     </div>
                   </dl>
                   <p className="mt-2 font-mono text-[12px] text-muted-foreground">
@@ -560,10 +558,7 @@ function MetodoPage() {
         question="Fotografias já processadas"
         lead={
           <p>
-            Cada atualização gera uma fotografia nova; nenhuma é sobrescrita. Assim
-            é possível saber qual base sustentava um número em determinada data. Só
-            a fotografia conferida manualmente vai ao ar — a mais recente pode estar
-            coletada e ainda retida.
+            A fotografia no ar foi conferida manualmente contra o arquivo oficial do TSE. As coletas anteriores (como a de 17/08/2026 e a retenção de 13/08/2026, descrita abaixo) ficam registradas neste texto; a tabela mostra a fotografia vigente.
           </p>
         }
 
@@ -936,8 +931,7 @@ function MetodoPage() {
               aptas, inaptas, com registro indeferido, sub judice ou renunciadas
               entram todas na contagem, porque a situação muda até a decisão final
               da Justiça Eleitoral e um filtro tornaria as fotografias
-              incomparáveis. As situações presentes na base aparecem contadas na
-              seção seguinte. O detalhe do estágio processual está em outro
+              incomparáveis. O detalhe do estágio processual está em outro
               recurso do TSE, ainda não integrado.
             </p>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
