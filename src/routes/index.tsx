@@ -29,13 +29,13 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Quem são elas? — Mulheres, eleições e poder | Dados 2026" },
+      { title: "Quem são elas? · Mulheres, eleições e poder | Dados 2026" },
       {
         name: "description",
         content:
           "Observatório de dados sobre mulheres, eleições e poder em 2026: candidaturas proporcionais e majoritárias, gênero e raça, o funil até o poder e o método aberto.",
       },
-      { property: "og:title", content: "Quem são elas? — Dados 2026" },
+      { property: "og:title", content: "Quem são elas? · Dados 2026" },
       {
         property: "og:description",
         content:
@@ -115,7 +115,7 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
           <ChapterKicker n="01" label="Registros · fotografia em andamento" />
           <h2 className="mt-4 font-display text-4xl leading-none text-ink md:text-5xl">O que os registros permitem dizer agora</h2>
           <p className="mt-5 max-w-md leading-relaxed text-muted-foreground">
-            Tudo nesta parte da página é quem pediu registro para disputar 2026 — quem entrou na disputa. Não há resultado eleitoral aqui: o 1º turno é em 4 de outubro de 2026 e o eventual 2º turno em 25 de outubro de 2026.
+            Tudo nesta parte da página é quem pediu registro para disputar 2026: quem entrou na disputa. Não há resultado eleitoral aqui: o 1º turno é em 4 de outubro de 2026 e o eventual 2º turno em 25 de outubro de 2026.
           </p>
           {snapshot && (
             <div className="mt-8 border-l-4 border-coral pl-4">

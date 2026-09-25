@@ -62,7 +62,7 @@ const CONTROL_LEVERS = [
   },
   {
     lever: "Quem recebe recursos",
-    what: "A distribuição dos recursos públicos de campanha é feita pelo partido entre suas candidaturas, observando as regras de destinação mínima. A receita por partido já está publicada para os 5 maiores partidos, cruzada com gênero — falta despesa e os demais partidos.",
+    what: "A distribuição dos recursos públicos de campanha é feita pelo partido entre suas candidaturas, observando as regras de destinação mínima. A receita por partido já está publicada para os 5 maiores partidos, cruzada com gênero. Faltam a despesa e os demais partidos.",
     needs: "Receita já disponível para os 5 maiores partidos em /dinheiro; despesa contratada e paga, e os partidos fora do top 5, seguem pendentes",
     ready: "partial",
   },
@@ -118,8 +118,8 @@ function QuemControlaPage() {
           }
           unknown={
             <>
-              Como cada partido distribuiu recursos e propaganda em 2026 — e a quais mulheres, por
-              cor/raça, cargo e território — pendente da base de prestação de contas e propaganda.
+              Como cada partido distribuiu recursos e propaganda em 2026, e a quais mulheres (por
+              cor/raça, cargo e território): pendente da base de prestação de contas e propaganda.
             </>
           }
         />
@@ -148,7 +148,7 @@ function QuemControlaPage() {
 
       <SectionBlock id="regras" tone="lilac"
         kicker="As regras que incidem"
-        question="O que a regra alcança — e o que ela deixa para o partido decidir"
+        question="O que a regra alcança e o que ela deixa para o partido decidir"
         lead={<p>{QUOTA_RULE.scope}</p>}
         source={
           <>

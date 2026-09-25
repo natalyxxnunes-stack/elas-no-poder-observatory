@@ -38,7 +38,7 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
       "A aplicação foi gradual e desigual entre estados, dependendo da estrutura de alistamento existente.",
     consequence:
       "1932 marca a admissão do voto, não a igualdade instantânea de participação política.",
-    sourceLabel: "Decreto nº 21.076/1932 — Código Eleitoral",
+    sourceLabel: "Decreto nº 21.076/1932, Código Eleitoral",
     sourceUrl:
       "https://www2.camara.leg.br/legin/fed/decret/1930-1939/decreto-21076-24-fevereiro-1932-507583-publicacaooriginal-1-pe.html",
   },
@@ -48,7 +48,7 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     achievement:
       "A Constituição de 16 de julho de 1934 assentou em bases constitucionais o direito de voto das mulheres, já reconhecido pelo Código de 1932.",
     rule:
-      "O art. 108 definiu como eleitores \"os brasileiros de um ou de outro sexo, maiores de 18 anos\". Mas o art. 109 tornava o alistamento e o voto obrigatórios para os homens e, para as mulheres, apenas quando exercessem função pública remunerada — para as demais, o voto seguia facultativo.",
+      "O art. 108 definiu como eleitores \"os brasileiros de um ou de outro sexo, maiores de 18 anos\". Mas o art. 109 tornava o alistamento e o voto obrigatórios para os homens e, para as mulheres, apenas quando exercessem função pública remunerada; para as demais, o voto seguia facultativo.",
     dispute:
       "A equiparação plena de obrigatoriedade e de condições entre homens e mulheres permaneceu em aberto, refletindo uma lógica que ainda vinculava a participação da mulher à sua situação de trabalho e estado civil.",
     implementation:
@@ -67,11 +67,11 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     rule:
       "O voto, até então facultativo para a maioria das mulheres, tornou-se obrigatório para homens e mulheres alfabetizados de todo o país.",
     dispute:
-      "A obrigatoriedade encerrou a assimetria no direito de votar, mas nenhum mecanismo estimulava candidaturas de mulheres — o gargalo se deslocou do voto para a candidatura.",
+      "A obrigatoriedade encerrou a assimetria no direito de votar, mas nenhum mecanismo estimulava candidaturas de mulheres: o gargalo se deslocou do voto para a candidatura.",
     implementation:
       "Aplicada sob a estrutura da Justiça Eleitoral reinstalada no novo arranjo democrático.",
     consequence:
-      "Votar deixou de ser a questão; candidatar-se e ser eleita passaram a ser o gargalo visível — e assim permaneceriam por décadas.",
+      "Votar deixou de ser a questão; candidatar-se e ser eleita passaram a ser o gargalo visível, e assim permaneceriam por décadas.",
     sourceLabel: "Constituição de 1946",
     sourceUrl:
       "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao46.htm",
@@ -94,7 +94,7 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
   },
   {
     year: "1997",
-    title: "Lei das Eleições — composição de 30% a 70% por gênero",
+    title: "Lei das Eleições: composição de 30% a 70% por gênero",
     achievement:
       "A Lei 9.504/1997 fixa faixa de composição por gênero nas candidaturas proporcionais.",
     rule:
@@ -137,8 +137,8 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     implementation:
       "Aplicada às distribuições do fundo eleitoral e à divisão do tempo de rádio e TV pelos partidos.",
     consequence:
-      "Ter candidatura passou a ser distinguível de ter recursos para competir — e essa distinção passou a ser auditável.",
-    sourceLabel: "TSE — Consulta 0600252-18 / ADI 5617 (STF)",
+      "Ter candidatura passou a ser distinguível de ter recursos para competir, e essa distinção passou a ser auditável.",
+    sourceLabel: "TSE, Consulta 0600252-18 / ADI 5617 (STF)",
     sourceUrl:
       "https://www.tse.jus.br/comunicacao/noticias/2018/Maio/fundo-eleitoral-e-tempo-de-radio-e-tv-devem-reservar-o-minimo-de-30-para-candidaturas-femininas",
   },
@@ -154,7 +154,7 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     implementation:
       "O TSE fixou a regra para as eleições de 2022; o STF, na ADPF 738, determinou a aplicação imediata, já nas eleições municipais de 2020.",
     consequence:
-      "Tornou-se possível — e obrigatório — investigar recursos no cruzamento entre gênero e cor/raça.",
+      "Tornou-se possível, e obrigatório, investigar recursos no cruzamento entre gênero e cor/raça.",
     sourceLabel: "TSE, Consulta nº 0600306-47.2019.6.00.0000; STF, ADPF 738",
     sourceUrl:
       "https://www.tse.jus.br/comunicacao/noticias/2020/Agosto/tse-decide-que-recursos-de-campanha-devem-ser-distribuidos-proporcionalmente-a-candidaturas-negras",
@@ -165,7 +165,7 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     achievement:
       "A EC 111/2021 criou um incentivo constitucional às candidaturas de mulheres e pessoas negras na distribuição de recursos públicos de campanha.",
     rule:
-      "Para a distribuição, entre os partidos, dos recursos do Fundo Partidário e do FEFC, os votos dados a candidatas mulheres ou a candidatos negros para a Câmara dos Deputados nas eleições de 2022 a 2030 são contados em dobro. A contagem incide sobre a partilha dos fundos entre os partidos — não sobre a atribuição de cadeiras: nenhuma candidata se elege com voto duplicado.",
+      "Para a distribuição, entre os partidos, dos recursos do Fundo Partidário e do FEFC, os votos dados a candidatas mulheres ou a candidatos negros para a Câmara dos Deputados nas eleições de 2022 a 2030 são contados em dobro. A contagem incide sobre a partilha dos fundos entre os partidos, não sobre a atribuição de cadeiras: nenhuma candidata se elege com voto duplicado.",
     dispute:
       "É um incentivo com prazo definido (2022 a 2030), e cada voto é contado em dobro uma única vez. Sua eficácia depende de como cada partido redistribui internamente o que recebe.",
     implementation:
@@ -198,9 +198,9 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     achievement:
       "Consolida-se, com a aprovação da Súmula 73 do TSE em maio de 2024, a jurisprudência sobre apuração e punição da fraude à regra de composição de candidaturas por gênero.",
     rule:
-      "A fraude — uso de candidaturas femininas fictícias para o partido atingir o mínimo de 30% e ter o registro deferido — pode ser reconhecida por elementos objetivos (votação ínfima ou zerada, ausência de atos efetivos de campanha, prestação de contas padronizada), sem necessidade de prova de intenção. Confirmada, acarreta anulação dos votos do partido para o cargo, cassação do DRAP e dos diplomas das candidaturas vinculadas, e recálculo dos quocientes eleitoral e partidário.",
+      "A fraude, uso de candidaturas femininas fictícias para o partido atingir o mínimo de 30% e ter o registro deferido, pode ser reconhecida por elementos objetivos (votação ínfima ou zerada, ausência de atos efetivos de campanha, prestação de contas padronizada), sem necessidade de prova de intenção. Confirmada, acarreta anulação dos votos do partido para o cargo, cassação do DRAP e dos diplomas das candidaturas vinculadas, e recálculo dos quocientes eleitoral e partidário.",
     dispute:
-      "A caracterização depende dos fatos de cada caso — atos concretos de campanha e movimentação financeira compatível afastam a presunção de candidatura fictícia — e os efeitos sobre cadeiras são decididos após o pleito.",
+      "A caracterização depende dos fatos de cada caso, atos concretos de campanha e movimentação financeira compatível afastam a presunção de candidatura fictícia, e os efeitos sobre cadeiras são decididos após o pleito.",
     implementation:
       "Apuração por ação eleitoral própria (AIJE ou AIME), após a eleição, com produção de prova.",
     consequence:
@@ -228,7 +228,7 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     year: "2026",
     title: "Regras aplicáveis ao ciclo em curso",
     achievement:
-      "As eleições de 2026 são regidas por um conjunto de resoluções do TSE que organizam, em normas separadas, o registro de candidaturas, a arrecadação e a prestação de contas, e a distribuição de recursos públicos de campanha — incorporando as regras de destinação a candidaturas de mulheres, pessoas negras e indígenas construídas ao longo dos ciclos anteriores.",
+      "As eleições de 2026 são regidas por um conjunto de resoluções do TSE que organizam, em normas separadas, o registro de candidaturas, a arrecadação e a prestação de contas, e a distribuição de recursos públicos de campanha, incorporando as regras de destinação a candidaturas de mulheres, pessoas negras e indígenas construídas ao longo dos ciclos anteriores.",
     rule:
       "A destinação mínima de recursos do FEFC e do Fundo Partidário a essas candidaturas continua regida pela Resolução TSE nº 23.607/2019 (art. 17, §4º, e art. 19), com piso de 30% para candidaturas de mulheres, apoiada na ADI 5.617/DF e na ADPF 738/DF. Para o ciclo de 2026, a Resolução TSE nº 23.752/2026 (arrecadação e prestação de contas) alterou dispositivos da 23.607/2019, e o registro de candidaturas é tratado pela Resolução TSE nº 23.754/2026. A Resolução TSE nº 23.755/2026 alterou as regras de propaganda: o tempo de rádio e TV é distribuído na proporção das candidaturas de mulheres negras e não negras, de homens negros e não negros e de indígenas, com compensação semanal, e os tribunais passam a divulgar o tempo destinado a cada grupo.",
     dispute:

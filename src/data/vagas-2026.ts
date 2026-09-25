@@ -24,7 +24,7 @@ import type { UniverseId } from "@/lib/tse/compute";
 
 /** Metadados de rastreabilidade do arquivo lido. */
 export const VAGAS_SOURCE = {
-  name: "TSE / Dados Abertos / Candidatos 2026 — recurso “Vagas”",
+  name: "TSE / Dados Abertos / Candidatos 2026, recurso “Vagas”",
   datasetUrl: "https://dadosabertos.tse.jus.br/dataset/candidatos-2026",
   resourceUrl:
     "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_vagas/consulta_vagas_2026.zip",

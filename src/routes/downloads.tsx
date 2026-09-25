@@ -14,13 +14,13 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 export const Route = createFileRoute("/downloads")({
   head: () => ({
     meta: [
-      { title: "Downloads — Quem são elas? | Cartilhas e materiais" },
+      { title: "Downloads · Quem são elas? | Cartilhas e materiais" },
       {
         name: "description",
         content:
           "Cartilhas, infográficos e materiais educativos do observatório Quem são elas? para leitura, impressão e compartilhamento.",
       },
-      { property: "og:title", content: "Downloads — Quem são elas?" },
+      { property: "og:title", content: "Downloads · Quem são elas?" },
       {
         property: "og:description",
         content: "Materiais educativos sobre mulheres, eleições e poder, prontos para circular.",
@@ -54,7 +54,7 @@ const MATERIALS: readonly Material[] = [
   {
     id: "cartilha-cota",
     kind: "Cartilha",
-    title: "O que a cota de gênero faz — e o que ela não faz",
+    title: "O que a cota de gênero faz e o que ela não faz",
     description:
       "Explicação em linguagem simples da regra de composição de candidaturas de 30% a 70% por gênero, do que ela alcança e do que fica com o partido.",
     audience: "Coletivos, escolas e formação política",
@@ -85,7 +85,7 @@ const MATERIALS: readonly Material[] = [
     kind: "Base de dados",
     title: "Fotografia das candidaturas de 2026 (CSV)",
     description:
-      "Contagens por universo, gênero e categoria de cor/raça. O arquivo é gerado na hora a partir da fotografia vigente e traz, no cabeçalho, a data de geração da base pelo TSE, a data da coleta, os filtros e o código de procedência do arquivo processado. Já publicado no Método — não há cópia separada aqui, para que nenhuma versão antiga circule como atual.",
+      "Contagens por universo, gênero e categoria de cor/raça. O arquivo é gerado na hora a partir da fotografia vigente e traz, no cabeçalho, a data de geração da base pelo TSE, a data da coleta, os filtros e o código de procedência do arquivo processado. Já publicado no Método. A tabela fica só lá, para que nenhuma versão antiga circule como atual.",
     audience: "Jornalistas e pesquisadoras",
     format: "CSV, download no Método",
     file: "/metodo",
@@ -94,7 +94,7 @@ const MATERIALS: readonly Material[] = [
 
 function DownloadsPage() {
   return (
-    <PageShell breadcrumb={[{ label: "Materiais", to: "/investigacoes" }, { label: "Downloads" }]}>
+    <PageShell breadcrumb={[{ label: "Projeto" }, { label: "Downloads" }]}>
       <EditorialOpening
         variant="downloads"
         kicker="Downloads"

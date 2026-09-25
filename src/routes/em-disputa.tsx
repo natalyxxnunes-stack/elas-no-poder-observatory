@@ -36,10 +36,10 @@ function EmDisputaPage() {
   const PUBLISHED_ITEMS = DISPUTE_ITEMS.filter((item) => Boolean(item.checkedAt));
 
   return (
-    <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Em disputa" }]}>
+    <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Regras de 2026" }]}>
       <EditorialOpening
         variant="process"
-        kicker="Em disputa"
+        kicker="Regras de 2026"
         question="As regras que valem em 2026, e o que pode mudá-las"
         lead={
           <p>
@@ -59,7 +59,7 @@ function EmDisputaPage() {
           found={
             <>
               As regras em vigor no ciclo de 2026 combinam composição de candidaturas, destinação de
-              recursos e incentivos de distribuição partidária — cada uma com alcance diferente.
+              recursos e incentivos de distribuição partidária, cada uma com alcance diferente.
             </>
           }
           matters={

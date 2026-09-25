@@ -73,7 +73,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Quem são elas? — Mulheres, eleições e poder" },
+      { title: "Quem são elas? · Mulheres, eleições e poder" },
       {
         name: "description",
         content:
@@ -81,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { property: "og:image", content: "https://quemsaoelas.com.br/og/quem-sao-elas-2026.png" },
-      { property: "og:image:alt", content: "Quem são elas? Dados 2026: 35,6% das candidaturas proporcionais são de mulheres" },
+      { property: "og:image:alt", content: "Quem são elas? Observatório de dados sobre mulheres, eleições e poder no Brasil em 2026" },
       { name: "twitter:image", content: "https://quemsaoelas.com.br/og/quem-sao-elas-2026.png" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

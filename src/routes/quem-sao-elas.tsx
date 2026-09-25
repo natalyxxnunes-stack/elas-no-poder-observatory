@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
+import { CandidatasMajoritarias } from "@/components/editorial/CandidatasMajoritarias";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
@@ -288,9 +289,23 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
       <SectionBlock
+        id="elas"
+        kicker="Elas, cargo a cargo"
+        question="Quem são as 107 mulheres que disputam a Presidência, os governos e o Senado"
+        align="wide"
+        lead={
+          <p>
+            Todas as candidaturas de mulheres aos cargos majoritários, com os dados públicos do registro: nome de urna, partido, estado, cor/raça declarada, quem está na chapa e quanto já declararam de receita. A lista segue a ordem de cargo e estado.
+          </p>
+        }
+      >
+        <CandidatasMajoritarias />
+      </SectionBlock>
+
+      <SectionBlock
         id="partidos"
         kicker="Explorador"
-        question="Escolha o cargo, o estado e o partido — e veja quem são elas ali"
+        question="Escolha o cargo, o estado e o partido e veja quem são elas ali"
         align="wide"
         tone="lilac"
         lead={
@@ -335,7 +350,7 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
       <ComoSabemos
-        fonte="TSE, Candidaturas 2026; IBGE, Censo Demográfico 2022 (SIDRA, tabela 9606)."
+        fonte="TSE, Candidaturas 2026; IBGE, Censo Demográfico 2022 (SIDRA, tabela 9606, mulheres de 18 anos ou mais)."
         universo="Candidaturas de mulheres registradas em 2026, com proporcional e majoritário lidos separadamente. Vices e suplentes entram só na comparação por cargo."
         base={baseStamp}
         calculo="Cada recorte é dividido pelo seu próprio total, dentro de um único universo. Abaixo de 20 candidaturas, aparecem só os números absolutos. No recorte por partido, a fatia de mulheres usa o total de candidaturas daquele partido; a distribuição por cor/raça usa as candidaturas de mulheres do partido. A ordem dos partidos é descritiva e não classifica mérito."

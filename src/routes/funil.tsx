@@ -20,7 +20,7 @@ import { formatUmEmCada } from "@/lib/format-br";
 export const Route = createFileRoute("/funil")({
   head: () => ({
     meta: [
-      { title: "Onde elas ficam pelo caminho? — Quem são elas?" },
+      { title: "Onde elas ficam pelo caminho? · Quem são elas?" },
       {
         name: "description",
         content:
@@ -113,7 +113,7 @@ function FunilPage() {
             <>
               Nas candidaturas{" "}
               <GlossaryTerm term="proporcional">proporcionais</GlossaryTerm> de
-              2026 — as que elegem vários nomes para um mesmo parlamento — a
+              2026, as que elegem vários nomes para um mesmo parlamento, a
               participação de mulheres é bem maior do que nas{" "}
               <GlossaryTerm term="majoritaria">majoritárias</GlossaryTerm> (Presidência, governos e Senado). Os dois grupos são contados
               separadamente.
@@ -128,7 +128,7 @@ function FunilPage() {
           }
           unknown={
             <>
-              Em aberto: quem se elege em 2026 — a eleição acontece em outubro e
+              Em aberto: quem se elege em 2026. A eleição acontece em outubro e
               o resultado entra depois.
             </>
           }
@@ -205,7 +205,7 @@ function FunilPage() {
               <GlossaryTerm term="quociente-eleitoral">
                 quociente eleitoral
               </GlossaryTerm>, que define quantas cadeiras o grupo conquista. Só depois, dentro do grupo, a ordem dos mais votados decide quem
-              ocupa essas cadeiras — por isso uma candidata com muitos votos pode
+              ocupa essas cadeiras. Por isso uma candidata com muitos votos pode
               ficar de fora e outra, com menos votos, entrar.
             </p>
           </ContextBox>
