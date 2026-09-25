@@ -344,7 +344,7 @@ function SobrePage() {
         </ul>
       </SectionBlock>
 
-      <NextAxes ids={["dados-2026", "metodo", "downloads"]} />
+      <NextAxes ids={["dados-2026", "metodo", "funil"]} />
     </PageShell>
   );
 }

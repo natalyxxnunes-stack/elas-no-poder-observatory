@@ -8,7 +8,6 @@ import {
   HomeHeroEditorial,
   HomeInvestigationGrid,
   HomeMapSection,
-  HomeStages,
 } from "@/components/home/HomeEditorial";
 import { formatPercent } from "@/data/election-2026";
 import { ACHADOS_RECENTES } from "@/data/achados";
@@ -182,8 +181,7 @@ function DadosPage() {
       <HomeInvestigationGrid snapshot={snapshot} />
       <HomeMapSection snapshot={snapshot} />
       <HomeHistoryHighlight historical={historical} />
-      <HomeStages />
-      <HomeFunnelFeature />
+      <HomeFunnelFeature snapshot={snapshot} />
       <HomeAboutBand />
     </PageShell>
   );

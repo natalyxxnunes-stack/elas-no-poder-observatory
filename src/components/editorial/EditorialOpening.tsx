@@ -158,16 +158,15 @@ function TimelineOpening({ years, ...text }: OpeningBase & { years: readonly str
 
 function MilestonesOpening({ milestones, ...text }: OpeningBase & { milestones: readonly { year: string; title: string }[] }) {
   return (
-    <Frame className="bg-coral">
-      <div className="absolute inset-y-0 right-[18%] hidden w-px rotate-[14deg] bg-cream/25 md:block" />
+    <Frame className="bg-lilac">
       <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
-        <OpeningText {...text} inverse />
-        <ol className="relative border-l border-cream/55 pl-7">
-          {milestones.map((milestone, index) => (
-            <li key={`${milestone.year}-${milestone.title}`} className="relative grid grid-cols-[4.5rem_minmax(0,1fr)] gap-3 border-b border-cream/25 py-3">
-              <span className="absolute -left-[2.05rem] top-5 size-2.5 rounded-full bg-cream" />
-              <strong className="font-display text-xl text-cream">{milestone.year}</strong>
-              <span className="text-xs leading-snug text-cream/75">{milestone.title}</span>
+        <OpeningText {...text} />
+        <ol className="relative border-l-2 border-coral pl-7">
+          {milestones.map((milestone) => (
+            <li key={`${milestone.year}-${milestone.title}`} className="relative grid grid-cols-[4.5rem_minmax(0,1fr)] gap-3 border-b border-ink/15 py-3">
+              <span className="absolute -left-[2.15rem] top-5 size-3 rounded-full bg-coral" aria-hidden="true" />
+              <strong className="font-display text-xl text-ink">{milestone.year}</strong>
+              <span className="text-sm leading-snug text-ink/80">{milestone.title}</span>
             </li>
           ))}
         </ol>
@@ -283,9 +282,8 @@ function MethodOpening({ steps, aside, ...text }: OpeningBase & { steps: readonl
 function ManifestoOpening({ aside, ...text }: OpeningBase & { aside?: ReactNode }) {
   return (
     <Frame className="bg-paper">
-      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[45%] md:block" aria-hidden="true"><span className="absolute bottom-0 right-[4%] h-[70%] w-[42%] rounded-t-full bg-plum" /><span className="absolute bottom-0 right-[30%] h-[58%] w-[38%] rounded-t-full bg-coral/90 mix-blend-multiply" /><span className="absolute -bottom-24 right-[38%] size-64 rounded-full bg-lilac mix-blend-multiply" /></div>
       <div className="relative mx-auto grid min-h-[31rem] max-w-6xl items-center px-5 py-12 md:px-8 lg:grid-cols-[0.62fr_0.38fr]">
-        <div><OpeningText {...text} />{aside && <div className="mt-7 max-w-sm border-l border-ink pl-4">{aside}</div>}</div>
+        <div className="border-l-4 border-plum pl-6"><OpeningText {...text} />{aside && <div className="mt-7 max-w-sm border-l border-ink pl-4">{aside}</div>}</div>
       </div>
     </Frame>
   );

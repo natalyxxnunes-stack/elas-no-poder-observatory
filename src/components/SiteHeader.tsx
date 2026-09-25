@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "./BrandLogo";
@@ -15,6 +15,13 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
   const [open, setOpen] = useState(false);
   const [dataOpen, setDataOpen] = useState(false);
   const close = () => setOpen(false);
+
+  useEffect(() => {
+    if (!dataOpen) return;
+    const close = () => setDataOpen(false);
+    document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
+  }, [dataOpen]);
 
   return (
     <header className="sticky top-0 z-40 border-b border-rule bg-paper/95 backdrop-blur">
@@ -32,13 +39,13 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
         <div className="ml-auto hidden items-center gap-3 lg:flex">
         <nav aria-label="Principal" className={`flex items-center ${home ? "gap-5" : "gap-3 xl:gap-4"}`}>
           {NAV_ITEMS.map((item) => item.to === "/" ? (
-            <div key={item.to} className="relative" onKeyDown={(event) => { if (event.key === "Escape") { setDataOpen(false); (event.currentTarget.querySelector("button") as HTMLButtonElement | null)?.focus(); } }}>
+            <div key={item.to} className="relative" onKeyDown={(event) => { if (event.key === "Escape") { setDataOpen(false); (event.currentTarget.querySelector("button") as HTMLButtonElement | null)?.focus(); } }} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setDataOpen(false); }}>
               <Button
                 variant="ghost"
                 className={`h-auto rounded-none border-b-2 border-transparent px-0 pb-0.5 text-muted-foreground hover:bg-transparent hover:text-plum ${home ? "text-sm" : "text-xs xl:text-xs"}`}
                 aria-expanded={dataOpen}
                 aria-controls="submenu-dados"
-                onClick={() => setDataOpen((value) => !value)}
+                onClick={(event) => { event.stopPropagation(); setDataOpen((value) => !value); }}
               >
                 {item.label}<ChevronDown className="size-3" aria-hidden="true" />
               </Button>
