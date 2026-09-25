@@ -166,15 +166,15 @@ function DinheiroPage() {
         <FinanceByOffice snapshot={financeSnapshot} />
       </SectionBlock>
 
-      <SectionBlock kicker="Gênero × cor/raça × receita" question="Entre as mulheres, para quais categorias declaradas o dinheiro chegou?" align="wide" lead={<p>Os valores mostram a distribuição da receita arrecadada por candidaturas de mulheres. Cor/raça permanece nas categorias originais do TSE, sem agregar preta e parda.</p>}>
+      <SectionBlock kicker="Gênero × cor/raça × receita" question="Entre as mulheres, para quais categorias declaradas o dinheiro chegou?" align="wide" lead={<p>Os valores mostram a distribuição da receita declarada por candidaturas de mulheres. Cor/raça permanece nas categorias originais do TSE, sem agregar preta e parda.</p>}>
         <FinanceRace snapshot={financeSnapshot} />
       </SectionBlock>
 
-      <SectionBlock kicker="Partidos" question="Os cinco partidos com maior receita no universo proporcional" align="wide" lead={<p>O recorte ordena os partidos pelo total arrecadado e mostra, dentro de cada um, quanto foi declarado por candidaturas de mulheres. Não é ranking de equidade.</p>}>
+      <SectionBlock kicker="Partidos" question="Os cinco partidos com maior receita no universo proporcional" align="wide" lead={<p>O recorte ordena os partidos pelo total de receita declarada e mostra, dentro de cada um, quanto foi declarado por candidaturas de mulheres. Não é ranking de equidade.</p>}>
         <FinanceParties snapshot={financeSnapshot} />
       </SectionBlock>
 
-      <SectionBlock kicker="Território" question="A receita declarada por UF" align="wide" lead={<p>Valores do universo proporcional, com total arrecadado, parcela de mulheres e a fatia correspondente em cada unidade da Federação.</p>}>
+      <SectionBlock kicker="Território" question="A receita declarada por UF" align="wide" lead={<p>Valores do universo proporcional, com total de receita declarada, parcela de mulheres e a fatia correspondente em cada unidade da Federação.</p>}>
         <FinanceByUf snapshot={financeSnapshot} />
       </SectionBlock>
 
