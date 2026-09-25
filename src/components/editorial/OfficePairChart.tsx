@@ -1,3 +1,4 @@
+import { ChartBar, ChartFrame, ChartScale, LegendSwatch } from "@/components/editorial/ChartFrame";
 import { GapNote } from "@/components/GapNote";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import { formatInt, formatPct } from "@/lib/format-br";
@@ -47,42 +48,37 @@ const formatPp = (value: number) => `+${value.toFixed(1).replace(".", ",")} p.p.
 
 function OfficeUnits({ datum, tone }: { datum: OfficeDatum; tone: "titular" | "apoio" }) {
   return (
-    <div className="grid gap-2 sm:grid-cols-[9rem_minmax(0,1fr)_4rem] sm:items-center">
-      <p className="font-display text-base font-semibold text-ink">{datum.label}</p>
-      <div className="flex gap-1" aria-hidden="true">
-        {Array.from({ length: datum.total }, (_, index) => (
-          <span
-            key={index}
-            className={`size-3 border ${index < datum.women ? (tone === "titular" ? "border-plum bg-plum" : "border-coral bg-coral") : "border-rule bg-paper"}`}
-          />
-        ))}
+    <div>
+      <p className="text-sm font-medium leading-tight text-ink">{datum.label}</p>
+      <div className="mt-1.5 grid grid-cols-[minmax(0,1fr)_4.25rem] items-center gap-3">
+        <div className="flex flex-wrap gap-1" aria-hidden="true">
+          {Array.from({ length: datum.total }, (_, index) => (
+            <span
+              key={index}
+              className={`size-3 border ${index < datum.women ? (tone === "titular" ? "border-plum bg-plum" : "border-plum-soft bg-plum-soft") : "border-rule bg-card"}`}
+            />
+          ))}
+        </div>
+        <p className={`whitespace-nowrap text-right font-display text-lg font-semibold leading-none ${tone === "titular" ? "text-plum" : "text-plum-soft"}`}>
+          {formatInt(datum.women)} de {formatInt(datum.total)}
+        </p>
       </div>
-      <p className={`font-display text-xl font-semibold sm:text-right ${tone === "titular" ? "text-plum" : "text-coral-ink"}`}>
-        {formatInt(datum.women)} de {formatInt(datum.total)}
-      </p>
     </div>
   );
 }
 
 function OfficeBar({ datum, tone }: { datum: OfficeDatum; tone: "titular" | "apoio" }) {
   return (
-    <div className="grid gap-2 sm:grid-cols-[9rem_minmax(0,1fr)_4rem] sm:items-center">
-      <div>
-        <p className="font-display text-base font-semibold text-ink">{datum.label}</p>
-        <p className="font-mono text-xs text-muted-foreground">
-          {formatInt(datum.women)} de {formatInt(datum.total)}
-        </p>
-      </div>
-      <div className="h-5 overflow-hidden bg-secondary" aria-hidden="true">
-        <div
-          className={`h-full ${tone === "titular" ? "bg-plum" : "bg-coral"}`}
-          style={{ width: `${datum.share * 2}%` }}
-        />
-      </div>
-      <p className={`font-display text-xl font-semibold sm:text-right ${tone === "titular" ? "text-plum" : "text-coral-ink"}`}>
-        {formatPct(datum.share)}
-      </p>
-    </div>
+    <ChartBar
+      label={datum.label}
+      base={`${formatInt(datum.women)} de ${formatInt(datum.total)}`}
+      value={datum.share}
+      scaleMax={50}
+      display={formatPct(datum.share)}
+      barClass={tone === "titular" ? "bg-plum" : "bg-plum-soft"}
+      valueClass={tone === "titular" ? "text-plum" : "text-plum-soft"}
+      stacked
+    />
   );
 }
 
@@ -98,20 +94,13 @@ export function OfficePairChart({ snapshot }: { snapshot: PublicSnapshot | null 
   }
 
   return (
-    <figure className="poster-frame p-5 md:p-6">
-      <figcaption className="flex flex-wrap items-end justify-between gap-4 border-b border-ink pb-4">
-        <div>
-          <p className="poster-eyebrow text-ink">Titular × vice ou suplência</p>
-          <h3 className="mt-2 max-w-2xl font-display text-2xl leading-tight text-ink md:text-3xl">
-            A presença de mulheres cresce nas posições de apoio à chapa
-          </h3>
-        </div>
-        <div className="flex gap-4 font-mono text-xs uppercase text-muted-foreground" aria-label="Legenda">
-          <span className="flex items-center gap-2"><span className="h-2.5 w-2.5 bg-plum" aria-hidden="true" />Titular</span>
-          <span className="flex items-center gap-2"><span className="h-2.5 w-2.5 bg-coral" aria-hidden="true" />Vice ou suplência</span>
-        </div>
-      </figcaption>
-
+    <ChartFrame
+      eyebrow="Titular × vice ou suplência · 2026"
+      title="A presença de mulheres cresce nas posições de apoio à chapa"
+      legend={<><LegendSwatch className="bg-plum">Titular</LegendSwatch><LegendSwatch className="bg-plum-soft">Vice ou suplência</LegendSwatch></>}
+      note="Percentual de mulheres entre as candidaturas de cada cargo, na régua de 0 a 50%. Na Presidência, com menos de 20 candidaturas, só o número absoluto."
+      source="Fonte: TSE, Candidaturas 2026"
+    >
       <div className="grid gap-px bg-rule lg:grid-cols-3">
         {groups.map((group) => {
           const isPresidency = group.label === "Presidência";
@@ -125,7 +114,7 @@ export function OfficePairChart({ snapshot }: { snapshot: PublicSnapshot | null 
           return (
             <section
               key={group.label}
-              className="bg-paper py-6 lg:px-5"
+              className="bg-card py-6 first:pt-0 lg:px-5 lg:first:pl-0 lg:first:pt-6 lg:last:pr-0"
               role="img"
               aria-label={`${group.label}. ${group.titular.label}: ${formatInt(group.titular.women)} mulheres em ${formatInt(group.titular.total)} candidaturas. ${ariaComparison}.`}
             >
@@ -133,7 +122,7 @@ export function OfficePairChart({ snapshot }: { snapshot: PublicSnapshot | null 
                 <h4 className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">{group.label}</h4>
                 {!isPresidency && <div className="flex flex-wrap justify-end gap-1.5">
                   {differences.map((difference, index) => (
-                    <span key={group.apoio[index]?.label} className="border border-coral px-2 py-1 font-mono text-xs font-semibold text-coral-ink">
+                    <span key={group.apoio[index]?.label} className="border border-plum-soft px-2 py-1 font-mono text-xs font-semibold text-plum-soft">
                       {formatPp(difference)}
                     </span>
                   ))}
@@ -155,14 +144,12 @@ export function OfficePairChart({ snapshot }: { snapshot: PublicSnapshot | null 
               {isPresidency ? (
                 <p className="mt-4 border-t border-rule pt-2 font-mono text-xs text-muted-foreground">Menos de 20 candidaturas: mostramos o número absoluto.</p>
               ) : (
-                <div className="mt-4 flex justify-between border-t border-rule pt-2 font-mono text-xs text-muted-foreground" aria-hidden="true">
-                  <span>0%</span><span>escala até 50%</span><span>50%</span>
-                </div>
+                <ChartScale max={50} stacked />
               )}
             </section>
           );
         })}
       </div>
-    </figure>
+    </ChartFrame>
   );
 }

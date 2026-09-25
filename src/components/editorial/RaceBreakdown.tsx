@@ -4,6 +4,8 @@ import { snapshotRaceCounts } from "@/lib/tse/indicators";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import type { UniverseId } from "@/lib/tse/compute";
 import { ContextBox } from "./ContextBox";
+import { ChartBar, ChartFrame, ChartScale } from "./ChartFrame";
+import { RACE_BAR } from "./FinanceOverview";
 import { formatInt, formatPct } from "@/lib/format-br";
 
 /**
@@ -37,64 +39,49 @@ function Table({
     : null;
 
   return (
-    <article className="editorial-card overflow-hidden">
-      <header className="border-b border-rule px-5 py-4">
-        <h3 className="font-display text-xl text-ink">
-          {UNIVERSE_TITLE[universe]}
-        </h3>
-        <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-          {UNIVERSE_NOTE[universe]}
-        </p>
-      </header>
-
+    <ChartFrame
+      eyebrow={`Candidatas por cor/raça · ${universe === "proporcional" ? "proporcional" : "majoritário"}`}
+      title={UNIVERSE_TITLE[universe]}
+      note={<>{UNIVERSE_NOTE[universe]}{denominator ? ` Denominador: ${formatInt(denominator)} candidaturas de mulheres. Régua de 0 a 100%.` : ""}</>}
+      source="Fonte: TSE, Candidaturas 2026"
+    >
       {counts && denominator ? (
         <>
-          <p className="border-b border-rule px-5 py-3 font-mono text-[12px] text-muted-foreground">
-            Denominador: {formatInt(denominator)} candidaturas de
-            mulheres neste universo
-          </p>
-          <dl className="divide-y divide-rule">
+          <div className="space-y-3">
             {Object.entries(counts)
               .sort((a, b) => b[1] - a[1])
-              .map(([category, value]) => (
-                <div
-                  key={category}
-                  className="flex items-baseline gap-4 px-5 py-3"
-                >
-                  <dt className="w-32 shrink-0 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
-                    {category}
-                  </dt>
-                  <dd className="flex-1">
-                    <div
-                      className="h-2 bg-plum"
-                      style={{ width: `${(value / denominator) * 100}%` }}
-                      aria-hidden
-                    />
-                  </dd>
-                  <dd className="w-36 shrink-0 text-right font-mono text-xs text-ink">
-                    {formatInt(value)} ·{" "}
-                    {formatPct((value / denominator) * 100)}
-                  </dd>
-                </div>
-              ))}
-          </dl>
+              .map(([category, value]) => {
+                const pct = (value / denominator) * 100;
+                const label = category.charAt(0) + category.slice(1).toLocaleLowerCase("pt-BR");
+                return (
+                  <ChartBar
+                    key={category}
+                    label={label}
+                    base={`${formatInt(value)} ${value === 1 ? "candidata" : "candidatas"}`}
+                    value={pct}
+                    scaleMax={100}
+                    display={formatPct(pct)}
+                    barClass={RACE_BAR[category] ?? "bg-[var(--race-na)]"}
+                  />
+                );
+              })}
+          </div>
+          <ChartScale max={100} />
         </>
       ) : (
-        <div className="p-5">
-          <GapNote label="Lacuna declarada">
-            A fotografia atual do TSE ainda não trouxe a distribuição por
-            categoria de cor/raça para este universo.
-          </GapNote>
-        </div>
+        <GapNote label="Lacuna declarada">
+          A fotografia atual do TSE ainda não trouxe a distribuição por
+          categoria de cor/raça para este universo.
+        </GapNote>
       )}
-    </article>
+    </ChartFrame>
   );
 }
 
 export function RaceBreakdown({ snapshot }: { snapshot: PublicSnapshot | null }) {
   return (
     <div className="space-y-8">
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 lg:grid-cols-2">
         <Table snapshot={snapshot} universe="proporcional" />
         <Table snapshot={snapshot} universe="majoritario" />
       </div>

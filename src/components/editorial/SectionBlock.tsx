@@ -6,13 +6,14 @@
  * `tone` dá fundo em largura total (como na home), alternando papel, lavanda,
  * tinta e roxo. Só muda tratamento de fundo, nunca conteúdo.
  */
-type Tone = "paper" | "plum" | "ink" | "lilac";
+type Tone = "paper" | "plum" | "ink" | "lilac" | "butter";
 
 const TONE_WRAP: Record<Tone, string> = {
   paper: "",
   plum: "bg-plum text-cream",
   ink: "ink-panel",
   lilac: "bg-lilac text-ink",
+  butter: "bg-butter text-ink",
 };
 
 const TONE_KICKER: Record<Tone, string> = {
@@ -20,6 +21,7 @@ const TONE_KICKER: Record<Tone, string> = {
   plum: "font-mono text-xs uppercase tracking-[0.18em] text-cream/80",
   ink: "font-mono text-xs uppercase tracking-[0.18em] text-cream/80",
   lilac: "font-mono text-xs uppercase tracking-[0.18em] text-plum",
+  butter: "font-mono text-xs uppercase tracking-[0.18em] text-plum",
 };
 
 const TONE_TITLE: Record<Tone, string> = {
@@ -27,6 +29,7 @@ const TONE_TITLE: Record<Tone, string> = {
   plum: "text-cream",
   ink: "text-cream",
   lilac: "text-ink",
+  butter: "text-ink",
 };
 
 const TONE_LEAD: Record<Tone, string> = {
@@ -34,6 +37,7 @@ const TONE_LEAD: Record<Tone, string> = {
   plum: "text-cream/85",
   ink: "text-cream/85",
   lilac: "text-ink/80",
+  butter: "text-ink/80",
 };
 
 export function SectionBlock({
@@ -45,6 +49,7 @@ export function SectionBlock({
   children,
   source,
   tone = "paper",
+  collapsible,
 }: {
   id?: string;
   kicker: string;
@@ -54,6 +59,8 @@ export function SectionBlock({
   children?: React.ReactNode;
   source?: React.ReactNode;
   tone?: Tone;
+  /** material de consulta: o conteúdo fica recolhido atrás de um botão, com o título e o lead à vista */
+  collapsible?: string;
 }) {
   const colored = tone !== "paper";
 
@@ -72,7 +79,17 @@ export function SectionBlock({
           {lead}
         </div>
       )}
-      {children && <div className="mt-8">{children}</div>}
+      {children && !collapsible && <div className="mt-8">{children}</div>}
+      {children && collapsible && (
+        <details className="group mt-6">
+          <summary className={`inline-flex min-h-11 cursor-pointer list-none items-center gap-2 border px-4 py-2 font-mono text-xs uppercase tracking-[0.12em] [&::-webkit-details-marker]:hidden ${tone === "plum" || tone === "ink" ? "border-cream/70 text-cream" : "border-plum text-plum"}`}>
+            <span className="group-open:hidden">{collapsible}</span>
+            <span className="hidden group-open:inline">Recolher</span>
+            <span aria-hidden="true" className="transition-transform group-open:rotate-180">▾</span>
+          </summary>
+          <div className="mt-6">{children}</div>
+        </details>
+      )}
       {source && (
         <p className={`mt-6 font-mono text-xs ${TONE_LEAD[tone]}`}>{source}</p>
       )}
