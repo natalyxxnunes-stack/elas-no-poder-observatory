@@ -49,7 +49,7 @@
   --color-coral-ink: var(--coral-ink);
   --color-solar: var(--solar);
   --color-coral: var(--coral);
-  --color-home-highlight: var(--home-highlight);
+  --color-lilac: var(--lilac);
   --color-forest: var(--forest);
   --color-paper: var(--paper);
   --color-rule: var(--rule);
@@ -78,7 +78,7 @@
   --coral-ink: oklch(0.5 0.19 32);
   --solar: oklch(0.83 0.16 84);
   --coral: oklch(0.63 0.2 34);
-  --home-highlight: #f0c84b;
+  --lilac: oklch(0.955 0.025 305);
   --forest: oklch(0.5285447567 0.1061414179 154.602856299);
   --rule: oklch(0.87 0.014 305);
 
@@ -94,7 +94,7 @@
   --secondary-foreground: var(--plum);
   --muted: oklch(0.955 0.008 305);
   --muted-foreground: oklch(0.41 0.03 305);
-  --accent: var(--solar);
+  --accent: var(--lilac);
   --accent-foreground: var(--ink);
   --destructive: var(--coral);
   --destructive-foreground: var(--cream);
@@ -104,7 +104,7 @@
 
   --chart-1: var(--plum);
   --chart-2: var(--coral);
-  --chart-3: var(--solar);
+  --chart-3: var(--coral);
   --chart-4: var(--plum-soft);
   --chart-5: oklch(0.55 0.05 305);
 }
@@ -178,29 +178,31 @@
 
 @utility poster-frame {
   background-color: var(--color-card);
-  border: 1px solid oklch(0.19 0.035 310 / 0.25);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-rule);
+  border-radius: 0;
 }
 
 @utility poster-frame-accent {
-  background-color: var(--color-card);
-  border: 2px solid var(--color-ink);
-  border-radius: var(--radius-lg);
-  box-shadow: 7px 7px 0 0 var(--color-ink);
+  background-color: transparent;
+  border: 0;
+  border-top: 2px solid var(--color-ink);
+  border-radius: 0;
+  padding-top: 1rem;
 }
 
 @utility poster-frame-solar {
-  background-color: var(--color-card);
-  border: 2px solid var(--color-ink);
-  border-radius: var(--radius-lg);
-  box-shadow: 7px 7px 0 0 var(--color-solar);
+  background-color: transparent;
+  border: 0;
+  border-top: 2px solid var(--color-ink);
+  border-radius: 0;
+  padding-top: 1rem;
 }
 
 @utility poster-figure {
-  font-family: "Archivo", var(--font-sans);
-  font-weight: 900;
-  line-height: 0.9;
-  letter-spacing: -0.035em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
 }
 
