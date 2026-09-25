@@ -109,8 +109,8 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
                 type="button"
                 onClick={() => setUniverse(u)}
                 aria-pressed={universe === u}
-                className={`border-2 border-ink px-3 py-1.5 font-mono text-[12px] uppercase tracking-wider ${
-                  universe === u ? "bg-ink text-paper" : "bg-paper text-ink"
+                className={`border border-rule px-3 py-1.5 font-mono text-[12px] uppercase tracking-wider ${
+                  universe === u ? "bg-plum text-cream border-plum" : "bg-paper text-ink"
                 }`}
               >
                 {UNIVERSE_SHORT[u]}
@@ -130,7 +130,7 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
         ) : (
           <>
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
-              <p className="border-2 border-ink p-3">
+              <p className="border border-rule p-3">
                 <span className="poster-eyebrow block text-muted-foreground">
                   Vagas em disputa
                 </span>
@@ -138,7 +138,7 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
                   {int(data.vagasTotal)}
                 </span>
               </p>
-              <p className="border-2 border-ink p-3">
+              <p className="border border-rule p-3">
                 <span className="poster-eyebrow block text-muted-foreground">
                   Candidaturas registradas
                 </span>
@@ -146,7 +146,7 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
                   {int(data.total)}
                 </span>
               </p>
-              <p className="border-2 border-ink p-3">
+              <p className="border border-rule p-3">
                 <span className="poster-eyebrow block text-muted-foreground">
                   Candidaturas por vaga
                 </span>
@@ -185,8 +185,8 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
                   type="button"
                   onClick={() => setSortBy(key)}
                   aria-pressed={sortBy === key}
-                  className={`border-2 border-ink px-2.5 py-1 font-mono text-[12px] uppercase tracking-wider ${
-                    sortBy === key ? "bg-ink text-paper" : "bg-paper text-ink"
+                  className={`border border-rule px-2.5 py-1 font-mono text-[12px] uppercase tracking-wider ${
+                    sortBy === key ? "bg-plum text-cream border-plum" : "bg-paper text-ink"
                   }`}
                 >
                   {text}

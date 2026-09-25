@@ -53,7 +53,7 @@ export function GlossaryTerm({
         align="start"
         sideOffset={8}
         collisionPadding={12}
-        className="w-[min(20rem,calc(100vw-2rem))] rounded-md border-2 border-ink bg-paper p-4 text-left shadow-[5px_5px_0_0_var(--color-plum)]"
+        className="w-[min(20rem,calc(100vw-2rem))] rounded-md border border-rule bg-paper p-4 text-left"
       >
         <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-plum">
           {entry.title}

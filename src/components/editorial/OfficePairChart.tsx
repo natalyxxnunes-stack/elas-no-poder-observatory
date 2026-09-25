@@ -69,7 +69,7 @@ function OfficeBar({ datum, tone }: { datum: OfficeDatum; tone: "titular" | "apo
     <div className="grid gap-2 sm:grid-cols-[9rem_minmax(0,1fr)_4rem] sm:items-center">
       <div>
         <p className="font-display text-base font-semibold text-ink">{datum.label}</p>
-        <p className="font-mono text-[11px] text-muted-foreground">
+        <p className="font-mono text-xs text-muted-foreground">
           {formatInt(datum.women)} de {formatInt(datum.total)}
         </p>
       </div>
@@ -106,7 +106,7 @@ export function OfficePairChart({ snapshot }: { snapshot: PublicSnapshot | null 
             A presença de mulheres cresce nas posições de apoio à chapa
           </h3>
         </div>
-        <div className="flex gap-4 font-mono text-[11px] uppercase text-muted-foreground" aria-label="Legenda">
+        <div className="flex gap-4 font-mono text-xs uppercase text-muted-foreground" aria-label="Legenda">
           <span className="flex items-center gap-2"><span className="h-2.5 w-2.5 bg-plum" aria-hidden="true" />Titular</span>
           <span className="flex items-center gap-2"><span className="h-2.5 w-2.5 bg-coral" aria-hidden="true" />Vice ou suplência</span>
         </div>
@@ -133,7 +133,7 @@ export function OfficePairChart({ snapshot }: { snapshot: PublicSnapshot | null 
                 <h4 className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">{group.label}</h4>
                 {!isPresidency && <div className="flex flex-wrap justify-end gap-1.5">
                   {differences.map((difference, index) => (
-                    <span key={group.apoio[index]?.label} className="border border-coral px-2 py-1 font-mono text-[11px] font-semibold text-coral-ink">
+                    <span key={group.apoio[index]?.label} className="border border-coral px-2 py-1 font-mono text-xs font-semibold text-coral-ink">
                       {formatPp(difference)}
                     </span>
                   ))}
@@ -153,9 +153,9 @@ export function OfficePairChart({ snapshot }: { snapshot: PublicSnapshot | null 
                 )}
               </div>
               {isPresidency ? (
-                <p className="mt-4 border-t border-rule pt-2 font-mono text-[10px] text-muted-foreground">Menos de 20 candidaturas: mostramos o número absoluto.</p>
+                <p className="mt-4 border-t border-rule pt-2 font-mono text-xs text-muted-foreground">Menos de 20 candidaturas: mostramos o número absoluto.</p>
               ) : (
-                <div className="mt-4 flex justify-between border-t border-rule pt-2 font-mono text-[10px] text-muted-foreground" aria-hidden="true">
+                <div className="mt-4 flex justify-between border-t border-rule pt-2 font-mono text-xs text-muted-foreground" aria-hidden="true">
                   <span>0%</span><span>escala até 50%</span><span>50%</span>
                 </div>
               )}

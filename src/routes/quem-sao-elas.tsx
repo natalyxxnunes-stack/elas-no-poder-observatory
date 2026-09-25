@@ -257,7 +257,7 @@ function QuemSaoElasPage() {
                 <caption className="sr-only">Participação de mulheres entre candidaturas titulares, vices e suplentes de 2014 a 2026</caption>
                 <thead>
                   <tr className="border-b-2 border-ink">
-                    {['Ano', 'Governadora', 'Vice-governadora', 'Senadora', '1ª suplente', '2ª suplente', 'Presidenta', 'Vice-presidenta'].map((label) => <th key={label} scope="col" className="py-2 pr-4 font-mono text-[10px] uppercase text-muted-foreground">{label}</th>)}
+                    {['Ano', 'Governadora', 'Vice-governadora', 'Senadora', '1ª suplente', '2ª suplente', 'Presidenta', 'Vice-presidenta'].map((label) => <th key={label} scope="col" className="py-2 pr-4 font-mono text-xs uppercase text-muted-foreground">{label}</th>)}
                   </tr>
                 </thead>
                 <tbody>
@@ -269,13 +269,13 @@ function QuemSaoElasPage() {
                   ].map(([year, ...cells]) => (
                     <tr key={year} className="border-b border-rule">
                       <th scope="row" className="py-3 pr-4 font-display text-lg text-ink">{year}</th>
-                      {cells.map((cell, index) => <td key={`${year}-${index}`} className="whitespace-nowrap py-3 pr-4 font-mono text-[11px] text-ink">{cell}</td>)}
+                      {cells.map((cell, index) => <td key={`${year}-${index}`} className="whitespace-nowrap py-3 pr-4 font-mono text-xs text-ink">{cell}</td>)}
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            <p className="mt-3 font-mono text-[10px] leading-relaxed text-muted-foreground">Pedidos de registro de cada eleição. O número de vices e suplentes pode diferir do de titulares por substituições e registros indeferidos que permanecem no arquivo. Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026 (base de 25/09/2026).</p>
+            <p className="mt-3 font-mono text-xs leading-relaxed text-muted-foreground">Pedidos de registro de cada eleição. O número de vices e suplentes pode diferir do de titulares por substituições e registros indeferidos que permanecem no arquivo. Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026 (base de 25/09/2026).</p>
           </div>
 
           <div>
@@ -290,7 +290,7 @@ function QuemSaoElasPage() {
         kicker="Explorador"
         question="Escolha o cargo, o estado e o partido — e veja quem são elas ali"
         align="wide"
-        tone="solar"
+        tone="lilac"
         lead={
           <p>
             Cada combinação recalcula a distribuição por cor/raça daquela fatia,
@@ -312,7 +312,7 @@ function QuemSaoElasPage() {
         kicker="Por estado"
         question="E no seu estado?"
         align="wide"
-        tone="solar"
+        tone="lilac"
         lead={
           <p>
             Escolha um estado e leia a realidade daquela região: quantas

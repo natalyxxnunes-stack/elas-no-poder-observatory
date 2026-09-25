@@ -130,7 +130,7 @@ function DinheiroPage() {
         <FinanceCoverage snapshot={financeSnapshot} />
       </SectionBlock>
 
-      <SectionBlock kicker="Por cargo" question="Presença e receita, cargo a cargo" align="wide" tone="solar" lead={<p>Em duas disputas as mulheres recebem mais do que a presença delas: assembleias legislativas (38,7% da receita, 35,2% das candidaturas com receita) e Senado (26,3% e 22,4%). Nas outras, recebem menos: Câmara dos Deputados (33,1% e 37,1%), Câmara Legislativa do DF (30,0% e 35,9%) e governos estaduais (12,0% e 17,9%). Na Presidência, as mulheres são 2 das 13 candidaturas com receita e ficam com 1,3% do dinheiro declarado.</p>}>
+      <SectionBlock kicker="Por cargo" question="Presença e receita, cargo a cargo" align="wide" tone="lilac" lead={<p>Em duas disputas as mulheres recebem mais do que a presença delas: assembleias legislativas (38,7% da receita, 35,2% das candidaturas com receita) e Senado (26,3% e 22,4%). Nas outras, recebem menos: Câmara dos Deputados (33,1% e 37,1%), Câmara Legislativa do DF (30,0% e 35,9%) e governos estaduais (12,0% e 17,9%). Na Presidência, as mulheres são 2 das 13 candidaturas com receita e ficam com 1,3% do dinheiro declarado.</p>}>
         <FinanceByOffice snapshot={financeSnapshot} />
       </SectionBlock>
 
@@ -138,7 +138,7 @@ function DinheiroPage() {
         <FinanceRace snapshot={financeSnapshot} />
         <div className="mt-5 space-y-2 text-sm leading-relaxed text-muted-foreground">
           <p>Mediana é o valor do meio: metade das candidatas declarou mais, metade declarou menos. Ela resiste melhor do que a soma a poucas campanhas muito grandes.</p>
-          <p className="font-mono text-[10px]">Maiores partidos = os 12 com mais receita declarada até 25/09 (MDB, PDT, PL, PODE, PP, PSB, PSD, PSDB, PSOL, PT, Republicanos e União), que somam 89,8% do dinheiro.</p>
+          <p className="font-mono text-xs">Maiores partidos = os 12 com mais receita declarada até 25/09 (MDB, PDT, PL, PODE, PP, PSB, PSD, PSDB, PSOL, PT, Republicanos e União), que somam 89,8% do dinheiro.</p>
         </div>
       </SectionBlock>
 

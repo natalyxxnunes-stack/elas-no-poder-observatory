@@ -181,7 +181,7 @@ function MetodoPage() {
         ]}
         aside={
           <div>
-            <p className="font-mono text-[10px] uppercase text-ink/65">Fotografia vigente</p>
+            <p className="font-mono text-xs uppercase text-ink/65">Fotografia vigente</p>
             <p className="mt-2 font-display text-lg leading-snug text-ink">
               Base do TSE gerada em{" "}
               {br(snapshot?.baseGeneratedAt ?? TSE_SOURCE.baseGeneratedAt)}
@@ -300,7 +300,7 @@ function MetodoPage() {
 
       {/* Representação descritiva × substantiva */}
       <SectionBlock
-        tone="solar"
+        tone="lilac"
         kicker="O que estes números medem"
         question="Presença e poder de decidir são medidas diferentes"
         lead={
@@ -336,7 +336,7 @@ function MetodoPage() {
       </SectionBlock>
       {/* CAMADA 2 — ficha técnica */}
       <SectionBlock
-        tone="solar"
+        tone="lilac"
         kicker="Camada 2 · ficha técnica"
         question="Fonte e processamento"
       >

@@ -193,7 +193,7 @@ function FunilPage() {
       </SectionBlock>
 
       <SectionBlock
-        tone="solar"
+        tone="lilac"
         kicker="Antes do resultado"
         question="Ninguém disputa uma cadeira sozinha"
       >

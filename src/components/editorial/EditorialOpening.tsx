@@ -33,7 +33,7 @@ const compactTitle = "font-display text-[clamp(2rem,3.6vw,3.25rem)] font-semibol
 function OpeningText({ kicker, question, lead, inverse = false, compact = false }: OpeningBase & { inverse?: boolean; compact?: boolean }) {
   return (
     <div className="min-w-0">
-      <p className={`flex items-center gap-3 font-mono text-[10px] font-medium uppercase tracking-[0.16em] ${inverse ? "text-cream/75" : "text-ink/70"}`}>
+      <p className={`flex items-center gap-3 font-mono text-xs font-medium uppercase tracking-[0.16em] ${inverse ? "text-cream/75" : "text-ink/70"}`}>
         <span className={`h-px w-12 ${inverse ? "bg-cream/55" : "bg-ink/45"}`} aria-hidden="true" />
         {kicker}
       </p>
@@ -68,7 +68,7 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
               <div key={layer.label} className="grid min-w-0 grid-cols-[minmax(0,1fr)_4.5rem] items-center gap-3">
                 <div className="h-16 w-full">
                   <div className={`flex h-full items-center justify-center border border-cream/45 ${layer.tone}`} style={{ width: `${Math.min((layer.value ?? 0) * 2, 100)}%` }}>
-                    <span className="font-mono text-[10px] font-semibold uppercase">{layer.label}</span>
+                    <span className="font-mono text-xs font-semibold uppercase">{layer.label}</span>
                   </div>
                 </div>
                 <span className="font-mono text-xs font-semibold text-cream">{layer.value === null ? "—" : formatPct(layer.value)}</span>
@@ -76,12 +76,12 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
             ))}
             {[["Eleitas", "a partir de 4/10"], ["Poder", "a partir de 2027"]].map(([label, date]) => (
               <div key={label} className="grid min-w-0 grid-cols-[minmax(0,1fr)_4.5rem] items-center gap-3">
-                <div className="flex h-16 items-center justify-between border border-dashed border-cream/55 px-4 font-mono text-[10px] uppercase text-cream/80"><span>{label}</span><span>{date}</span></div>
+                <div className="flex h-16 items-center justify-between border border-dashed border-cream/55 px-4 font-mono text-xs uppercase text-cream/80"><span>{label}</span><span>{date}</span></div>
                 <span aria-hidden="true" />
               </div>
             ))}
           </div>
-          <figcaption className="mt-5 border-t border-cream/25 pt-3 font-mono text-[10px] leading-relaxed text-cream/65">
+          <figcaption className="mt-5 border-t border-cream/25 pt-3 font-mono text-xs leading-relaxed text-cream/85">
             Proporcionais e majoritárias são universos paralelos, cada um com seu total. Eleitas e poder entram quando houver resultado. · TSE · {baseDate ?? "base em atualização"}.
           </figcaption>
         </figure>
@@ -105,7 +105,7 @@ function RaceOpening({ snapshot, ...text }: OpeningBase & { snapshot: PublicSnap
             {entries.length === 0
               ? [0, 1, 2, 3].map((index) => (
                   <div key={index} className="grid min-w-0 grid-cols-[7rem_minmax(0,1fr)_4.5rem] items-center gap-3">
-                    <span className="truncate font-mono text-[10px] font-semibold uppercase text-cream/70">—</span>
+                    <span className="truncate font-mono text-xs font-semibold uppercase text-cream/70">—</span>
                     <div className="h-4 w-full border border-cream/25 bg-cream/10" />
                     <span className="font-mono text-xs font-semibold text-cream">—</span>
                   </div>
@@ -115,7 +115,7 @@ function RaceOpening({ snapshot, ...text }: OpeningBase & { snapshot: PublicSnap
                   const pct = denominator ? (value / denominator) * 100 : 0;
                   return (
                     <div key={category} className="grid min-w-0 grid-cols-[7rem_minmax(0,1fr)_4.5rem] items-center gap-3">
-                      <span className="truncate font-mono text-[10px] font-semibold uppercase text-cream/85">{RACE_LABELS[key] ?? category}</span>
+                      <span className="truncate font-mono text-xs font-semibold uppercase text-cream/85">{RACE_LABELS[key] ?? category}</span>
                       <div className="h-4 w-full border border-cream/25 bg-cream/10">
                         <div className="h-full" style={{ width: `${pct}%`, backgroundColor: RACE_COLORS[key] ?? "var(--coral)" }} />
                       </div>
@@ -124,7 +124,7 @@ function RaceOpening({ snapshot, ...text }: OpeningBase & { snapshot: PublicSnap
                   );
                 })}
           </div>
-          <figcaption className="mt-5 border-t border-cream/25 pt-3 font-mono text-[10px] leading-relaxed text-cream/65">
+          <figcaption className="mt-5 border-t border-cream/25 pt-3 font-mono text-xs leading-relaxed text-cream/85">
             Candidaturas de mulheres · universo proporcional · categorias originais do TSE
             {denominator ? ` · denominador: ${formatInt(denominator)}` : " · dimensão não gravada nesta fotografia"}
           </figcaption>
@@ -136,7 +136,7 @@ function RaceOpening({ snapshot, ...text }: OpeningBase & { snapshot: PublicSnap
 
 function TimelineOpening({ years, ...text }: OpeningBase & { years: readonly string[] }) {
   return (
-    <Frame className="bg-solar">
+    <Frame className="bg-lilac">
       <div className="mx-auto grid min-h-[30rem] max-w-6xl gap-12 px-5 py-12 md:px-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
         <OpeningText {...text} compact />
         <figure aria-label={`Linha histórica: ${years.join(", ")}`} className="relative min-w-0 py-12">
@@ -144,9 +144,9 @@ function TimelineOpening({ years, ...text }: OpeningBase & { years: readonly str
           <ol className="relative grid grid-cols-2 gap-y-16 sm:grid-cols-4 sm:gap-0">
             {years.map((year, index) => (
               <li key={year} className={`${index % 2 ? "pt-16" : "pb-16"} relative text-center sm:pt-0 ${index % 2 ? "sm:translate-y-12" : "sm:-translate-y-12"}`}>
-                <span className="mx-auto block size-3 rounded-full border-2 border-ink bg-solar" />
+                <span className="mx-auto block size-3 rounded-full border border-rule bg-lilac" />
                 <strong className="mt-3 block font-display text-2xl text-ink">{year}</strong>
-                <span className="font-mono text-[9px] uppercase text-ink/65">eleição geral</span>
+                <span className="font-mono text-xs uppercase text-ink/65">eleição geral</span>
               </li>
             ))}
           </ol>
@@ -185,7 +185,7 @@ function ProcessOpening({ steps, ...text }: OpeningBase & { steps: readonly stri
           <div className="absolute bottom-12 left-[2.2rem] top-12 w-px bg-plum/30 md:left-[3.45rem]" aria-hidden="true" />
           {steps.map((step, index) => (
             <li key={step} className="relative grid grid-cols-[2.25rem_minmax(0,1fr)] items-center gap-4 border-b border-rule py-3.5">
-              <span className="z-10 grid size-8 place-items-center rounded-full bg-plum font-mono text-[10px] text-cream">{String(index + 1).padStart(2, "0")}</span>
+              <span className="z-10 grid size-8 place-items-center rounded-full bg-plum font-mono text-xs text-cream">{String(index + 1).padStart(2, "0")}</span>
               <span className="text-sm text-ink">{step}</span>
             </li>
           ))}
@@ -207,18 +207,18 @@ function FinancialOpening({ layers, gap, snapshot, ...text }: OpeningBase & { la
       <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <OpeningText {...text} inverse />
         <figure aria-label="Participação das mulheres na receita declarada nos universos proporcional e majoritário" className="min-w-0">
-          <p className="border-b border-cream/25 pb-3 font-mono text-[10px] uppercase text-cream/60">Receita declarada · fotografia de {FINANCE_BASE_LABEL}</p>
+          <p className="border-b border-cream/25 pb-3 font-mono text-xs uppercase text-cream/60">Receita declarada · fotografia de {FINANCE_BASE_LABEL}</p>
           <div className="mt-5 space-y-4">
             {rows.map((row, index) => (
               <div key={row.label} className="grid grid-cols-[7rem_minmax(0,1fr)_3rem] items-center gap-3">
-                <span className="truncate font-mono text-[9px] uppercase text-cream/70">{row.label}</span>
-                <div className="h-8 border border-cream/20 bg-cream/5"><div className={`h-full ${index ? "bg-solar" : "bg-plum-soft"}`} style={{ width: `${row.value ?? 0}%` }} /></div>
+                <span className="truncate font-mono text-xs uppercase text-cream/70">{row.label}</span>
+                <div className="h-8 border border-cream/20 bg-cream/5"><div className={`h-full ${index ? "bg-lilac" : "bg-plum-soft"}`} style={{ width: `${row.value ?? 0}%` }} /></div>
                 <span className="font-mono text-xs text-cream">{row.value === null ? "—" : formatPct(row.value)}</span>
               </div>
             ))}
           </div>
-          <p className="mt-5 font-mono text-[9px] uppercase leading-relaxed text-cream/50">Camadas publicadas: {layers.slice(0, 4).join(" · ")}</p>
-          <figcaption className="mt-6 border-l-2 border-solar pl-3 font-mono text-[10px] leading-relaxed text-cream/65">{gap}</figcaption>
+          <p className="mt-5 font-mono text-xs uppercase leading-relaxed text-cream/80">Camadas publicadas: {layers.slice(0, 4).join(" · ")}</p>
+          <figcaption className="mt-6 border-l-2 border-coral pl-3 font-mono text-xs leading-relaxed text-cream/85">{gap}</figcaption>
         </figure>
       </div>
     </Frame>
@@ -228,17 +228,17 @@ function FinancialOpening({ layers, gap, snapshot, ...text }: OpeningBase & { la
 function RepresentationOpening({ labels, gap, ...text }: OpeningBase & { labels: readonly string[]; gap: string }) {
   const seats = Array.from({ length: 72 }, (_, index) => index);
   return (
-    <Frame className="bg-forest text-cream">
+    <Frame className="bg-plum text-cream">
       <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <OpeningText {...text} inverse />
         <figure aria-label="Matriz de representação aguardando o resultado eleitoral de 2026" className="min-w-0">
           <div className="grid grid-cols-12 gap-2 rounded-t-[8rem] border-x border-t border-cream/30 px-7 pb-5 pt-14 sm:px-12">
             {seats.map((seat) => <span key={seat} className="aspect-square rounded-full border border-cream/55 bg-cream/10" />)}
           </div>
-          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[10px] uppercase text-cream/75">
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs uppercase text-cream/75">
             {labels.map((label) => <span key={label} className="flex items-center gap-2"><span className="size-2 rounded-full border border-cream" />{label}</span>)}
           </div>
-          <figcaption className="mt-4 border-t border-cream/25 pt-3 font-mono text-[10px] text-cream/65">{gap}</figcaption>
+          <figcaption className="mt-4 border-t border-cream/25 pt-3 font-mono text-xs text-cream/85">{gap}</figcaption>
         </figure>
       </div>
     </Frame>
@@ -251,13 +251,13 @@ function PowerFlowOpening({ levers, ...text }: OpeningBase & { levers: readonly 
       <div className="mx-auto grid min-h-[31rem] max-w-6xl lg:grid-cols-[0.92fr_1.08fr]">
         <div className="bg-plum px-5 py-12 text-cream md:px-8 lg:flex lg:items-center lg:px-12"><OpeningText {...text} inverse /></div>
         <figure aria-label="Fluxo das decisões partidárias que controlam o acesso à disputa" className="flex min-w-0 flex-col justify-center px-5 py-10 md:px-10">
-          <div className="mx-auto bg-plum px-6 py-3 font-mono text-[10px] uppercase text-cream">Partidos e federações</div>
+          <div className="mx-auto bg-plum px-6 py-3 font-mono text-xs uppercase text-cream">Partidos e federações</div>
           <div className="mx-auto h-7 w-px bg-ink/35" />
           <div className="grid grid-cols-3 gap-2">
-            {levers.slice(0, 3).map((lever, index) => <div key={lever.label} className={`${index === 0 ? "bg-coral" : index === 1 ? "bg-paper" : "bg-solar"} border border-ink/30 px-2 py-4 text-center font-mono text-[9px] uppercase text-ink`}>{lever.label}<span className="mt-2 block text-[8px] opacity-60">{lever.ready === "yes" ? "disponível" : lever.ready === "partial" ? "parcial" : "aguardando dado"}</span></div>)}
+            {levers.slice(0, 3).map((lever, index) => <div key={lever.label} className={`${index === 0 ? "bg-coral" : index === 1 ? "bg-paper" : "bg-lilac"} border border-ink/30 px-2 py-4 text-center font-mono text-xs uppercase text-ink`}>{lever.label}<span className="mt-2 block text-xs opacity-60">{lever.ready === "yes" ? "disponível" : lever.ready === "partial" ? "parcial" : "aguardando dado"}</span></div>)}
           </div>
           <div className="mx-auto h-7 w-px bg-ink/35" />
-          <div className="mx-auto bg-ink px-7 py-3 font-mono text-[10px] uppercase text-cream">Acesso ao poder</div>
+          <div className="mx-auto bg-ink px-7 py-3 font-mono text-xs uppercase text-cream">Acesso ao poder</div>
         </figure>
       </div>
     </Frame>
@@ -266,12 +266,12 @@ function PowerFlowOpening({ levers, ...text }: OpeningBase & { levers: readonly 
 
 function MethodOpening({ steps, aside, ...text }: OpeningBase & { steps: readonly { number: string; label: string; detail: string }[]; aside?: ReactNode }) {
   return (
-    <Frame className="bg-solar">
+    <Frame className="bg-lilac">
       <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-10 md:px-8 lg:grid-cols-[1fr_1fr] lg:items-center">
         <OpeningText {...text} />
         <div>
           <ol className="divide-y divide-ink/25 border-y border-ink/25">
-            {steps.map((step) => <li key={step.number} className="grid grid-cols-[3.5rem_7rem_minmax(0,1fr)] items-baseline gap-3 py-3"><strong className="font-display text-3xl text-ink">{step.number}</strong><span className="font-mono text-[10px] font-semibold uppercase text-ink">{step.label}</span><span className="text-xs text-ink/65">{step.detail}</span></li>)}
+            {steps.map((step) => <li key={step.number} className="grid grid-cols-[3.5rem_7rem_minmax(0,1fr)] items-baseline gap-3 py-3"><strong className="font-display text-3xl text-ink">{step.number}</strong><span className="font-mono text-xs font-semibold uppercase text-ink">{step.label}</span><span className="text-xs text-ink/65">{step.detail}</span></li>)}
           </ol>
           {aside && <div className="mt-6 border-t border-ink/30 pt-4">{aside}</div>}
         </div>
@@ -283,7 +283,7 @@ function MethodOpening({ steps, aside, ...text }: OpeningBase & { steps: readonl
 function ManifestoOpening({ aside, ...text }: OpeningBase & { aside?: ReactNode }) {
   return (
     <Frame className="bg-paper">
-      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[45%] md:block" aria-hidden="true"><span className="absolute bottom-0 right-[4%] h-[70%] w-[42%] rounded-t-full bg-plum" /><span className="absolute bottom-0 right-[30%] h-[58%] w-[38%] rounded-t-full bg-coral/90 mix-blend-multiply" /><span className="absolute -bottom-24 right-[38%] size-64 rounded-full bg-solar mix-blend-multiply" /></div>
+      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[45%] md:block" aria-hidden="true"><span className="absolute bottom-0 right-[4%] h-[70%] w-[42%] rounded-t-full bg-plum" /><span className="absolute bottom-0 right-[30%] h-[58%] w-[38%] rounded-t-full bg-coral/90 mix-blend-multiply" /><span className="absolute -bottom-24 right-[38%] size-64 rounded-full bg-lilac mix-blend-multiply" /></div>
       <div className="relative mx-auto grid min-h-[31rem] max-w-6xl items-center px-5 py-12 md:px-8 lg:grid-cols-[0.62fr_0.38fr]">
         <div><OpeningText {...text} />{aside && <div className="mt-7 max-w-sm border-l border-ink pl-4">{aside}</div>}</div>
       </div>
@@ -292,14 +292,14 @@ function ManifestoOpening({ aside, ...text }: OpeningBase & { aside?: ReactNode 
 }
 
 function DownloadsOpening({ documents, ...text }: OpeningBase & { documents: readonly { format: string; label: string; available: boolean }[] }) {
-  const tones = ["bg-paper", "bg-coral", "bg-solar", "bg-cream"] as const;
+  const tones = ["bg-paper", "bg-coral", "bg-lilac", "bg-cream"] as const;
   return (
-    <Frame className="bg-forest text-cream">
+    <Frame className="bg-plum text-cream">
       <div className="mx-auto grid min-h-[30rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.76fr_1.24fr] lg:items-center">
         <OpeningText {...text} inverse />
         <figure aria-label="Formatos dos materiais disponíveis e em preparação" className="flex min-w-0 flex-col justify-center">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {documents.map((document, index) => <div key={`${document.format}-${document.label}`} className={`relative min-h-48 border border-ink/25 p-4 pt-10 text-ink ${tones[index % tones.length]} [clip-path:polygon(0_0,78%_0,100%_18%,100%_100%,0_100%)]`}><span className="absolute right-0 top-0 size-10 border-b border-l border-ink/20 bg-cream/40" /><strong className="font-display text-2xl">{document.format}</strong><span className="mt-3 block text-xs leading-snug">{document.label}</span><span className="absolute bottom-4 left-4 font-mono text-[8px] uppercase">{document.available ? "disponível" : "em preparação"}</span></div>)}
+            {documents.map((document, index) => <div key={`${document.format}-${document.label}`} className={`relative min-h-48 border border-ink/25 p-4 pt-10 text-ink ${tones[index % tones.length]} [clip-path:polygon(0_0,78%_0,100%_18%,100%_100%,0_100%)]`}><span className="absolute right-0 top-0 size-10 border-b border-l border-ink/20 bg-cream/40" /><strong className="font-display text-2xl">{document.format}</strong><span className="mt-3 block text-xs leading-snug">{document.label}</span><span className="absolute bottom-4 left-4 font-mono text-xs uppercase">{document.available ? "disponível" : "em preparação"}</span></div>)}
           </div>
         </figure>
       </div>
