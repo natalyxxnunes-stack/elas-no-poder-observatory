@@ -55,7 +55,7 @@ function SobrePage() {
         }
         aside={
           <div>
-            <p className="font-mono text-[10px] uppercase text-ink/65">O projeto</p>
+            <p className="font-mono text-xs uppercase text-ink/65">O projeto</p>
             <p className="mt-2 font-display text-lg leading-snug text-ink">
               {SITE.name}
             </p>
@@ -275,7 +275,7 @@ function SobrePage() {
       </SectionBlock>
 
       <SectionBlock
-        tone="solar"
+        tone="lilac"
         kicker="O compromisso"
         question="Os princípios editoriais que valem para toda página"
         align="wide"

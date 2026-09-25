@@ -35,7 +35,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
             <div key={item.to} className="relative" onKeyDown={(event) => { if (event.key === "Escape") { setDataOpen(false); (event.currentTarget.querySelector("button") as HTMLButtonElement | null)?.focus(); } }}>
               <Button
                 variant="ghost"
-                className={`h-auto rounded-none border-b-2 border-transparent px-0 pb-0.5 text-muted-foreground hover:bg-transparent hover:text-plum ${home ? "text-sm" : "text-[11px] xl:text-xs"}`}
+                className={`h-auto rounded-none border-b-2 border-transparent px-0 pb-0.5 text-muted-foreground hover:bg-transparent hover:text-plum ${home ? "text-sm" : "text-xs xl:text-xs"}`}
                 aria-expanded={dataOpen}
                 aria-controls="submenu-dados"
                 onClick={() => setDataOpen((value) => !value)}
@@ -46,7 +46,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
                 <div id="submenu-dados" className="absolute left-0 top-full z-50 w-52 border border-rule bg-paper p-2 shadow-lg">
                   {DATA_2026_NAV_ITEMS.map((subitem) => {
                     const hashProps = subitem.hash ? { hash: subitem.hash } : {};
-                    return <Link key={subitem.label} to={subitem.to} {...hashProps} onClick={() => setDataOpen(false)} className="block px-3 py-2 text-xs text-ink hover:bg-solar/40 hover:text-plum">{subitem.label}</Link>;
+                    return <Link key={subitem.label} to={subitem.to} {...hashProps} onClick={() => setDataOpen(false)} className="block px-3 py-2 text-xs text-ink hover:bg-cream hover:text-plum">{subitem.label}</Link>;
                   })}
                 </div>
               )}
@@ -55,15 +55,15 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
             <Link
               key={item.to}
               to={item.to}
-              className={`border-b-2 border-transparent pb-0.5 text-muted-foreground transition-colors hover:text-plum ${home ? "text-sm" : "text-[11px] xl:text-xs"}`}
+              className={`border-b-2 border-transparent pb-0.5 text-muted-foreground transition-colors hover:text-plum ${home ? "text-sm" : "text-xs xl:text-xs"}`}
               activeOptions={{ exact: item.to === "/" }}
-              activeProps={{ className: "border-solar font-semibold text-ink" }}
+              activeProps={{ className: "border-coral font-semibold text-ink" }}
             >
               {item.label}
             </Link>
           ))}
         </nav>
-          <div className="flex items-center gap-3 border-l border-rule pl-3 font-mono text-[10px] uppercase">
+          <div className="flex items-center gap-3 border-l border-rule pl-3 font-mono text-xs uppercase">
             {UTILITY_NAV_ITEMS.map((item) => <Link key={item.to} to={item.to} className="text-muted-foreground hover:text-plum">{item.label}</Link>)}
           </div>
         </div>
@@ -116,7 +116,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
               </span>
             </Link>
           ))}
-          <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[10px] uppercase">
+          <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs uppercase">
             {UTILITY_NAV_ITEMS.map((item) => <Link key={item.to} to={item.to} onClick={close} className="text-plum">{item.label}</Link>)}
           </div>
         </nav>

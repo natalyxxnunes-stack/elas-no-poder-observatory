@@ -23,7 +23,7 @@ export function PageShell({ children, home = false, breadcrumb }: { children: Re
       <SiteHeader home={home} />
       <main className="mx-auto max-w-6xl px-5 md:px-8">
         {!home && breadcrumb && (
-          <Breadcrumb className="py-3 font-mono text-[10px] uppercase tracking-[0.12em]">
+          <Breadcrumb className="py-3 font-mono text-xs uppercase tracking-[0.12em]">
             <BreadcrumbList>
               {breadcrumb.map((item, index) => (
                 <Fragment key={`${item.label}-${index}`}>

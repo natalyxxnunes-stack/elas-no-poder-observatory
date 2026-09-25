@@ -226,7 +226,7 @@ function DireitosPage() {
       </SectionBlock>
 
       <SectionBlock
-        tone="solar"
+        tone="lilac"
         kicker="Como ler uma regra em tramitação"
         question="Três distinções que evitam erro"
       >

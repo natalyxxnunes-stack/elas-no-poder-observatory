@@ -36,11 +36,11 @@ export function HistoryTimeline({
             <p className="font-display text-3xl text-ink">{year}</p>
             <div className="mt-2">
               {missing ? (
-                <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">fotografia não coletada</p>
+                <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">fotografia não coletada</p>
               ) : current ? (
-                <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">base em curso</p>
+                <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">base em curso</p>
               ) : (
-                <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">eleição encerrada</p>
+                <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">eleição encerrada</p>
               )}
             </div>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

@@ -64,7 +64,7 @@ function Select({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-2 w-full border-2 border-ink bg-paper px-3 py-2 font-mono text-xs text-ink"
+        className="mt-2 w-full border border-rule bg-paper px-3 py-2 font-mono text-xs text-ink"
       >
         <option value="">{allLabel}</option>
         {options.map((o) => (
@@ -166,7 +166,7 @@ export function RaceExplorer({
                 setUf("");
                 setParty("");
               }}
-              className="mt-2 w-full border-2 border-ink bg-paper px-3 py-2 font-mono text-xs text-ink"
+              className="mt-2 w-full border border-rule bg-paper px-3 py-2 font-mono text-xs text-ink"
             >
               {(["proporcional", "majoritario"] as UniverseId[]).map((u) => (
                 <option key={u} value={u}>

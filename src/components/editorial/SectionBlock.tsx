@@ -12,13 +12,13 @@ const TONE_WRAP: Record<Tone, string> = {
   paper: "",
   plum: "bg-plum text-cream",
   ink: "ink-panel",
-  solar: "bg-solar text-ink",
+  solar: "bg-lilac text-ink",
 };
 
 const TONE_KICKER: Record<Tone, string> = {
   paper: "kicker",
-  plum: "font-mono text-[12px] uppercase tracking-[0.18em] text-solar",
-  ink: "font-mono text-[12px] uppercase tracking-[0.18em] text-solar",
+  plum: "font-mono text-[12px] uppercase tracking-[0.18em] text-cream/80",
+  ink: "font-mono text-[12px] uppercase tracking-[0.18em] text-cream/80",
   solar: "font-mono text-[12px] uppercase tracking-[0.18em] text-plum",
 };
 

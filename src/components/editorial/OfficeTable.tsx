@@ -53,7 +53,7 @@ export function OfficeTable({ snapshot }: { snapshot: PublicSnapshot | null }) {
       <table className="w-full min-w-[34rem] border-collapse text-left">
         <caption className="sr-only">Candidaturas totais e de mulheres por cargo em {baseDate}</caption>
         <thead className="border-b border-ink bg-ink text-cream">
-          <tr className="font-mono text-[10px] uppercase">
+          <tr className="font-mono text-xs uppercase">
             <th scope="col" className="px-4 py-3 font-medium">Cargo</th>
             <th scope="col" className="px-4 py-3 text-right font-medium">Total</th>
             <th scope="col" className="px-4 py-3 text-right font-medium">Mulheres</th>

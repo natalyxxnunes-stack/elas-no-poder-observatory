@@ -132,8 +132,8 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
   const hasGenderDenominatorByParty = parties.some((p) => p.total !== null);
 
   const btn = (active: boolean) =>
-    `border-2 border-ink px-2.5 py-1 font-mono text-[12px] uppercase tracking-wider focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum ${
-      active ? "bg-ink text-paper" : "bg-paper text-ink"
+    `border border-rule px-2.5 py-1 font-mono text-[12px] uppercase tracking-wider focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum ${
+      active ? "bg-plum text-cream border-plum" : "bg-paper text-ink"
     }`;
 
   return (
@@ -168,7 +168,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
             <select
               value={uf}
               onChange={(e) => setUf(e.target.value)}
-              className="mt-2 w-full border-2 border-ink bg-paper px-3 py-2 font-mono text-xs text-ink"
+              className="mt-2 w-full border border-rule bg-paper px-3 py-2 font-mono text-xs text-ink"
             >
               <option value="">Brasil (todos os estados)</option>
               {ufOptions.map((o) => (

@@ -104,7 +104,7 @@ function EditorialBrazilMap({ snapshot }: { snapshot: PublicSnapshot | null }) {
           ))}
         </tbody>
       </table>
-      <figcaption id="home-map-caption" className="pb-3 font-mono text-[10px] leading-relaxed text-muted-foreground">
+      <figcaption id="home-map-caption" className="pb-3 font-mono text-xs leading-relaxed text-muted-foreground">
         <ul className="space-y-2">
           {binCounts.map((bin) => (
             <li key={bin.label} className="flex items-center gap-2">
@@ -143,7 +143,7 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
     <section className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden border-b border-rule bg-paper">
       <div className="grid min-h-[min(50vh,22rem)] lg:grid-cols-[54%_46%] lg:items-center">
         <div className="relative bg-plum px-5 py-6 text-cream md:px-10 md:py-9 lg:pl-[max(2.5rem,calc((100vw-72rem)/2+2rem))] lg:pr-24">
-          <p className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-cream/80">
+          <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.16em] text-cream/80">
             <span className="h-1 w-8 bg-coral" aria-hidden="true" /> Eleições 2026 · Brasil
           </p>
           <h1 className="mt-4 max-w-3xl font-display text-[clamp(2.1rem,3.6vw,3.75rem)] leading-[0.93] text-cream">
@@ -154,17 +154,17 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
             {CENTRAL_THESIS}
           </p>
           <div className="mt-5 flex flex-wrap items-center gap-6">
-            <Link to="/funil" className="inline-flex min-h-11 items-center gap-3 bg-coral px-5 py-3 text-xs font-semibold uppercase text-ink transition-colors hover:bg-solar">
+            <Link to="/funil" className="inline-flex min-h-11 items-center gap-3 bg-coral px-5 py-3 text-xs font-semibold uppercase text-ink transition-colors hover:bg-cream">
               Explorar o funil <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
-            <Link to="/quem-sao-elas" className="inline-flex items-center gap-2 border-b border-cream/70 pb-1 text-xs font-semibold uppercase text-cream hover:border-solar hover:text-solar">
+            <Link to="/quem-sao-elas" className="inline-flex items-center gap-2 border-b border-cream/70 pb-1 text-xs font-semibold uppercase text-cream hover:border-cream hover:text-cream">
               Ver os dados <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
           </div>
         </div>
 
         <div className="relative px-5 py-8 md:px-10 lg:pl-20 lg:pr-[max(2.5rem,calc((100vw-72rem)/2+2rem))]">
-          <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
             Dados parciais do TSE<br />Base de {baseDate ?? "data em atualização"}
           </p>
           <div className="mt-2 border-b border-ink pb-5 pr-20">
@@ -180,7 +180,7 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
             <p className="mt-2 max-w-md text-xs leading-relaxed text-muted-foreground">
               A lei exige no mínimo 30% e no máximo 70% de cada gênero na lista de cada partido ou federação. Em 2022, mulheres eram 34,1% das candidaturas.
             </p>
-            <p className="mt-1 font-mono text-[10px] uppercase text-muted-foreground">TSE · {baseDate ?? "base em atualização"}</p>
+            <p className="mt-1 font-mono text-xs uppercase text-muted-foreground">TSE · {baseDate ?? "base em atualização"}</p>
           </div>
         </div>
       </div>
@@ -194,9 +194,9 @@ export function HomeMapSection({ snapshot }: { snapshot: PublicSnapshot | null }
     <section className="relative left-1/2 -ml-[50vw] w-screen border-b border-rule bg-paper">
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:px-8 md:py-20 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
         <div>
-          <p className="font-mono text-[11px] font-semibold uppercase leading-tight text-ink">A entrada não é igual<br />em todo o país</p>
+          <p className="font-mono text-xs font-semibold uppercase leading-tight text-ink">A entrada não é igual<br />em todo o país</p>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">Proporção de mulheres nas candidaturas proporcionais por estado</p>
-          <Link to="/quem-sao-elas" className="mt-5 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[10px] font-semibold uppercase text-plum">
+          <Link to="/quem-sao-elas" className="mt-5 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-xs font-semibold uppercase text-plum">
             Explorar os dados por estado <ArrowRight className="size-3.5" aria-hidden="true" />
           </Link>
         </div>
@@ -219,7 +219,7 @@ export function HomeHistoryHighlight({ historical: _historical }: { historical: 
     <section className="relative left-1/2 -ml-[50vw] w-screen border-b border-rule bg-paper">
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:grid-cols-[1.1fr_minmax(0,20rem)] md:px-8 md:py-20">
         <div>
-          <p className="flex items-center gap-3 font-mono text-[11px] uppercase text-muted-foreground">
+          <p className="flex items-center gap-3 font-mono text-xs uppercase text-muted-foreground">
             <span className="h-1 w-3 bg-plum" aria-hidden="true" /> Como chegamos até aqui
           </p>
           <h2 className="mt-5 font-display text-3xl leading-[1.05] text-ink md:text-4xl">
@@ -228,10 +228,10 @@ export function HomeHistoryHighlight({ historical: _historical }: { historical: 
           <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
             Os pedidos de registro para deputada e deputado caíram 30% em relação a 2022, em todos os 27 estados. Entre as mulheres, a queda foi de 27%; entre os homens, de 32%. Por isso a presença feminina subiu de 34,1% para 35,6%, num campo menor.
           </p>
-          <p className="mt-3 max-w-md font-mono text-[10px] leading-relaxed text-muted-foreground">
+          <p className="mt-3 max-w-md font-mono text-xs leading-relaxed text-muted-foreground">
             Comparação entre pedidos de registro. Em 2022, 9,6% deles terminaram inaptos; o arquivo de 2026 ainda não informa a situação das candidaturas.
           </p>
-          <Link to="/historico" className="mt-6 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[11px] font-semibold uppercase text-plum">
+          <Link to="/historico" className="mt-6 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-xs font-semibold uppercase text-plum">
             Ver a série completa <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
         </div>
@@ -243,15 +243,15 @@ export function HomeHistoryHighlight({ historical: _historical }: { historical: 
           {points.map(({ year, value, candidacies }) => {
             return (
               <div key={year} className="flex flex-1 flex-col items-center gap-2" aria-hidden="true">
-                <span className="font-mono text-[10px] font-semibold text-ink">{formatPct(value)}</span>
+                <span className="font-mono text-xs font-semibold text-ink">{formatPct(value)}</span>
                 <div className="flex h-28 w-full items-end">
                   <div
                     className={`w-full ${year === 2026 ? "bg-plum" : "bg-plum/35"}`}
                     style={{ height: `${value}%` }}
                   />
                 </div>
-                <span className="font-mono text-[10px] text-muted-foreground">{year}</span>
-                <span className="text-center font-mono text-[10px] text-muted-foreground">{candidacies} candidatas</span>
+                <span className="font-mono text-xs text-muted-foreground">{year}</span>
+                <span className="text-center font-mono text-xs text-muted-foreground">{candidacies} candidatas</span>
               </div>
             );
           })}
@@ -263,9 +263,9 @@ export function HomeHistoryHighlight({ historical: _historical }: { historical: 
 
 const STAGES = [
   { n: "01", label: "Registros", question: "Quantas conseguem entrar na disputa — e sob qual regra?", to: "/quem-sao-elas", color: "bg-plum" },
-  { n: "02", label: "Recursos", question: "Quanto dinheiro e tempo de mídia chegam até elas?", to: "/dinheiro", color: "bg-solar" },
+  { n: "02", label: "Recursos", question: "Quanto dinheiro e tempo de mídia chegam até elas?", to: "/dinheiro", color: "bg-lilac" },
   { n: "03", label: "Votos e eleitas", question: "Quantos votos viram cadeira?", to: "/funil", color: "bg-coral" },
-  { n: "04", label: "Poder e decisões", question: "Quem comanda comissões, executivos e orçamento?", to: "/quem-controla", color: "bg-forest" },
+  { n: "04", label: "Poder e decisões", question: "Quem comanda comissões, executivos e orçamento?", to: "/quem-controla", color: "bg-plum" },
 ] as const;
 
 export function HomeStages() {
@@ -291,32 +291,32 @@ export function HomeFunnelFeature() {
     { label: "Recursos", width: "w-[78%]", tone: "bg-plum-soft" },
     { label: "Votos", width: "w-[58%]", tone: "bg-coral" },
     { label: "Cadeiras", width: "w-[38%]", tone: "bg-coral/55" },
-    { label: "Poder", width: "w-1/5", tone: "bg-solar" },
+    { label: "Poder", width: "w-1/5", tone: "bg-lilac" },
   ] as const;
 
   return (
     <section className="py-20 md:py-28">
       <div className="grid items-center gap-12 lg:grid-cols-12">
         <div className="lg:col-span-4">
-          <p className="flex items-center gap-3 font-mono text-[11px] uppercase text-muted-foreground"><span className="h-1 w-3 bg-coral" /> Em destaque</p>
+          <p className="flex items-center gap-3 font-mono text-xs uppercase text-muted-foreground"><span className="h-1 w-3 bg-coral" /> Em destaque</p>
           <h2 className="mt-5 font-display text-4xl leading-[0.98] text-ink md:text-5xl">O funil da<br />desigualdade</h2>
           <p className="mt-5 max-w-sm leading-relaxed text-muted-foreground">Entre entrar na disputa e chegar ao poder, há um caminho — e ele filtra. Cada etapa tem sua própria fonte e seu próprio universo.</p>
-          <Link to="/funil" className="mt-6 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[11px] font-semibold uppercase text-plum">Ver a análise <ArrowRight className="size-4" /></Link>
+          <Link to="/funil" className="mt-6 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-xs font-semibold uppercase text-plum">Ver a análise <ArrowRight className="size-4" /></Link>
         </div>
         <figure className="lg:col-span-5" aria-label="Funil editorial das etapas investigadas; as larguras são ilustrativas e não representam uma taxa calculada">
           <div className="space-y-1.5">
             {layers.map((layer) => (
               <div key={layer.label} className="grid grid-cols-[6.5rem_1fr] items-center gap-4">
-                <span className="text-right font-mono text-[10px] uppercase text-ink">{layer.label}</span>
+                <span className="text-right font-mono text-xs uppercase text-ink">{layer.label}</span>
                 <div className={`mx-auto h-11 ${layer.width} ${layer.tone} [clip-path:polygon(8%_0,92%_0,82%_100%,18%_100%)]`} />
               </div>
             ))}
           </div>
-          <figcaption className="mt-4 text-center font-mono text-[10px] leading-relaxed text-muted-foreground">Esquema editorial: cada etapa tem universo, denominador, fonte e data próprios.</figcaption>
+          <figcaption className="mt-4 text-center font-mono text-xs leading-relaxed text-muted-foreground">Esquema editorial: cada etapa tem universo, denominador, fonte e data próprios.</figcaption>
         </figure>
         <aside className="border-l border-rule pl-8 lg:col-span-3">
           <p className="font-display text-xl leading-snug text-ink md:text-2xl">Nem todas as etapas têm os mesmos pontos de partida. E nem todas têm as mesmas chances de chegada.</p>
-          <Link to="/funil" className="mt-8 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[11px] font-semibold uppercase text-plum">Entenda o funil <ArrowRight className="size-4" /></Link>
+          <Link to="/funil" className="mt-8 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-xs font-semibold uppercase text-plum">Entenda o funil <ArrowRight className="size-4" /></Link>
         </aside>
       </div>
     </section>
@@ -337,10 +337,10 @@ export function HomeInvestigationGrid({ snapshot: _snapshot }: { snapshot: Publi
           const axis = AXES.find((candidate) => candidate.id === item.id);
           return (
             <article key={item.id} className="border-b border-rule px-6 py-12 md:border-b-0 md:border-r md:px-8 md:py-16">
-              <p className="flex items-center gap-3 font-mono text-[10px] uppercase text-muted-foreground"><span className="h-1 w-3 bg-coral" /> {axis?.label}</p>
+              <p className="flex items-center gap-3 font-mono text-xs uppercase text-muted-foreground"><span className="h-1 w-3 bg-coral" /> {axis?.label}</p>
               <h2 className="mt-5 font-display text-2xl leading-[1.02] text-ink md:text-3xl">{item.title}</h2>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.support}</p>
-              <Link to={item.to} className="mt-7 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[10px] font-semibold uppercase text-plum">{item.link} <ArrowRight className="size-3.5" /></Link>
+              <Link to={item.to} className="mt-7 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-xs font-semibold uppercase text-plum">{item.link} <ArrowRight className="size-3.5" /></Link>
             </article>
           );
         })}
@@ -354,20 +354,20 @@ export function HomeAboutBand() {
     <section className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-cream">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 md:grid-cols-12 md:px-8 md:py-20">
         <div className="md:col-span-4">
-          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-cream/70">Sobre o projeto</p>
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-cream/70">Sobre o projeto</p>
           <h2 className="mt-4 font-display text-4xl leading-[0.95] text-cream md:text-5xl">Da candidatura<br />ao poder, com<br />a conta aberta.</h2>
         </div>
         <div className="border-cream/25 md:col-span-5 md:border-l md:pl-10">
           <p className="max-w-md text-sm leading-relaxed text-cream/80">O Quem são elas? é um observatório independente de dados sobre mulheres, eleições e poder. Transformamos números públicos em perguntas verificáveis, com fonte, denominador e método à vista.</p>
-          <Link to="/sobre" className="mt-7 inline-flex items-center gap-2 border-b border-cream/60 pb-1 font-mono text-[10px] uppercase text-cream hover:text-solar">Saiba mais <ArrowRight className="size-3.5" /></Link>
+          <Link to="/sobre" className="mt-7 inline-flex items-center gap-2 border-b border-cream/60 pb-1 font-mono text-xs uppercase text-cream hover:text-cream">Saiba mais <ArrowRight className="size-3.5" /></Link>
         </div>
         <nav aria-label="Transparência do projeto" className="border-cream/25 md:col-span-3 md:border-l md:pl-10">
-          <ul className="divide-y divide-cream/25 border-y border-cream/25 font-mono text-[10px] uppercase">
-            <li><Link to="/investigacoes" className="block py-3 text-cream/80 hover:text-solar">Índice da investigação</Link></li>
-            <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-solar">Metodologia</Link></li>
-            <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-solar">Bases de dados</Link></li>
-            <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-solar">Glossário</Link></li>
-            <li><Link to="/downloads" className="block py-3 text-cream/80 hover:text-solar">Downloads</Link></li>
+          <ul className="divide-y divide-cream/25 border-y border-cream/25 font-mono text-xs uppercase">
+            <li><Link to="/investigacoes" className="block py-3 text-cream/80 hover:text-cream">Índice da investigação</Link></li>
+            <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-cream">Metodologia</Link></li>
+            <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-cream">Bases de dados</Link></li>
+            <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-cream">Glossário</Link></li>
+            <li><Link to="/downloads" className="block py-3 text-cream/80 hover:text-cream">Downloads</Link></li>
           </ul>
         </nav>
       </div>

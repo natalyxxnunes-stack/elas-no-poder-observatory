@@ -42,7 +42,7 @@ export function SiteFooter() {
         </div>
 
         <div>
-          <h2 className="font-mono text-[12px] uppercase tracking-[0.18em] text-solar">
+          <h2 className="font-mono text-[12px] uppercase tracking-[0.18em] text-cream/80">
             Navegue
           </h2>
           <ul className="mt-4 space-y-2">
@@ -50,7 +50,7 @@ export function SiteFooter() {
               <li key={item.to}>
                 <Link
                   to={item.to}
-                  className="text-sm text-cream/75 underline-offset-4 hover:text-solar hover:underline"
+                  className="text-sm text-cream/75 underline-offset-4 hover:text-cream hover:underline"
                 >
                   {item.label}
                 </Link>
@@ -59,7 +59,7 @@ export function SiteFooter() {
           </ul>
         </div>
         <div>
-          <h2 className="font-mono text-[12px] uppercase tracking-[0.18em] text-solar">
+          <h2 className="font-mono text-[12px] uppercase tracking-[0.18em] text-cream/80">
             Dados 2026
           </h2>
           <ul className="mt-4 grid grid-cols-2 gap-x-5 gap-y-2">
@@ -67,7 +67,7 @@ export function SiteFooter() {
               const hashProps = item.hash ? { hash: item.hash } : {};
               return (
                 <li key={item.label}>
-                  <Link to={item.to} {...hashProps} className="text-sm text-cream/75 underline-offset-4 hover:text-solar hover:underline">
+                  <Link to={item.to} {...hashProps} className="text-sm text-cream/75 underline-offset-4 hover:text-cream hover:underline">
                     {item.label}
                   </Link>
                 </li>

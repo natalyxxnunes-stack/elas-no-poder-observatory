@@ -27,7 +27,7 @@ export function NextAxes({ ids }: { ids: readonly string[] }) {
                 {a.question}
               </p>
               {a.publication === "unpublished" && (
-                <p className="mt-3 font-mono text-[11px] uppercase text-muted-foreground">
+                <p className="mt-3 font-mono text-xs uppercase text-muted-foreground">
                   ainda não publicado
                 </p>
               )}
