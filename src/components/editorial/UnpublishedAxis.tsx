@@ -32,7 +32,7 @@ export function UnpublishedAxis({ axisId, opening }: { axisId: string; opening?:
         <div className="mt-8 max-w-2xl">
           <GapNote label="Lacuna declarada">
             Nada é publicado neste eixo enquanto a fonte necessária não estiver
-            disponível — sem número provisório e sem estimativa.
+            disponível, sem número provisório e sem estimativa.
           </GapNote>
         </div>
 

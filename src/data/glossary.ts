@@ -26,14 +26,14 @@ export type GlossaryEntry = {
 export const GLOSSARY: Record<GlossaryKey, GlossaryEntry> = {
   proporcional: {
     title: "Eleição proporcional",
-    body: "Elege vários nomes para um mesmo parlamento — Câmara dos Deputados, assembleias legislativas e Câmara Legislativa do DF. O voto conta para o partido e para a pessoa, e o número de cadeiras depende do total de votos do partido.",
+    body: "Elege vários nomes para um mesmo parlamento: Câmara dos Deputados, assembleias legislativas e Câmara Legislativa do DF. O voto conta para o partido e para a pessoa, e o número de cadeiras depende do total de votos do partido.",
   },
   majoritaria: {
     title: "Eleição majoritária",
     body: "Elege pelo voto majoritário: Presidência, governos estaduais e do DF e Senado. Vence quem tem mais votos; para Presidência e governos, é preciso maioria absoluta dos votos válidos no 1º turno, ou há 2º turno. Em 2026, cada estado elege duas cadeiras no Senado.",
   },
   "pontos-percentuais": {
-    title: "p.p. — pontos percentuais",
+    title: "p.p. (pontos percentuais)",
     body: "É a diferença simples entre dois percentuais, e não um aumento em porcentagem.",
     example: "De 35% para 19% há 16 pontos percentuais de diferença.",
   },

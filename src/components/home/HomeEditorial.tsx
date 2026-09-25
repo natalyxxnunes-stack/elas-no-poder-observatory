@@ -87,7 +87,7 @@ function EditorialBrazilMap({ snapshot }: { snapshot: PublicSnapshot | null }) {
             >
               <title>
                 {datum
-                  ? `${location.name}: ${formatPct(datum.share)} — ${formatInt(datum.feminine)} de ${formatInt(datum.total)} candidaturas`
+                  ? `${location.name}: ${formatPct(datum.share)}, ${formatInt(datum.feminine)} de ${formatInt(datum.total)} candidaturas`
                   : `${location.name}: em atualização`}
               </title>
             </path>

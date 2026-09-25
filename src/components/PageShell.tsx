@@ -31,8 +31,10 @@ export function PageShell({ children, home = false, breadcrumb }: { children: Re
                 <Fragment key={`${item.label}-${index}`}>
                   {index > 0 && <BreadcrumbSeparator />}
                   <BreadcrumbItem>
-                    {index === breadcrumb.length - 1 || !item.to ? (
+                    {index === breadcrumb.length - 1 ? (
                       <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                    ) : !item.to ? (
+                      <span className="text-muted-foreground">{item.label}</span>
                     ) : (
                       <BreadcrumbLink asChild><Link to={item.to}>{item.label}</Link></BreadcrumbLink>
                     )}

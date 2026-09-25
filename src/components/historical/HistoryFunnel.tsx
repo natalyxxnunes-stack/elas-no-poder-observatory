@@ -211,8 +211,8 @@ export function HistoryFunnel() {
       </div>
 
       <p className="text-sm leading-relaxed text-ink/70">
-        Recorte: Câmara dos Deputados, Assembleias Legislativas e Câmara Legislativa do DF — eleições proporcionais. Não inclui Senado, governos estaduais ou Presidência. Por isso os totais podem diferir de estatísticas do TSE que somam o Legislativo inteiro: aqui se conta a cadeira proporcional, não a suplência nem o Senado. Eleitas: resultado do 1º turno, o único da eleição proporcional. Cada ano e cada etapa têm denominador próprio; percentuais não se
-        somam. Cor/raça é autodeclarada, nas categorias do TSE, coletada desde 2014 — a
+        Recorte: Câmara dos Deputados, Assembleias Legislativas e Câmara Legislativa do DF: eleições proporcionais. Não inclui Senado, governos estaduais ou Presidência. Por isso os totais podem diferir de estatísticas do TSE que somam o Legislativo inteiro: aqui se conta a cadeira proporcional, não a suplência nem o Senado. Eleitas: resultado do 1º turno, o único da eleição proporcional. Cada ano e cada etapa têm denominador próprio; percentuais não se
+        somam. Cor/raça é autodeclarada, nas categorias do TSE, coletada desde 2014; a
         qualidade do preenchimento varia entre ciclos e, em 2014, não há registros “não
         informado”. Categorias com poucas candidaturas ou eleitas devem ser lidas pelo
         número absoluto, não pelo percentual. Nenhuma categoria é omitida. 2026 é

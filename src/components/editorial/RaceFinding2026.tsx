@@ -88,13 +88,13 @@ function RacePair({
   return (
     <li className="space-y-2 border-b border-rule py-4 first:pt-0 last:border-b-0">
       <p className="font-display text-lg text-ink">{RACE_LABELS[category]}</p>
-      <ChartBar label="População" base={`${n(pop.count)} mulheres`} value={pop.percent} scaleMax={50} display={pct(pop.percent)} barClass={`${bar} opacity-45`} valueClass="text-muted-foreground" />
+      <ChartBar label="Mulheres 18+" base={`${n(pop.count)} mulheres`} value={pop.percent} scaleMax={50} display={pct(pop.percent)} barClass={`${bar} opacity-45`} valueClass="text-muted-foreground" />
       <ChartBar label="Candidatas 2026" base={`${n(cand.count)} candidatas`} value={cand.percent} scaleMax={50} display={pct(cand.percent)} barClass={bar} />
     </li>
   );
 }
 
-/** Bloco editorial e visual: população feminina (Censo 2022) × candidaturas de
+/** Bloco editorial e visual: mulheres de 18+ (Censo 2022) × candidaturas de
  *  mulheres nas proporcionais de 2026 (TSE), por cor/raça. */
 export function RaceFinding2026({
   snapshot,
@@ -125,10 +125,10 @@ export function RaceFinding2026({
       <div className="space-y-6">
         <ChartFrame
           eyebrow="Cinco categorias, dois retratos"
-          title="População feminina (Censo 2022) × candidatas a deputada (2026)"
-          legend={<><LegendSwatch className="bg-plum opacity-45">População</LegendSwatch><LegendSwatch className="bg-plum">Candidatas</LegendSwatch></>}
-          note="Cada categoria na sua cor; a barra clara é a população, a escura, as candidatas. Régua de 0 a 50%."
-          source="Fontes: IBGE, Censo 2022; TSE, Candidaturas 2026"
+          title="Mulheres adultas (Censo 2022) × candidatas a deputada (2026)"
+          legend={<><LegendSwatch className="bg-plum opacity-45">Mulheres 18+</LegendSwatch><LegendSwatch className="bg-plum">Candidatas</LegendSwatch></>}
+          note="Cada categoria na sua cor: a barra clara mostra as mulheres de 18 anos ou mais; a escura, as candidatas. Régua de 0 a 50%."
+          source="Fontes: IBGE, Censo 2022 (mulheres de 18 anos ou mais); TSE, Candidaturas 2026"
         >
           <ul>
             {RACE_FINDING_CATEGORIES.map((category) => (
@@ -151,21 +151,21 @@ export function RaceFinding2026({
             </h3>
             <div className="mt-3 space-y-3 leading-relaxed text-ink/70">
               <p>
-                No Censo de 2022, mulheres pardas e brancas têm quase o mesmo
-                tamanho: {pct(popParda.percent)} e {pct(popBranca.percent)} das
-                brasileiras.
+                No Censo de 2022, entre as mulheres de 18 anos ou mais, pardas e
+                brancas têm quase o mesmo tamanho: {pct(popParda.percent)} e{" "}
+                {pct(popBranca.percent)}.
               </p>
               <p>
                 Entre as candidaturas de mulheres às proporcionais de 2026,
                 brancas são {pct(candBranca.percent)} e pardas{" "}
                 {pct(candParda.percent)}. A candidatura parda fica {pp(gapParda)}{" "}
-                {gapParda < 0 ? "abaixo" : "acima"} do tamanho da população
-                parda feminina.
+                {gapParda < 0 ? "abaixo" : "acima"} do peso das pardas entre as
+                mulheres adultas.
               </p>
               <p>
                 A candidatura preta aparece no sentido oposto:{" "}
                 {pct(candPreta.percent)} das candidatas, contra{" "}
-                {pct(popPreta.percent)} da população feminina. Os percentuais
+                {pct(popPreta.percent)} das mulheres adultas. Os percentuais
                 deste parágrafo e as barras acima vêm da mesma fonte: a {sourceLabel}.
               </p>
             </div>
@@ -203,7 +203,7 @@ export function RaceFinding2026({
             <div className="mt-3 space-y-3 leading-relaxed text-ink/70">
               <p>
                 Por que a candidatura parda fica abaixo do peso populacional,
-                esta comparação não responde — declaração de cor/raça, seleção
+                esta comparação não responde: declaração de cor/raça, seleção
                 partidária e composição de listas são hipóteses a testar com
                 outras fontes, nenhuma delas demonstrada aqui.
               </p>
@@ -227,10 +227,10 @@ export function RaceFinding2026({
           : ""}
         ; população
 
-        feminina {n(POPULATION_FEMININE_2022)} (Censo 2022). Cor/raça autodeclarada, nas
+        de {n(POPULATION_FEMININE_2022)} mulheres de 18 anos ou mais (Censo 2022, o mesmo recorte de idade das candidatas). Cor/raça autodeclarada, nas
         categorias do IBGE/TSE. Preta e parda são lidas separadamente; quando somadas como população negra, a soma é declarada. A
-        comparação entre candidaturas (TSE proporcional 2026) e população
-        feminina (Censo 2022) são dois retratos, cada um com seu denominador;
+        comparação entre candidaturas (TSE proporcional 2026) e mulheres
+        adultas (Censo 2022) são dois retratos, cada um com seu denominador;
         leitura descritiva, não causal. Indígenas e amarelas: poucas
         candidaturas, ler pelo absoluto.
       </p>

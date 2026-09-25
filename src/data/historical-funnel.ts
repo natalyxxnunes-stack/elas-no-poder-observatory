@@ -169,7 +169,7 @@ export const HISTORICAL_FUNNEL: HistoricalFunnelYear[] = [
 ] as const;
 
 export const HISTORICAL_FUNNEL_SOURCE =
-  "TSE — candidatos e resultados 2014/2018/2022/2026";
+  "TSE, candidatos e resultados 2014/2018/2022/2026";
 
 /* ------------------------------------------------------------------ *
  * Taxa de eleição por gênero — indicador descritivo
