@@ -78,7 +78,9 @@ function build(universe: UniverseId): UniverseSnapshot {
   const totalByUfParty: Record<string, number> = {};
   const feminineByUfParty: Record<string, number> = {};
   for (const [uf, parties] of Object.entries(PACKED[universe])) {
-    for (const [party, [total, ...races]] of Object.entries(parties)) {
+    for (const [party, packed] of Object.entries(parties)) {
+      const [total, ...races] = packed;
+      if (total === undefined) continue;
       const key = `${uf}|${party}`;
       totalByUfParty[key] = total;
       totalByUf[uf] = (totalByUf[uf] ?? 0) + total;
@@ -87,6 +89,7 @@ function build(universe: UniverseId): UniverseSnapshot {
       races.forEach((n, i) => {
         if (n <= 0) return;
         const race = RACE_ORDER[i];
+        if (race === undefined) return;
         cell[race] = n;
         women += n;
         raceByUf[uf] = raceByUf[uf] ?? {};
