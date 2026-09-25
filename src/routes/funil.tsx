@@ -135,7 +135,7 @@ function FunilPage() {
         />
       </div>
 
-      <SectionBlock
+      <SectionBlock id="etapas"
         kicker="Etapa por etapa"
         question="Quantas são, em cada porta de entrada"
         align="wide"
@@ -157,7 +157,7 @@ function FunilPage() {
         <FunnelStages2026 snapshot={snapshot} />
       </SectionBlock>
 
-      <SectionBlock
+      <SectionBlock id="disputa" tone="lilac"
         kicker="Tamanho da disputa"
         question="Quantas candidaturas existem para cada vaga?"
         align="wide"
@@ -181,7 +181,7 @@ function FunilPage() {
       </SectionBlock>
 
 
-      <SectionBlock
+      <SectionBlock id="contexto"
         kicker="Contexto"
         question="Como isso se compara ao passado?"
         lead={
@@ -192,8 +192,7 @@ function FunilPage() {
         <PastStrip series={feminineSeries} />
       </SectionBlock>
 
-      <SectionBlock
-        tone="lilac"
+      <SectionBlock id="chapas" tone="lilac"
         kicker="Antes do resultado"
         question="Ninguém disputa uma cadeira sozinha"
       >

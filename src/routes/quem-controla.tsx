@@ -125,7 +125,7 @@ function QuemControlaPage() {
         />
       </div>
 
-      <SectionBlock
+      <SectionBlock id="alavancas"
         kicker="Alavancas de controle"
         question="Cinco decisões que acontecem antes da campanha"
         align="wide"
@@ -146,7 +146,7 @@ function QuemControlaPage() {
         </ul>
       </SectionBlock>
 
-      <SectionBlock
+      <SectionBlock id="regras" tone="lilac"
         kicker="As regras que incidem"
         question="O que a regra alcança — e o que ela deixa para o partido decidir"
         lead={<p>{QUOTA_RULE.scope}</p>}

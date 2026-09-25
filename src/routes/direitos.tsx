@@ -91,7 +91,7 @@ function DireitosPage() {
         />
       </div>
 
-      <SectionBlock
+      <SectionBlock id="linha"
         kicker="Linha do tempo"
         question="Cada marco em cinco perguntas"
         align="wide"
@@ -121,17 +121,35 @@ function DireitosPage() {
                   {m.title}
                 </h3>
                 <dl className="mt-4 space-y-3">
-                  {FIELDS.map((f) => (
+                  {FIELDS.slice(0, 1).map((f) => (
                     <div key={f.key} className="sm:flex sm:gap-5">
                       <dt className="shrink-0 font-mono text-[12px] uppercase tracking-wider text-muted-foreground sm:w-36 sm:pt-0.5">
                         {f.label}
                       </dt>
-                      <dd className="mt-1 text-sm leading-relaxed text-ink sm:mt-0">
+                      <dd className="mt-1 text-base leading-relaxed text-ink sm:mt-0">
                         {m[f.key]}
                       </dd>
                     </div>
                   ))}
                 </dl>
+                <details className="group mt-3">
+                  <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-plum underline underline-offset-4 [&::-webkit-details-marker]:hidden">
+                    <span className="group-open:hidden">Ver as outras {FIELDS.length - 1} perguntas</span>
+                    <span className="hidden group-open:inline">Recolher</span>
+                  </summary>
+                  <dl className="mt-3 space-y-3">
+                    {FIELDS.slice(1).map((f) => (
+                      <div key={f.key} className="sm:flex sm:gap-5">
+                        <dt className="shrink-0 font-mono text-[12px] uppercase tracking-wider text-muted-foreground sm:w-36 sm:pt-0.5">
+                          {f.label}
+                        </dt>
+                        <dd className="mt-1 text-sm leading-relaxed text-ink sm:mt-0">
+                          {m[f.key]}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </details>
                 <p className="mt-4 font-mono text-[12px] text-muted-foreground">
                   Fonte:{" "}
                   <a
@@ -150,8 +168,7 @@ function DireitosPage() {
       </SectionBlock>
 
       {/* EM DISPUTA — presente das regras, na sequência da linha do tempo */}
-      <SectionBlock
-        tone="ink"
+      <SectionBlock id="em-disputa" tone="butter"
         kicker="Em disputa"
         question="As regras também estão em disputa"
         align="wide"
@@ -193,7 +210,7 @@ function DireitosPage() {
         </div>
       </SectionBlock>
 
-      <SectionBlock
+      <SectionBlock id="limites"
         kicker="Limites em aberto"
         question="O que as regras ainda não alcançam"
       >
@@ -225,8 +242,7 @@ function DireitosPage() {
         </div>
       </SectionBlock>
 
-      <SectionBlock
-        tone="lilac"
+      <SectionBlock id="como-ler" tone="lilac"
         kicker="Como ler uma regra em tramitação"
         question="Três distinções que evitam erro"
       >

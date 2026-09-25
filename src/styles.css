@@ -50,6 +50,7 @@
   --color-solar: var(--solar);
   --color-coral: var(--coral);
   --color-lilac: var(--lilac);
+  --color-butter: var(--butter);
   --color-forest: var(--forest);
   --color-paper: var(--paper);
   --color-rule: var(--rule);
@@ -63,6 +64,14 @@
   --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
   --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* escala de leitura: corpo em 17px, texto pequeno em 15px */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.5;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.6;
+  --text-base: 1.0625rem;
+  --text-base--line-height: 1.65;
 }
 
 :root {
@@ -77,8 +86,16 @@
   --plum-bright: oklch(0.74 0.13 305);
   --coral-ink: oklch(0.5 0.19 32);
   --solar: oklch(0.83 0.16 84);
+  /* laranja = o dado de agora (2026) nos gráficos; nunca categoria */
   --coral: oklch(0.63 0.2 34);
-  --lilac: oklch(0.955 0.025 305);
+  --lilac: oklch(0.915 0.05 305);
+  /* amarelo manteiga: fundo quente para achados; texto sempre em tinta */
+  --butter: oklch(0.93 0.085 90);
+  /* paleta de cor/raça (gráficos em fundo claro) */
+  --race-branca: oklch(0.8 0.035 305);
+  --race-parda: oklch(0.72 0.13 78);
+  --race-amarela: oklch(0.65 0.12 250);
+  --race-na: oklch(0.88 0.005 305);
   --forest: oklch(0.5285447567 0.1061414179 154.602856299);
   --rule: oklch(0.87 0.014 305);
 
@@ -165,10 +182,10 @@
 }
 
 @utility gap-note {
-  border-left: 3px solid var(--color-coral);
-  background-color: oklch(0.63 0.2 34 / 0.07);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+  border-left: 3px solid var(--color-ink);
+  background-color: oklch(0.19 0.035 310 / 0.04);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
   line-height: 1.6;
   padding: 0.75rem 1rem;
   color: var(--color-foreground);

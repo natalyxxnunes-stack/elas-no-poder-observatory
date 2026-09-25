@@ -236,7 +236,7 @@ function MetodoPage() {
       </div>
 
       {/* CAMADA 1 — linguagem simples */}
-      <SectionBlock
+      <SectionBlock id="calculo"
         kicker="Camada 1 · linguagem simples"
         question="Como calculamos?"
         align="wide"
@@ -299,8 +299,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Representação descritiva × substantiva */}
-      <SectionBlock
-        tone="lilac"
+      <SectionBlock id="medidas" tone="butter"
         kicker="O que estes números medem"
         question="Presença e poder de decidir são medidas diferentes"
         lead={
@@ -335,13 +334,12 @@ function MetodoPage() {
         </p>
       </SectionBlock>
       {/* CAMADA 2 — ficha técnica */}
-      <SectionBlock
-        tone="lilac"
+      <SectionBlock collapsible="Ver a ficha técnica" id="ficha" tone="lilac"
         kicker="Camada 2 · ficha técnica"
         question="Fonte e processamento"
       >
         <div className="editorial-card p-5 md:p-6">
-          <dl className="grid gap-3 break-words font-mono text-[12px] leading-relaxed text-muted-foreground md:grid-cols-2">
+          <dl className="grid gap-3 break-words text-sm leading-relaxed text-muted-foreground md:grid-cols-2">
             <div>
               <dt className="uppercase tracking-wider">Fonte</dt>
               <dd className="text-ink">{TSE_SOURCE.name}</dd>
@@ -429,7 +427,7 @@ function MetodoPage() {
                   </p>
                 </>
               ) : (
-                <p className="mt-3 font-mono text-[12px] leading-relaxed text-muted-foreground">
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   Esta fotografia foi coletada antes de o registro de SHA-256
                   entrar no pipeline, então não tem código de procedência
                   gravado. A partir da versão {snapshot.processingVersion} em
@@ -443,7 +441,7 @@ function MetodoPage() {
                 <h3 className="mt-2 font-display text-xl text-ink">
                   Planilha da fotografia vigente (CSV)
                 </h3>
-                <dl className="mt-3 grid gap-2 font-mono text-[12px] leading-relaxed text-muted-foreground md:grid-cols-2">
+                <dl className="mt-3 grid gap-2 text-sm leading-relaxed text-muted-foreground md:grid-cols-2">
                   <div>
                     <dt className="inline uppercase tracking-wider">
                       O que é:{" "}
@@ -524,7 +522,7 @@ function MetodoPage() {
 
       {/* Situação de candidatura */}
       {snapshot && Object.keys(snapshot.situationValues).length > 0 && (
-        <SectionBlock
+        <SectionBlock collapsible="Ver os estágios" id="situacao"
           kicker="Situação de candidatura"
           question="Que estágios a base contém"
           lead={
@@ -553,7 +551,7 @@ function MetodoPage() {
       )}
 
       {/* Histórico de fotografias */}
-      <SectionBlock
+      <SectionBlock collapsible="Ver as fotografias" id="fotografias" tone="lilac"
         kicker="Histórico"
         question="Fotografias já processadas"
         lead={
@@ -625,7 +623,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Fato, interpretação e hipótese */}
-      <SectionBlock
+      <SectionBlock id="como-ler"
         kicker="Como ler o site"
         question="Três registros diferentes, sempre marcados"
         lead={
@@ -652,7 +650,7 @@ function MetodoPage() {
             </dd>
           </div>
           <div className="poster-frame-accent p-5">
-            <dt className="record-label border-coral text-coral-ink">
+            <dt className="record-label border-ink text-ink [border-style:dashed]">
               Interpretação editorial
             </dt>
             <dd className="mt-3 text-sm leading-relaxed text-ink/70">
@@ -674,7 +672,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Metadados por indicador */}
-      <SectionBlock
+      <SectionBlock collapsible="Ver os metadados" id="metadados" tone="lilac"
         kicker="Metadados por indicador"
         question="Cada número, com sua conta aberta"
         align="wide"
@@ -692,7 +690,7 @@ function MetodoPage() {
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <h3 className="font-display text-lg text-ink">{i.label}</h3>
               </div>
-              <dl className="mt-4 grid gap-2 font-mono text-[12px] leading-relaxed text-muted-foreground md:grid-cols-2">
+              <dl className="mt-4 grid gap-2 text-sm leading-relaxed text-muted-foreground md:grid-cols-2">
                 <div>
                   <dt className="inline uppercase tracking-wider">Valor: </dt>
                   <dd className="inline">
@@ -771,7 +769,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Competitividade */}
-      <SectionBlock
+      <SectionBlock collapsible="Ler a definição" id="competitividade"
         kicker="Competitividade"
         question="O que chamamos — e o que não chamamos — de competitividade"
         align="wide"
@@ -794,7 +792,7 @@ function MetodoPage() {
             <h3 className="font-display text-xl text-ink">
               {COMPETITION_DEFINITION.question}
             </h3>
-            <dl className="mt-3 space-y-2 break-words font-mono text-[12px] leading-relaxed text-ink/80">
+            <dl className="mt-3 space-y-2 break-words text-sm leading-relaxed text-ink/80">
               <div>
                 <dt className="inline text-muted-foreground">Fórmula: </dt>
                 <dd className="inline">{COMPETITION_DEFINITION.formula}</dd>
@@ -851,7 +849,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Nota técnica reproduzível */}
-      <SectionBlock
+      <SectionBlock collapsible="Ver o passo a passo" id="nota-tecnica" tone="lilac"
         kicker="Nota técnica"
         question="Como refazer estas contas do zero"
         align="wide"
@@ -946,7 +944,7 @@ function MetodoPage() {
             <h3 className="font-display text-lg text-ink">
               5. Fórmulas e denominadores
             </h3>
-            <ul className="mt-2 space-y-2 font-mono text-[12px] leading-relaxed text-muted-foreground">
+            <ul className="mt-2 space-y-2 text-sm leading-relaxed text-muted-foreground">
               <li>
                 participação feminina = candidaturas com DS_GENERO = FEMININO no
                 universo ÷ total de candidaturas do mesmo universo × 100
@@ -998,7 +996,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Financiamento de campanha */}
-      <SectionBlock
+      <SectionBlock collapsible="Ver o que publicamos" id="financiamento"
         kicker="Financiamento de campanha"
         question="O que este site já publica sobre dinheiro de campanha"
         align="wide"
@@ -1047,7 +1045,7 @@ function MetodoPage() {
 
 
       {/* Limitações */}
-      <SectionBlock
+      <SectionBlock id="limitacoes"
         kicker="Limitações"
         question="Os limites declarados deste método"
       >
