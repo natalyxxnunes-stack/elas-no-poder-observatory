@@ -116,6 +116,33 @@ export const ACHADOS: Achado[] = [
     to: "/historico",
     linkLabel: "Ver no Histórico",
   },
+  {
+    id: "vice-de-quem",
+    numero: "07",
+    data: "2026-09-25",
+    titulo: "A vice completa a chapa de um homem",
+    texto: "Das 80 mulheres candidatas a vice-governadora, 68 estão em chapa encabeçada por homem. No Senado, 75 das 98 primeiras suplentes também. Na Presidência, 4 das 6 candidatas a vice.",
+    barras: [
+      { rotulo: "Vice-governadora", valor: 85.0 },
+      { rotulo: "1ª suplente", valor: 76.5 },
+    ],
+    legenda: "Mulheres vice ou suplente em chapa encabeçada por homem",
+    fonte: "TSE, Candidaturas 2026 · base de 25/09/2026. Com substituição, vale o registro mais recente",
+    to: "/quem-sao-elas",
+    linkLabel: "Ver em Quem são elas",
+  },
+  {
+    id: "pretas-sozinhas",
+    numero: "08",
+    data: "2026-09-25",
+    titulo: "Candidatas pretas ao comando disputam sozinhas",
+    texto: "Das 17 mulheres pretas candidatas a presidente, governadora ou senadora, 11 concorrem por partido sem federação nem coligação: 7 pela UP, 3 pelo PSTU e 1 pelo PCO. Juntas, as 11 declararam R$ 1,03 milhão de receita. Benedita da Silva (PT), sozinha, declarou R$ 5,41 milhões.",
+    barras: [],
+    legenda: "Base de 17 candidaturas: só números absolutos",
+    fonte: "TSE, Candidaturas e Prestação de Contas 2026 · base de 25/09/2026, contas em andamento",
+    to: "/dinheiro",
+    linkLabel: "Ver em Dinheiro",
+  },
 ];
 
 export const ACHADOS_RECENTES = [...ACHADOS].reverse().slice(0, 3);

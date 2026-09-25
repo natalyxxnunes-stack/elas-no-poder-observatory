@@ -185,7 +185,7 @@ export function CandidatasMajoritarias() {
         <div className="max-w-3xl space-y-1 text-xs leading-relaxed text-muted-foreground">
           <p>
             Pedidos de registro. O arquivo de 2026 ainda não informa a situação de cada candidatura (deferida, indeferida, renúncia).
-            Cor/raça é autodeclaração ao TSE. Receita declarada até {CANDIDATAS_BASE}, contas em andamento. "Dois registros no arquivo" indica substituição de vice ou suplente.
+            Cor/raça é autodeclaração ao TSE. Receita declarada até {CANDIDATAS_BASE}, contas em andamento. Quando vice ou suplente foi substituído, a tabela mostra o registro mais recente.
             A página oficial de cada candidatura está no{" "}
             <a href="https://divulgacandcontas.tse.jus.br/" target="_blank" rel="noreferrer" className="text-plum underline underline-offset-4">DivulgaCandContas, do TSE</a>.
           </p>

@@ -6,8 +6,8 @@
  * Fotografia congelada: não muda sozinha quando a base muda.
  *
  * Campos: [nome de urna, cargo, UF, partido, cor/raça declarada,
- *          companheiras de chapa (m = mulher, h = homem, x = mais de um registro
- *          no arquivo, por substituição; uma letra por vice ou suplente),
+ *          companheiras de chapa (m = mulher, h = homem; uma letra por vice ou suplente;
+ *          quando houve substituição, vale o registro mais recente (SQ_CANDIDATO maior)),
  *          receita declarada em reais, arredondada].
  * Só dado público de registro. Sem CPF, data de nascimento, e-mail ou foto.
  */
@@ -24,7 +24,7 @@ export const CANDIDATAS_MAJORITARIAS_2026: readonly CandidataRow[] = [
   ["Lenilda Luna", "governo", "AL", "UP", "parda", "h", 15980],
   ["Professora Maria do Carmo", "governo", "AM", "PL", "branca", "h", 4530000],
   ["Maria Bona", "governo", "BA", "PCO", "branca", "h", 0],
-  ["Vera Lúcia", "governo", "CE", "NOVO", "branca", "x", 488810],
+  ["Vera Lúcia", "governo", "CE", "NOVO", "branca", "h", 488810],
   ["Celina Leão", "governo", "DF", "PP", "branca", "h", 7222000],
   ["Paula Belmonte", "governo", "DF", "PSDB", "branca", "h", 2991000],
   ["Professora Samara Mineiro", "governo", "DF", "UP", "branca", "m", 20680],
@@ -35,7 +35,7 @@ export const CANDIDATAS_MAJORITARIAS_2026: readonly CandidataRow[] = [
   ["Gal Leite", "governo", "PA", "UP", "preta", "m", 6196],
   ["Hana Ghassan", "governo", "PA", "MDB", "branca", "h", 8127142],
   ["Ruth Reis", "governo", "PA", "DEMOCRATA", "parda", "m", 0],
-  ["Well Macedo", "governo", "PA", "PSTU", "preta", "x", 34462],
+  ["Well Macedo", "governo", "PA", "PSTU", "preta", "h", 34462],
   ["Professora Camila", "governo", "PE", "UP", "branca", "h", 6980],
   ["Raquel Lyra", "governo", "PE", "PSD", "branca", "m", 12027030],
   ["Dra. Lúcia Santos", "governo", "PI", "PSDB", "branca", "h", 87500],
@@ -52,8 +52,8 @@ export const CANDIDATAS_MAJORITARIAS_2026: readonly CandidataRow[] = [
   ["Taty Cristina de Jesus", "governo", "SE", "DC", "parda", "h", 2526],
   ["Izadora Dias", "governo", "SP", "PCO", "parda", "h", 0],
   ["Policial Edjane", "governo", "SP", "AGIR", "branca", "m", 0],
-  ["Vera Lúcia", "governo", "SP", "PSTU", "preta", "x", 413103],
-  ["Vivian Mendes", "governo", "SP", "UP", "branca", "x", 130855],
+  ["Vera Lúcia", "governo", "SP", "PSTU", "preta", "h", 413103],
+  ["Vivian Mendes", "governo", "SP", "UP", "branca", "m", 130855],
   ["Professora Dorinha", "governo", "TO", "UNIÃO", "branca", "h", 6841850],
   ["Mara Rocha", "senado", "AC", "REPUBLICANOS", "branca", "hh", 2614497],
   ["Marina Jhc", "senado", "AL", "PSDB", "branca", "mh", 1615000],
@@ -82,7 +82,7 @@ export const CANDIDATAS_MAJORITARIAS_2026: readonly CandidataRow[] = [
   ["Soraya", "senado", "MS", "PSB", "branca", "hm", 587700],
   ["Janaina Riva", "senado", "MT", "MDB", "branca", "hh", 3731583],
   ["Margareth Buzetti", "senado", "MT", "PP", "branca", "mm", 3240412],
-  ["Edlaine Rodrigues", "senado", "PA", "DEMOCRATA", "parda", "xh", 8573],
+  ["Edlaine Rodrigues", "senado", "PA", "DEMOCRATA", "parda", "hh", 8573],
   ["Fernanda Lopes", "senado", "PA", "UP", "branca", "mm", 0],
   ["Gizelle Freitas", "senado", "PA", "PSOL", "parda", "mm", 105040],
   ["Livia Noronha", "senado", "PA", "SOLIDARIEDADE", "preta", "hh", 10000],
@@ -95,7 +95,7 @@ export const CANDIDATAS_MAJORITARIAS_2026: readonly CandidataRow[] = [
   ["Gleisi", "senado", "PR", "PT", "branca", "hh", 4455773],
   ["Karen Guerreiro", "senado", "PR", "MISSÃO", "branca", "hh", 25000],
   ["Benedita da Silva", "senado", "RJ", "PT", "preta", "hh", 5412392],
-  ["Michelly Xavier", "senado", "RJ", "UP", "preta", "hx", 1050],
+  ["Michelly Xavier", "senado", "RJ", "UP", "preta", "hh", 1050],
   ["Monica Benicio", "senado", "RJ", "PSOL", "branca", "mm", 1032693],
   ["Paula Falcão", "senado", "RJ", "PSTU", "parda", "mh", 43002],
   ["Luciana Mandu", "senado", "RN", "PSTU", "parda", "mh", 14752],
