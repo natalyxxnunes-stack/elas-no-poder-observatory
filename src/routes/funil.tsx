@@ -107,7 +107,7 @@ function FunilPage() {
         question="Onde elas ficam pelo caminho?"
         lead={
           <p>
-            Mulheres são {proportionalFrequency} candidaturas a deputada e {majoritarianFrequency} nas disputas por Presidência, governos e Senado. Nos cargos de um único titular, a presença cai. A partir de outubro, o funil ganha as etapas de voto e cadeira.
+            Mulheres são {proportionalFrequency} candidaturas a deputada e {majoritarianFrequency} nas disputas por Presidência, governos e Senado. Nas candidaturas majoritárias, a presença cai. A partir de outubro, o funil ganha as etapas de voto e cadeira.
           </p>
         }
         snapshot={snapshot}
@@ -122,17 +122,15 @@ function FunilPage() {
               <GlossaryTerm term="proporcional">proporcionais</GlossaryTerm> de
               2026 — as que elegem vários nomes para um mesmo parlamento — a
               participação de mulheres é bem maior do que nas{" "}
-              <GlossaryTerm term="majoritaria">majoritárias</GlossaryTerm>, que
-              elegem uma pessoa por cargo. Os dois grupos são contados
+              <GlossaryTerm term="majoritaria">majoritárias</GlossaryTerm> (Presidência, governos e Senado). Os dois grupos são contados
               separadamente.
             </>
           }
           matters={
             <>
               O cargo em disputa muda o tamanho da porta. Entrar numa lista
-              proporcional é diferente de ser a única candidata de um partido ou{" "}
-              <GlossaryTerm term="federacao">federação</GlossaryTerm> a um
-              governo, ao Senado ou à Presidência.
+              proporcional é diferente de disputar um governo, o Senado ou a Presidência, em que cada partido ou{" "}
+              <GlossaryTerm term="federacao">federação</GlossaryTerm> lança poucos nomes.
             </>
           }
           unknown={

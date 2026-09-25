@@ -194,7 +194,7 @@ export function HomeMapSection({ snapshot }: { snapshot: PublicSnapshot | null }
           <p className="font-mono text-[11px] font-semibold uppercase leading-tight text-ink">A entrada não é igual<br />em todo o país</p>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">Proporção de mulheres nas candidaturas proporcionais por estado</p>
           <Link to="/quem-sao-elas" className="mt-5 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[10px] font-semibold uppercase text-plum">
-            Ver a tabela dos 27 estados <ArrowRight className="size-3.5" aria-hidden="true" />
+            Explorar os dados por estado <ArrowRight className="size-3.5" aria-hidden="true" />
           </Link>
         </div>
         <EditorialBrazilMap snapshot={snapshot} />

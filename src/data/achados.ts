@@ -119,7 +119,7 @@ export const ACHADOS: Achado[] = [
     id: "presidencia-dinheiro",
     numero: "02",
     data: "2026-09-24",
-    titulo: "Na Presidência, quase nada do dinheiro",
+    titulo: "Na Presidência, quase nada da receita declarada",
     texto: `Mulheres são ${formatInt(M.dimensions.feminineByCargo?.["PRESIDENTE"] ?? 0)} das ${formatInt(M.dimensions.totalByCargo?.["PRESIDENTE"] ?? 0)} candidaturas à Presidência e receberam ${pct(presidencia)} da receita declarada até agora. Por cargo, a fatia das mulheres na receita declarada é de ${pct(estadual)} nas assembleias, ${pct(federal)} na Câmara dos Deputados, ${pct(distrital)} na Câmara Legislativa do DF, ${pct(senado)} no Senado e ${pct(governo)} nos governos.`,
     barras: [
       { rotulo: "Assembleias", valor: estadual },
