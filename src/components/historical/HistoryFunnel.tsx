@@ -27,8 +27,6 @@ const n = (v: number) => formatInt(v);
 const pct = (v: number) => formatPct(v);
 
 function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: string }) {
-  const maxCount = Math.max(...RACE_CATEGORIES.map((key) => race[key].count), 1);
-
   return (
     <div className="mt-4">
       <p className="mb-2.5 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
@@ -37,7 +35,7 @@ function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: s
       <ul className="space-y-2.5">
         {RACE_CATEGORIES.map((key) => {
           const item = race[key];
-          const barWidth = (item.count / maxCount) * 100;
+          const barWidth = item.percent;
           return (
             <li key={key} className="grid min-w-0 items-center gap-2" style={{ gridTemplateColumns: "5.5rem minmax(0,1fr) minmax(0,4.5rem)" }}>
               <span className="min-w-0 truncate font-mono text-[12px] leading-none text-muted-foreground">

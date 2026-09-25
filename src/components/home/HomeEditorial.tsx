@@ -218,11 +218,6 @@ export function HomeHistoryHighlight({ historical }: { historical: HistoricalSer
   if (!previousElection || previousElection.value === null || !last || last.value === null) return null;
 
   const delta = last.value - previousElection.value;
-  const numericValues = points
-    .map((p) => p.point?.value ?? null)
-    .filter((v): v is number => v !== null);
-  const max = numericValues.length ? Math.max(...numericValues) : 0;
-
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen border-b border-rule bg-paper">
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:grid-cols-[1.1fr_minmax(0,20rem)] md:px-8 md:py-20">
@@ -252,7 +247,7 @@ export function HomeHistoryHighlight({ historical }: { historical: HistoricalSer
         >
           {points.map(({ year, point }) => {
             const value = point?.value ?? null;
-            const heightPct = value !== null && max > 0 ? Math.max(12, (value / max) * 100) : 0;
+            const heightPct = value !== null ? value : 0;
             return (
               <div key={year} className="flex flex-1 flex-col items-center gap-2" aria-hidden="true">
                 <div className="flex h-28 w-full items-end">

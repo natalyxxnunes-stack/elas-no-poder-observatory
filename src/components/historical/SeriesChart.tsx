@@ -30,11 +30,7 @@ function UniverseColumn({
     .filter((p) => p.universe === universe)
     .sort((a, b) => a.year - b.year);
 
-  const values = points
-    .map((p) => p.value)
-    .filter((v): v is number => v !== null);
-  const max = values.length ? Math.max(...values) : 0;
-  const scale = max > 0 ? max * 1.25 : 1;
+  const scale = 100;
 
   const missing = points.filter((p) => p.value === null);
   const isSplitRace = series.id === "serie-negras-negros-candidaturas" ||
