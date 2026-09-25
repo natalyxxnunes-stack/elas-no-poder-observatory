@@ -36,13 +36,13 @@ import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 export const Route = createFileRoute("/metodo")({
   head: () => ({
     meta: [
-      { title: "Método — Quem são elas? | Como sabemos" },
+      { title: "Método · Quem são elas? | Como sabemos" },
       {
         name: "description",
         content:
           "Duas camadas: explicação simples de como calculamos e ficha técnica auditável com fonte, universo, filtros, fórmulas, fotografias da base e limitações.",
       },
-      { property: "og:title", content: "Método — como sabemos?" },
+      { property: "og:title", content: "Método: como sabemos?" },
       {
         property: "og:description",
         content:
@@ -118,15 +118,15 @@ const PLAIN_STEPS: { step: string; body: React.ReactNode }[] = [
         Quando comparamos dois percentuais, a diferença aparece em{" "}
         <GlossaryTerm term="pontos-percentuais" method={false}>
           p.p.
-        </GlossaryTerm>{" "}
-        — uma leitura descritiva do contraste, sem atribuir efeito causal a
+        </GlossaryTerm>
+        : uma leitura descritiva do contraste, sem atribuir efeito causal a
         nenhuma regra.
       </>
     ),
   },
   {
     step: "6. O que falta fica declarado",
-    body: "Onde falta dado, aparece a lacuna, com o motivo e a fonte que ainda falta — em vez de um número provisório no lugar.",
+    body: "Onde falta dado, aparece a lacuna, com o motivo e a fonte que ainda falta, sem número provisório.",
   },
 ];
 
@@ -160,7 +160,7 @@ function MetodoPage() {
 
 
   return (
-    <PageShell breadcrumb={[{ label: "Projeto", to: "/sobre" }, { label: "Método" }]}>
+    <PageShell breadcrumb={[{ label: "Projeto" }, { label: "Método" }]}>
       <EditorialOpening
         variant="method"
         kicker="Método"
@@ -211,7 +211,7 @@ function MetodoPage() {
             {[
               {
                 label: "Como calculamos",
-                body: "pegamos a base oficial do TSE, separamos os universos proporcional e majoritário, e dividimos cada número pelo próprio universo — nunca misturamos os dois.",
+                body: "pegamos a base oficial do TSE, separamos os universos proporcional e majoritário, e dividimos cada número pelo próprio universo. Os dois nunca se misturam.",
               },
               {
                 label: "O que é fato, o que é leitura",
@@ -219,7 +219,7 @@ function MetodoPage() {
               },
               {
                 label: "O que ainda falta",
-                body: "quando um cruzamento não existe na base oficial, a página mostra isso declarado — nunca um número estimado.",
+                body: "quando um cruzamento não existe na base oficial, a página mostra isso declarado, sem número estimado.",
               },
             ].map((r) => (
               <div key={r.label} className="px-5 py-4 sm:flex sm:gap-6">
@@ -272,7 +272,7 @@ function MetodoPage() {
             <p>
               Nos indicadores eleitorais, “mulheres” corresponde às candidaturas
               registradas como FEMININO no campo DS_GENERO da base pública do
-              TSE. É a classificação do dataset, uma categoria administrativa —
+              TSE. É a classificação do dataset, uma categoria administrativa,
               distinta de uma definição sociológica de identidade de gênero.
             </p>
             <p className="mt-2">
@@ -322,7 +322,7 @@ function MetodoPage() {
             <p>
               É a atuação: que agendas são defendidas, quem relata projetos,
               quem preside comissões, quem ocupa ministérios, mesas diretoras e
-              lideranças — os espaços onde a decisão acontece. Isso depende de
+              lideranças: os espaços onde a decisão acontece. Isso depende de
               outras fontes, que o projeto ainda não integrou.
             </p>
           </ContextBox>
@@ -447,7 +447,7 @@ function MetodoPage() {
                       O que é:{" "}
                     </dt>
                     <dd className="inline">
-                      exportação dos números já processados pelo observatório —
+                      exportação dos números já processados pelo observatório:
                       contagens de candidaturas por universo, gênero e cor/raça,
                       não o arquivo bruto do TSE
                     </dd>
@@ -655,7 +655,7 @@ function MetodoPage() {
             </dt>
             <dd className="mt-3 text-sm leading-relaxed text-ink/70">
               Nossa leitura do fato: qual comparação importa, o que um total
-              esconde, por que um recorte fica separado. Assinada, discutível — e
+              esconde, por que um recorte fica separado. Assinada, discutível e
               nunca apresentada como resultado do cálculo.
             </dd>
           </div>
@@ -771,7 +771,7 @@ function MetodoPage() {
       {/* Competitividade */}
       <SectionBlock collapsible="Ler a definição" id="competitividade"
         kicker="Competitividade"
-        question="O que chamamos — e o que não chamamos — de competitividade"
+        question="O que chamamos de competitividade, e o que fica de fora"
         align="wide"
         lead={
           <p>
@@ -899,7 +899,7 @@ function MetodoPage() {
               Cada linha lida é uma candidatura registrada. A chave é
               SQ_CANDIDATO: linhas repetidas com a mesma chave entram uma única
               vez, e linhas sem chave são descartadas e contadas à parte na
-              auditoria da coleta. A contagem é de candidaturas, não de pessoas —
+              auditoria da coleta. A contagem é de candidaturas, não de pessoas:
               a mesma pessoa em ciclos diferentes são registros diferentes.
             </p>
           </li>
@@ -912,7 +912,7 @@ function MetodoPage() {
               A classificação usa o cargo (DS_CARGO / CD_CARGO). Entram no
               universo proporcional: deputado federal, deputado estadual e
               deputado distrital. Entram no majoritário: presidente, governador e
-              senador. Fica fora do cálculo todo cargo que não seja um desses —
+              senador. Fica fora do cálculo todo cargo que não seja um desses,
               inclusive vice-presidente, vice-governador e suplente de senador.
               Nada é somado entre os dois universos.
             </p>
@@ -1051,8 +1051,8 @@ function MetodoPage() {
       >
         <div className="space-y-3">
           <GapNote label="Dois princípios que valem pro site inteiro">
-            Onde não há fonte, não há número, nunca uma estimativa no lugar —
-            hoje é o caso de despesa de campanha, doador originário, votos,
+            Onde não há fonte, não há número, nunca uma estimativa no lugar.
+            Hoje é o caso de despesa de campanha, doador originário, votos,
             eleitas, posições de poder e barreiras à permanência. E contraste
             não é causa: diferenças entre universos, partidos, territórios ou
             grupos são descritivas, este método não isola o efeito de nenhuma
@@ -1061,7 +1061,7 @@ function MetodoPage() {
           <GapNote label="Deficiência, povos indígenas e quilombolas">
             O requerimento de registro de 2026 coleta a condição de pessoa com deficiência e o tipo de deficiência (Res. TSE 23.754/2026, art. 24). Esses campos não aparecem nos arquivos públicos que processamos, Candidatos e Informações complementares, com cabeçalhos lidos em {formatDateBR(INSPECTED_AT)}. Por isso não publicamos esse recorte nem o inferimos. Pertencimento quilombola (ST_QUILOMBOLA) e etnia
             indígena (DS_ETNIA_INDIGENA) existem, mas apenas no recurso
-            complementar, que o observatório ainda não ingere — enquanto ele não
+            complementar, que o observatório ainda não processa; enquanto ele não
             for processado e auditado como a base principal, nenhum percentual
             desses dois grupos é publicado. Atenção a uma confusão comum: a
             categoria “indígena” de cor/raça é cor declarada, não pertencimento a

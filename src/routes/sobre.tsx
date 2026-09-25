@@ -10,7 +10,7 @@ import { SITE } from "@/data/election-2026";
 export const Route = createFileRoute("/sobre")({
   head: () => ({
     meta: [
-      { title: "Sobre — Quem são elas? | Quem faz e por que existe" },
+      { title: "Sobre · Quem são elas? | Quem faz e por que existe" },
       {
         name: "description",
         content:
@@ -40,7 +40,7 @@ const COMMITMENTS = [
 
 function SobrePage() {
   return (
-    <PageShell breadcrumb={[{ label: "Projeto", to: "/investigacoes" }, { label: "Sobre" }]}>
+    <PageShell breadcrumb={[{ label: "Projeto" }, { label: "Sobre" }]}>
       <EditorialOpening
         variant="manifesto"
         kicker="Sobre"
@@ -48,7 +48,7 @@ function SobrePage() {
         lead={
           <p>
             Eu sou Nataly Nunes, jornalista. Criei o {SITE.name} porque me
-            incomodo com ter poucas mulheres na política — e com a quantidade de
+            incomodo com ter poucas mulheres na política, e com a quantidade de
             números sobre elas que circulam por aí sem que a gente consiga
             entender direito o que estão dizendo.
           </p>
@@ -170,8 +170,8 @@ function SobrePage() {
           </ContextBox>
           <ContextBox variant="importa" title="Onde a IA não entra">
             <p>
-              A IA não é fonte, não gera os dados — que vêm dos arquivos oficiais
-              — e não valida os cálculos: a conferência é humana, e a
+              A IA não é fonte, não gera os dados (eles vêm dos arquivos oficiais)
+              e não valida os cálculos: a conferência é humana, e a
               responsabilidade editorial pelo que está publicado é minha.
             </p>
           </ContextBox>
@@ -222,7 +222,7 @@ function SobrePage() {
           <p>
             O {SITE.name} é independente e, atualmente, não recebe financiamento
             nem apoio institucional. Isso também faz parte da história do
-            projeto. Ele existe porque eu quis fazer esse trabalho — e porque
+            projeto. Ele existe porque eu quis fazer esse trabalho, e porque
             acredito que jornalismo de dados não precisa ser complicado, distante
             ou feito apenas para quem já entende de estatística.
           </p>
@@ -266,7 +266,7 @@ function SobrePage() {
               informação seja preservado.
             </p>
             <p className="mt-3 rounded-md bg-muted p-3 text-sm leading-relaxed text-ink">
-              Fonte: {SITE.name} — Observatório independente sobre mulheres na
+              Fonte: {SITE.name}, observatório independente sobre mulheres na
               política brasileira.
             </p>
           </div>
@@ -297,7 +297,7 @@ function SobrePage() {
 
       <SectionBlock id="correcoes"
         kicker="Correções e erratas"
-        question="Como avisar de um erro — e o que acontece depois"
+        question="Como avisar de um erro e o que acontece depois"
       >
         <div className="grid gap-4 md:grid-cols-2">
           <div className="poster-frame p-5 md:p-6">

@@ -16,17 +16,17 @@ import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 export const Route = createFileRoute("/direitos")({
   head: () => ({
     meta: [
-      { title: "Direitos — Quem são elas? | Como chegamos até aqui" },
+      { title: "Direitos · Quem são elas? | Como chegamos até aqui" },
       {
         name: "description",
         content:
           "De 1932 a 2026: cada marco jurídico dos direitos políticos das mulheres em conquista, regra, disputa, implementação e consequência, com fonte normativa específica.",
       },
-      { property: "og:title", content: "Direitos — como chegamos até aqui" },
+      { property: "og:title", content: "Direitos: como chegamos até aqui" },
       {
         property: "og:description",
         content:
-          "As regras que abriram a disputa às mulheres, marco por marco — e o que cada uma delas ainda não alcança.",
+          "As regras que abriram a disputa às mulheres, marco por marco, e o que cada uma delas ainda não alcança.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -56,7 +56,7 @@ function DireitosPage() {
         lead={
           <p>
             A presença de mulheres nas eleições brasileiras é resultado de
-            normas conquistadas em momentos distintos — cada uma com alcance
+            normas conquistadas em momentos distintos, cada uma com alcance
             próprio e uma disputa para sair do papel.
           </p>
         }
@@ -175,7 +175,7 @@ function DireitosPage() {
         lead={
           <p>
             As normas que organizam a participação de mulheres nas eleições não
-            são estáveis: mudam por lei, por resolução e por decisão judicial —
+            são estáveis: mudam por lei, por resolução e por decisão judicial,
             muitas vezes no meio do ciclo eleitoral. Projeto apresentado não é
             projeto aprovado, e situação em tramitação não antecipa resultado.
           </p>
@@ -201,7 +201,7 @@ function DireitosPage() {
 
         <p className="mt-6 font-mono text-[12px] uppercase tracking-[0.14em]">
           <Link to="/em-disputa" className="text-plum underline underline-offset-4">
-            Ver todos os casos em disputa →
+            Ver as regras que valem em 2026 →
           </Link>
         </p>
 
@@ -267,7 +267,7 @@ function DireitosPage() {
             <p>
               Nenhum marco desta página é lido como causa isolada de uma mudança
               nos números. Contraste antes e depois de uma lei não é prova de
-              causa — para isso seria preciso um desenho metodológico dedicado,
+              causa: para isso seria preciso um desenho metodológico dedicado,
               que esta página não tem.
             </p>
           </ContextBox>

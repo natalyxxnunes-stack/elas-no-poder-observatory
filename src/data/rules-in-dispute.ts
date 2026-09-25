@@ -41,7 +41,7 @@ export const DISPUTE_ITEMS: readonly DisputeItem[] = [
     status: "EM VIGOR",
     statusNote:
       "Norma aplicável ao ciclo em curso. A aplicação concreta só poderá ser avaliada com as prestações de contas de 2026.",
-    sourceLabel: "TSE — Resolução nº 23.752/2026",
+    sourceLabel: "TSE, Resolução nº 23.752/2026",
     sourceUrl:
       "https://www.tse.jus.br/legislacao/compilada/res/2026/resolucao-no-23-752-de-26-de-fevereiro-de-2026",
     checkedAt: "2026-09-22",
