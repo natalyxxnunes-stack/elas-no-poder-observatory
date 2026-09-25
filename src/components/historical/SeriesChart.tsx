@@ -2,6 +2,7 @@ import type { Series } from "@/lib/tse/historical-compute";
 import type { UniverseId } from "@/lib/tse/compute";
 import { GapNote } from "@/components/GapNote";
 import { formatInt, formatDecimal } from "@/lib/format-br";
+import { RACE_COLORS } from "@/data/historical-funnel";
 
 /**
  * SeriesChart — leitura visual de uma série histórica já calculada.
@@ -36,6 +37,10 @@ function UniverseColumn({
   const scale = max > 0 ? max * 1.25 : 1;
 
   const missing = points.filter((p) => p.value === null);
+  const isSplitRace = series.id === "serie-negras-negros-candidaturas" ||
+    series.id === "serie-mulheres-negras-sobre-total" ||
+    series.id === "serie-mulheres-negras-entre-mulheres" ||
+    series.id === "serie-mulheres-negras-eleitas";
 
   return (
     <div>
@@ -56,6 +61,15 @@ function UniverseColumn({
                     sem dado
                   </span>
                 </div>
+              ) : isSplitRace && p.denominator && p.pretaNumerator !== undefined && p.pardaNumerator !== undefined ? (
+                <div className="flex h-full w-full flex-col justify-end" aria-hidden>
+                  <div className="flex w-full items-center justify-center font-mono text-[10px] text-ink" style={{ height: `${((p.pretaNumerator / p.denominator) * 100 / scale) * 100}%`, backgroundColor: RACE_COLORS.preta }}>
+                    {fmt((p.pretaNumerator / p.denominator) * 100)}%
+                  </div>
+                  <div className="flex w-full items-center justify-center font-mono text-[10px] text-ink" style={{ height: `${((p.pardaNumerator / p.denominator) * 100 / scale) * 100}%`, backgroundColor: RACE_COLORS.parda }}>
+                    {fmt((p.pardaNumerator / p.denominator) * 100)}%
+                  </div>
+                </div>
               ) : (
                 <div
                   className="w-full rounded-t-sm bg-plum"
@@ -65,7 +79,7 @@ function UniverseColumn({
               )}
             </div>
             <p className="mt-2 font-mono text-xs text-ink">
-              {p.value === null ? "—" : `${fmt(p.value)}%`}
+              {p.value === null ? "—" : isSplitRace ? `(${fmt(p.value)}%)` : `${fmt(p.value)}%`}
             </p>
             <p className="font-mono text-[12px] text-muted-foreground">
               {p.year}

@@ -160,8 +160,8 @@ function HistoricoPage() {
         lead={
           <p>
             O TSE coleta cor/raça declarada desde 2014, nas categorias originais
-            branca, preta, parda, amarela e indígena. A agregação “negra” só
-            aparece aqui quando declarada.
+            branca, preta, parda, amarela e indígena. Preta e parda aparecem
+            separadas nas barras, com a soma declarada em texto menor.
           </p>
         }
         source="Fonte: TSE · Candidatos (DS_COR_RACA)"
@@ -182,9 +182,9 @@ function HistoricoPage() {
         align="wide"
         lead={
           <p>
-            Duas leituras diferentes da mesma pergunta: mulheres negras sobre o
-            total de candidaturas e mulheres negras entre as candidaturas de
-            mulheres. Os denominadores são distintos e não se substituem.
+            Duas leituras diferentes da mesma pergunta: mulheres pretas e pardas
+            sobre o total de candidaturas e entre as candidaturas de mulheres.
+            Os denominadores são distintos e não se substituem.
           </p>
         }
         source="Fonte: TSE · Candidatos (tabela cruzada gênero × cor/raça)"
