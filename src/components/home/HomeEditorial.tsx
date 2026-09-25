@@ -117,21 +117,18 @@ function EditorialBrazilMap({ snapshot }: { snapshot: PublicSnapshot | null }) {
           Diferença entre o maior e o menor estado: {data.length ? formatPoints(max - min) : "—"}
         </p>
       </figcaption>
+      <details className="sm:col-span-2 border-t border-rule pt-3">
+        <summary className="cursor-pointer font-mono text-xs uppercase text-plum underline underline-offset-4">Ver os 27 estados</summary>
+        <ol className="mt-3 grid gap-x-8 gap-y-1 text-sm sm:grid-cols-2 lg:grid-cols-3">
+          {[...data].sort((a, b) => b.share - a.share).map((item) => (
+            <li key={item.uf} className="flex justify-between gap-3 border-b border-rule/60 py-1">
+              <span className="text-ink">{item.uf}</span>
+              <span className="font-mono text-xs text-muted-foreground">{formatPct(item.share)} · {formatInt(item.feminine)} de {formatInt(item.total)}</span>
+            </li>
+          ))}
+        </ol>
+      </details>
     </figure>
-  );
-}
-
-function ArchitecturalCut() {
-  return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-[54%] z-10 hidden w-40 -translate-x-1/2 overflow-hidden lg:block">
-      <div className="absolute inset-y-0 left-8 w-24 bg-cream" />
-      <div className="absolute left-0 top-24 size-40 rounded-full bg-coral" />
-      <div className="absolute bottom-0 left-4 h-[58%] w-16 border-x border-cream/25 bg-ink [clip-path:polygon(12%_8%,100%_0,100%_100%,0_100%,0_12%)]" />
-      <div className="absolute bottom-0 left-20 h-[68%] w-20 border-x border-ink/20 bg-paper [clip-path:polygon(0_10%,72%_0,100%_100%,0_100%)]" />
-      <div className="absolute bottom-0 left-7 h-[55%] w-px bg-cream/45" />
-      <div className="absolute bottom-0 left-12 h-[58%] w-px bg-cream/25" />
-      <div className="absolute bottom-0 left-24 h-[65%] w-px bg-ink/20" />
-    </div>
   );
 }
 
@@ -171,9 +168,7 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
             <p className="font-display text-[clamp(4rem,8vw,6.75rem)] font-semibold leading-none text-plum">
               {share !== null ? formatPct(share) : "—"}
             </p>
-            <h2 className="max-w-sm font-display text-xl font-semibold leading-[1.05] text-ink md:text-2xl">
-              das candidaturas proporcionais são de mulheres
-            </h2>
+            <p className="max-w-sm font-display text-xl font-semibold leading-[1.05] text-ink md:text-2xl">das candidaturas proporcionais são de mulheres</p>
             <p className="mt-3 text-sm text-ink">
               {proportional ? `${formatInt(proportional.feminine)} de ${formatInt(proportional.total)} candidaturas` : "Dados em atualização"}
             </p>
@@ -184,7 +179,6 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
           </div>
         </div>
       </div>
-      <ArchitecturalCut />
     </section>
   );
 }
@@ -261,64 +255,37 @@ export function HomeHistoryHighlight({ historical: _historical }: { historical: 
   );
 }
 
-const STAGES = [
-  { n: "01", label: "Registros", question: "Quantas conseguem entrar na disputa — e sob qual regra?", to: "/quem-sao-elas", color: "bg-plum" },
-  { n: "02", label: "Recursos", question: "Quanto dinheiro e tempo de mídia chegam até elas?", to: "/dinheiro", color: "bg-lilac" },
-  { n: "03", label: "Votos e eleitas", question: "Quantos votos viram cadeira?", to: "/funil", color: "bg-coral" },
-  { n: "04", label: "Poder e decisões", question: "Quem comanda comissões, executivos e orçamento?", to: "/quem-controla", color: "bg-plum" },
-] as const;
-
-export function HomeStages() {
+export function HomeFunnelFeature({ snapshot }: { snapshot: PublicSnapshot | null }) {
+  const prop = snapshot?.universes.proporcional;
+  const maj = snapshot?.universes.majoritario;
+  const propShare = prop && prop.total > 0 ? formatPct((prop.feminine / prop.total) * 100) : "—";
+  const majShare = maj && maj.total > 0 ? formatPct((maj.feminine / maj.total) * 100) : "—";
+  const steps = [
+    { n: "01", label: "Contexto", figure: propShare, note: `das candidaturas a deputada; ${majShare} nas majoritárias`, to: "/quem-sao-elas" as const, link: "Quem são elas?" },
+    { n: "02", label: "Competição", figure: "R$", note: "receita declarada até 25/09, por gênero e cor/raça", to: "/dinheiro" as const, link: "Dinheiro" },
+    { n: "03", label: "Resultado", figure: "?", note: "a partir de 4/10; resultados de 2014 a 2022 no histórico", to: "/historico" as const, link: "Histórico" },
+    { n: "04", label: "Poder", figure: "?", note: "a partir de 2027: comissões, mesas e lideranças", to: null, link: null },
+  ];
   return (
-    <nav aria-label="Etapas da investigação" className="relative left-1/2 -ml-[50vw] w-screen border-b border-rule bg-paper">
-      <ol className="mx-auto grid max-w-6xl grid-cols-2 px-5 md:grid-cols-4 md:px-8">
-        {STAGES.map((stage, index) => (
-          <li key={stage.n} className={`min-w-0 py-7 md:px-6 ${index > 0 ? "border-l border-rule" : ""} ${index === 0 ? "md:pl-0" : ""}`}>
-            <p className="flex items-center gap-3 font-mono text-xs font-semibold text-plum"><span>{stage.n}</span><span className={`h-px w-10 ${stage.color}`} /></p>
-            <h2 className="mt-3 font-display text-xl leading-none text-ink md:text-2xl">{stage.label}</h2>
-            <p className="mt-3 max-w-36 text-xs leading-relaxed text-muted-foreground">{stage.question}</p>
-            <Link to={stage.to} aria-label={`Explorar ${stage.label}`} className="mt-3 inline-flex text-ink hover:text-plum"><ArrowRight className="size-4" aria-hidden="true" /></Link>
+    <section className="py-16 md:py-24" aria-labelledby="funil-home-titulo">
+      <p className="flex items-center gap-3 font-mono text-xs uppercase text-muted-foreground"><span className="h-1 w-3 bg-coral" aria-hidden="true" /> O funil</p>
+      <h2 id="funil-home-titulo" className="mt-4 max-w-3xl font-display text-3xl leading-[1.05] text-ink md:text-4xl">Quatro etapas entre a candidatura e o poder. Hoje, só a primeira tem número.</h2>
+      <ol className="mt-10 grid border-t-2 border-ink sm:grid-cols-2 lg:grid-cols-4">
+        {steps.map((step, index) => (
+          <li key={step.n} className={`min-w-0 border-b border-rule py-6 sm:px-5 ${index > 0 ? "lg:border-l" : "sm:pl-0"}`}>
+            <p className="font-mono text-xs font-semibold text-plum">{step.n}</p>
+            <h3 className="mt-2 font-display text-2xl text-ink">{step.label}</h3>
+            <p className={`mt-4 font-display text-5xl font-semibold leading-none ${step.figure === "?" ? "text-muted-foreground" : "text-plum"}`}>{step.figure}</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{step.note}</p>
+            {step.to && (
+              <Link to={step.to} className="mt-4 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-xs font-semibold uppercase text-plum">
+                {step.link} <ArrowRight className="size-3.5" aria-hidden="true" />
+              </Link>
+            )}
           </li>
         ))}
       </ol>
-    </nav>
-  );
-}
-
-export function HomeFunnelFeature() {
-  const layers = [
-    { label: "Candidaturas", width: "w-full", tone: "bg-plum" },
-    { label: "Recursos", width: "w-[78%]", tone: "bg-plum-soft" },
-    { label: "Votos", width: "w-[58%]", tone: "bg-coral" },
-    { label: "Cadeiras", width: "w-[38%]", tone: "bg-coral/55" },
-    { label: "Poder", width: "w-1/5", tone: "bg-lilac" },
-  ] as const;
-
-  return (
-    <section className="py-20 md:py-28">
-      <div className="grid items-center gap-12 lg:grid-cols-12">
-        <div className="lg:col-span-4">
-          <p className="flex items-center gap-3 font-mono text-xs uppercase text-muted-foreground"><span className="h-1 w-3 bg-coral" /> Em destaque</p>
-          <h2 className="mt-5 font-display text-4xl leading-[0.98] text-ink md:text-5xl">O funil da<br />desigualdade</h2>
-          <p className="mt-5 max-w-sm leading-relaxed text-muted-foreground">Entre entrar na disputa e chegar ao poder, há um caminho — e ele filtra. Cada etapa tem sua própria fonte e seu próprio universo.</p>
-          <Link to="/funil" className="mt-6 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-xs font-semibold uppercase text-plum">Ver a análise <ArrowRight className="size-4" /></Link>
-        </div>
-        <figure className="lg:col-span-5" aria-label="Funil editorial das etapas investigadas; as larguras são ilustrativas e não representam uma taxa calculada">
-          <div className="space-y-1.5">
-            {layers.map((layer) => (
-              <div key={layer.label} className="grid grid-cols-[6.5rem_1fr] items-center gap-4">
-                <span className="text-right font-mono text-xs uppercase text-ink">{layer.label}</span>
-                <div className={`mx-auto h-11 ${layer.width} ${layer.tone} [clip-path:polygon(8%_0,92%_0,82%_100%,18%_100%)]`} />
-              </div>
-            ))}
-          </div>
-          <figcaption className="mt-4 text-center font-mono text-xs leading-relaxed text-muted-foreground">Esquema editorial: cada etapa tem universo, denominador, fonte e data próprios.</figcaption>
-        </figure>
-        <aside className="border-l border-rule pl-8 lg:col-span-3">
-          <p className="font-display text-xl leading-snug text-ink md:text-2xl">Nem todas as etapas têm os mesmos pontos de partida. E nem todas têm as mesmas chances de chegada.</p>
-          <Link to="/funil" className="mt-8 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-xs font-semibold uppercase text-plum">Entenda o funil <ArrowRight className="size-4" /></Link>
-        </aside>
-      </div>
+      <p className="mt-4 font-mono text-xs leading-relaxed text-muted-foreground">Cada etapa tem universo, fonte e data próprios. <Link to="/funil" className="text-plum underline underline-offset-4">Entenda o funil</Link></p>
     </section>
   );
 }
@@ -365,9 +332,6 @@ export function HomeAboutBand() {
           <ul className="divide-y divide-cream/25 border-y border-cream/25 font-mono text-xs uppercase">
             <li><Link to="/investigacoes" className="block py-3 text-cream/80 hover:text-cream">Índice da investigação</Link></li>
             <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-cream">Metodologia</Link></li>
-            <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-cream">Bases de dados</Link></li>
-            <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-cream">Glossário</Link></li>
-            <li><Link to="/downloads" className="block py-3 text-cream/80 hover:text-cream">Downloads</Link></li>
           </ul>
         </nav>
       </div>
