@@ -1,4 +1,8 @@
-import type { FinanceUniverseSnapshot, TseFinanceSnapshot } from "@/data/tse-finance-snapshot";
+import {
+  FINANCE_BASE_LABEL,
+  type FinanceUniverseSnapshot,
+  type TseFinanceSnapshot,
+} from "@/data/tse-finance-snapshot";
 import type { UniverseId } from "@/lib/tse/compute";
 import { formatBRL, formatInt, formatPct } from "@/lib/format-br";
 
@@ -50,7 +54,7 @@ export function FinanceByOffice({ snapshot }: { snapshot: TseFinanceSnapshot }) 
           </div>
         ))}
       </div>
-      <figcaption className="border-t border-rule px-5 py-3 font-mono text-[10px] leading-relaxed text-muted-foreground">Fatia da receita declarada do cargo que foi para candidaturas de mulheres. Prestação de contas parcial, base de 23/09/2026. Receita, não despesa.</figcaption>
+      <figcaption className="border-t border-rule px-5 py-3 font-mono text-[10px] leading-relaxed text-muted-foreground">Fatia da receita declarada do cargo que foi para candidaturas de mulheres. Contas de campanha em andamento, fotografia de {FINANCE_BASE_LABEL}. Receita, não despesa.</figcaption>
     </figure>
   );
 }

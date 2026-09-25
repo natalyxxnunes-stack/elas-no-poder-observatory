@@ -1097,6 +1097,17 @@ function MetodoPage() {
             denominador de cada universo eleitoral. Até lá, nenhum percentual por
             campo político é publicado.
           </GapNote>
+          <GapNote label="Dois universos que não se misturam">
+            O TSE divulgou em 21/08/2026 os percentuais de candidaturas de mulheres (34,85%), pessoas negras (49,64%) e indígenas (0,93%) usados para distribuir o Fundo Partidário e o FEFC. Esse cálculo usa um universo próprio: 20.560 candidaturas com pedido aceito até 23h59 de 18/08/2026, fixado para esse fim. Este site acompanha o registro atualizado e separa os universos proporcional e majoritário, sem vices e suplentes. Os dois números podem diferir sem que nenhum esteja errado: são fotografias com critérios diferentes.{" "}
+            <a
+              href="https://www.tse.jus.br/comunicacao/noticias/2026/Agosto/tse-divulga-percentuais-de-candidaturas-de-mulheres-pessoas-negras-e-indigenas-por-partido"
+              target="_blank"
+              rel="noreferrer"
+              className="text-plum underline underline-offset-4"
+            >
+              Fonte: TSE
+            </a>
+          </GapNote>
           <GapNote label="Cruzamentos por partido e por estado">
             Os limites específicos de cada cruzamento (o que a tabela mede, o
             que não mede, quando o percentual não é exibido) estão junto da

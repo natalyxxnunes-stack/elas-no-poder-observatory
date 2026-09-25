@@ -1,5 +1,5 @@
 import { ELECTION_RATE_BY_GENDER } from "@/data/historical-funnel";
-import { financeSnapshot } from "@/data/tse-finance-snapshot";
+import { FINANCE_BASE_LABEL, financeSnapshot } from "@/data/tse-finance-snapshot";
 import { snapshot } from "@/data/tse-snapshot";
 import { formatInt, formatPct, formatUmEmCada } from "@/lib/format-br";
 
@@ -131,7 +131,7 @@ export const ACHADOS: Achado[] = [
     ],
     legenda: "Parcela da receita declarada que foi para mulheres",
     fonte:
-      "TSE, Prestação de Contas Eleitorais 2026 · base de 23/09/2026, em andamento",
+      `TSE, Prestação de Contas Eleitorais 2026 · base de ${FINANCE_BASE_LABEL}, em andamento`,
     to: "/dinheiro",
     linkLabel: "Ver em Dinheiro",
   },
