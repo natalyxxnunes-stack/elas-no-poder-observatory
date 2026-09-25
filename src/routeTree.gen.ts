@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AchadosRouteImport } from './routes/achados'
 import { Route as BarreirasRouteImport } from './routes/barreiras'
 import { Route as CondicoesRouteImport } from './routes/condicoes'
 import { Route as DinheiroRouteImport } from './routes/dinheiro'
@@ -31,6 +32,11 @@ import { Route as ApiPublicTseIngestHistoryRouteImport } from './routes/api/publ
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AchadosRoute = AchadosRouteImport.update({
+  id: '/achados',
+  path: '/achados',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BarreirasRoute = BarreirasRouteImport.update({
@@ -122,6 +128,7 @@ const ApiPublicTseIngestHistoryRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/achados': typeof AchadosRoute
   '/barreiras': typeof BarreirasRoute
   '/condicoes': typeof CondicoesRoute
   '/dinheiro': typeof DinheiroRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/achados': typeof AchadosRoute
   '/barreiras': typeof BarreirasRoute
   '/condicoes': typeof CondicoesRoute
   '/dinheiro': typeof DinheiroRoute
@@ -163,6 +171,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/achados': typeof AchadosRoute
   '/barreiras': typeof BarreirasRoute
   '/condicoes': typeof CondicoesRoute
   '/dinheiro': typeof DinheiroRoute
@@ -185,6 +194,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/achados'
     | '/barreiras'
     | '/condicoes'
     | '/dinheiro'
@@ -205,6 +215,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/achados'
     | '/barreiras'
     | '/condicoes'
     | '/dinheiro'
@@ -225,6 +236,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/achados'
     | '/barreiras'
     | '/condicoes'
     | '/dinheiro'
@@ -246,6 +258,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AchadosRoute: typeof AchadosRoute
   BarreirasRoute: typeof BarreirasRoute
   CondicoesRoute: typeof CondicoesRoute
   DinheiroRoute: typeof DinheiroRoute
@@ -272,6 +285,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/achados': {
+      id: '/achados'
+      path: '/achados'
+      fullPath: '/achados'
+      preLoaderRoute: typeof AchadosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/barreiras': {
@@ -398,6 +418,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AchadosRoute: AchadosRoute,
   BarreirasRoute: BarreirasRoute,
   CondicoesRoute: CondicoesRoute,
   DinheiroRoute: DinheiroRoute,
