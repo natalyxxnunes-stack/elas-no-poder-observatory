@@ -5,6 +5,7 @@ import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
+import { RaceExplorer } from "@/components/editorial/RaceExplorer";
 import { StateExplorer } from "@/components/editorial/StateExplorer";
 import { OfficeTable } from "@/components/editorial/OfficeTable";
 import { OfficePairChart } from "@/components/editorial/OfficePairChart";
@@ -254,6 +255,28 @@ function QuemSaoElasPage() {
             <OfficeTable snapshot={snapshot} />
           </div>
         </div>
+      </SectionBlock>
+
+      <SectionBlock
+        id="partidos"
+        kicker="Explorador"
+        question="Escolha o cargo, o estado e o partido — e veja quem são elas ali"
+        align="wide"
+        tone="solar"
+        lead={
+          <p>
+            Cada combinação recalcula a distribuição por cor/raça daquela fatia,
+            com a base à vista.
+          </p>
+        }
+        source={
+          <>
+            Fonte: TSE · Candidaturas 2026
+            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""}
+          </>
+        }
+      >
+        <RaceExplorer snapshot={snapshot} />
       </SectionBlock>
 
       <SectionBlock

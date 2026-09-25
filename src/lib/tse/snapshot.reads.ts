@@ -21,6 +21,7 @@ export type PublicUniverseTally = {
   feminine: number;
   total: number;
   raceCounts: Record<string, number>;
+  raceAllCounts?: Record<string, number>;
   situationCounts?: Record<string, number>;
   /**
    * Contagens brutas por dimensões confirmadas no dicionário de dados

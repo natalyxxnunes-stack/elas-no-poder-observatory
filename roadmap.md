@@ -1,5 +1,11 @@
 # Roadmap
 
+## Fotografias TSE de 25/09/2026 — em andamento
+- [ ] Substituir integralmente as fotografias fixas de candidaturas e receitas
+- [ ] Religar cor/raça do total, recortes estaduais e explorador por partido
+- [ ] Remover avisos superados e atualizar as datas das bases
+- [ ] Validar home, Quem são elas, Histórico, menu e tipos
+
 ## Dimensão por cargo na fotografia TSE — em andamento (23/09)
 - [x] Contar total e candidaturas de mulheres por cargo dentro de cada universo
 - [x] Transportar a dimensão por cargo e os cargos fora dos universos até a fotografia pública
