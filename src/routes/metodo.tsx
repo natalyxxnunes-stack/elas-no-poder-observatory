@@ -1116,6 +1116,13 @@ function MetodoPage() {
           </GapNote>
         </div>
 
+        <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
+          O que já está publicado, o que é parcial e o que ainda aguarda dado está no{" "}
+          <Link to="/investigacoes" className="text-plum underline underline-offset-4">
+            Índice da investigação
+          </Link>.
+        </p>
+
         <p className="mt-6 font-mono text-[12px] text-muted-foreground">
           Como citar e política de correções em{" "}
           <Link to="/sobre" className="text-plum underline underline-offset-4">

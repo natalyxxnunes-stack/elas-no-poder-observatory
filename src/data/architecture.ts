@@ -249,7 +249,9 @@ export const NAV_ITEMS = [
   { to: "/achados", label: "Achados", question: "O que encontramos?" },
   navItem("funil"),
   navItem("quem-sao-elas"),
+  navItem("quem-controla"),
   navItem("direitos"),
+  { to: "/investigacoes", label: "Investigação", question: "O que está publicado e o que ainda está em apuração?" },
   navItem("metodo"),
 ] as const;
 
@@ -261,10 +263,11 @@ export const DATA_2026_NAV_ITEMS = [
   { label: "Partidos", to: "/quem-sao-elas", hash: "partidos" },
   { label: "Cargos", to: "/quem-sao-elas", hash: "cargos" },
   { label: "Raça", to: "/quem-sao-elas", hash: "raca" },
+  { label: "Dinheiro", to: "/dinheiro", hash: undefined },
   { label: "Histórico", to: "/historico", hash: undefined },
 ] as const;
 
-export const UTILITY_NAV_ITEMS = [navItem("sobre"), { to: "/investigacoes", label: "Índice da investigação", question: "O que está publicado e o que ainda está em apuração?" }] as const;
+export const UTILITY_NAV_ITEMS = [navItem("sobre")] as const;
 
 /** Regra editorial explícita sobre leitura do funil. */
 export const FUNNEL_READING_RULE =

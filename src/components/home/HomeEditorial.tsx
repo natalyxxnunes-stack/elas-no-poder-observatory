@@ -394,6 +394,7 @@ export function HomeAboutBand() {
         </div>
         <nav aria-label="Transparência do projeto" className="border-cream/25 md:col-span-3 md:border-l md:pl-10">
           <ul className="divide-y divide-cream/25 border-y border-cream/25 font-mono text-[10px] uppercase">
+            <li><Link to="/investigacoes" className="block py-3 text-cream/80 hover:text-solar">Índice da investigação</Link></li>
             <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-solar">Metodologia</Link></li>
             <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-solar">Bases de dados</Link></li>
             <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-solar">Glossário</Link></li>

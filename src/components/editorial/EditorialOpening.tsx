@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { FINANCE_BASE_LABEL } from "@/data/tse-finance-snapshot";
 import { formatInt, formatPct } from "@/lib/format-br";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import { snapshotRaceCounts } from "@/lib/tse/indicators";
@@ -200,7 +201,7 @@ function FinancialOpening({ layers, gap, snapshot, ...text }: OpeningBase & { la
       <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <OpeningText {...text} inverse />
         <figure aria-label="Participação das mulheres na receita declarada nos universos proporcional e majoritário" className="min-w-0">
-          <p className="border-b border-cream/25 pb-3 font-mono text-[10px] uppercase text-cream/60">Receita declarada · base de 23/09/2026</p>
+          <p className="border-b border-cream/25 pb-3 font-mono text-[10px] uppercase text-cream/60">Receita declarada · fotografia de {FINANCE_BASE_LABEL}</p>
           <div className="mt-5 space-y-4">
             {rows.map((row, index) => (
               <div key={row.label} className="grid grid-cols-[7rem_minmax(0,1fr)_3rem] items-center gap-3">
