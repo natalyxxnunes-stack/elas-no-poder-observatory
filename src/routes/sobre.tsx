@@ -147,7 +147,7 @@ function SobrePage() {
       </section>
 
 
-      <SectionBlock
+      <SectionBlock id="quem-faz"
         kicker="Quem faz"
         question="Um projeto independente, feito por mim"
         lead={
@@ -178,7 +178,7 @@ function SobrePage() {
         </div>
       </SectionBlock>
 
-      <SectionBlock
+      <SectionBlock id="por-que"
         kicker="Por que existe"
         question="Existe uma história inteira entre um número e outro"
         lead={
@@ -215,8 +215,7 @@ function SobrePage() {
 
 
 
-      <SectionBlock
-        tone="plum"
+      <SectionBlock id="independente" tone="plum"
         kicker="Um projeto independente"
         question="Sem financiamento e sem apoio institucional"
         lead={
@@ -230,7 +229,7 @@ function SobrePage() {
         }
       />
 
-      <SectionBlock
+      <SectionBlock id="transparencia"
         kicker="Transparência"
         question="Este projeto mostra como chegou a cada número."
         lead={
@@ -266,7 +265,7 @@ function SobrePage() {
               Só peço que a fonte seja identificada e que o contexto da
               informação seja preservado.
             </p>
-            <p className="mt-3 rounded-md bg-muted p-3 font-mono text-[12px] leading-relaxed text-ink">
+            <p className="mt-3 rounded-md bg-muted p-3 text-sm leading-relaxed text-ink">
               Fonte: {SITE.name} — Observatório independente sobre mulheres na
               política brasileira.
             </p>
@@ -274,8 +273,7 @@ function SobrePage() {
         </div>
       </SectionBlock>
 
-      <SectionBlock
-        tone="lilac"
+      <SectionBlock id="compromisso" tone="lilac"
         kicker="O compromisso"
         question="Os princípios editoriais que valem para toda página"
         align="wide"
@@ -297,7 +295,7 @@ function SobrePage() {
         </ul>
       </SectionBlock>
 
-      <SectionBlock
+      <SectionBlock id="correcoes"
         kicker="Correções e erratas"
         question="Como avisar de um erro — e o que acontece depois"
       >

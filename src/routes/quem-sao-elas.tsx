@@ -194,6 +194,8 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
       <SectionBlock
+        id="censo"
+        tone="butter"
         kicker="Censo 2022 × candidaturas 2026"
         question="Pardas e brancas são quase do mesmo tamanho no país. Nas candidaturas, não são."
         align="wide"
@@ -236,7 +238,7 @@ function QuemSaoElasPage() {
             </article>
 
             <article className="poster-frame-accent p-5">
-              <p className="record-label border-coral text-coral-ink">Interpretação editorial</p>
+              <p className="record-label border-ink text-ink [border-style:dashed]">Interpretação editorial</p>
               <p className="mt-3 leading-relaxed text-ink/70">
                 A vice-presidência e a vice-governadoria não exercem o comando enquanto o titular estiver no cargo. Quando a candidatura é ao comando, a presença de mulheres cai.
               </p>
@@ -275,7 +277,7 @@ function QuemSaoElasPage() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-3 font-mono text-xs leading-relaxed text-muted-foreground">Pedidos de registro de cada eleição. O número de vices e suplentes pode diferir do de titulares por substituições e registros indeferidos que permanecem no arquivo. Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026 (base de 25/09/2026).</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Pedidos de registro de cada eleição. O número de vices e suplentes pode diferir do de titulares por substituições e registros indeferidos que permanecem no arquivo. Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026 (base de 25/09/2026).</p>
           </div>
 
           <div>

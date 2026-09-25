@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { AchadoCard } from "@/components/editorial/AchadoCard";
 import {
+  ChapterKicker,
   HomeAboutBand,
   HomeFunnelFeature,
   HomeHistoryHighlight,
@@ -10,7 +11,10 @@ import {
   HomeMapSection,
 } from "@/components/home/HomeEditorial";
 import { formatPercent } from "@/data/election-2026";
-import { ACHADOS_RECENTES } from "@/data/achados";
+import { ACHADOS } from "@/data/achados";
+
+// O achado da queda de candidaturas já é a manchete do capítulo 05; fora da lista para não repetir.
+const HOME_ACHADOS = [...ACHADOS].reverse().filter((a) => a.id !== "menos-candidatas-que-2022").slice(0, 3);
 import { formatInt } from "@/lib/format-br";
 import {
   getHistoricalSeries,
@@ -105,10 +109,10 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
     : null;
 
   return (
-    <section className="border-t border-rule py-12 md:py-16">
+    <section className="py-14 md:py-20">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-stretch lg:gap-16">
         <div className="flex min-w-0 flex-col">
-          <p className="font-mono text-xs uppercase text-muted-foreground">2026 · fotografia em andamento</p>
+          <ChapterKicker n="01" label="Registros · fotografia em andamento" />
           <h2 className="mt-4 font-display text-4xl leading-none text-ink md:text-5xl">O que os registros permitem dizer agora</h2>
           <p className="mt-5 max-w-md leading-relaxed text-muted-foreground">
             Tudo nesta parte da página é quem pediu registro para disputar 2026 — quem entrou na disputa. Não há resultado eleitoral aqui: o 1º turno é em 4 de outubro de 2026 e o eventual 2º turno em 25 de outubro de 2026.
@@ -125,7 +129,7 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
               )}
             </div>
           )}
-          <p className="mt-7 max-w-xl font-mono text-xs leading-relaxed text-muted-foreground lg:mt-auto lg:pt-7">
+          <p className="mt-7 max-w-xl text-sm leading-relaxed text-muted-foreground lg:mt-auto lg:pt-7">
             Dados de {baseDate ?? "data em atualização"}.{pendingDate ? ` Uma atualização (dados de ${pendingDate}) está em conferência.` : ""} Fonte: TSE · Candidaturas 2026 · <Link to="/metodo" className="text-plum underline underline-offset-4">ver o método</Link>
           </p>
         </div>
@@ -170,13 +174,15 @@ function DadosPage() {
     <PageShell home>
       <HomeHeroEditorial snapshot={snapshot} baseDate={baseDate} />
       <CurrentSnapshot snapshot={snapshot} baseDate={baseDate} pendingDate={pendingDate} />
-      <section className="border-t border-rule py-12 md:py-16">
-        <p className="kicker">Achados</p>
-        <h2 className="mt-3 font-display text-3xl leading-tight text-ink md:text-4xl">O que encontramos</h2>
-        <div className="mt-8 grid gap-10 md:grid-cols-3">
-          {ACHADOS_RECENTES.map((achado) => <AchadoCard key={achado.id} achado={achado} />)}
+      <section className="relative left-1/2 -ml-[50vw] w-screen bg-butter">
+        <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
+          <ChapterKicker n="02" label="Achados" />
+          <h2 className="mt-5 font-display text-3xl leading-tight text-ink md:text-4xl">O que encontramos</h2>
+          <div className="mt-10 grid gap-10 md:grid-cols-3">
+            {HOME_ACHADOS.map((achado) => <AchadoCard key={achado.id} achado={achado} />)}
+          </div>
+          <p className="mt-10"><Link to="/achados" className="font-mono text-xs font-semibold uppercase text-plum underline underline-offset-4">Todos os achados →</Link></p>
         </div>
-        <p className="mt-8"><Link to="/achados" className="text-sm text-plum underline underline-offset-4">Todos os achados →</Link></p>
       </section>
       <HomeInvestigationGrid snapshot={snapshot} />
       <HomeMapSection snapshot={snapshot} />

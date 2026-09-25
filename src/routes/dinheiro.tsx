@@ -126,31 +126,32 @@ function DinheiroPage() {
         />
       </div>
 
-      <SectionBlock kicker="Fotografia da receita" question="Quanto foi declarado como receita, e por quantas candidaturas" align="wide" lead={<p>Quantas candidaturas já declararam receita e quanto elas somam, em cada universo.</p>} source={<>Fonte: TSE · Prestação de Contas Eleitorais 2026 · base gerada em {FINANCE_BASE_LABEL} · {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita</>}>
+      <SectionBlock id="fotografia" kicker="Fotografia da receita" question="Quanto foi declarado como receita, e por quantas candidaturas" align="wide" lead={<p>Quantas candidaturas já declararam receita e quanto elas somam, em cada universo.</p>} source={<>Fonte: TSE · Prestação de Contas Eleitorais 2026 · base gerada em {FINANCE_BASE_LABEL} · {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita</>}>
         <FinanceCoverage snapshot={financeSnapshot} />
       </SectionBlock>
 
-      <SectionBlock kicker="Por cargo" question="Presença e receita, cargo a cargo" align="wide" tone="lilac" lead={<p>Em duas disputas as mulheres recebem mais do que a presença delas: assembleias legislativas (38,7% da receita, 35,2% das candidaturas com receita) e Senado (26,3% e 22,4%). Nas outras, recebem menos: Câmara dos Deputados (33,1% e 37,1%), Câmara Legislativa do DF (30,0% e 35,9%) e governos estaduais (12,0% e 17,9%). Na Presidência, as mulheres são 2 das 13 candidaturas com receita e ficam com 1,3% do dinheiro declarado.</p>}>
+      <SectionBlock id="cargo" kicker="Por cargo" question="Presença e receita, cargo a cargo" align="wide" tone="lilac" lead={<p>Em duas disputas as mulheres recebem mais do que a presença delas: assembleias legislativas (38,7% da receita, 35,2% das candidaturas com receita) e Senado (26,3% e 22,4%). Nas outras, recebem menos: Câmara dos Deputados (33,1% e 37,1%), Câmara Legislativa do DF (30,0% e 35,9%) e governos estaduais (12,0% e 17,9%). Na Presidência, as mulheres são 2 das 13 candidaturas com receita e ficam com 1,3% do dinheiro declarado.</p>}>
         <FinanceByOffice snapshot={financeSnapshot} />
       </SectionBlock>
 
-      <SectionBlock kicker="Gênero × cor/raça × receita" question="Entre as mulheres, para quais categorias declaradas o dinheiro chegou?" align="wide" lead={<p>Os valores mostram a distribuição da receita declarada por candidaturas de mulheres. Cor/raça permanece nas categorias originais do TSE, sem agregar preta e parda.</p>}>
+      <SectionBlock id="cor-raca" tone="butter" kicker="Gênero × cor/raça × receita" question="Entre as mulheres, para quais categorias declaradas o dinheiro chegou?" align="wide" lead={<p>Os valores mostram a distribuição da receita declarada por candidaturas de mulheres. Cor/raça permanece nas categorias originais do TSE, sem agregar preta e parda.</p>}>
         <FinanceRace snapshot={financeSnapshot} />
-        <div className="mt-5 space-y-2 text-sm leading-relaxed text-muted-foreground">
+        <div className="mt-5 max-w-3xl space-y-2 text-sm leading-relaxed text-ink/80">
           <p>Mediana é o valor do meio: metade das candidatas declarou mais, metade declarou menos. Ela resiste melhor do que a soma a poucas campanhas muito grandes.</p>
           <p className="font-mono text-xs">Maiores partidos = os 12 com mais receita declarada até 25/09 (MDB, PDT, PL, PODE, PP, PSB, PSD, PSDB, PSOL, PT, Republicanos e União), que somam 89,8% do dinheiro.</p>
         </div>
       </SectionBlock>
 
-      <SectionBlock kicker="Partidos" question="Os cinco partidos com maior receita no universo proporcional" align="wide" lead={<p>O recorte ordena os partidos pelo total de receita declarada e mostra, dentro de cada um, quanto foi declarado por candidaturas de mulheres. Não é ranking de equidade.</p>}>
+      <SectionBlock id="partidos" kicker="Partidos" question="Os cinco partidos com maior receita no universo proporcional" align="wide" lead={<p>O recorte ordena os partidos pelo total de receita declarada e mostra, dentro de cada um, quanto foi declarado por candidaturas de mulheres. Não é ranking de equidade.</p>}>
         <FinanceParties snapshot={financeSnapshot} />
       </SectionBlock>
 
-      <SectionBlock kicker="Território" question="A receita declarada por UF" align="wide" lead={<p>Valores do universo proporcional, com total de receita declarada, parcela de mulheres e a fatia correspondente em cada unidade da Federação.</p>}>
+      <SectionBlock id="territorio" tone="lilac" kicker="Território" question="A receita declarada por UF" align="wide" lead={<p>Valores do universo proporcional, com total de receita declarada, parcela de mulheres e a fatia correspondente em cada unidade da Federação.</p>}>
         <FinanceByUf snapshot={financeSnapshot} />
       </SectionBlock>
 
       <SectionBlock
+        id="regra"
         kicker="A regra"
         question="Cota de candidaturas e cota de dinheiro são regras diferentes"
         lead={<p>{QUOTA_RULE.financingNote}</p>}

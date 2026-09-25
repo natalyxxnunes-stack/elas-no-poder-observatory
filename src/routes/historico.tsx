@@ -136,7 +136,7 @@ function HistoricoPage() {
         />
       </div>
 
-      <SectionBlock
+      <SectionBlock id="genero"
         kicker="Gênero"
         question="Quantas candidaturas são de mulheres, em cada eleição?"
         align="wide"
@@ -152,7 +152,7 @@ function HistoricoPage() {
         <SeriesChart series={feminine} />
       </SectionBlock>
 
-      <SectionBlock
+      <SectionBlock id="raca" tone="lilac"
         kicker="Cor e raça"
         question="E quando se olha para cor e raça?"
         align="wide"
@@ -168,7 +168,7 @@ function HistoricoPage() {
         <SeriesChart series={byId("serie-negras-negros-candidaturas")} />
       </SectionBlock>
 
-      <SectionBlock
+      <SectionBlock id="genero-raca"
         kicker="Gênero × cor/raça"
         question="A composição das candidaturas femininas mudou?"
         align="wide"
@@ -196,7 +196,7 @@ function HistoricoPage() {
         </div>
       </SectionBlock>
 
-      <SectionBlock
+      <SectionBlock id="eleitas" tone="butter"
         kicker="Candidatas e eleitas"
         question="Entre candidatar-se e eleger-se, o que muda?"
         align="wide"
@@ -226,7 +226,7 @@ function HistoricoPage() {
         </div>
       </SectionBlock>
 
-      <SectionBlock
+      <SectionBlock collapsible="Ver as quatro bases" id="bases"
         kicker="Linha temporal"
         question="Quatro eleições gerais, quatro bases diferentes"
         align="wide"

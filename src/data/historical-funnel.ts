@@ -34,14 +34,14 @@ export const RACE_LABELS: Record<RaceCategory, string> = {
   nao_informado: "Não informado",
 };
 
-/** cores da paleta do projeto, uma por categoria, na ordem fixa */
+/** cores da paleta do projeto, uma por categoria, na ordem fixa. Laranja fica reservado ao dado de 2026. */
 export const RACE_COLORS: Record<RaceCategory, string> = {
-  branca: "var(--cream)",
-  parda: "var(--coral)",
+  branca: "var(--race-branca)",
+  parda: "var(--race-parda)",
   preta: "var(--plum)",
   indigena: "var(--forest)",
-  amarela: "var(--solar)",
-  nao_informado: "var(--plum-soft)",
+  amarela: "var(--race-amarela)",
+  nao_informado: "var(--race-na)",
 };
 
 export type RaceBreakdown = Record<RaceCategory, { count: number; percent: number }>;
