@@ -3,8 +3,6 @@ import type { Achado } from "@/data/achados";
 import { formatDateBR, formatPct } from "@/lib/format-br";
 
 export function AchadoCard({ achado }: { achado: Achado }) {
-  const maiorValor = Math.max(...achado.barras.map((barra) => barra.valor), 1);
-
   return (
     <article className="border-t-2 border-ink pt-4">
       <p className="font-mono text-[11px] uppercase text-muted-foreground">
@@ -24,7 +22,7 @@ export function AchadoCard({ achado }: { achado: Achado }) {
             <span className="h-3 bg-muted" aria-hidden="true">
               <span
                 className="block h-full bg-plum"
-                style={{ width: `${(barra.valor / maiorValor) * 100}%` }}
+                style={{ width: `${Math.min(Math.max(barra.valor, 0), 100)}%` }}
               />
             </span>
             <span className="text-right font-mono text-[12px] text-ink">
