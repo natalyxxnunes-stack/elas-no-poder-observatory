@@ -218,11 +218,6 @@ export function HomeHistoryHighlight({ historical }: { historical: HistoricalSer
   if (!previousElection || previousElection.value === null || !last || last.value === null) return null;
 
   const delta = last.value - previousElection.value;
-  const numericValues = points
-    .map((p) => p.point?.value ?? null)
-    .filter((v): v is number => v !== null);
-  const max = numericValues.length ? Math.max(...numericValues) : 0;
-
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen border-b border-rule bg-paper">
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:grid-cols-[1.1fr_minmax(0,20rem)] md:px-8 md:py-20">
@@ -252,7 +247,7 @@ export function HomeHistoryHighlight({ historical }: { historical: HistoricalSer
         >
           {points.map(({ year, point }) => {
             const value = point?.value ?? null;
-            const heightPct = value !== null && max > 0 ? Math.max(12, (value / max) * 100) : 0;
+            const heightPct = value !== null ? value : 0;
             return (
               <div key={year} className="flex flex-1 flex-col items-center gap-2" aria-hidden="true">
                 <div className="flex h-28 w-full items-end">
@@ -339,25 +334,10 @@ const INVESTIGATIONS = [
   { id: "dinheiro", title: "Quem tem recursos para disputar?", to: "/dinheiro", link: "Ver quem recebe" },
 ] as const;
 
-export function HomeInvestigationGrid({ snapshot }: { snapshot: PublicSnapshot | null }) {
-  const majoritarianDimensions = snapshot?.universes.majoritario.dimensions;
-  const outOfUniverse = snapshot?.outOfUniverse;
-  const share = (feminine: number | undefined, total: number | undefined) =>
-    feminine !== undefined && total !== undefined && total > 0
-      ? formatPct((feminine / total) * 100)
-      : "—";
-  const p = share(
-    majoritarianDimensions?.feminineByCargo?.["PRESIDENTE"],
-    majoritarianDimensions?.totalByCargo?.["PRESIDENTE"],
-  );
-  const vp = share(
-    outOfUniverse?.feminineByCargo?.["VICE-PRESIDENTE"],
-    outOfUniverse?.byCargo?.["VICE-PRESIDENTE"],
-  );
-
+export function HomeInvestigationGrid({ snapshot: _snapshot }: { snapshot: PublicSnapshot | null }) {
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen border-y border-rule bg-paper">
-      <div className="mx-auto grid max-w-6xl md:grid-cols-[repeat(3,minmax(0,1fr))_0.75fr]">
+      <div className="mx-auto grid max-w-6xl md:grid-cols-3">
         {INVESTIGATIONS.map((item) => {
           const axis = AXES.find((candidate) => candidate.id === item.id);
           return (
@@ -369,12 +349,6 @@ export function HomeInvestigationGrid({ snapshot }: { snapshot: PublicSnapshot |
             </article>
           );
         })}
-        <aside className="flex min-h-64 flex-col justify-center gap-4 bg-solar px-8 py-12 text-ink md:px-8">
-          <p className="font-mono text-[10px] uppercase tracking-wide text-ink/70">Achado</p>
-          <p className="font-display text-lg font-semibold not-italic leading-snug sm:text-xl md:text-2xl">
-            Entre as candidaturas à Presidência, mulheres são {p}. Entre as candidaturas a vice, são {vp}.
-          </p>
-        </aside>
       </div>
     </section>
   );

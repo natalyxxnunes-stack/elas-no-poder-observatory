@@ -5,7 +5,6 @@ import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
-import { RaceExplorer } from "@/components/editorial/RaceExplorer";
 import { StateExplorer } from "@/components/editorial/StateExplorer";
 import { OfficeTable } from "@/components/editorial/OfficeTable";
 import { OfficePairChart } from "@/components/editorial/OfficePairChart";
@@ -98,9 +97,8 @@ function QuemSaoElasPage() {
   const formattedRaceShare = (value: number) => Number.isFinite(value) ? formatPct(value) : "—";
   const proportionalWhite = formattedRaceShare(raceShare(proportionalRaceCounts, "BRANCA", proportionalRaceTotal));
   const majoritarianWhite = formattedRaceShare(raceShare(majoritarianRaceCounts, "BRANCA", majoritarianRaceTotal));
-  const majoritarianBlackCount = majoritarianRaceCounts
-    ? (majoritarianRaceCounts["PRETA"] ?? 0) + (majoritarianRaceCounts["PARDA"] ?? 0)
-    : null;
+  const majoritarianPardaCount = majoritarianRaceCounts?.["PARDA"];
+  const majoritarianPretaCount = majoritarianRaceCounts?.["PRETA"];
   const proportionalPardaFrequency = formatUmEmCada(raceShare(proportionalRaceCounts, "PARDA", proportionalRaceTotal));
   const majoritarianPardaFrequency = formatUmEmCada(raceShare(majoritarianRaceCounts, "PARDA", majoritarianRaceTotal));
   const share = (feminine: number | undefined, total: number | undefined) =>
@@ -109,22 +107,24 @@ function QuemSaoElasPage() {
       : "—";
   const majoritarianDimensions = snapshot?.universes.majoritario.dimensions;
   const outOfUniverse = snapshot?.outOfUniverse;
-  const p = share(
-    majoritarianDimensions?.feminineByCargo?.["PRESIDENTE"],
-    majoritarianDimensions?.totalByCargo?.["PRESIDENTE"],
-  );
   const g = share(
     majoritarianDimensions?.feminineByCargo?.["GOVERNADOR"],
     majoritarianDimensions?.totalByCargo?.["GOVERNADOR"],
-  );
-  const vp = share(
-    outOfUniverse?.feminineByCargo?.["VICE-PRESIDENTE"],
-    outOfUniverse?.byCargo?.["VICE-PRESIDENTE"],
   );
   const vg = share(
     outOfUniverse?.feminineByCargo?.["VICE-GOVERNADOR"],
     outOfUniverse?.byCargo?.["VICE-GOVERNADOR"],
   );
+  const presidentialWomen = majoritarianDimensions?.feminineByCargo?.["PRESIDENTE"];
+  const presidentialTotal = majoritarianDimensions?.totalByCargo?.["PRESIDENTE"];
+  const vicePresidentialWomen = outOfUniverse?.feminineByCargo?.["VICE-PRESIDENTE"];
+  const vicePresidentialTotal = outOfUniverse?.byCargo?.["VICE-PRESIDENTE"];
+  const presidentialAbsolute = presidentialWomen !== undefined && presidentialTotal !== undefined
+    ? `${formatInt(presidentialWomen)} das ${formatInt(presidentialTotal)}`
+    : "—";
+  const vicePresidentialAbsolute = vicePresidentialWomen !== undefined && vicePresidentialTotal !== undefined
+    ? `${formatInt(vicePresidentialWomen)} das ${formatInt(vicePresidentialTotal)}`
+    : "—";
 
   return (
     <PageShell breadcrumb={[{ label: "Dados 2026", to: "/" }, { label: "Quem são elas?" }]}>
@@ -134,7 +134,7 @@ function QuemSaoElasPage() {
         question="A cor das candidatas muda com o cargo em disputa"
         lead={
           <p>
-            Brancas são {proportionalWhite} das candidatas a deputada e {majoritarianWhite} das que disputam Presidência, governos e Senado. Nessas disputas majoritárias, das {majoritarianRaceTotal > 0 ? formatInt(majoritarianRaceTotal) : "—"} mulheres, {majoritarianRaceCounts ? formatInt(majoritarianRaceCounts["BRANCA"] ?? 0) : "—"} são brancas e {majoritarianBlackCount !== null ? formatInt(majoritarianBlackCount) : "—"} são negras, somando pretas e pardas. A queda está sobretudo nas pardas: eram {proportionalPardaFrequency} candidatas a deputada e viram {majoritarianPardaFrequency} nas candidaturas majoritárias.
+            Brancas são {proportionalWhite} das candidatas a deputada e {majoritarianWhite} das que disputam Presidência, governos e Senado. Nessas disputas majoritárias, das {majoritarianRaceTotal > 0 ? formatInt(majoritarianRaceTotal) : "—"} mulheres, {majoritarianRaceCounts ? formatInt(majoritarianRaceCounts["BRANCA"] ?? 0) : "—"} são brancas, {majoritarianPardaCount !== undefined ? formatInt(majoritarianPardaCount) : "—"} pardas e {majoritarianPretaCount !== undefined ? formatInt(majoritarianPretaCount) : "—"} pretas. A queda está sobretudo nas pardas: eram {proportionalPardaFrequency} candidatas a deputada e viram {majoritarianPardaFrequency} nas candidaturas majoritárias.
           </p>
         }
         snapshot={snapshot}
@@ -213,10 +213,7 @@ function QuemSaoElasPage() {
         align="wide"
         lead={
           <p>
-            A presença é maior nas candidaturas a vice do que aos cargos titulares:
-            {" "}{vp} entre vices à Presidência, contra {p} entre candidaturas à
-            Presidência; e {vg} entre vices aos governos, contra {g} entre
-            candidaturas a governadora.
+            A presença é maior nas candidaturas a vice do que aos cargos titulares: {vicePresidentialAbsolute} candidaturas a vice-presidente são de mulheres, contra {presidentialAbsolute} à Presidência; e {vg} entre vices aos governos, contra {g} entre candidaturas a governadora.
           </p>
         }
         source={
@@ -233,7 +230,7 @@ function QuemSaoElasPage() {
             <article className="poster-frame-accent p-5">
               <p className="record-label border-plum text-plum">Fato</p>
               <p className="mt-3 leading-relaxed text-ink/70">
-                Na Presidência e nos governos, a presença de mulheres fica nos menores números do levantamento: {p} nas candidaturas à Presidência e {g} nas candidaturas a governadora. Nas candidaturas a vice desses mesmos pleitos, a proporção sobe para {vp} e {vg}.
+                Na Presidência e nos governos, a presença de mulheres fica nos menores números do levantamento: {presidentialAbsolute} candidaturas à Presidência e {g} nas candidaturas a governadora. Nas candidaturas a vice desses mesmos pleitos, são {vicePresidentialAbsolute} na vice-presidência e {vg} nas vice-governadorias.
               </p>
             </article>
 
@@ -257,36 +254,6 @@ function QuemSaoElasPage() {
             <OfficeTable snapshot={snapshot} />
           </div>
         </div>
-      </SectionBlock>
-
-      <SectionBlock
-        tone="ink"
-        kicker="Explore os dados"
-        question="Daqui pra baixo, a consulta é sua"
-        lead={<p>Filtre por cargo, estado e partido. Cada recorte mostra o próprio denominador, e abaixo de 20 candidaturas aparecem só os números absolutos.</p>}
-      />
-
-      <SectionBlock
-        id="partidos"
-        kicker="Explorador"
-        question="Escolha o cargo, o estado e o partido — e veja quem são elas ali"
-        align="wide"
-        tone="solar"
-        lead={
-          <p>
-            Cada combinação recalcula a distribuição por cor/raça daquela fatia,
-            com a base à vista.
-          </p>
-        }
-
-        source={
-          <>
-            Fonte: TSE · Candidaturas 2026
-            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""}
-          </>
-        }
-      >
-        <RaceExplorer snapshot={snapshot} />
       </SectionBlock>
 
       <SectionBlock

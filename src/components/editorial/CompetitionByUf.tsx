@@ -20,8 +20,6 @@ import { formatInt, formatDecimal } from "@/lib/format-br";
  * gênero está apenas no numerador.
  */
 
-const universes: UniverseId[] = ["proporcional", "majoritario"];
-
 type Row = {
   uf: string;
   vagas: number | null;
@@ -47,6 +45,9 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
   const [universe, setUniverse] = useState<UniverseId>("proporcional");
   const [sortBy, setSortBy] = useState<"uf" | "concorrencia">("uf");
   const baseStamp = brDate(snapshot?.baseGeneratedAt ?? snapshot?.collectedAt);
+  const universes: UniverseId[] = snapshot?.universes.majoritario.dimensions?.totalByUf
+    ? ["proporcional", "majoritario"]
+    : ["proporcional"];
 
 
   const data = useMemo(() => {

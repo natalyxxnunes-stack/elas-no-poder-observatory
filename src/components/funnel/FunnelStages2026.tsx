@@ -18,6 +18,7 @@ import { BLACK_AGGREGATION_NOTE } from "@/lib/tse/historical-compute";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import type { UniverseId } from "@/lib/tse/compute";
 import { formatInt, formatPct } from "@/lib/format-br";
+import { RACE_COLORS, type RaceCategory } from "@/data/historical-funnel";
 
 const n = (v: number) => formatInt(v);
 const pct = (v: number) => formatPct(v);
@@ -114,6 +115,10 @@ function RaceStage({
   const black = entries
     .filter(([k]) => ["PRETA", "PARDA"].includes(k.trim().toUpperCase()))
     .reduce((a, [, v]) => a + v, 0);
+  const color = (label: string) => {
+    const key = label.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() as RaceCategory;
+    return RACE_COLORS[key] ?? "var(--color-muted-foreground)";
+  };
 
   return (
     <li className="poster-frame overflow-hidden">
@@ -142,27 +147,21 @@ function RaceStage({
           className="flex h-6 w-full overflow-hidden rounded-sm bg-secondary"
           aria-hidden
         >
-          {entries.map(([label, value], i) => (
+          {entries.map(([label, value]) => (
             <div
               key={label}
               title={`${label}: ${n(value)}`}
-              className={
-                ["bg-plum", "bg-coral", "bg-ink", "bg-muted-foreground"][i % 4] ??
-                "bg-plum"
-              }
-              style={{ width: `${(value / denominator) * 100}%` }}
+              style={{ width: `${(value / denominator) * 100}%`, backgroundColor: color(label) }}
             />
           ))}
         </div>
         <dl className="mt-3 grid gap-x-6 gap-y-2 sm:grid-cols-2">
-          {entries.map(([label, value], i) => (
+          {entries.map(([label, value]) => (
             <div key={label} className="flex items-baseline gap-2">
               <span
                 aria-hidden
-                className={`mt-1 inline-block h-2 w-2 shrink-0 rounded-full ${
-                  ["bg-plum", "bg-coral", "bg-ink", "bg-muted-foreground"][i % 4] ??
-                  "bg-plum"
-                }`}
+                className="mt-1 inline-block h-2 w-2 shrink-0 rounded-full"
+                style={{ backgroundColor: color(label) }}
               />
               <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
                 {label}
@@ -178,10 +177,7 @@ function RaceStage({
       <div className="mt-4 border-t border-rule px-5 py-4">
         <p className="text-sm leading-relaxed text-ink">
           Agregação analítica declarada:{" "}
-          <strong className="font-semibold">
-            NEGRA = PRETA + PARDA · {n(black)} candidaturas ·{" "}
-            {pct((black / denominator) * 100)}
-          </strong>{" "}
+          NEGRA = PRETA + PARDA · {n(black)} candidaturas · {pct((black / denominator) * 100)}{" "}
           das candidaturas de mulheres deste universo.
         </p>
         <p className="mt-2 font-mono text-[12px] leading-relaxed text-muted-foreground">

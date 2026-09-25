@@ -43,7 +43,10 @@ const FIELDS = [
   { key: "consequence", label: "Consequência" },
 ] as const;
 
+const NUMBER_WORDS = ["Zero", "Um", "Dois", "Três", "Quatro", "Cinco", "Seis", "Sete", "Oito", "Nove", "Dez", "Onze", "Doze", "Treze"] as const;
+
 function DireitosPage() {
+  const timelineCount = NUMBER_WORDS[RIGHTS_TIMELINE.length] ?? String(RIGHTS_TIMELINE.length);
   return (
     <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Direitos" }]}>
       <EditorialOpening
@@ -62,12 +65,12 @@ function DireitosPage() {
 
       <div className="pb-4">
         <InBrief
-          foundLabel="Onze marcos, uma linha"
+          foundLabel={`${timelineCount} marcos, uma linha`}
           mattersLabel="Onde cada regra para"
           unknownLabel="O que a linha não mede"
           found={
             <>
-              Onze marcos entre 1932 e 2026. Cada um criou uma regra nova e, com
+              {timelineCount} marcos entre 1932 e 2026. Cada um criou uma regra nova e, com
               ela, uma nova disputa sobre implementação.
             </>
           }

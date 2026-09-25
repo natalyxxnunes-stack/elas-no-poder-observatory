@@ -67,19 +67,17 @@ function getCandidateData(snapshot: PublicSnapshot | null) {
 
 
 function MiniBar({
-  count,
-  max,
+  percent,
   color,
   label,
   category,
 }: {
-  count: number;
-  max: number;
+  percent: number;
   color: string;
   label: string;
   category: RaceFindingCategory;
 }) {
-  const width = max > 0 ? (count / max) * 100 : 0;
+  const width = Math.min(Math.max(percent * 2, 0), 100);
   const isBranca = category === "branca";
   return (
     <div className="flex items-center gap-2">
@@ -90,9 +88,9 @@ function MiniBar({
         <div
           className="h-full rounded-sm"
           style={{
-            width: count > 0 ? `${width}%` : "0%",
+            width: percent > 0 ? `${width}%` : "0%",
             background: color,
-            minWidth: count > 0 ? "2px" : "0",
+            minWidth: percent > 0 ? "2px" : "0",
             border: isBranca ? "1px solid var(--rule)" : "none",
           }}
         />
@@ -105,14 +103,10 @@ function RacePair({
   category,
   pop,
   cand,
-  popMax,
-  candMax,
 }: {
   category: RaceFindingCategory;
   pop: { count: number; percent: number };
   cand: { count: number; percent: number };
-  popMax: number;
-  candMax: number;
 }) {
   const color = RACE_COLORS[category];
   return (
@@ -123,8 +117,7 @@ function RacePair({
 
       <div className="space-y-1.5">
         <MiniBar
-          count={pop.count}
-          max={popMax}
+          percent={pop.percent}
           color={color}
           label="Pop."
           category={category}
@@ -136,8 +129,7 @@ function RacePair({
 
       <div className="space-y-1.5">
         <MiniBar
-          count={cand.count}
-          max={candMax}
+          percent={cand.percent}
           color={color}
           label="Cand."
           category={category}
@@ -158,15 +150,6 @@ export function RaceFinding2026({
   snapshot: PublicSnapshot | null;
 }) {
   const { total, byRace, fromSnapshot, conferido } = getCandidateData(snapshot);
-
-  const popMax = Math.max(
-    ...RACE_FINDING_CATEGORIES.map((k) => POPULATION_RACE_FEMININE_2022[k].count),
-    1,
-  );
-  const candMax = Math.max(
-    ...RACE_FINDING_CATEGORIES.map((k) => byRace[k].count),
-    1,
-  );
 
   // Texto e gráfico leem os MESMOS valores: nada de número fixo no corpo.
   const popParda = POPULATION_RACE_FEMININE_2022.parda;
@@ -215,8 +198,6 @@ export function RaceFinding2026({
                 category={category}
                 pop={POPULATION_RACE_FEMININE_2022[category]}
                 cand={byRace[category]}
-                popMax={popMax}
-                candMax={candMax}
               />
             ))}
           </ul>

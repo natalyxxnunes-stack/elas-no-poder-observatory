@@ -149,6 +149,8 @@ export type Point = {
   stage: "fechada" | "em_curso";
   /** true quando envolve a agregação analítica NEGRA = PRETA + PARDA */
   usesBlackAggregation?: boolean;
+  pretaNumerator?: number;
+  pardaNumerator?: number;
 };
 
 export type Series = {
@@ -224,7 +226,7 @@ function point(
   snapshot: YearSnapshot,
   universe: UniverseId,
   compute: (u: NonNullable<YearSnapshot["universes"][UniverseId]>) =>
-    | { numerator: number; denominator: number }
+    | { numerator: number; denominator: number; pretaNumerator?: number; pardaNumerator?: number }
     | { unavailableReason: string },
   usesBlackAggregation = false,
 ): Point {
@@ -260,7 +262,20 @@ function point(
     numerator: result.numerator,
     denominator: result.denominator,
     value: share(result.numerator, result.denominator),
+    ...(result.pretaNumerator !== undefined ? { pretaNumerator: result.pretaNumerator } : {}),
+    ...(result.pardaNumerator !== undefined ? { pardaNumerator: result.pardaNumerator } : {}),
   };
+}
+
+function raceCount(counts: Record<string, number>, category: "PRETA" | "PARDA") {
+  return Object.entries(counts).reduce((total, [label, value]) =>
+    norm(label) === category ? total + value : total, 0);
+}
+
+function splitBlack(counts: Record<string, number>, denominator: number) {
+  const pretaNumerator = raceCount(counts, "PRETA");
+  const pardaNumerator = raceCount(counts, "PARDA");
+  return { numerator: pretaNumerator + pardaNumerator, denominator, pretaNumerator, pardaNumerator };
 }
 
 /**
@@ -296,7 +311,7 @@ export function feminineCandidacySeries(years: YearSnapshot[]): Series {
 export function blackCandidacySeries(years: YearSnapshot[]): Series {
   return {
     id: "serie-negras-negros-candidaturas",
-    label: "Participação negra nas candidaturas (agregação PRETA + PARDA)",
+    label: "Participação preta e parda nas candidaturas",
     formula:
       "candidaturas declaradas pretas + pardas ÷ total de candidaturas do mesmo universo e ano × 100",
     notes: [
@@ -311,7 +326,7 @@ export function blackCandidacySeries(years: YearSnapshot[]): Series {
           universe,
           (u) =>
             u.raceAll
-              ? { numerator: sumBlack(u.raceAll), denominator: u.total }
+              ? splitBlack(u.raceAll, u.total)
               : {
                   unavailableReason:
                     "A fotografia deste ano não guarda cor/raça de todas as candidaturas, apenas das candidaturas de mulheres.",
@@ -353,8 +368,7 @@ export function blackWomenSeries(years: YearSnapshot[]): {
           (u) =>
             u.raceFeminine
               ? {
-                  numerator: sumBlack(u.raceFeminine),
-                  denominator: denominator(u),
+                  ...splitBlack(u.raceFeminine, denominator(u)),
                 }
               : {
                   unavailableReason:
@@ -369,13 +383,13 @@ export function blackWomenSeries(years: YearSnapshot[]): {
   return {
     ofAll: mk(
       "serie-mulheres-negras-sobre-total",
-      "Mulheres negras sobre o total de candidaturas",
+      "Mulheres pretas e pardas sobre o total de candidaturas",
       "candidaturas de mulheres pretas + pardas ÷ total de candidaturas do mesmo universo e ano × 100",
       (u) => u.total,
     ),
     ofWomen: mk(
       "serie-mulheres-negras-entre-mulheres",
-      "Mulheres negras entre as candidaturas de mulheres",
+      "Mulheres pretas e pardas entre as candidaturas de mulheres",
       "candidaturas de mulheres pretas + pardas ÷ total de candidaturas de mulheres do mesmo universo e ano × 100",
       (u) => u.feminine,
     ),
@@ -417,7 +431,7 @@ export function electedWomenSeries(years: YearSnapshot[]): Series {
 export function electedBlackWomenSeries(years: YearSnapshot[]): Series {
   return {
     id: "serie-mulheres-negras-eleitas",
-    label: "Mulheres negras entre as eleitas (agregação PRETA + PARDA)",
+    label: "Mulheres pretas e pardas entre as eleitas",
     formula:
       "eleitas mulheres pretas + pardas ÷ total de eleitas mulheres do mesmo universo e ano × 100",
     notes: [
@@ -438,10 +452,7 @@ export function electedBlackWomenSeries(years: YearSnapshot[]): Series {
                     : "Resultado eleitoral por cor/raça não disponível na fotografia deste ano.",
               };
             }
-            return {
-              numerator: sumBlack(u.elected.raceFeminine),
-              denominator: u.elected.feminine,
-            };
+            return splitBlack(u.elected.raceFeminine, u.elected.feminine);
           },
           true,
         ),

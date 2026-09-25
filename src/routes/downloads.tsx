@@ -4,7 +4,6 @@ import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
-import { GapNote } from "@/components/GapNote";
 
 /**
  * ROTA PUBLICADA como página em construção.
@@ -192,12 +191,6 @@ function DownloadsPage() {
               .
             </p>
           </ContextBox>
-        </div>
-        <div className="mt-6">
-          <GapNote label="Estrutura preparada">
-            Este catálogo será gerenciado por CMS: tipo, título, descrição, público, formato,
-            arquivo e data de publicação já são os campos previstos.
-          </GapNote>
         </div>
       </SectionBlock>
 

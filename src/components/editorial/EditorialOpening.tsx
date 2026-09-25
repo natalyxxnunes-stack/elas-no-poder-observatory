@@ -55,28 +55,34 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
   const prop = snapshot?.universes.proporcional;
   const maj = snapshot?.universes.majoritario;
   const layers = [
-    { label: "Proporcionais", value: prop && prop.total > 0 ? (prop.feminine / prop.total) * 100 : null, tone: "bg-plum-bright", width: "w-full" },
-    { label: "Majoritárias", value: maj && maj.total > 0 ? (maj.feminine / maj.total) * 100 : null, tone: "bg-coral", width: "w-[78%]" },
-    { label: "Eleitas", value: null, tone: "bg-solar", width: "w-[55%]" },
-    { label: "Poder", value: null, tone: "bg-ink", width: "w-[34%]" },
+    { label: "Proporcionais", value: prop && prop.total > 0 ? (prop.feminine / prop.total) * 100 : null, tone: "bg-cream text-ink" },
+    { label: "Majoritárias", value: maj && maj.total > 0 ? (maj.feminine / maj.total) * 100 : null, tone: "bg-coral text-cream" },
   ] as const;
   return (
     <Frame className="bg-plum text-cream">
       <div className="mx-auto grid min-h-[31rem] max-w-6xl items-center gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:py-14">
         <OpeningText {...text} inverse />
-        <figure aria-label="Funil de 2026 com universos e denominadores próprios; as larguras de Eleitas e Poder são ilustrativas e não representam taxa calculada" className="min-w-0 border-l border-cream/25 pl-4 md:pl-8">
+        <figure aria-label="Participação das mulheres nas candidaturas proporcionais e majoritárias, em universos paralelos; eleitas entram a partir de 4 de outubro e poder a partir de 2027" className="min-w-0 border-l border-cream/25 pl-4 md:pl-8">
           <div className="space-y-2">
             {layers.map((layer) => (
               <div key={layer.label} className="grid min-w-0 grid-cols-[minmax(0,1fr)_4.5rem] items-center gap-3">
-                <div className={`mx-auto h-16 ${layer.width} ${layer.tone} flex items-center justify-center border border-cream/45 [clip-path:polygon(6%_0,94%_0,84%_100%,16%_100%)]`}>
-                  <span className={`font-mono text-[10px] font-semibold uppercase ${layer.tone === "bg-solar" ? "text-ink" : "text-cream"}`}>{layer.label}</span>
+                <div className="h-16 w-full">
+                  <div className={`flex h-full items-center justify-center border border-cream/45 ${layer.tone}`} style={{ width: `${Math.min((layer.value ?? 0) * 2, 100)}%` }}>
+                    <span className="font-mono text-[10px] font-semibold uppercase">{layer.label}</span>
+                  </div>
                 </div>
                 <span className="font-mono text-xs font-semibold text-cream">{layer.value === null ? "—" : formatPct(layer.value)}</span>
               </div>
             ))}
+            {[["Eleitas", "a partir de 4/10"], ["Poder", "a partir de 2027"]].map(([label, date]) => (
+              <div key={label} className="grid min-w-0 grid-cols-[minmax(0,1fr)_4.5rem] items-center gap-3">
+                <div className="flex h-16 items-center justify-between border border-dashed border-cream/55 px-4 font-mono text-[10px] uppercase text-cream/80"><span>{label}</span><span>{date}</span></div>
+                <span aria-hidden="true" />
+              </div>
+            ))}
           </div>
           <figcaption className="mt-5 border-t border-cream/25 pt-3 font-mono text-[10px] leading-relaxed text-cream/65">
-            Cada etapa tem universo próprio · TSE · {baseDate ?? "base em atualização"}. As larguras de “Eleitas” e “Poder” são ilustrativas e não representam taxa calculada.
+            Proporcionais e majoritárias são universos paralelos, cada um com seu total. Eleitas e poder entram quando houver resultado. · TSE · {baseDate ?? "base em atualização"}.
           </figcaption>
         </figure>
       </div>

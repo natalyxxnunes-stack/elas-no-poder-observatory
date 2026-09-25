@@ -66,7 +66,7 @@ export function OfficeTable({ snapshot }: { snapshot: PublicSnapshot | null }) {
               <th scope="row" className="px-4 py-3 font-display text-base font-semibold text-ink">{office}</th>
               <td className="px-4 py-3 text-right font-mono text-sm text-muted-foreground">{formatInt(total)}</td>
               <td className="px-4 py-3 text-right font-mono text-sm text-muted-foreground">{formatInt(women)}</td>
-              <td className="px-4 py-3 text-right font-display text-lg font-semibold text-plum">{formatPct((women / total) * 100)}</td>
+              <td className="px-4 py-3 text-right font-display text-lg font-semibold text-plum">{total < 20 ? `${formatInt(women)} de ${formatInt(total)}` : formatPct((women / total) * 100)}</td>
             </tr>
           ))}
         </tbody>
