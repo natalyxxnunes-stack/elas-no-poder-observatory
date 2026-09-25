@@ -27,18 +27,6 @@ export const Route = createFileRoute("/downloads")({
         content: "Materiais educativos sobre mulheres, eleições e poder, prontos para circular.",
       },
       { property: "og:type", content: "website" },
-      {
-        property: "og:image",
-        content: "https://quemsaoelas.com.br/og/timeline-editorial.png",
-      },
-      {
-        property: "og:image:alt",
-        content: "Ilustração editorial de uma linha do tempo eleitoral",
-      },
-      {
-        name: "twitter:image",
-        content: "https://quemsaoelas.com.br/og/timeline-editorial.png",
-      },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),

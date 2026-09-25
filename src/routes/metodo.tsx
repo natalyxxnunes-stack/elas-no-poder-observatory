@@ -5,7 +5,6 @@ import { INSPECTED_AT } from "@/lib/tse/data-dictionary";
 
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
-import checagemAsset from "@/assets/checagem.webp.asset.json";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
@@ -50,12 +49,6 @@ export const Route = createFileRoute("/metodo")({
           "Fonte, universo, denominador, fórmula, data da base e limitações de cada indicador do observatório.",
       },
       { property: "og:type", content: "article" },
-      { property: "og:image", content: `https://quemsaoelas.com.br${checagemAsset.url}` },
-      {
-        property: "og:image:alt",
-        content: "Ilustração editorial: mãos conferindo gráficos e documentos com uma lupa",
-      },
-      { name: "twitter:image", content: `https://quemsaoelas.com.br${checagemAsset.url}` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),

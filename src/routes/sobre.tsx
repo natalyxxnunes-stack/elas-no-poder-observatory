@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
-import aberturaAsset from "@/assets/aberturasobre.webp.asset.json";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
@@ -24,13 +23,6 @@ export const Route = createFileRoute("/sobre")({
           "Um projeto independente de jornalismo de dados sobre mulheres, eleições e poder: quem faz, por que existe e como conferir os números.",
       },
       { property: "og:type", content: "article" },
-      { property: "og:image", content: `https://quemsaoelas.com.br${aberturaAsset.url}` },
-      {
-        property: "og:image:alt",
-        content:
-          "Ilustração editorial: mesa de trabalho jornalística com caderno de metodologia, gráficos e recortes",
-      },
-      { name: "twitter:image", content: `https://quemsaoelas.com.br${aberturaAsset.url}` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
