@@ -1,18 +1,23 @@
+import { useId } from "react";
+
 /**
  * Logo original do projeto — SVG preservado exatamente como recuperado.
  * Não substituir por ícone genérico nem re-desenhar.
  */
 export function BrandLogo({ className = "h-9 w-9" }: { className?: string }) {
+  const titleId = useId();
+  const descriptionId = useId();
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 512 512"
       role="img"
-      aria-labelledby="qse-logo-title qse-logo-desc"
+      aria-labelledby={`${titleId} ${descriptionId}`}
       className={className}
     >
-      <title id="qse-logo-title">Quem são elas?</title>
-      <desc id="qse-logo-desc">
+      <title id={titleId}>Quem são elas?</title>
+      <desc id={descriptionId}>
         Lente editorial roxa com olho escuro e íris formada por recortes em
         creme, amarelo e coral.
       </desc>

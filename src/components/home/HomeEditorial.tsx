@@ -83,6 +83,27 @@ function EditorialBrazilMap({ snapshot }: { snapshot: PublicSnapshot | null }) {
           );
         })}
       </svg>
+      <table className="sr-only">
+        <caption>Participação feminina nas candidaturas proporcionais por estado</caption>
+        <thead>
+          <tr>
+            <th scope="col">UF</th>
+            <th scope="col">Mulheres</th>
+            <th scope="col">Total</th>
+            <th scope="col">Participação</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[...data].sort((a, b) => a.uf.localeCompare(b.uf)).map((item) => (
+            <tr key={item.uf}>
+              <th scope="row">{item.uf}</th>
+              <td>{formatInt(item.feminine)}</td>
+              <td>{formatInt(item.total)}</td>
+              <td>{formatPct(item.share)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <figcaption id="home-map-caption" className="pb-3 font-mono text-[10px] leading-relaxed text-muted-foreground">
         <ul className="space-y-2">
           {binCounts.map((bin) => (
@@ -173,7 +194,7 @@ export function HomeMapSection({ snapshot }: { snapshot: PublicSnapshot | null }
           <p className="font-mono text-[11px] font-semibold uppercase leading-tight text-ink">A entrada não é igual<br />em todo o país</p>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">Proporção de mulheres nas candidaturas proporcionais por estado</p>
           <Link to="/quem-sao-elas" className="mt-5 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[10px] font-semibold uppercase text-plum">
-            Explorar os dados por estado <ArrowRight className="size-3.5" aria-hidden="true" />
+            Ver a tabela dos 27 estados <ArrowRight className="size-3.5" aria-hidden="true" />
           </Link>
         </div>
         <EditorialBrazilMap snapshot={snapshot} />
@@ -217,7 +238,7 @@ export function HomeHistoryHighlight({ historical }: { historical: HistoricalSer
           </p>
           {first && first.value !== null && (
             <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-              Olhando mais atrás, era {formatPct(first.value)} em {first.year} — {formatPoints(last.value - first.value)} de diferença ao longo de quatro eleições.
+              Olhando mais atrás, era {formatPct(first.value)} em {first.year} — {formatPoints(last.value - first.value)} de diferença entre {first.year} e a fotografia de 2026.
             </p>
           )}
           <Link to="/historico" className="mt-6 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-[11px] font-semibold uppercase text-plum">

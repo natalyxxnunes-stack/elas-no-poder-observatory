@@ -54,6 +54,10 @@ const federal = share(
   FP.byOffice["DEPUTADO FEDERAL"]?.feminine ?? 0,
   FP.byOffice["DEPUTADO FEDERAL"]?.total ?? 0,
 );
+const distrital = share(
+  FP.byOffice["DEPUTADO DISTRITAL"]?.feminine ?? 0,
+  FP.byOffice["DEPUTADO DISTRITAL"]?.total ?? 0,
+);
 const senado = share(
   FM.byOffice["SENADOR"]?.feminine ?? 0,
   FM.byOffice["SENADOR"]?.total ?? 0,
@@ -101,10 +105,10 @@ export const ACHADOS: Achado[] = [
     numero: "01",
     data: "2026-09-24",
     titulo: "Quanto mais alto o cargo, mais brancas",
-    texto: `Brancas são ${pct(brancaProporcional)} das candidatas a deputada e ${pct(brancaMajoritaria)} das candidatas a presidente, governadora e senadora. As pardas fazem o caminho inverso: são ${formatUmEmCada(pardaProporcional)} candidatas a deputada e ${formatUmEmCada(pardaMajoritaria)} nos cargos de um único titular.`,
+    texto: `Brancas são ${pct(brancaProporcional)} das candidatas a deputada e ${pct(brancaMajoritaria)} das candidatas a presidente, governadora e senadora. As pardas fazem o caminho inverso: são ${formatUmEmCada(pardaProporcional)} candidatas a deputada e ${formatUmEmCada(pardaMajoritaria)} nas candidaturas majoritárias.`,
     barras: [
       { rotulo: "Deputada", valor: brancaProporcional },
-      { rotulo: "Cargo único", valor: brancaMajoritaria },
+      { rotulo: "Majoritárias", valor: brancaMajoritaria },
     ],
     legenda: "Brancas entre as candidatas",
     fonte: "TSE, Candidaturas 2026 · base de 22/09/2026",
@@ -116,10 +120,11 @@ export const ACHADOS: Achado[] = [
     numero: "02",
     data: "2026-09-24",
     titulo: "Na Presidência, quase nada do dinheiro",
-    texto: `Mulheres são ${formatInt(M.dimensions.feminineByCargo?.["PRESIDENTE"] ?? 0)} das ${formatInt(M.dimensions.totalByCargo?.["PRESIDENTE"] ?? 0)} candidaturas à Presidência e receberam ${pct(presidencia)} da receita declarada até agora. A fatia cai à medida que o cargo sobe: ${pct(estadual)} nas assembleias, ${pct(federal)} na Câmara, ${pct(senado)} no Senado e ${pct(governo)} nos governos.`,
+    texto: `Mulheres são ${formatInt(M.dimensions.feminineByCargo?.["PRESIDENTE"] ?? 0)} das ${formatInt(M.dimensions.totalByCargo?.["PRESIDENTE"] ?? 0)} candidaturas à Presidência e receberam ${pct(presidencia)} da receita declarada até agora. Por cargo, a fatia das mulheres na receita declarada é de ${pct(estadual)} nas assembleias, ${pct(federal)} na Câmara dos Deputados, ${pct(distrital)} na Câmara Legislativa do DF, ${pct(senado)} no Senado e ${pct(governo)} nos governos.`,
     barras: [
       { rotulo: "Assembleias", valor: estadual },
       { rotulo: "Câmara", valor: federal },
+      { rotulo: "Câmara Legislativa DF", valor: distrital },
       { rotulo: "Senado", valor: senado },
       { rotulo: "Governos", valor: governo },
       { rotulo: "Presidência", valor: presidencia },
@@ -142,7 +147,7 @@ export const ACHADOS: Achado[] = [
       { rotulo: "Negras · candidatas", valor: share(negrasCandidatas, somaM) },
       { rotulo: "Negras · dinheiro", valor: negrasDinheiro },
     ],
-    legenda: "Cargos de um único titular",
+    legenda: "Presidência, governos e Senado",
     fonte:
       "TSE, Candidaturas 2026 e Prestação de Contas Eleitorais 2026 · receita em andamento",
     to: "/dinheiro",

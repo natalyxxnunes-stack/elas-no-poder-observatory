@@ -107,9 +107,14 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
             Tudo nesta parte da página é quem pediu registro para disputar 2026 — quem entrou na disputa. Não há resultado eleitoral aqui: o 1º turno é em 4 de outubro de 2026 e o eventual 2º turno em 25 de outubro de 2026.
           </p>
           {snapshot && (
-            <p className="mt-8 border-l-4 border-solar pl-4 font-display text-2xl leading-tight text-ink">
-              {formatInt(snapshot.recordCount)} pedidos de registro nesta fotografia.
-            </p>
+            <div className="mt-8 border-l-4 border-solar pl-4">
+              <p className="font-display text-2xl leading-tight text-ink">
+                {formatInt(snapshot.recordCount)} candidaturas nos universos proporcional e majoritário.
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Outras {formatInt(snapshot.outOfUniverse.total)}, de vices e suplentes, ficam fora da conta.
+              </p>
+            </div>
           )}
           <p className="mt-7 max-w-xl font-mono text-[11px] leading-relaxed text-muted-foreground lg:mt-auto lg:pt-7">
             Dados de {baseDate ?? "data em atualização"}.{pendingDate ? ` Uma atualização (dados de ${pendingDate}) está em conferência.` : ""} Fonte: TSE · Candidaturas 2026 · <Link to="/metodo" className="text-plum underline underline-offset-4">ver o método</Link>
@@ -120,7 +125,7 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
           <article className="pb-7">
             <p className="font-mono text-[10px] uppercase text-muted-foreground">Comando majoritário</p>
             <p className="mt-2 font-display text-5xl font-semibold leading-none text-plum md:text-6xl">{majoritarianShare !== null ? formatPercent(majoritarianShare) : "—"}</p>
-            <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink">das candidaturas majoritárias, de cargo único, são de mulheres</p>
+            <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink">das candidaturas majoritárias são de mulheres</p>
             <p className="mt-2 font-mono text-[10px] text-muted-foreground">{majoritarian ? `${formatInt(majoritarian.feminine)} de ${formatInt(majoritarian.total)}` : "em atualização"}</p>
           </article>
           <article className="border-t border-rule pt-7">

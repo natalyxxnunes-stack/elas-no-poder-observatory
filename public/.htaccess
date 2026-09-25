@@ -1,5 +1,5 @@
 # Quem são elas? — configuração Apache para o build estático (HostGator).
-# Suba o conteúdo de .output/public/ (este arquivo incluído) para public_html.
+# Suba o conteúdo de dist/client/ (este arquivo incluído) para public_html.
 
 Options -MultiViews
 DirectoryIndex index.html

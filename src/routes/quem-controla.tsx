@@ -20,17 +20,17 @@ export const Route = createFileRoute("/quem-controla")({
     meta: [
       {
         title:
-          "Antes do voto, o partido decide quem entra, quem recebe e em que posição | Quem são elas?",
+          "Antes do voto, muito se decide no partido | Quem são elas?",
       },
       {
         name: "description",
         content:
-          "Partidos, federações e diretórios decidem quem entra nas listas e quem recebe recursos, propaganda e posição estratégica. Investigamos padrões e estruturas, não rankings.",
+          "Partidos e federações têm papel central na escolha das candidaturas e na distribuição de recursos, propaganda e posição, dentro das regras eleitorais. Investigamos padrões e estruturas, não rankings.",
       },
       {
         property: "og:title",
         content:
-          "Antes do voto, o partido decide quem entra, quem recebe e em que posição",
+          "Antes do voto, muito se decide no partido",
       },
       {
         property: "og:description",
@@ -50,7 +50,7 @@ export const Route = createFileRoute("/quem-controla")({
 const CONTROL_LEVERS = [
   {
     lever: "Quem entra na lista",
-    what: "O partido ou federação define quais candidaturas são registradas em cada circunscrição, respeitando a faixa de composição por gênero nas eleições proporcionais.",
+    what: "Partidos e federações escolhem em convenção e registram as candidaturas de cada circunscrição, respeitando a faixa de composição por gênero nas eleições proporcionais. Quem foi escolhida em convenção e não teve o registro pedido pelo partido pode requerê-lo individualmente.",
     needs: "Registro de candidaturas por partido, federação, cargo e UF",
     ready: "yes",
   },
@@ -68,7 +68,7 @@ const CONTROL_LEVERS = [
   },
   {
     lever: "Quem aparece na propaganda",
-    what: "O tempo de rádio e TV e a inserção nas peças de campanha também são distribuídos internamente.",
+    what: "A Constituição manda destinar às candidatas pelo menos 30% do tempo de propaganda gratuita no rádio e na TV, na proporção das candidaturas de mulheres (EC 117/2022). Como esse tempo se divide entre elas fica com o partido. O projeto ainda não tem base integrada para medir essa distribuição.",
     needs: "Registros de propaganda eleitoral e planos de mídia",
     ready: "no",
   },
@@ -91,7 +91,7 @@ function QuemControlaPage() {
       <EditorialOpening
         variant="power-flow"
         kicker="Quem controla?"
-        question="Antes do voto, quem decide é o partido."
+        question="Antes do voto, muito se decide no partido"
         lead={
           <p>
             A lei fixa pisos de candidaturas e de recursos para mulheres. Dentro desses pisos, a divisão do fundo, do tempo de TV e das posições de chapa fica com o partido ou a federação. Das {numberWords[leverTotal] ?? leverTotal} decisões mapeadas aqui, {numberWords[readyTotal] ?? readyTotal} já podem ser medidas com dado público e {numberWords[partialTotal] ?? partialTotal}, em parte.
@@ -107,8 +107,7 @@ function QuemControlaPage() {
           unknownLabel="O que ainda não dá pra abrir"
           found={
             <>
-              O controle da porta de entrada é partidário. As regras eleitorais fixam pisos, mas a
-              distribuição concreta de condições acontece dentro de cada partido ou federação.
+              Partidos e federações têm papel central na escolha, no registro e na distribuição de recursos, dentro das regras eleitorais. A lei fixa pisos; a divisão concreta acontece dentro de cada partido ou federação.
             </>
           }
           matters={
