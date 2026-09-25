@@ -30,7 +30,7 @@ export const GLOSSARY: Record<GlossaryKey, GlossaryEntry> = {
   },
   majoritaria: {
     title: "Eleição majoritária",
-    body: "Elege uma pessoa por cargo: Presidência, governos estaduais e do DF e Senado. Ganha quem tem mais votos.",
+    body: "Elege pelo voto majoritário: Presidência, governos estaduais e do DF e Senado. Vence quem tem mais votos; para Presidência e governos, é preciso maioria absoluta dos votos válidos no 1º turno, ou há 2º turno. Em 2026, cada estado elege duas cadeiras no Senado.",
   },
   "pontos-percentuais": {
     title: "p.p. — pontos percentuais",
@@ -43,7 +43,7 @@ export const GLOSSARY: Record<GlossaryKey, GlossaryEntry> = {
   },
   "quociente-eleitoral": {
     title: "Quociente eleitoral",
-    body: "O cálculo que define quantas cadeiras cada partido conquista na proporcional, a partir da soma dos votos do partido. Só depois se define, entre os nomes da lista, quem ocupa essas cadeiras.",
+    body: "Número obtido dividindo os votos válidos da eleição proporcional pelo número de cadeiras em disputa. A votação de cada partido ou federação, comparada a esse quociente, define as cadeiras que o grupo conquista de início; as vagas que sobram são distribuídas pelas regras de sobras. Só depois se define, entre os nomes da lista, quem ocupa as cadeiras.",
   },
   cota: {
     title: "A regra de 30%–70% por gênero",

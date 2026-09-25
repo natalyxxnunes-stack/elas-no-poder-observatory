@@ -261,13 +261,11 @@ function MetodoPage() {
         <div className="mt-6">
           <ContextBox variant="significa" title="Como uma cadeira proporcional é preenchida">
             <p>
-              Na proporcional, o voto conta também para o partido, não só para a
-              pessoa. A soma dos votos do partido — o{" "}
+              Na eleição proporcional, os votos válidos são usados para calcular o{" "}
               <GlossaryTerm term="quociente-eleitoral" method={false}>
                 quociente eleitoral
               </GlossaryTerm>{" "}
-              — define quantas cadeiras ele conquista. Só depois, dentro do
-              partido, a ordem dos mais votados define quem ocupa essas cadeiras.
+              . A votação de cada partido ou federação define a distribuição inicial das cadeiras, e as vagas restantes são distribuídas pelas regras previstas na legislação. Só depois, dentro de cada partido ou federação, a ordem dos mais votados define quem ocupa essas cadeiras.
             </p>
             <p className="mt-2">
               Por isso a ordem dos mais votados dentro do partido decide quem

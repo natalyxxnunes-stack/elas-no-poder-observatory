@@ -29,7 +29,7 @@ export const Route = createFileRoute("/quem-sao-elas")({
     meta: [
       {
         title:
-          "Quanto mais alto o cargo, mais brancas são as candidatas | Quem são elas?",
+          "A cor das candidatas muda com o cargo em disputa | Quem são elas?",
       },
       {
         name: "description",
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/quem-sao-elas")({
       },
       {
         property: "og:title",
-        content: "Quanto mais alto o cargo, mais brancas são as candidatas",
+        content: "A cor das candidatas muda com o cargo em disputa",
       },
       {
         property: "og:description",
@@ -131,10 +131,10 @@ function QuemSaoElasPage() {
       <EditorialOpening
         variant="race"
         kicker="Quem são elas?"
-        question="Quanto mais alto o cargo, mais brancas são as candidatas"
+        question="A cor das candidatas muda com o cargo em disputa"
         lead={
           <p>
-            Brancas são {proportionalWhite} das candidatas a deputada e {majoritarianWhite} das que disputam Presidência, governos e Senado. Nessas disputas de cargo único, das {majoritarianRaceTotal > 0 ? formatInt(majoritarianRaceTotal) : "—"} mulheres, {majoritarianRaceCounts ? formatInt(majoritarianRaceCounts["BRANCA"] ?? 0) : "—"} são brancas e {majoritarianBlackCount !== null ? formatInt(majoritarianBlackCount) : "—"} são negras, somando pretas e pardas. A queda está sobretudo nas pardas: eram {proportionalPardaFrequency} candidatas a deputada e viram {majoritarianPardaFrequency} nos cargos de um único titular.
+            Brancas são {proportionalWhite} das candidatas a deputada e {majoritarianWhite} das que disputam Presidência, governos e Senado. Nessas disputas majoritárias, das {majoritarianRaceTotal > 0 ? formatInt(majoritarianRaceTotal) : "—"} mulheres, {majoritarianRaceCounts ? formatInt(majoritarianRaceCounts["BRANCA"] ?? 0) : "—"} são brancas e {majoritarianBlackCount !== null ? formatInt(majoritarianBlackCount) : "—"} são negras, somando pretas e pardas. A queda está sobretudo nas pardas: eram {proportionalPardaFrequency} candidatas a deputada e viram {majoritarianPardaFrequency} nas candidaturas majoritárias.
           </p>
         }
         snapshot={snapshot}
@@ -171,14 +171,14 @@ function QuemSaoElasPage() {
       <SectionBlock
         id="raca"
         kicker="Categorias originais"
-        question="Deputada × cargo único: quais mulheres estão em cada disputa"
+        question="Deputada × disputas majoritárias: quais mulheres estão em cada disputa"
         align="wide"
         lead={
           <p>
             Entre as candidaturas proporcionais de mulheres, {firstRace.label} é a
             categoria de cor/raça mais declarada, com {firstRace.share}, seguida por{" "}
             {secondRace.label}, com {secondRace.share}, e {thirdRace.label}, com{" "}
-            {thirdRace.share}.
+            {thirdRace.share}. Neste levantamento, “mulheres” são as candidaturas registradas como FEMININO no campo de gênero do TSE, e “negras” soma pretas e pardas, com as categorias originais sempre à vista.
           </p>
         }
 
@@ -233,14 +233,14 @@ function QuemSaoElasPage() {
             <article className="poster-frame-accent p-5">
               <p className="record-label border-plum text-plum">Fato</p>
               <p className="mt-3 leading-relaxed text-ink/70">
-                Nos comandos únicos mais altos, Presidência e Governo, a presença de mulheres fica nos menores números do levantamento: {p} nas candidaturas à Presidência e {g} nas candidaturas a governadora. Nas candidaturas a vice desses mesmos pleitos, a proporção sobe para {vp} e {vg}.
+                Na Presidência e nos governos, a presença de mulheres fica nos menores números do levantamento: {p} nas candidaturas à Presidência e {g} nas candidaturas a governadora. Nas candidaturas a vice desses mesmos pleitos, a proporção sobe para {vp} e {vg}.
               </p>
             </article>
 
             <article className="poster-frame-accent p-5">
               <p className="record-label border-coral text-coral-ink">Interpretação editorial</p>
               <p className="mt-3 leading-relaxed text-ink/70">
-                A vice-presidência e a vice-governadoria não exercem o comando direto enquanto o titular estiver no cargo — são posições de composição de chapa, historicamente usadas para equilibrar coligações e a composição política da chapa, sem disputar o centro do poder. Quando o cargo é o de comando único, a presença de mulheres cai.
+                A vice-presidência e a vice-governadoria não exercem o comando direto enquanto o titular estiver no cargo — são posições de composição de chapa, historicamente usadas para equilibrar coligações e a composição política da chapa, sem disputar o centro do poder. Quando a candidatura é à titularidade do Executivo, a presença de mulheres cai.
               </p>
             </article>
 

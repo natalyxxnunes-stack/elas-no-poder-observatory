@@ -210,12 +210,11 @@ function FunilPage() {
             <p>
               Uma candidata a deputada disputa junto com o partido ou{" "}
               <GlossaryTerm term="federacao">federação</GlossaryTerm>: os votos
-              dela entram na soma do grupo, e é essa soma que define quantas
-              cadeiras o grupo conquista, pelo{" "}
+              dela entram na votação do grupo, e é essa votação, comparada ao{" "}
               <GlossaryTerm term="quociente-eleitoral">
                 quociente eleitoral
               </GlossaryTerm>
-              . Só depois, dentro do grupo, a ordem dos mais votados decide quem
+              , que define quantas cadeiras o grupo conquista. Só depois, dentro do grupo, a ordem dos mais votados decide quem
               ocupa essas cadeiras — por isso uma candidata com muitos votos pode
               ficar de fora e outra, com menos votos, entrar.
             </p>
