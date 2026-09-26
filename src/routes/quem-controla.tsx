@@ -94,7 +94,7 @@ function QuemControlaPage() {
         question="Antes do voto, muito se decide no partido"
         lead={
           <p>
-            A lei e a Constituição fixam pisos de candidaturas, de recursos e de tempo de propaganda para mulheres. Dentro desses pisos, a divisão concreta fica com o partido ou a federação. A Justiça Eleitoral julga os registros, confere a cota e analisa as contas. Das {numberWords[leverTotal] ?? leverTotal} decisões mapeadas aqui, {numberWords[readyTotal] ?? readyTotal} já podem ser medidas com dado público e {numberWords[partialTotal] ?? partialTotal}, em parte.
+            A legislação eleitoral fixa pisos de candidaturas, de recursos e regras de distribuição de propaganda para mulheres. Dentro dessas regras, a definição concreta de candidaturas, recursos e posição passa pelos partidos e federações. A Justiça Eleitoral julga os registros, confere a cota e analisa as contas. Das {numberWords[leverTotal] ?? leverTotal} decisões mapeadas aqui, {numberWords[readyTotal] ?? readyTotal} já podem ser medidas com dado público e {numberWords[partialTotal] ?? partialTotal}, em parte.
           </p>
         }
         levers={CONTROL_LEVERS.map(({ lever, ready }) => ({ label: lever, ready }))}
@@ -119,7 +119,7 @@ function QuemControlaPage() {
           unknown={
             <>
               Como cada partido distribuiu recursos e propaganda em 2026, e a quais mulheres (por
-              cor/raça, cargo e território): pendente da base de prestação de contas e propaganda.
+              cor/raça, cargo e território): parte disso ainda depende das bases de prestação de contas e propaganda.
             </>
           }
         />
@@ -127,7 +127,7 @@ function QuemControlaPage() {
 
       <SectionBlock id="alavancas"
         kicker="Alavancas de controle"
-        question="Cinco decisões que acontecem antes da campanha"
+        question="Cinco decisões que moldam a disputa"
         align="wide"
       >
         <ul className="divide-y divide-rule border-y border-rule">
