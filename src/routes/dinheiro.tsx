@@ -100,7 +100,7 @@ function DinheiroPage() {
         variant="financial"
         kicker="Dinheiro"
         question="Entre as candidatas a deputada, as brancas concentram uma fatia maior da receita declarada"
-        lead={<p>Nas disputas para deputada, mulheres são 36,0% das candidaturas com receita declarada até 25/09 e ficam com 34,9% do dinheiro, fatia próxima da presença delas. A diferença aparece dentro do grupo. Nos 12 partidos com mais receita, que concentram 90% do dinheiro, a mediana das candidatas brancas é R$ 130 mil; a das pardas, R$ 87 mil; a das pretas, R$ 75 mil. Nas disputas por governo, Senado e Presidência, os valores também variam por cor/raça e pelos partidos que lançam as candidatas.</p>}
+        lead={<p>Nas disputas para deputada, mulheres são 36,0% das candidaturas com receita declarada até 25/09 e ficam com 34,9% do dinheiro, fatia próxima da presença delas. A diferença aparece dentro do grupo. Nos 12 partidos com mais receita declarada, que concentram 89,8% do dinheiro, a mediana das candidatas brancas é R$ 130 mil; a das pardas, R$ 87 mil; a das pretas, R$ 75 mil. Nas disputas por governo, Senado e Presidência, os valores também variam por cor/raça e pelos partidos que lançam as candidatas.</p>}
         layers={MONEY_LAYERS.map((layer) => layer.label)}
         gap="Prestação de contas em andamento · receita, não despesa · valores sujeitos a atualização"
         snapshot={financeSnapshot}
@@ -138,7 +138,7 @@ function DinheiroPage() {
         <FinanceRace snapshot={financeSnapshot} />
         <div className="mt-5 max-w-3xl space-y-2 text-sm leading-relaxed text-ink/80">
           <p>Mediana é o valor do meio: metade das candidatas declarou mais, metade declarou menos. Ela resiste melhor do que a soma a poucas campanhas muito grandes.</p>
-          <p className="font-mono text-xs">Maiores partidos = os 12 com mais receita declarada até 25/09 (MDB, PDT, PL, PODE, PP, PSB, PSD, PSDB, PSOL, PT, Republicanos e União), que somam 89,8% do dinheiro.</p>
+          <p className="font-mono text-xs">Maiores partidos = os 12 com mais receita declarada até 25/09 (MDB, PDT, PL, PODE, PP, PSB, PSD, PSDB, PSOL, PT, Republicanos e União), que somam 89,8% da receita declarada.</p>
         </div>
       </SectionBlock>
 
