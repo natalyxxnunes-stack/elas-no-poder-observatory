@@ -194,10 +194,10 @@ function FunilPage() {
 
       <SectionBlock id="chapas" tone="lilac"
         kicker="Antes do resultado"
-        question="Ninguém disputa uma cadeira sozinha"
+        question="Na disputa proporcional, ninguém concorre isoladamente"
       >
         <div className="grid gap-4 md:grid-cols-2">
-          <ContextBox variant="significa" title="Na proporcional, o voto é do partido também">
+          <ContextBox variant="significa" title="Na proporcional, a candidatura faz parte de uma disputa partidária">
             <p>
               Uma candidata a deputada disputa junto com o partido ou{" "}
               <GlossaryTerm term="federacao">federação</GlossaryTerm>: os votos
