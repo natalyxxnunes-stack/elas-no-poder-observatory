@@ -54,7 +54,7 @@ const MONEY_LAYERS = [
     question: "O dinheiro chega às mesmas mulheres que aparecem nas listas?",
     needs:
       "Receita agregada por candidatura, com gênero e cor/raça do próprio arquivo de receitas",
-    ready: true,
+    ready: "partial",
   },
   {
     id: "partido",
