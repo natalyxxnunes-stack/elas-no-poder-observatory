@@ -88,7 +88,7 @@ function HistoricoPage() {
         question="Candidatar-se não é eleger-se"
         lead={
           <p>
-            Em {historyYear ?? "—"}, 1 em cada {feminineElectionRatio ?? "—"} candidatas a deputada se elegeu. Entre os homens, 1 em cada {masculineElectionRatio ?? "—"}. Desde 2014, a presença de mulheres cresceu nas listas e nas cadeiras, mas a distância entre as duas continua. Em {historical2022?.year ?? "—"}, mulheres eram {candidacyFrequency} candidaturas a deputada e {electedFrequency} eleitas.
+            Em {historyYear ?? "—"}, 1 em cada {feminineElectionRatio ?? "—"} candidatas a deputada se elegeu. Entre os homens, 1 em cada {masculineElectionRatio ?? "—"}. De 2014 a 2022, a presença de mulheres cresceu nas listas e nas cadeiras, mas candidatura e eleição continuam sendo medidas diferentes. Em {historical2022?.year ?? "—"}, mulheres eram {candidacyFrequency} candidaturas a deputada e {electedFrequency} eleitas.
           </p>
         }
         years={["2014", "2018", "2022", "2026"]}
