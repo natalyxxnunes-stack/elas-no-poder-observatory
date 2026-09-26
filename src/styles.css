@@ -92,8 +92,8 @@
   /* amarelo manteiga: fundo quente para achados; texto sempre em tinta */
   --butter: oklch(0.93 0.085 90);
   /* paleta de cor/raça (gráficos em fundo claro) */
-  --race-branca: oklch(0.8 0.035 305);
-  --race-parda: oklch(0.72 0.13 78);
+  --race-branca: oklch(0.64 0.02 305);
+  --race-parda: oklch(0.64 0.09 78);
   --race-amarela: oklch(0.65 0.12 250);
   --race-na: oklch(0.88 0.005 305);
   --forest: oklch(0.5285447567 0.1061414179 154.602856299);
