@@ -14,7 +14,7 @@ export const Route = createFileRoute("/sobre")({
       {
         name: "description",
         content:
-          "Nataly Nunes, jornalista, sobre o Quem são elas?: projeto independente de jornalismo de dados sobre mulheres na política, com método aberto, transparência e correções.",
+          "Nataly Nunes Pinto, jornalista, sobre o Quem são elas?: projeto independente de jornalismo de dados sobre mulheres na política, com método aberto, transparência e correções.",
       },
       { property: "og:title", content: "Sobre o Quem são elas?" },
       {
@@ -47,7 +47,7 @@ function SobrePage() {
         question="Quem faz?"
         lead={
           <p>
-            Eu sou Nataly Nunes, jornalista. Criei o {SITE.name} porque me
+            Eu sou Nataly Nunes Pinto, jornalista. Criei o {SITE.name} porque me
             incomodo com ter poucas mulheres na política, e com a quantidade de
             números sobre elas que circulam por aí sem que a gente consiga
             entender direito o que estão dizendo.
@@ -76,7 +76,7 @@ function SobrePage() {
               <dt className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
                 Responsável editorial
               </dt>
-              <dd className="mt-1 text-ink">Nataly Nunes, jornalista</dd>
+              <dd className="mt-1 text-ink">Nataly Nunes Pinto, jornalista</dd>
             </div>
             <div>
               <dt className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
