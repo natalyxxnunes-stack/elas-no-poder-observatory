@@ -23,7 +23,7 @@ export const Route = createFileRoute("/dinheiro")({
     meta: [
       {
         title:
-          "Entre as candidatas a deputada, as brancas recebem mais, até nos maiores partidos | Quem são elas?",
+          "Entre as candidatas a deputada, as brancas concentram uma fatia maior da receita declarada | Quem são elas?",
       },
       {
         name: "description",
@@ -33,7 +33,7 @@ export const Route = createFileRoute("/dinheiro")({
       {
         property: "og:title",
         content:
-          "Entre as candidatas a deputada, as brancas recebem mais, até nos maiores partidos",
+          "Entre as candidatas a deputada, as brancas concentram uma fatia maior da receita declarada",
       },
       {
         property: "og:description",
@@ -99,8 +99,8 @@ function DinheiroPage() {
       <EditorialOpening
         variant="financial"
         kicker="Dinheiro"
-        question="Entre as candidatas a deputada, as brancas recebem mais, até nos maiores partidos"
-        lead={<p>Nas disputas para deputada, mulheres são 36,0% das candidaturas com receita declarada até 25/09 e ficam com 34,9% do dinheiro, fatia próxima da presença delas. A diferença aparece dentro do grupo. Nos 12 partidos com mais receita, que concentram 90% do dinheiro, a mediana das candidatas brancas é R$ 130 mil; a das pardas, R$ 87 mil; a das pretas, R$ 75 mil. Nas disputas por governo, Senado e Presidência, pesa sobretudo quem lança a candidata: 13 das 17 candidatas pretas são de partidos menores, com pouca receita.</p>}
+        question="Entre as candidatas a deputada, as brancas concentram uma fatia maior da receita declarada"
+        lead={<p>Nas disputas para deputada, mulheres são 36,0% das candidaturas com receita declarada até 25/09 e ficam com 34,9% do dinheiro, fatia próxima da presença delas. A diferença aparece dentro do grupo. Nos 12 partidos com mais receita, que concentram 90% do dinheiro, a mediana das candidatas brancas é R$ 130 mil; a das pardas, R$ 87 mil; a das pretas, R$ 75 mil. Nas disputas por governo, Senado e Presidência, os valores também variam por cor/raça e pelos partidos que lançam as candidatas.</p>}
         layers={MONEY_LAYERS.map((layer) => layer.label)}
         gap="Prestação de contas em andamento · receita, não despesa · valores sujeitos a atualização"
         snapshot={financeSnapshot}
