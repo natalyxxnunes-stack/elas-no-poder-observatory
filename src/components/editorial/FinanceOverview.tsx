@@ -105,7 +105,7 @@ export function FinanceRace({ snapshot }: { snapshot: TseFinanceSnapshot }) {
                 Fatia de {formatBRLCompact(data.feminineRevenue)} declarados por candidaturas de mulheres, na régua de 0 a 100%.{" "}
                 {universe === "proporcional"
                   ? "Nos 12 partidos com mais receita: mediana de R$ 130.427 para brancas (2.094 candidatas), R$ 86.500 para pardas (1.469) e R$ 75.000 para pretas (789)."
-                  : "Aqui a diferença de dinheiro acompanha o partido que lança a candidata: nos 12 partidos com mais receita estão 37 das 65 candidatas brancas, 12 das 24 pardas e 4 das 17 pretas."}
+                  : "Aqui a distribuição da receita também varia conforme o partido que lança a candidata: nos 12 partidos com mais receita estão 37 das 65 candidatas brancas, 12 das 24 pardas e 4 das 17 pretas."}
               </>
             }
             source={SOURCE}
