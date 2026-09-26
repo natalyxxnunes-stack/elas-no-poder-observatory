@@ -47,10 +47,11 @@ function SobrePage() {
         question="Quem faz?"
         lead={
           <p>
-            Eu sou Nataly Nunes Pinto, jornalista. Criei o {SITE.name} porque me
-            incomodo com ter poucas mulheres na política, e com a quantidade de
-            números sobre elas que circulam por aí sem que a gente consiga
-            entender direito o que estão dizendo.
+            Sou Nataly Nunes Pinto, jornalista. A cada eleição, os números sobre
+            mulheres na política viram manchete e se perdem em poucos dias. O{" "}
+            {SITE.name} guarda esses números no lugar certo: registros do TSE,
+            receitas de campanha e série histórica desde 2014, lidos com método
+            declarado e atualizados até o fim da apuração.
           </p>
         }
         aside={
