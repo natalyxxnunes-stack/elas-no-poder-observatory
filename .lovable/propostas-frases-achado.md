@@ -6,7 +6,7 @@ Estas frases não foram aplicadas ao site. Usam somente valores já exibidos nas
 
 **Proposta:** Nas candidaturas proporcionais, a participação de mulheres passou de 31,5% em 2014 para 35,6% na fotografia em curso de 2026.
 
-**Base já publicada:** 2014: 7.930 de 25.167; 2026: 6.950 de 19.527. Cada ano tem seu próprio denominador, e 2026 ainda é uma base em curso.
+**Base já publicada:** 2014: 7.930 de 25.167; a fotografia vigente de 2026 deve ser lida diretamente do snapshot atual, não deste rascunho. Cada ano tem seu próprio denominador, e 2026 ainda é uma base em curso.
 
 ## /historico — série por cor/raça
 
@@ -18,7 +18,7 @@ Estas frases não foram aplicadas ao site. Usam somente valores já exibidos nas
 
 **Proposta aplicada:** Entre as candidaturas proporcionais de mulheres, branca é a categoria de cor/raça mais declarada, com 46,8%, seguida por parda, com 34,2%, e preta, com 17,2%.
 
-**Base já publicada:** 3.252 brancas, 2.378 pardas e 1.197 pretas entre 6.950 candidaturas proporcionais de mulheres, na fotografia de 22/09/2026. As categorias originais permanecem separadas.
+**Base já publicada:** 3.252 brancas, 2.379 pardas e 1.197 pretas entre 6.951 candidaturas proporcionais de mulheres, na fotografia de 25/09/2026. As categorias originais permanecem separadas.
 
 ## /quem-sao-elas — “Cor/raça estado por estado”
 
