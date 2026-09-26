@@ -41,6 +41,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
           {NAV_ITEMS.map((item) => item.to === "/" ? (
             <div key={item.to} className="relative" onKeyDown={(event) => { if (event.key === "Escape") { setDataOpen(false); (event.currentTarget.querySelector("button") as HTMLButtonElement | null)?.focus(); } }} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setDataOpen(false); }}>
               <Button
+                type="button"
                 variant="ghost"
                 className={`h-auto rounded-none border-b-2 border-transparent px-0 pb-0.5 text-muted-foreground hover:bg-transparent hover:text-plum ${home ? "text-sm" : "text-xs xl:text-xs"}`}
                 aria-expanded={dataOpen}
