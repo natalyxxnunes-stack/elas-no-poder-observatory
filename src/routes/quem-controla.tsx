@@ -62,7 +62,7 @@ const CONTROL_LEVERS = [
   },
   {
     lever: "Quem recebe recursos",
-    what: "A distribuição dos recursos públicos de campanha é feita pelo partido entre suas candidaturas, observando as regras de destinação mínima. A receita por partido já está publicada para os 5 maiores partidos, cruzada com gênero. Faltam a despesa e os demais partidos.",
+    what: "Os partidos distribuem recursos de campanha entre suas candidaturas, dentro das regras de destinação mínima. A receita declarada por partido já está publicada para os 5 maiores partidos, cruzada com gênero. Faltam a despesa e os demais partidos.",
     needs: "Receita já disponível para os 5 maiores partidos em /dinheiro; despesa contratada e paga, e os partidos fora do top 5, seguem pendentes",
     ready: "partial",
   },
