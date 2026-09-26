@@ -121,7 +121,7 @@ export const ACHADOS: Achado[] = [
     numero: "07",
     data: "2026-09-25",
     titulo: "Vice e suplência concentram mais mulheres do que as chapas titulares",
-    texto: "Na fotografia de 25/09, mulheres são 41,7% das candidaturas a vice-governadora e 17,4% das candidaturas a governadora. No Senado, são 31,6% das primeiras suplências e 22,4% das candidaturas a senadora. O snapshot atual não registra o sexo da cabeça da chapa, então não afirmamos aqui quantas vices ou suplentes estão em chapas encabeçadas por homens.",
+    texto: "Na fotografia de 25/09, mulheres são 41,7% das candidaturas a vice-governadora e 17,4% das candidaturas a governadora. No Senado, são 30,4% das primeiras suplências e 22,4% das candidaturas a senadora. O snapshot atual não registra o sexo da cabeça da chapa, então não afirmamos aqui quantas vices ou suplentes estão em chapas encabeçadas por homens.",
     barras: [
       { rotulo: "Vice-governadora", valor: 41.7 },
       { rotulo: "Governadora", valor: 17.4 },
