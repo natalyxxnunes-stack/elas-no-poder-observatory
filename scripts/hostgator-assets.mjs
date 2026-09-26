@@ -52,6 +52,11 @@ async function main() {
     throw new Error(`Pacote não encontrado em ${DIST}. Rode o build antes.`);
   }
 
+  if (!(await exists(ASSETS_DIR))) {
+    console.log("[hostgator-assets] diretório src/assets ausente; nada a fazer.");
+    return;
+  }
+
   const pointers = (await readdir(ASSETS_DIR)).filter((f) => f.endsWith(".asset.json"));
   if (pointers.length === 0) {
     console.log("[hostgator-assets] nenhum .asset.json encontrado; nada a fazer.");
