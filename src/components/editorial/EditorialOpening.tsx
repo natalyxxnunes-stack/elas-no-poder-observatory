@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { RESULT_2026_PROPORCIONAL } from "@/data/resultado-2026";
 import { FINANCE_BASE_LABEL } from "@/data/tse-finance-snapshot";
 import { formatInt, formatPct } from "@/lib/format-br";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
@@ -57,12 +58,13 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
   const layers = [
     { label: "Proporcionais", value: prop && prop.total > 0 ? (prop.feminine / prop.total) * 100 : null, tone: "bg-cream text-ink" },
     { label: "Majoritárias", value: maj && maj.total > 0 ? (maj.feminine / maj.total) * 100 : null, tone: "bg-lilac text-ink" },
+    { label: "Eleitas · deputadas", value: (RESULT_2026_PROPORCIONAL.elected.feminine / RESULT_2026_PROPORCIONAL.seats) * 100, tone: "bg-paper text-ink" },
   ] as const;
   return (
     <Frame className="bg-plum text-cream">
       <div className="mx-auto grid min-h-[31rem] max-w-6xl items-center gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:py-14">
         <OpeningText {...text} inverse />
-        <figure aria-label="Participação das mulheres nas candidaturas proporcionais e majoritárias, em universos paralelos; eleitas entram a partir de 4 de outubro e poder a partir de 2027" className="min-w-0 border-l border-cream/25 pl-4 md:pl-8">
+        <figure aria-label="Participação das mulheres nas candidaturas proporcionais e majoritárias e entre as eleitas a deputada no 1º turno de 2026, cada uma em seu universo; poder a partir de 2027" className="min-w-0 border-l border-cream/25 pl-4 md:pl-8">
           <div className="space-y-2">
             {layers.map((layer) => (
               <div key={layer.label} className="grid min-w-0 grid-cols-[minmax(0,1fr)_4.5rem] items-center gap-3">
@@ -74,7 +76,7 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
                 <span className="font-mono text-xs font-semibold text-cream">{layer.value === null ? "—" : formatPct(layer.value)}</span>
               </div>
             ))}
-            {[["Eleitas", "a partir de 4/10"], ["Poder", "a partir de 2027"]].map(([label, date]) => (
+            {[["Poder", "a partir de 2027"]].map(([label, date]) => (
               <div key={label} className="grid min-w-0 grid-cols-[minmax(0,1fr)_4.5rem] items-center gap-3">
                 <div className="flex h-16 items-center justify-between border border-dashed border-cream/55 px-4 font-mono text-xs uppercase text-cream/80"><span>{label}</span><span>{date}</span></div>
                 <span aria-hidden="true" />
@@ -82,7 +84,7 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
             ))}
           </div>
           <figcaption className="mt-5 border-t border-cream/25 pt-3 text-sm leading-relaxed text-cream/85">
-            Proporcionais e majoritárias são universos paralelos, cada um com seu total. Eleitas e poder entram quando houver resultado. · TSE · {baseDate ?? "base em atualização"}.
+            Cada barra tem seu próprio total: candidaturas proporcionais, candidaturas majoritárias e cadeiras de deputado(a) no 1º turno de 4/10. Poder entra a partir da posse. · TSE · candidaturas de {baseDate ?? "base em atualização"}; resultado de 05/10/2026.
           </figcaption>
         </figure>
       </div>

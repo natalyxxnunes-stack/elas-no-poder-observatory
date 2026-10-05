@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { RESULT_2026_PROPORCIONAL, RESULT_2026_SENADO } from "@/data/resultado-2026";
+import { HISTORICAL_FUNNEL } from "@/data/historical-funnel";
 import brazil from "@svg-maps/brazil";
 import { ArrowRight } from "lucide-react";
 import { AXES, CENTRAL_THESIS } from "@/data/architecture";
@@ -143,9 +145,10 @@ function EditorialBrazilMap({ snapshot }: { snapshot: PublicSnapshot | null }) {
   );
 }
 
-export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnapshot | null; baseDate: string | null }) {
-  const proportional = snapshot?.universes.proporcional ?? null;
-  const share = proportional && proportional.total > 0 ? (proportional.feminine / proportional.total) * 100 : null;
+export function HomeHeroEditorial({ snapshot: _snapshot, baseDate: _baseDate }: { snapshot: PublicSnapshot | null; baseDate: string | null }) {
+  const electedShare = (RESULT_2026_PROPORCIONAL.elected.feminine / RESULT_2026_PROPORCIONAL.seats) * 100;
+  const candidacyShare = (RESULT_2026_PROPORCIONAL.candidacies.feminine / RESULT_2026_PROPORCIONAL.candidacies.total) * 100;
+  const elected2022 = HISTORICAL_FUNNEL.find((row) => row.year === 2022)?.elected ?? { femininePercent: 0, feminine: 0, total: 0 };
 
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden border-b border-rule bg-paper">
@@ -174,20 +177,20 @@ export function HomeHeroEditorial({ snapshot, baseDate }: { snapshot: PublicSnap
         <div className="relative bg-butter px-5 py-8 md:px-10 lg:flex lg:flex-col lg:justify-center lg:pl-20 lg:pr-[max(2.5rem,calc((100vw-72rem)/2+2rem))]">
           <span className="mb-4 block h-1 w-12 bg-coral" aria-hidden="true" />
           <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
-            Dados parciais do TSE<br />Base de {baseDate ?? "data em atualização"}
+            Resultado do 1º turno · 4/10/2026<br />Deputado(a) federal, estadual e distrital
           </p>
           <div className="mt-2 border-b border-ink pb-5 pr-20">
             <p className="font-display text-[clamp(4rem,8vw,6.75rem)] font-semibold leading-none text-plum">
-              {share !== null ? formatPct(share) : "—"}
+              {formatPct(electedShare)}
             </p>
-            <p className="max-w-sm font-display text-xl font-semibold leading-[1.05] text-ink md:text-2xl">das candidaturas proporcionais são de mulheres</p>
+            <p className="max-w-sm font-display text-xl font-semibold leading-[1.05] text-ink md:text-2xl">das cadeiras ficaram com mulheres</p>
             <p className="mt-3 text-sm text-ink">
-              {proportional ? `${formatInt(proportional.feminine)} de ${formatInt(proportional.total)} candidaturas` : "Dados em atualização"}
+              {formatInt(RESULT_2026_PROPORCIONAL.elected.feminine)} de {formatInt(RESULT_2026_PROPORCIONAL.seats)} cadeiras. Na Câmara dos Deputados, {formatInt(RESULT_2026_PROPORCIONAL.byCargo.federal.feminine)} de {formatInt(RESULT_2026_PROPORCIONAL.byCargo.federal.seats)}.
             </p>
             <p className="mt-2 max-w-md text-xs leading-relaxed text-muted-foreground">
-              A lei exige no mínimo 30% e no máximo 70% de cada gênero na lista de cada partido ou federação. Em 2022, mulheres eram 34,1% das candidaturas.
+              Entre as candidaturas, mulheres eram {formatPct(candidacyShare)} ({formatInt(RESULT_2026_PROPORCIONAL.candidacies.feminine)} de {formatInt(RESULT_2026_PROPORCIONAL.candidacies.total)}). Em 2022, ficaram com {formatPct(elected2022.femininePercent)} das cadeiras ({formatInt(elected2022.feminine)} de {formatInt(elected2022.total)}).
             </p>
-            <p className="mt-1 font-mono text-xs uppercase text-muted-foreground">TSE · {baseDate ?? "base em atualização"}</p>
+            <p className="mt-1 font-mono text-xs uppercase text-muted-foreground">TSE · base de 05/10/2026 · recontagem própria</p>
           </div>
         </div>
       </div>
@@ -284,13 +287,13 @@ export function HomeFunnelFeature({ snapshot }: { snapshot: PublicSnapshot | nul
   const steps = [
     { n: "01", label: "Contexto", figure: propShare, note: `das candidaturas a deputada; ${majShare} nas majoritárias`, to: "/quem-sao-elas" as const, link: "Quem são elas?" },
     { n: "02", label: "Competição", figure: "R$", note: "receita declarada até 25/09, por gênero e cor/raça", to: "/dinheiro" as const, link: "Dinheiro" },
-    { n: "03", label: "Resultado", figure: "?", note: "a partir de 4/10; resultados de 2014 a 2022 no histórico", to: "/historico" as const, link: "Histórico" },
+    { n: "03", label: "Resultado", figure: formatPct((RESULT_2026_PROPORCIONAL.elected.feminine / RESULT_2026_PROPORCIONAL.seats) * 100), note: `das cadeiras de deputado(a) no 1º turno (${formatInt(RESULT_2026_PROPORCIONAL.elected.feminine)} de ${formatInt(RESULT_2026_PROPORCIONAL.seats)}); Senado: ${RESULT_2026_SENADO.electedFeminine} de ${RESULT_2026_SENADO.seats}`, to: "/historico" as const, link: "Histórico" },
     { n: "04", label: "Poder", figure: "?", note: "a partir de 2027: comissões, mesas e lideranças", to: null, link: null },
   ];
   return (
     <section className="py-16 md:py-24" aria-labelledby="funil-home-titulo">
       <ChapterKicker n="06" label="O funil" />
-      <h2 id="funil-home-titulo" className="mt-4 max-w-3xl font-display text-3xl leading-[1.05] text-ink md:text-4xl">Quatro etapas entre a candidatura e o poder. Hoje, só a primeira tem número.</h2>
+      <h2 id="funil-home-titulo" className="mt-4 max-w-3xl font-display text-3xl leading-[1.05] text-ink md:text-4xl">Quatro etapas entre a candidatura e o poder. Com o 1º turno apurado, três já têm número.</h2>
       <ol className="mt-10 grid border-t-4 border-coral sm:grid-cols-2 lg:grid-cols-4">
         {steps.map((step, index) => (
           <li key={step.n} className={`min-w-0 border-b border-rule py-6 sm:px-5 ${index > 0 ? "lg:border-l" : "sm:pl-0"}`}>
@@ -312,7 +315,7 @@ export function HomeFunnelFeature({ snapshot }: { snapshot: PublicSnapshot | nul
 }
 
 const INVESTIGATIONS = [
-  { id: "historico", title: "Em 2022, 1 em cada 34 candidatas a deputada se elegeu. Entre os homens, 1 em cada 14.", support: "Candidaturas e eleitas em cada eleição geral, de 2014 a 2026.", to: "/historico", link: "Ver a série histórica" },
+  { id: "historico", title: "Em 2026, 1 em cada 21 candidatas a deputada se elegeu. Entre os homens, 1 em cada 10.", support: "Candidaturas e eleitas em cada eleição geral, de 2014 a 2026.", to: "/historico", link: "Ver a série histórica" },
   { id: "direitos", title: "Treze marcos, de 1932 a 2026", support: "Cada lei, decisão e emenda que mudou o acesso das mulheres às urnas e ao dinheiro de campanha, com o texto oficial.", to: "/direitos", link: "Ver a linha do tempo" },
   { id: "dinheiro", title: "Candidata a deputada branca declarou R$ 130 mil nos maiores partidos. Parda, R$ 87 mil.", support: "Receitas declaradas até 25/09, por gênero, cor/raça, cargo, partido e estado.", to: "/dinheiro", link: "Ver quem recebe" },
 ] as const;

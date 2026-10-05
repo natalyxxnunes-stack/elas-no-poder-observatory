@@ -1,4 +1,5 @@
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
+import { RESULT_2026_PROPORCIONAL } from "@/data/resultado-2026";
 import {
   RACE_FINDING_CATEGORIES,
   POPULATION_FEMININE_2022,
@@ -209,8 +210,12 @@ export function RaceFinding2026({
               </p>
               <p>
                 Também não sabemos o que acontece depois: estar na lista não é
-                receber recursos, tempo de televisão, voto ou cadeira. Esses
-                dados de 2026 ainda não existem.
+                receber recursos, tempo de televisão, voto ou cadeira. O
+                resultado do 1º turno já saiu: entre as {formatInt(RESULT_2026_PROPORCIONAL.elected.feminine)} deputadas eleitas,
+                {formatPct((RESULT_2026_PROPORCIONAL.electedRaceFeminine["PARDA"] ?? 0) / RESULT_2026_PROPORCIONAL.elected.feminine * 100)} são pardas,{" "}
+                {formatPct((RESULT_2026_PROPORCIONAL.electedRaceFeminine["PRETA"] ?? 0) / RESULT_2026_PROPORCIONAL.elected.feminine * 100)} pretas e{" "}
+                {formatPct((RESULT_2026_PROPORCIONAL.electedRaceFeminine["BRANCA"] ?? 0) / RESULT_2026_PROPORCIONAL.elected.feminine * 100)} brancas
+                (série completa no histórico).
               </p>
             </div>
           </article>

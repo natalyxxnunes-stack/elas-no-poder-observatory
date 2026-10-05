@@ -6,7 +6,7 @@
  * Regras de leitura mantidas:
  *  - cada ano e cada etapa têm denominador próprio;
  *  - nenhum percentual é subtraído de outro;
- *  - 2026 exibe só a candidatura; a eleição fica vazia/hachurada;
+ *  - 2026 entra com o resultado do 1º turno (base TSE de 05/10/2026);
  *  - cor/raça é autodeclarada e TODAS as categorias do TSE são exibidas, na
  *    ordem fixa, com número absoluto sempre visível.
  */
@@ -116,7 +116,7 @@ function StageColumn({
       {!empty && race && <RaceMiniBars race={race} stageLabel={label} />}
       {empty && (
         <p className="mt-2 text-sm leading-relaxed text-ink/70">
-          Eleição de outubro de 2026 ainda não ocorreu. Nenhum valor é projetado.
+          Resultado ainda não disponível neste arquivo. Nenhum valor é projetado.
         </p>
       )}
     </div>
@@ -159,7 +159,7 @@ function YearCard({ year }: { year: (typeof HISTORICAL_FUNNEL)[number] }) {
             total={0}
             race={null}
             empty
-            emptyLabel="eleição em out/2026"
+            emptyLabel="resultado não disponível"
           />
         )}
       </div>
@@ -170,11 +170,13 @@ function YearCard({ year }: { year: (typeof HISTORICAL_FUNNEL)[number] }) {
 export function HistoryFunnel() {
   const year2014 = HISTORICAL_FUNNEL.find((year) => year.year === 2014);
   const year2022 = HISTORICAL_FUNNEL.find((year) => year.year === 2022);
+  const year2026 = HISTORICAL_FUNNEL.find((year) => year.year === 2026);
   const elected2022 = year2022?.elected;
-  const candidacyRace2022 = year2022?.candidacy.race;
-  const electedRace2022 = elected2022?.race;
+  const elected2026 = year2026?.elected;
+  const candidacyRace2026 = year2026?.candidacy.race;
+  const electedRace2026 = elected2026?.race;
 
-  if (!year2014 || !year2022 || !elected2022 || !candidacyRace2022 || !electedRace2022) {
+  if (!year2014 || !year2022 || !elected2022 || !year2026 || !elected2026 || !candidacyRace2026 || !electedRace2026) {
     return null;
   }
 
@@ -190,22 +192,22 @@ export function HistoryFunnel() {
         <article className="editorial-card p-5">
           <h3 className="font-display text-lg text-ink">Tamanho do funil</h3>
           <p className="mt-2 text-sm leading-relaxed text-ink/70">
-            Em 2022, mulheres foram {pct(year2022.candidacy.femininePercent)} das
-            candidaturas proporcionais ({n(year2022.candidacy.feminine)} de {n(year2022.candidacy.total)}) e {pct(elected2022.femininePercent)} das eleitas ({n(elected2022.feminine)} de {n(elected2022.total)}).
+            Em 2026, mulheres foram {pct(year2026.candidacy.femininePercent)} das
+            candidaturas proporcionais ({n(year2026.candidacy.feminine)} de {n(year2026.candidacy.total)}) e ficaram com {pct(elected2026.femininePercent)} das cadeiras ({n(elected2026.feminine)} de {n(elected2026.total)}). Em 2022, eram {n(elected2022.feminine)} de {n(elected2022.total)}.
           </p>
         </article>
         <article className="editorial-card p-5">
           <h3 className="font-display text-lg text-ink">No tempo</h3>
           <p className="mt-2 text-sm leading-relaxed text-ink/70">
             A distância entre a participação nas candidaturas e entre as eleitas era
-            de {formatPoints(year2014.candidacy.femininePercent - (year2014.elected?.femininePercent ?? 0))} em 2014 e de {formatPoints(year2022.candidacy.femininePercent - elected2022.femininePercent)} em 2022. Avanço real, longe da paridade.
+            de {formatPoints(year2014.candidacy.femininePercent - (year2014.elected?.femininePercent ?? 0))} em 2014, {formatPoints(year2022.candidacy.femininePercent - elected2022.femininePercent)} em 2022 e {formatPoints(year2026.candidacy.femininePercent - elected2026.femininePercent)} em 2026. As cadeiras de mulheres crescem a cada eleição; a distância para a candidatura continua grande.
           </p>
         </article>
         <article className="editorial-card p-5">
           <h3 className="font-display text-lg text-ink">A cor do funil</h3>
           <p className="mt-2 text-sm leading-relaxed text-ink/70">
-            A urna não filtra por igual. Em 2022, entre as mulheres, a fatia parda foi
-            de {pct(candidacyRace2022.parda.percent)} ({n(candidacyRace2022.parda.count)}) na candidatura para {pct(electedRace2022.parda.percent)} ({n(electedRace2022.parda.count)}) na eleição; a preta, de {pct(candidacyRace2022.preta.percent)} ({n(candidacyRace2022.preta.count)}) para {pct(electedRace2022.preta.percent)} ({n(electedRace2022.preta.count)}); a branca, de {pct(candidacyRace2022.branca.percent)} ({n(candidacyRace2022.branca.count)}) para {pct(electedRace2022.branca.percent)} ({n(electedRace2022.branca.count)}). Indígenas ({n(candidacyRace2022.indigena.count)} → {n(electedRace2022.indigena.count)}) e amarelas ({n(candidacyRace2022.amarela.count)} → {n(electedRace2022.amarela.count)}) aparecem em números pequenos e devem ser lidas pelo absoluto.
+            A urna não filtra por igual. Em 2026, entre as mulheres, a fatia parda foi
+            de {pct(candidacyRace2026.parda.percent)} ({n(candidacyRace2026.parda.count)}) na candidatura para {pct(electedRace2026.parda.percent)} ({n(electedRace2026.parda.count)}) entre as eleitas; a preta, de {pct(candidacyRace2026.preta.percent)} ({n(candidacyRace2026.preta.count)}) para {pct(electedRace2026.preta.percent)} ({n(electedRace2026.preta.count)}); a branca, de {pct(candidacyRace2026.branca.percent)} ({n(candidacyRace2026.branca.count)}) para {pct(electedRace2026.branca.percent)} ({n(electedRace2026.branca.count)}). Indígenas ({n(candidacyRace2026.indigena.count)} → {n(electedRace2026.indigena.count)}) e amarelas ({n(candidacyRace2026.amarela.count)} → {n(electedRace2026.amarela.count)}) aparecem em números pequenos e devem ser lidas pelo absoluto.
           </p>
         </article>
       </div>
@@ -215,8 +217,10 @@ export function HistoryFunnel() {
         somam. Cor/raça é autodeclarada, nas categorias do TSE, coletada desde 2014; a
         qualidade do preenchimento varia entre ciclos e, em 2014, não há registros “não
         informado”. Categorias com poucas candidaturas ou eleitas devem ser lidas pelo
-        número absoluto, não pelo percentual. Nenhuma categoria é omitida. 2026 é
-        fotografia em andamento, sem eleição e sem recorte de raça publicado nesta peça.
+        número absoluto, não pelo percentual. Nenhuma categoria é omitida. 2026:
+        candidaturas e eleitas lidas do mesmo arquivo do TSE, base gerada em
+        05/10/2026, por isso o total de candidaturas difere em 3 registros da
+        fotografia de 25/09 usada nas outras páginas.
         Fonte: {HISTORICAL_FUNNEL_SOURCE}.
       </p>
     </div>

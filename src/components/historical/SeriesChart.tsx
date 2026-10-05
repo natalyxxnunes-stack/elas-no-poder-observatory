@@ -104,8 +104,8 @@ function UniverseColumn({
 
       {missing.length > 0 && (
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          Pontos vazios: {missing.map((m) => m.year).join(", ")}. A fonte não
-          trouxe o resultado desses anos.
+          Pontos vazios: {missing.map((m) => m.year).join(", ")}. Nenhum valor é
+          estimado; o motivo aparece em cada ponto.
         </p>
       )}
     </div>
@@ -134,7 +134,7 @@ export function SeriesChart({
       legend={<><LegendSwatch className="bg-plum">2014 a 2022</LegendSwatch><LegendSwatch className="bg-coral">2026</LegendSwatch></>}
       note={
         <>
-          {series.formula}. {series.notes.join(" ")} 2026 (*) é base em curso: candidaturas registradas, sem resultado eleitoral.
+          {series.formula}. {series.notes.join(" ")} 2026 (*): candidaturas da fotografia de 25/09; eleitas do 1º turno, base TSE de 05/10.
         </>
       }
       source="Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026"

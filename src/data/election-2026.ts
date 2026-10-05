@@ -418,7 +418,7 @@ export const METHOD_NOTES = [
   },
   {
     title: "Etapas em aberto",
-    body: "Recursos de campanha entram em módulo próprio; votos e eleitas dependem da apuração; poder e decisões dependem da posse. Até então, esses degraus permanecem vazios por decisão editorial.",
+    body: "Recursos de campanha entram em módulo próprio; o resultado do 1º turno de 2026 já está publicado no histórico e no funil; votos por candidatura entram depois da recontagem; poder e decisões dependem da posse. Até lá, esses degraus permanecem vazios por decisão editorial.",
   },
   {
     title: "Conferência de atualizações",

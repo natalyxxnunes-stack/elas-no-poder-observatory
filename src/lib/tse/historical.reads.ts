@@ -3,8 +3,9 @@
  *
  * Junta as fotografias históricas gravadas (anos encerrados, calculadas dos
  * arquivos oficiais) com a fotografia atual de 2026 já existente no projeto.
- * Nenhum valor de 2026 relativo a resultado eleitoral é criado: a eleição não
- * ocorreu, e o ponto fica explicitamente vazio.
+ * Para 2026, as eleitas do universo proporcional vêm do resultado do 1º turno
+ * cravado em `resultado-2026.ts`. O majoritário de 2026 fica vazio até o 2º
+ * turno (25/10): nenhum valor é estimado.
  *
  * Camada isomórfica: usa o cliente publicável (RLS de leitura pública) e roda
  * igual no navegador e no pré-render.
@@ -20,6 +21,7 @@ import {
   type YearSnapshot,
 } from "./historical-compute";
 import { getLatestTseSnapshot } from "./snapshot.reads";
+import { RESULT_2026_PROPORCIONAL } from "@/data/resultado-2026";
 
 export type HistoricalSnapshotMeta = {
   year: HistoricalYear;
@@ -111,7 +113,8 @@ export async function getHistoricalSeries(): Promise<HistoricalSeriesPayload> {
     );
   }
 
-  // 2026 — fotografia atual do projeto, sem resultado eleitoral.
+  // 2026 — candidaturas da fotografia atual (25/09); eleitas proporcionais do
+  // resultado do 1º turno (base TSE de 05/10). Majoritário aguarda o 2º turno.
   const current = await getLatestTseSnapshot();
   if (current) {
     yearSnapshots.push({
@@ -124,7 +127,11 @@ export async function getHistoricalSeries(): Promise<HistoricalSeriesPayload> {
           feminine: current.universes.proporcional.feminine,
           raceAll: current.universes.proporcional.raceAllCounts ?? null,
           raceFeminine: current.universes.proporcional.raceCounts,
-          elected: null,
+          elected: {
+            total: RESULT_2026_PROPORCIONAL.seats,
+            feminine: RESULT_2026_PROPORCIONAL.elected.feminine,
+            raceFeminine: { ...RESULT_2026_PROPORCIONAL.electedRaceFeminine },
+          },
         },
         majoritario: {
           total: current.universes.majoritario.total,

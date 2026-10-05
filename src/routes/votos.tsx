@@ -62,14 +62,14 @@ const CONCEPTS = [
     term: "Desempenho",
     meaning:
       "Votação nominal obtida, lida sempre sobre um denominador explícito (votos válidos do cargo e da circunscrição).",
-    measurable: "Depende da apuração de 2026.",
+    measurable: "Votação de 2026 publicada pelo TSE em 05/10; entra depois da recontagem própria.",
     ready: false,
   },
   {
     term: "Resultado",
     meaning:
       "Eleita, suplente ou não eleita. Depende do sistema eleitoral do cargo, não só do total de votos.",
-    measurable: "Depende da apuração e da diplomação de 2026.",
+    measurable: "1º turno de 2026 apurado: resultado proporcional publicado no histórico e no funil.",
     ready: false,
   },
 ] as const;
@@ -150,7 +150,7 @@ function VotosPage() {
         question="Votos por gênero, cor/raça, cargo e território"
         lead={
           <p>
-            Quando a apuração existir, cada leitura terá cargo e circunscrição declarados, porque a
+            Quando a votação de 2026 for recontada, cada leitura terá cargo e circunscrição declarados, porque a
             comparação entre cargos diferentes não faz sentido: o denominador muda.
           </p>
         }
@@ -172,8 +172,9 @@ function VotosPage() {
         </div>
         <div className="mt-6">
           <GapNote label="Lacuna declarada">
-            Nenhum número de votos de 2026 é exibido antes da apuração oficial. Projeções, pesquisas
-            e séries de ciclos anteriores não substituem o dado desta eleição.
+            Nenhum número de votos de 2026 é exibido antes da recontagem do arquivo oficial de
+            votação do TSE. Projeções, pesquisas e séries de ciclos anteriores não substituem o
+            dado desta eleição.
           </GapNote>
         </div>
         <p className="mt-6 font-mono text-[12px] text-muted-foreground">

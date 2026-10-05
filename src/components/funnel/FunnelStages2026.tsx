@@ -5,7 +5,7 @@
  *  - cada etapa exibe o próprio denominador; nada é subtraído entre etapas;
  *  - proporcional e majoritário nunca se misturam num percentual;
  *  - nenhum índice novo é criado (não há taxa de conversão nem competitividade);
- *  - resultado eleitoral de 2026 aparece como etapa futura, nunca como zero;
+ *  - resultado eleitoral de 2026 tem denominador próprio: cadeiras, não candidaturas;
  *  - raça só é exibida DENTRO das candidaturas de mulheres, porque o
  *    denominador racial do universo total não existe na fotografia atual.
  *
@@ -19,6 +19,12 @@ import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import type { UniverseId } from "@/lib/tse/compute";
 import { formatInt, formatPct } from "@/lib/format-br";
 import { RACE_COLORS, type RaceCategory } from "@/data/historical-funnel";
+import {
+  RESULT_2026_GOVERNO,
+  RESULT_2026_META,
+  RESULT_2026_PROPORCIONAL,
+  RESULT_2026_SENADO,
+} from "@/data/resultado-2026";
 
 const n = (v: number) => formatInt(v);
 const pct = (v: number) => formatPct(v);
@@ -185,10 +191,19 @@ function RaceStage({
   );
 }
 
-/** Etapa 3: resultado eleitoral, futura, nunca zero. */
-function FutureStage({ step }: { step: number }) {
+/** Etapa 3: resultado do 1º turno. Denominador = cadeiras, não candidaturas. */
+function ResultStage({ step }: { step: number }) {
+  const r = RESULT_2026_PROPORCIONAL;
+  const share = (r.elected.feminine / r.seats) * 100;
+  const race = Object.entries(r.electedRaceFeminine).sort((a, b) => b[1] - a[1]);
+  const color = (label: string) => {
+    const key = label.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() as RaceCategory;
+    return RACE_COLORS[key] ?? "var(--color-muted-foreground)";
+  };
+  const sen = RESULT_2026_SENADO;
+  const gov = RESULT_2026_GOVERNO;
   return (
-    <li className="poster-frame overflow-hidden bg-secondary/40">
+    <li className="poster-frame overflow-hidden">
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
           <span className="block font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
@@ -198,29 +213,95 @@ function FutureStage({ step }: { step: number }) {
             </span>
           </span>
           <h3 className="font-display text-xl text-ink md:text-2xl">
-            Eleitas e eleitos
+            Eleitas e eleitos · 1º turno
           </h3>
         </div>
       </div>
 
       <div className="px-5 pt-4">
-        <p
-          className="poster-figure text-5xl leading-none text-muted-foreground md:text-6xl"
-          aria-hidden
+        <div className="flex items-end justify-between gap-4">
+          <p className="poster-figure text-5xl leading-none text-plum md:text-6xl">
+            {pct(share)}
+          </p>
+          <p className="text-right text-sm leading-relaxed text-muted-foreground">
+            {n(r.elected.feminine)} mulheres eleitas
+            <br />
+            em {n(r.seats)} cadeiras de deputado(a)
+          </p>
+        </div>
+        <div
+          className="mt-3 h-6 w-full overflow-hidden rounded-sm bg-secondary"
+          role="img"
+          aria-label={`${pct(share)} de mulheres entre ${n(r.seats)} cadeiras de deputado(a) federal, estadual e distrital`}
         >
-          —
+          <div className="h-full bg-coral" style={{ width: `${share}%` }} />
+        </div>
+        <p className="mt-2 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+          denominador: cadeiras em disputa, não candidaturas
         </p>
-        <div className="mt-3 h-6 w-full rounded-sm border border-dashed border-rule bg-[repeating-linear-gradient(135deg,transparent,transparent_6px,var(--color-rule,#ddd)_6px,var(--color-rule,#ddd)_7px)]" />
       </div>
 
-      <div className="mt-4 border-t border-rule px-5 py-4">
+      <div className="px-5 pt-5">
         <p className="text-sm leading-relaxed text-muted-foreground">
-          A eleição de 2026 acontece em 4 de outubro. Esta etapa fica em
-          branco até a apuração. Quando o resultado
-          for publicado, o denominador desta etapa será o número de cadeiras em
-          disputa, não o número de candidaturas.
+          Cor/raça das {n(r.elected.feminine)} deputadas eleitas, nas categorias
+          originais do TSE:
+        </p>
+        <div className="mt-3 flex h-6 w-full overflow-hidden rounded-sm bg-secondary" aria-hidden>
+          {race.map(([label, value]) => (
+            <div
+              key={label}
+              title={`${label}: ${n(value)}`}
+              style={{ width: `${(value / r.elected.feminine) * 100}%`, backgroundColor: color(label) }}
+            />
+          ))}
+        </div>
+        <dl className="mt-3 grid gap-x-6 gap-y-2 sm:grid-cols-2">
+          {race.map(([label, value]) => (
+            <div key={label} className="flex items-baseline gap-2">
+              <span
+                aria-hidden
+                className="mt-1 inline-block h-2 w-2 shrink-0 rounded-full"
+                style={{ backgroundColor: color(label) }}
+              />
+              <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+                {label}
+              </dt>
+              <dd className="ml-auto font-mono text-xs text-ink">
+                {n(value)} · {pct((value / r.elected.feminine) * 100)}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          Indígenas e amarelas têm base pequena: leia pelo número absoluto.
         </p>
       </div>
+
+      <div className="mt-4 grid gap-4 border-t border-rule px-5 py-4 sm:grid-cols-2">
+        <p className="text-sm leading-relaxed text-ink">
+          <span className="block font-mono text-[12px] uppercase tracking-wider text-muted-foreground">Senado</span>
+          {n(sen.electedFeminine)} mulheres em {n(sen.seats)} cadeiras em disputa (
+          {pct((sen.electedFeminine / sen.seats) * 100)}). Eleitas por cor/raça:{" "}
+          {Object.keys(sen.candidacyRaceFeminine)
+            .map((k) => `${k.toLowerCase()} ${n((sen.electedRaceFeminine as Record<string, number>)[k] ?? 0)}`)
+            .join(", ")}
+          . Candidatas pretas ao Senado: {n(sen.candidacyRaceFeminine["PRETA"] ?? 0)}.
+        </p>
+        <p className="text-sm leading-relaxed text-ink">
+          <span className="block font-mono text-[12px] uppercase tracking-wider text-muted-foreground">Governos</span>
+          {n(gov.electedFeminine)} mulher eleita nas {n(gov.decidedFirstRound)} disputas decididas no 1º turno
+          (26 estados e DF). Nas {n(gov.runoffUfs.length)} que vão ao 2º turno em 25/10 ({gov.runoffUfs.join(", ")}),{" "}
+          {n(gov.runoffFeminine)} das {n(gov.runoffCandidacies)} candidaturas são de mulheres, em{" "}
+          {gov.runoffFeminineUfs.join(", ")}.
+        </p>
+      </div>
+
+      <p className="border-t border-rule px-5 py-3 text-sm leading-relaxed text-muted-foreground">
+        Resultado do 1º turno de 4/10/2026, lido do arquivo oficial do TSE gerado
+        em {RESULT_2026_META.baseGeneratedAt} e recontado de forma independente.
+        Presidência fora desta etapa: o arquivo ainda não traz a situação de
+        totalização.
+      </p>
     </li>
   );
 }
@@ -289,7 +370,7 @@ export function FunnelStages2026({
           total={maj.total}
         />
       )}
-      <FutureStage step={3} />
+      <ResultStage step={3} />
       </ol>
 
       {propShare !== null && majShare !== null && (
@@ -332,10 +413,12 @@ export function FunnelStages2026({
               O que ainda precisa ser apurado
             </h3>
             <p className="mt-3 leading-relaxed text-ink/70">
-              O que acontece quando essas candidaturas viram votos e cadeiras na
-              eleição de outubro, e se a distância entre os dois universos se
-              mantém no resultado. Nenhuma das duas respostas existe na base
-              atual.
+              Por que a fatia de mulheres cai de {pct(propShare)} nas
+              candidaturas proporcionais para{" "}
+              {pct((RESULT_2026_PROPORCIONAL.elected.feminine / RESULT_2026_PROPORCIONAL.seats) * 100)}{" "}
+              nas cadeiras. Votos por candidatura, quociente partidário e
+              dinheiro de campanha são as próximas camadas a cruzar com o
+              resultado.
             </p>
           </article>
         </div>

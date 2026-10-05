@@ -38,7 +38,7 @@ export function HistoryTimeline({
               {missing ? (
                 <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">fotografia não coletada</p>
               ) : current ? (
-                <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">base em curso</p>
+                <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">1º turno apurado</p>
               ) : (
                 <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">eleição encerrada</p>
               )}
@@ -47,7 +47,7 @@ export function HistoryTimeline({
               {missing
                 ? "Sem fotografia gravada: nada é exibido nem estimado para este ano."
                 : current
-                  ? "Candidaturas registradas para 2026. Não há resultado eleitoral: nenhuma eleita é exibida."
+                  ? "Candidaturas e resultado do 1º turno (4/10) lidos do arquivo oficial do TSE de 05/10/2026. Governos de 7 UFs seguem para o 2º turno, em 25/10."
                   : "Candidaturas e resultado de 1º turno lidos do arquivo oficial do TSE."}
             </p>
             {date && (

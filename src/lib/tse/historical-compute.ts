@@ -408,7 +408,7 @@ export function electedWomenSeries(years: YearSnapshot[]): Series {
     formula:
       "eleitas mulheres ÷ total de eleitas e eleitos do mesmo universo e ano × 100 (resultado final: 1º turno e, quando houve, 2º turno)",
     notes: [
-      "Somente anos com resultado eleitoral publicado. 2026 não tem resultado: o ponto fica vazio, sem estimativa.",
+      "Somente anos com resultado eleitoral publicado. 2026: proporcional com o 1º turno apurado (base TSE de 05/10/2026); majoritário fica vazio até o 2º turno de 25/10, sem estimativa.",
     ],
     points: UNIVERSES.flatMap((universe) =>
       years.map((y) =>
@@ -418,7 +418,7 @@ export function electedWomenSeries(years: YearSnapshot[]): Series {
             : {
                 unavailableReason:
                   y.stage === "em_curso"
-                    ? "Eleição ainda não ocorreu: não há resultado oficial e nenhum número é projetado."
+                    ? "Resultado majoritário incompleto: governos de 7 UFs vão ao 2º turno em 25/10. Nenhum número é projetado."
                     : "Resultado eleitoral não disponível na fotografia deste ano.",
               },
         ),
@@ -436,7 +436,7 @@ export function electedBlackWomenSeries(years: YearSnapshot[]): Series {
       "eleitas mulheres pretas + pardas ÷ total de eleitas mulheres do mesmo universo e ano × 100",
     notes: [
       BLACK_AGGREGATION_NOTE,
-      "Somente anos com resultado eleitoral publicado; 2026 fica vazio.",
+      "Somente anos com resultado eleitoral publicado; em 2026, só o proporcional (1º turno apurado).",
     ],
     points: UNIVERSES.flatMap((universe) =>
       years.map((y) =>
@@ -448,7 +448,7 @@ export function electedBlackWomenSeries(years: YearSnapshot[]): Series {
               return {
                 unavailableReason:
                   y.stage === "em_curso"
-                    ? "Eleição ainda não ocorreu: não há resultado oficial."
+                    ? "Resultado majoritário incompleto até o 2º turno de 25/10."
                     : "Resultado eleitoral por cor/raça não disponível na fotografia deste ano.",
               };
             }

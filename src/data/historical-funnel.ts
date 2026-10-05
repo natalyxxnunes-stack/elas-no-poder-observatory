@@ -157,19 +157,41 @@ export const HISTORICAL_FUNNEL: HistoricalFunnelYear[] = [
   },
   {
     year: 2026,
-    stage: "em_curso",
+    stage: "fechada",
+    // Candidaturas e eleitas lidas do MESMO arquivo em que o TSE publicou o
+    // resultado (base de 05/10/2026 10:14:11, ver resultado-2026.ts). Por isso
+    // o total difere em 3 registros da fotografia de candidaturas de 25/09.
     candidacy: {
-      total: 19_528,
-      feminine: 6_951,
+      total: 19_531,
+      feminine: 6_953,
       femininePercent: 35.6,
-      race: null,
+      race: {
+        branca: { count: 3_254, percent: 46.8 },
+        parda: { count: 2_379, percent: 34.2 },
+        preta: { count: 1_197, percent: 17.2 },
+        indigena: { count: 82, percent: 1.2 },
+        amarela: { count: 41, percent: 0.6 },
+        nao_informado: { count: 0, percent: 0 },
+      },
     },
-    elected: null,
+    elected: {
+      total: 1_572,
+      feminine: 327,
+      femininePercent: 20.8,
+      race: {
+        branca: { count: 214, percent: 65.4 },
+        parda: { count: 67, percent: 20.5 },
+        preta: { count: 41, percent: 12.5 },
+        indigena: { count: 3, percent: 0.9 },
+        amarela: { count: 2, percent: 0.6 },
+        nao_informado: { count: 0, percent: 0 },
+      },
+    },
   },
 ] as const;
 
 export const HISTORICAL_FUNNEL_SOURCE =
-  "TSE, candidatos e resultados 2014/2018/2022/2026";
+  "TSE, candidatos e resultados 2014/2018/2022/2026 (2026: 1º turno, base de 05/10/2026)";
 
 /* ------------------------------------------------------------------ *
  * Taxa de eleição por gênero — indicador descritivo
@@ -186,7 +208,7 @@ export const HISTORICAL_FUNNEL_SOURCE =
  * ------------------------------------------------------------------ */
 
 export type ElectionRateRow = {
-  year: 2014 | 2018 | 2022;
+  year: 2014 | 2018 | 2022 | 2026;
   /** candidaturas e eleitas de mulheres */
   feminine: { candidacies: number; elected: number };
   /** candidaturas e eleitos de homens */
@@ -213,6 +235,13 @@ export const ELECTION_RATE_BY_GENDER: readonly ElectionRateRow[] = [
     feminine: { candidacies: 9532, elected: 281 },
     masculine: { candidacies: 18422, elected: 1291 },
     caveat: null,
+  },
+  {
+    year: 2026,
+    feminine: { candidacies: 6953, elected: 327 },
+    masculine: { candidacies: 12578, elected: 1245 },
+    caveat:
+      "Em 2026 as candidaturas proporcionais caíram de 27.977 para 19.531, com as mesmas 1.572 cadeiras. A taxa sobe para os dois gêneros em parte porque há menos candidaturas por cadeira.",
   },
 ] as const;
 

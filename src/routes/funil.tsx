@@ -15,7 +15,8 @@ import { FUNNEL_READING_RULE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
 import { getHistoricalSeries } from "@/lib/tse/historical.functions";
 import type { Series } from "@/lib/tse/historical-compute";
-import { formatUmEmCada } from "@/lib/format-br";
+import { formatInt, formatPct, formatUmEmCada } from "@/lib/format-br";
+import { RESULT_2026_PROPORCIONAL } from "@/data/resultado-2026";
 
 export const Route = createFileRoute("/funil")({
   head: () => ({
@@ -24,7 +25,7 @@ export const Route = createFileRoute("/funil")({
       {
         name: "description",
         content:
-          "O funil de 2026: quantas mulheres nas candidaturas proporcionais e majoritárias, quem são elas por cor/raça e por que o resultado eleitoral ainda não existe.",
+          "O funil de 2026: quantas mulheres nas candidaturas proporcionais e majoritárias, quem são elas por cor/raça e quantas chegaram às cadeiras no 1º turno.",
       },
       { property: "og:title", content: "Onde elas ficam pelo caminho?" },
       {
@@ -83,6 +84,8 @@ function FunilPage() {
     feminine !== undefined && total !== undefined && total > 0
       ? formatUmEmCada((feminine / total) * 100)
       : "—";
+  const resultShare = formatPct((RESULT_2026_PROPORCIONAL.elected.feminine / RESULT_2026_PROPORCIONAL.seats) * 100);
+  const resultCount = `${formatInt(RESULT_2026_PROPORCIONAL.elected.feminine)} de ${formatInt(RESULT_2026_PROPORCIONAL.seats)}`;
   const proportionalFrequency = frequency(
     snapshot?.universes.proporcional.feminine,
     snapshot?.universes.proporcional.total,
@@ -100,7 +103,7 @@ function FunilPage() {
         question="Onde elas ficam pelo caminho?"
         lead={
           <p>
-            Mulheres são {proportionalFrequency} candidaturas a deputada e {majoritarianFrequency} nas disputas por Presidência, governos e Senado. Nas candidaturas majoritárias, a presença cai. A partir de outubro, o funil ganha as etapas de voto e cadeira.
+            Mulheres são {proportionalFrequency} candidaturas a deputada e {majoritarianFrequency} nas disputas por Presidência, governos e Senado. Nas candidaturas majoritárias, a presença cai. No 1º turno de 4 de outubro, mulheres ficaram com {resultShare} das cadeiras de deputado(a): {resultCount}.
           </p>
         }
         snapshot={snapshot}
@@ -128,8 +131,8 @@ function FunilPage() {
           }
           unknown={
             <>
-              Em aberto: quem se elege em 2026. A eleição acontece em outubro e
-              o resultado entra depois.
+              Em aberto: os governos de 7 estados, decididos no 2º turno de 25 de
+              outubro, e quem ocupa as posições de poder depois da posse, em 2027.
             </>
           }
         />
@@ -213,13 +216,13 @@ function FunilPage() {
       </SectionBlock>
 
       <ComoSabemos
-        fonte="TSE, Candidaturas 2026 e Vagas 2026; TSE, Candidatos 2014, 2018 e 2022."
+        fonte="TSE, Candidaturas 2026, resultado do 1º turno de 2026 (base de 05/10) e Vagas 2026; TSE, Candidatos 2014, 2018 e 2022."
         universo="Candidaturas registradas, cada uma contada uma vez pelo identificador oficial. Proporcional (Câmara, assembleias e Câmara Legislativa do DF) e majoritário (Presidência, governos e Senado) são contados separadamente. Vices e suplentes ficam fora."
         base={stampLabel}
         calculo={FUNNEL_READING_RULE}
         limites={[
-          "2026 é fotografia em andamento: o registro ainda pode mudar por decisão da Justiça Eleitoral.",
-          "O resultado de 2026 ainda não existe. As etapas de voto e cadeira entram depois da apuração.",
+          "As candidaturas de 2026 são a fotografia de 25/09; o resultado vem do arquivo do TSE de 05/10/2026, com denominador próprio (cadeiras).",
+          "O resultado majoritário de 2026 só fecha depois do 2º turno de 25/10. A Presidência ainda não tem situação de totalização no arquivo.",
           "Cada etapa é o retrato de um universo, e não o rastro das mesmas pessoas de um degrau para o outro.",
         ]}
       />
