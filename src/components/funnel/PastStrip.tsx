@@ -32,7 +32,7 @@ export function PastStrip({ series }: { series: Series | null }) {
               </p>
               <p className="mt-1 font-mono text-[12px] text-muted-foreground">
                 {p.year}
-                {p.stage === "em_curso" ? " · base em curso" : ""}
+                {p.stage === "em_curso" ? " · registro de 25/09" : ""}
               </p>
               {p.numerator !== null && p.denominator !== null && (
                 <p className="font-mono text-[12px] text-muted-foreground">
