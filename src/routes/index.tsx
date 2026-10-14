@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { AchadoCard } from "@/components/editorial/AchadoCard";
+import { WhatChanged } from "@/components/home/WhatChanged";
 import {
   ChapterKicker,
   HomeAboutBand,
@@ -115,7 +116,7 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
           <ChapterKicker n="01" label="Registros · fotografia de 25/09" />
           <h2 className="mt-4 font-display text-4xl leading-none text-ink md:text-5xl">O que os registros permitem dizer agora</h2>
           <p className="mt-5 max-w-md leading-relaxed text-muted-foreground">
-            Esta parte da página mostra quem pediu registro para disputar 2026: quem entrou na disputa. O resultado do 1º turno de 4 de outubro está no topo da página e no histórico. Nos 7 estados com 2º turno para governo, a disputa termina em 25 de outubro.
+            Esta parte da página mostra quem pediu registro para disputar 2026: quem entrou na disputa. O resultado do 1º turno de 4 de outubro está no topo da página e no histórico. Nos 6 estados com 2º turno para governo, a disputa termina em 25 de outubro.
           </p>
           {snapshot && (
             <div className="mt-8 border-l-4 border-coral pl-4">
@@ -174,6 +175,7 @@ function DadosPage() {
     <PageShell home>
       <HomeHeroEditorial snapshot={snapshot} baseDate={baseDate} />
       <CurrentSnapshot snapshot={snapshot} baseDate={baseDate} pendingDate={pendingDate} />
+      <WhatChanged />
       <section className="relative left-1/2 -ml-[50vw] w-screen bg-butter">
         <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
           <ChapterKicker n="02" label="Achados" />
