@@ -18,7 +18,7 @@ export const CENTRAL_PRINCIPLE =
   "Gênero e raça estruturam a investigação. Território, partido, cargo, recursos, votos, resultado e poder são os recortes.";
 
 /** Estado editorial de um eixo — não é status de indicador. */
-export type AxisState = "com dados de candidatura" | "arquitetura preparada" | "conteúdo editorial";
+export type AxisState = "com dados de candidatura" | "com dados de resultado" | "arquitetura preparada" | "conteúdo editorial";
 export type AxisPublication = "published" | "unpublished";
 export type AxisStatus = "publicado" | "parcial" | "aguardando dado";
 export type AxisGroup = "investigacao" | "projeto" | "materiais";
@@ -125,13 +125,13 @@ export const AXES: readonly Axis[] = [
     id: "votos",
     to: "/votos",
     label: "Votos",
-    question: "Quem consegue transformar candidatura em competição?",
+    question: "Quem consegue transformar candidatura em voto?",
     summary:
       "Candidatura, competitividade, desempenho e resultado são coisas distintas. Definimos os indicadores antes de chamar qualquer coisa de competitividade.",
     dimensions: ["gênero × cor/raça × votos", "cargo", "território", "recursos"],
     unpublishedReason: "Depende da apuração da eleição de 2026.",
-    state: "arquitetura preparada",
-    publication: "unpublished", status: "aguardando dado", statusNote: "depende da apuração da eleição de 2026", group: "investigacao",
+    state: "com dados de resultado",
+    publication: "published", status: "parcial", statusNote: "Votos nominais do 1º turno por gênero, cor/raça e estado publicados; competitividade sem indicador definido.", group: "investigacao",
   },
   {
     id: "quem-chega",
@@ -148,8 +148,8 @@ export const AXES: readonly Axis[] = [
       "posições institucionais",
     ],
     unpublishedReason: "Depende do resultado e da diplomação de 2026.",
-    state: "arquitetura preparada",
-    publication: "unpublished", status: "aguardando dado", statusNote: "depende do resultado e da diplomação de 2026", group: "investigacao",
+    state: "com dados de resultado",
+    publication: "published", status: "parcial", statusNote: "Resultado do 1º turno publicado por cargo, cor/raça, estado e partido; posições de poder a partir da posse, em 2027.", group: "investigacao",
   },
   {
     id: "barreiras",
@@ -263,6 +263,8 @@ export const DATA_2026_NAV_ITEMS = [
   { label: "Partidos", to: "/quem-sao-elas", hash: "partidos" },
   { label: "Cargos", to: "/quem-sao-elas", hash: "cargos" },
   { label: "Raça", to: "/quem-sao-elas", hash: "raca" },
+  { label: "Votos", to: "/votos", hash: undefined },
+  { label: "Eleitas", to: "/quem-chega", hash: undefined },
   { label: "Dinheiro", to: "/dinheiro", hash: undefined },
   { label: "Histórico", to: "/historico", hash: undefined },
 ] as const;
@@ -302,13 +304,13 @@ export const INTERSECTION_PLAN = [
   },
   {
     crossing: "gênero × cor/raça × votos",
-    requires: "Resultado nominal apurado de 2026",
-    status: "aguardando dado",
+    requires: "Votação nominal apurada de 2026 (1º turno)",
+    status: "disponível",
   },
   {
     crossing: "gênero × cor/raça × resultado",
-    requires: "Eleitas e diplomadas de 2026",
-    status: "aguardando dado",
+    requires: "Eleitas no 1º turno de 2026 (diplomação em dezembro)",
+    status: "disponível",
   },
   {
     crossing: "gênero × cor/raça × poder",
