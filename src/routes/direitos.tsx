@@ -8,6 +8,7 @@ import { StatusTag } from "@/components/editorial/StatusTag";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { RIGHTS_TIMELINE, RIGHTS_TIMELINE_RULE } from "@/data/rights-timeline";
+import { PIONEIRAS } from "@/data/pioneiras";
 import { RIGHTS_OPEN_QUESTIONS } from "@/data/election-2026";
 import { DISPUTE_ITEMS, DISPUTE_RULE } from "@/data/rules-in-dispute";
 import { PullQuote } from "@/components/editorial/PullQuote";
@@ -120,6 +121,20 @@ function DireitosPage() {
                 <h3 className="mt-1 max-w-2xl font-display text-xl leading-snug text-ink">
                   {m.title}
                 </h3>
+                {PIONEIRAS.some((p) => p.milestoneYear === m.year) && (
+                  <p className="mt-2 flex flex-wrap items-center gap-2 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+                    <span>Nomes deste marco:</span>
+                    {PIONEIRAS.filter((p) => p.milestoneYear === m.year).map((p) => (
+                      <a
+                        key={p.id}
+                        href={`#${p.id}`}
+                        className="border border-coral px-2 py-0.5 normal-case tracking-normal text-ink no-underline hover:bg-coral/10"
+                      >
+                        {p.name}
+                      </a>
+                    ))}
+                  </p>
+                )}
                 <dl className="mt-4 space-y-3">
                   {FIELDS.slice(0, 1).map((f) => (
                     <div key={f.key} className="sm:flex sm:gap-5">
@@ -162,6 +177,45 @@ function DireitosPage() {
                   </a>
                 </p>
               </div>
+            </li>
+          ))}
+        </ol>
+      </SectionBlock>
+
+      <SectionBlock id="pioneiras"
+        kicker="Quem abriu caminho"
+        question="Antes da regra, alguém a disputou"
+        align="wide"
+        lead={
+          <p>
+            Cada marco desta linha tem nomes por trás. Sete mulheres que abriram
+            portas, em ordem cronológica, com a fonte de cada informação.
+          </p>
+        }
+      >
+        <ol className="grid gap-4 md:grid-cols-2">
+          {PIONEIRAS.map((p, i) => (
+            <li key={p.id} id={p.id} className="poster-frame scroll-mt-24 border-l-4 border-l-coral p-5">
+              <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+                {String(i + 1).padStart(2, "0")}
+                {p.years ? ` · ${p.years}` : ""}
+                {p.milestoneYear ? ` · marco de ${p.milestoneYear}` : ""}
+              </p>
+              <h3 className="mt-2 font-display text-2xl leading-tight text-ink">{p.name}</h3>
+              <p className="mt-2 font-display text-base italic leading-snug text-plum">{p.mark}</p>
+              <p className="mt-3 text-sm leading-relaxed text-ink">{p.text}</p>
+              {p.em2026 && (
+                <p className="mt-3 border-t border-rule pt-3 text-sm leading-relaxed text-muted-foreground">
+                  <span className="font-mono text-[12px] uppercase tracking-wider">Em 2026: </span>
+                  {p.em2026} Fonte: TSE, Candidatos 2026.
+                </p>
+              )}
+              <p className="mt-3 font-mono text-[12px] text-muted-foreground">
+                Fonte:{" "}
+                <a href={p.sourceUrl} target="_blank" rel="noreferrer" className="underline">
+                  {p.sourceLabel}
+                </a>
+              </p>
             </li>
           ))}
         </ol>
