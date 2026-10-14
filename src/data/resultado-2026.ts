@@ -55,20 +55,74 @@ export const RESULT_2026_SENADO = {
   candidacyRaceFeminine: {"BRANCA": 44, "PARDA": 18, "PRETA": 8} as Record<string, number>,
 } as const;
 
-/** Governos: decididos no 1º turno e disputas que seguem para 25/10. */
+/**
+ * Majoritário (governos, Senado e Presidência): base do TSE de 14/10/2026.
+ * A base de 14/10 incorpora a retotalização do Rio de Janeiro: com a anulação
+ * dos votos de Garotinho pelo TSE e a retotalização confirmada pelo TRE-RJ,
+ * o governo do RJ foi decidido no 1º turno e saiu da lista do 2º turno.
+ * Senado não mudou entre 05/10 e 14/10.
+ */
+export const RESULT_2026_MAJ_META = {
+  baseGeneratedAt: "14/10/2026 12:30:43",
+  downloadedAt: "2026-10-14T13:11:00-03:00",
+  brasilCsvSha256: "886bba0f04c781211458d7214a714d5e865c7aea1dbc671d33a27d112fd9ac09",
+  zipSha256: "900f2efe9c3aa6495dcafd41824539cc51331f97406990bc0eed711d2e907142",
+} as const;
+
+/** Governos: decididos no 1º turno e disputas que seguem para 25/10 (base de 14/10). */
 export const RESULT_2026_GOVERNO = {
   totalUfs: 27,
-  decidedFirstRound: 20,
+  candidacies: 201,
+  feminineCandidacies: 35,
+  decidedFirstRound: 21,
   electedFeminine: 1,
-  runoffUfs: ["AC", "AM", "DF", "ES", "RJ", "RN", "TO"],
-  runoffCandidacies: 14,
+  electedFeminineUfs: ["PE"],
+  runoffUfs: ["AC", "AM", "DF", "ES", "RN", "TO"],
+  runoffCandidacies: 12,
   runoffFeminine: 4,
   runoffFeminineUfs: ["AC", "AM", "DF", "TO"],
 } as const;
 
-/** Presidência: o arquivo ainda não traz situação de totalização. */
-export const RESULT_2026_PRESIDENCIA_PENDING =
-  "O arquivo de 05/10 ainda não traz a situação de totalização dos 14 registros à Presidência. Nada é exibido no lugar.";
+/**
+ * Presidência (base de 14/10). Sempre em número absoluto ("X de 14"), nunca
+ * em percentual: a base é menor que 20 registros.
+ */
+export const RESULT_2026_PRESIDENCIA = {
+  registros: 14,
+  mulheres: 2,
+  /** cor/raça das duas candidatas, categorias originais */
+  mulheresCorRaca: { BRANCA: 1, PRETA: 1 } as Record<string, number>,
+  segundoTurno: 2,
+  mulheresNoSegundoTurno: 0,
+} as const;
 
 export const RESULT_2026_SOURCE =
-  "TSE, Dados Abertos, Candidatos 2026 (base gerada em 05/10/2026 10:14:11), recontagem independente";
+  "TSE, Dados Abertos, Candidatos 2026 (deputadas e deputados: base gerada em 05/10/2026 10:14:11; governos, Senado e Presidência: base gerada em 14/10/2026 12:30:43), recontagem independente";
+
+/**
+ * Por que o proporcional segue na base de 05/10: o arquivo de 14/10 traz os
+ * 394 registros de deputado de Rondônia (134 federais, 260 estaduais) sem
+ * situação de totalização ("#NULO"), e as 32 cadeiras do estado deixam de
+ * aparecer como eleitas. Fora de Rondônia, as contagens de 14/10 são iguais
+ * às de 05/10 (1.540 cadeiras, 321 mulheres). A base sobe quando o TSE
+ * republicar o resultado de Rondônia.
+ */
+export const RESULT_2026_RO_NOTE =
+  "O arquivo do TSE de 14/10 traz os registros de deputado de Rondônia sem situação de totalização. Por isso o resultado de deputadas e deputados continua na base de 05/10, a última com os 27 estados. Fora de Rondônia, os números de 14/10 são iguais aos de 05/10.";
+
+/**
+ * Eleitas e eleitos por partido (deputado federal, estadual e distrital).
+ * Base de 14/10/2026, a primeira em que o recorte por partido foi recontado.
+ * Rondônia fica fora: o arquivo de 14/10 traz os registros de deputado do
+ * estado sem situação de totalização (ver RESULT_2026_RO_NOTE). Por isso os
+ * totais aqui são 1.540 cadeiras e 321 mulheres, e não 1.572 e 327.
+ */
+export const RESULT_2026_PARTIDOS = {
+  baseGeneratedAt: "14/10/2026 12:30:43",
+  seats: 1540,
+  feminine: 321,
+  note: "Sem Rondônia: o arquivo de 14/10 traz as 32 cadeiras de deputado do estado sem resultado, por isso esta tabela soma 1.540 cadeiras e 321 mulheres.",
+  electedByParty: {"PL": 323, "PT": 209, "MDB": 148, "PSD": 142, "PP": 120, "REPUBLICANOS": 117, "UNIÃO": 117, "PODE": 71, "PSB": 57, "PSOL": 40, "PSDB": 37, "PDT": 30, "PV": 26, "NOVO": 23, "PCDOB": 20, "AVANTE": 20, "PRD": 15, "AGIR": 7, "SOLIDARIEDADE": 6, "REDE": 4, "MOBILIZA": 3, "MISSÃO": 2, "DEMOCRATA": 1, "CIDADANIA": 1, "DC": 1} as Record<string, number>,
+  electedFeminineByParty: {"PL": 63, "PT": 68, "MDB": 24, "PSD": 23, "PP": 18, "REPUBLICANOS": 21, "UNIÃO": 20, "PODE": 11, "PSB": 16, "PSOL": 25, "PSDB": 5, "PDT": 4, "PV": 6, "NOVO": 2, "PCDOB": 9, "AVANTE": 1, "PRD": 1, "AGIR": 3, "SOLIDARIEDADE": 1, "REDE": 0, "MOBILIZA": 0, "MISSÃO": 0, "DEMOCRATA": 0, "CIDADANIA": 0, "DC": 0} as Record<string, number>,
+  electedRaceFeminineByParty: {"AGIR": {"BRANCA": 1, "PARDA": 2}, "AVANTE": {"BRANCA": 1}, "MDB": {"BRANCA": 18, "PARDA": 6}, "NOVO": {"BRANCA": 2}, "PCDOB": {"PARDA": 2, "BRANCA": 3, "PRETA": 4}, "PDT": {"PARDA": 1, "BRANCA": 3}, "PL": {"BRANCA": 57, "PARDA": 5, "INDÍGENA": 1}, "PODE": {"BRANCA": 9, "PARDA": 2}, "PP": {"BRANCA": 14, "PARDA": 3, "PRETA": 1}, "PRD": {"BRANCA": 1}, "PSB": {"BRANCA": 11, "PARDA": 5}, "PSD": {"PARDA": 6, "BRANCA": 16, "PRETA": 1}, "PSDB": {"BRANCA": 5}, "PSOL": {"AMARELA": 1, "PRETA": 14, "BRANCA": 9, "INDÍGENA": 1}, "PT": {"BRANCA": 32, "PARDA": 14, "PRETA": 20, "INDÍGENA": 1, "AMARELA": 1}, "PV": {"PARDA": 2, "BRANCA": 4}, "REPUBLICANOS": {"PARDA": 5, "BRANCA": 16}, "SOLIDARIEDADE": {"BRANCA": 1}, "UNIÃO": {"PARDA": 12, "BRANCA": 8}} as Record<string, Record<string, number>>,
+} as const;

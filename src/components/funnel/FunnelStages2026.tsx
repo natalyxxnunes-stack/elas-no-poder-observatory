@@ -21,8 +21,11 @@ import { formatInt, formatPct } from "@/lib/format-br";
 import { RACE_COLORS, type RaceCategory } from "@/data/historical-funnel";
 import {
   RESULT_2026_GOVERNO,
+  RESULT_2026_MAJ_META,
   RESULT_2026_META,
+  RESULT_2026_PRESIDENCIA,
   RESULT_2026_PROPORCIONAL,
+  RESULT_2026_RO_NOTE,
   RESULT_2026_SENADO,
 } from "@/data/resultado-2026";
 
@@ -202,6 +205,7 @@ function ResultStage({ step }: { step: number }) {
   };
   const sen = RESULT_2026_SENADO;
   const gov = RESULT_2026_GOVERNO;
+  const pres = RESULT_2026_PRESIDENCIA;
   return (
     <li className="poster-frame overflow-hidden">
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
@@ -289,18 +293,24 @@ function ResultStage({ step }: { step: number }) {
         </p>
         <p className="text-sm leading-relaxed text-ink">
           <span className="block font-mono text-[12px] uppercase tracking-wider text-muted-foreground">Governos</span>
-          {n(gov.electedFeminine)} mulher eleita nas {n(gov.decidedFirstRound)} disputas decididas no 1º turno
+          {n(gov.electedFeminine)} mulher eleita, em {gov.electedFeminineUfs.join(", ")}, nas {n(gov.decidedFirstRound)} disputas decididas no 1º turno
           (26 estados e DF). Nas {n(gov.runoffUfs.length)} que vão ao 2º turno em 25/10 ({gov.runoffUfs.join(", ")}),{" "}
           {n(gov.runoffFeminine)} das {n(gov.runoffCandidacies)} candidaturas são de mulheres, em{" "}
-          {gov.runoffFeminineUfs.join(", ")}.
+          {gov.runoffFeminineUfs.join(", ")}. O RJ saiu do 2º turno depois da retotalização feita pelo TRE-RJ em 10/10.
+        </p>
+        <p className="text-sm leading-relaxed text-ink sm:col-span-2">
+          <span className="block font-mono text-[12px] uppercase tracking-wider text-muted-foreground">Presidência</span>
+          {n(pres.mulheres)} mulheres em {n(pres.registros)} candidaturas (uma branca e uma preta). Nenhuma das duas
+          foi ao 2º turno: a disputa de 25/10 tem {n(pres.segundoTurno)} candidatos, ambos homens. Base pequena,
+          por isso o número absoluto e não o percentual.
         </p>
       </div>
 
       <p className="border-t border-rule px-5 py-3 text-sm leading-relaxed text-muted-foreground">
-        Resultado do 1º turno de 4/10/2026, lido do arquivo oficial do TSE gerado
-        em {RESULT_2026_META.baseGeneratedAt} e recontado de forma independente.
-        Presidência fora desta etapa: o arquivo ainda não traz a situação de
-        totalização.
+        Resultado do 1º turno de 4/10/2026, lido do arquivo oficial do TSE e
+        recontado de forma independente. Deputadas e deputados: base gerada em{" "}
+        {RESULT_2026_META.baseGeneratedAt}. Governos, Senado e Presidência: base gerada em{" "}
+        {RESULT_2026_MAJ_META.baseGeneratedAt}. {RESULT_2026_RO_NOTE}
       </p>
     </li>
   );
@@ -416,9 +426,9 @@ export function FunnelStages2026({
               Por que a fatia de mulheres cai de {pct(propShare)} nas
               candidaturas proporcionais para{" "}
               {pct((RESULT_2026_PROPORCIONAL.elected.feminine / RESULT_2026_PROPORCIONAL.seats) * 100)}{" "}
-              nas cadeiras. Votos por candidatura, quociente partidário e
-              dinheiro de campanha são as próximas camadas a cruzar com o
-              resultado.
+              nas cadeiras. A votação já mostra uma etapa no meio do caminho
+              (ver a página Votos); quociente partidário e dinheiro de
+              campanha são as próximas camadas a cruzar com o resultado.
             </p>
           </article>
         </div>

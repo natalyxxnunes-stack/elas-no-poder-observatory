@@ -131,7 +131,7 @@ function FunilPage() {
           }
           unknown={
             <>
-              Em aberto: os governos de 7 estados, decididos no 2º turno de 25 de
+              Em aberto: os governos de 6 estados, decididos no 2º turno de 25 de
               outubro, e quem ocupa as posições de poder depois da posse, em 2027.
             </>
           }

@@ -972,6 +972,30 @@ function MetodoPage() {
                 candidaturas do mesmo gênero, ano e universo × 100, com resultado
                 de 1º turno lido em DS_SIT_TOT_TURNO
               </li>
+              <li>
+                fatia de cadeiras em 2026 = eleitas (DS_SIT_TOT_TURNO começando com
+                ELEITO) ÷ cadeiras do mesmo cargo × 100; cada casa com o próprio
+                denominador. Base pequena (menos de 20) aparece só como “X de Y”.
+                Script: scripts/recontagem/resultado_2026.py
+              </li>
+              <li>
+                taxa de eleição do grupo (2026) = eleitas e eleitos de um grupo de
+                gênero e cor/raça ÷ candidaturas do mesmo grupo e cargo × 100.
+                Descreve o grupo, não a chance de uma pessoa
+              </li>
+              <li>
+                fatia de votos = votos nominais válidos (QT_VOTOS_NOMINAIS_VALIDOS)
+                dados a candidaturas de um grupo ÷ total de votos nominais válidos
+                do mesmo cargo × 100. Voto de legenda e votos anulados ficam fora.
+                Script: scripts/recontagem/votos_2026.py
+              </li>
+              <li>
+                Rondônia: os arquivos do TSE de 14/10/2026 trazem os registros de
+                deputado do estado sem situação de totalização e sem votação. O
+                resultado de deputadas e deputados segue na base de 05/10 (a última
+                com os 27 estados); votos e partidos, recontados em 14/10, saem sem
+                Rondônia, com aviso em cada gráfico
+              </li>
             </ul>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               O valor bruto é preservado na camada de dados; o arredondamento
