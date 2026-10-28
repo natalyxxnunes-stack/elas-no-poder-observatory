@@ -9,8 +9,8 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { ChartBar, ChartFrame, ChartScale, LegendSwatch } from "@/components/editorial/ChartFrame";
 import { GapNote } from "@/components/GapNote";
 import { axis } from "@/data/architecture";
-import { DEPUTADAS, VOTACOES, VOTACOES_META, type Votacao } from "@/data/votacoes-camara";
-import { formatInt, formatPct } from "@/lib/format-br";
+import { DEPUTADAS, DINHEIRO_REELEICAO, VOTACOES, VOTACOES_META, type Votacao } from "@/data/votacoes-camara";
+import { formatBRLCompact, formatInt, formatPct } from "@/lib/format-br";
 
 /**
  * Como votaram — investigação assinada: o voto das deputadas federais em cinco
@@ -248,6 +248,59 @@ function ReelectionChart() {
   );
 }
 
+function MoneyReelectionChart() {
+  const d = DINHEIRO_REELEICAO;
+  return (
+    <ChartFrame
+      eyebrow="Dinheiro de campanha × resultado de 2026"
+      title="Quanto mais receita, mais reeleição, entre as deputadas e os deputados que tentaram voltar"
+      legend={
+        <>
+          <LegendSwatch className="bg-coral">deputadas</LegendSwatch>
+          <LegendSwatch className="bg-plum">deputados</LegendSwatch>
+        </>
+      }
+      note={`Terços de receita calculados sobre as ${n(d.universo)} pessoas, com a mesma régua para mulheres e homens: até ${formatBRLCompact(d.cortes.t1)}, de ${formatBRLCompact(d.cortes.t1)} a ${formatBRLCompact(d.cortes.t2)} e acima disso.`}
+      source="Fonte: Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2026 e Prestação de Contas 2026 (bases de 27/10/2026). Junção por CPF."
+      ficha={{
+        vendo: "A taxa de reeleição em cada terço de receita de campanha, para mulheres e para homens.",
+        contados: `Quem estava no mandato de deputado federal em alguma das cinco votações e se candidatou de novo à Câmara em 2026: ${n(d.F.tentaram)} mulheres e ${n(d.M.tentaram)} homens.`,
+        denominador: "Pessoas do mesmo sexo dentro de cada terço de receita.",
+        data: "Prestação de contas e resultado do TSE de 27/10/2026",
+        fonte: "Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2026 e Prestação de Contas 2026",
+        limitacao:
+          "Contas em andamento: parte das candidaturas só entregou a prestação parcial (receita até 08/09). Sem elas, o padrão se mantém. Mostra associação: quem já era forte pode ter atraído mais dinheiro.",
+      }}
+    >
+      <div className="space-y-6">
+        {d.faixas.map((f) => {
+          const fe = d.F.porFaixa[f];
+          const ma = d.M.porFaixa[f];
+          return (
+            <div key={f} className="space-y-1.5">
+              <ChartBar
+                label={f.charAt(0).toUpperCase() + f.slice(1)}
+                base={`${n(fe.eleitos)} de ${n(fe.total)} deputadas`}
+                value={(fe.eleitos / fe.total) * 100}
+                display={show(fe.eleitos, fe.total)}
+                barClass="bg-coral"
+              />
+              <ChartBar
+                label=""
+                base={`${n(ma.eleitos)} de ${n(ma.total)} deputados`}
+                value={(ma.eleitos / ma.total) * 100}
+                display={show(ma.eleitos, ma.total)}
+                barClass="bg-plum"
+              />
+            </div>
+          );
+        })}
+      </div>
+      <ChartScale max={100} />
+    </ChartFrame>
+  );
+}
+
 function DeputadasTable() {
   const OUT_LABEL: Record<string, string> = {
     reeleita: "reeleita",
@@ -361,7 +414,11 @@ function ComoVotaramPage() {
           found={
             <>
               Entre as deputadas que votaram, a taxa de reeleição em 2026 ficou entre {formatPct(range.min)} e{" "}
-              {formatPct(range.max)}, dos dois lados das cinco votações. Os votos que mais dividiram as deputadas por
+              {formatPct(range.max)}, dos dois lados das cinco votações. O dinheiro separa muito mais: entre as que
+              tentaram voltar, {n(DINHEIRO_REELEICAO.F.porFaixa["terço de maior receita"].eleitos)} de{" "}
+              {n(DINHEIRO_REELEICAO.F.porFaixa["terço de maior receita"].total)} no terço de maior receita se reelegeram,
+              contra {n(DINHEIRO_REELEICAO.F.porFaixa["terço de menor receita"].eleitos)} de{" "}
+              {n(DINHEIRO_REELEICAO.F.porFaixa["terço de menor receita"].total)} no de menor. Os votos que mais dividiram as deputadas por
               cor/raça foram os do marco temporal e da dosimetria: entre as deputadas pretas, {n(pretasMarco["Não"] ?? 0)}{" "}
               votaram contra o marco temporal e {n(pretasMarco["Sim"] ?? 0)} a favor.
             </>
@@ -374,8 +431,8 @@ function ComoVotaramPage() {
           }
           unknown={
             <>
-              Por que algumas votaram contra a própria bancada, e quanto dinheiro de campanha, posição no partido e base
-              local explicam quem voltou. Essas camadas ainda não estão cruzadas com o voto.
+              Por que algumas votaram contra a própria bancada, e quanto da relação entre dinheiro e reeleição vem de
+              quem já era forte antes da campanha.
             </>
           }
         />
@@ -480,30 +537,35 @@ function ComoVotaramPage() {
       <SectionBlock
         id="quem-voltou"
         kicker="Votação × urna"
-        question="Quem votou como, e quem voltou em 2026"
+        question="Quem voltou em 2026: o voto e o dinheiro"
         align="wide"
       >
         <ReelectionChart />
+        <div className="mt-6">
+          <MoneyReelectionChart />
+        </div>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           <article className="poster-frame-accent p-5">
             <p className="record-label border-plum text-plum">Fato</p>
             <p className="mt-3 leading-relaxed text-ink/80">
-              Nas cinco votações, a taxa de reeleição das deputadas que votaram Sim e das que votaram Não ficou entre{" "}
-              {formatPct(range.min)} e {formatPct(range.max)}.
+              Pelo voto, a reeleição das deputadas variou entre {formatPct(range.min)} e {formatPct(range.max)}. Pela
+              receita, variou de {show(DINHEIRO_REELEICAO.F.porFaixa["terço de menor receita"].eleitos, DINHEIRO_REELEICAO.F.porFaixa["terço de menor receita"].total)} no
+              terço de menor receita a {show(DINHEIRO_REELEICAO.F.porFaixa["terço de maior receita"].eleitos, DINHEIRO_REELEICAO.F.porFaixa["terço de maior receita"].total)} no de maior.
             </p>
           </article>
           <article className="poster-frame-accent p-5">
             <p className="record-label border-ink text-ink [border-style:dashed]">Interpretação editorial</p>
             <p className="mt-3 leading-relaxed text-ink/80">
-              Nenhuma das cinco votações separa, sozinha, quem voltou de quem ficou de fora. Na urna, o voto em plenário
-              dessas pautas aparece como um fator pequeno perto de outros.
+              Para quem tentou voltar à Câmara, o dinheiro de campanha acompanha a reeleição muito mais de perto que o
+              voto nessas cinco pautas. A diferença é maior entre as mulheres do que entre os homens.
             </p>
           </article>
           <article className="poster-frame-accent p-5">
             <p className="record-label border-ink text-ink">Hipótese em investigação</p>
             <p className="mt-3 leading-relaxed text-ink/80">
-              Dinheiro de campanha e posição no partido explicam mais a reeleição que o voto em plenário. O cruzamento
-              com a página Dinheiro testa essa hipótese.
+              Parte da relação corre ao contrário: quem já tinha base e chance de vencer atrai mais dinheiro do partido e
+              de doadores. Separar as duas coisas exige saber quanto veio do partido e em que momento, o que entra com a
+              prestação final.
             </p>
           </article>
         </div>
@@ -540,7 +602,8 @@ function ComoVotaramPage() {
         }
         limites={[
           "A seleção das votações é escolha editorial; o critério está publicado acima e foi fixado antes do cruzamento com 2026.",
-          "O cruzamento com a reeleição descreve. Não mede efeito do voto sobre a eleição.",
+          "O cruzamento com a reeleição descreve. Não mede efeito do voto nem do dinheiro sobre a eleição.",
+          "Receita da prestação de contas em andamento (27/10/2026); a prestação final do 1º turno vence em 3/11.",
           "Orientação oficial de bloco fica fora: a composição histórica dos blocos não está disponível na API.",
         ]}
       />

@@ -799,7 +799,9 @@ function MetodoPage() {
             <Link to="/funil" className="text-plum underline underline-offset-4">
               O funil
             </Link>
-            .
+            . Depois do resultado, decidimos não criar um índice de “chance real” de vitória: ele não foi
+            definido antes da apuração, e um índice montado agora seria ajustado ao que já se sabe. As
+            condições de disputa (dinheiro, mandato, voto) aparecem separadas, cada uma com a própria ficha.
           </p>
         }
       >

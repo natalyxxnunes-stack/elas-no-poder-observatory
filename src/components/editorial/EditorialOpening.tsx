@@ -257,7 +257,7 @@ function RepresentationOpening({ labels, gap, seats: real, ...text }: OpeningBas
     <Frame className="bg-plum text-cream">
       <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <OpeningText {...text} inverse />
-        <figure aria-label="Matriz de representação aguardando o resultado eleitoral de 2026" className="min-w-0">
+        <figure aria-label="Matriz de representação: cada ponto é uma cadeira" className="min-w-0">
           <div className="grid grid-cols-12 gap-2 rounded-t-[8rem] border-x border-t border-cream/30 px-7 pb-5 pt-14 sm:px-12">
             {seats.map((seat) => <span key={seat} className="aspect-square rounded-full border border-cream/55 bg-cream/10" />)}
           </div>

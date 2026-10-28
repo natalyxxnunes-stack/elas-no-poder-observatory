@@ -1,3 +1,5 @@
+import { SituacaoChart } from "@/components/editorial/SituacaoChart";
+import { SITUACAO_2026 } from "@/data/situacao-candidaturas-2026";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
@@ -289,6 +291,32 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
       <SectionBlock
+        id="situacao"
+        kicker="Pedidos de registro"
+        question="Quantos pedidos ficaram de pé até a eleição"
+        align="wide"
+        lead={
+          <p>
+            Pedir registro é o primeiro passo; ser julgada apta é o segundo. Entre as mulheres, a saída da disputa por
+            indeferimento, cancelamento ou renúncia fica parecida em todos os grupos de cor/raça. Entre os homens, pardos e
+            pretos saem mais que brancos.
+          </p>
+        }
+      >
+        <SituacaoChart />
+        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+          Na Presidência, nos governos e no Senado, {formatInt(SITUACAO_2026.majoritario.FEMININO["indeferida ou cancelada"] ?? 0)} das{" "}
+          {formatInt(SITUACAO_2026.majoritario.FEMININO.total)} candidaturas de mulheres foram indeferidas e{" "}
+          {formatInt(SITUACAO_2026.majoritario.FEMININO["indeferida com recurso"] ?? 0)} seguem indeferidas com recurso. Entre as
+          candidatas pardas, {formatInt(SITUACAO_2026.majoritario.FEMININO_raca["PARDA"]?.["indeferida ou cancelada"] ?? 0)} de{" "}
+          {formatInt(SITUACAO_2026.majoritario.FEMININO_raca["PARDA"]?.total ?? 0)} foram indeferidas; entre as brancas,{" "}
+          {formatInt(SITUACAO_2026.majoritario.FEMININO_raca["BRANCA"]?.["indeferida ou cancelada"] ?? 0)} de{" "}
+          {formatInt(SITUACAO_2026.majoritario.FEMININO_raca["BRANCA"]?.total ?? 0)}. Base pequena: só números absolutos. A
+          situação de cada uma está na lista abaixo.
+        </p>
+      </SectionBlock>
+
+      <SectionBlock
         id="elas"
         kicker="Elas, cargo a cargo"
         question="Quem são as 107 mulheres que disputam a Presidência, os governos e o Senado"
@@ -357,7 +385,7 @@ function QuemSaoElasPage() {
         limites={[
           "Cor/raça é autodeclaração ao TSE e não identifica pertencimento étnico nem vínculo com povo ou território indígena.",
           "Por estado, a fatia de mulheres dentro de cada partido ainda não aparece: o total de candidaturas por partido em cada estado passou a ser contado nesta versão e entra nas próximas coletas. Até lá, só números absolutos.",
-          "Recursos, votos, eleitas e posições de poder por cor/raça dependem de fontes de 2026 ainda não disponíveis.",
+          "Esta página trata das candidaturas. Dinheiro, votos e eleitas por cor/raça estão em Dinheiro, Votos e Quem chega; posições de poder entram a partir da posse, em 2027.",
           "Identidade trans ou travesti e deficiência ficam fora, porque a base não as registra de modo comparável.",
         ]}
       >

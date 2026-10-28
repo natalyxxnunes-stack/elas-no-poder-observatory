@@ -119,7 +119,7 @@ export const AXES: readonly Axis[] = [
     ],
     unpublishedReason: "",
     state: "conteúdo editorial",
-    publication: "published", status: "publicado", statusNote: "Receitas declaradas na prestação de contas em andamento, base de 25/09/2026; os valores ainda podem mudar até a prestação final.", group: "investigacao",
+    publication: "published", status: "publicado", statusNote: "Receitas declaradas na prestação de contas em andamento, base de 27/10/2026; os valores ainda mudam até a prestação final, que vence em 3/11.", group: "investigacao",
   },
   {
     id: "votos",
@@ -129,7 +129,7 @@ export const AXES: readonly Axis[] = [
     summary:
       "Candidatura, competitividade, desempenho e resultado são coisas distintas. Definimos os indicadores antes de chamar qualquer coisa de competitividade.",
     dimensions: ["gênero × cor/raça × votos", "cargo", "território", "recursos"],
-    unpublishedReason: "Depende da apuração da eleição de 2026.",
+    unpublishedReason: "",
     state: "com dados de resultado",
     publication: "published", status: "parcial", statusNote: "Votos nominais do 1º turno por gênero, cor/raça e estado publicados; competitividade sem indicador definido.", group: "investigacao",
   },
@@ -147,7 +147,7 @@ export const AXES: readonly Axis[] = [
       "partido ou federação",
       "posições institucionais",
     ],
-    unpublishedReason: "Depende do resultado e da diplomação de 2026.",
+    unpublishedReason: "",
     state: "com dados de resultado",
     publication: "published", status: "parcial", statusNote: "Resultado final publicado (com o 2º turno de 25/10) por cargo, cor/raça, estado e partido; posições de poder a partir da posse, em 2027.", group: "investigacao",
   },

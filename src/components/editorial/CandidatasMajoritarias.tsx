@@ -2,11 +2,28 @@ import { useMemo, useState } from "react";
 import { ChartSignature } from "@/components/editorial/ChartFrame";
 import {
   CANDIDATAS_BASE,
+  CANDIDATAS_RECEITA_BASE,
   CANDIDATAS_MAJORITARIAS_2026,
   type CargoMajoritario,
   type CandidataRow,
 } from "@/data/candidatas-majoritarias-2026";
 import { formatBRLCompact, formatInt } from "@/lib/format-br";
+import { SITUACAO_CANDIDATAS_MAJ, SITUACAO_META } from "@/data/situacao-candidaturas-2026";
+
+const CARGO_TSE: Record<CargoMajoritario, string> = { presidencia: "PRESIDENTE", governo: "GOVERNADOR", senado: "SENADOR" };
+const SITUACAO_LABEL: Record<string, string> = {
+  DEFERIDO: "deferida",
+  "DEFERIDO EM PRAZO RECURSAL OU COM RECURSO": "deferida, com recurso",
+  INDEFERIDO: "indeferida",
+  "INDEFERIDO EM PRAZO RECURSAL OU COM RECURSO": "indeferida, com recurso",
+  "RENÚNCIA": "renúncia",
+  CANCELADO: "cancelada",
+};
+function situacao(r: CandidataRow): string {
+  const key = `${r[0].toUpperCase().split(/\s+/).join(" ")}|${CARGO_TSE[r[1]]}|${r[2]}`;
+  const s = SITUACAO_CANDIDATAS_MAJ[key];
+  return s ? (SITUACAO_LABEL[s] ?? s.toLowerCase()) : "sem registro";
+}
 
 const CARGO_LABEL: Record<CargoMajoritario, string> = {
   presidencia: "Presidência",
@@ -132,8 +149,8 @@ export function CandidatasMajoritarias() {
           <caption className="sr-only">Candidaturas de mulheres à Presidência, aos governos e ao Senado em 2026</caption>
           <thead>
             <tr className="border-b-2 border-ink">
-              {["Nome de urna", "Cargo", "UF", "Partido", "Cor/raça declarada", "Chapa", "Receita declarada"].map((h, i) => (
-                <th key={h} scope="col" className={`py-2 pr-4 font-mono text-xs font-normal uppercase text-muted-foreground ${i === 6 ? "text-right" : ""}`}>{h}</th>
+              {["Nome de urna", "Cargo", "UF", "Partido", "Cor/raça declarada", "Chapa", "Situação", "Receita declarada"].map((h, i) => (
+                <th key={h} scope="col" className={`py-2 pr-4 font-mono text-xs font-normal uppercase text-muted-foreground ${i === 7 ? "text-right" : ""}`}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -146,6 +163,7 @@ export function CandidatasMajoritarias() {
                 <td className="py-2.5 pr-4 text-ink">{r[3]}</td>
                 <td className="py-2.5 pr-4 text-ink"><span className="inline-flex items-center gap-2"><span className={`size-2.5 ${RACA_DOT[r[4]]}`} aria-hidden="true" />{RACA_LABEL[r[4]]}</span></td>
                 <td className="py-2.5 pr-4 text-xs text-muted-foreground">{chapa(r[1], r[5])}</td>
+                <td className={`py-2.5 pr-4 text-xs ${situacao(r).startsWith("deferida") ? "text-muted-foreground" : "font-semibold text-coral-ink"}`}>{situacao(r)}</td>
                 <td className="py-2.5 text-right font-mono text-xs text-ink">{receita(r[6])}</td>
               </tr>
             ))}
@@ -162,6 +180,7 @@ export function CandidatasMajoritarias() {
             <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
               <span className="inline-flex items-center gap-1.5"><span className={`size-2 ${RACA_DOT[r[4]]}`} aria-hidden="true" />{RACA_LABEL[r[4]]}</span>
               <span>{chapa(r[1], r[5])}</span>
+              <span className={situacao(r).startsWith("deferida") ? "" : "font-semibold text-coral-ink"}>{situacao(r)}</span>
               <span className="font-mono">{receita(r[6])}</span>
             </p>
           </li>
@@ -184,12 +203,12 @@ export function CandidatasMajoritarias() {
       <div className="flex flex-wrap items-end justify-between gap-3 border-t border-rule px-5 py-3 md:px-6">
         <div className="max-w-3xl space-y-1 text-xs leading-relaxed text-muted-foreground">
           <p>
-            Pedidos de registro. O arquivo de 2026 ainda não informa a situação de cada candidatura (deferida, indeferida, renúncia).
-            Cor/raça é autodeclaração ao TSE. Receita declarada até {CANDIDATAS_BASE}, contas em andamento. Quando vice ou suplente foi substituído, a tabela mostra o registro mais recente.
+            Pedidos de registro, com a situação de julgamento do arquivo complementar do TSE de {SITUACAO_META.baseGeneratedAt.slice(0, 10)}.
+            Cor/raça é autodeclaração ao TSE. Receita declarada até {CANDIDATAS_RECEITA_BASE}, dos dois turnos somados, contas em andamento. Quando vice ou suplente foi substituído, a tabela mostra o registro mais recente.
             A página oficial de cada candidatura está no{" "}
             <a href="https://divulgacandcontas.tse.jus.br/" target="_blank" rel="noreferrer" className="text-plum underline underline-offset-4">DivulgaCandContas, do TSE</a>.
           </p>
-          <p className="font-mono">Fonte: TSE, Candidaturas e Prestação de Contas 2026 · base de {CANDIDATAS_BASE}</p>
+          <p className="font-mono">Fonte: TSE, Candidaturas 2026 (registro de {CANDIDATAS_BASE}) e Prestação de Contas 2026 (base de {CANDIDATAS_RECEITA_BASE})</p>
         </div>
         <ChartSignature />
       </div>

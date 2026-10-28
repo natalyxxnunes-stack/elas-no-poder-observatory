@@ -86,10 +86,10 @@ const MONEY_LAYERS = [
   },
   {
     id: "competitividade",
-    label: "Recursos e competitividade",
-    question: "Recursos acompanham as candidaturas com mais chance de disputar?",
-    needs: "Indicador de competitividade previamente definido e publicado no método",
-    ready: false,
+    label: "Recursos e reeleição",
+    question: "Quem tinha mais dinheiro voltou mais à Câmara?",
+    needs: "Publicado em Como votaram, para quem tentou a reeleição. Sem índice de competitividade, por decisão editorial.",
+    ready: true,
   },
 ] as const;
 
@@ -100,7 +100,7 @@ function DinheiroPage() {
         variant="financial"
         kicker="Dinheiro"
         question="Entre as candidatas a deputada, as brancas concentram uma fatia maior da receita declarada"
-        lead={<p>Nas disputas para deputada, mulheres são 36,0% das candidaturas com receita declarada até 25/09 e ficam com 34,9% do dinheiro, fatia próxima da presença delas. A diferença aparece dentro do grupo. Nos 12 partidos com mais receita declarada, que concentram 89,8% do dinheiro, a mediana das candidatas brancas é R$ 130 mil; a das pardas, R$ 87 mil; a das pretas, R$ 75 mil. Nas disputas por governo, Senado e Presidência, os valores também variam por cor/raça e pelos partidos que lançam as candidatas.</p>}
+        lead={<p>Nas disputas para deputada, mulheres são 35,9% das candidaturas com receita declarada e ficam com 33,2% do dinheiro, um pouco abaixo da presença delas. A diferença maior aparece dentro do grupo. Nos 12 partidos com mais receita declarada, que concentram 88,1% do dinheiro, a mediana das candidatas brancas é R$ 144 mil; a das pardas, R$ 98 mil; a das pretas, R$ 79 mil. Nas disputas por governo, Senado e Presidência, os valores também variam por cor/raça e pelos partidos que lançam as candidatas.</p>}
         layers={MONEY_LAYERS.map((layer) => layer.label)}
         gap="Prestação de contas em andamento · receita, não despesa · valores sujeitos a atualização"
         snapshot={financeSnapshot}
@@ -110,7 +110,7 @@ function DinheiroPage() {
         <InBrief
           found={
             <>
-              Nas listas para deputada, a fatia das mulheres no dinheiro (34,9%) fica perto da presença delas entre as candidaturas com receita (36,0%). Nas disputas majoritárias, elas ficam com 16,5% do dinheiro e são 20,5% das candidaturas com receita.
+              Nas listas para deputada, a fatia das mulheres no dinheiro (33,2%) fica abaixo da presença delas entre as candidaturas com receita (35,9%). Na base de 25/09, as duas fatias estavam quase empatadas (34,9% e 36,0%). Nas disputas majoritárias, elas ficam com 15,0% do dinheiro e são 20,5% das candidaturas com receita.
             </>
           }
           matters={
@@ -120,7 +120,7 @@ function DinheiroPage() {
           }
           unknown={
             <>
-              Despesas, doador originário e a relação entre dinheiro e voto. As contas seguem abertas e os valores mudam até a prestação final.
+              Despesas e doador originário. As contas seguem abertas e os valores mudam até a prestação final do 1º turno, em 3/11.
             </>
           }
         />
@@ -130,7 +130,7 @@ function DinheiroPage() {
         <FinanceCoverage snapshot={financeSnapshot} />
       </SectionBlock>
 
-      <SectionBlock id="cargo" kicker="Por cargo" question="Presença e receita, cargo a cargo" align="wide" tone="lilac" lead={<p>Em duas disputas as mulheres recebem mais do que a presença delas: assembleias legislativas (38,7% da receita, 35,2% das candidaturas com receita) e Senado (26,3% e 22,4%). Nas outras, recebem menos: Câmara dos Deputados (33,1% e 37,1%), Câmara Legislativa do DF (30,0% e 35,9%) e governos estaduais (12,0% e 17,9%). Na Presidência, as mulheres são 2 das 13 candidaturas com receita e ficam com 1,3% do dinheiro declarado.</p>}>
+      <SectionBlock id="cargo" kicker="Por cargo" question="Presença e receita, cargo a cargo" align="wide" tone="lilac" lead={<p>Em duas disputas as mulheres recebem mais do que a presença delas: Senado (25,7% da receita, 22,3% das candidaturas com receita) e, por pouco, assembleias legislativas (35,5% e 35,2%). Nas outras, recebem menos: Câmara dos Deputados (32,0% e 37,1%), Câmara Legislativa do DF (29,1% e 35,7%) e governos estaduais (12,2% e 17,9%). Na Presidência, as mulheres são 2 das 13 candidaturas com receita e ficam com 0,7% do dinheiro declarado.</p>}>
         <FinanceByOffice snapshot={financeSnapshot} />
       </SectionBlock>
 
@@ -138,7 +138,7 @@ function DinheiroPage() {
         <FinanceRace snapshot={financeSnapshot} />
         <div className="mt-5 max-w-3xl space-y-2 text-sm leading-relaxed text-ink/80">
           <p>Mediana é o valor do meio: metade das candidatas declarou mais, metade declarou menos. Ela resiste melhor do que a soma a poucas campanhas muito grandes.</p>
-          <p className="font-mono text-xs">Maiores partidos = os 12 com mais receita declarada até 25/09 (MDB, PDT, PL, PODE, PP, PSB, PSD, PSDB, PSOL, PT, Republicanos e União), que somam 89,8% da receita declarada.</p>
+          <p className="font-mono text-xs">Maiores partidos = os 12 com mais receita declarada para deputada e deputado (MDB, PDT, PL, PODE, PP, PSB, PSD, PSDB, PSOL, PT, Republicanos e União), que somam 88,1% dessa receita.</p>
         </div>
       </SectionBlock>
 
@@ -171,13 +171,13 @@ function DinheiroPage() {
         fonte={<>TSE, Prestação de Contas Eleitorais 2026 · {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita.</>}
         universo="Candidaturas de 2026 que já declararam receita, com proporcional e majoritário separados. A unidade de análise é a candidatura: todas as linhas de receita de cada uma são somadas."
         base={FINANCE_BASE_LABEL}
-        calculo={<>Receita é o dinheiro informado como recebido. O arquivo do TSE traz, para cada candidatura, uma única entrega: a prestação parcial ou o relatório financeiro mais recente. Conferimos que nenhuma candidatura aparece nos dois tipos, então somar as linhas não conta a mesma receita duas vezes. Linhas idênticas em todas as colunas entram uma única vez ({DUPLICATE_ROWS_REMOVED} removidas nesta base); linhas que dividem um mesmo recibo em partes são somadas. Gênero e cor/raça do arquivo de receitas foram conferidos, candidatura por candidatura, contra o registro de candidaturas.</>}
+        calculo={<>Receita é o dinheiro informado como recebido. O arquivo do TSE traz, para cada candidatura, uma única entrega: a prestação parcial, o relatório financeiro mais recente ou a prestação final. Conferimos que nenhuma candidatura aparece em mais de um tipo, então somar as linhas não conta a mesma receita duas vezes. Linhas idênticas em todas as colunas entram uma única vez ({DUPLICATE_ROWS_REMOVED} removidas nesta base); linhas que dividem um mesmo recibo em partes são somadas. Gênero e cor/raça do arquivo de receitas foram conferidos, candidatura por candidatura, contra o registro de candidaturas.</>}
         limites={[
           "Despesa contratada ou paga ainda não entra: esta fase lê só receita.",
-          "A data de corte varia por candidatura: para cerca de 2 em cada 3, os valores vão até a prestação parcial, que registra a movimentação até 08/09/2026; para as demais, até o relatório financeiro mais recente.",
-          "As contas de campanha estão em andamento, e os valores mudam até a prestação final.",
+          "A data de corte varia por candidatura: 8.309 ainda estão na prestação parcial (movimentação até 08/09/2026), 7.892 no relatório financeiro mais recente e 3.069 já entregaram a prestação final.",
+          "As contas de campanha estão em andamento: a prestação final do 1º turno vence em 3/11/2026, e a do 2º turno depois. Receitas dos dois turnos são somadas por candidatura.",
           "Os percentuais que o TSE usa para distribuir o Fundo Partidário e o FEFC (divulgados em 21/08/2026) partem de outro universo: 20.560 candidaturas com pedido aceito até 18/08/2026, fixado para esse fim. Por isso diferem dos números deste site, que acompanham o registro atualizado.",
-          "Doador originário, titularidade e suplência e a relação entre recursos e competitividade ficam para as próximas fases.",
+          "Doador originário e titularidade e suplência ficam para as próximas fases. A relação entre dinheiro e reeleição está em Como votaram; índice de competitividade não entra no site.",
         ]}
       />
 

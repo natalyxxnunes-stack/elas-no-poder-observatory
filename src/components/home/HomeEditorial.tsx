@@ -239,7 +239,7 @@ export function HomeHistoryHighlight({ historical: _historical }: { historical: 
             Os pedidos de registro para deputada e deputado caíram 30% em relação a 2022, em todos os 27 estados. Entre as mulheres, a queda foi de 27%; entre os homens, de 32%. Por isso a presença feminina subiu de 34,1% para 35,6%, num campo menor.
           </p>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-cream/80">
-            Comparação entre pedidos de registro. Em 2022, 9,6% deles terminaram inaptos; o arquivo de 2026 ainda não informa a situação das candidaturas.
+            Comparação entre pedidos de registro. Em 2022, 9,6% deles terminaram inaptos. Em 2026, até 27/10, 7,1% saíram por indeferimento, cancelamento ou renúncia, e 1,3% seguem indeferidos com recurso.
           </p>
           <Link to="/historico" className="mt-7 inline-flex items-center gap-2 border-b border-cream pb-1 font-mono text-xs font-semibold uppercase text-cream">
             Ver a série completa <ArrowRight className="size-4" aria-hidden="true" />
@@ -286,7 +286,7 @@ export function HomeFunnelFeature({ snapshot }: { snapshot: PublicSnapshot | nul
   const majShare = maj && maj.total > 0 ? formatPct((maj.feminine / maj.total) * 100) : "—";
   const steps = [
     { n: "01", label: "Contexto", figure: propShare, note: `das candidaturas a deputada; ${majShare} nas majoritárias`, to: "/quem-sao-elas" as const, link: "Quem são elas?" },
-    { n: "02", label: "Competição", figure: "R$", note: "receita declarada até 25/09, por gênero e cor/raça", to: "/dinheiro" as const, link: "Dinheiro" },
+    { n: "02", label: "Competição", figure: "R$", note: "receita declarada até 27/10, por gênero e cor/raça", to: "/dinheiro" as const, link: "Dinheiro" },
     { n: "03", label: "Resultado", figure: formatPct((RESULT_2026_PROPORCIONAL.elected.feminine / RESULT_2026_PROPORCIONAL.seats) * 100), note: `das cadeiras de deputado(a) (${formatInt(RESULT_2026_PROPORCIONAL.elected.feminine)} de ${formatInt(RESULT_2026_PROPORCIONAL.seats)}); Senado: ${RESULT_2026_SENADO.electedFeminine} de ${RESULT_2026_SENADO.seats}; governos: ${RESULT_2026_GOVERNO.electedFeminine} de ${RESULT_2026_GOVERNO.totalUfs}`, to: "/historico" as const, link: "Histórico" },
     { n: "04", label: "Poder", figure: "?", note: "a partir de 2027: comissões, mesas e lideranças", to: null, link: null },
   ];
@@ -317,7 +317,7 @@ export function HomeFunnelFeature({ snapshot }: { snapshot: PublicSnapshot | nul
 const INVESTIGATIONS = [
   { id: "historico", title: "Em 2026, 1 em cada 21 candidatas a deputada se elegeu. Entre os homens, 1 em cada 10.", support: "Candidaturas e eleitas em cada eleição geral, de 2014 a 2026.", to: "/historico", link: "Ver a série histórica" },
   { id: "direitos", title: "Treze marcos, de 1932 a 2026", support: "Cada lei, decisão e emenda que mudou o acesso das mulheres às urnas e ao dinheiro de campanha, com o texto oficial.", to: "/direitos", link: "Ver a linha do tempo" },
-  { id: "dinheiro", title: "Candidata a deputada branca declarou R$ 130 mil nos maiores partidos. Parda, R$ 87 mil.", support: "Receitas declaradas até 25/09, por gênero, cor/raça, cargo, partido e estado.", to: "/dinheiro", link: "Ver quem recebe" },
+  { id: "dinheiro", title: "Candidata a deputada branca declarou R$ 144 mil nos maiores partidos. Parda, R$ 98 mil.", support: "Receitas declaradas até 27/10, por gênero, cor/raça, cargo, partido e estado.", to: "/dinheiro", link: "Ver quem recebe" },
 ] as const;
 
 export function HomeInvestigationGrid({ snapshot: _snapshot }: { snapshot: PublicSnapshot | null }) {

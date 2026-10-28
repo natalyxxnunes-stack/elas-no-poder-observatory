@@ -98,8 +98,8 @@ const CONCEPTS = [
   {
     term: "Competitividade",
     meaning:
-      "Condição real de disputar: posição na chapa, recursos, propaganda e inserção territorial. O indicador não foi definido antes da apuração, e por isso a palavra segue fora do site.",
-    status: "sem indicador",
+      "Condição real de disputar: dinheiro, mandato, posição na chapa, propaganda e base local. O observatório não cria índice de competitividade: ele não foi definido antes do resultado, e um índice montado agora seria ajustado ao que já se sabe. As condições aparecem uma a uma: dinheiro em Dinheiro, dinheiro e mandato contra reeleição em Como votaram.",
+    status: "fora do site, por decisão",
     ok: false,
   },
 ] as const;
@@ -378,8 +378,8 @@ function VotosPage() {
             Entre 14/10 e 27/10 esta página saiu sem Rondônia, porque o arquivo do TSE não trazia a votação do estado.
             Na base de 27/10 o estado voltou e os números passaram a somar os 27 estados. Votos anulados, inclusive os anulados sub
             judice, ficam fora por não serem válidos. O roteiro do projeto previa definir um indicador de
-            competitividade antes do resultado; isso não foi feito a tempo, e qualquer indicador publicado depois virá
-            com essa ressalva.
+            competitividade antes do resultado. Como isso não foi feito a tempo, o observatório decidiu não criar o
+            índice depois: as condições de disputa são mostradas separadamente, sem nota única.
           </GapNote>
         </div>
         <p className="mt-6 font-mono text-[12px] text-muted-foreground">

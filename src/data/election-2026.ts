@@ -323,10 +323,10 @@ export const RACE_BY_POWER_LEVEL: {
   },
   {
     level: "Eleitas",
-    note: "Depende da apuração de 2026.",
+    note: "Resultado final de 2026 (base do TSE de 27/10/2026), publicado em Quem chega.",
     indicator: null,
-    status: DATA_STATUS.indisponivel,
-    pending: "Ainda não disponível antes da apuração da eleição de 2026.",
+    status: DATA_STATUS.validado,
+    pending: "Publicado em Quem chega: 327 deputadas eleitas em 1.572 cadeiras, sendo 214 brancas, 67 pardas, 41 pretas, 3 indígenas e 2 amarelas.",
   },
   {
     level: "Poder e decisões",
