@@ -181,16 +181,88 @@ export const DISPUTE_ITEMS: readonly DisputeItem[] = [
     affects: "Todo o sistema eleitoral, inclusive as regras de cota e de destinação de recursos.",
     status: "EM TRAMITAÇÃO",
     statusNote:
-      "Aprovado pela Câmara em 2021; aguarda apreciação pelo Senado Federal. O texto pode mudar no Senado e, se mudar, volta à Câmara.",
+      "Aprovado pela Câmara em 2021. No Senado, o prazo de emendas perante a Mesa terminou em 29/08/2025, e o projeto segue sem votação. Se o texto mudar no Senado, volta à Câmara.",
     sourceLabel: "Câmara dos Deputados, ficha de tramitação do PLP 112/2021",
     sourceUrl: "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2292163",
     checkedAt: "2026-10-28",
+  },
+  {
+      "id": "pl-763-2021-sf",
+      "kind": "Projeto de lei",
+      "title": "PL 763/2021 (Senado): reserva de 30% das cadeiras para mulheres",
+      "proposal": "Reserva ao menos 30% das cadeiras de deputada federal, estadual e distrital e de vereadora para mulheres e, na renovação de dois terços do Senado, uma vaga para candidaturas femininas. Reserva cadeiras, e não só candidaturas.",
+      "affects": "Todas as casas legislativas; muda a regra de quem ocupa a cadeira, e não só de quem se candidata.",
+      "status": "EM TRAMITAÇÃO",
+      "statusNote": "No Senado, aguarda designação de relatoria desde 28/08/2024. Autor: senador Wellington Fagundes (PL-MT).",
+      "sourceLabel": "Senado Federal, ficha do PL 763/2021",
+      "sourceUrl": "https://www25.senado.leg.br/web/atividade/materias/-/materia/147209",
+      "checkedAt": "2026-10-28"
+  },
+  {
+      "id": "pl-2913-2019-sf",
+      "kind": "Projeto de lei",
+      "title": "PL 2913/2019 e PL 1333/2021 (Senado): uma vaga para cada gênero na renovação de dois terços",
+      "proposal": "Quando o Senado renova dois terços das cadeiras, cada estado elegeria uma senadora e um senador. Os dois projetos têm o mesmo núcleo e tramitam separados.",
+      "affects": "As eleições para o Senado em que cada estado elege duas vagas, como as de 2018 e 2026.",
+      "status": "EM TRAMITAÇÃO",
+      "statusNote": "No Senado, os dois aguardam designação de relatoria: o PL 2913/2019 (Eliziane Gama) desde 02/02/2023 e o PL 1333/2021 (Paulo Paim) desde 28/08/2024.",
+      "sourceLabel": "Senado Federal, ficha do PL 2913/2019",
+      "sourceUrl": "https://www25.senado.leg.br/web/atividade/materias/-/materia/136787",
+      "checkedAt": "2026-10-28"
+  },
+  {
+      "id": "pec-19-2021-sf",
+      "kind": "Emenda constitucional",
+      "title": "PEC 19/2021 (Senado): cota de vagas para pessoas negras e cota por sexo no Legislativo",
+      "proposal": "Leva para a Constituição uma cota de vagas para candidaturas negras nas eleições legislativas, a cota de candidaturas por sexo e regras de destinação do Fundo Partidário, do fundo eleitoral e do tempo de rádio e TV.",
+      "affects": "Partidos e candidaturas nas eleições para o Legislativo.",
+      "status": "EM TRAMITAÇÃO",
+      "statusNote": "No Senado, aguarda designação de relatoria desde 09/05/2023. Assinada por 27 senadoras e senadores de vários partidos.",
+      "sourceLabel": "Senado Federal, ficha da PEC 19/2021",
+      "sourceUrl": "https://www25.senado.leg.br/web/atividade/materias/-/materia/148964",
+      "checkedAt": "2026-10-28"
+  },
+  {
+      "id": "pl-1984-2019-sf",
+      "kind": "Projeto de lei",
+      "title": "PL 1984/2019 (Senado): paridade entre mulheres e homens nas listas de candidaturas",
+      "proposal": "Troca a faixa de 30% a 70% por paridade entre mulheres e homens nas listas de candidaturas dos partidos nas eleições legislativas.",
+      "affects": "Partidos, na montagem das listas para deputada, deputado e vereança.",
+      "status": "EM TRAMITAÇÃO",
+      "statusNote": "No Senado, aguarda designação de relatoria desde 25/02/2021.",
+      "sourceLabel": "Senado Federal, ficha do PL 1984/2019",
+      "sourceUrl": "https://www25.senado.leg.br/web/atividade/materias/-/materia/136134",
+      "checkedAt": "2026-10-28"
+  },
+  {
+      "id": "pl-2341-2024-sf",
+      "kind": "Projeto de lei",
+      "title": "PL 2341/2024 (Senado): medidas protetivas de urgência para violência política contra a mulher",
+      "proposal": "Altera a Lei nº 14.192/2021 para prever medidas protetivas de urgência nos casos de violência política contra a mulher.",
+      "affects": "Mulheres candidatas e eleitas; Justiça Eleitoral.",
+      "status": "EM TRAMITAÇÃO",
+      "statusNote": "No Senado, aguarda designação de relatoria desde 30/05/2025. Autora: senadora Janaína Farias (PT-CE).",
+      "sourceLabel": "Senado Federal, ficha do PL 2341/2024",
+      "sourceUrl": "https://www25.senado.leg.br/web/atividade/materias/-/materia/164099",
+      "checkedAt": "2026-10-28"
+  },
+  {
+      "id": "pl-2882-2023-sf",
+      "kind": "Projeto de lei",
+      "title": "PL 2882/2023 (Senado): criminalização da misoginia",
+      "proposal": "Altera a Lei nº 7.716/1989 para criminalizar a misoginia. Tem objetivo próximo ao do PL 896/2023, que veio do Senado e está pronto para pauta na Câmara.",
+      "affects": "Toda a população; inclui ataques a mulheres na política.",
+      "status": "EM TRAMITAÇÃO",
+      "statusNote": "No Senado, aguarda designação de relatoria desde 15/06/2023. Autoria: Comissão de Direitos Humanos do Senado.",
+      "sourceLabel": "Senado Federal, ficha do PL 2882/2023",
+      "sourceUrl": "https://www25.senado.leg.br/web/atividade/materias/-/materia/157852",
+      "checkedAt": "2026-10-28"
   },
 ];
 
 /** Itens ainda não incluídos por falta de verificação documental. */
 export const DISPUTE_GAP =
-  "Projetos em tramitação entram só com número da proposição, situação verificada na fonte oficial e data da verificação. O levantamento de 28/10/2026 cobre as proposições que passaram pela Câmara dos Deputados; projetos que tramitam só no Senado ainda não foram levantados, e essa lacuna fica declarada.";
+  "Projetos em tramitação entram só com número da proposição, situação verificada na fonte oficial e data da verificação. O levantamento de 28/10/2026 cobre a Câmara dos Deputados e o Senado Federal, por busca de termos sobre violência política, cotas, reserva de cadeiras, paridade e misoginia; projetos que usam outros termos podem ter ficado de fora.";
 
 export const DISPUTE_RULE =
   "Projeto apresentado não é projeto aprovado. Situação em tramitação não antecipa resultado, e nenhuma proposição é descrita aqui como se já produzisse efeitos.";

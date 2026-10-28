@@ -1,3 +1,4 @@
+import { Senado2027Chart, Senadoras2027 } from "@/components/editorial/Senado2027";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
@@ -441,6 +442,37 @@ function QuemChegaPage() {
 
       <SectionBlock id="cargos" kicker="Camada 1 · resultado" question="Quantas se elegeram, em cada cargo" align="wide">
         <OfficeBars />
+      </SectionBlock>
+
+      <SectionBlock
+        id="senado"
+        tone="lilac"
+        kicker="Senado"
+        question="O Senado de 2027: o PL vira um terço da Casa"
+        align="wide"
+        lead={
+          <>
+            <p>
+              Das 54 vagas do Senado em disputa em 2026, o PL ganhou 19, quase o triplo do segundo colocado, o MDB, com
+              7. Somadas às 8 cadeiras do partido com mandato até 2031, o PL deve começar 2027 com 27 das 81 cadeiras,
+              contra 15 hoje. Um terço do Senado é exatamente o número de assinaturas que a Constituição exige para criar
+              uma CPI e para apresentar uma proposta de emenda constitucional na Casa (arts. 58 e 60): o PL passa a poder
+              fazer as duas coisas sozinho.
+            </p>
+            <p className="mt-3">
+              As mulheres passam de 15 para 19 senadoras. Três delas são do PL: Michelle Bolsonaro, Bia Kicis e Carol de
+              Toni. Bia Kicis e Carol de Toni, hoje deputadas, votaram contra a lei de igualdade salarial na Câmara, como
+              mostra a reportagem Como votaram. Entre as 12 senadoras eleitas em 2026, 10 se declaram brancas e 2 pardas;
+              nenhuma preta.
+            </p>
+          </>
+        }
+      >
+        <Senado2027Chart />
+        <div className="mt-6">
+          <p className="poster-eyebrow mb-3 text-ink">As 19 senadoras previstas para 2027</p>
+          <Senadoras2027 />
+        </div>
       </SectionBlock>
 
       <SectionBlock
