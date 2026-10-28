@@ -63,6 +63,14 @@ export function FinanceByOffice({ snapshot }: { snapshot: TseFinanceSnapshot }) 
   );
   return (
     <ChartFrame
+      ficha={{
+        vendo: "Para cada cargo, a fatia de mulheres entre as candidaturas com receita e a fatia delas no dinheiro declarado.",
+        contados: "Candidaturas que já declararam alguma receita na prestação de contas.",
+        denominador: "Presença: candidaturas com receita no cargo. Receita: total declarado no cargo.",
+        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, contas em andamento`,
+        fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
+        limitacao: "Contas em andamento: os valores mudam até a prestação final. Mede receita declarada, não despesa.",
+      }}
       eyebrow="Presença × receita, por cargo · 2026"
       title="Fatia das mulheres entre as candidaturas e no dinheiro de cada cargo"
       legend={<><LegendSwatch className="bg-plum">Presença</LegendSwatch><LegendSwatch className="bg-plum-soft">Receita</LegendSwatch></>}
@@ -98,7 +106,15 @@ export function FinanceRace({ snapshot }: { snapshot: TseFinanceSnapshot }) {
         return (
           <ChartFrame
             key={universe}
-            eyebrow={`Receita de mulheres por cor/raça · ${UNIVERSE_LABEL[universe].toLocaleLowerCase("pt-BR")}`}
+            ficha={{
+        vendo: "Como o dinheiro declarado por candidatas se divide entre os grupos de cor/raça.",
+        contados: universe === "proporcional" ? "Candidatas a deputada com receita declarada." : "Candidatas à Presidência, aos governos e ao Senado com receita declarada.",
+        denominador: "Receita total declarada pelas candidatas do mesmo universo.",
+        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, contas em andamento`,
+        fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
+        limitacao: "Contas em andamento: os valores mudam até a prestação final. Mede receita declarada, não despesa.",
+      }}
+      eyebrow={`Receita de mulheres por cor/raça · ${UNIVERSE_LABEL[universe].toLocaleLowerCase("pt-BR")}`}
             title={universe === "proporcional" ? "Candidatas a deputada" : "Presidência, governos e Senado"}
             note={
               <>
@@ -142,6 +158,14 @@ export function FinanceParties({ snapshot }: { snapshot: TseFinanceSnapshot }) {
   const parties = Object.entries(snapshot.universes.proporcional.topParties ?? {});
   return (
     <ChartFrame
+      ficha={{
+        vendo: "Nos cinco partidos com mais receita, a fatia do dinheiro do partido que foi para candidatas.",
+        contados: "Candidaturas a deputada e deputado com receita declarada, pelo partido do registro.",
+        denominador: "Receita total declarada pelas candidaturas do próprio partido.",
+        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, contas em andamento`,
+        fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
+        limitacao: "Receita registrada na candidatura, de qualquer origem, além do repasse do partido. Contas em andamento.",
+      }}
       eyebrow="Cinco partidos com mais receita · proporcional"
       title="Quanto do dinheiro de cada partido foi para candidatas"
       note="Ordem pela receita total declarada, do maior para o menor. Fatia das mulheres na régua de 0 a 50%. Ordem descritiva, sem classificar mérito."
@@ -173,6 +197,14 @@ export function FinanceByUf({ snapshot }: { snapshot: TseFinanceSnapshot }) {
     .sort((a, b) => b.pct - a.pct);
   return (
     <ChartFrame
+      ficha={{
+        vendo: "Em cada estado, a fatia das candidatas no dinheiro declarado para deputado.",
+        contados: "Candidaturas a deputada e deputado com receita declarada, por UF.",
+        denominador: "Receita total declarada pelas candidaturas do estado.",
+        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, contas em andamento`,
+        fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
+        limitacao: "Contas em andamento: os valores mudam até a prestação final. Mede receita declarada, não despesa.",
+      }}
       eyebrow="Receita das mulheres por estado · proporcional"
       title="Fatia das candidatas no dinheiro declarado em cada UF"
       note="Da maior para a menor fatia. Régua de 0 a 50%. Embaixo de cada UF, a receita das mulheres e o total declarado no estado."

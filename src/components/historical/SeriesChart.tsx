@@ -129,6 +129,14 @@ export function SeriesChart({
   }
   return (
     <ChartFrame
+      ficha={{
+        vendo: `${series.label}, nos universos proporcional e majoritário, eleição a eleição.`,
+        contados: "Candidaturas ou eleitas e eleitos, conforme a série, em cada eleição geral de 2014 a 2026.",
+        denominador: series.formula,
+        data: "2014, 2018 e 2022: bases fechadas do TSE; 2026: candidaturas de 25/09 e resultado de 27/10/2026",
+        fonte: "TSE, Candidatos 2014, 2018, 2022 e 2026",
+        limitacao: series.notes.join(" "),
+      }}
       eyebrow="Série histórica · 2014 a 2026"
       title={series.label}
       legend={<><LegendSwatch className="bg-plum">2014 a 2022</LegendSwatch><LegendSwatch className="bg-coral">2026</LegendSwatch></>}

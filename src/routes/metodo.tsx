@@ -669,6 +669,22 @@ function MetodoPage() {
             </dd>
           </div>
         </dl>
+        <div className="mt-6 editorial-card p-5">
+          <p className="kicker">Regra do site (desde 27/10/2026)</p>
+          <p className="mt-2 font-display text-lg leading-snug text-ink">
+            Todo gráfico tem ficha. Toda conclusão tem os três cartões.
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            Cada gráfico de dados das páginas traz, logo abaixo, a “Ficha do
+            gráfico”: o que estou vendo, quem é contado, denominador, data,
+            fonte e limitação. Os três cartões (fato, interpretação editorial e
+            hipótese em investigação) aparecem onde a página tira uma
+            conclusão: achados, recortes de cor/raça e investigações
+            assinadas. As aberturas de página e a home usam gráficos de
+            abertura, com legenda própria, e remetem ao gráfico completo com
+            ficha.
+          </p>
+        </div>
       </SectionBlock>
 
       {/* Metadados por indicador */}
@@ -1009,6 +1025,36 @@ function MetodoPage() {
               acontece só na apresentação, e toda diferença entre percentuais
               aparece em pontos percentuais (p.p.), nunca em pontos absolutos.
             </p>
+          </li>
+
+          <li className="poster-frame p-5">
+            <h3 className="font-display text-lg text-ink">
+              Votações na Câmara (Como votaram)
+            </h3>
+            <ul className="mt-2 list-disc space-y-1 pl-4 text-sm leading-relaxed text-muted-foreground">
+              <li>
+                critério de seleção, fixado antes do cruzamento com 2026:
+                votações nominais de plenário sobre o texto (mérito), 2023 a
+                2026, nos blocos mulheres, povos indígenas e democracia;
+                urgências e votações simbólicas ficam fora
+              </li>
+              <li>
+                voto lido do registro nominal da Câmara (Dados Abertos);
+                ausente = em exercício na data e sem voto, contado à parte;
+                quem presidia a sessão (Artigo 17) fica fora
+              </li>
+              <li>
+                maioria da bancada = lado com mais votos do partido do
+                deputado naquela votação; a orientação oficial vem por bloco,
+                sem composição histórica na API
+              </li>
+              <li>
+                cor/raça = autodeclaração ao TSE em 2022; resultado de 2026 =
+                arquivo do TSE de 27/10/2026; junção por CPF. Placar recontado
+                igual ao oficial nas cinco votações. Scripts em
+                scripts/investigacao
+              </li>
+            </ul>
           </li>
 
           <li className="poster-frame p-5">

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AchadosRouteImport } from './routes/achados'
 import { Route as BarreirasRouteImport } from './routes/barreiras'
+import { Route as ComoVotaramRouteImport } from './routes/como-votaram'
 import { Route as CondicoesRouteImport } from './routes/condicoes'
 import { Route as DinheiroRouteImport } from './routes/dinheiro'
 import { Route as DireitosRouteImport } from './routes/direitos'
@@ -42,6 +43,11 @@ const AchadosRoute = AchadosRouteImport.update({
 const BarreirasRoute = BarreirasRouteImport.update({
   id: '/barreiras',
   path: '/barreiras',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComoVotaramRoute = ComoVotaramRouteImport.update({
+  id: '/como-votaram',
+  path: '/como-votaram',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CondicoesRoute = CondicoesRouteImport.update({
@@ -130,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/achados': typeof AchadosRoute
   '/barreiras': typeof BarreirasRoute
+  '/como-votaram': typeof ComoVotaramRoute
   '/condicoes': typeof CondicoesRoute
   '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
@@ -151,6 +158,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/achados': typeof AchadosRoute
   '/barreiras': typeof BarreirasRoute
+  '/como-votaram': typeof ComoVotaramRoute
   '/condicoes': typeof CondicoesRoute
   '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
@@ -173,6 +181,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/achados': typeof AchadosRoute
   '/barreiras': typeof BarreirasRoute
+  '/como-votaram': typeof ComoVotaramRoute
   '/condicoes': typeof CondicoesRoute
   '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
@@ -196,6 +205,7 @@ export interface FileRouteTypes {
     | '/'
     | '/achados'
     | '/barreiras'
+    | '/como-votaram'
     | '/condicoes'
     | '/dinheiro'
     | '/direitos'
@@ -217,6 +227,7 @@ export interface FileRouteTypes {
     | '/'
     | '/achados'
     | '/barreiras'
+    | '/como-votaram'
     | '/condicoes'
     | '/dinheiro'
     | '/direitos'
@@ -238,6 +249,7 @@ export interface FileRouteTypes {
     | '/'
     | '/achados'
     | '/barreiras'
+    | '/como-votaram'
     | '/condicoes'
     | '/dinheiro'
     | '/direitos'
@@ -260,6 +272,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AchadosRoute: typeof AchadosRoute
   BarreirasRoute: typeof BarreirasRoute
+  ComoVotaramRoute: typeof ComoVotaramRoute
   CondicoesRoute: typeof CondicoesRoute
   DinheiroRoute: typeof DinheiroRoute
   DireitosRoute: typeof DireitosRoute
@@ -299,6 +312,13 @@ declare module '@tanstack/react-router' {
       path: '/barreiras'
       fullPath: '/barreiras'
       preLoaderRoute: typeof BarreirasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/como-votaram': {
+      id: '/como-votaram'
+      path: '/como-votaram'
+      fullPath: '/como-votaram'
+      preLoaderRoute: typeof ComoVotaramRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/condicoes': {
@@ -420,6 +440,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AchadosRoute: AchadosRoute,
   BarreirasRoute: BarreirasRoute,
+  ComoVotaramRoute: ComoVotaramRoute,
   CondicoesRoute: CondicoesRoute,
   DinheiroRoute: DinheiroRoute,
   DireitosRoute: DireitosRoute,

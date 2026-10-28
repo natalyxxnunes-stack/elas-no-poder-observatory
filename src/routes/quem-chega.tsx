@@ -39,7 +39,7 @@ export const Route = createFileRoute("/quem-chega")({
       {
         name: "description",
         content:
-          "Resultado do 1º turno de 2026 por gênero, cor/raça, cargo, estado e partido, com denominador próprio para cada cargo. Ser eleita não é o mesmo que ocupar poder.",
+          "Resultado final de 2026 por gênero, cor/raça, cargo, estado e partido, cada cargo lido sobre as próprias cadeiras. Ser eleita e ocupar poder são etapas diferentes.",
       },
       { property: "og:title", content: "Quais mulheres chegam a quais lugares?" },
       {
@@ -102,6 +102,14 @@ function OfficeBars() {
   const pres = RESULT_2026_PRESIDENCIA;
   return (
     <ChartFrame
+      ficha={{
+        vendo: "A fatia de cadeiras que ficou com mulheres em cada casa eleita em 2026.",
+        contados: "Pessoas eleitas em 2026 para cada casa, sem vices nem suplentes.",
+        denominador: "Cadeiras de cada casa: 513 na Câmara, 1.035 nas assembleias, 24 na CLDF e as 54 do Senado em disputa.",
+        data: `Base do TSE de ${RESULT_2026_META.baseGeneratedAt}`,
+        fonte: "TSE, Candidatos 2026, recontagem independente",
+        limitacao: "No Senado entram só as 54 vagas de 2026; o terço eleito em 2022 fica fora. Governos e Presidência aparecem em número absoluto.",
+      }}
       eyebrow="Eleitas por cargo · resultado final de 2026"
       title="Em cada casa, a fatia de cadeiras que ficou com mulheres"
       legend={<LegendSwatch className="bg-coral">mulheres eleitas, 2026</LegendSwatch>}
@@ -161,6 +169,14 @@ function RaceComposition() {
   const totalEle = r.elected.feminine;
   return (
     <ChartFrame
+      ficha={{
+        vendo: "A composição por cor/raça das candidatas e das eleitas a deputada.",
+        contados: "Candidaturas de mulheres e mulheres eleitas a deputada federal, estadual e distrital.",
+        denominador: `Candidatas (${n(totalCand)}) e eleitas (${n(totalEle)}), cada barra na própria base.`,
+        data: `Base do TSE de ${RESULT_2026_META.baseGeneratedAt}`,
+        fonte: "TSE, Candidatos 2026, recontagem independente",
+        limitacao: "Cor/raça autodeclarada. Indígenas e amarelas têm base pequena: leia pelo número absoluto.",
+      }}
       eyebrow="Mulheres · deputadas federais, estaduais e distritais"
       title="Quem eram as candidatas e quem são as eleitas, por cor/raça"
       legend={
@@ -227,6 +243,14 @@ function ElectionRateTable() {
     );
   return (
     <ChartFrame
+      ficha={{
+        vendo: "De cada 100 candidaturas de um grupo de gênero e cor/raça, quantas se elegeram.",
+        contados: "Candidaturas a deputada e deputado federal, estadual e distrital.",
+        denominador: "Candidaturas do próprio grupo de gênero e cor/raça.",
+        data: `Base do TSE de ${RESULT_2026_META.baseGeneratedAt}`,
+        fonte: "TSE, Candidatos 2026, recontagem independente",
+        limitacao: "Descreve o grupo, não a chance de uma pessoa. Grupos com menos de 20 candidaturas aparecem só em número absoluto.",
+      }}
       eyebrow="Taxa de eleição do grupo · deputadas e deputados"
       title="De cada 100 candidaturas de um grupo, quantas se elegeram"
       note="Taxa de eleição do grupo = pessoas eleitas do grupo ÷ candidaturas do mesmo grupo. Descreve o resultado do grupo como um todo; não é a chance de uma candidata específica e não explica, sozinha, por que os grupos diferem. Votos, dinheiro de campanha e partido são as próximas camadas a cruzar."
@@ -269,6 +293,14 @@ function UfGrid() {
   rows.sort((a, b) => b.f / b.t - a.f / a.t || b.t - a.t);
   return (
     <ChartFrame
+      ficha={{
+        vendo: "Quantas cadeiras de cada estado na Câmara ficaram com mulheres.",
+        contados: "Deputadas e deputados federais eleitos em 2026.",
+        denominador: "Cadeiras do estado na Câmara, de 8 a 70.",
+        data: `Base do TSE de ${RESULT_2026_META.baseGeneratedAt}`,
+        fonte: "TSE, Candidatos 2026, recontagem independente",
+        limitacao: "Estados com menos de 20 cadeiras aparecem só em número absoluto: uma eleita a mais muda muito o percentual.",
+      }}
       eyebrow="Câmara dos Deputados · deputadas eleitas por estado"
       title="Quantas das cadeiras de cada estado ficaram com mulheres"
       legend={<LegendSwatch className="bg-coral">deputada eleita</LegendSwatch>}
@@ -304,6 +336,14 @@ function PartyTable() {
   const race = p.electedRaceFeminineByParty as Record<string, Record<string, number>>;
   return (
     <ChartFrame
+      ficha={{
+        vendo: "Dentro de cada partido, a fatia de mulheres nas cadeiras que ele conquistou.",
+        contados: "Eleitas e eleitos a deputado federal, estadual e distrital, pelo partido do registro.",
+        denominador: "Cadeiras conquistadas pelo próprio partido, somando Câmara, assembleias e CLDF.",
+        data: `Base do TSE de ${RESULT_2026_META.baseGeneratedAt}`,
+        fonte: "TSE, Candidatos 2026, recontagem independente",
+        limitacao: "Quem concorreu por federação aparece pelo próprio partido. Partidos com menos de 20 eleitos só em número absoluto.",
+      }}
       eyebrow="Deputadas e deputados eleitos por partido · 2026"
       title="Dentro de cada partido, quantas das cadeiras conquistadas são de mulheres"
       legend={<LegendSwatch className="bg-coral">mulheres eleitas</LegendSwatch>}

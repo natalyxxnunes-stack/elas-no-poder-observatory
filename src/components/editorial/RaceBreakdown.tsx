@@ -40,6 +40,14 @@ function Table({
 
   return (
     <ChartFrame
+      ficha={{
+        vendo: "A composição por cor/raça das candidatas, dentro do universo do gráfico.",
+        contados: universe === "proporcional" ? "Candidaturas de mulheres a deputada federal, estadual e distrital." : "Candidaturas de mulheres à Presidência, aos governos e ao Senado, só titulares.",
+        denominador: "Candidaturas de mulheres no mesmo universo.",
+        data: "Fotografia vigente do TSE (data no topo da página)",
+        fonte: "TSE, Candidaturas 2026",
+        limitacao: "Cor/raça autodeclarada. Mulheres trans e travestis aparecem registradas como feminino e não são distinguíveis na base.",
+      }}
       eyebrow={`Candidatas por cor/raça · ${universe === "proporcional" ? "proporcional" : "majoritário"}`}
       title={UNIVERSE_TITLE[universe]}
       note={<>{UNIVERSE_NOTE[universe]}{denominator ? ` Denominador: ${formatInt(denominator)} candidaturas de mulheres. Régua de 0 a 100%.` : ""}</>}

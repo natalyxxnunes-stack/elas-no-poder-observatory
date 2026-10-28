@@ -125,7 +125,15 @@ export function RaceFinding2026({
     <div className="space-y-8">
       <div className="space-y-6">
         <ChartFrame
-          eyebrow="Cinco categorias, dois retratos"
+          ficha={{
+        vendo: "A distribuição por cor/raça de duas populações lado a lado: mulheres adultas e candidatas a deputada.",
+        contados: "Mulheres de 18 anos ou mais no Censo 2022 e candidaturas de mulheres a deputada federal, estadual e distrital em 2026.",
+        denominador: "Cada barra sobre o total da própria população: todas as mulheres adultas ou todas as candidatas a deputada.",
+        data: "Censo 2022; candidaturas da fotografia do TSE de 25/09/2026",
+        fonte: "IBGE, Censo 2022; TSE, Candidaturas 2026",
+        limitacao: "Censo e TSE usam as mesmas cinco categorias autodeclaradas, em coletas e anos diferentes. A comparação mostra composição, não causa.",
+      }}
+      eyebrow="Cinco categorias, dois retratos"
           title="Mulheres adultas (Censo 2022) × candidatas a deputada (2026)"
           legend={<><LegendSwatch className="bg-plum opacity-45">Mulheres 18+</LegendSwatch><LegendSwatch className="bg-plum">Candidatas</LegendSwatch></>}
           note="Cada categoria na sua cor: a barra clara mostra as mulheres de 18 anos ou mais; a escura, as candidatas. Régua de 0 a 50%."

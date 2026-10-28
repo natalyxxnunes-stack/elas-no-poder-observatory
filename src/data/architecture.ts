@@ -152,6 +152,18 @@ export const AXES: readonly Axis[] = [
     publication: "published", status: "parcial", statusNote: "Resultado final publicado (com o 2º turno de 25/10) por cargo, cor/raça, estado e partido; posições de poder a partir da posse, em 2027.", group: "investigacao",
   },
   {
+    id: "como-votaram",
+    to: "/como-votaram",
+    label: "Como votaram",
+    question: "Como votaram as deputadas, e quem voltou?",
+    summary:
+      "Investigação assinada: o voto das deputadas federais em cinco votações de mérito da Câmara (igualdade salarial, anistia às cotas, marco temporal, dosimetria do 8 de janeiro e PEC das prerrogativas), com a posição da própria bancada, cor/raça e o resultado de 2026.",
+    dimensions: ["gênero × cor/raça × voto em plenário", "partido", "resultado de 2026"],
+    unpublishedReason: "",
+    state: "com dados de resultado",
+    publication: "published", status: "publicado", statusNote: "Cinco votações nominais de mérito, 2023 a 2025, cruzadas com o resultado de 2026.", group: "investigacao",
+  },
+  {
     id: "barreiras",
     to: "/barreiras",
     label: "Barreiras",

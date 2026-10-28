@@ -95,6 +95,14 @@ export function OfficePairChart({ snapshot }: { snapshot: PublicSnapshot | null 
 
   return (
     <ChartFrame
+      ficha={{
+        vendo: "A presença de mulheres entre titulares e entre vices ou suplentes de cada cargo majoritário.",
+        contados: "Todas as candidaturas registradas a cada cargo, inclusive vices e suplentes.",
+        denominador: "Candidaturas do próprio cargo: por exemplo, candidatas a vice-governadora sobre todas as candidaturas a vice-governador.",
+        data: "Fotografia vigente do TSE (data no topo da página)",
+        fonte: "TSE, Candidaturas 2026",
+        limitacao: "Presidência tem menos de 20 registros e aparece só em número absoluto. São pedidos de registro; o arquivo não informa quais foram deferidos.",
+      }}
       eyebrow="Titular × vice ou suplência · 2026"
       title="A presença de mulheres cresce nas posições de apoio à chapa"
       legend={<><LegendSwatch className="bg-plum">Titular</LegendSwatch><LegendSwatch className="bg-plum-soft">Vice ou suplência</LegendSwatch></>}

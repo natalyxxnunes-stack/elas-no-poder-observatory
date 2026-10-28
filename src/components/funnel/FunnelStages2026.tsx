@@ -96,7 +96,7 @@ function StageBar({
           />
         </div>
         <p className="mt-2 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
-          barra lida dentro desta etapa · denominador próprio
+          barra lida dentro desta etapa
         </p>
       </div>
 

@@ -2,6 +2,51 @@ import type { ReactNode } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 
 /**
+ * Ficha do gráfico — regra do site (27/10/2026): todo gráfico leva a ficha,
+ * junto do gráfico, com as seis perguntas de leitura.
+ */
+export type ChartFicha = {
+  /** o que estou vendo */
+  vendo: ReactNode;
+  /** quem é contado */
+  contados: ReactNode;
+  /** sobre qual total cada valor é lido */
+  denominador: ReactNode;
+  /** data da base */
+  data: ReactNode;
+  fonte: ReactNode;
+  limitacao: ReactNode;
+};
+
+const FICHA_ROWS: { key: keyof ChartFicha; label: string }[] = [
+  { key: "vendo", label: "O que estou vendo" },
+  { key: "contados", label: "Quem é contado" },
+  { key: "denominador", label: "Denominador" },
+  { key: "data", label: "Data" },
+  { key: "fonte", label: "Fonte" },
+  { key: "limitacao", label: "Limitação" },
+];
+
+export function FichaGrafico({ ficha }: { ficha: ChartFicha }) {
+  return (
+    <details className="group border-t border-rule px-5 py-3 md:px-6">
+      <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-plum underline underline-offset-4 [&::-webkit-details-marker]:hidden">
+        <span className="group-open:hidden">Ficha do gráfico</span>
+        <span className="hidden group-open:inline">Fechar a ficha</span>
+      </summary>
+      <dl className="mt-3 grid gap-x-6 gap-y-3 text-sm leading-relaxed md:grid-cols-2">
+        {FICHA_ROWS.map((row) => (
+          <div key={row.key} className="min-w-0">
+            <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">{row.label}</dt>
+            <dd className="mt-0.5 text-ink/85">{ficha[row.key]}</dd>
+          </div>
+        ))}
+      </dl>
+    </details>
+  );
+}
+
+/**
  * Padrão único de gráfico do observatório.
  * Cabeçalho: rótulo (o que é) + título (o que mostra) + legenda à direita.
  * Corpo: o gráfico. Rodapé: nota de escala/base, fonte e a assinatura (olho + endereço),
@@ -22,7 +67,9 @@ export function ChartFrame({
   children,
   className = "",
   ariaLabel,
+  ficha,
 }: {
+  ficha?: ChartFicha;
   eyebrow: string;
   title?: ReactNode;
   legend?: ReactNode;
@@ -51,6 +98,7 @@ export function ChartFrame({
           <ChartSignature />
         </div>
       )}
+      {ficha && <FichaGrafico ficha={ficha} />}
     </figure>
   );
 }

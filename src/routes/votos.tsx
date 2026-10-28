@@ -113,9 +113,17 @@ function StageChart({ cargo }: { cargo: keyof typeof VOTOS_2026 }) {
   ];
   return (
     <ChartFrame
+      ficha={{
+        vendo: "A presença de mulheres em três etapas: candidaturas, votos nominais válidos e cadeiras.",
+        contados: `Candidaturas, votos e pessoas eleitas para ${CARGO_LABEL[cargo]}, nos 27 estados.`,
+        denominador: "Cada etapa sobre o próprio total: todas as candidaturas, todos os votos nominais válidos e todas as cadeiras do cargo.",
+        data: `Bases do TSE de ${VOTOS_2026_META.baseGeneratedAt.slice(0, 10)}`,
+        fonte: "TSE, Candidatos e Votação nominal por município e zona 2026, recontagem independente",
+        limitacao: "Voto de legenda não tem candidata nem candidato e fica fora, assim como os votos anulados.",
+      }}
       eyebrow={`${CARGO_LABEL[cargo]} · mulheres em cada etapa`}
       title={`Candidaturas, votos e cadeiras: ${pct(s.cand.f, s.cand.t)}, ${pct(s.votes.f, s.votes.t)} e ${pct(s.seats.f, s.seats.t)}`}
-      note="Cada barra tem o próprio denominador. As três descrevem etapas diferentes e não se subtraem."
+      note="Cada barra tem o próprio total: candidaturas, votos e cadeiras, três etapas lidas lado a lado."
       source={`Fonte: TSE, Candidatos e Votação nominal 2026, bases de ${VOTOS_2026_META.baseGeneratedAt.slice(0, 10)}. Os 27 estados.`}
     >
       <div className="space-y-4">
@@ -151,6 +159,14 @@ function RaceGenderTable({ cargo }: { cargo: keyof typeof VOTOS_2026 }) {
   );
   return (
     <ChartFrame
+      ficha={{
+        vendo: "A fatia de cada grupo de gênero e cor/raça nas candidaturas, nos votos e nas cadeiras.",
+        contados: `Candidaturas, votos e pessoas eleitas para ${CARGO_LABEL[cargo]}.`,
+        denominador: "Cada coluna soma 100% do próprio total.",
+        data: `Bases do TSE de ${VOTOS_2026_META.baseGeneratedAt.slice(0, 10)}`,
+        fonte: "TSE, Candidatos e Votação nominal por município e zona 2026, recontagem independente",
+        limitacao: "Cor/raça autodeclarada. Indígenas e amarelas e amarelos têm base pequena: leia pelo número absoluto.",
+      }}
       eyebrow={`${CARGO_LABEL[cargo]} · gênero e cor/raça`}
       title="Fatia de cada grupo nas candidaturas, nos votos e nas cadeiras"
       legend={<LegendSwatch className="bg-coral">grupos de mulheres</LegendSwatch>}
@@ -199,6 +215,14 @@ function UfVotes() {
     .sort((a, b) => b.f / b.t - a.f / a.t);
   return (
     <ChartFrame
+      ficha={{
+        vendo: "Em cada estado, a fatia dos votos para deputado federal que foi para candidatas.",
+        contados: "Votos nominais válidos para deputado federal, por estado.",
+        denominador: "Total de votos nominais válidos para deputado federal no estado.",
+        data: `Bases do TSE de ${VOTOS_2026_META.baseGeneratedAt.slice(0, 10)}`,
+        fonte: "TSE, Candidatos e Votação nominal por município e zona 2026, recontagem independente",
+        limitacao: "Voto de legenda fica fora. Cada estado é uma disputa própria e não se compara como ranking de mérito.",
+      }}
       eyebrow="Câmara dos Deputados · votos nominais válidos por estado"
       title="Fatia dos votos para deputado federal que foi para candidatas, em cada estado"
       legend={<LegendSwatch className="bg-coral">votos em candidatas, 2026</LegendSwatch>}
