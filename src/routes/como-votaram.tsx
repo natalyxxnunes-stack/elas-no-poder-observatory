@@ -101,6 +101,97 @@ const FICHA_BASE = {
   fonte: "Câmara dos Deputados, Dados Abertos (votos nominais e deputados em exercício na data)",
 };
 
+
+const VOTE_ORDER = ["Sim", "Não", "Abstenção", "Obstrução", "Ausente"] as const;
+const VOTE_PLURAL: Record<string, string> = {
+  Sim: "Votaram Sim",
+  Não: "Votaram Não",
+  Abstenção: "Abstenção",
+  Obstrução: "Obstrução",
+  Ausente: "Ausentes",
+};
+
+type NomeVoto = { nome: string; uf: string; partido: string; contra: boolean };
+
+function namesByVote(vid: string) {
+  const out: Record<string, NomeVoto[]> = {};
+  for (const d of DEPUTADAS) {
+    const x = d.votos[vid];
+    if (!x) continue;
+    (out[x.voto] ??= []).push({ nome: d.nome, uf: d.uf, partido: x.partido, contra: x.alinhamento === "contra a bancada" });
+  }
+  return out;
+}
+
+function byParty(list: NomeVoto[]) {
+  const m = new Map<string, NomeVoto[]>();
+  for (const x of list) m.set(x.partido, [...(m.get(x.partido) ?? []), x]);
+  return [...m.entries()].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]));
+}
+
+function PartyNames({ list }: { list: NomeVoto[] }) {
+  return (
+    <ul className="space-y-1.5 text-sm leading-relaxed text-ink">
+      {byParty(list).map(([party, xs]) => (
+        <li key={party}>
+          <span className="font-mono text-xs uppercase tracking-wider text-plum">
+            {party} ({n(xs.length)})
+          </span>{" "}
+          {xs
+            .sort((a, b) => a.nome.localeCompare(b.nome))
+            .map((x) => `${x.nome} (${x.uf})${x.contra ? "*" : ""}`)
+            .join(", ")}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** Quem votou como, deputada por deputada, agrupado pelo partido na data do voto. */
+function VoteNames({ v }: { v: Votacao }) {
+  const g = namesByVote(v.id);
+  const sim = g["Sim"]?.length ?? 0;
+  const nao = g["Não"]?.length ?? 0;
+  const minoria = sim <= nao ? "Sim" : "Não";
+  const lista = g[minoria] ?? [];
+  const algumaContra = Object.values(g).some((xs) => xs.some((x) => x.contra));
+  return (
+    <div className="mt-5 border-t border-rule pt-4">
+      {lista.length > 0 && lista.length <= 25 && (
+        <>
+          <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+            As {n(lista.length)} deputadas que votaram {minoria}, por partido
+          </p>
+          <div className="mt-2">
+            <PartyNames list={lista} />
+          </div>
+        </>
+      )}
+      <details className="mt-3 group">
+        <summary className="cursor-pointer font-mono text-xs uppercase tracking-wider text-plum">
+          Ver como votou cada deputada
+        </summary>
+        <div className="mt-3 space-y-4">
+          {VOTE_ORDER.map((k) => [k, g[k] ?? []] as const).filter(([, xs]) => xs.length).map(([k, xs]) => (
+            <div key={k}>
+              <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                {VOTE_PLURAL[k]} · {n(xs.length)}
+              </p>
+              <div className="mt-1.5">
+                <PartyNames list={xs} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </details>
+      <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+        Partido na data do voto.{algumaContra ? " * votou contra a maioria do próprio partido." : ""} Voto em plenário é
+        ato público, registrado nominalmente pela Câmara.
+      </p>
+    </div>
+  );
+}
+
 function VoteSplit({ v }: { v: Votacao }) {
   const f = v.porSexo.F;
   const m = v.porSexo.M;
@@ -141,6 +232,7 @@ function VoteSplit({ v }: { v: Votacao }) {
         })}
       </div>
       <ChartScale max={100} />
+      <VoteNames v={v} />
     </ChartFrame>
   );
 }
