@@ -149,7 +149,7 @@ export const AXES: readonly Axis[] = [
     ],
     unpublishedReason: "Depende do resultado e da diplomação de 2026.",
     state: "com dados de resultado",
-    publication: "published", status: "parcial", statusNote: "Resultado do 1º turno publicado por cargo, cor/raça, estado e partido; posições de poder a partir da posse, em 2027.", group: "investigacao",
+    publication: "published", status: "parcial", statusNote: "Resultado final publicado (com o 2º turno de 25/10) por cargo, cor/raça, estado e partido; posições de poder a partir da posse, em 2027.", group: "investigacao",
   },
   {
     id: "barreiras",
@@ -309,7 +309,7 @@ export const INTERSECTION_PLAN = [
   },
   {
     crossing: "gênero × cor/raça × resultado",
-    requires: "Eleitas no 1º turno de 2026 (diplomação em dezembro)",
+    requires: "Resultado final de 2026, com o 2º turno (diplomação em dezembro)",
     status: "disponível",
   },
   {

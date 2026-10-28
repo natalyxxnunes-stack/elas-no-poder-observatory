@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { RESULT_2026_PROPORCIONAL, RESULT_2026_SENADO } from "@/data/resultado-2026";
+import { RESULT_2026_GOVERNO, RESULT_2026_PROPORCIONAL, RESULT_2026_SENADO } from "@/data/resultado-2026";
 import { HISTORICAL_FUNNEL } from "@/data/historical-funnel";
 import brazil from "@svg-maps/brazil";
 import { ArrowRight } from "lucide-react";
@@ -190,7 +190,7 @@ export function HomeHeroEditorial({ snapshot: _snapshot, baseDate: _baseDate }: 
             <p className="mt-2 max-w-md text-xs leading-relaxed text-muted-foreground">
               Entre as candidaturas, mulheres eram {formatPct(candidacyShare)} ({formatInt(RESULT_2026_PROPORCIONAL.candidacies.feminine)} de {formatInt(RESULT_2026_PROPORCIONAL.candidacies.total)}). Em 2022, ficaram com {formatPct(elected2022.femininePercent)} das cadeiras ({formatInt(elected2022.feminine)} de {formatInt(elected2022.total)}).
             </p>
-            <p className="mt-1 font-mono text-xs uppercase text-muted-foreground">TSE · base de 05/10/2026 · recontagem própria</p>
+            <p className="mt-1 font-mono text-xs uppercase text-muted-foreground">TSE · base de 27/10/2026 · recontagem própria</p>
           </div>
         </div>
       </div>
@@ -287,13 +287,13 @@ export function HomeFunnelFeature({ snapshot }: { snapshot: PublicSnapshot | nul
   const steps = [
     { n: "01", label: "Contexto", figure: propShare, note: `das candidaturas a deputada; ${majShare} nas majoritárias`, to: "/quem-sao-elas" as const, link: "Quem são elas?" },
     { n: "02", label: "Competição", figure: "R$", note: "receita declarada até 25/09, por gênero e cor/raça", to: "/dinheiro" as const, link: "Dinheiro" },
-    { n: "03", label: "Resultado", figure: formatPct((RESULT_2026_PROPORCIONAL.elected.feminine / RESULT_2026_PROPORCIONAL.seats) * 100), note: `das cadeiras de deputado(a) no 1º turno (${formatInt(RESULT_2026_PROPORCIONAL.elected.feminine)} de ${formatInt(RESULT_2026_PROPORCIONAL.seats)}); Senado: ${RESULT_2026_SENADO.electedFeminine} de ${RESULT_2026_SENADO.seats}`, to: "/historico" as const, link: "Histórico" },
+    { n: "03", label: "Resultado", figure: formatPct((RESULT_2026_PROPORCIONAL.elected.feminine / RESULT_2026_PROPORCIONAL.seats) * 100), note: `das cadeiras de deputado(a) (${formatInt(RESULT_2026_PROPORCIONAL.elected.feminine)} de ${formatInt(RESULT_2026_PROPORCIONAL.seats)}); Senado: ${RESULT_2026_SENADO.electedFeminine} de ${RESULT_2026_SENADO.seats}; governos: ${RESULT_2026_GOVERNO.electedFeminine} de ${RESULT_2026_GOVERNO.totalUfs}`, to: "/historico" as const, link: "Histórico" },
     { n: "04", label: "Poder", figure: "?", note: "a partir de 2027: comissões, mesas e lideranças", to: null, link: null },
   ];
   return (
     <section className="py-16 md:py-24" aria-labelledby="funil-home-titulo">
       <ChapterKicker n="06" label="O funil" />
-      <h2 id="funil-home-titulo" className="mt-4 max-w-3xl font-display text-3xl leading-[1.05] text-ink md:text-4xl">Quatro etapas entre a candidatura e o poder. Com o 1º turno apurado, três já têm número.</h2>
+      <h2 id="funil-home-titulo" className="mt-4 max-w-3xl font-display text-3xl leading-[1.05] text-ink md:text-4xl">Quatro etapas entre a candidatura e o poder. Com a eleição apurada, três já têm número.</h2>
       <ol className="mt-10 grid border-t-4 border-coral sm:grid-cols-2 lg:grid-cols-4">
         {steps.map((step, index) => (
           <li key={step.n} className={`min-w-0 border-b border-rule py-6 sm:px-5 ${index > 0 ? "lg:border-l" : "sm:pl-0"}`}>

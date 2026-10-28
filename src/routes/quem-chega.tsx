@@ -11,18 +11,16 @@ import { GapNote } from "@/components/GapNote";
 import { axis } from "@/data/architecture";
 import {
   RESULT_2026_GOVERNO,
-  RESULT_2026_MAJ_META,
   RESULT_2026_META,
   RESULT_2026_PARTIDOS,
   RESULT_2026_PRESIDENCIA,
   RESULT_2026_PROPORCIONAL,
-  RESULT_2026_RO_NOTE,
   RESULT_2026_SENADO,
 } from "@/data/resultado-2026";
 import { formatInt, formatPct } from "@/lib/format-br";
 
 /**
- * Quem chega? — resultado do 1º turno de 2026 (camada 1) e, a partir da posse
+ * Quem chega? — resultado final de 2026, com o 2º turno de 25/10 (camada 1) e, a partir da posse
  * em 2027, as posições de poder (camada 2).
  *
  * Regras desta página:
@@ -104,11 +102,11 @@ function OfficeBars() {
   const pres = RESULT_2026_PRESIDENCIA;
   return (
     <ChartFrame
-      eyebrow="Eleitas por cargo · 1º turno de 2026"
+      eyebrow="Eleitas por cargo · resultado final de 2026"
       title="Em cada casa, a fatia de cadeiras que ficou com mulheres"
       legend={<LegendSwatch className="bg-coral">mulheres eleitas, 2026</LegendSwatch>}
       note="Cada barra é lida dentro da própria casa: o denominador é o número de cadeiras daquele cargo. Câmaras diferentes não se somam."
-      source={`Fonte: TSE, Candidatos 2026. Deputadas e deputados: base de ${RESULT_2026_META.baseGeneratedAt}. Senado, governos e Presidência: base de ${RESULT_2026_MAJ_META.baseGeneratedAt}. Recontagem independente.`}
+      source={`Fonte: TSE, Candidatos 2026, base de ${RESULT_2026_META.baseGeneratedAt}, com o resultado do 1º e do 2º turno. Recontagem independente.`}
     >
       <div className="space-y-4">
         {rows.map((row) => (
@@ -128,22 +126,26 @@ function OfficeBars() {
         <div>
           <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">Governos estaduais e do DF</p>
           <p className="mt-1 font-display text-3xl leading-none text-ink">
-            {n(gov.electedFeminine)} de {n(gov.decidedFirstRound)}
+            {n(gov.electedFeminine)} de {n(gov.totalUfs)}
           </p>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            Uma mulher eleita no 1º turno, em {gov.electedFeminineUfs.join(", ")}, entre {n(gov.decidedFirstRound)} disputas já
-            decididas. Nas {n(gov.runoffUfs.length)} que seguem para 25/10, há mulheres no 2º turno em{" "}
-            {gov.runoffFeminineUfs.join(", ")} ({n(gov.runoffFeminine)} de {n(gov.runoffCandidacies)} candidaturas).
+            {gov.electedFeminineNames
+              .map((g) => `${g.nome} (${g.partido}-${g.uf})`)
+              .join("; ")
+              .replace(/; ([^;]*)$/, " e $1")}.
+            Raquel Lyra venceu no 1º turno; as outras duas, no 2º turno de 25/10. Das {n(gov.runoffFeminine)} mulheres
+            que chegaram ao 2º turno, {n(gov.runoffElectedFeminine)} venceram; perderam em{" "}
+            {gov.runoffLostFeminineUfs.join(" e ")}. As três governadoras eleitas se declaram brancas.
           </p>
         </div>
         <div>
-          <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">Presidência</p>
+          <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">Presidência · 2º turno</p>
           <p className="mt-1 font-display text-3xl leading-none text-ink">
             {n(pres.mulheresNoSegundoTurno)} de {n(pres.segundoTurno)}
           </p>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            Nenhuma mulher no 2º turno. Eram {n(pres.mulheres)} candidatas entre {n(pres.registros)} registros, uma branca e
-            uma preta.
+            Nenhuma mulher no 2º turno, disputado por dois homens. Eram {n(pres.mulheres)} candidatas entre{" "}
+            {n(pres.registros)} registros, uma branca e uma preta, e as duas pararam no 1º turno.
           </p>
         </div>
       </div>
@@ -302,7 +304,7 @@ function PartyTable() {
   const race = p.electedRaceFeminineByParty as Record<string, Record<string, number>>;
   return (
     <ChartFrame
-      eyebrow="Deputadas e deputados eleitos por partido · 1º turno"
+      eyebrow="Deputadas e deputados eleitos por partido · 2026"
       title="Dentro de cada partido, quantas das cadeiras conquistadas são de mulheres"
       legend={<LegendSwatch className="bg-coral">mulheres eleitas</LegendSwatch>}
       note={`Denominador: as cadeiras que o próprio partido conquistou somando Câmara, assembleias e CLDF, não o total nacional. Partidos com menos de 20 eleitos aparecem só em número absoluto. ${p.note}`}
@@ -366,7 +368,7 @@ function QuemChegaPage() {
         }
         labels={["Mulheres", "Homens"]}
         seats={{ filled: fed.feminine, total: fed.seats, cols: 27 }}
-        gap={`Câmara dos Deputados, 1º turno de 2026: ${n(fed.feminine)} de ${n(fed.seats)} cadeiras (${pct(fed.feminine, fed.seats)}). Cada ponto é uma cadeira.`}
+        gap={`Câmara dos Deputados, eleição de 2026: ${n(fed.feminine)} de ${n(fed.seats)} cadeiras (${pct(fed.feminine, fed.seats)}). Cada ponto é uma cadeira.`}
       />
 
       <div className="pb-4">
@@ -375,8 +377,8 @@ function QuemChegaPage() {
             <>
               Mulheres ficaram com {n(r.elected.feminine)} das {n(r.seats)} cadeiras de deputado federal, estadual e
               distrital ({pct(r.elected.feminine, r.seats)}), com {n(RESULT_2026_SENADO.electedFeminine)} das{" "}
-              {n(RESULT_2026_SENADO.seats)} vagas do Senado em disputa e com {n(RESULT_2026_GOVERNO.electedFeminine)} governo
-              estadual decidido no 1º turno. Entre as deputadas eleitas, {n(r.electedRaceFeminine["BRANCA"] ?? 0)} são brancas,{" "}
+              {n(RESULT_2026_SENADO.seats)} vagas do Senado em disputa e com {n(RESULT_2026_GOVERNO.electedFeminine)} dos{" "}
+              {n(RESULT_2026_GOVERNO.totalUfs)} governos, depois do 2º turno. Entre as deputadas eleitas, {n(r.electedRaceFeminine["BRANCA"] ?? 0)} são brancas,{" "}
               {n(r.electedRaceFeminine["PARDA"] ?? 0)} pardas, {n(r.electedRaceFeminine["PRETA"] ?? 0)} pretas,{" "}
               {n(r.electedRaceFeminine["INDÍGENA"] ?? 0)} indígenas e {n(r.electedRaceFeminine["AMARELA"] ?? 0)} amarelas.
             </>
@@ -390,8 +392,8 @@ function QuemChegaPage() {
           }
           unknown={
             <>
-              Os governos que vão ao 2º turno em 25/10, a diplomação em dezembro e, a partir da posse em 2027, quem
-              ocupa presidências, mesas, comissões e lideranças.
+              A diplomação em dezembro e, a partir da posse em 2027, quem ocupa presidências, mesas, comissões,
+              lideranças e secretariados.
             </>
           }
         />
@@ -499,7 +501,7 @@ function QuemChegaPage() {
         </div>
         <div className="mt-6">
           <GapNote label="Lacuna declarada">
-            {RESULT_2026_RO_NOTE} Nenhuma projeção de composição de mesas é publicada antes das fontes oficiais.
+            Nenhuma projeção de composição de mesas é publicada antes das fontes oficiais.
           </GapNote>
         </div>
         <p className="mt-6 font-mono text-[12px] text-muted-foreground">

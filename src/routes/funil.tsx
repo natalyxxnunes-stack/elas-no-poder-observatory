@@ -25,7 +25,7 @@ export const Route = createFileRoute("/funil")({
       {
         name: "description",
         content:
-          "O funil de 2026: quantas mulheres nas candidaturas proporcionais e majoritárias, quem são elas por cor/raça e quantas chegaram às cadeiras no 1º turno.",
+          "O funil de 2026: quantas mulheres nas candidaturas proporcionais e majoritárias, quem são elas por cor/raça e quantas chegaram às cadeiras, com o resultado final de 2026.",
       },
       { property: "og:title", content: "Onde elas ficam pelo caminho?" },
       {
@@ -103,7 +103,7 @@ function FunilPage() {
         question="Onde elas ficam pelo caminho?"
         lead={
           <p>
-            Mulheres são {proportionalFrequency} candidaturas a deputada e {majoritarianFrequency} nas disputas por Presidência, governos e Senado. Nas candidaturas majoritárias, a presença cai. No 1º turno de 4 de outubro, mulheres ficaram com {resultShare} das cadeiras de deputado(a): {resultCount}.
+            Mulheres são {proportionalFrequency} candidaturas a deputada e {majoritarianFrequency} nas disputas por Presidência, governos e Senado. Nas candidaturas majoritárias, a presença cai. No 1º turno de 4 de outubro, mulheres ficaram com {resultShare} das cadeiras de deputado(a): {resultCount}. Com o 2º turno de 25 de outubro, os governos fecharam com 3 mulheres em 27, e a Presidência segue sem nenhuma.
           </p>
         }
         snapshot={snapshot}
@@ -131,8 +131,8 @@ function FunilPage() {
           }
           unknown={
             <>
-              Em aberto: os governos de 6 estados, decididos no 2º turno de 25 de
-              outubro, e quem ocupa as posições de poder depois da posse, em 2027.
+              Em aberto: quem ocupa as posições de poder depois da posse, em
+              2027 (mesas, comissões, lideranças e secretariados).
             </>
           }
         />
@@ -216,13 +216,13 @@ function FunilPage() {
       </SectionBlock>
 
       <ComoSabemos
-        fonte="TSE, Candidaturas 2026, resultado do 1º turno de 2026 (base de 05/10) e Vagas 2026; TSE, Candidatos 2014, 2018 e 2022."
+        fonte="TSE, Candidaturas 2026, resultado final de 2026 (base de 27/10, com o 2º turno) e Vagas 2026; TSE, Candidatos 2014, 2018 e 2022."
         universo="Candidaturas registradas, cada uma contada uma vez pelo identificador oficial. Proporcional (Câmara, assembleias e Câmara Legislativa do DF) e majoritário (Presidência, governos e Senado) são contados separadamente. Vices e suplentes ficam fora."
         base={stampLabel}
         calculo={FUNNEL_READING_RULE}
         limites={[
-          "As candidaturas de 2026 são a fotografia de 25/09; o resultado vem do arquivo do TSE de 05/10/2026, com denominador próprio (cadeiras).",
-          "O resultado majoritário de 2026 só fecha depois do 2º turno de 25/10. A Presidência ainda não tem situação de totalização no arquivo.",
+          "As candidaturas de 2026 são a fotografia de 25/09; o resultado vem do arquivo do TSE de 27/10/2026, com denominador próprio (cadeiras).",
+          "Governos e Presidência decididos em 2º turno valem pelo resultado de 25/10 (linha do 2º turno no arquivo do TSE); deputadas, deputados e Senado têm turno único.",
           "Cada etapa é o retrato de um universo, e não o rastro das mesmas pessoas de um degrau para o outro.",
         ]}
       />

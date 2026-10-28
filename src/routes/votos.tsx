@@ -116,7 +116,7 @@ function StageChart({ cargo }: { cargo: keyof typeof VOTOS_2026 }) {
       eyebrow={`${CARGO_LABEL[cargo]} · mulheres em cada etapa`}
       title={`Candidaturas, votos e cadeiras: ${pct(s.cand.f, s.cand.t)}, ${pct(s.votes.f, s.votes.t)} e ${pct(s.seats.f, s.seats.t)}`}
       note="Cada barra tem o próprio denominador. As três descrevem etapas diferentes e não se subtraem."
-      source={`Fonte: TSE, Candidatos e Votação nominal 2026, bases de ${VOTOS_2026_META.baseGeneratedAt.slice(0, 5)}. Sem Rondônia.`}
+      source={`Fonte: TSE, Candidatos e Votação nominal 2026, bases de ${VOTOS_2026_META.baseGeneratedAt.slice(0, 10)}. Os 27 estados.`}
     >
       <div className="space-y-4">
         {rows.map((r) => (
@@ -155,7 +155,7 @@ function RaceGenderTable({ cargo }: { cargo: keyof typeof VOTOS_2026 }) {
       title="Fatia de cada grupo nas candidaturas, nos votos e nas cadeiras"
       legend={<LegendSwatch className="bg-coral">grupos de mulheres</LegendSwatch>}
       note={`Cada coluna soma 100%: ${n(s.cand.t)} candidaturas, ${n(s.votes.t)} votos nominais válidos e ${n(s.seats.t)} cadeiras. Indígenas e amarelas e amarelos têm base pequena: leia pelo número absoluto.`}
-      source={`Fonte: TSE, Candidatos e Votação nominal 2026, bases de 14/10/2026. Categorias originais de cor/raça, sem agregação. Sem Rondônia.`}
+      source={`Fonte: TSE, Candidatos e Votação nominal 2026, bases de ${VOTOS_2026_META.baseGeneratedAt.slice(0, 10)}. Categorias originais de cor/raça, sem agregação. Os 27 estados.`}
     >
       <div className="overflow-x-auto">
         <table className="w-full min-w-[30rem] text-sm">
@@ -202,8 +202,8 @@ function UfVotes() {
       eyebrow="Câmara dos Deputados · votos nominais válidos por estado"
       title="Fatia dos votos para deputado federal que foi para candidatas, em cada estado"
       legend={<LegendSwatch className="bg-coral">votos em candidatas, 2026</LegendSwatch>}
-      note="Cada estado é uma disputa própria: o denominador é o total de votos nominais válidos para deputado federal naquele estado. Rondônia fica fora porque o arquivo de 14/10 não traz a votação do estado."
-      source="Fonte: TSE, Votação nominal por município e zona 2026, base de 14/10/2026."
+      note="Cada estado é uma disputa própria: o denominador é o total de votos nominais válidos para deputado federal naquele estado."
+      source={`Fonte: TSE, Votação nominal por município e zona 2026, base de ${VOTOS_2026_META.baseGeneratedAt.slice(0, 10)}.`}
     >
       <div className="grid gap-x-8 gap-y-3 md:grid-cols-2">
         {rows.map((r) => (
@@ -351,8 +351,8 @@ function VotosPage() {
         </div>
         <div className="mt-6">
           <GapNote label="Lacuna declarada">
-            Rondônia fica fora de candidaturas, votos e cadeiras desta página: os arquivos do TSE de 14/10 não trazem a
-            votação nem a situação de totalização de deputado no estado. Votos anulados, inclusive os anulados sub
+            Entre 14/10 e 27/10 esta página saiu sem Rondônia, porque o arquivo do TSE não trazia a votação do estado.
+            Na base de 27/10 o estado voltou e os números passaram a somar os 27 estados. Votos anulados, inclusive os anulados sub
             judice, ficam fora por não serem válidos. O roteiro do projeto previa definir um indicador de
             competitividade antes do resultado; isso não foi feito a tempo, e qualquer indicador publicado depois virá
             com essa ressalva.

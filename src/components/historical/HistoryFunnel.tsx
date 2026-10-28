@@ -6,7 +6,8 @@
  * Regras de leitura mantidas:
  *  - cada ano e cada etapa têm denominador próprio;
  *  - nenhum percentual é subtraído de outro;
- *  - 2026 entra com o resultado do 1º turno (base TSE de 05/10/2026);
+ *  - 2026 entra com o resultado do 1º turno (base TSE de 05/10/2026, conferida
+ *    sem diferença na base de 27/10/2026);
  *  - cor/raça é autodeclarada e TODAS as categorias do TSE são exibidas, na
  *    ordem fixa, com número absoluto sempre visível.
  */
@@ -219,8 +220,9 @@ export function HistoryFunnel() {
         informado”. Categorias com poucas candidaturas ou eleitas devem ser lidas pelo
         número absoluto, não pelo percentual. Nenhuma categoria é omitida. 2026:
         candidaturas e eleitas lidas do mesmo arquivo do TSE, base gerada em
-        05/10/2026, por isso o total de candidaturas difere em 3 registros da
-        fotografia de 25/09 usada nas outras páginas.
+        05/10/2026 e conferida de novo, sem diferença, na base de 27/10/2026. Por
+        isso o total de candidaturas difere em 3 registros da fotografia de 25/09
+        usada nas outras páginas.
         Fonte: {HISTORICAL_FUNNEL_SOURCE}.
       </p>
     </div>

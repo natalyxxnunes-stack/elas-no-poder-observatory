@@ -64,7 +64,7 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
     <Frame className="bg-plum text-cream">
       <div className="mx-auto grid min-h-[31rem] max-w-6xl items-center gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:py-14">
         <OpeningText {...text} inverse />
-        <figure aria-label="Participação das mulheres nas candidaturas proporcionais e majoritárias e entre as eleitas a deputada no 1º turno de 2026, cada uma em seu universo; poder a partir de 2027" className="min-w-0 border-l border-cream/25 pl-4 md:pl-8">
+        <figure aria-label="Participação das mulheres nas candidaturas proporcionais e majoritárias e entre as eleitas a deputada em 2026, cada uma em seu universo; poder a partir de 2027" className="min-w-0 border-l border-cream/25 pl-4 md:pl-8">
           <div className="space-y-2">
             {layers.map((layer) => (
               <div key={layer.label} className="grid min-w-0 grid-cols-[minmax(0,1fr)_4.5rem] items-center gap-3">
@@ -84,7 +84,7 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
             ))}
           </div>
           <figcaption className="mt-5 border-t border-cream/25 pt-3 text-sm leading-relaxed text-cream/85">
-            Cada barra tem seu próprio total: candidaturas proporcionais, candidaturas majoritárias e cadeiras de deputado(a) no 1º turno de 4/10. Poder entra a partir da posse. · TSE · candidaturas de {baseDate ?? "base em atualização"}; resultado de 05/10/2026.
+            Cada barra tem seu próprio total: candidaturas proporcionais, candidaturas majoritárias e cadeiras de deputado(a) eleitas em 4/10. Poder entra a partir da posse. · TSE · candidaturas de {baseDate ?? "base em atualização"}; resultado da base de 27/10/2026.
           </figcaption>
         </figure>
       </div>

@@ -21,11 +21,9 @@ import { formatInt, formatPct } from "@/lib/format-br";
 import { RACE_COLORS, type RaceCategory } from "@/data/historical-funnel";
 import {
   RESULT_2026_GOVERNO,
-  RESULT_2026_MAJ_META,
   RESULT_2026_META,
   RESULT_2026_PRESIDENCIA,
   RESULT_2026_PROPORCIONAL,
-  RESULT_2026_RO_NOTE,
   RESULT_2026_SENADO,
 } from "@/data/resultado-2026";
 
@@ -194,7 +192,7 @@ function RaceStage({
   );
 }
 
-/** Etapa 3: resultado do 1º turno. Denominador = cadeiras, não candidaturas. */
+/** Etapa 3: resultado final. Denominador = cadeiras, não candidaturas. */
 function ResultStage({ step }: { step: number }) {
   const r = RESULT_2026_PROPORCIONAL;
   const share = (r.elected.feminine / r.seats) * 100;
@@ -217,7 +215,7 @@ function ResultStage({ step }: { step: number }) {
             </span>
           </span>
           <h3 className="font-display text-xl text-ink md:text-2xl">
-            Eleitas e eleitos · 1º turno
+            Eleitas e eleitos · resultado final
           </h3>
         </div>
       </div>
@@ -293,24 +291,24 @@ function ResultStage({ step }: { step: number }) {
         </p>
         <p className="text-sm leading-relaxed text-ink">
           <span className="block font-mono text-[12px] uppercase tracking-wider text-muted-foreground">Governos</span>
-          {n(gov.electedFeminine)} mulher eleita, em {gov.electedFeminineUfs.join(", ")}, nas {n(gov.decidedFirstRound)} disputas decididas no 1º turno
-          (26 estados e DF). Nas {n(gov.runoffUfs.length)} que vão ao 2º turno em 25/10 ({gov.runoffUfs.join(", ")}),{" "}
-          {n(gov.runoffFeminine)} das {n(gov.runoffCandidacies)} candidaturas são de mulheres, em{" "}
-          {gov.runoffFeminineUfs.join(", ")}. O RJ saiu do 2º turno depois da retotalização feita pelo TRE-RJ em 10/10.
+          {n(gov.electedFeminine)} mulheres eleitas em {n(gov.totalUfs)} governos (26 estados e DF), em{" "}
+          {gov.electedFeminineUfs.join(", ")}. No 1º turno, {n(gov.electedFeminineFirstRound)} (PE). No 2º turno de 25/10,
+          {" "}{n(gov.runoffFeminine)} mulheres disputaram {n(gov.runoffFeminineUfs.length)} dos {n(gov.runoffUfs.length)} governos em jogo e{" "}
+          {n(gov.runoffElectedFeminine)} venceram ({gov.runoffElectedFeminineUfs.join(", ")}). As três governadoras eleitas se
+          declaram brancas.
         </p>
         <p className="text-sm leading-relaxed text-ink sm:col-span-2">
           <span className="block font-mono text-[12px] uppercase tracking-wider text-muted-foreground">Presidência</span>
           {n(pres.mulheres)} mulheres em {n(pres.registros)} candidaturas (uma branca e uma preta). Nenhuma das duas
-          foi ao 2º turno: a disputa de 25/10 tem {n(pres.segundoTurno)} candidatos, ambos homens. Base pequena,
-          por isso o número absoluto e não o percentual.
+          foi ao 2º turno, disputado por {n(pres.segundoTurno)} homens em 25/10. Base pequena, por isso o número
+          absoluto e não o percentual.
         </p>
       </div>
 
       <p className="border-t border-rule px-5 py-3 text-sm leading-relaxed text-muted-foreground">
-        Resultado do 1º turno de 4/10/2026, lido do arquivo oficial do TSE e
-        recontado de forma independente. Deputadas e deputados: base gerada em{" "}
-        {RESULT_2026_META.baseGeneratedAt}. Governos, Senado e Presidência: base gerada em{" "}
-        {RESULT_2026_MAJ_META.baseGeneratedAt}. {RESULT_2026_RO_NOTE}
+        Resultado final de 2026 (deputadas e deputados e Senado no 1º turno de 4/10; governos e
+        Presidência com o 2º turno de 25/10), lido do arquivo oficial do TSE e recontado de forma
+        independente. Base gerada em {RESULT_2026_META.baseGeneratedAt}, com os 27 estados.
       </p>
     </li>
   );

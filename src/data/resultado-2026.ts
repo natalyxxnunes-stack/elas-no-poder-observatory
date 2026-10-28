@@ -1,10 +1,17 @@
 /**
- * resultado-2026 — resultado do 1º turno de 4/10/2026, CRAVADO em código.
+ * resultado-2026 — resultado final de 2026 (1º turno de 4/10 e 2º turno de
+ * 25/10), CRAVADO em código.
  *
  * Recontagem independente de `consulta_cand_2026_BRASIL.csv` (latin1, `;`,
- * SQ_CANDIDATO único), base gerada pelo TSE em 05/10/2026 10:14:11,
- * baixada em 05/10/2026 às 18:26 (horário de Brasília).
- * SHA-256 do CSV: 4c4f6682422a3afa36e8bd156d53ecc3e00fcb5e2dda93a70ccec118db3d78da.
+ * SQ_CANDIDATO único), base gerada pelo TSE em 27/10/2026 19:30:36,
+ * baixada em 27/10/2026 às 21:56 (horário de Brasília).
+ * SHA-256 do CSV: 3a60b9a996590b60b39b3a9cca68d2207b89a2a0cf3b235fd6452459be9c0c3e.
+ * SHA-256 do zip: fc047f98cda9f6c837f4e5a1bddb97f9a546a68eb2469c080e83db80e453cb0d.
+ * Script: scripts/recontagem/resultado_2026.py (--turno 1 e --turno 2).
+ *
+ * Esta é a primeira base com os 27 estados completos depois do 1º turno:
+ * Rondônia voltou com a situação de totalização de deputado. O resultado
+ * proporcional é idêntico, número por número, ao da base de 05/10.
  *
  * Eleitas/eleitos = DS_SIT_TOT_TURNO iniciando em "ELEITO" (ELEITO, ELEITO POR
  * QP, ELEITO POR MÉDIA). "2º TURNO" fica fora das eleitas. Mesma regra usada
@@ -22,10 +29,11 @@ export const RESULT_2026_META = {
   fileName: "consulta_cand_2026.zip",
   resourceUrl:
     "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2026.zip",
-  baseGeneratedAt: "05/10/2026 10:14:11",
-  downloadedAt: "2026-10-05T18:26:00-03:00",
-  brasilCsvSha256: "4c4f6682422a3afa36e8bd156d53ecc3e00fcb5e2dda93a70ccec118db3d78da",
-  round: "1º turno · 4 de outubro de 2026",
+  baseGeneratedAt: "27/10/2026 19:30:36",
+  downloadedAt: "2026-10-27T21:56:00-03:00",
+  brasilCsvSha256: "3a60b9a996590b60b39b3a9cca68d2207b89a2a0cf3b235fd6452459be9c0c3e",
+  zipSha256: "fc047f98cda9f6c837f4e5a1bddb97f9a546a68eb2469c080e83db80e453cb0d",
+  round: "1º turno (4/10/2026) e 2º turno (25/10/2026)",
 } as const;
 
 /** Universo proporcional: Câmara dos Deputados + assembleias + Câmara Legislativa do DF. */
@@ -56,35 +64,51 @@ export const RESULT_2026_SENADO = {
 } as const;
 
 /**
- * Majoritário (governos, Senado e Presidência): base do TSE de 14/10/2026.
- * A base de 14/10 incorpora a retotalização do Rio de Janeiro: com a anulação
- * dos votos de Garotinho pelo TSE e a retotalização confirmada pelo TRE-RJ,
- * o governo do RJ foi decidido no 1º turno e saiu da lista do 2º turno.
- * Senado não mudou entre 05/10 e 14/10.
+ * Majoritário (governos, Senado e Presidência): mesma base de 27/10/2026, com
+ * o resultado do 2º turno (linhas NR_TURNO = 2). Mantido como constante
+ * própria porque as páginas citam as duas bases separadamente.
+ * Histórico: a base de 14/10 já incorporava a retotalização do Rio de
+ * Janeiro (governo decidido no 1º turno depois da anulação dos votos de
+ * Garotinho). Senado não mudou entre 05/10, 14/10 e 27/10.
  */
 export const RESULT_2026_MAJ_META = {
-  baseGeneratedAt: "14/10/2026 12:30:43",
-  downloadedAt: "2026-10-14T13:11:00-03:00",
-  brasilCsvSha256: "886bba0f04c781211458d7214a714d5e865c7aea1dbc671d33a27d112fd9ac09",
-  zipSha256: "900f2efe9c3aa6495dcafd41824539cc51331f97406990bc0eed711d2e907142",
+  baseGeneratedAt: RESULT_2026_META.baseGeneratedAt,
+  downloadedAt: RESULT_2026_META.downloadedAt,
+  brasilCsvSha256: RESULT_2026_META.brasilCsvSha256,
+  zipSha256: RESULT_2026_META.zipSha256,
 } as const;
 
-/** Governos: decididos no 1º turno e disputas que seguem para 25/10 (base de 14/10). */
+/** Governos: resultado final, com o 2º turno de 25/10 (base de 27/10). */
 export const RESULT_2026_GOVERNO = {
   totalUfs: 27,
   candidacies: 201,
   feminineCandidacies: 35,
+  /** decididos no 1º turno */
   decidedFirstRound: 21,
-  electedFeminine: 1,
-  electedFeminineUfs: ["PE"],
+  electedFeminineFirstRound: 1,
+  /** resultado final: 27 governos */
+  electedFeminine: 3,
+  electedFeminineUfs: ["AC", "DF", "PE"],
+  /** nomes de urna e partido das eleitas, como no arquivo do TSE */
+  electedFeminineNames: [
+    { uf: "PE", nome: "Raquel Lyra", partido: "PSD", turno: 1 },
+    { uf: "AC", nome: "Mailza Assis", partido: "PP", turno: 2 },
+    { uf: "DF", nome: "Celina Leão", partido: "PP", turno: 2 },
+  ],
+  electedRaceFeminine: { BRANCA: 3 } as Record<string, number>,
+  electedRaceAll: { BRANCA: 20, PARDA: 6, "INDÍGENA": 1 } as Record<string, number>,
+  /** 2º turno */
   runoffUfs: ["AC", "AM", "DF", "ES", "RN", "TO"],
   runoffCandidacies: 12,
   runoffFeminine: 4,
   runoffFeminineUfs: ["AC", "AM", "DF", "TO"],
+  runoffElectedFeminine: 2,
+  runoffElectedFeminineUfs: ["AC", "DF"],
+  runoffLostFeminineUfs: ["AM", "TO"],
 } as const;
 
 /**
- * Presidência (base de 14/10). Sempre em número absoluto ("X de 14"), nunca
+ * Presidência (base de 27/10). Sempre em número absoluto ("X de 14"), nunca
  * em percentual: a base é menor que 20 registros.
  */
 export const RESULT_2026_PRESIDENCIA = {
@@ -94,35 +118,49 @@ export const RESULT_2026_PRESIDENCIA = {
   mulheresCorRaca: { BRANCA: 1, PRETA: 1 } as Record<string, number>,
   segundoTurno: 2,
   mulheresNoSegundoTurno: 0,
+  /** resultado final do 2º turno de 25/10 */
+  decidido: true,
+  mulheresEleitas: 0,
+} as const;
+
+/**
+ * Majoritário completo (Presidência + 27 governos + 54 vagas do Senado), com
+ * o 2º turno incorporado. Mesma regra da série histórica de 2014, 2018 e 2022:
+ * para cargo decidido em 2º turno vale a linha NR_TURNO = 2; vices e
+ * suplentes ficam fora.
+ */
+export const RESULT_2026_MAJORITARIO_FINAL = {
+  total: 82,
+  feminine: 15,
+  byCargo: { PRESIDENTE: 1, GOVERNADOR: 27, SENADOR: 54 } as Record<string, number>,
+  feminineByCargo: { PRESIDENTE: 0, GOVERNADOR: 3, SENADOR: 12 } as Record<string, number>,
+  raceAll: { BRANCA: 59, PARDA: 22, "INDÍGENA": 1 } as Record<string, number>,
+  raceFeminine: { BRANCA: 13, PARDA: 2 } as Record<string, number>,
 } as const;
 
 export const RESULT_2026_SOURCE =
-  "TSE, Dados Abertos, Candidatos 2026 (deputadas e deputados: base gerada em 05/10/2026 10:14:11; governos, Senado e Presidência: base gerada em 14/10/2026 12:30:43), recontagem independente";
+  "TSE, Dados Abertos, Candidatos 2026 (base gerada em 27/10/2026 19:30:36, com o resultado do 1º e do 2º turno), recontagem independente";
 
 /**
- * Por que o proporcional segue na base de 05/10: o arquivo de 14/10 traz os
- * 394 registros de deputado de Rondônia (134 federais, 260 estaduais) sem
- * situação de totalização ("#NULO"), e as 32 cadeiras do estado deixam de
- * aparecer como eleitas. Fora de Rondônia, as contagens de 14/10 são iguais
- * às de 05/10 (1.540 cadeiras, 321 mulheres). A base sobe quando o TSE
- * republicar o resultado de Rondônia.
+ * Rondônia: os arquivos do TSE de 14/10 traziam os 394 registros de deputado
+ * do estado sem situação de totalização. A base de 27/10 trouxe o estado de
+ * volta, e o resultado de deputadas e deputados (1.572 cadeiras, 327
+ * mulheres) ficou igual ao da base de 05/10. Nota mantida para o Método.
  */
 export const RESULT_2026_RO_NOTE =
-  "O arquivo do TSE de 14/10 traz os registros de deputado de Rondônia sem situação de totalização. Por isso o resultado de deputadas e deputados continua na base de 05/10, a última com os 27 estados. Fora de Rondônia, os números de 14/10 são iguais aos de 05/10.";
+  "Rondônia ficou de fora dos recortes por partido e de votos entre 14/10 e 27/10, porque o arquivo do TSE trazia os registros de deputado do estado sem resultado. Na base de 27/10 o estado voltou, e todos os gráficos passaram a somar os 27 estados.";
 
 /**
  * Eleitas e eleitos por partido (deputado federal, estadual e distrital).
- * Base de 14/10/2026, a primeira em que o recorte por partido foi recontado.
- * Rondônia fica fora: o arquivo de 14/10 traz os registros de deputado do
- * estado sem situação de totalização (ver RESULT_2026_RO_NOTE). Por isso os
- * totais aqui são 1.540 cadeiras e 321 mulheres, e não 1.572 e 327.
+ * Base de 27/10/2026, com os 27 estados (1.572 cadeiras, 327 mulheres).
+ * Entre 14/10 e 27/10 esta tabela foi publicada sem Rondônia (1.540 e 321).
  */
 export const RESULT_2026_PARTIDOS = {
-  baseGeneratedAt: "14/10/2026 12:30:43",
-  seats: 1540,
-  feminine: 321,
-  note: "Sem Rondônia: o arquivo de 14/10 traz as 32 cadeiras de deputado do estado sem resultado, por isso esta tabela soma 1.540 cadeiras e 321 mulheres.",
-  electedByParty: {"PL": 323, "PT": 209, "MDB": 148, "PSD": 142, "PP": 120, "REPUBLICANOS": 117, "UNIÃO": 117, "PODE": 71, "PSB": 57, "PSOL": 40, "PSDB": 37, "PDT": 30, "PV": 26, "NOVO": 23, "PCDOB": 20, "AVANTE": 20, "PRD": 15, "AGIR": 7, "SOLIDARIEDADE": 6, "REDE": 4, "MOBILIZA": 3, "MISSÃO": 2, "DEMOCRATA": 1, "CIDADANIA": 1, "DC": 1} as Record<string, number>,
-  electedFeminineByParty: {"PL": 63, "PT": 68, "MDB": 24, "PSD": 23, "PP": 18, "REPUBLICANOS": 21, "UNIÃO": 20, "PODE": 11, "PSB": 16, "PSOL": 25, "PSDB": 5, "PDT": 4, "PV": 6, "NOVO": 2, "PCDOB": 9, "AVANTE": 1, "PRD": 1, "AGIR": 3, "SOLIDARIEDADE": 1, "REDE": 0, "MOBILIZA": 0, "MISSÃO": 0, "DEMOCRATA": 0, "CIDADANIA": 0, "DC": 0} as Record<string, number>,
-  electedRaceFeminineByParty: {"AGIR": {"BRANCA": 1, "PARDA": 2}, "AVANTE": {"BRANCA": 1}, "MDB": {"BRANCA": 18, "PARDA": 6}, "NOVO": {"BRANCA": 2}, "PCDOB": {"PARDA": 2, "BRANCA": 3, "PRETA": 4}, "PDT": {"PARDA": 1, "BRANCA": 3}, "PL": {"BRANCA": 57, "PARDA": 5, "INDÍGENA": 1}, "PODE": {"BRANCA": 9, "PARDA": 2}, "PP": {"BRANCA": 14, "PARDA": 3, "PRETA": 1}, "PRD": {"BRANCA": 1}, "PSB": {"BRANCA": 11, "PARDA": 5}, "PSD": {"PARDA": 6, "BRANCA": 16, "PRETA": 1}, "PSDB": {"BRANCA": 5}, "PSOL": {"AMARELA": 1, "PRETA": 14, "BRANCA": 9, "INDÍGENA": 1}, "PT": {"BRANCA": 32, "PARDA": 14, "PRETA": 20, "INDÍGENA": 1, "AMARELA": 1}, "PV": {"PARDA": 2, "BRANCA": 4}, "REPUBLICANOS": {"PARDA": 5, "BRANCA": 16}, "SOLIDARIEDADE": {"BRANCA": 1}, "UNIÃO": {"PARDA": 12, "BRANCA": 8}} as Record<string, Record<string, number>>,
+  baseGeneratedAt: "27/10/2026 19:30:36",
+  seats: 1572,
+  feminine: 327,
+  note: "Os 27 estados: 1.572 cadeiras e 327 mulheres eleitas.",
+  electedByParty: {"PL": 333, "PT": 211, "MDB": 148, "PSD": 146, "PP": 122, "REPUBLICANOS": 119, "UNIÃO": 119, "PODE": 74, "PSB": 57, "PSOL": 40, "PSDB": 37, "PDT": 30, "PV": 26, "NOVO": 25, "AVANTE": 22, "PCDOB": 20, "PRD": 18, "AGIR": 7, "SOLIDARIEDADE": 6, "REDE": 4, "MOBILIZA": 3, "MISSÃO": 2, "DEMOCRATA": 1, "DC": 1, "CIDADANIA": 1} as Record<string, number>,
+  electedFeminineByParty: {"PL": 65, "PT": 70, "MDB": 24, "PSD": 24, "PP": 18, "REPUBLICANOS": 21, "UNIÃO": 20, "PODE": 12, "PSB": 16, "PSOL": 25, "PSDB": 5, "PDT": 4, "PV": 6, "NOVO": 2, "AVANTE": 1, "PCDOB": 9, "PRD": 1, "AGIR": 3, "SOLIDARIEDADE": 1, "REDE": 0, "MOBILIZA": 0, "MISSÃO": 0, "DEMOCRATA": 0, "DC": 0, "CIDADANIA": 0} as Record<string, number>,
+  electedRaceFeminineByParty: {"AGIR": {"BRANCA": 1, "PARDA": 2}, "AVANTE": {"BRANCA": 1}, "MDB": {"BRANCA": 18, "PARDA": 6}, "NOVO": {"BRANCA": 2}, "PCDOB": {"PARDA": 2, "PRETA": 4, "BRANCA": 3}, "PDT": {"BRANCA": 3, "PARDA": 1}, "PL": {"BRANCA": 58, "PARDA": 6, "INDÍGENA": 1}, "PODE": {"PARDA": 3, "BRANCA": 9}, "PP": {"BRANCA": 14, "PARDA": 3, "PRETA": 1}, "PRD": {"BRANCA": 1}, "PSB": {"BRANCA": 11, "PARDA": 5}, "PSD": {"BRANCA": 17, "PRETA": 1, "PARDA": 6}, "PSDB": {"BRANCA": 5}, "PSOL": {"PRETA": 14, "BRANCA": 9, "INDÍGENA": 1, "AMARELA": 1}, "PT": {"PARDA": 14, "BRANCA": 33, "PRETA": 21, "AMARELA": 1, "INDÍGENA": 1}, "PV": {"BRANCA": 4, "PARDA": 2}, "REPUBLICANOS": {"BRANCA": 16, "PARDA": 5}, "SOLIDARIEDADE": {"BRANCA": 1}, "UNIÃO": {"PARDA": 12, "BRANCA": 8}} as Record<string, Record<string, number>>,
 } as const;

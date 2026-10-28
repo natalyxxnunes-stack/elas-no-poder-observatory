@@ -191,7 +191,7 @@ export const HISTORICAL_FUNNEL: HistoricalFunnelYear[] = [
 ] as const;
 
 export const HISTORICAL_FUNNEL_SOURCE =
-  "TSE, candidatos e resultados 2014/2018/2022/2026 (2026: 1º turno, base de 05/10/2026)";
+  "TSE, candidatos e resultados 2014/2018/2022/2026 (2026: base de 05/10/2026, conferida sem diferença na de 27/10/2026)";
 
 /* ------------------------------------------------------------------ *
  * Taxa de eleição por gênero — indicador descritivo

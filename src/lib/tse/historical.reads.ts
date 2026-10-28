@@ -3,9 +3,9 @@
  *
  * Junta as fotografias históricas gravadas (anos encerrados, calculadas dos
  * arquivos oficiais) com a fotografia atual de 2026 já existente no projeto.
- * Para 2026, as eleitas do universo proporcional vêm do resultado do 1º turno
- * cravado em `resultado-2026.ts`. O majoritário de 2026 fica vazio até o 2º
- * turno (25/10): nenhum valor é estimado.
+ * Para 2026, as eleitas vêm do resultado final cravado em `resultado-2026.ts`
+ * (base TSE de 27/10/2026): proporcional pelo 1º turno, o único; majoritário
+ * com o 2º turno de 25/10, pela mesma regra de 2014, 2018 e 2022.
  *
  * Camada isomórfica: usa o cliente publicável (RLS de leitura pública) e roda
  * igual no navegador e no pré-render.
@@ -21,7 +21,7 @@ import {
   type YearSnapshot,
 } from "./historical-compute";
 import { getLatestTseSnapshot } from "./snapshot.reads";
-import { RESULT_2026_PROPORCIONAL } from "@/data/resultado-2026";
+import { RESULT_2026_MAJORITARIO_FINAL, RESULT_2026_PROPORCIONAL } from "@/data/resultado-2026";
 
 export type HistoricalSnapshotMeta = {
   year: HistoricalYear;
@@ -114,7 +114,7 @@ export async function getHistoricalSeries(): Promise<HistoricalSeriesPayload> {
   }
 
   // 2026 — candidaturas da fotografia atual (25/09); eleitas proporcionais do
-  // resultado do 1º turno (base TSE de 05/10). Majoritário aguarda o 2º turno.
+  // resultado final (base TSE de 27/10); majoritário com o 2º turno de 25/10.
   const current = await getLatestTseSnapshot();
   if (current) {
     yearSnapshots.push({
@@ -138,7 +138,11 @@ export async function getHistoricalSeries(): Promise<HistoricalSeriesPayload> {
           feminine: current.universes.majoritario.feminine,
           raceAll: current.universes.majoritario.raceAllCounts ?? null,
           raceFeminine: current.universes.majoritario.raceCounts,
-          elected: null,
+          elected: {
+            total: RESULT_2026_MAJORITARIO_FINAL.total,
+            feminine: RESULT_2026_MAJORITARIO_FINAL.feminine,
+            raceFeminine: { ...RESULT_2026_MAJORITARIO_FINAL.raceFeminine },
+          },
         },
       },
     });

@@ -990,11 +990,18 @@ function MetodoPage() {
                 Script: scripts/recontagem/votos_2026.py
               </li>
               <li>
-                Rondônia: os arquivos do TSE de 14/10/2026 trazem os registros de
-                deputado do estado sem situação de totalização e sem votação. O
-                resultado de deputadas e deputados segue na base de 05/10 (a última
-                com os 27 estados); votos e partidos, recontados em 14/10, saem sem
-                Rondônia, com aviso em cada gráfico
+                resultado final de 2026 = base do TSE de 27/10/2026, a primeira
+                depois do 2º turno. Governos e Presidência decididos em 2º turno
+                valem pela linha do 2º turno (NR_TURNO = 2), a mesma regra de
+                2014, 2018 e 2022. Recontagem com --turno 1 e --turno 2
+              </li>
+              <li>
+                Rondônia: os arquivos do TSE de 14/10/2026 traziam os registros de
+                deputado do estado sem situação de totalização e sem votação, e
+                votos e partidos saíram sem o estado entre 14/10 e 27/10. Na base
+                de 27/10 Rondônia voltou: todos os gráficos somam os 27 estados, e
+                o resultado de deputadas e deputados ficou igual ao da base de
+                05/10
               </li>
             </ul>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

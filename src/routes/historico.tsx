@@ -203,9 +203,9 @@ function HistoricoPage() {
         lead={
           <p>
             Comparação entre a participação nas candidaturas e a participação
-            entre eleitas e eleitos, ano a ano. 2026 entra com o 1º turno de 4/10
-            no proporcional; no majoritário, o resultado só fecha depois do 2º
-            turno de 25/10.
+            entre eleitas e eleitos, ano a ano. 2026 entra com o resultado final:
+            o 1º turno de 4/10 no proporcional e, no majoritário, o 2º turno de
+            25/10 onde houve.
           </p>
         }
         source="Fonte: TSE · Candidatos (DS_SIT_TOT_TURNO). Proporcional: resultado do 1º turno, o único da eleição proporcional. Majoritário: resultado final, com 2º turno onde houve."
@@ -233,8 +233,9 @@ function HistoricoPage() {
         align="wide"
         lead={
           <p>
-            Anos encerrados trazem candidaturas e resultado. 2026 já tem o 1º
-            turno apurado; os governos de 7 UFs seguem para o 2º turno.
+            As quatro eleições trazem candidaturas e resultado. Em 2026, as
+            candidaturas vêm da fotografia de 25/09 e o resultado, do arquivo do
+            TSE de 27/10, já com o 2º turno.
           </p>
         }
         source="Fonte: TSE · Candidatos 2014, 2018, 2022 e 2026"
@@ -255,11 +256,11 @@ function HistoricoPage() {
       </SectionBlock>
 
       <ComoSabemos
-        fonte="TSE, Candidatos 2014, 2018 e 2022 (resultado do 1º turno no proporcional; resultado final, com 2º turno, no majoritário); TSE, Candidaturas 2026 (fotografia de 25/09) e resultado do 1º turno de 2026 (base de 05/10)."
+        fonte="TSE, Candidatos 2014, 2018 e 2022 (resultado do 1º turno no proporcional; resultado final, com 2º turno, no majoritário); TSE, Candidaturas 2026 (fotografia de 25/09) e resultado final de 2026 (base de 27/10, com o 2º turno)."
         universo="Proporcional (Câmara, assembleias e Câmara Legislativa do DF) e majoritário (Presidência, governos e Senado), nunca somados. Cada candidatura entra uma vez em cada ano."
         calculo={<>Candidaturas de mulheres divididas pelo total de candidaturas do mesmo universo e do mesmo ano. {BLACK_AGGREGATION_NOTE}</>}
         limites={[
-          "2026: o proporcional já tem resultado (1º turno). O majoritário fica vazio até o 2º turno de 25/10, e nenhuma eleita é projetada.",
+          "2026: candidaturas da fotografia de 25/09 e resultado do arquivo do TSE de 27/10/2026. Por isso o total de candidaturas pode diferir em poucos registros do arquivo do resultado.",
           "Os recortes históricos por cargo e por UF já foram coletados, mas ainda não têm indicador auditado publicado.",
           "Onde a base oficial não traz o dado, o ponto fica vazio. Nenhum ponto desta página é estimado.",
         ]}

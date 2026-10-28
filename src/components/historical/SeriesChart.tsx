@@ -134,7 +134,7 @@ export function SeriesChart({
       legend={<><LegendSwatch className="bg-plum">2014 a 2022</LegendSwatch><LegendSwatch className="bg-coral">2026</LegendSwatch></>}
       note={
         <>
-          {series.formula}. {series.notes.join(" ")} 2026 (*): candidaturas da fotografia de 25/09; eleitas do 1º turno, base TSE de 05/10.
+          {series.formula}. {series.notes.join(" ")} 2026 (*): candidaturas da fotografia de 25/09; eleitas pelo resultado final, base TSE de 27/10.
         </>
       }
       source="Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026"

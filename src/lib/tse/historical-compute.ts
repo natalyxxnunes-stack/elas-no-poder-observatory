@@ -398,8 +398,8 @@ export function blackWomenSeries(years: YearSnapshot[]): {
 
 /**
  * Série 4 — candidaturas × eleitas. Só existe para eleições encerradas com
- * resultado publicado no arquivo do TSE. Para 2026 o ponto fica vazio: não há
- * resultado eleitoral, e nada é estimado.
+ * resultado publicado no arquivo do TSE. 2026 entra com o resultado final
+ * (base de 27/10/2026, com o 2º turno de 25/10).
  */
 export function electedWomenSeries(years: YearSnapshot[]): Series {
   return {
@@ -408,7 +408,7 @@ export function electedWomenSeries(years: YearSnapshot[]): Series {
     formula:
       "eleitas mulheres ÷ total de eleitas e eleitos do mesmo universo e ano × 100 (resultado final: 1º turno e, quando houve, 2º turno)",
     notes: [
-      "Somente anos com resultado eleitoral publicado. 2026: proporcional com o 1º turno apurado (base TSE de 05/10/2026); majoritário fica vazio até o 2º turno de 25/10, sem estimativa.",
+      "Somente anos com resultado eleitoral publicado. 2026: resultado final, base TSE de 27/10/2026, com o 2º turno de 25/10 no majoritário.",
     ],
     points: UNIVERSES.flatMap((universe) =>
       years.map((y) =>
@@ -418,7 +418,7 @@ export function electedWomenSeries(years: YearSnapshot[]): Series {
             : {
                 unavailableReason:
                   y.stage === "em_curso"
-                    ? "Resultado majoritário incompleto: governos de 7 UFs vão ao 2º turno em 25/10. Nenhum número é projetado."
+                    ? "Resultado ainda não disponível nesta base. Nenhum número é projetado."
                     : "Resultado eleitoral não disponível na fotografia deste ano.",
               },
         ),
@@ -436,7 +436,7 @@ export function electedBlackWomenSeries(years: YearSnapshot[]): Series {
       "eleitas mulheres pretas + pardas ÷ total de eleitas mulheres do mesmo universo e ano × 100",
     notes: [
       BLACK_AGGREGATION_NOTE,
-      "Somente anos com resultado eleitoral publicado; em 2026, só o proporcional (1º turno apurado).",
+      "Somente anos com resultado eleitoral publicado; 2026 com o resultado final (base de 27/10/2026).",
     ],
     points: UNIVERSES.flatMap((universe) =>
       years.map((y) =>
@@ -448,7 +448,7 @@ export function electedBlackWomenSeries(years: YearSnapshot[]): Series {
               return {
                 unavailableReason:
                   y.stage === "em_curso"
-                    ? "Resultado majoritário incompleto até o 2º turno de 25/10."
+                    ? "Resultado ainda não disponível nesta base."
                     : "Resultado eleitoral por cor/raça não disponível na fotografia deste ano.",
               };
             }
