@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -9,7 +10,13 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { ChartBar, ChartFrame, ChartScale, LegendSwatch } from "@/components/editorial/ChartFrame";
 import { GapNote } from "@/components/GapNote";
 import { axis } from "@/data/architecture";
-import { DEPUTADAS, DINHEIRO_REELEICAO, VOTACOES, VOTACOES_META, type Votacao } from "@/data/votacoes-camara";
+import {
+  DEPUTADAS,
+  DINHEIRO_REELEICAO,
+  VOTACOES,
+  VOTACOES_META,
+  type Votacao,
+} from "@/data/votacoes-camara";
 import { formatBRLCompact, formatInt, formatPct } from "@/lib/format-br";
 
 /**
@@ -36,7 +43,8 @@ export const Route = createFileRoute("/como-votaram")({
       { property: "og:title", content: "Como votaram as deputadas, e quem voltou" },
       {
         property: "og:description",
-        content: "Seis votações de mérito na Câmara, deputada por deputada, cruzadas com o resultado de 2026.",
+        content:
+          "Seis votações de mérito na Câmara, deputada por deputada, cruzadas com o resultado de 2026.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -48,14 +56,15 @@ export const Route = createFileRoute("/como-votaram")({
 const n = formatInt;
 const pct = (num: number, den: number) => formatPct(den > 0 ? (num / den) * 100 : 0);
 const SMALL = 20;
-const show = (num: number, den: number) => (den >= SMALL ? pct(num, den) : `${n(num)} de ${n(den)}`);
+const show = (num: number, den: number) =>
+  den >= SMALL ? pct(num, den) : `${n(num)} de ${n(den)}`;
 const fmtDate = (iso: string) => iso.split("-").reverse().join("/");
 const RACES = ["BRANCA", "PARDA", "PRETA", "INDÍGENA", "AMARELA"] as const;
 const RACE_LABEL: Record<string, string> = {
   BRANCA: "Brancas",
   PARDA: "Pardas",
   PRETA: "Pretas",
-  "INDÍGENA": "Indígenas",
+  INDÍGENA: "Indígenas",
   AMARELA: "Amarelas",
 };
 const SHORT: Record<string, string> = {
@@ -101,7 +110,6 @@ const FICHA_BASE = {
   fonte: "Câmara dos Deputados, Dados Abertos (votos nominais e deputados em exercício na data)",
 };
 
-
 const VOTE_ORDER = ["Sim", "Não", "Abstenção", "Obstrução", "Ausente"] as const;
 const VOTE_PLURAL: Record<string, string> = {
   Sim: "Votaram Sim",
@@ -118,7 +126,12 @@ function namesByVote(vid: string) {
   for (const d of DEPUTADAS) {
     const x = d.votos[vid];
     if (!x) continue;
-    (out[x.voto] ??= []).push({ nome: d.nome, uf: d.uf, partido: x.partido, contra: x.alinhamento === "contra a bancada" });
+    (out[x.voto] ??= []).push({
+      nome: d.nome,
+      uf: d.uf,
+      partido: x.partido,
+      contra: x.alinhamento === "contra a bancada",
+    });
   }
   return out;
 }
@@ -172,21 +185,24 @@ function VoteNames({ v }: { v: Votacao }) {
           Ver como votou cada deputada
         </summary>
         <div className="mt-3 space-y-4">
-          {VOTE_ORDER.map((k) => [k, g[k] ?? []] as const).filter(([, xs]) => xs.length).map(([k, xs]) => (
-            <div key={k}>
-              <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-                {VOTE_PLURAL[k]} · {n(xs.length)}
-              </p>
-              <div className="mt-1.5">
-                <PartyNames list={xs} />
+          {VOTE_ORDER.map((k) => [k, g[k] ?? []] as const)
+            .filter(([, xs]) => xs.length)
+            .map(([k, xs]) => (
+              <div key={k}>
+                <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                  {VOTE_PLURAL[k]} · {n(xs.length)}
+                </p>
+                <div className="mt-1.5">
+                  <PartyNames list={xs} />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </details>
       <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-        Partido na data do voto.{algumaContra ? " * votou contra a maioria do próprio partido." : ""} Voto em plenário é
-        ato público, registrado nominalmente pela Câmara.
+        Partido na data do voto.
+        {algumaContra ? " * votou contra a maioria do próprio partido." : ""} Voto em plenário é ato
+        público, registrado nominalmente pela Câmara.
       </p>
     </div>
   );
@@ -212,7 +228,8 @@ function VoteSplit({ v }: { v: Votacao }) {
         denominador: `Deputadas em exercício (${n(f.total)}) e deputados em exercício (${n(m.total - (m.votos["Presidência da sessão"] ?? 0))}). Ausentes ficam no denominador e aparecem à parte.`,
         data: `Votação de ${fmtDate(v.data)}; coleta em ${VOTACOES_META.coletaEm}`,
         fonte: FICHA_BASE.fonte,
-        limitacao: "O sexo vem do cadastro da Câmara. Ausência pode ter motivo regimental (licença, missão oficial) que o dado não informa.",
+        limitacao:
+          "O sexo vem do cadastro da Câmara. Ausência pode ter motivo regimental (licença, missão oficial) que o dado não informa.",
       }}
     >
       <div className="space-y-4">
@@ -246,10 +263,13 @@ function RaceVoteTable() {
       source="Fonte: Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2022. Junção por CPF. Categorias originais, sem agregação."
       ficha={{
         vendo: "Quantas deputadas de cada cor/raça votaram Sim e Não em cada votação.",
-        contados: "Deputadas em exercício que votaram Sim ou Não. Ausentes e abstenções ficam fora desta tabela.",
-        denominador: "Nenhum: a tabela mostra contagens absolutas, porque todas as bases por grupo ficam abaixo de 20 ou perto disso.",
+        contados:
+          "Deputadas em exercício que votaram Sim ou Não. Ausentes e abstenções ficam fora desta tabela.",
+        denominador:
+          "Nenhum: a tabela mostra contagens absolutas, porque todas as bases por grupo ficam abaixo de 20 ou perto disso.",
         data: FICHA_BASE.data,
-        fonte: "Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2022 (cor/raça), junção por CPF",
+        fonte:
+          "Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2022 (cor/raça), junção por CPF",
         limitacao:
           "Cor/raça é a autodeclaração ao TSE na eleição de 2022. Nenhuma deputada se declarou amarela; a linha fica visível para manter as cinco categorias.",
       }}
@@ -305,7 +325,8 @@ function ReelectionChart() {
       ficha={{
         vendo: "A taxa de reeleição das deputadas, separada pelo voto que deram em cada votação.",
         contados: "Deputadas em exercício na data que votaram Sim ou Não naquela votação.",
-        denominador: "Deputadas que votaram Sim (barra roxa) e deputadas que votaram Não (barra laranja), em cada votação.",
+        denominador:
+          "Deputadas que votaram Sim (barra roxa) e deputadas que votaram Não (barra laranja), em cada votação.",
         data: `Votações de 2023 a 2025; resultado do TSE de 27/10/2026`,
         fonte: "Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2026",
         limitacao:
@@ -356,11 +377,13 @@ function MoneyReelectionChart() {
       note={`Terços de receita calculados sobre as ${n(d.universo)} pessoas, com a mesma régua para mulheres e homens: até ${formatBRLCompact(d.cortes.t1)}, de ${formatBRLCompact(d.cortes.t1)} a ${formatBRLCompact(d.cortes.t2)} e acima disso.`}
       source="Fonte: Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2026 e Prestação de Contas 2026 (bases de 27/10/2026). Junção por CPF."
       ficha={{
-        vendo: "A taxa de reeleição em cada terço de receita de campanha, para mulheres e para homens.",
+        vendo:
+          "A taxa de reeleição em cada terço de receita de campanha, para mulheres e para homens.",
         contados: `Quem estava no mandato de deputado federal em alguma das seis votações e se candidatou de novo à Câmara em 2026: ${n(d.F.tentaram)} mulheres e ${n(d.M.tentaram)} homens.`,
         denominador: "Pessoas do mesmo sexo dentro de cada terço de receita.",
         data: "Prestação de contas e resultado do TSE de 27/10/2026",
-        fonte: "Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2026 e Prestação de Contas 2026",
+        fonte:
+          "Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2026 e Prestação de Contas 2026",
         limitacao:
           "Contas em andamento: parte das candidaturas só entregou a prestação parcial (receita até 08/09). Sem elas, o padrão se mantém. Mostra associação: quem já era forte pode ter atraído mais dinheiro.",
       }}
@@ -395,6 +418,22 @@ function MoneyReelectionChart() {
 }
 
 function DeputadasTable() {
+  const partyOf = (d: (typeof DEPUTADAS)[number]) =>
+    VOTACOES.map((v) => d.votos[v.id])
+      .filter(Boolean)
+      .at(-1)?.partido ?? "";
+  const counts = new Map<string, number>();
+  for (const d of DEPUTADAS) counts.set(partyOf(d), (counts.get(partyOf(d)) ?? 0) + 1);
+  const parties = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  const [party, setParty] = useState<string>("");
+  const [soContra, setSoContra] = useState(false);
+  const rows = DEPUTADAS.filter(
+    (d) =>
+      (!party || partyOf(d) === party) &&
+      (!soContra || Object.values(d.votos).some((x) => x.alinhamento === "contra a bancada")),
+  );
+  const chip = (active: boolean) =>
+    `border px-2 py-1 font-mono text-[11px] uppercase tracking-wider ${active ? "border-ink bg-ink text-cream" : "border-rule bg-card text-ink hover:border-ink"}`;
   const OUT_LABEL: Record<string, string> = {
     reeleita: "reeleita",
     "eleita para outro cargo": "outro cargo",
@@ -403,69 +442,185 @@ function DeputadasTable() {
     "não concorreu": "não concorreu",
   };
   return (
-    <div className="overflow-x-auto border border-rule bg-card">
-      <table className="w-full min-w-[56rem] text-sm">
-        <thead>
-          <tr className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-            <th className="px-3 pb-2 pt-3 text-left font-normal">Deputada</th>
-            <th className="px-3 pb-2 pt-3 text-left font-normal">Cor/raça (2022)</th>
-            {VOTACOES.map((v) => (
-              <th key={v.id} className="px-2 pb-2 pt-3 text-center font-normal">
-                {SHORT[v.id]}
-              </th>
-            ))}
-            <th className="px-3 pb-2 pt-3 text-left font-normal">Em 2026</th>
-          </tr>
-        </thead>
-        <tbody>
-          {DEPUTADAS.map((d) => {
-            const last = VOTACOES.map((v) => d.votos[v.id]).filter(Boolean).at(-1);
-            return (
-              <tr key={d.nome} className="border-t border-rule align-top">
-                <th scope="row" className="px-3 py-2 text-left font-normal">
-                  <span className="text-ink">{d.nome}</span>
-                  <span className="block font-mono text-[11px] text-muted-foreground">
-                    {last?.partido}-{d.uf}
-                  </span>
+    <div>
+      <div
+        className="mb-3 flex flex-wrap items-center gap-2"
+        role="group"
+        aria-label="Filtrar por partido"
+      >
+        <button
+          type="button"
+          className={chip(!party)}
+          aria-pressed={!party}
+          onClick={() => setParty("")}
+        >
+          Todos os partidos
+        </button>
+        {parties.map(([p, c]) => (
+          <button
+            key={p}
+            type="button"
+            className={chip(party === p)}
+            aria-pressed={party === p}
+            onClick={() => setParty(p)}
+          >
+            {p} ({n(c)})
+          </button>
+        ))}
+        <label className="ml-1 flex items-center gap-1.5 text-xs text-ink">
+          <input
+            type="checkbox"
+            checked={soContra}
+            onChange={(e) => setSoContra(e.target.checked)}
+          />
+          só quem votou contra o próprio partido ao menos uma vez
+        </label>
+      </div>
+      <p
+        className="mb-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground"
+        aria-live="polite"
+      >
+        {n(rows.length)} de {n(DEPUTADAS.length)} deputadas
+      </p>
+      <div className="overflow-x-auto border border-rule bg-card">
+        <table className="w-full min-w-[56rem] text-sm">
+          <thead>
+            <tr className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+              <th className="px-3 pb-2 pt-3 text-left font-normal">Deputada</th>
+              <th className="px-3 pb-2 pt-3 text-left font-normal">Cor/raça (2022)</th>
+              {VOTACOES.map((v) => (
+                <th key={v.id} className="px-2 pb-2 pt-3 text-center font-normal">
+                  {SHORT[v.id]}
                 </th>
-                <td className="px-3 py-2 font-mono text-xs text-muted-foreground">{d.raca2022.toLowerCase()}</td>
-                {VOTACOES.map((v) => {
-                  const x = d.votos[v.id];
-                  if (!x)
+              ))}
+              <th className="px-3 pb-2 pt-3 text-left font-normal">Em 2026</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((d) => {
+              const last = VOTACOES.map((v) => d.votos[v.id])
+                .filter(Boolean)
+                .at(-1);
+              return (
+                <tr key={d.nome} className="border-t border-rule align-top">
+                  <th scope="row" className="px-3 py-2 text-left font-normal">
+                    <span className="text-ink">{d.nome}</span>
+                    <span className="block font-mono text-[11px] text-muted-foreground">
+                      {last?.partido}-{d.uf}
+                    </span>
+                  </th>
+                  <td className="px-3 py-2 font-mono text-xs text-muted-foreground">
+                    {d.raca2022.toLowerCase()}
+                  </td>
+                  {VOTACOES.map((v) => {
+                    const x = d.votos[v.id];
+                    if (!x)
+                      return (
+                        <td
+                          key={v.id}
+                          className="px-2 py-2 text-center font-mono text-[11px] text-muted-foreground"
+                        >
+                          fora do mandato
+                        </td>
+                      );
                     return (
-                      <td key={v.id} className="px-2 py-2 text-center font-mono text-[11px] text-muted-foreground">
-                        fora do mandato
+                      <td key={v.id} className="px-2 py-2 text-center">
+                        <span
+                          className={`inline-block min-w-14 px-1.5 py-0.5 font-mono text-[11px] ${VOTO_CLASS[x.voto] ?? "bg-secondary"}`}
+                          title={
+                            x.alinhamento
+                              ? `${x.alinhamento} (maioria do ${x.partido}: ${x.bancada})`
+                              : undefined
+                          }
+                        >
+                          {x.voto}
+                          {x.alinhamento === "contra a bancada" ? " *" : ""}
+                        </span>
                       </td>
                     );
-                  return (
-                    <td key={v.id} className="px-2 py-2 text-center">
-                      <span
-                        className={`inline-block min-w-14 px-1.5 py-0.5 font-mono text-[11px] ${VOTO_CLASS[x.voto] ?? "bg-secondary"}`}
-                        title={x.alinhamento ? `${x.alinhamento} (maioria do ${x.partido}: ${x.bancada})` : undefined}
-                      >
-                        {x.voto}
-                        {x.alinhamento === "contra a bancada" ? " *" : ""}
+                  })}
+                  <td className="px-3 py-2 font-mono text-xs text-ink">
+                    {OUT_LABEL[d.desfecho2026] ?? d.desfecho2026}
+                    {d.desfecho2026 === "eleita para outro cargo" && d.cargo2026 ? (
+                      <span className="block text-[11px] text-muted-foreground">
+                        {d.cargo2026.toLowerCase()}
                       </span>
-                    </td>
-                  );
-                })}
-                <td className="px-3 py-2 font-mono text-xs text-ink">
-                  {OUT_LABEL[d.desfecho2026] ?? d.desfecho2026}
-                  {d.desfecho2026 === "eleita para outro cargo" && d.cargo2026 ? (
-                    <span className="block text-[11px] text-muted-foreground">{d.cargo2026.toLowerCase()}</span>
-                  ) : null}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <p className="border-t border-rule px-3 py-3 text-xs leading-relaxed text-muted-foreground">
-        * votou contra a maioria do próprio partido naquela votação. Partido e UF da última votação em que a deputada
-        estava no mandato. “Fora do mandato”: não estava em exercício na data. Fonte: Câmara dos Deputados, Dados
-        Abertos; TSE, Candidatos 2022 e 2026 (base de 27/10/2026).
-      </p>
+                    ) : null}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <p className="border-t border-rule px-3 py-3 text-xs leading-relaxed text-muted-foreground">
+          * votou contra a maioria do próprio partido naquela votação. Partido e UF da última
+          votação em que a deputada estava no mandato. “Fora do mandato”: não estava em exercício na
+          data. Fonte: Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2022 e 2026 (base de
+          27/10/2026). O filtro usa o partido da última votação em que a deputada estava no mandato.
+        </p>
+      </div>
     </div>
+  );
+}
+
+/** Manchete da página: as deputadas que votaram Não à igualdade salarial, com nome, partido e destino em 2026. */
+function AsDezDaIgualdade() {
+  const vid = "2351179-51";
+  const lista = DEPUTADAS.filter((d) => d.votos[vid]?.voto === "Não").sort((a, b) =>
+    a.nome.localeCompare(b.nome),
+  );
+  const contra = lista.filter((d) => d.votos[vid]?.alinhamento === "contra a bancada").length;
+  const concorreram = lista.filter((d) => d.desfecho2026 !== "não concorreu");
+  const eleitas = concorreram.filter(
+    (d) => d.desfecho2026 === "reeleita" || d.desfecho2026 === "eleita para outro cargo",
+  );
+  const destino = (d: (typeof lista)[number]) =>
+    d.desfecho2026 === "reeleita"
+      ? "reeleita deputada"
+      : d.desfecho2026 === "eleita para outro cargo"
+        ? `eleita ${(d.cargo2026 ?? "").toLowerCase() === "senador" ? "senadora" : (d.cargo2026 ?? "").toLowerCase()}`
+        : d.desfecho2026;
+  return (
+    <section aria-labelledby="as-dez" className="border-y-2 border-ink bg-card px-5 py-6 sm:px-8">
+      <p className="kicker">Igualdade salarial · 04/05/2023</p>
+      <h2 id="as-dez" className="mt-2 font-display text-2xl leading-tight text-ink sm:text-3xl">
+        {n(lista.length)} deputadas votaram contra a lei que obriga empresas a pagar o mesmo salário
+        a mulheres e homens
+      </h2>
+      <p className="mt-2 max-w-3xl leading-relaxed text-ink/80">
+        {n(contra)} delas votaram contra a maioria do próprio partido. Das {n(concorreram.length)}{" "}
+        que disputaram a eleição de 2026,{" "}
+        {eleitas.length === concorreram.length ? "todas" : n(eleitas.length)} se elegeram.
+      </p>
+      <ul className="mt-5 grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-5">
+        {lista.map((d) => {
+          const x = d.votos[vid]!;
+          return (
+            <li key={d.nome} className="bg-card p-3">
+              <p className="font-display text-lg leading-snug text-ink">{d.nome}</p>
+              <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                {x.partido}-{d.uf} em 2023
+              </p>
+              {x.alinhamento === "contra a bancada" && (
+                <p className="mt-1 text-xs text-ink/70">contra a maioria do partido</p>
+              )}
+              <p className="mt-2 inline-block bg-coral px-1.5 py-0.5 font-mono text-[11px] text-ink">
+                em 2026: {destino(d)}
+              </p>
+            </li>
+          );
+        })}
+      </ul>
+      <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+        Partido na data do voto. Placar oficial: {n(byId(vid).placar.sim)} a{" "}
+        {n(byId(vid).placar.nao)}. Fonte: Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2026
+        (base de 27/10/2026).{" "}
+        <a href="#deputadas" className="underline decoration-plum underline-offset-4">
+          Ver o voto de todas as deputadas
+        </a>
+        .
+      </p>
+    </section>
   );
 }
 
@@ -479,56 +634,71 @@ function ComoVotaramPage() {
   const igualContra = igual.deputadasContraBancada.filter((d) => d.voto === "Não");
   const pretasMarco = marco.racaDeputadas["PRETA"] ?? {};
   return (
-    <PageShell breadcrumb={[{ label: "Reportagens", to: "/reportagens" }, { label: "Como votaram" }]}>
+    <PageShell
+      breadcrumb={[{ label: "Reportagens", to: "/reportagens" }, { label: "Como votaram" }]}
+    >
       <PageHero
         kicker="Reportagem"
         question={a.question}
         lead={
           <p>
-            Seis votações de mérito no plenário da Câmara, de 2023 a 2025, deputada por deputada. Na igualdade
-            salarial, {n(igual.porSexo.F.votos["Não"] ?? 0)} deputadas votaram contra, e {n(igualContra.length)} delas
-            votaram contra a maioria do próprio partido. Na anistia aos partidos que descumpriram a cota de mulheres e
-            de pessoas negras, {n(cotas.porSexo.F.votos["Sim"] ?? 0)} votaram a favor. Na derrubada da norma do Conanda
-            sobre o atendimento a crianças e adolescentes vítimas de violência sexual, as deputadas se dividiram:{" "}
-            {n(conanda.porSexo.F.votos["Sim"] ?? 0)} votaram a favor e {n(conanda.porSexo.F.votos["Não"] ?? 0)} contra.
+            Seis votações de mérito no plenário da Câmara, de 2023 a 2025, deputada por deputada. Na
+            igualdade salarial, {n(igual.porSexo.F.votos["Não"] ?? 0)} deputadas votaram contra, e{" "}
+            {n(igualContra.length)} delas votaram contra a maioria do próprio partido. Na anistia
+            aos partidos que descumpriram a cota de mulheres e de pessoas negras,{" "}
+            {n(cotas.porSexo.F.votos["Sim"] ?? 0)} votaram a favor. Na derrubada da norma do Conanda
+            sobre o atendimento a crianças e adolescentes vítimas de violência sexual, as deputadas
+            se dividiram: {n(conanda.porSexo.F.votos["Sim"] ?? 0)} votaram a favor e{" "}
+            {n(conanda.porSexo.F.votos["Não"] ?? 0)} contra.
           </p>
         }
         aside={
           <div className="editorial-card p-5">
             <p className="kicker">Assinatura</p>
-            <p className="mt-2 font-display text-lg leading-snug text-ink">Apuração e texto: Nataly Nunes Pinto</p>
+            <p className="mt-2 font-display text-lg leading-snug text-ink">
+              Apuração e texto: Nataly Nunes Pinto
+            </p>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Publicada em 27/10/2026 e atualizada em 28/10/2026. Os números são recontagem própria dos dados abertos da Câmara e do TSE; a seleção
-              das votações e a leitura são escolhas editoriais, declaradas abaixo.
+              Publicada em 27/10/2026 e atualizada em 28/10/2026. Os números são recontagem própria
+              dos dados abertos da Câmara e do TSE; a seleção das votações e a leitura são escolhas
+              editoriais, declaradas abaixo.
             </p>
           </div>
         }
       />
 
+      <div className="pb-8">
+        <AsDezDaIgualdade />
+      </div>
+
       <div className="pb-4">
         <InBrief
           found={
             <>
-              Entre as deputadas que votaram, a taxa de reeleição em 2026 ficou entre {formatPct(range.min)} e{" "}
-              {formatPct(range.max)}, dos dois lados das seis votações. O dinheiro separa muito mais: entre as que
-              tentaram voltar, {n(DINHEIRO_REELEICAO.F.porFaixa["terço de maior receita"].eleitos)} de{" "}
-              {n(DINHEIRO_REELEICAO.F.porFaixa["terço de maior receita"].total)} no terço de maior receita se reelegeram,
-              contra {n(DINHEIRO_REELEICAO.F.porFaixa["terço de menor receita"].eleitos)} de{" "}
-              {n(DINHEIRO_REELEICAO.F.porFaixa["terço de menor receita"].total)} no de menor. Os votos que mais dividiram as deputadas por
-              cor/raça foram os do marco temporal e da dosimetria: entre as deputadas pretas, {n(pretasMarco["Não"] ?? 0)}{" "}
-              votaram contra o marco temporal e {n(pretasMarco["Sim"] ?? 0)} a favor.
+              Entre as deputadas que votaram, a taxa de reeleição em 2026 ficou entre{" "}
+              {formatPct(range.min)} e {formatPct(range.max)}, dos dois lados das seis votações. O
+              dinheiro separa muito mais: entre as que tentaram voltar,{" "}
+              {n(DINHEIRO_REELEICAO.F.porFaixa["terço de maior receita"].eleitos)} de{" "}
+              {n(DINHEIRO_REELEICAO.F.porFaixa["terço de maior receita"].total)} no terço de maior
+              receita se reelegeram, contra{" "}
+              {n(DINHEIRO_REELEICAO.F.porFaixa["terço de menor receita"].eleitos)} de{" "}
+              {n(DINHEIRO_REELEICAO.F.porFaixa["terço de menor receita"].total)} no de menor. Os
+              votos que mais dividiram as deputadas por cor/raça foram os do marco temporal e da
+              dosimetria: entre as deputadas pretas, {n(pretasMarco["Não"] ?? 0)} votaram contra o
+              marco temporal e {n(pretasMarco["Sim"] ?? 0)} a favor.
             </>
           }
           matters={
             <>
-              Ser mulher no plenário diz pouco sobre o voto. As deputadas se dividiram em todas as seis votações, inclusive
-              nas três que tratam diretamente de direitos das mulheres e meninas, e o partido pesou mais que o gênero.
+              Ser mulher no plenário diz pouco sobre o voto. As deputadas se dividiram em todas as
+              seis votações, inclusive nas três que tratam diretamente de direitos das mulheres e
+              meninas, e o partido pesou mais que o gênero.
             </>
           }
           unknown={
             <>
-              Por que algumas votaram contra a própria bancada, e quanto da relação entre dinheiro e reeleição vem de
-              quem já era forte antes da campanha.
+              Por que algumas votaram contra a própria bancada, e quanto da relação entre dinheiro e
+              reeleição vem de quem já era forte antes da campanha.
             </>
           }
         />
@@ -545,7 +715,12 @@ function ComoVotaramPage() {
         kicker="Critério"
         question="Quais votações entram, e por quê"
         align="wide"
-        lead={<p>{VOTACOES_META.criterio} O critério foi fixado antes de cruzar os votos com o resultado de 2026.</p>}
+        lead={
+          <p>
+            {VOTACOES_META.criterio} O critério foi fixado antes de cruzar os votos com o resultado
+            de 2026.
+          </p>
+        }
       >
         <ul className="divide-y divide-rule border-y border-rule">
           {VOTACOES.map((v) => (
@@ -556,9 +731,14 @@ function ComoVotaramPage() {
               </p>
               <div>
                 <h3 className="font-display text-lg text-ink">
-                  {v.titulo} <span className="font-mono text-xs text-muted-foreground">· {v.proposicao}, {v.etapa}</span>
+                  {v.titulo}{" "}
+                  <span className="font-mono text-xs text-muted-foreground">
+                    · {v.proposicao}, {v.etapa}
+                  </span>
                 </h3>
-                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">Votar Sim: {v.sim}.</p>
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                  Votar Sim: {v.sim}.
+                </p>
               </div>
             </li>
           ))}
@@ -590,7 +770,12 @@ function ComoVotaramPage() {
         </div>
       </SectionBlock>
 
-      <SectionBlock id="raca" kicker="Gênero e cor/raça" question="Quais deputadas votaram como" align="wide">
+      <SectionBlock
+        id="raca"
+        kicker="Gênero e cor/raça"
+        question="Quais deputadas votaram como"
+        align="wide"
+      >
         <RaceVoteTable />
       </SectionBlock>
 
@@ -602,23 +787,28 @@ function ComoVotaramPage() {
         align="wide"
         lead={
           <p>
-            Na Câmara, a maior parte do voto acompanha a bancada. Por isso o voto contra a maioria do próprio partido é
-            o mais informativo sobre a posição individual de cada deputada.
+            Na Câmara, a maior parte do voto acompanha a bancada. Por isso o voto contra a maioria
+            do próprio partido é o mais informativo sobre a posição individual de cada deputada.
           </p>
         }
       >
         <ul className="grid gap-4 md:grid-cols-2">
           {VOTACOES.map((v) => (
             <li key={v.id} className="editorial-card p-5">
-              <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">{SHORT[v.id]}</p>
+              <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                {SHORT[v.id]}
+              </p>
               <p className="mt-1 font-display text-2xl text-ink">
                 {n(v.deputadasContraBancada.length)} deputadas
               </p>
               <ul className="mt-3 space-y-1 text-sm leading-relaxed text-ink/85">
                 {v.deputadasContraBancada.map((d) => (
                   <li key={d.nome}>
-                    {d.nome} <span className="font-mono text-xs text-muted-foreground">({d.partido}-{d.uf})</span>: votou{" "}
-                    {d.voto}; a maioria do partido votou {d.maioriaBancada}.
+                    {d.nome}{" "}
+                    <span className="font-mono text-xs text-muted-foreground">
+                      ({d.partido}-{d.uf})
+                    </span>
+                    : votou {d.voto}; a maioria do partido votou {d.maioriaBancada}.
                   </li>
                 ))}
               </ul>
@@ -628,9 +818,10 @@ function ComoVotaramPage() {
         <div className="mt-6">
           <ContextBox variant="calculamos">
             <p>
-              Maioria da bancada = o lado (Sim ou Não) que teve mais votos do partido da deputada naquela votação. A
-              Câmara publica a orientação oficial por bloco, e a composição dos blocos de 2023 a 2025 não está disponível
-              na API; por isso usamos a posição da maioria, medida padrão em estudos de disciplina partidária.
+              Maioria da bancada = o lado (Sim ou Não) que teve mais votos do partido da deputada
+              naquela votação. A Câmara publica a orientação oficial por bloco, e a composição dos
+              blocos de 2023 a 2025 não está disponível na API; por isso usamos a posição da
+              maioria, medida padrão em estudos de disciplina partidária.
             </p>
           </ContextBox>
         </div>
@@ -650,24 +841,36 @@ function ComoVotaramPage() {
           <article className="poster-frame-accent p-5">
             <p className="record-label border-plum text-plum">Fato</p>
             <p className="mt-3 leading-relaxed text-ink/80">
-              Pelo voto, a reeleição das deputadas variou entre {formatPct(range.min)} e {formatPct(range.max)}. Pela
-              receita, variou de {show(DINHEIRO_REELEICAO.F.porFaixa["terço de menor receita"].eleitos, DINHEIRO_REELEICAO.F.porFaixa["terço de menor receita"].total)} no
-              terço de menor receita a {show(DINHEIRO_REELEICAO.F.porFaixa["terço de maior receita"].eleitos, DINHEIRO_REELEICAO.F.porFaixa["terço de maior receita"].total)} no de maior.
+              Pelo voto, a reeleição das deputadas variou entre {formatPct(range.min)} e{" "}
+              {formatPct(range.max)}. Pela receita, variou de{" "}
+              {show(
+                DINHEIRO_REELEICAO.F.porFaixa["terço de menor receita"].eleitos,
+                DINHEIRO_REELEICAO.F.porFaixa["terço de menor receita"].total,
+              )}{" "}
+              no terço de menor receita a{" "}
+              {show(
+                DINHEIRO_REELEICAO.F.porFaixa["terço de maior receita"].eleitos,
+                DINHEIRO_REELEICAO.F.porFaixa["terço de maior receita"].total,
+              )}{" "}
+              no de maior.
             </p>
           </article>
           <article className="poster-frame-accent p-5">
-            <p className="record-label border-ink text-ink [border-style:dashed]">Interpretação editorial</p>
+            <p className="record-label border-ink text-ink [border-style:dashed]">
+              Interpretação editorial
+            </p>
             <p className="mt-3 leading-relaxed text-ink/80">
-              Para quem tentou voltar à Câmara, o dinheiro de campanha acompanha a reeleição muito mais de perto que o
-              voto nessas seis pautas. A diferença é maior entre as mulheres do que entre os homens.
+              Para quem tentou voltar à Câmara, o dinheiro de campanha acompanha a reeleição muito
+              mais de perto que o voto nessas seis pautas. A diferença é maior entre as mulheres do
+              que entre os homens.
             </p>
           </article>
           <article className="poster-frame-accent p-5">
             <p className="record-label border-ink text-ink">Hipótese em investigação</p>
             <p className="mt-3 leading-relaxed text-ink/80">
-              Parte da relação corre ao contrário: quem já tinha base e chance de vencer atrai mais dinheiro do partido e
-              de doadores. Separar as duas coisas exige saber quanto veio do partido e em que momento, o que entra com a
-              prestação final.
+              Parte da relação corre ao contrário: quem já tinha base e chance de vencer atrai mais
+              dinheiro do partido e de doadores. Separar as duas coisas exige saber quanto veio do
+              partido e em que momento, o que entra com a prestação final.
             </p>
           </article>
         </div>
@@ -685,9 +888,10 @@ function ComoVotaramPage() {
 
       <div className="pb-6">
         <GapNote label="Lacuna declarada">
-          Votações simbólicas não registram voto individual e ficam fora, inclusive a urgência do PL 1904/2024. A
-          cor/raça das deputadas é a declarada ao TSE em 2022; a Câmara não publica cor/raça. O sexo vem do cadastro da
-          Câmara, que não distingue mulheres trans; a base não permite esse recorte.
+          Votações simbólicas não registram voto individual e ficam fora, inclusive a urgência do PL
+          1904/2024. A cor/raça das deputadas é a declarada ao TSE em 2022; a Câmara não publica
+          cor/raça. O sexo vem do cadastro da Câmara, que não distingue mulheres trans; a base não
+          permite esse recorte.
         </GapNote>
       </div>
 
@@ -697,9 +901,9 @@ function ComoVotaramPage() {
         base={`Coleta em ${VOTACOES_META.coletaEm}`}
         calculo={
           <>
-            Voto: lido de cada registro nominal. Ausente: em exercício e sem voto. Reeleita: eleita deputada federal em
-            2026 pelo arquivo do TSE de 27/10/2026, junção por CPF. Placar recontado igual ao oficial nas seis votações.
-            Scripts em scripts/investigacao.
+            Voto: lido de cada registro nominal. Ausente: em exercício e sem voto. Reeleita: eleita
+            deputada federal em 2026 pelo arquivo do TSE de 27/10/2026, junção por CPF. Placar
+            recontado igual ao oficial nas seis votações. Scripts em scripts/investigacao.
           </>
         }
         limites={[
