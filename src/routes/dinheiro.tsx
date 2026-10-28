@@ -1,3 +1,4 @@
+import { FefcPartidos } from "@/components/editorial/FefcPartidos";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
@@ -144,6 +145,29 @@ function DinheiroPage() {
 
       <SectionBlock id="partidos" kicker="Partidos" question="Os cinco partidos com maior receita no universo proporcional" align="wide" lead={<p>O recorte ordena os partidos pelo total de receita declarada e mostra, dentro de cada um, quanto foi declarado por candidaturas de mulheres. Não é ranking de equidade.</p>}>
         <FinanceParties snapshot={financeSnapshot} />
+      </SectionBlock>
+
+      <SectionBlock
+        id="fundo-eleitoral"
+        tone="butter"
+        kicker="Fundo eleitoral por partido"
+        question="O fundo público acompanhou a presença de mulheres e de pessoas negras nas candidaturas de cada partido?"
+        align="wide"
+        lead={
+          <p>
+            A lei manda distribuir o Fundo Especial de Financiamento de Campanha na proporção das candidaturas de mulheres
+            e de pessoas negras. No total, o fundo que chegou às candidaturas ficou perto da presença das mulheres
+            (35,2% das candidaturas, 33,3% do fundo) e longe da presença de pessoas negras: candidaturas pardas são 34,9% e
+            ficaram com 25,3%; pretas, 13,6% e 8,1%. Brancas são 50,1% e ficaram com 65,4%. Entre as mulheres, só as
+            brancas receberam acima da presença (16,5% das candidaturas, 19,2% do fundo).
+          </p>
+        }
+      >
+        <FefcPartidos />
+        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+          Números parciais: as contas de campanha ainda estão abertas, e esta tabela será refeita com a prestação final do
+          1º turno, que vence em 3/11/2026.
+        </p>
       </SectionBlock>
 
       <SectionBlock id="territorio" tone="lilac" kicker="Território" question="A receita declarada por UF" align="wide" lead={<p>Valores do universo proporcional, com total de receita declarada, parcela de mulheres e a fatia correspondente em cada unidade da Federação.</p>}>
