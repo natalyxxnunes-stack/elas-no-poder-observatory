@@ -1,3 +1,5 @@
+import { M_BRANCAS, M_PL_PRETAS, M_PRETAS_PARTIDOS, M_SENADO } from "@/data/manchetes";
+import { ManchetesStrip } from "@/components/editorial/Manchetes";
 import { Senado2027Chart, Senadoras2027 } from "@/components/editorial/Senado2027";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
@@ -42,7 +44,7 @@ export const Route = createFileRoute("/quem-chega")({
         content:
           "Resultado final de 2026 por gênero, cor/raça, cargo, estado e partido, cada cargo lido sobre as próprias cadeiras. Ser eleita e ocupar poder são etapas diferentes.",
       },
-      { property: "og:title", content: "Quais mulheres chegam a quais lugares?" },
+      { property: "og:title", content: M_BRANCAS.texto },
       {
         property: "og:description",
         content:
@@ -399,7 +401,7 @@ function QuemChegaPage() {
       <EditorialOpening
         variant="representation"
         kicker="Quem chega?"
-        question={a.question}
+        question={M_BRANCAS.texto}
         lead={
           <p>
             Em 2026, {n(fed.feminine)} das {n(fed.seats)} cadeiras da Câmara dos Deputados ficaram com mulheres.
@@ -411,6 +413,8 @@ function QuemChegaPage() {
         seats={{ filled: fed.feminine, total: fed.seats, cols: 27 }}
         gap={`Câmara dos Deputados, eleição de 2026: ${n(fed.feminine)} de ${n(fed.seats)} cadeiras (${pct(fed.feminine, fed.seats)}). Cada ponto é uma cadeira.`}
       />
+
+      <ManchetesStrip items={[M_PL_PRETAS, M_PRETAS_PARTIDOS, M_SENADO]} />
 
       <div className="pb-4">
         <InBrief

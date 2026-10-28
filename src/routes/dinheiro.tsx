@@ -1,3 +1,5 @@
+import { M_CONTROLA, M_FUNDO_BRANCAS, M_PISO } from "@/data/manchetes";
+import { ManchetesStrip } from "@/components/editorial/Manchetes";
 import { FundoNoGasto, TiposDeGasto, Vaquinhas } from "@/components/editorial/DespesasCharts";
 import { FefcPartidos } from "@/components/editorial/FefcPartidos";
 import { createFileRoute } from "@tanstack/react-router";
@@ -34,8 +36,7 @@ export const Route = createFileRoute("/dinheiro")({
       },
       {
         property: "og:title",
-        content:
-          "Entre as candidatas a deputada, as brancas concentram uma fatia maior da receita declarada",
+        content: M_FUNDO_BRANCAS.texto,
       },
       {
         property: "og:description",
@@ -101,12 +102,14 @@ function DinheiroPage() {
       <EditorialOpening
         variant="financial"
         kicker="Dinheiro"
-        question="Entre as candidatas a deputada, as brancas concentram uma fatia maior da receita declarada"
+        question={M_FUNDO_BRANCAS.texto}
         lead={<p>Nas disputas para deputada, mulheres são 35,9% das candidaturas com receita declarada e ficam com 33,2% do dinheiro, um pouco abaixo da presença delas. A diferença maior aparece dentro do grupo. Nos 12 partidos com mais receita declarada, que concentram 88,1% do dinheiro, a mediana das candidatas brancas é R$ 144 mil; a das pardas, R$ 98 mil; a das pretas, R$ 79 mil. Nas disputas por governo, Senado e Presidência, os valores também variam por cor/raça e pelos partidos que lançam as candidatas.</p>}
         layers={MONEY_LAYERS.map((layer) => layer.label)}
         gap="Prestação de contas em andamento · receita, não despesa · valores sujeitos a atualização"
         snapshot={financeSnapshot}
       />
+
+      <ManchetesStrip items={[M_PISO, M_CONTROLA]} />
 
       <div className="pb-4">
         <InBrief

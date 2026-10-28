@@ -1,3 +1,5 @@
+import { M_CONTROLA, M_PISO, M_PL_PRETAS } from "@/data/manchetes";
+import { ManchetesStrip } from "@/components/editorial/Manchetes";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
@@ -29,8 +31,7 @@ export const Route = createFileRoute("/quem-controla")({
       },
       {
         property: "og:title",
-        content:
-          "Antes do voto, muito se decide no partido",
+        content: M_CONTROLA.texto,
       },
       {
         property: "og:description",
@@ -91,7 +92,7 @@ function QuemControlaPage() {
       <EditorialOpening
         variant="power-flow"
         kicker="Quem controla?"
-        question="Antes do voto, muito se decide no partido"
+        question={M_CONTROLA.texto}
         lead={
           <p>
             A legislação eleitoral fixa pisos de candidaturas, de recursos e regras de distribuição de propaganda para mulheres. Dentro dessas regras, a definição concreta de candidaturas, recursos e posição passa pelos partidos e federações. A Justiça Eleitoral julga os registros, confere a cota e analisa as contas. Das {numberWords[leverTotal] ?? leverTotal} decisões mapeadas aqui, {numberWords[readyTotal] ?? readyTotal} já podem ser medidas com dado público e {numberWords[partialTotal] ?? partialTotal}, em parte.
@@ -99,6 +100,8 @@ function QuemControlaPage() {
         }
         levers={CONTROL_LEVERS.map(({ lever, ready }) => ({ label: lever, ready }))}
       />
+
+      <ManchetesStrip items={[M_PISO, M_PL_PRETAS]} />
 
       <div className="pb-4">
         <InBrief

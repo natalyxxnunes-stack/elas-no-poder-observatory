@@ -1,3 +1,5 @@
+import { M_BRANCAS, M_CADEIRAS, M_GOVERNOS } from "@/data/manchetes";
+import { ManchetesStrip } from "@/components/editorial/Manchetes";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
@@ -27,7 +29,7 @@ export const Route = createFileRoute("/funil")({
         content:
           "O funil de 2026: quantas mulheres nas candidaturas proporcionais e majoritárias, quem são elas por cor/raça e quantas chegaram às cadeiras, com o resultado final de 2026.",
       },
-      { property: "og:title", content: "Onde elas ficam pelo caminho?" },
+      { property: "og:title", content: M_GOVERNOS.texto },
       {
         property: "og:description",
         content:
@@ -100,7 +102,7 @@ function FunilPage() {
       <EditorialOpening
         variant="funnel"
         kicker="O funil de 2026"
-        question="Onde elas ficam pelo caminho?"
+        question={M_GOVERNOS.texto}
         lead={
           <p>
             Mulheres são {proportionalFrequency} candidaturas a deputada e {majoritarianFrequency} nas disputas por Presidência, governos e Senado. Nas candidaturas majoritárias, a presença cai. No 1º turno de 4 de outubro, mulheres ficaram com {resultShare} das cadeiras de deputado(a): {resultCount}. Com o 2º turno de 25 de outubro, os governos fecharam com 3 mulheres em 27, e a Presidência segue sem nenhuma.
@@ -109,6 +111,8 @@ function FunilPage() {
         snapshot={snapshot}
         baseDate={stampLabel}
       />
+
+      <ManchetesStrip items={[M_CADEIRAS, M_BRANCAS]} />
 
       <div className="pb-4">
         <InBrief

@@ -1,3 +1,5 @@
+import { M_BRANCAS } from "@/data/manchetes";
+import { ManchetesStrip } from "@/components/editorial/Manchetes";
 import { PartyStateMatrix } from "@/components/editorial/PartyStateMatrix";
 import { SituacaoChart } from "@/components/editorial/SituacaoChart";
 import { SITUACAO_2026 } from "@/data/situacao-candidaturas-2026";
@@ -136,7 +138,7 @@ function QuemSaoElasPage() {
       <EditorialOpening
         variant="race"
         kicker="Quem são elas?"
-        question="A cor das candidatas muda com o cargo em disputa"
+        question={`Brancas são ${proportionalWhite} das candidatas a deputada e ${majoritarianWhite} das que disputam Presidência, governos e Senado`}
         lead={
           <p>
             Brancas são {proportionalWhite} das candidatas a deputada e {majoritarianWhite} das que disputam Presidência, governos e Senado. Nessas disputas majoritárias, das {majoritarianRaceTotal > 0 ? formatInt(majoritarianRaceTotal) : "—"} mulheres, {majoritarianRaceCounts ? formatInt(majoritarianRaceCounts["BRANCA"] ?? 0) : "—"} são brancas, {majoritarianPardaCount !== undefined ? formatInt(majoritarianPardaCount) : "—"} pardas e {majoritarianPretaCount !== undefined ? formatInt(majoritarianPretaCount) : "—"} pretas. A queda está sobretudo nas pardas: eram {proportionalPardaFrequency} candidatas a deputada e viram {majoritarianPardaFrequency} nas candidaturas majoritárias.
@@ -144,6 +146,8 @@ function QuemSaoElasPage() {
         }
         snapshot={snapshot}
       />
+
+      <ManchetesStrip items={[M_BRANCAS]} label="Depois da urna" />
 
       <div className="pb-4">
         <InBrief

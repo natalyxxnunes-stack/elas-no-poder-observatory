@@ -624,6 +624,50 @@ function AsDezDaIgualdade() {
   );
 }
 
+/** Segundo destaque: quem votou a favor da anistia aos partidos que descumpriram as cotas. */
+function AnistiaCotas() {
+  const vid = "2352476-149";
+  const v = byId(vid);
+  const lista = DEPUTADAS.filter((d) => d.votos[vid]?.voto === "Sim").map((d) => {
+    const x = d.votos[vid]!;
+    return {
+      nome: d.nome,
+      uf: d.uf,
+      partido: x.partido,
+      contra: x.alinhamento === "contra a bancada",
+    };
+  });
+  const nao = v.porSexo.F.votos["Não"] ?? 0;
+  return (
+    <section aria-labelledby="anistia" className="border-y-2 border-ink bg-card px-5 py-6 sm:px-8">
+      <p className="kicker">
+        {v.proposicao} · {fmtDate(v.data)} · virou a Emenda Constitucional 133/2024
+      </p>
+      <h2 id="anistia" className="mt-2 font-display text-2xl leading-tight text-ink sm:text-3xl">
+        {n(lista.length)} deputadas votaram para livrar de punição os partidos que não destinaram o
+        mínimo de dinheiro a candidaturas de mulheres e de pessoas negras
+      </h2>
+      <p className="mt-2 max-w-3xl leading-relaxed text-ink/80">
+        {n(nao)} deputadas votaram contra. A mesma emenda criou o piso de 30% dos recursos para
+        candidaturas pretas e pardas e um programa de regularização de dívidas dos partidos. Placar
+        oficial: {n(v.placar.sim)} a {n(v.placar.nao)}.
+      </p>
+      <div className="mt-4">
+        <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+          As {n(lista.length)} deputadas que votaram Sim, por partido
+        </p>
+        <div className="mt-2">
+          <PartyNames list={lista} />
+        </div>
+      </div>
+      <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+        Partido na data do voto. * votou contra a maioria do próprio partido. Fonte: Câmara dos
+        Deputados, Dados Abertos, recontagem igual ao placar oficial.
+      </p>
+    </section>
+  );
+}
+
 function ComoVotaramPage() {
   const a = axis("como-votaram");
   const igual = byId("2351179-51");
@@ -669,6 +713,10 @@ function ComoVotaramPage() {
 
       <div className="pb-8">
         <AsDezDaIgualdade />
+      </div>
+
+      <div className="pb-8">
+        <AnistiaCotas />
       </div>
 
       <div className="pb-4">

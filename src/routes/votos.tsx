@@ -1,3 +1,4 @@
+import { M_VOTOS } from "@/data/manchetes";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
@@ -28,7 +29,7 @@ export const Route = createFileRoute("/votos")({
         content:
           "Quanto dos votos para deputado foi para mulheres em 2026, por cor/raça e estado, ao lado da fatia de candidaturas e de cadeiras. Recontagem do arquivo oficial do TSE.",
       },
-      { property: "og:title", content: "Quem consegue transformar candidatura em voto?" },
+      { property: "og:title", content: M_VOTOS.texto },
       {
         property: "og:description",
         content: "Candidaturas, votos e cadeiras de mulheres em 2026, cada etapa com o próprio denominador.",
@@ -258,7 +259,7 @@ function VotosPage() {
     <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Votos" }]}>
       <PageHero
         kicker="Votos"
-        question={a.question}
+        question={M_VOTOS.texto}
         lead={
           <p>
             Ter candidatura, receber votos e ganhar cadeira são três etapas diferentes. Em 2026, na Câmara, mulheres

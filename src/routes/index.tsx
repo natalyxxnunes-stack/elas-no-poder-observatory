@@ -1,3 +1,5 @@
+import { CapaManchetes } from "@/components/editorial/Manchetes";
+import { CAPA } from "@/data/manchetes";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { AchadoCard } from "@/components/editorial/AchadoCard";
@@ -174,6 +176,9 @@ function DadosPage() {
   return (
     <PageShell home>
       <HomeHeroEditorial snapshot={snapshot} baseDate={baseDate} />
+      <div className="pt-12">
+        <CapaManchetes items={CAPA} />
+      </div>
       <CurrentSnapshot snapshot={snapshot} baseDate={baseDate} pendingDate={pendingDate} />
       <WhatChanged />
       <section className="relative left-1/2 -ml-[50vw] w-screen bg-butter">

@@ -335,7 +335,7 @@ export const PUBLISHED_AXES = AXES.filter((item) => item.publication === "publis
 export const DATA_2026_NAV_ITEMS = [
   { label: "Brasil", to: "/", hash: undefined },
   { label: "Estados", to: "/quem-sao-elas", hash: "estados" },
-  { label: "Partidos", to: "/quem-sao-elas", hash: "partidos" },
+  { label: "Partidos", to: "/partidos", hash: undefined },
   { label: "Cargos", to: "/quem-sao-elas", hash: "cargos" },
   { label: "Raça", to: "/quem-sao-elas", hash: "raca" },
   { label: "Votos", to: "/votos", hash: undefined },

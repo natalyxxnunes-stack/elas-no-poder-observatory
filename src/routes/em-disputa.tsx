@@ -1,3 +1,4 @@
+import { M_REGRAS } from "@/data/manchetes";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/em-disputa")({
         content:
           "As regras que organizam a participação de mulheres nas eleições de 2026, com fonte e data de verificação de cada uma, e o que ainda pode mudá-las.",
       },
-      { property: "og:title", content: "As regras que valem em 2026, e o que pode mudá-las" },
+      { property: "og:title", content: M_REGRAS.texto },
       {
         property: "og:description",
         content:
@@ -40,7 +41,7 @@ function EmDisputaPage() {
       <EditorialOpening
         variant="process"
         kicker="Regras de 2026"
-        question="As regras que valem em 2026, e o que pode mudá-las"
+        question={M_REGRAS.texto}
         lead={
           <p>
             As normas que organizam a participação de mulheres nas eleições mudam por lei, por
