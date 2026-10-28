@@ -20,7 +20,7 @@ export const REPORTAGENS: readonly Reportagem[] = [
     to: "/como-votaram",
     titulo: "Como votaram as deputadas, e quem voltou",
     linhaFina:
-      "Cinco votações de mérito na Câmara, de igualdade salarial a anistia às cotas, deputada por deputada, cruzadas com o resultado de 2026 e com o dinheiro de campanha.",
+      "Seis votações de mérito na Câmara, de igualdade salarial à norma do Conanda sobre vítimas de violência sexual, deputada por deputada, cruzadas com o resultado de 2026 e com o dinheiro de campanha.",
     data: "2026-10-27",
     autora: "Nataly Nunes Pinto",
     tema: "Câmara dos Deputados",

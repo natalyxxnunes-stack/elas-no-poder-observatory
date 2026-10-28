@@ -198,9 +198,9 @@ export const ACHADOS: Achado[] = [
     data: "2026-10-28",
     titulo: "Entre as deputadas que tentaram voltar, o dinheiro separou quem voltou",
     texto:
-      "No terço de maior receita de campanha, 33 de 38 deputadas se reelegeram. No terço de menor receita, 4 de 17. Entre os homens, a diferença é menor: 76,5% e 47,9%. O voto em cinco pautas da Câmara separou bem menos: a reeleição das deputadas variou entre 52,7% e 72,2%.",
+      "No terço de maior receita de campanha, 33 de 39 deputadas se reelegeram. No terço de menor receita, 4 de 17. Entre os homens, a diferença é menor: 76,5% e 47,9%. O voto em seis pautas da Câmara separou bem menos: a reeleição das deputadas variou entre 52,7% e 72,2%.",
     barras: [
-      { rotulo: "Mulheres · mais receita", valor: 86.8 },
+      { rotulo: "Mulheres · mais receita", valor: 84.6 },
       { rotulo: "Mulheres · menos receita", valor: 23.5 },
       { rotulo: "Homens · mais receita", valor: 76.5 },
       { rotulo: "Homens · menos receita", valor: 47.9 },

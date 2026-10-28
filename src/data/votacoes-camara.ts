@@ -1,5 +1,5 @@
 /**
- * votacoes-camara — como votaram as deputadas federais em cinco votações
+ * votacoes-camara — como votaram as deputadas federais em seis votações
  * nominais de mérito do plenário da Câmara (2023–2025), cruzado com o
  * resultado de 2026. CRAVADO em código.
  *
@@ -7,13 +7,13 @@
  *  - API de Dados Abertos da Câmara (dadosabertos.camara.leg.br/api/v2):
  *    /votacoes/{id}, /votacoes/{id}/votos, /deputados?dataInicio&dataFim
  *    (quem estava em exercício na data) e /deputados/{id} (sexo e CPF).
- *    Coleta em 27/10/2026.
+ *    Coleta em 27/10/2026; PDL 3/2025 em 28/10/2026.
  *  - TSE, Candidatos 2022 (cor/raça autodeclarada na eleição que deu o
  *    mandato), SHA-256 do zip
  *    6a3d25e925d6813c42c7e2d572ce1ae372a1cb7c0cdb57bcbf2d7d70a2862acb.
  *  - TSE, Candidatos 2026, base de 27/10/2026 19:30:36 (resultado de 2026).
  *  Junção por CPF. Scripts: scripts/investigacao/1_votacoes.py,
- *  2_deputados.py e 3_cruzamento.py.
+ *  2_deputados.py, 3_cruzamento.py e 6_site_votacoes.py.
  *
  * Critério de seleção (fixado antes do cruzamento com o resultado):
  * votações nominais de plenário sobre o texto (mérito), 2023 a 2026, nos três
@@ -28,12 +28,16 @@
  *    composição histórica indisponível na API; por isso a medida usada é a
  *    posição da maioria da bancada, padrão em estudos de disciplina partidária;
  *  - presidente da sessão (Artigo 17) não vota e fica fora das contagens;
- *  - placar recontado igual ao placar oficial nas cinco votações;
+ *  - placar recontado igual ao placar oficial nas seis votações;
  *  - o cruzamento com 2026 descreve; não mede efeito do voto na eleição.
  */
 
 export const VOTACOES_META = {
-  coletaEm: "27/10/2026",
+  coletaEm: "27/10/2026 (PDL 3/2025: 28/10/2026)",
+  correcao:
+    "Correção em 28/10/2026: a votação do PDL 3/2025, de 05/11/2025, cumpria o critério e não estava na primeira versão desta reportagem. Ela foi incluída. Com isso, uma deputada a mais entra na conta de dinheiro e reeleição: no terço de maior receita, 33 de 39 deputadas se reelegeram (antes, 33 de 38).",
+  pdl3Senado:
+    "O PDL 3/2025 é a única das seis votações que já passou pelo Senado: foi aprovado em 02/06/2026, no mesmo dia na Comissão de Direitos Humanos e no plenário, sem votação nominal, e seguiu para promulgação. Até 28/10/2026, o decreto legislativo não aparece no Diário Oficial da União nem na base de normas do Senado; pelo próprio texto, a sustação vale a partir da publicação.",
   fonte: "Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2022 e 2026 (base de 27/10/2026)",
   tse2022ZipSha256: "6a3d25e925d6813c42c7e2d572ce1ae372a1cb7c0cdb57bcbf2d7d70a2862acb",
   tse2026CsvSha256: "3a60b9a996590b60b39b3a9cca68d2207b89a2a0cf3b235fd6452459be9c0c3e",
@@ -977,6 +981,97 @@ export const VOTACOES: Votacao[] = [
       },
     ],
   },
+  {
+    id: "2482078-57",
+    bloco: "Mulheres",
+    titulo: "Derrubada da norma do Conanda sobre vítimas de violência sexual",
+    proposicao: "PDL 3/2025",
+    etapa: "texto principal",
+    sim: "a favor de sustar a Resolução 258/2024 do Conanda, que regulamentava o atendimento a crianças e adolescentes vítimas de violência sexual, inclusive o acesso ao aborto nos casos previstos em lei",
+    data: "2025-11-05",
+    descricaoOficial:
+      "Aprovado o Projeto de Decreto Legislativo nº 3, de 2025. Sim: 317; Não: 111; Abstenção: 1; Total: 429.",
+    placar: { sim: 317, nao: 111, abstencao: 1 },
+    emExercicio: 513,
+    porSexo: {
+      F: {
+        total: 90,
+        votos: { Sim: 39, Não: 34, Ausente: 17 },
+        contraBancada: 4,
+        comBancada: 69,
+        desfechoPorVoto: {
+          Sim: {
+            reeleita: 25,
+            "eleita para outro cargo": 3,
+            suplente: 7,
+            "não eleita": 3,
+            "não concorreu": 1,
+          },
+          Não: {
+            reeleita: 23,
+            "eleita para outro cargo": 4,
+            suplente: 3,
+            "não eleita": 4,
+            "não concorreu": 0,
+          },
+          Ausente: {
+            reeleita: 9,
+            "eleita para outro cargo": 1,
+            suplente: 5,
+            "não eleita": 0,
+            "não concorreu": 2,
+          },
+        },
+      },
+      M: {
+        total: 423,
+        votos: { Sim: 278, Ausente: 66, Não: 77, Abstenção: 1, "Presidência da sessão": 1 },
+        contraBancada: 18,
+        comBancada: 337,
+        desfechoPorVoto: {
+          Sim: {
+            reeleita: 155,
+            "eleita para outro cargo": 15,
+            suplente: 71,
+            "não eleita": 22,
+            "não concorreu": 11,
+          },
+          Ausente: {
+            reeleita: 33,
+            "eleita para outro cargo": 2,
+            suplente: 11,
+            "não eleita": 11,
+            "não concorreu": 9,
+          },
+          Não: {
+            reeleita: 41,
+            "eleita para outro cargo": 1,
+            suplente: 24,
+            "não eleita": 7,
+            "não concorreu": 4,
+          },
+        },
+      },
+    },
+    racaDeputadas: {
+      BRANCA: { Sim: 28, Não: 18, Ausente: 9 },
+      PARDA: { Não: 3, Ausente: 7, Sim: 9 },
+      PRETA: { Não: 11, Sim: 2, Ausente: 1 },
+      INDÍGENA: { Não: 2 },
+    },
+    deputadasContraBancada: [
+      { nome: "Duda Salabert", partido: "PDT", uf: "MG", voto: "Não", maioriaBancada: "Sim" },
+      { nome: "Elcione Barbalho", partido: "MDB", uf: "PA", voto: "Não", maioriaBancada: "Sim" },
+      { nome: "Gisela Simona", partido: "UNIÃO", uf: "MT", voto: "Não", maioriaBancada: "Sim" },
+      {
+        nome: "Maria Arraes",
+        partido: "SOLIDARIEDADE",
+        uf: "PE",
+        voto: "Não",
+        maioriaBancada: "Sim",
+      },
+    ],
+  },
 ] as Votacao[];
 
 export const DEPUTADAS: Deputada[] = [
@@ -992,6 +1087,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Sim", partido: "NOVO", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "NOVO", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "NOVO", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "NOVO", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1002,20 +1098,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Sim", partido: "PCdoB", bancada: "Sim", alinhamento: "com a bancada" },
-      "2352476-149": {
-        voto: "Sim",
-        partido: "PCdoB",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2352476-149": { voto: "Sim", partido: "PCdoB", bancada: "Sim", alinhamento: "com a bancada" },
       "345311-270": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Não",
-        partido: "PCdoB",
-        bancada: "Não",
-        alinhamento: "com a bancada",
-      },
+      "2270800-160": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1025,12 +1112,7 @@ export const DEPUTADAS: Deputada[] = [
     desfecho2026: "reeleita",
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
-      "2270800-160": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2270800-160": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1044,6 +1126,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Ausente", partido: "PP", bancada: "Sim", alinhamento: null },
       "2358548-89": { voto: "Ausente", partido: "PP", bancada: "Sim", alinhamento: null },
       "2270800-160": { voto: "Sim", partido: "PP", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Ausente", partido: "PP", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -1069,6 +1152,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Sim", partido: "PP", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PP", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PP", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PP", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1083,6 +1167,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1097,6 +1182,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1111,6 +1197,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Ausente", partido: "MDB", bancada: "Sim", alinhamento: null },
       "2358548-89": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Ausente", partido: "MDB", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -1121,30 +1208,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Ausente", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: null },
-      "2352476-149": {
-        voto: "Não",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
-      "345311-270": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2358548-89": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2352476-149": { voto: "Não", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "contra a bancada" },
+      "345311-270": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2358548-89": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2270800-160": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1154,36 +1222,12 @@ export const DEPUTADAS: Deputada[] = [
     desfecho2026: "reeleita",
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
-      "2351179-51": {
-        voto: "Não",
-        partido: "CIDADANIA",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
-      "2352476-149": {
-        voto: "Não",
-        partido: "CIDADANIA",
-        bancada: "Não",
-        alinhamento: "com a bancada",
-      },
-      "345311-270": {
-        voto: "Sim",
-        partido: "CIDADANIA",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2358548-89": {
-        voto: "Sim",
-        partido: "CIDADANIA",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "CIDADANIA",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2351179-51": { voto: "Não", partido: "CIDADANIA", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2352476-149": { voto: "Não", partido: "CIDADANIA", bancada: "Não", alinhamento: "com a bancada" },
+      "345311-270": { voto: "Sim", partido: "CIDADANIA", bancada: "Sim", alinhamento: "com a bancada" },
+      "2358548-89": { voto: "Sim", partido: "CIDADANIA", bancada: "Sim", alinhamento: "com a bancada" },
+      "2270800-160": { voto: "Sim", partido: "CIDADANIA", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "CIDADANIA", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1198,6 +1242,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1208,15 +1253,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "SENADOR",
     votos: {
       "2351179-51": { voto: "Não", partido: "PL", bancada: "Sim", alinhamento: "contra a bancada" },
-      "2352476-149": {
-        voto: "Não",
-        partido: "PL",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2352476-149": { voto: "Não", partido: "PL", bancada: "Sim", alinhamento: "contra a bancada" },
       "345311-270": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1231,6 +1272,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Ausente", partido: "PT", bancada: "Não", alinhamento: null },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1251,12 +1293,8 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2358548-89": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2270800-160": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1267,14 +1305,10 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: null,
     votos: {
       "2351179-51": { voto: "Não", partido: "PL", bancada: "Sim", alinhamento: "contra a bancada" },
-      "2352476-149": {
-        voto: "Não",
-        partido: "PL",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2352476-149": { voto: "Não", partido: "PL", bancada: "Sim", alinhamento: "contra a bancada" },
       "345311-270": { voto: "Ausente", partido: "PL", bancada: "Sim", alinhamento: null },
       "2358548-89": { voto: "Ausente", partido: "PL", bancada: "Sim", alinhamento: null },
+      "2482078-57": { voto: "Ausente", partido: "PL", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -1299,6 +1333,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Ausente", partido: "PT", bancada: "Não", alinhamento: null },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1309,15 +1344,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "SENADOR",
     votos: {
       "2351179-51": { voto: "Não", partido: "PL", bancada: "Sim", alinhamento: "contra a bancada" },
-      "2352476-149": {
-        voto: "Não",
-        partido: "PL",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2352476-149": { voto: "Não", partido: "PL", bancada: "Sim", alinhamento: "contra a bancada" },
       "345311-270": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Ausente", partido: "PL", bancada: "Sim", alinhamento: null },
       "2270800-160": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1328,15 +1359,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Não", partido: "PL", bancada: "Sim", alinhamento: "contra a bancada" },
-      "2352476-149": {
-        voto: "Não",
-        partido: "PL",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2352476-149": { voto: "Não", partido: "PL", bancada: "Sim", alinhamento: "contra a bancada" },
       "345311-270": { voto: "Ausente", partido: "PL", bancada: "Sim", alinhamento: null },
       "2358548-89": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1350,6 +1377,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Sim", partido: "PP", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PP", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PP", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PP", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1364,6 +1392,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Ausente", partido: "PL", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -1374,20 +1403,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Ausente", partido: "UNIÃO", bancada: "Sim", alinhamento: null },
-      "2352476-149": {
-        voto: "Sim",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2352476-149": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
       "345311-270": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Não",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2270800-160": { voto: "Não", partido: "UNIÃO", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2482078-57": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1402,6 +1422,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1412,20 +1433,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Sim", partido: "PCdoB", bancada: "Sim", alinhamento: "com a bancada" },
-      "2352476-149": {
-        voto: "Sim",
-        partido: "PCdoB",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2352476-149": { voto: "Sim", partido: "PCdoB", bancada: "Sim", alinhamento: "com a bancada" },
       "345311-270": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Não",
-        partido: "PCdoB",
-        bancada: "Não",
-        alinhamento: "com a bancada",
-      },
+      "2270800-160": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1440,6 +1452,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Ausente", partido: "PT", bancada: "Não", alinhamento: null },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1449,26 +1462,12 @@ export const DEPUTADAS: Deputada[] = [
     desfecho2026: "reeleita",
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
-      "2351179-51": {
-        voto: "Não",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
-      "2352476-149": {
-        voto: "Sim",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2351179-51": { voto: "Não", partido: "UNIÃO", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2352476-149": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
       "345311-270": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2270800-160": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1479,15 +1478,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
-      "2352476-149": {
-        voto: "Não",
-        partido: "PL",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2352476-149": { voto: "Não", partido: "PL", bancada: "Sim", alinhamento: "contra a bancada" },
       "345311-270": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Ausente", partido: "PL", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -1497,24 +1492,10 @@ export const DEPUTADAS: Deputada[] = [
     desfecho2026: "suplente",
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
-      "2352476-149": {
-        voto: "Sim",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2358548-89": {
-        voto: "Não",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
-      "2270800-160": {
-        voto: "Não",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2352476-149": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
+      "2358548-89": { voto: "Não", partido: "UNIÃO", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2270800-160": { voto: "Não", partido: "UNIÃO", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2482078-57": { voto: "Ausente", partido: "UNIÃO", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -1525,20 +1506,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
-      "2352476-149": {
-        voto: "Não",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2352476-149": { voto: "Não", partido: "UNIÃO", bancada: "Sim", alinhamento: "contra a bancada" },
       "345311-270": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2270800-160": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1553,6 +1525,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Ausente", partido: "PT", bancada: "Não", alinhamento: null },
       "2270800-160": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1562,36 +1535,12 @@ export const DEPUTADAS: Deputada[] = [
     desfecho2026: "reeleita",
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
-      "2351179-51": {
-        voto: "Sim",
-        partido: "AVANTE",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2352476-149": {
-        voto: "Sim",
-        partido: "AVANTE",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "345311-270": {
-        voto: "Sim",
-        partido: "AVANTE",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2358548-89": {
-        voto: "Sim",
-        partido: "AVANTE",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "AVANTE",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2351179-51": { voto: "Sim", partido: "AVANTE", bancada: "Sim", alinhamento: "com a bancada" },
+      "2352476-149": { voto: "Sim", partido: "AVANTE", bancada: "Sim", alinhamento: "com a bancada" },
+      "345311-270": { voto: "Sim", partido: "AVANTE", bancada: "Sim", alinhamento: "com a bancada" },
+      "2358548-89": { voto: "Sim", partido: "AVANTE", bancada: "Sim", alinhamento: "com a bancada" },
+      "2270800-160": { voto: "Sim", partido: "AVANTE", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "AVANTE", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1605,12 +1554,8 @@ export const DEPUTADAS: Deputada[] = [
       "2352476-149": { voto: "Ausente", partido: "PSD", bancada: "Sim", alinhamento: null },
       "345311-270": { voto: "Sim", partido: "PSD", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PSD", bancada: "Sim", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Não",
-        partido: "PSD",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2270800-160": { voto: "Não", partido: "PSD", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PSD", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1625,6 +1570,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1639,6 +1585,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Ausente", partido: "PL", bancada: "Sim", alinhamento: null },
       "2358548-89": { voto: "Ausente", partido: "PL", bancada: "Sim", alinhamento: null },
       "2270800-160": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Ausente", partido: "PL", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -1652,12 +1599,8 @@ export const DEPUTADAS: Deputada[] = [
       "2352476-149": { voto: "Sim", partido: "PT", bancada: "Sim", alinhamento: "com a bancada" },
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "PT",
-        bancada: "Não",
-        alinhamento: "contra a bancada",
-      },
+      "2270800-160": { voto: "Sim", partido: "PT", bancada: "Não", alinhamento: "contra a bancada" },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1668,15 +1611,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Ausente", partido: "MDB", bancada: "Sim", alinhamento: null },
-      "2352476-149": {
-        voto: "Não",
-        partido: "MDB",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2352476-149": { voto: "Não", partido: "MDB", bancada: "Sim", alinhamento: "contra a bancada" },
       "345311-270": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1687,20 +1626,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Sim", partido: "PDT", bancada: "Sim", alinhamento: "com a bancada" },
-      "2352476-149": {
-        voto: "Não",
-        partido: "PDT",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2352476-149": { voto: "Não", partido: "PDT", bancada: "Sim", alinhamento: "contra a bancada" },
       "345311-270": { voto: "Não", partido: "PDT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PDT", bancada: "Não", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Não",
-        partido: "PDT",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2270800-160": { voto: "Não", partido: "PDT", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2482078-57": { voto: "Não", partido: "PDT", bancada: "Sim", alinhamento: "contra a bancada" },
     },
   },
   {
@@ -1715,6 +1645,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Ausente", partido: "MDB", bancada: "Sim", alinhamento: null },
       "2358548-89": { voto: "Ausente", partido: "MDB", bancada: "Sim", alinhamento: null },
       "2270800-160": { voto: "Ausente", partido: "MDB", bancada: "Sim", alinhamento: null },
+      "2482078-57": { voto: "Não", partido: "MDB", bancada: "Sim", alinhamento: "contra a bancada" },
     },
   },
   {
@@ -1734,24 +1665,10 @@ export const DEPUTADAS: Deputada[] = [
     desfecho2026: "eleita para outro cargo",
     cargo2026: "DEPUTADO ESTADUAL",
     votos: {
-      "2352476-149": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2358548-89": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2352476-149": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2358548-89": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2270800-160": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1763,6 +1680,7 @@ export const DEPUTADAS: Deputada[] = [
     votos: {
       "2358548-89": { voto: "Ausente", partido: "PODE", bancada: "Sim", alinhamento: null },
       "2270800-160": { voto: "Sim", partido: "PODE", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Ausente", partido: "PODE", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -1773,12 +1691,8 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2358548-89": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Não",
-        partido: "PCdoB",
-        bancada: "Não",
-        alinhamento: "com a bancada",
-      },
+      "2270800-160": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1793,6 +1707,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1803,15 +1718,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "SENADOR",
     votos: {
       "2351179-51": { voto: "Sim", partido: "PT", bancada: "Sim", alinhamento: "com a bancada" },
-      "2352476-149": {
-        voto: "Não",
-        partido: "PT",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2352476-149": { voto: "Não", partido: "PT", bancada: "Sim", alinhamento: "contra a bancada" },
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1822,6 +1733,7 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2358548-89": { voto: "Ausente", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: null },
+      "2482078-57": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1836,6 +1748,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1846,19 +1759,10 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
-      "2352476-149": {
-        voto: "Sim",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2352476-149": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
       "345311-270": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2270800-160": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1881,18 +1785,9 @@ export const DEPUTADAS: Deputada[] = [
       "2351179-51": { voto: "Sim", partido: "PDT", bancada: "Sim", alinhamento: "com a bancada" },
       "2352476-149": { voto: "Ausente", partido: "PDT", bancada: "Sim", alinhamento: null },
       "345311-270": { voto: "Não", partido: "PDT", bancada: "Não", alinhamento: "com a bancada" },
-      "2358548-89": {
-        voto: "Sim",
-        partido: "PDT",
-        bancada: "Não",
-        alinhamento: "contra a bancada",
-      },
-      "2270800-160": {
-        voto: "Não",
-        partido: "PDT",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2358548-89": { voto: "Sim", partido: "PDT", bancada: "Não", alinhamento: "contra a bancada" },
+      "2270800-160": { voto: "Não", partido: "PDT", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2482078-57": { voto: "Ausente", partido: "PDT", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -1902,36 +1797,12 @@ export const DEPUTADAS: Deputada[] = [
     desfecho2026: "suplente",
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
-      "2351179-51": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2352476-149": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "345311-270": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2358548-89": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2351179-51": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2352476-149": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "345311-270": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2358548-89": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2270800-160": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1945,6 +1816,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Sim", partido: "PSDB", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PSDB", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PSDB", bancada: "dividida", alinhamento: null },
+      "2482078-57": { voto: "Sim", partido: "PSDB", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -1954,19 +1826,10 @@ export const DEPUTADAS: Deputada[] = [
     desfecho2026: "eleita para outro cargo",
     cargo2026: "VICE-GOVERNADOR",
     votos: {
-      "2352476-149": {
-        voto: "Não",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2352476-149": { voto: "Não", partido: "UNIÃO", bancada: "Sim", alinhamento: "contra a bancada" },
       "2358548-89": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2270800-160": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "UNIÃO", bancada: "Sim", alinhamento: "contra a bancada" },
     },
   },
   {
@@ -1999,30 +1862,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Ausente", partido: "AVANTE", bancada: "Sim", alinhamento: null },
-      "2352476-149": {
-        voto: "Sim",
-        partido: "AVANTE",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "345311-270": {
-        voto: "Sim",
-        partido: "AVANTE",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2358548-89": {
-        voto: "Sim",
-        partido: "AVANTE",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "AVANTE",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2352476-149": { voto: "Sim", partido: "AVANTE", bancada: "Sim", alinhamento: "com a bancada" },
+      "345311-270": { voto: "Sim", partido: "AVANTE", bancada: "Sim", alinhamento: "com a bancada" },
+      "2358548-89": { voto: "Sim", partido: "AVANTE", bancada: "Sim", alinhamento: "com a bancada" },
+      "2270800-160": { voto: "Sim", partido: "AVANTE", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "AVANTE", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2034,14 +1878,10 @@ export const DEPUTADAS: Deputada[] = [
     votos: {
       "2351179-51": { voto: "Ausente", partido: "MDB", bancada: "Sim", alinhamento: null },
       "2352476-149": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
-      "345311-270": {
-        voto: "Não",
-        partido: "MDB",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "345311-270": { voto: "Não", partido: "MDB", bancada: "Sim", alinhamento: "contra a bancada" },
       "2358548-89": { voto: "Ausente", partido: "MDB", bancada: "Sim", alinhamento: null },
       "2270800-160": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2056,6 +1896,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Ausente", partido: "PT", bancada: "Não", alinhamento: null },
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Ausente", partido: "PT", bancada: "Não", alinhamento: null },
     },
   },
   {
@@ -2067,19 +1908,10 @@ export const DEPUTADAS: Deputada[] = [
     votos: {
       "2351179-51": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
       "2352476-149": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
-      "345311-270": {
-        voto: "Não",
-        partido: "MDB",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
-      "2358548-89": {
-        voto: "Não",
-        partido: "MDB",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "345311-270": { voto: "Não", partido: "MDB", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2358548-89": { voto: "Não", partido: "MDB", bancada: "Sim", alinhamento: "contra a bancada" },
       "2270800-160": { voto: "Ausente", partido: "MDB", bancada: "Sim", alinhamento: null },
+      "2482078-57": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2094,6 +1926,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2104,20 +1937,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Sim", partido: "PCdoB", bancada: "Sim", alinhamento: "com a bancada" },
-      "2352476-149": {
-        voto: "Sim",
-        partido: "PCdoB",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2352476-149": { voto: "Sim", partido: "PCdoB", bancada: "Sim", alinhamento: "com a bancada" },
       "345311-270": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Não",
-        partido: "PCdoB",
-        bancada: "Não",
-        alinhamento: "com a bancada",
-      },
+      "2270800-160": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2128,15 +1952,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Não", partido: "PL", bancada: "Sim", alinhamento: "contra a bancada" },
-      "2352476-149": {
-        voto: "Não",
-        partido: "PL",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2352476-149": { voto: "Não", partido: "PL", bancada: "Sim", alinhamento: "contra a bancada" },
       "345311-270": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2151,6 +1971,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2172,24 +1993,10 @@ export const DEPUTADAS: Deputada[] = [
     votos: {
       "2351179-51": { voto: "Sim", partido: "PSD", bancada: "Sim", alinhamento: "com a bancada" },
       "2352476-149": { voto: "Sim", partido: "PSD", bancada: "Sim", alinhamento: "com a bancada" },
-      "345311-270": {
-        voto: "Não",
-        partido: "PSD",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
-      "2358548-89": {
-        voto: "Não",
-        partido: "PSD",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
-      "2270800-160": {
-        voto: "Não",
-        partido: "PSD",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "345311-270": { voto: "Não", partido: "PSD", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2358548-89": { voto: "Não", partido: "PSD", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2270800-160": { voto: "Não", partido: "PSD", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2482078-57": { voto: "Ausente", partido: "PSD", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -2201,6 +2008,7 @@ export const DEPUTADAS: Deputada[] = [
     votos: {
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2210,12 +2018,7 @@ export const DEPUTADAS: Deputada[] = [
     desfecho2026: "suplente",
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
-      "2352476-149": {
-        voto: "Sim",
-        partido: "SOLIDARIEDADE",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2352476-149": { voto: "Sim", partido: "SOLIDARIEDADE", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2240,6 +2043,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Sim", partido: "PSD", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PSD", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PSD", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PSD", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2254,6 +2058,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Ausente", partido: "PSOL", bancada: "Não", alinhamento: null },
       "2358548-89": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2268,6 +2073,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Ausente", partido: "PT", bancada: "Não", alinhamento: null },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2282,6 +2088,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Sim", partido: "PSDB", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PSDB", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PSDB", bancada: "dividida", alinhamento: null },
+      "2482078-57": { voto: "Ausente", partido: "PSDB", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -2295,12 +2102,8 @@ export const DEPUTADAS: Deputada[] = [
       "2352476-149": { voto: "Sim", partido: "PSB", bancada: "Sim", alinhamento: "com a bancada" },
       "345311-270": { voto: "Não", partido: "PSB", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PSB", bancada: "Não", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Não",
-        partido: "PSB",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2270800-160": { voto: "Não", partido: "PSB", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2482078-57": { voto: "Não", partido: "PSB", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2315,6 +2118,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PRD", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PRD", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PRD", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2324,36 +2128,12 @@ export const DEPUTADAS: Deputada[] = [
     desfecho2026: "eleita para outro cargo",
     cargo2026: "DEPUTADO ESTADUAL",
     votos: {
-      "2351179-51": {
-        voto: "Sim",
-        partido: "SOLIDARIEDADE",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2352476-149": {
-        voto: "Sim",
-        partido: "SOLIDARIEDADE",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "345311-270": {
-        voto: "Não",
-        partido: "SOLIDARIEDADE",
-        bancada: "Não",
-        alinhamento: "com a bancada",
-      },
-      "2358548-89": {
-        voto: "Não",
-        partido: "SOLIDARIEDADE",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
-      "2270800-160": {
-        voto: "Não",
-        partido: "SOLIDARIEDADE",
-        bancada: "dividida",
-        alinhamento: null,
-      },
+      "2351179-51": { voto: "Sim", partido: "SOLIDARIEDADE", bancada: "Sim", alinhamento: "com a bancada" },
+      "2352476-149": { voto: "Sim", partido: "SOLIDARIEDADE", bancada: "Sim", alinhamento: "com a bancada" },
+      "345311-270": { voto: "Não", partido: "SOLIDARIEDADE", bancada: "Não", alinhamento: "com a bancada" },
+      "2358548-89": { voto: "Não", partido: "SOLIDARIEDADE", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2270800-160": { voto: "Não", partido: "SOLIDARIEDADE", bancada: "dividida", alinhamento: null },
+      "2482078-57": { voto: "Não", partido: "SOLIDARIEDADE", bancada: "Sim", alinhamento: "contra a bancada" },
     },
   },
   {
@@ -2363,36 +2143,12 @@ export const DEPUTADAS: Deputada[] = [
     desfecho2026: "reeleita",
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
-      "2351179-51": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2352476-149": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "345311-270": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2358548-89": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2351179-51": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2352476-149": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "345311-270": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2358548-89": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2270800-160": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2407,6 +2163,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2421,6 +2178,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2431,25 +2189,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: null,
     votos: {
       "2351179-51": { voto: "Ausente", partido: "UNIÃO", bancada: "Sim", alinhamento: null },
-      "2352476-149": {
-        voto: "Sim",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2352476-149": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
       "345311-270": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
-      "2358548-89": {
-        voto: "Não",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2358548-89": { voto: "Não", partido: "UNIÃO", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2270800-160": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Ausente", partido: "UNIÃO", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -2474,6 +2218,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2487,6 +2232,7 @@ export const DEPUTADAS: Deputada[] = [
       "2352476-149": { voto: "Sim", partido: "PODE", bancada: "Sim", alinhamento: "com a bancada" },
       "345311-270": { voto: "Sim", partido: "PODE", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PODE", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PODE", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2513,6 +2259,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2523,12 +2270,8 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2358548-89": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Não",
-        partido: "PCdoB",
-        bancada: "Não",
-        alinhamento: "com a bancada",
-      },
+      "2270800-160": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PCdoB", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2539,12 +2282,7 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Sim", partido: "PT", bancada: "Sim", alinhamento: "com a bancada" },
-      "2352476-149": {
-        voto: "Não",
-        partido: "PT",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2352476-149": { voto: "Não", partido: "PT", bancada: "Sim", alinhamento: "contra a bancada" },
       "345311-270": { voto: "Não", partido: "PT", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
@@ -2559,6 +2297,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Sim", partido: "PODE", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PODE", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PODE", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PODE", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2573,6 +2312,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Ausente", partido: "MDB", bancada: "Sim", alinhamento: null },
       "2358548-89": { voto: "Ausente", partido: "MDB", bancada: "Sim", alinhamento: null },
       "2270800-160": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Ausente", partido: "MDB", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -2587,6 +2327,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2596,36 +2337,12 @@ export const DEPUTADAS: Deputada[] = [
     desfecho2026: "suplente",
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
-      "2351179-51": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2352476-149": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "345311-270": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2358548-89": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "REPUBLICANOS",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2351179-51": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2352476-149": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "345311-270": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2358548-89": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2270800-160": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2636,15 +2353,21 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
-      "2352476-149": {
-        voto: "Não",
-        partido: "PL",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2352476-149": { voto: "Não", partido: "PL", bancada: "Sim", alinhamento: "contra a bancada" },
       "345311-270": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
+    },
+  },
+  {
+    nome: "Rosangela Gomes",
+    uf: "RJ",
+    raca2022: "PRETA",
+    desfecho2026: "suplente",
+    cargo2026: "DEPUTADO FEDERAL",
+    votos: {
+      "2482078-57": { voto: "Ausente", partido: "REPUBLICANOS", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -2654,26 +2377,12 @@ export const DEPUTADAS: Deputada[] = [
     desfecho2026: "reeleita",
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
-      "2351179-51": {
-        voto: "Não",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
-      "2352476-149": {
-        voto: "Não",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2351179-51": { voto: "Não", partido: "UNIÃO", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2352476-149": { voto: "Não", partido: "UNIÃO", bancada: "Sim", alinhamento: "contra a bancada" },
       "345311-270": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Não",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2270800-160": { voto: "Não", partido: "UNIÃO", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2482078-57": { voto: "Ausente", partido: "UNIÃO", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -2699,6 +2408,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2713,6 +2423,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PP", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PP", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PP", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2738,12 +2449,8 @@ export const DEPUTADAS: Deputada[] = [
       "2352476-149": { voto: "Ausente", partido: "UNIÃO", bancada: "Sim", alinhamento: null },
       "345311-270": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Sim",
-        partido: "UNIÃO",
-        bancada: "Sim",
-        alinhamento: "com a bancada",
-      },
+      "2270800-160": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2758,6 +2465,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "MDB", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2771,12 +2479,8 @@ export const DEPUTADAS: Deputada[] = [
       "2352476-149": { voto: "Sim", partido: "PP", bancada: "Sim", alinhamento: "com a bancada" },
       "345311-270": { voto: "Não", partido: "PP", bancada: "Sim", alinhamento: "contra a bancada" },
       "2358548-89": { voto: "Não", partido: "PP", bancada: "Sim", alinhamento: "contra a bancada" },
-      "2270800-160": {
-        voto: "Não",
-        partido: "PP",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2270800-160": { voto: "Não", partido: "PP", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2482078-57": { voto: "Ausente", partido: "PP", bancada: "Sim", alinhamento: null },
     },
   },
   {
@@ -2803,6 +2507,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Sim", partido: "PL", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2817,6 +2522,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2827,20 +2533,11 @@ export const DEPUTADAS: Deputada[] = [
     cargo2026: "DEPUTADO FEDERAL",
     votos: {
       "2351179-51": { voto: "Sim", partido: "PSB", bancada: "Sim", alinhamento: "com a bancada" },
-      "2352476-149": {
-        voto: "Não",
-        partido: "PSB",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2352476-149": { voto: "Não", partido: "PSB", bancada: "Sim", alinhamento: "contra a bancada" },
       "345311-270": { voto: "Não", partido: "PSB", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PSB", bancada: "Não", alinhamento: "com a bancada" },
-      "2270800-160": {
-        voto: "Não",
-        partido: "PSB",
-        bancada: "Sim",
-        alinhamento: "contra a bancada",
-      },
+      "2270800-160": { voto: "Não", partido: "PSB", bancada: "Sim", alinhamento: "contra a bancada" },
+      "2482078-57": { voto: "Não", partido: "PSB", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2855,6 +2552,7 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
       "2358548-89": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
+      "2482078-57": { voto: "Não", partido: "PSOL", bancada: "Não", alinhamento: "com a bancada" },
     },
   },
   {
@@ -2868,32 +2566,33 @@ export const DEPUTADAS: Deputada[] = [
       "345311-270": { voto: "Ausente", partido: "UNIÃO", bancada: "Sim", alinhamento: null },
       "2358548-89": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
       "2270800-160": { voto: "Ausente", partido: "UNIÃO", bancada: "Sim", alinhamento: null },
+      "2482078-57": { voto: "Sim", partido: "UNIÃO", bancada: "Sim", alinhamento: "com a bancada" },
     },
   },
-] as Deputada[];
+];
 
 /**
  * Dinheiro de campanha × reeleição (scripts/investigacao/4_dinheiro_reeleicao.py).
- * Universo: quem estava no mandato em alguma das cinco datas e se candidatou a
- * deputado federal em 2026 (junção por CPF): 82 mulheres e 389 homens.
+ * Universo: quem estava no mandato em alguma das seis datas e se candidatou a
+ * deputado federal em 2026 (junção por CPF): 83 mulheres e 389 homens.
  * Receita: prestação de contas de 2026, base de 27/10/2026 (em andamento).
  * Terços calculados sobre o universo inteiro, mesma régua para os dois grupos.
  * Conferência: sem as candidaturas que ainda só entregaram a prestação parcial
  * (receita até 08/09), o padrão se mantém (mulheres: 3 de 13, 18 de 21 e 23 de 27).
  */
 export const DINHEIRO_REELEICAO = {
-  universo: 471,
+  universo: 472,
   cortes: { t1: 2172196.7, t2: 2915915.68 },
   faixas: ["terço de menor receita", "terço do meio", "terço de maior receita"] as const,
   F: {
-    tentaram: 82,
+    tentaram: 83,
     reeleitos: 58,
     medianaReeleitos: 2947567.5,
-    medianaNaoReeleitos: 2103065.0,
+    medianaNaoReeleitos: 2131520.0,
     porFaixa: {
       "terço de menor receita": { total: 17, eleitos: 4 },
       "terço do meio": { total: 27, eleitos: 21 },
-      "terço de maior receita": { total: 38, eleitos: 33 },
+      "terço de maior receita": { total: 39, eleitos: 33 },
     },
   },
   M: {
@@ -2911,7 +2610,7 @@ export const DINHEIRO_REELEICAO = {
     F: {
       "terço de menor receita": [3, 13],
       "terço do meio": [18, 21],
-      "terço de maior receita": [23, 27],
+      "terço de maior receita": [23, 28],
     },
     M: {
       "terço de menor receita": [53, 101],
@@ -2920,7 +2619,7 @@ export const DINHEIRO_REELEICAO = {
     },
   },
   prestacaoParcial: {
-    F: { reeleitas: [14, 58], naoReeleitas: [7, 24] },
+    F: { reeleitas: [14, 58], naoReeleitas: [7, 25] },
     M: { reeleitos: [65, 245], naoReeleitos: [41, 144] },
   },
 } as const;

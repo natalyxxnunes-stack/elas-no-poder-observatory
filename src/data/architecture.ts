@@ -190,13 +190,13 @@ export const AXES: readonly Axis[] = [
     label: "Como votaram",
     question: "Como votaram as deputadas, e quem voltou?",
     summary:
-      "Investigação assinada: o voto das deputadas federais em cinco votações de mérito da Câmara (igualdade salarial, anistia às cotas, marco temporal, dosimetria do 8 de janeiro e PEC das prerrogativas), com a posição da própria bancada, cor/raça e o resultado de 2026.",
+      "Investigação assinada: o voto das deputadas federais em seis votações de mérito da Câmara (igualdade salarial, anistia às cotas, norma do Conanda sobre vítimas de violência sexual, marco temporal, dosimetria do 8 de janeiro e PEC das prerrogativas), com a posição da própria bancada, cor/raça e o resultado de 2026.",
     dimensions: ["gênero × cor/raça × voto em plenário", "partido", "resultado de 2026"],
     unpublishedReason: "",
     state: "com dados de resultado",
     publication: "published",
     status: "publicado",
-    statusNote: "Cinco votações nominais de mérito, 2023 a 2025, cruzadas com o resultado de 2026.",
+    statusNote: "Seis votações nominais de mérito, 2023 a 2025, cruzadas com o resultado de 2026.",
     group: "investigacao",
   },
   {

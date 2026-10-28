@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Passo 4: dinheiro de campanha × reeleição, para quem estava no mandato de
-deputado federal em alguma das cinco votações de Como votaram e tentou
+deputado federal em alguma das seis votações de Como votaram e tentou
 voltar à Câmara em 2026.
 
 Uso:

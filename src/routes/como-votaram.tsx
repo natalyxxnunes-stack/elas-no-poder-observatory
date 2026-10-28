@@ -27,7 +27,7 @@ import { formatBRLCompact, formatInt, formatPct } from "@/lib/format-br";
 export const Route = createFileRoute("/como-votaram")({
   head: () => ({
     meta: [
-      { title: "Como votaram · Quem são elas? | Deputadas em cinco votações da Câmara" },
+      { title: "Como votaram · Quem são elas? | Deputadas em seis votações da Câmara" },
       {
         name: "description",
         content:
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/como-votaram")({
       { property: "og:title", content: "Como votaram as deputadas, e quem voltou" },
       {
         property: "og:description",
-        content: "Cinco votações de mérito na Câmara, deputada por deputada, cruzadas com o resultado de 2026.",
+        content: "Seis votações de mérito na Câmara, deputada por deputada, cruzadas com o resultado de 2026.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -64,6 +64,7 @@ const SHORT: Record<string, string> = {
   "345311-270": "Marco temporal",
   "2358548-89": "Dosimetria 8/1",
   "2270800-160": "PEC prerrogativas",
+  "2482078-57": "Norma do Conanda",
 };
 const VOTO_CLASS: Record<string, string> = {
   Sim: "bg-plum text-cream",
@@ -148,7 +149,7 @@ function RaceVoteTable() {
   return (
     <ChartFrame
       eyebrow="Deputadas · cor/raça declarada ao TSE em 2022"
-      title="Como votou cada grupo de deputadas, nas cinco votações"
+      title="Como votou cada grupo de deputadas, nas seis votações"
       note="Cada célula mostra Sim / Não entre as deputadas daquele grupo presentes na votação. Bases pequenas: leia pelo número absoluto."
       source="Fonte: Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2022. Junção por CPF. Categorias originais, sem agregação."
       ficha={{
@@ -264,7 +265,7 @@ function MoneyReelectionChart() {
       source="Fonte: Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2026 e Prestação de Contas 2026 (bases de 27/10/2026). Junção por CPF."
       ficha={{
         vendo: "A taxa de reeleição em cada terço de receita de campanha, para mulheres e para homens.",
-        contados: `Quem estava no mandato de deputado federal em alguma das cinco votações e se candidatou de novo à Câmara em 2026: ${n(d.F.tentaram)} mulheres e ${n(d.M.tentaram)} homens.`,
+        contados: `Quem estava no mandato de deputado federal em alguma das seis votações e se candidatou de novo à Câmara em 2026: ${n(d.F.tentaram)} mulheres e ${n(d.M.tentaram)} homens.`,
         denominador: "Pessoas do mesmo sexo dentro de cada terço de receita.",
         data: "Prestação de contas e resultado do TSE de 27/10/2026",
         fonte: "Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2026 e Prestação de Contas 2026",
@@ -381,6 +382,7 @@ function ComoVotaramPage() {
   const igual = byId("2351179-51");
   const cotas = byId("2352476-149");
   const marco = byId("345311-270");
+  const conanda = byId("2482078-57");
   const range = reelectionRange();
   const igualContra = igual.deputadasContraBancada.filter((d) => d.voto === "Não");
   const pretasMarco = marco.racaDeputadas["PRETA"] ?? {};
@@ -391,10 +393,12 @@ function ComoVotaramPage() {
         question={a.question}
         lead={
           <p>
-            Cinco votações de mérito no plenário da Câmara, de 2023 a 2025, deputada por deputada. Na igualdade
+            Seis votações de mérito no plenário da Câmara, de 2023 a 2025, deputada por deputada. Na igualdade
             salarial, {n(igual.porSexo.F.votos["Não"] ?? 0)} deputadas votaram contra, e {n(igualContra.length)} delas
             votaram contra a maioria do próprio partido. Na anistia aos partidos que descumpriram a cota de mulheres e
-            de pessoas negras, {n(cotas.porSexo.F.votos["Sim"] ?? 0)} votaram a favor.
+            de pessoas negras, {n(cotas.porSexo.F.votos["Sim"] ?? 0)} votaram a favor. Na derrubada da norma do Conanda
+            sobre o atendimento a crianças e adolescentes vítimas de violência sexual, as deputadas se dividiram:{" "}
+            {n(conanda.porSexo.F.votos["Sim"] ?? 0)} votaram a favor e {n(conanda.porSexo.F.votos["Não"] ?? 0)} contra.
           </p>
         }
         aside={
@@ -402,7 +406,7 @@ function ComoVotaramPage() {
             <p className="kicker">Assinatura</p>
             <p className="mt-2 font-display text-lg leading-snug text-ink">Apuração e texto: Nataly Nunes Pinto</p>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Publicada em 27/10/2026. Os números são recontagem própria dos dados abertos da Câmara e do TSE; a seleção
+              Publicada em 27/10/2026 e atualizada em 28/10/2026. Os números são recontagem própria dos dados abertos da Câmara e do TSE; a seleção
               das votações e a leitura são escolhas editoriais, declaradas abaixo.
             </p>
           </div>
@@ -414,7 +418,7 @@ function ComoVotaramPage() {
           found={
             <>
               Entre as deputadas que votaram, a taxa de reeleição em 2026 ficou entre {formatPct(range.min)} e{" "}
-              {formatPct(range.max)}, dos dois lados das cinco votações. O dinheiro separa muito mais: entre as que
+              {formatPct(range.max)}, dos dois lados das seis votações. O dinheiro separa muito mais: entre as que
               tentaram voltar, {n(DINHEIRO_REELEICAO.F.porFaixa["terço de maior receita"].eleitos)} de{" "}
               {n(DINHEIRO_REELEICAO.F.porFaixa["terço de maior receita"].total)} no terço de maior receita se reelegeram,
               contra {n(DINHEIRO_REELEICAO.F.porFaixa["terço de menor receita"].eleitos)} de{" "}
@@ -425,8 +429,8 @@ function ComoVotaramPage() {
           }
           matters={
             <>
-              Ser mulher no plenário diz pouco sobre o voto. As deputadas se dividiram em todas as cinco votações, inclusive
-              nas duas que tratam diretamente de direitos das mulheres, e o partido pesou mais que o gênero.
+              Ser mulher no plenário diz pouco sobre o voto. As deputadas se dividiram em todas as seis votações, inclusive
+              nas três que tratam diretamente de direitos das mulheres e meninas, e o partido pesou mais que o gênero.
             </>
           }
           unknown={
@@ -436,6 +440,12 @@ function ComoVotaramPage() {
             </>
           }
         />
+      </div>
+
+      <div className="pb-4">
+        <GapNote label="Correção em 28/10/2026">
+          {VOTACOES_META.correcao} {VOTACOES_META.pdl3Senado}
+        </GapNote>
       </div>
 
       <SectionBlock
@@ -557,7 +567,7 @@ function ComoVotaramPage() {
             <p className="record-label border-ink text-ink [border-style:dashed]">Interpretação editorial</p>
             <p className="mt-3 leading-relaxed text-ink/80">
               Para quem tentou voltar à Câmara, o dinheiro de campanha acompanha a reeleição muito mais de perto que o
-              voto nessas cinco pautas. A diferença é maior entre as mulheres do que entre os homens.
+              voto nessas seis pautas. A diferença é maior entre as mulheres do que entre os homens.
             </p>
           </article>
           <article className="poster-frame-accent p-5">
@@ -575,7 +585,7 @@ function ComoVotaramPage() {
         id="deputadas"
         tone="lilac"
         kicker="Deputada por deputada"
-        question={`As ${n(DEPUTADAS.length)} deputadas que estavam no mandato em alguma das cinco datas`}
+        question={`As ${n(DEPUTADAS.length)} deputadas que estavam no mandato em alguma das seis datas`}
         align="wide"
       >
         <DeputadasTable />
@@ -591,12 +601,12 @@ function ComoVotaramPage() {
 
       <ComoSabemos
         fonte={VOTACOES_META.fonte}
-        universo="Deputadas e deputados federais em exercício em cada uma das cinco datas, segundo a Câmara. Quem votou sem constar na lista de exercício do dia (1 caso, no marco temporal) entra pelo voto registrado."
+        universo="Deputadas e deputados federais em exercício em cada uma das seis datas, segundo a Câmara. Quem votou sem constar na lista de exercício do dia (1 caso, no marco temporal) entra pelo voto registrado."
         base={`Coleta em ${VOTACOES_META.coletaEm}`}
         calculo={
           <>
             Voto: lido de cada registro nominal. Ausente: em exercício e sem voto. Reeleita: eleita deputada federal em
-            2026 pelo arquivo do TSE de 27/10/2026, junção por CPF. Placar recontado igual ao oficial nas cinco votações.
+            2026 pelo arquivo do TSE de 27/10/2026, junção por CPF. Placar recontado igual ao oficial nas seis votações.
             Scripts em scripts/investigacao.
           </>
         }

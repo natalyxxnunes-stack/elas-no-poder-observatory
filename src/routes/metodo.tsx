@@ -1053,7 +1053,7 @@ function MetodoPage() {
               <li>
                 cor/raça = autodeclaração ao TSE em 2022; resultado de 2026 =
                 arquivo do TSE de 27/10/2026; junção por CPF. Placar recontado
-                igual ao oficial nas cinco votações. Scripts em
+                igual ao oficial nas seis votações. Scripts em
                 scripts/investigacao
               </li>
             </ul>

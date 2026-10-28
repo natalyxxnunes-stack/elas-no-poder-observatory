@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Passo 1: baixa detalhe, votos e orientações das cinco votações (grava votacoes.json).
+# Passo 1: baixa detalhe, votos e orientações das seis votações (grava votacoes.json).
 import json, urllib.request, time, sys
 B="https://dadosabertos.camara.leg.br/api/v2"
 def get(path):
@@ -10,7 +10,7 @@ def get(path):
         except Exception as e:
             print("retry",path,e,file=sys.stderr); time.sleep(2+i*3)
     raise SystemExit("fail "+path)
-VOTS=["2351179-51","2352476-149","345311-270","2358548-89","2270800-160"]
+VOTS=["2351179-51","2352476-149","345311-270","2358548-89","2270800-160","2482078-57"]
 out={}
 for v in VOTS:
     d=get(f"/votacoes/{v}")["dados"]
