@@ -155,15 +155,23 @@ function DinheiroPage() {
         question="O fundo público acompanhou a presença de mulheres e de pessoas negras nas candidaturas de cada partido?"
         align="wide"
         lead={
+          <>
           <p>
-            A Constituição manda os partidos aplicarem no fundo eleitoral um piso de 30% em candidaturas de mulheres,
-            na proporção das candidatas (EC 117/2022), e um piso de 30% em candidaturas de pessoas pretas e pardas
-            (EC 133/2024). No total, o fundo que chegou às candidaturas ficou perto da presença das mulheres (35,2% das
-            candidaturas, 33,3% do fundo). Candidaturas pretas e pardas somadas ficaram com 33,4%: acima do piso e bem
-            abaixo da presença delas (48,5%). Pardas são 34,9% das candidaturas e ficaram com 25,3%; pretas, 13,6% e
-            8,1%; brancas, 50,1% e 65,4%. Por partido, PL, PSD, MDB e NOVO ficam abaixo de 30% para candidaturas pretas
-            e pardas, e o PT fica no limite (30,0%). Para mulheres, PL, Solidariedade e Avante ficam abaixo de 30%.
+            A Constituição reserva pelo menos 30% do fundo eleitoral de cada partido para candidaturas de mulheres, na
+            proporção das candidatas (EC 117/2022), e 30% para candidaturas de pessoas pretas e pardas (EC 133/2024).
+            Nas candidaturas a deputada e deputado, o fundo acompanhou a presença das mulheres: elas são 35,6% das
+            candidaturas e receberam 37,4% do dinheiro. Com pessoas pretas e pardas, a distância é grande: candidaturas de
+            pessoas pardas são 35,1% e receberam 28,4%; de pessoas pretas, 13,7% e 9,5%. Candidaturas de pessoas brancas
+            são 49,8% e receberam 60,7%.
           </p>
+          <p className="mt-3">
+            Dois partidos ficam abaixo de 30% para candidaturas pretas e pardas nas duas contas que fizemos, só deputados
+            e todos os cargos: PL (26,6% e 22,2%) e NOVO (26,1% e 26,9%). Somando governo, Senado e Presidência, a fatia das
+            mulheres no fundo cai para 33,3%, porque elas são poucas entre os titulares dessas chapas. Os números são da
+            prestação de contas ainda aberta, contados por candidatura; a conta oficial é feita pelo TSE no julgamento das
+            contas de cada partido.
+          </p>
+          </>
         }
       >
         <FefcPartidos />

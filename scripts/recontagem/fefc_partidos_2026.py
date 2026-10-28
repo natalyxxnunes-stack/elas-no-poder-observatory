@@ -11,6 +11,9 @@ Regras:
 - FEFC = linhas com DS_FONTE_RECEITA = "FUNDO ESPECIAL" (linhas idênticas uma vez);
 - universo: candidaturas titulares (deputado federal, estadual, distrital,
   presidente, governador e senador), todos os pedidos de registro, NR_TURNO = 1;
+  com o 3º argumento "proporcional", só deputado federal, estadual e distrital
+  (universo sem vices e suplentes, em que a conta não depende de como a chapa
+  majoritária é atribuída);
 - partido do registro (SG_PARTIDO); receita somada por SQ_CANDIDATO, todos os turnos;
 - comFefc = candidaturas que receberam algum FEFC (base do segundo número);
 - cor/raça nas categorias originais; a soma pretas + pardas sai em campo próprio,
@@ -22,13 +25,15 @@ import sys
 from collections import defaultdict
 
 TIT = ("DEPUTADO FEDERAL", "DEPUTADO ESTADUAL", "DEPUTADO DISTRITAL", "PRESIDENTE", "GOVERNADOR", "SENADOR")
+PROP = ("DEPUTADO FEDERAL", "DEPUTADO ESTADUAL", "DEPUTADO DISTRITAL")
 RACES = ("BRANCA", "PARDA", "PRETA", "INDÍGENA", "AMARELA")
 
 
-def main(rec_path, cand_path):
+def main(rec_path, cand_path, universo="titulares"):
+    cargos = PROP if universo == "proporcional" else TIT
     reg = {}
     for r in csv.DictReader(open(cand_path, encoding="latin1"), delimiter=";"):
-        if r["NR_TURNO"] == "1" and r["SQ_CANDIDATO"] not in reg and r["DS_CARGO"] in TIT:
+        if r["NR_TURNO"] == "1" and r["SQ_CANDIDATO"] not in reg and r["DS_CARGO"] in cargos:
             reg[r["SQ_CANDIDATO"]] = r
     lines = open(rec_path, "rb").read().decode("latin1").splitlines()
     header = next(csv.reader([lines[0]], delimiter=";"))
@@ -95,4 +100,4 @@ def main(rec_path, cand_path):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    main(sys.argv[1], sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else "titulares")

@@ -59,15 +59,16 @@ export function FefcPartidos() {
   const rows = Object.entries(FEFC_PARTIDOS);
   return (
     <ChartFrame
-      eyebrow="Fundo eleitoral (FEFC) por partido · 2026"
-      title="Em cada partido, a fatia de cada grupo nas candidaturas e no fundo eleitoral que chegou a elas"
+      eyebrow="Fundo eleitoral (FEFC) por partido · deputada e deputado · 2026"
+      title="Em cada partido, a fatia de cada grupo nas candidaturas a deputado e no fundo eleitoral que chegou a elas"
       note={
         <>
           Cada célula: fatia do grupo entre as candidaturas do partido → fatia do grupo no FEFC
           recebido pelas candidaturas do partido, e a diferença em pontos percentuais. Fundo em
-          laranja: abaixo do piso constitucional de 30%, que vale para mulheres (EC 117/2022) e para
-          candidaturas pretas e pardas somadas (EC 133/2024). Para mulheres, a regra também pede a
-          proporção das candidatas. Partidos com menos de 20 candidaturas, ou com fundo em menos de
+          laranja: abaixo de 30% nas candidaturas a deputado, a referência dos pisos constitucionais
+          para mulheres (EC 117/2022) e para candidaturas pretas e pardas somadas (EC 133/2024). O
+          piso vale para o total do partido em todos os cargos, por isso o laranja marca o que merece
+          apuração. Partidos com menos de 20 candidaturas, ou com fundo em menos de
           20 delas, mostram só o número absoluto de candidaturas do grupo: ali uma única campanha
           muda o percentual inteiro. Ordem pelo total de FEFC, sem classificar mérito.
           {FEFC_PARTIDOS_SEM_FUNDO.length > 0
@@ -79,14 +80,14 @@ export function FefcPartidos() {
       ficha={{
         vendo:
           "Para cada partido, se o fundo eleitoral que chegou às candidaturas acompanhou a presença de mulheres e de cada grupo de cor/raça entre elas.",
-        contados: `Todos os pedidos de registro titulares de 2026 (deputada e deputado, governo, Senado e Presidência): ${n(FEFC_TOTAL.candidaturas)} candidaturas.`,
+        contados: `Pedidos de registro para deputada e deputado federal, estadual e distrital em 2026: ${n(FEFC_TOTAL.candidaturas)} candidaturas. Governo, Senado e Presidência ficam fora desta tabela.`,
         denominador:
           "Candidaturas do próprio partido (primeiro número) e FEFC recebido pelas candidaturas do próprio partido (segundo número).",
         data: `Prestação de contas e registro do TSE de ${FEFC_META.baseGeneratedAt}`,
         fonte:
           "TSE, Prestação de Contas Eleitorais 2026 (receitas, fonte Fundo Especial) e Candidatos 2026",
         limitacao:
-          "Mede o fundo que chegou às candidaturas, não o total do partido. Contas em andamento até a prestação final. A regra do TSE usa outro universo (20.560 pedidos aceitos até 18/08/2026). Não é verificação de cumprimento da lei. A soma pretas e pardos segue o critério legal de candidaturas negras e aparece ao lado das categorias separadas.",
+          "O piso de 30% vale para o total que cada partido distribui, somando todos os cargos; esta tabela mostra só as candidaturas a deputado, onde não há vice nem suplente. Nas chapas de governo e Senado, partidos e procuradorias eleitorais divergem sobre contar o dinheiro de chapas com vice ou suplente mulher. Mede o fundo que chegou às candidaturas, com contas em andamento até a prestação final. Por isso a tabela descreve a distribuição e não verifica cumprimento da lei. A soma pretas e pardos segue o critério legal de candidaturas negras e aparece ao lado das categorias separadas.",
       }}
     >
       <div className="overflow-x-auto">
