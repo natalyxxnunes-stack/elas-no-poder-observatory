@@ -17,7 +17,9 @@ export function ManchetesStrip({
       <p className="pt-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
         {label}
       </p>
-      <ul className="grid gap-px bg-rule md:grid-cols-2 lg:grid-cols-3">
+      <ul
+        className={`grid gap-px bg-rule ${items.length === 1 ? "" : items.length === 2 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3"}`}
+      >
         {items.map((m) => (
           <li key={m.id} className="bg-paper py-4 pr-5">
             <p className="font-display text-lg leading-snug text-ink">{m.texto}.</p>

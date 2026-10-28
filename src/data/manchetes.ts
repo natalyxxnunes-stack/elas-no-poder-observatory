@@ -15,6 +15,7 @@ import {
   RESULT_2026_PROPORCIONAL,
 } from "@/data/resultado-2026";
 import { VOTOS_2026 } from "@/data/votos-2026";
+import { FEMINICIDIO_2025, FEMINICIDIO_META, VPG, VPG_META } from "@/data/violencia-2026";
 import { formatInt, formatPct } from "@/lib/format-br";
 
 const n = formatInt;
@@ -163,6 +164,7 @@ export const M_IGUALDADE: Manchete = {
 
 /** capa da página inicial, na ordem de leitura */
 export const CAPA: Manchete[] = [M_CADEIRAS, M_IGUALDADE, M_SENADO, M_PISO, M_BRANCAS, M_PL_PRETAS];
+/* M_VPG entra na capa depois da definição, abaixo */
 
 /* ---------- Quem controla ---------- */
 const plFundo = ABAIXO_PISO_PP.find((x) => x.partido === "PL");
@@ -186,3 +188,24 @@ export const M_REGRAS: Manchete = {
   pagina: "Regras de 2026",
   fonte: "Senado Federal, Dados Abertos, consulta de 28/10/2026",
 };
+
+/* ---------- Barreiras ---------- */
+const vpg22 = VPG.porAno.find((a) => a.ano === "2022")?.processos ?? 0;
+const vpg26 = VPG.porAno.find((a) => a.ano === "2026")?.processos ?? 0;
+export const M_VPG: Manchete = {
+  id: "vpg",
+  texto: `A Justiça Eleitoral registrou ${n(vpg26)} processos de violência política de gênero em 2026, contra ${n(vpg22)} em 2022`,
+  to: "/barreiras",
+  pagina: "Barreiras",
+  fonte: `${VPG_META.fonte}; dados extraídos em ${VPG_META.extraidoEm}`,
+};
+
+export const M_FEMINICIDIO: Manchete = {
+  id: "feminicidio",
+  texto: `Em 2025, ${FEMINICIDIO_2025.razoesDeGeneroPct.toLocaleString("pt-BR")}% das mulheres assassinadas no Brasil foram mortas por razões de gênero, o maior percentual desde 2015: ${n(FEMINICIDIO_2025.vitimas)} vítimas de feminicídio`,
+  to: "/barreiras#feminicidio",
+  pagina: "Barreiras",
+  fonte: `${FEMINICIDIO_META.fonte}, publicado em ${FEMINICIDIO_META.publicadoEm}`,
+};
+
+CAPA.push(M_VPG);

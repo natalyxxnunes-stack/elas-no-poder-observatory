@@ -7,7 +7,7 @@
  */
 
 export type Reportagem = {
-  to: "/como-votaram";
+  to: "/como-votaram" | "/na-voz-delas";
   titulo: string;
   linhaFina: string;
   data: string;
@@ -16,6 +16,15 @@ export type Reportagem = {
 };
 
 export const REPORTAGENS: readonly Reportagem[] = [
+  {
+    to: "/na-voz-delas",
+    titulo: "Na voz delas",
+    linhaFina:
+      "O que deputadas e eleitas disseram em público sobre feminismo, direitos e violência contra mulheres, com data, fonte primária e o dado oficial ao lado.",
+    data: "2026-10-28",
+    autora: "Nataly Nunes Pinto",
+    tema: "Falas públicas",
+  },
   {
     to: "/como-votaram",
     titulo: "Como votaram as deputadas, e quem voltou",
@@ -28,4 +37,4 @@ export const REPORTAGENS: readonly Reportagem[] = [
 ];
 
 export const REPORTAGENS_REGRA =
-  "Toda reportagem declara o critério de seleção antes dos resultados, separa fato, interpretação e hipótese, e pede resposta às pessoas citadas pelo nome antes de publicar.";
+  "Toda reportagem declara o critério de seleção antes dos resultados, separa fato, interpretação e hipótese, e pede posicionamento às pessoas citadas pelo nome; as respostas entram na página, com data.";

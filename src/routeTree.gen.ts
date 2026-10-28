@@ -22,6 +22,7 @@ import { Route as FunilRouteImport } from './routes/funil'
 import { Route as HistoricoRouteImport } from './routes/historico'
 import { Route as InvestigacoesRouteImport } from './routes/investigacoes'
 import { Route as MetodoRouteImport } from './routes/metodo'
+import { Route as NaVozDelasRouteImport } from './routes/na-voz-delas'
 import { Route as PartidosRouteImport } from './routes/partidos'
 import { Route as QuemChegaRouteImport } from './routes/quem-chega'
 import { Route as QuemControlaRouteImport } from './routes/quem-controla'
@@ -97,6 +98,11 @@ const MetodoRoute = MetodoRouteImport.update({
   path: '/metodo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NaVozDelasRoute = NaVozDelasRouteImport.update({
+  id: '/na-voz-delas',
+  path: '/na-voz-delas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PartidosRoute = PartidosRouteImport.update({
   id: '/partidos',
   path: '/partidos',
@@ -158,6 +164,7 @@ export interface FileRoutesByFullPath {
   '/historico': typeof HistoricoRoute
   '/investigacoes': typeof InvestigacoesRoute
   '/metodo': typeof MetodoRoute
+  '/na-voz-delas': typeof NaVozDelasRoute
   '/partidos': typeof PartidosRoute
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
@@ -182,6 +189,7 @@ export interface FileRoutesByTo {
   '/historico': typeof HistoricoRoute
   '/investigacoes': typeof InvestigacoesRoute
   '/metodo': typeof MetodoRoute
+  '/na-voz-delas': typeof NaVozDelasRoute
   '/partidos': typeof PartidosRoute
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
@@ -207,6 +215,7 @@ export interface FileRoutesById {
   '/historico': typeof HistoricoRoute
   '/investigacoes': typeof InvestigacoesRoute
   '/metodo': typeof MetodoRoute
+  '/na-voz-delas': typeof NaVozDelasRoute
   '/partidos': typeof PartidosRoute
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
@@ -233,6 +242,7 @@ export interface FileRouteTypes {
     | '/historico'
     | '/investigacoes'
     | '/metodo'
+    | '/na-voz-delas'
     | '/partidos'
     | '/quem-chega'
     | '/quem-controla'
@@ -257,6 +267,7 @@ export interface FileRouteTypes {
     | '/historico'
     | '/investigacoes'
     | '/metodo'
+    | '/na-voz-delas'
     | '/partidos'
     | '/quem-chega'
     | '/quem-controla'
@@ -281,6 +292,7 @@ export interface FileRouteTypes {
     | '/historico'
     | '/investigacoes'
     | '/metodo'
+    | '/na-voz-delas'
     | '/partidos'
     | '/quem-chega'
     | '/quem-controla'
@@ -306,6 +318,7 @@ export interface RootRouteChildren {
   HistoricoRoute: typeof HistoricoRoute
   InvestigacoesRoute: typeof InvestigacoesRoute
   MetodoRoute: typeof MetodoRoute
+  NaVozDelasRoute: typeof NaVozDelasRoute
   PartidosRoute: typeof PartidosRoute
   QuemChegaRoute: typeof QuemChegaRoute
   QuemControlaRoute: typeof QuemControlaRoute
@@ -410,6 +423,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MetodoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/na-voz-delas': {
+      id: '/na-voz-delas'
+      path: '/na-voz-delas'
+      fullPath: '/na-voz-delas'
+      preLoaderRoute: typeof NaVozDelasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/partidos': {
       id: '/partidos'
       path: '/partidos'
@@ -490,6 +510,7 @@ const rootRouteChildren: RootRouteChildren = {
   HistoricoRoute: HistoricoRoute,
   InvestigacoesRoute: InvestigacoesRoute,
   MetodoRoute: MetodoRoute,
+  NaVozDelasRoute: NaVozDelasRoute,
   PartidosRoute: PartidosRoute,
   QuemChegaRoute: QuemChegaRoute,
   QuemControlaRoute: QuemControlaRoute,

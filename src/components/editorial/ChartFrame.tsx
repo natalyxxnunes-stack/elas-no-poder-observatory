@@ -171,11 +171,13 @@ export function ChartBar({
 }
 
 /** Régua declarada, sempre embaixo das barras. */
-export function ChartScale({ max = 50, stacked = false }: { max?: number; stacked?: boolean }) {
+export function ChartScale({ max = 50, stacked = false, unit = "%" }: { max?: number; stacked?: boolean; unit?: string }) {
+  const z = unit === "%" ? "0%" : "0";
+  const top = unit === "%" ? `${max}%` : `${max} ${unit}`;
   if (stacked) {
     return (
       <div className="mt-3 grid grid-cols-[minmax(0,1fr)_4.25rem] gap-3 font-mono text-xs text-muted-foreground" aria-hidden="true">
-        <span className="flex justify-between border-t border-rule pt-1"><span>0%</span><span>{max}%</span></span>
+        <span className="flex justify-between border-t border-rule pt-1"><span>{z}</span><span>{top}</span></span>
         <span />
       </div>
     );
@@ -183,7 +185,7 @@ export function ChartScale({ max = 50, stacked = false }: { max?: number; stacke
   return (
     <div className="mt-3 grid grid-cols-[minmax(0,1fr)_4.25rem] gap-3 font-mono text-xs text-muted-foreground sm:grid-cols-[10rem_minmax(0,1fr)_4.5rem]" aria-hidden="true">
       <span className="hidden sm:block" />
-      <span className="flex justify-between border-t border-rule pt-1"><span>0%</span><span>{max}%</span></span>
+      <span className="flex justify-between border-t border-rule pt-1"><span>{z}</span><span>{top}</span></span>
       <span />
     </div>
   );

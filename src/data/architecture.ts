@@ -207,12 +207,11 @@ export const AXES: readonly Axis[] = [
     summary:
       "Eixo transversal sobre violência política de gênero, racismo, transfobia, ameaças, assédio e ataques digitais. Só entra com fontes comparáveis e método defensável.",
     dimensions: ["gênero", "cor/raça", "identidade de gênero", "território"],
-    unpublishedReason:
-      "Depende dos microdados do TSE sobre violência política de gênero, pedidos via Lei de Acesso à Informação (texto pronto em 28/10/2026, envio pela editora). O painel público do TSE não traz cor/raça nem registro por caso.",
-    state: "arquitetura preparada",
-    publication: "unpublished",
-    status: "aguardando dado",
-    statusNote: "aguardando resposta ao pedido via LAI",
+    unpublishedReason: "",
+    state: "com dados de resultado",
+    publication: "published",
+    status: "parcial",
+    statusNote: "Processos de violência política de gênero (painel do TSE) e feminicídio (Anuário 2026); caso a caso e cor/raça das vítimas aguardam o pedido via LAI.",
     group: "investigacao",
   },
   {

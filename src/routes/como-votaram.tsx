@@ -618,6 +618,10 @@ function AsDezDaIgualdade() {
         <a href="#deputadas" className="underline decoration-plum underline-offset-4">
           Ver o voto de todas as deputadas
         </a>
+        . O que algumas delas disseram em plenário sobre feminismo, com data e fonte, está em{" "}
+        <a href="/na-voz-delas" className="underline decoration-plum underline-offset-4">
+          Na voz delas
+        </a>
         .
       </p>
     </section>
