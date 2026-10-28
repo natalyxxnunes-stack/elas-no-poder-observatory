@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Oficina: o funil · Quem são elas?</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  @page { size: A4; margin: 0; }
+  .page { width: 210mm; height: 297mm; padding: 18mm; position: relative; page-break-after: always; overflow: hidden; }
+  .page:last-child { page-break-after: auto; }
+  .kicker { font-size: 11px; color: var(--plum); }
+  h1 { font-size: 46px; margin: 4mm 0 6mm; max-width: 165mm; }
+  h2 { font-size: 30px; margin: 3mm 0 5mm; }
+  h3 { font-family: "Fraunces", serif; font-size: 18px; font-weight: 600; margin-bottom: 2mm; }
+  p, li { font-size: 13px; line-height: 1.55; }
+  ol, ul { padding-left: 5mm; }
+  li + li { margin-top: 1.5mm; }
+  .meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; margin: 6mm 0; }
+  .meta div { background: var(--lilac); padding: 4mm; font-size: 12px; line-height: 1.4; }
+  .meta b { display: block; font-family: "IBM Plex Mono", monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--plum); margin-bottom: 1mm; }
+  .funnel { margin: 6mm 0; }
+  .stage { display: grid; grid-template-columns: 30mm 1fr 22mm; gap: 4mm; align-items: center; margin-bottom: 3mm; }
+  .stage .n { font-family: "IBM Plex Mono", monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .stage .t { height: 12mm; background: var(--rule); position: relative; }
+  .stage .f { height: 100%; background: var(--plum); }
+  .stage .f.now { background: var(--coral); }
+  .stage .v { font-family: "Fraunces", serif; font-size: 22px; text-align: right; }
+  .q { border-left: 3px solid var(--coral); padding-left: 4mm; margin: 4mm 0; }
+  .box { border: 1px solid var(--ink); padding: 5mm; margin-top: 5mm; }
+  .lines { border-bottom: 1px solid var(--rule); height: 8mm; }
+  .foot { position: absolute; left: 18mm; right: 18mm; bottom: 10mm; display: flex; justify-content: space-between; border-top: 1px solid var(--rule); padding-top: 3mm; font-size: 10px; color: var(--muted); }
+  .src { font-size: 10.5px; color: var(--muted); line-height: 1.45; margin-top: 5mm; }
+</style>
+</head>
+<body>
+
+<section class="page">
+  <p class="mono kicker">Material educativo · roteiro de oficina</p>
+  <h1 class="display">O funil: da candidatura ao poder</h1>
+  <p>Uma oficina de 90 minutos para ler, com dados oficiais, onde as mulheres entram e onde a presença delas diminui na política brasileira. Funciona em sala de aula a partir do ensino médio, em coletivos e em formação política.</p>
+  <div class="meta">
+    <div><b>Duração</b>90 minutos, em quatro blocos</div>
+    <div><b>Material</b>Esta folha impressa, canetas e, se houver, o site quemsaoelas.com.br aberto</div>
+    <div><b>Grupo</b>De 8 a 35 pessoas, em grupos de 4 ou 5</div>
+  </div>
+  <h2 class="display">O funil de 2026, deputadas e deputados</h2>
+  <div class="funnel">
+    <div class="stage"><span class="n">1 · Pedido de registro</span><div class="t"><div class="f" style="width:35.6%"></div></div><span class="v">35,6%</span></div>
+    <div class="stage"><span class="n">2 · Votos recebidos</span><div class="t"><div class="f" style="width:24.0%"></div></div><span class="v">24,0%</span></div>
+    <div class="stage"><span class="n">3 · Cadeiras</span><div class="t"><div class="f now" style="width:20.8%"></div></div><span class="v">20,8%</span></div>
+    <div class="stage"><span class="n">4 · Poder</span><div class="t" style="background:repeating-linear-gradient(90deg,var(--rule) 0 6px,transparent 6px 12px)"></div><span class="v">2027</span></div>
+  </div>
+  <p>Cada barra mostra a fatia de mulheres dentro da própria etapa: entre os pedidos de registro, entre os votos nominais válidos para a Câmara dos Deputados e entre as cadeiras. As etapas têm totais diferentes e se leem lado a lado. A quarta etapa (mesas, comissões, lideranças) começa a ser contada depois da posse, em 2027.</p>
+  <p class="src">Fontes: TSE, Candidatos 2026 e Votação nominal 2026, bases de 27/10/2026, recontagem do Quem são elas?. Votos: deputada e deputado federal. Pedidos e cadeiras: federal, estadual e distrital.</p>
+  <div class="foot"><span>Quem são elas? · oficina 01</span><span>quemsaoelas.com.br</span></div>
+</section>
+
+<section class="page">
+  <p class="mono kicker">Passo a passo</p>
+  <h2 class="display">Quatro blocos</h2>
+  <h3>1 · Aquecimento (15 min)</h3>
+  <p>Pergunte ao grupo, antes de mostrar qualquer número: "De cada 10 pessoas eleitas para a Câmara em 2026, quantas são mulheres?" Anote os chutes no quadro. Depois revele: 2 em cada 10 (109 de 513).</p>
+  <h3 style="margin-top:5mm">2 · Leitura do funil (25 min)</h3>
+  <p>Em grupos, leiam as três barras da página anterior e respondam:</p>
+  <div class="q"><p>Em qual passagem a presença de mulheres diminui mais: do registro para o voto ou do voto para a cadeira?</p></div>
+  <div class="q"><p>Por que as barras não podem ser subtraídas uma da outra? Dica: cada uma tem um total diferente (pedidos, votos, cadeiras).</p></div>
+  <h3 style="margin-top:5mm">3 · Quem dentro do grupo (25 min)</h3>
+  <p>Entre as 327 deputadas eleitas em 2026, 214 se declaram brancas, 67 pardas, 41 pretas, 3 indígenas e 2 amarelas. Entre as candidatas, as brancas eram 46,8%; entre as eleitas, são 65,4%. Discutam: o que muda quando a pergunta passa de "quantas mulheres" para "quais mulheres"?</p>
+  <h3 style="margin-top:5mm">4 · Fechamento (25 min)</h3>
+  <p>Cada grupo escolhe uma etapa do funil e escreve uma pergunta que gostaria de investigar sobre ela, com a fonte que usaria para responder. Exemplos: quem decide a ordem das candidatas no partido? Quanto dinheiro cada uma recebeu?</p>
+  <div class="box">
+    <p class="mono" style="font-size:10px;color:var(--plum)">Pergunta do grupo</p>
+    <div class="lines"></div><div class="lines"></div>
+    <p class="mono" style="font-size:10px;color:var(--plum);margin-top:4mm">Fonte que usaríamos</p>
+    <div class="lines"></div>
+  </div>
+  <p class="src">Para quem conduz: cor/raça é autodeclarada ao TSE, e a base registra mulheres trans e travestis como feminino, sem permitir distinguir. Vale dizer isso ao grupo. Roteiro produzido por Nataly Nunes Pinto para o Quem são elas?. Uso livre com crédito.</p>
+  <div class="foot"><span>Quem são elas? · oficina 01</span><span>quemsaoelas.com.br</span></div>
+</section>
+
+</body>
+</html>

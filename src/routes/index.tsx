@@ -113,7 +113,7 @@ function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
     <section className="py-14 md:py-20">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-stretch lg:gap-16">
         <div className="flex min-w-0 flex-col">
-          <ChapterKicker n="01" label="Registros · fotografia de 25/09" />
+          <ChapterKicker n="01" label="Registros · base de 27/10" />
           <h2 className="mt-4 font-display text-4xl leading-none text-ink md:text-5xl">O que os registros permitem dizer agora</h2>
           <p className="mt-5 max-w-md leading-relaxed text-muted-foreground">
             Esta parte da página mostra quem pediu registro para disputar 2026: quem entrou na disputa. O resultado da eleição, com o 2º turno de 25 de outubro, está no topo da página, em Quem chega e no histórico.

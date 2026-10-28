@@ -221,7 +221,7 @@ function FunilPage() {
         base={stampLabel}
         calculo={FUNNEL_READING_RULE}
         limites={[
-          "As candidaturas de 2026 são a fotografia de 25/09; o resultado vem do arquivo do TSE de 27/10/2026 e é lido sobre o total de cadeiras.",
+          "Candidaturas e resultado de 2026 vêm do mesmo arquivo do TSE, de 27/10/2026; o resultado é lido sobre o total de cadeiras.",
           "Governos e Presidência decididos em 2º turno valem pelo resultado de 25/10 (linha do 2º turno no arquivo do TSE); deputadas, deputados e Senado têm turno único.",
           "Cada etapa é o retrato de um universo, e não o rastro das mesmas pessoas de um degrau para o outro.",
         ]}

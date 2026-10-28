@@ -7,19 +7,13 @@
  * (base TSE de 27/10/2026): proporcional pelo 1º turno, o único; majoritário
  * com o 2º turno de 25/10, pela mesma regra de 2014, 2018 e 2022.
  *
- * Camada isomórfica: usa o cliente publicável (RLS de leitura pública) e roda
- * igual no navegador e no pré-render.
+ * Desde 28/10/2026 a série fechada é cravada em código (historical-series.ts):
+ * nada é lido do banco, e o HTML pré-renderizado já traz todos os anos.
  */
 
-import { supabase } from "@/integrations/supabase/client";
 import type { HistoricalYear } from "./historical-data-dictionary";
-import {
-  buildAllSeries,
-  yearSnapshotFromAggregates,
-  type HistoricalAggregates,
-  type Series,
-  type YearSnapshot,
-} from "./historical-compute";
+import { buildAllSeries, type Series, type YearSnapshot } from "./historical-compute";
+import { HISTORICAL_SERIES_COLLECTED_AT, HISTORICAL_YEARS_FIXED } from "@/data/historical-series";
 import { getLatestTseSnapshot } from "./snapshot.reads";
 import { RESULT_2026_MAJORITARIO_FINAL, RESULT_2026_PROPORCIONAL } from "@/data/resultado-2026";
 
@@ -49,71 +43,49 @@ export type HistoricalSeriesPayload = {
   series: Series[];
 };
 
-const CLOSED_YEARS: HistoricalYear[] = [2014, 2018, 2022];
-
 /**
  * Série histórica completa. Anos encerrados vêm das fotografias históricas;
  * 2026 vem da fotografia atual do projeto, marcada como base em curso.
  */
 export async function getHistoricalSeries(): Promise<HistoricalSeriesPayload> {
-  const { data } = await supabase
-    .from("tse_historical_snapshots")
-    .select("*")
-    .in("status", ["ok", "anomalia"])
-    .order("collected_at", { ascending: false });
-
-  // Uma fotografia por ano: a coleta mais recente válida.
-  const latestByYear = new Map<number, Record<string, unknown>>();
-  for (const row of data ?? []) {
-    const year = Number((row as { election_year: number }).election_year);
-    if (!latestByYear.has(year)) latestByYear.set(year, row);
-  }
-
+  // Anos encerrados: série cravada em código (historical-series.ts), recontada
+  // dos arquivos oficiais do TSE. Nenhuma leitura de banco.
   const snapshots: HistoricalSnapshotMeta[] = [];
   const yearSnapshots: YearSnapshot[] = [];
-
-  for (const year of CLOSED_YEARS) {
-    const row = latestByYear.get(year);
-    if (!row) continue;
-    const r = row as unknown as {
-      collected_at: string;
-      base_generated_at: string | null;
-      file_name: string;
-      file_url: string;
-      status: string;
-      processing_version: string;
-      dictionary_version: string;
-      record_count: number;
-      raw_line_count: number;
-      duplicate_rows: number;
-      out_of_scope: number;
-      filters: string[] | null;
-      anomalies: string[] | null;
-      aggregates: HistoricalAggregates;
-    };
+  for (const y of HISTORICAL_YEARS_FIXED) {
     snapshots.push({
-      year,
-      collectedAt: r.collected_at,
-      baseGeneratedAt: r.base_generated_at,
-      fileName: r.file_name,
-      fileUrl: r.file_url,
-      status: r.status,
-      processingVersion: r.processing_version,
-      dictionaryVersion: r.dictionary_version,
-      recordCount: r.record_count,
-      rawLineCount: r.raw_line_count,
-      duplicateRows: r.duplicate_rows,
-      outOfScope: r.out_of_scope,
-      electedAvailable: Boolean(r.aggregates?.electedAvailable),
-      filters: r.filters ?? [],
-      anomalies: r.anomalies ?? [],
+      year: y.year,
+      collectedAt: HISTORICAL_SERIES_COLLECTED_AT,
+      baseGeneratedAt: y.baseGeneratedAt,
+      fileName: y.fileName,
+      fileUrl: y.fileUrl,
+      status: "ok",
+      processingVersion: "recontagem-2026-10-28",
+      dictionaryVersion: "recontagem-2026-10-28",
+      recordCount: y.recordCount,
+      rawLineCount: y.recordCount,
+      duplicateRows: 0,
+      outOfScope: 0,
+      electedAvailable: true,
+      filters: [
+        "NR_TURNO = 1, dedup por SQ_CANDIDATO",
+        "Só eleições gerais: suplementares do mesmo arquivo ficam fora",
+        "Cargo decidido em 2º turno vale pela linha do 2º turno",
+      ],
+      anomalies: y.anomalies,
     });
-    yearSnapshots.push(
-      yearSnapshotFromAggregates(r.aggregates, r.base_generated_at),
-    );
+    yearSnapshots.push({
+      year: y.year,
+      baseGeneratedAt: y.baseGeneratedAt,
+      stage: "fechada",
+      universes: {
+        proporcional: { ...y.universes.proporcional },
+        majoritario: { ...y.universes.majoritario },
+      },
+    });
   }
 
-  // 2026 — candidaturas da fotografia atual (25/09); eleitas proporcionais do
+  // 2026 — candidaturas da fotografia atual (27/10); eleitas proporcionais do
   // resultado final (base TSE de 27/10); majoritário com o 2º turno de 25/10.
   const current = await getLatestTseSnapshot();
   if (current) {

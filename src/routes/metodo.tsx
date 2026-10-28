@@ -416,7 +416,7 @@ function MetodoPage() {
                     )}
                     <div>
                       <dt className="uppercase tracking-wider">Conferência</dt>
-                      <dd>recontagem independente em 25/09/2026</dd>
+                      <dd>recontagem independente em 28/10/2026 (base de 27/10/2026)</dd>
                     </div>
                   </dl>
                   <p className="mt-2 font-mono text-[12px] text-muted-foreground">
@@ -1083,7 +1083,7 @@ function MetodoPage() {
           <p>
             Verificamos os Dados Abertos do TSE em{" "}
             {br(FINANCE_AVAILABILITY.checkedAt)}, conjunto por conjunto.{" "}
-            {FINANCE_AVAILABILITY.verdict} Receita por candidatura está em{" "}
+            {FINANCE_AVAILABILITY.verdict} Receita, despesas e vaquinhas estão em{" "}
             <Link to="/dinheiro" className="text-plum underline underline-offset-4">
               Dinheiro
             </Link>
@@ -1116,8 +1116,10 @@ function MetodoPage() {
           </ContextBox>
 
           <GapNote label="Lacuna declarada">
-            Despesas contratadas, despesas pagas e doador originário ainda não
-            têm número neste site. {QUOTA_RULE.financingNote}
+            Despesas pagas são ligadas à candidatura pelo identificador da
+            prestação de contas; o doador originário, pela receita de
+            financiamento coletivo. Titularidade e suplência ainda não têm
+            número neste site. {QUOTA_RULE.financingNote}
           </GapNote>
         </div>
       </SectionBlock>

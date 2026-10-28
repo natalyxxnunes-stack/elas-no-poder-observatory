@@ -32,7 +32,7 @@ export function PastStrip({ series }: { series: Series | null }) {
               </p>
               <p className="mt-1 font-mono text-[12px] text-muted-foreground">
                 {p.year}
-                {p.stage === "em_curso" ? " · registro de 25/09" : ""}
+                {p.stage === "em_curso" ? " · registro de 27/10" : ""}
               </p>
               {p.numerator !== null && p.denominator !== null && (
                 <p className="font-mono text-[12px] text-muted-foreground">
@@ -51,7 +51,7 @@ export function PastStrip({ series }: { series: Series | null }) {
       </ol>
       <p className="mt-4 border-t border-rule pt-3 text-sm leading-relaxed text-muted-foreground">
         Cada ano é contado dentro da própria eleição; os anos não são somados.
-        Para 2026, a faixa mostra as candidaturas registradas (fotografia de 25/09).
+        Para 2026, a faixa mostra as candidaturas registradas (fotografia de 27/10).
       </p>
     </div>
   );

@@ -1,3 +1,4 @@
+import { FundoNoGasto, TiposDeGasto, Vaquinhas } from "@/components/editorial/DespesasCharts";
 import { FefcPartidos } from "@/components/editorial/FefcPartidos";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
@@ -121,7 +122,7 @@ function DinheiroPage() {
           }
           unknown={
             <>
-              Despesas e doador originário. As contas seguem abertas e os valores mudam até a prestação final do 1º turno, em 3/11.
+              Por que o dinheiro privado chega mais aos homens brancos. As contas seguem abertas e os valores mudam até a prestação final do 1º turno, em 3/11.
             </>
           }
         />
@@ -155,11 +156,13 @@ function DinheiroPage() {
         align="wide"
         lead={
           <p>
-            A lei manda distribuir o Fundo Especial de Financiamento de Campanha na proporção das candidaturas de mulheres
-            e de pessoas negras. No total, o fundo que chegou às candidaturas ficou perto da presença das mulheres
-            (35,2% das candidaturas, 33,3% do fundo) e longe da presença de pessoas negras: candidaturas pardas são 34,9% e
-            ficaram com 25,3%; pretas, 13,6% e 8,1%. Brancas são 50,1% e ficaram com 65,4%. Entre as mulheres, só as
-            brancas receberam acima da presença (16,5% das candidaturas, 19,2% do fundo).
+            A Constituição manda os partidos aplicarem no fundo eleitoral um piso de 30% em candidaturas de mulheres,
+            na proporção das candidatas (EC 117/2022), e um piso de 30% em candidaturas de pessoas pretas e pardas
+            (EC 133/2024). No total, o fundo que chegou às candidaturas ficou perto da presença das mulheres (35,2% das
+            candidaturas, 33,3% do fundo). Candidaturas pretas e pardas somadas ficaram com 33,4%: acima do piso e bem
+            abaixo da presença delas (48,5%). Pardas são 34,9% das candidaturas e ficaram com 25,3%; pretas, 13,6% e
+            8,1%; brancas, 50,1% e 65,4%. Por partido, PL, PSD, MDB e NOVO ficam abaixo de 30% para candidaturas pretas
+            e pardas, e o PT fica no limite (30,0%). Para mulheres, PL, Solidariedade e Avante ficam abaixo de 30%.
           </p>
         }
       >
@@ -167,6 +170,32 @@ function DinheiroPage() {
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
           Números parciais: as contas de campanha ainda estão abertas, e esta tabela será refeita com a prestação final do
           1º turno, que vence em 3/11/2026.
+        </p>
+      </SectionBlock>
+
+      <SectionBlock
+        id="despesas"
+        kicker="Fase 2 · gasto e vaquinhas"
+        question="De onde saiu o dinheiro que as campanhas gastaram, e em quê"
+        align="wide"
+        lead={
+          <p>
+            As campanhas de candidatas a deputada dependem mais do fundo público que as de homens: 86,1% do que elas
+            pagaram saiu do fundo eleitoral, contra 73,5% entre os homens. A dependência é maior entre as pretas (91,6%) e
+            as pardas (87,4%) do que entre as brancas (84,1%). Os homens brancos são o grupo com mais dinheiro de outras
+            fontes: só 70,9% do que pagaram veio do fundo. Dinheiro privado chega mais a eles.
+          </p>
+        }
+      >
+        <FundoNoGasto />
+        <div className="mt-6 grid gap-6 lg:grid-cols-2 [&>*]:min-w-0">
+          <TiposDeGasto />
+          <Vaquinhas />
+        </div>
+        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+          Vaquinhas: candidatas brancas usaram mais (9,1% delas) do que pardas (3,8%) e pretas (7,9%). Somadas, as
+          vaquinhas das candidatas a deputada arrecadaram R$ 3,1 milhões, 24% do total arrecadado assim para deputado,
+          com as mulheres sendo 35,6% das candidaturas. Na mediana, quem usou vaquinha recebeu de 17 ou 18 pessoas.
         </p>
       </SectionBlock>
 
@@ -197,11 +226,11 @@ function DinheiroPage() {
         base={FINANCE_BASE_LABEL}
         calculo={<>Receita é o dinheiro informado como recebido. O arquivo do TSE traz, para cada candidatura, uma única entrega: a prestação parcial, o relatório financeiro mais recente ou a prestação final. Conferimos que nenhuma candidatura aparece em mais de um tipo, então somar as linhas não conta a mesma receita duas vezes. Linhas idênticas em todas as colunas entram uma única vez ({DUPLICATE_ROWS_REMOVED} removidas nesta base); linhas que dividem um mesmo recibo em partes são somadas. Gênero e cor/raça do arquivo de receitas foram conferidos, candidatura por candidatura, contra o registro de candidaturas.</>}
         limites={[
-          "Despesa contratada ou paga ainda não entra: esta fase lê só receita.",
+          "Despesas contratadas e pagas e o doador originário do financiamento coletivo entram desde 28/10, na seção sobre gasto e vaquinhas.",
           "A data de corte varia por candidatura: 8.309 ainda estão na prestação parcial (movimentação até 08/09/2026), 7.892 no relatório financeiro mais recente e 3.069 já entregaram a prestação final.",
           "As contas de campanha estão em andamento: a prestação final do 1º turno vence em 3/11/2026, e a do 2º turno depois. Receitas dos dois turnos são somadas por candidatura.",
           "Os percentuais que o TSE usa para distribuir o Fundo Partidário e o FEFC (divulgados em 21/08/2026) partem de outro universo: 20.560 candidaturas com pedido aceito até 18/08/2026, fixado para esse fim. Por isso diferem dos números deste site, que acompanham o registro atualizado.",
-          "Doador originário e titularidade e suplência ficam para as próximas fases. A relação entre dinheiro e reeleição está em Como votaram; índice de competitividade não entra no site.",
+          "Titularidade e suplência ficam para a próxima fase. A relação entre dinheiro e reeleição está em Como votaram; índice de competitividade não entra no site.",
         ]}
       />
 

@@ -61,16 +61,16 @@ export const UNIVERSE_SHORT: Record<UniverseId, string> = {
  * publicada no Método possa ser auditada e refeita.
  */
 export const FINANCE_AVAILABILITY = {
-  checkedAt: "2026-09-24",
+  checkedAt: "2026-10-28",
   verdict:
-    "A prestação de contas eleitorais de 2026 já existe, em base ainda em andamento (27/10/2026). Receita por candidatura está publicada em /dinheiro desde 24/09 e foi atualizada em 27/10, por gênero, cor/raça, cargo, partido e UF. Despesas contratadas, despesas pagas e doador originário ainda não têm número neste site.",
+    "A prestação de contas eleitorais de 2026 já existe, em base ainda em andamento (27/10/2026). Receita por candidatura está publicada em /dinheiro desde 24/09 e foi atualizada em 27/10, por gênero, cor/raça, cargo, partido e UF. Despesas contratadas, despesas pagas e doador originário estão publicados em /dinheiro desde 28/10.",
   checked: [
     {
       id: "contas-eleitorais-2026",
       label: "Prestação de contas eleitorais de 2026",
       url: "https://dadosabertos.tse.jus.br/dataset/prestacao-de-contas-eleitorais-2026",
-      status: "receita publicada; despesa e doador originário pendentes",
-      note: "O conjunto passou a existir para 2026, em base parcial atualizada até o fim da apuração. Receita por candidatura já foi processada e está publicada em Dinheiro. Despesas contratadas, despesas pagas e o doador originário do financiamento coletivo ainda não entraram no pipeline do observatório.",
+      status: "receita, despesa e doador originário publicados",
+      note: "O conjunto passou a existir para 2026, em base parcial atualizada até o fim da apuração. Receita, despesas contratadas, despesas pagas e o doador originário do financiamento coletivo estão processados e publicados em Dinheiro (base de 27/10/2026).",
     },
     {
       id: "contas-partidarias-2026",

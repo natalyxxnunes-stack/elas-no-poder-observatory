@@ -38,7 +38,11 @@ function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: s
           const item = race[key];
           const barWidth = item.percent;
           return (
-            <li key={key} className="grid min-w-0 items-center gap-2" style={{ gridTemplateColumns: "5.5rem minmax(0,1fr) minmax(0,4.5rem)" }}>
+            <li
+              key={key}
+              className="grid min-w-0 items-center gap-2"
+              style={{ gridTemplateColumns: "5.5rem minmax(0,1fr) minmax(0,4.5rem)" }}
+            >
               <span className="min-w-0 truncate font-mono text-[12px] leading-none text-muted-foreground">
                 {RACE_LABELS[key]}
               </span>
@@ -52,7 +56,10 @@ function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: s
                   }}
                 />
               </div>
-              <span className="min-w-0 truncate text-right font-mono text-[12px] leading-none text-ink" title={`${n(item.count)} · ${pct(item.percent)}`}>
+              <span
+                className="min-w-0 truncate text-right font-mono text-[12px] leading-none text-ink"
+                title={`${n(item.count)} · ${pct(item.percent)}`}
+              >
                 {n(item.count)} · {pct(item.percent)}
               </span>
             </li>
@@ -87,7 +94,9 @@ function StageColumn({
       <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
         {heading}
       </p>
-      <p className={`poster-figure mt-1 text-3xl leading-none ${empty ? "text-muted-foreground" : "text-plum"} md:text-4xl`}>
+      <p
+        className={`poster-figure mt-1 text-3xl leading-none ${empty ? "text-muted-foreground" : "text-plum"} md:text-4xl`}
+      >
         {empty ? "—" : pct(femininePercent)}
       </p>
       {!empty && (
@@ -177,7 +186,15 @@ export function HistoryFunnel() {
   const candidacyRace2026 = year2026?.candidacy.race;
   const electedRace2026 = elected2026?.race;
 
-  if (!year2014 || !year2022 || !elected2022 || !year2026 || !elected2026 || !candidacyRace2026 || !electedRace2026) {
+  if (
+    !year2014 ||
+    !year2022 ||
+    !elected2022 ||
+    !year2026 ||
+    !elected2026 ||
+    !candidacyRace2026 ||
+    !electedRace2026
+  ) {
     return null;
   }
 
@@ -193,37 +210,57 @@ export function HistoryFunnel() {
         <article className="editorial-card p-5">
           <h3 className="font-display text-lg text-ink">Tamanho do funil</h3>
           <p className="mt-2 text-sm leading-relaxed text-ink/70">
-            Em 2026, mulheres foram {pct(year2026.candidacy.femininePercent)} das
-            candidaturas proporcionais ({n(year2026.candidacy.feminine)} de {n(year2026.candidacy.total)}) e ficaram com {pct(elected2026.femininePercent)} das cadeiras ({n(elected2026.feminine)} de {n(elected2026.total)}). Em 2022, eram {n(elected2022.feminine)} de {n(elected2022.total)}.
+            Em 2026, mulheres foram {pct(year2026.candidacy.femininePercent)} das candidaturas
+            proporcionais ({n(year2026.candidacy.feminine)} de {n(year2026.candidacy.total)}) e
+            ficaram com {pct(elected2026.femininePercent)} das cadeiras ({n(elected2026.feminine)}{" "}
+            de {n(elected2026.total)}). Em 2022, eram {n(elected2022.feminine)} de{" "}
+            {n(elected2022.total)}.
           </p>
         </article>
         <article className="editorial-card p-5">
           <h3 className="font-display text-lg text-ink">No tempo</h3>
           <p className="mt-2 text-sm leading-relaxed text-ink/70">
-            A distância entre a participação nas candidaturas e entre as eleitas era
-            de {formatPoints(year2014.candidacy.femininePercent - (year2014.elected?.femininePercent ?? 0))} em 2014, {formatPoints(year2022.candidacy.femininePercent - elected2022.femininePercent)} em 2022 e {formatPoints(year2026.candidacy.femininePercent - elected2026.femininePercent)} em 2026. As cadeiras de mulheres crescem a cada eleição; a distância para a candidatura continua grande.
+            A distância entre a participação nas candidaturas e entre as eleitas era de{" "}
+            {formatPoints(
+              year2014.candidacy.femininePercent - (year2014.elected?.femininePercent ?? 0),
+            )}{" "}
+            em 2014,{" "}
+            {formatPoints(year2022.candidacy.femininePercent - elected2022.femininePercent)} em 2022
+            e {formatPoints(year2026.candidacy.femininePercent - elected2026.femininePercent)} em
+            2026. As cadeiras de mulheres crescem a cada eleição; a distância para a candidatura
+            continua grande.
           </p>
         </article>
         <article className="editorial-card p-5">
           <h3 className="font-display text-lg text-ink">A cor do funil</h3>
           <p className="mt-2 text-sm leading-relaxed text-ink/70">
-            A urna não filtra por igual. Em 2026, entre as mulheres, a fatia parda foi
-            de {pct(candidacyRace2026.parda.percent)} ({n(candidacyRace2026.parda.count)}) na candidatura para {pct(electedRace2026.parda.percent)} ({n(electedRace2026.parda.count)}) entre as eleitas; a preta, de {pct(candidacyRace2026.preta.percent)} ({n(candidacyRace2026.preta.count)}) para {pct(electedRace2026.preta.percent)} ({n(electedRace2026.preta.count)}); a branca, de {pct(candidacyRace2026.branca.percent)} ({n(candidacyRace2026.branca.count)}) para {pct(electedRace2026.branca.percent)} ({n(electedRace2026.branca.count)}). Indígenas ({n(candidacyRace2026.indigena.count)} → {n(electedRace2026.indigena.count)}) e amarelas ({n(candidacyRace2026.amarela.count)} → {n(electedRace2026.amarela.count)}) aparecem em números pequenos e devem ser lidas pelo absoluto.
+            A urna não filtra por igual. Em 2026, entre as mulheres, a fatia parda foi de{" "}
+            {pct(candidacyRace2026.parda.percent)} ({n(candidacyRace2026.parda.count)}) na
+            candidatura para {pct(electedRace2026.parda.percent)} ({n(electedRace2026.parda.count)})
+            entre as eleitas; a preta, de {pct(candidacyRace2026.preta.percent)} (
+            {n(candidacyRace2026.preta.count)}) para {pct(electedRace2026.preta.percent)} (
+            {n(electedRace2026.preta.count)}); a branca, de {pct(candidacyRace2026.branca.percent)}{" "}
+            ({n(candidacyRace2026.branca.count)}) para {pct(electedRace2026.branca.percent)} (
+            {n(electedRace2026.branca.count)}). Indígenas ({n(candidacyRace2026.indigena.count)} →{" "}
+            {n(electedRace2026.indigena.count)}) e amarelas ({n(candidacyRace2026.amarela.count)} →{" "}
+            {n(electedRace2026.amarela.count)}) aparecem em números pequenos e devem ser lidas pelo
+            absoluto.
           </p>
         </article>
       </div>
 
       <p className="text-sm leading-relaxed text-ink/70">
-        Recorte: Câmara dos Deputados, Assembleias Legislativas e Câmara Legislativa do DF: eleições proporcionais. Não inclui Senado, governos estaduais ou Presidência. Por isso os totais podem diferir de estatísticas do TSE que somam o Legislativo inteiro: aqui se conta a cadeira proporcional, não a suplência nem o Senado. Eleitas: resultado do 1º turno, o único da eleição proporcional. Cada ano e cada etapa têm denominador próprio; percentuais não se
-        somam. Cor/raça é autodeclarada, nas categorias do TSE, coletada desde 2014; a
-        qualidade do preenchimento varia entre ciclos e, em 2014, não há registros “não
-        informado”. Categorias com poucas candidaturas ou eleitas devem ser lidas pelo
-        número absoluto, não pelo percentual. Nenhuma categoria é omitida. 2026:
-        candidaturas e eleitas lidas do mesmo arquivo do TSE, base gerada em
-        05/10/2026 e conferida de novo, sem diferença, na base de 27/10/2026. Por
-        isso o total de candidaturas difere em 3 registros da fotografia de 25/09
-        usada nas outras páginas.
-        Fonte: {HISTORICAL_FUNNEL_SOURCE}.
+        Recorte: Câmara dos Deputados, Assembleias Legislativas e Câmara Legislativa do DF: eleições
+        proporcionais. Não inclui Senado, governos estaduais ou Presidência. Por isso os totais
+        podem diferir de estatísticas do TSE que somam o Legislativo inteiro: aqui se conta a
+        cadeira proporcional, não a suplência nem o Senado. Eleitas: resultado do 1º turno, o único
+        da eleição proporcional. Cada ano e cada etapa têm denominador próprio; percentuais não se
+        somam. Cor/raça é autodeclarada, nas categorias do TSE, coletada desde 2014; a qualidade do
+        preenchimento varia entre ciclos e, em 2014, não há registros “não informado”. Categorias
+        com poucas candidaturas ou eleitas devem ser lidas pelo número absoluto, não pelo
+        percentual. Nenhuma categoria é omitida. 2026: candidaturas e eleitas lidas do mesmo arquivo
+        do TSE, base gerada em 05/10/2026 e conferida de novo, sem diferença, na base de 27/10/2026,
+        a mesma fotografia usada nas outras páginas. Fonte: {HISTORICAL_FUNNEL_SOURCE}.
       </p>
     </div>
   );

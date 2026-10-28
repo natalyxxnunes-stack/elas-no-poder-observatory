@@ -1,3 +1,4 @@
+import { HistoryByOffice, HistoryByUf } from "@/components/historical/HistoryByOffice";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
@@ -227,6 +228,25 @@ function HistoricoPage() {
         </div>
       </SectionBlock>
 
+      <SectionBlock
+        id="cargo-uf"
+        kicker="Por cargo e por estado"
+        question="Em que cargos e em que estados a presença de mulheres mudou"
+        align="wide"
+        lead={
+          <p>
+            Na Câmara, as deputadas eleitas passaram de 51 em 2014 para 109 em 2026. No Senado, de 5 senadoras eleitas
+            em 2014 para 12 em 2026, com o dobro de vagas em disputa. Nos governos, de 1 para 3. Na Presidência, uma
+            mulher eleita em 2014 e nenhuma desde então.
+          </p>
+        }
+      >
+        <div className="space-y-6">
+          <HistoryByOffice />
+          <HistoryByUf />
+        </div>
+      </SectionBlock>
+
       <SectionBlock collapsible="Ver as quatro bases" id="bases"
         kicker="Linha temporal"
         question="Quatro eleições gerais, quatro bases diferentes"
@@ -234,8 +254,8 @@ function HistoricoPage() {
         lead={
           <p>
             As quatro eleições trazem candidaturas e resultado. Em 2026, as
-            candidaturas vêm da fotografia de 25/09 e o resultado, do arquivo do
-            TSE de 27/10, já com o 2º turno.
+            candidaturas e o resultado vêm do arquivo do TSE de 27/10, já com o
+            2º turno.
           </p>
         }
         source="Fonte: TSE · Candidatos 2014, 2018, 2022 e 2026"
@@ -256,12 +276,12 @@ function HistoricoPage() {
       </SectionBlock>
 
       <ComoSabemos
-        fonte="TSE, Candidatos 2014, 2018 e 2022 (resultado do 1º turno no proporcional; resultado final, com 2º turno, no majoritário); TSE, Candidaturas 2026 (fotografia de 25/09) e resultado final de 2026 (base de 27/10, com o 2º turno)."
+        fonte="TSE, Candidatos 2014, 2018 e 2022 (resultado do 1º turno no proporcional; resultado final, com 2º turno, no majoritário); TSE, Candidaturas 2026 (fotografia de 27/09) e resultado final de 2026 (base de 27/10, com o 2º turno)."
         universo="Proporcional (Câmara, assembleias e Câmara Legislativa do DF) e majoritário (Presidência, governos e Senado), nunca somados. Cada candidatura entra uma vez em cada ano."
         calculo={<>Candidaturas de mulheres divididas pelo total de candidaturas do mesmo universo e do mesmo ano. {BLACK_AGGREGATION_NOTE}</>}
         limites={[
-          "2026: candidaturas da fotografia de 25/09 e resultado do arquivo do TSE de 27/10/2026. Por isso o total de candidaturas pode diferir em poucos registros do arquivo do resultado.",
-          "Os recortes históricos por cargo e por UF já foram coletados, mas ainda não têm indicador auditado publicado.",
+          "2026: candidaturas e resultado do mesmo arquivo do TSE, de 27/10/2026.",
+          "Por UF, só a Câmara dos Deputados: as cadeiras por estado são fixas e comparáveis entre as eleições.",
           "Onde a base oficial não traz o dado, o ponto fica vazio. Nenhum ponto desta página é estimado.",
         ]}
       />

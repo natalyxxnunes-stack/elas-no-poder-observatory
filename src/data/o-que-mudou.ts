@@ -1,7 +1,8 @@
 /**
  * o-que-mudou — comparação entre a primeira fotografia publicada depois do
  * prazo de registro (17/08/2026) e a fotografia vigente de candidaturas
- * (25/09/2026). As duas foram recontadas de forma independente a partir do
+ * (27/10/2026, a mesma do resultado). A fotografia intermediária de 25/09 fica
+ * no histórico do repositório. As duas foram recontadas de forma independente a partir do
  * arquivo oficial do TSE e cravadas em código; os números de 17/08 estão no
  * histórico do repositório (src/data/tse-snapshot.ts no commit 687594a).
  *
@@ -35,13 +36,13 @@ export const CHANGE_FROM: ChangeSnapshot = {
 };
 
 export const CHANGE_TO: ChangeSnapshot = {
-  label: "25/09/2026",
-  baseGeneratedAt: "25/09/2026 12:31:26",
-  brasilCsvSha256: "0327ca7868179bd780249a3529f5d3b0bbe5218067a159372f2b89c372a5fe54",
+  label: "27/10/2026",
+  baseGeneratedAt: "27/10/2026 19:30:36",
+  brasilCsvSha256: "3a60b9a996590b60b39b3a9cca68d2207b89a2a0cf3b235fd6452459be9c0c3e",
   proporcional: {
-    total: 19528,
-    feminine: 6951,
-    raceFeminine: { BRANCA: 3252, PARDA: 2379, PRETA: 1197, "INDÍGENA": 82, AMARELA: 41 },
+    total: 19531,
+    feminine: 6953,
+    raceFeminine: { BRANCA: 3254, PARDA: 2379, PRETA: 1197, "INDÍGENA": 82, AMARELA: 41 },
   },
   majoritario: {
     total: 534,

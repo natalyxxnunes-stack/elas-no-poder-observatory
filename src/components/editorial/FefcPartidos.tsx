@@ -24,7 +24,10 @@ const GRUPOS: { key: string; label: string; get: (p: FefcPartido) => FefcGrupo }
   { key: "AMARELA", label: "Amarelas e amarelos", get: (p) => p.raca["AMARELA"] ?? ZERO },
 ];
 
-function Cell({ g, p }: { g: FefcGrupo; p: FefcPartido }) {
+/** Pisos constitucionais: mulheres (EC 117/2022) e pretas e pardos somados (EC 133/2024). */
+const PISO: Record<string, number> = { mulheres: 30, soma: 30 };
+
+function Cell({ g, p, k }: { g: FefcGrupo; p: FefcPartido; k: string }) {
   if (p.candidaturas < SMALL || p.comFefc < SMALL) {
     return (
       <span className="font-mono text-[11px] text-muted-foreground">
@@ -35,12 +38,16 @@ function Cell({ g, p }: { g: FefcGrupo; p: FefcPartido }) {
   const cand = (g.candidaturas / p.candidaturas) * 100;
   const fundo = p.fefc > 0 ? (g.fefc / p.fefc) * 100 : 0;
   const diff = fundo - cand;
+  const piso = PISO[k];
+  const abaixoDoPiso = piso !== undefined && fundo < piso;
   return (
     <span className="block font-mono text-[11px] leading-tight">
       <span className="text-muted-foreground">{formatPct(cand)}</span>
       <span className="text-muted-foreground"> → </span>
-      <span className="text-ink">{formatPct(fundo)}</span>
-      <span className={`block ${diff <= -5 ? "font-semibold text-coral-ink" : "text-muted-foreground"}`}>
+      <span className={abaixoDoPiso ? "bg-coral px-0.5 font-semibold text-ink" : "text-ink"}>
+        {formatPct(fundo)}
+      </span>
+      <span className="block text-muted-foreground">
         {diff >= 0 ? "+" : "−"}
         {formatDecimal(Math.abs(diff))} p.p.
       </span>
@@ -56,11 +63,16 @@ export function FefcPartidos() {
       title="Em cada partido, a fatia de cada grupo nas candidaturas e no fundo eleitoral que chegou a elas"
       note={
         <>
-          Cada célula: fatia do grupo entre as candidaturas do partido → fatia do grupo no FEFC recebido pelas
-          candidaturas do partido, e a diferença em pontos percentuais. Em laranja, diferenças de 5 p.p. ou mais
-          abaixo. Partidos com menos de 20 candidaturas, ou com fundo em menos de 20 delas, mostram só o número absoluto de candidaturas do grupo: ali uma única campanha muda o percentual inteiro. Ordem pelo total de FEFC, sem
-          classificar mérito.
-          {FEFC_PARTIDOS_SEM_FUNDO.length > 0 ? ` Sem FEFC declarado: ${FEFC_PARTIDOS_SEM_FUNDO.join(", ")}.` : ""}
+          Cada célula: fatia do grupo entre as candidaturas do partido → fatia do grupo no FEFC
+          recebido pelas candidaturas do partido, e a diferença em pontos percentuais. Fundo em
+          laranja: abaixo do piso constitucional de 30%, que vale para mulheres (EC 117/2022) e para
+          candidaturas pretas e pardas somadas (EC 133/2024). Para mulheres, a regra também pede a
+          proporção das candidatas. Partidos com menos de 20 candidaturas, ou com fundo em menos de
+          20 delas, mostram só o número absoluto de candidaturas do grupo: ali uma única campanha
+          muda o percentual inteiro. Ordem pelo total de FEFC, sem classificar mérito.
+          {FEFC_PARTIDOS_SEM_FUNDO.length > 0
+            ? ` Sem FEFC declarado: ${FEFC_PARTIDOS_SEM_FUNDO.join(", ")}.`
+            : ""}
         </>
       }
       source={`Fonte: TSE, Prestação de Contas Eleitorais 2026 (base de ${FEFC_META.baseGeneratedAt}, contas em andamento) e Candidatos 2026. Recontagem independente.`}
@@ -71,7 +83,8 @@ export function FefcPartidos() {
         denominador:
           "Candidaturas do próprio partido (primeiro número) e FEFC recebido pelas candidaturas do próprio partido (segundo número).",
         data: `Prestação de contas e registro do TSE de ${FEFC_META.baseGeneratedAt}`,
-        fonte: "TSE, Prestação de Contas Eleitorais 2026 (receitas, fonte Fundo Especial) e Candidatos 2026",
+        fonte:
+          "TSE, Prestação de Contas Eleitorais 2026 (receitas, fonte Fundo Especial) e Candidatos 2026",
         limitacao:
           "Mede o fundo que chegou às candidaturas, não o total do partido. Contas em andamento até a prestação final. A regra do TSE usa outro universo (20.560 pedidos aceitos até 18/08/2026). Não é verificação de cumprimento da lei. A soma pretas e pardos segue o critério legal de candidaturas negras e aparece ao lado das categorias separadas.",
       }}
@@ -94,25 +107,32 @@ export function FefcPartidos() {
               <th scope="row" className="py-2 pr-3 text-left font-display text-base text-ink">
                 Todos
               </th>
-              <td className="py-2 pr-3 text-right font-mono text-xs text-ink">{formatBRLCompact(FEFC_TOTAL.fefc)}</td>
+              <td className="py-2 pr-3 text-right font-mono text-xs text-ink">
+                {formatBRLCompact(FEFC_TOTAL.fefc)}
+              </td>
               {GRUPOS.map((g) => (
                 <td key={g.key} className="py-2 pr-3">
-                  <Cell g={g.get(FEFC_TOTAL)} p={FEFC_TOTAL} />
+                  <Cell g={g.get(FEFC_TOTAL)} p={FEFC_TOTAL} k={g.key} />
                 </td>
               ))}
             </tr>
             {rows.map(([party, p]) => (
               <tr key={party} className="border-t border-rule align-top">
-                <th scope="row" className="py-2 pr-3 text-left font-mono text-xs font-semibold text-ink">
+                <th
+                  scope="row"
+                  className="py-2 pr-3 text-left font-mono text-xs font-semibold text-ink"
+                >
                   {party}
                   <span className="block font-normal text-muted-foreground">
                     {n(p.candidaturas)} cand. · {n(p.comFefc)} com fundo
                   </span>
                 </th>
-                <td className="py-2 pr-3 text-right font-mono text-xs text-ink">{formatBRLCompact(p.fefc)}</td>
+                <td className="py-2 pr-3 text-right font-mono text-xs text-ink">
+                  {formatBRLCompact(p.fefc)}
+                </td>
                 {GRUPOS.map((g) => (
                   <td key={g.key} className="py-2 pr-3">
-                    <Cell g={g.get(p)} p={p} />
+                    <Cell g={g.get(p)} p={p} k={g.key} />
                   </td>
                 ))}
               </tr>

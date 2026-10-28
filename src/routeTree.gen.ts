@@ -25,6 +25,7 @@ import { Route as MetodoRouteImport } from './routes/metodo'
 import { Route as QuemChegaRouteImport } from './routes/quem-chega'
 import { Route as QuemControlaRouteImport } from './routes/quem-controla'
 import { Route as QuemSaoElasRouteImport } from './routes/quem-sao-elas'
+import { Route as ReportagensRouteImport } from './routes/reportagens'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as VotosRouteImport } from './routes/votos'
 import { Route as ApiPublicTseIngestRouteImport } from './routes/api/public/tse/ingest'
@@ -110,6 +111,11 @@ const QuemSaoElasRoute = QuemSaoElasRouteImport.update({
   path: '/quem-sao-elas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReportagensRoute = ReportagensRouteImport.update({
+  id: '/reportagens',
+  path: '/reportagens',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
@@ -149,6 +155,7 @@ export interface FileRoutesByFullPath {
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
   '/quem-sao-elas': typeof QuemSaoElasRoute
+  '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
@@ -171,6 +178,7 @@ export interface FileRoutesByTo {
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
   '/quem-sao-elas': typeof QuemSaoElasRoute
+  '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
@@ -194,6 +202,7 @@ export interface FileRoutesById {
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
   '/quem-sao-elas': typeof QuemSaoElasRoute
+  '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
@@ -218,6 +227,7 @@ export interface FileRouteTypes {
     | '/quem-chega'
     | '/quem-controla'
     | '/quem-sao-elas'
+    | '/reportagens'
     | '/sobre'
     | '/votos'
     | '/api/public/tse/ingest'
@@ -240,6 +250,7 @@ export interface FileRouteTypes {
     | '/quem-chega'
     | '/quem-controla'
     | '/quem-sao-elas'
+    | '/reportagens'
     | '/sobre'
     | '/votos'
     | '/api/public/tse/ingest'
@@ -262,6 +273,7 @@ export interface FileRouteTypes {
     | '/quem-chega'
     | '/quem-controla'
     | '/quem-sao-elas'
+    | '/reportagens'
     | '/sobre'
     | '/votos'
     | '/api/public/tse/ingest'
@@ -285,6 +297,7 @@ export interface RootRouteChildren {
   QuemChegaRoute: typeof QuemChegaRoute
   QuemControlaRoute: typeof QuemControlaRoute
   QuemSaoElasRoute: typeof QuemSaoElasRoute
+  ReportagensRoute: typeof ReportagensRoute
   SobreRoute: typeof SobreRoute
   VotosRoute: typeof VotosRoute
   ApiPublicTseIngestRoute: typeof ApiPublicTseIngestRoute
@@ -405,6 +418,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuemSaoElasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reportagens': {
+      id: '/reportagens'
+      path: '/reportagens'
+      fullPath: '/reportagens'
+      preLoaderRoute: typeof ReportagensRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sobre': {
       id: '/sobre'
       path: '/sobre'
@@ -453,6 +473,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuemChegaRoute: QuemChegaRoute,
   QuemControlaRoute: QuemControlaRoute,
   QuemSaoElasRoute: QuemSaoElasRoute,
+  ReportagensRoute: ReportagensRoute,
   SobreRoute: SobreRoute,
   VotosRoute: VotosRoute,
   ApiPublicTseIngestRoute: ApiPublicTseIngestRoute,

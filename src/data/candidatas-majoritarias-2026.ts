@@ -4,7 +4,9 @@
  * SHA-256 0327ca7868179bd780249a3529f5d3b0bbe5218067a159372f2b89c372a5fe54) e
  * receitas_candidatos_2026_BRASIL.csv (27/10/2026 04:05:36, SHA-256 4f149814…, receitas
  * dos dois turnos somadas; contas em andamento). Receita atualizada em 27/10/2026
- * por scripts/recontagem/dinheiro_2026.py; o registro segue a fotografia de 25/09.
+ * por scripts/recontagem/dinheiro_2026.py. Registro conferido contra a base de
+ * 27/10/2026: mesmas 107 candidatas, com o mesmo partido, a mesma cor/raça e a
+ * mesma composição de chapa que no registro de 25/09.
  * Fotografia congelada: não muda sozinha quando a base muda.
  *
  * Campos: [nome de urna, cargo, UF, partido, cor/raça declarada,
@@ -15,9 +17,17 @@
  */
 export type CargoMajoritario = "presidencia" | "governo" | "senado";
 export type RacaDeclarada = "branca" | "parda" | "preta" | "indigena" | "amarela";
-export type CandidataRow = [string, CargoMajoritario, string, string, RacaDeclarada, string, number];
+export type CandidataRow = [
+  string,
+  CargoMajoritario,
+  string,
+  string,
+  RacaDeclarada,
+  string,
+  number,
+];
 
-export const CANDIDATAS_BASE = "25/09/2026";
+export const CANDIDATAS_BASE = "27/10/2026";
 /** data da base de receitas usada na coluna de receita */
 export const CANDIDATAS_RECEITA_BASE = "27/10/2026";
 

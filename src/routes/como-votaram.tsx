@@ -385,9 +385,9 @@ function ComoVotaramPage() {
   const igualContra = igual.deputadasContraBancada.filter((d) => d.voto === "Não");
   const pretasMarco = marco.racaDeputadas["PRETA"] ?? {};
   return (
-    <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Como votaram" }]}>
+    <PageShell breadcrumb={[{ label: "Reportagens", to: "/reportagens" }, { label: "Como votaram" }]}>
       <PageHero
-        kicker="Investigação"
+        kicker="Reportagem"
         question={a.question}
         lead={
           <p>

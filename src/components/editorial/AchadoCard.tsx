@@ -16,6 +16,9 @@ export function AchadoCard({ achado }: { achado: Achado }) {
     <article className="border-t-2 border-ink pt-4">
       <p className="font-mono text-xs uppercase text-muted-foreground">
         Achado {achado.numero} · {formatDateBR(achado.data)}
+        {achado.atualizadoEm
+          ? ` · números atualizados em ${formatDateBR(achado.atualizadoEm)}`
+          : ""}
       </p>
       <h3 className="mt-2 font-display text-xl leading-snug text-ink md:text-2xl">
         {achado.titulo}

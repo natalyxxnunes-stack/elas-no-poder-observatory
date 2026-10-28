@@ -17,16 +17,9 @@ const UNIVERSE_LABEL: Record<UniverseId, string> = {
   majoritario: "Majoritária",
 };
 
-const fmt = (v: number) =>
-  formatDecimal(v);
+const fmt = (v: number) => formatDecimal(v);
 
-function UniverseColumn({
-  series,
-  universe,
-}: {
-  series: Series;
-  universe: UniverseId;
-}) {
+function UniverseColumn({ series, universe }: { series: Series; universe: UniverseId }) {
   const points = series.points
     .filter((p) => p.universe === universe)
     .sort((a, b) => a.year - b.year);
@@ -34,7 +27,8 @@ function UniverseColumn({
   const scale = 100;
 
   const missing = points.filter((p) => p.value === null);
-  const isSplitRace = series.id === "serie-negras-negros-candidaturas" ||
+  const isSplitRace =
+    series.id === "serie-negras-negros-candidaturas" ||
     series.id === "serie-mulheres-negras-sobre-total" ||
     series.id === "serie-mulheres-negras-entre-mulheres" ||
     series.id === "serie-mulheres-negras-eleitas";
@@ -54,16 +48,29 @@ function UniverseColumn({
                   className="flex h-full w-full items-end justify-center rounded-t-sm border-x border-t border-dashed border-rule"
                   aria-hidden
                 >
-                  <span className="pb-2 font-mono text-[12px] text-muted-foreground">
-                    sem dado
-                  </span>
+                  <span className="pb-2 font-mono text-[12px] text-muted-foreground">sem dado</span>
                 </div>
-              ) : isSplitRace && p.denominator && p.pretaNumerator !== undefined && p.pardaNumerator !== undefined ? (
+              ) : isSplitRace &&
+                p.denominator &&
+                p.pretaNumerator !== undefined &&
+                p.pardaNumerator !== undefined ? (
                 <div className="flex h-full w-full flex-col justify-end" aria-hidden>
-                  <div className="flex w-full items-center justify-center font-mono text-xs text-paper" style={{ height: `${((p.pretaNumerator / p.denominator) * 100 / scale) * 100}%`, backgroundColor: RACE_COLORS.preta }}>
+                  <div
+                    className="flex w-full items-center justify-center font-mono text-xs text-paper"
+                    style={{
+                      height: `${(((p.pretaNumerator / p.denominator) * 100) / scale) * 100}%`,
+                      backgroundColor: RACE_COLORS.preta,
+                    }}
+                  >
                     {fmt((p.pretaNumerator / p.denominator) * 100)}%
                   </div>
-                  <div className="flex w-full items-center justify-center font-mono text-xs text-ink" style={{ height: `${((p.pardaNumerator / p.denominator) * 100 / scale) * 100}%`, backgroundColor: RACE_COLORS.parda }}>
+                  <div
+                    className="flex w-full items-center justify-center font-mono text-xs text-ink"
+                    style={{
+                      height: `${(((p.pardaNumerator / p.denominator) * 100) / scale) * 100}%`,
+                      backgroundColor: RACE_COLORS.parda,
+                    }}
+                  >
                     {fmt((p.pardaNumerator / p.denominator) * 100)}%
                   </div>
                 </div>
@@ -78,7 +85,9 @@ function UniverseColumn({
             <p className={`mt-2 font-mono text-ink ${isSplitRace ? "text-xs" : "text-xs"}`}>
               {p.value === null ? "—" : isSplitRace ? `(${fmt(p.value)}%)` : `${fmt(p.value)}%`}
             </p>
-            <p className={`font-mono text-[12px] ${p.year === 2026 ? "font-semibold text-coral-ink" : "text-muted-foreground"}`}>
+            <p
+              className={`font-mono text-[12px] ${p.year === 2026 ? "font-semibold text-coral-ink" : "text-muted-foreground"}`}
+            >
               {p.year}
               {p.stage === "em_curso" ? "*" : ""}
             </p>
@@ -104,8 +113,8 @@ function UniverseColumn({
 
       {missing.length > 0 && (
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          Pontos vazios: {missing.map((m) => m.year).join(", ")}. Nenhum valor é
-          estimado; o motivo aparece em cada ponto.
+          Pontos vazios: {missing.map((m) => m.year).join(", ")}. Nenhum valor é estimado; o motivo
+          aparece em cada ponto.
         </p>
       )}
     </div>
@@ -122,8 +131,7 @@ export function SeriesChart({
   if (!series) {
     return (
       <GapNote label="Lacuna declarada">
-        Esta série ainda não foi gravada pela coleta histórica. Nenhum valor é
-        estimado no lugar.
+        Esta série ainda não foi gravada pela coleta histórica. Nenhum valor é estimado no lugar.
       </GapNote>
     );
   }
@@ -131,18 +139,25 @@ export function SeriesChart({
     <ChartFrame
       ficha={{
         vendo: `${series.label}, nos universos proporcional e majoritário, eleição a eleição.`,
-        contados: "Candidaturas ou eleitas e eleitos, conforme a série, em cada eleição geral de 2014 a 2026.",
+        contados:
+          "Candidaturas ou eleitas e eleitos, conforme a série, em cada eleição geral de 2014 a 2026.",
         denominador: series.formula,
-        data: "2014, 2018 e 2022: bases fechadas do TSE; 2026: candidaturas de 25/09 e resultado de 27/10/2026",
+        data: "2014, 2018 e 2022: bases fechadas do TSE; 2026: candidaturas e resultado da base de 27/10/2026",
         fonte: "TSE, Candidatos 2014, 2018, 2022 e 2026",
         limitacao: series.notes.join(" "),
       }}
       eyebrow="Série histórica · 2014 a 2026"
       title={series.label}
-      legend={<><LegendSwatch className="bg-plum">2014 a 2022</LegendSwatch><LegendSwatch className="bg-coral">2026</LegendSwatch></>}
+      legend={
+        <>
+          <LegendSwatch className="bg-plum">2014 a 2022</LegendSwatch>
+          <LegendSwatch className="bg-coral">2026</LegendSwatch>
+        </>
+      }
       note={
         <>
-          {series.formula}. {series.notes.join(" ")} 2026 (*): candidaturas da fotografia de 25/09; eleitas pelo resultado final, base TSE de 27/10.
+          {series.formula}. {series.notes.join(" ")} 2026 (*): candidaturas e eleitas pela base TSE
+          de 27/10/2026.
         </>
       }
       source="Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026"

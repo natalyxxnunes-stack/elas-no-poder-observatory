@@ -1,3 +1,4 @@
+import { PartyStateMatrix } from "@/components/editorial/PartyStateMatrix";
 import { SituacaoChart } from "@/components/editorial/SituacaoChart";
 import { SITUACAO_2026 } from "@/data/situacao-candidaturas-2026";
 import { createFileRoute } from "@tanstack/react-router";
@@ -250,7 +251,7 @@ function QuemSaoElasPage() {
             <article className="poster-frame-accent p-5">
               <p className="record-label border-ink text-ink">Fato, em série</p>
               <p className="mt-3 leading-relaxed text-ink/70">
-                Nos governos, o padrão se repete em todas as eleições desde 2014 e aumentou: mulheres passaram de 12,0% para 17,4% das candidaturas a titular e de 24,0% para 41,7% das candidaturas a vice. No Senado, a diferença oscila: em 2022, havia proporcionalmente mais mulheres entre as titulares (23,9%) do que entre as primeiras suplentes (23,4%).
+                Nos governos, o padrão se repete em todas as eleições desde 2014 e aumentou: mulheres passaram de 11,4% para 17,4% das candidaturas a titular e de 25,3% para 41,7% das candidaturas a vice. No Senado, a diferença oscila: em 2022, havia proporcionalmente mais mulheres entre as titulares (23,9%) do que entre as primeiras suplentes (23,4%).
               </p>
             </article>
           </div>
@@ -267,9 +268,9 @@ function QuemSaoElasPage() {
                 </thead>
                 <tbody>
                   {[
-                    ['2014', '12,0% (23 de 192)', '24,0% (49 de 204)', '18,9% (35 de 185)', '20,6% (43 de 209)', '19,2% (41 de 214)', '3 de 12', '4 de 12'],
-                    ['2018', '14,7% (30 de 204)', '36,0% (76 de 211)', '16,6% (64 de 385)', '22,9% (95 de 414)', '28,5% (121 de 424)', '2 de 14', '5 de 14'],
-                    ['2022', '17,5% (40 de 228)', '38,6% (95 de 246)', '23,9% (58 de 243)', '23,4% (64 de 274)', '34,4% (95 de 276)', '4 de 13', '5 de 13'],
+                    ['2014', '11,4% (20 de 176)', '25,3% (47 de 186)', '18,9% (35 de 185)', '20,6% (43 de 209)', '19,2% (41 de 214)', '3 de 12', '4 de 12'],
+                    ['2018', '14,7% (30 de 204)', '36,0% (76 de 211)', '16,8% (63 de 374)', '22,7% (91 de 401)', '28,3% (117 de 413)', '2 de 14', '5 de 14'],
+                    ['2022', '17,0% (38 de 224)', '38,8% (94 de 242)', '23,9% (58 de 243)', '23,4% (64 de 274)', '34,4% (95 de 276)', '4 de 13', '5 de 13'],
                     ['2026', '17,4% (35 de 201)', '41,7% (88 de 211)', '21,9% (70 de 319)', '30,4% (106 de 349)', '30,6% (107 de 350)', '2 de 14', '6 de 14'],
                   ].map(([year, ...cells]) => (
                     <tr key={year} className="border-b border-rule">
@@ -280,7 +281,8 @@ function QuemSaoElasPage() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Pedidos de registro de cada eleição. O número de vices e suplentes pode diferir do de titulares por substituições e registros indeferidos que permanecem no arquivo. Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026 (base de 25/09/2026).</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Pedidos de registro de cada eleição. O número de vices e suplentes pode diferir do de titulares por substituições e registros indeferidos que permanecem no arquivo. Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026 (base de 27/10/2026, sem mudança em relação a 25/09 neste recorte). Só eleições gerais.</p>
+            <p className="mt-2 border-l-2 border-coral pl-3 text-sm leading-relaxed text-ink/80"><strong>Correção em 28/10/2026:</strong> até esta data, as linhas de 2014, 2018 e 2022 incluíam candidaturas de eleições suplementares que vêm no mesmo arquivo do TSE (governo do AM e do TO em 2014 e eleições suplementares de 2018 e 2022). Elas foram retiradas, porque a série compara eleições gerais. Antes, 2014 aparecia com 12,0% de mulheres entre as candidaturas a governadora e 24,0% entre as vices. A linha de 2026 não mudou.</p>
           </div>
 
           <div>
@@ -350,6 +352,9 @@ function QuemSaoElasPage() {
         }
       >
         <RaceExplorer snapshot={snapshot} />
+        <div className="mt-8">
+          <PartyStateMatrix snapshot={snapshot} />
+        </div>
       </SectionBlock>
 
       <SectionBlock
@@ -384,7 +389,7 @@ function QuemSaoElasPage() {
         calculo="Cada recorte é dividido pelo seu próprio total, dentro de um único universo. Abaixo de 20 candidaturas, aparecem só os números absolutos. No recorte por partido, a fatia de mulheres usa o total de candidaturas daquele partido; a distribuição por cor/raça usa as candidaturas de mulheres do partido. A ordem dos partidos é descritiva e não classifica mérito."
         limites={[
           "Cor/raça é autodeclaração ao TSE e não identifica pertencimento étnico nem vínculo com povo ou território indígena.",
-          "Por estado, a fatia de mulheres dentro de cada partido ainda não aparece: o total de candidaturas por partido em cada estado passou a ser contado nesta versão e entra nas próximas coletas. Até lá, só números absolutos.",
+          "Por estado, a fatia de mulheres dentro de cada partido aparece no explorador e no mapa partido × estado; com menos de 20 candidaturas na célula, só o número absoluto.",
           "Esta página trata das candidaturas. Dinheiro, votos e eleitas por cor/raça estão em Dinheiro, Votos e Quem chega; posições de poder entram a partir da posse, em 2027.",
           "Identidade trans ou travesti e deficiência ficam fora, porque a base não as registra de modo comparável.",
         ]}

@@ -6,7 +6,7 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 
 /**
- * ROTA PUBLICADA como página em construção.
+ * ROTA PUBLICADA. Catálogo completo desde 28/10/2026; fontes dos materiais em scripts/materiais.
  * O catálogo de materiais está visível e identifica o tipo, público, formato e
  * status de cada item. Nenhum link falso é exibido: arquivos ainda não
  * publicados aparecem como "em preparação".
@@ -58,8 +58,8 @@ const MATERIALS: readonly Material[] = [
     description:
       "Explicação em linguagem simples da regra de composição de candidaturas de 30% a 70% por gênero, do que ela alcança e do que fica com o partido.",
     audience: "Coletivos, escolas e formação política",
-    format: "PDF A4, para impressão",
-    file: null,
+    format: "PDF A4, 4 páginas, para impressão",
+    file: "/materiais/cartilha-cota.pdf",
   },
   {
     id: "infografico-universos",
@@ -68,17 +68,17 @@ const MATERIALS: readonly Material[] = [
     description:
       "Peça visual sobre por que os dois universos eleitorais têm denominadores próprios e não podem ser somados.",
     audience: "Redes sociais e imprensa",
-    format: "PNG quadrado e vertical",
-    file: null,
+    format: "PNG quadrado (1080 × 1080); vertical em /materiais/infografico-universos-vertical.png",
+    file: "/materiais/infografico-universos-quadrado.png",
   },
   {
     id: "cartilha-funil",
     kind: "Material educativo",
     title: "O funil: candidatura, competição e poder",
-    description: "Roteiro de oficina com as três camadas do funil e as perguntas de cada etapa.",
+    description: "Roteiro de oficina de 90 minutos com o funil de 2026 (registro, voto, cadeira e poder), perguntas para os grupos e folha de atividade.",
     audience: "Formação e sala de aula",
-    format: "PDF com atividades",
-    file: null,
+    format: "PDF A4, 2 páginas, com atividades",
+    file: "/materiais/oficina-funil.pdf",
   },
   {
     id: "base-candidaturas",
@@ -115,13 +115,12 @@ function DownloadsPage() {
 
       <SectionBlock
         kicker="Catálogo"
-        question="Materiais em preparação"
+        question="Materiais para baixar e circular"
         align="wide"
         lead={
           <p>
-            A estrutura do catálogo já está publicada para que cada material entre com tipo,
-            público, formato e arquivo identificados. Nenhum link é exibido antes de o arquivo
-            existir.
+            Cartilha, infográfico, roteiro de oficina e base de dados, com os números da base do TSE
+            de 27/10/2026. Uso livre, com crédito ao Quem são elas?.
           </p>
         }
       >
@@ -156,6 +155,7 @@ function DownloadsPage() {
                 ) : m.file ? (
                   <a
                     href={m.file}
+                    download
                     className="inline-flex rounded-md bg-plum px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-plum-soft"
                   >
                     Baixar

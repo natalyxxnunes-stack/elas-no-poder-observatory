@@ -18,7 +18,11 @@ export const CENTRAL_PRINCIPLE =
   "Gênero e raça estruturam a investigação. Território, partido, cargo, recursos, votos, resultado e poder são os recortes.";
 
 /** Estado editorial de um eixo — não é status de indicador. */
-export type AxisState = "com dados de candidatura" | "com dados de resultado" | "arquitetura preparada" | "conteúdo editorial";
+export type AxisState =
+  | "com dados de candidatura"
+  | "com dados de resultado"
+  | "arquitetura preparada"
+  | "conteúdo editorial";
 export type AxisPublication = "published" | "unpublished";
 export type AxisStatus = "publicado" | "parcial" | "aguardando dado";
 export type AxisGroup = "investigacao" | "projeto" | "materiais";
@@ -53,7 +57,10 @@ export const AXES: readonly Axis[] = [
     dimensions: ["gênero", "cor/raça", "cargo", "território", "tempo"],
     unpublishedReason: "",
     state: "com dados de candidatura",
-    publication: "published", status: "publicado", statusNote: "Fotografia vigente das candidaturas de 2026.", group: "investigacao",
+    publication: "published",
+    status: "publicado",
+    statusNote: "Fotografia vigente das candidaturas de 2026.",
+    group: "investigacao",
   },
   {
     id: "quem-controla",
@@ -65,7 +72,10 @@ export const AXES: readonly Axis[] = [
     dimensions: ["partido ou federação", "diretório", "recursos", "propaganda", "território"],
     unpublishedReason: "",
     state: "arquitetura preparada",
-    publication: "published", status: "parcial", statusNote: "2 alavancas com dado, 1 parcial, 2 aguardando fonte", group: "investigacao",
+    publication: "published",
+    status: "parcial",
+    statusNote: "2 alavancas com dado, 1 parcial, 2 aguardando fonte",
+    group: "investigacao",
   },
   {
     id: "funil",
@@ -77,7 +87,10 @@ export const AXES: readonly Axis[] = [
     dimensions: ["contexto", "competição", "poder"],
     unpublishedReason: "",
     state: "com dados de candidatura",
-    publication: "published", status: "publicado", statusNote: "Leitura por etapas, com universos e fontes próprios.", group: "investigacao",
+    publication: "published",
+    status: "publicado",
+    statusNote: "Leitura por etapas, com universos e fontes próprios.",
+    group: "investigacao",
   },
   {
     id: "quem-sao-elas",
@@ -89,7 +102,11 @@ export const AXES: readonly Axis[] = [
     dimensions: ["gênero × cor/raça", "território", "cargo", "partido ou federação", "deficiência"],
     unpublishedReason: "",
     state: "com dados de candidatura",
-    publication: "published", status: "publicado", statusNote: "Recortes de gênero, cor/raça, território, partido e cargo.", group: "investigacao", parentId: "dados-2026",
+    publication: "published",
+    status: "publicado",
+    statusNote: "Recortes de gênero, cor/raça, território, partido e cargo.",
+    group: "investigacao",
+    parentId: "dados-2026",
   },
   {
     id: "historico",
@@ -101,7 +118,11 @@ export const AXES: readonly Axis[] = [
     dimensions: ["gênero", "cor/raça", "cargo", "tempo"],
     unpublishedReason: "",
     state: "com dados de candidatura",
-    publication: "published", status: "publicado", statusNote: "Série 2014–2026 com metodologia declarada.", group: "investigacao", parentId: "dados-2026",
+    publication: "published",
+    status: "publicado",
+    statusNote: "Série 2014–2026 com metodologia declarada.",
+    group: "investigacao",
+    parentId: "dados-2026",
   },
   {
     id: "dinheiro",
@@ -119,7 +140,11 @@ export const AXES: readonly Axis[] = [
     ],
     unpublishedReason: "",
     state: "conteúdo editorial",
-    publication: "published", status: "publicado", statusNote: "Receitas declaradas na prestação de contas em andamento, base de 27/10/2026; os valores ainda mudam até a prestação final, que vence em 3/11.", group: "investigacao",
+    publication: "published",
+    status: "publicado",
+    statusNote:
+      "Receitas declaradas na prestação de contas em andamento, base de 27/10/2026; os valores ainda mudam até a prestação final, que vence em 3/11.",
+    group: "investigacao",
   },
   {
     id: "votos",
@@ -131,7 +156,11 @@ export const AXES: readonly Axis[] = [
     dimensions: ["gênero × cor/raça × votos", "cargo", "território", "recursos"],
     unpublishedReason: "",
     state: "com dados de resultado",
-    publication: "published", status: "parcial", statusNote: "Votos nominais do 1º turno por gênero, cor/raça e estado publicados; competitividade sem indicador definido.", group: "investigacao",
+    publication: "published",
+    status: "parcial",
+    statusNote:
+      "Votos nominais do 1º turno por gênero, cor/raça e estado publicados; competitividade sem indicador definido.",
+    group: "investigacao",
   },
   {
     id: "quem-chega",
@@ -149,7 +178,11 @@ export const AXES: readonly Axis[] = [
     ],
     unpublishedReason: "",
     state: "com dados de resultado",
-    publication: "published", status: "parcial", statusNote: "Resultado final publicado (com o 2º turno de 25/10) por cargo, cor/raça, estado e partido; posições de poder a partir da posse, em 2027.", group: "investigacao",
+    publication: "published",
+    status: "parcial",
+    statusNote:
+      "Resultado final publicado (com o 2º turno de 25/10) por cargo, cor/raça, estado e partido; posições de poder a partir da posse, em 2027.",
+    group: "investigacao",
   },
   {
     id: "como-votaram",
@@ -161,7 +194,10 @@ export const AXES: readonly Axis[] = [
     dimensions: ["gênero × cor/raça × voto em plenário", "partido", "resultado de 2026"],
     unpublishedReason: "",
     state: "com dados de resultado",
-    publication: "published", status: "publicado", statusNote: "Cinco votações nominais de mérito, 2023 a 2025, cruzadas com o resultado de 2026.", group: "investigacao",
+    publication: "published",
+    status: "publicado",
+    statusNote: "Cinco votações nominais de mérito, 2023 a 2025, cruzadas com o resultado de 2026.",
+    group: "investigacao",
   },
   {
     id: "barreiras",
@@ -172,9 +208,12 @@ export const AXES: readonly Axis[] = [
       "Eixo transversal sobre violência política de gênero, racismo, transfobia, ameaças, assédio e ataques digitais. Só entra com fontes comparáveis e método defensável.",
     dimensions: ["gênero", "cor/raça", "identidade de gênero", "território"],
     unpublishedReason:
-      "Depende de fontes comparáveis sobre violência política de gênero e raça, com método defensável. Essas fontes ainda não foram integradas.",
+      "Depende dos microdados do TSE sobre violência política de gênero, pedidos via Lei de Acesso à Informação (texto pronto em 28/10/2026, envio pela editora). O painel público do TSE não traz cor/raça nem registro por caso.",
     state: "arquitetura preparada",
-    publication: "unpublished", status: "aguardando dado", statusNote: "fontes comparáveis ainda não integradas", group: "investigacao",
+    publication: "unpublished",
+    status: "aguardando dado",
+    statusNote: "aguardando resposta ao pedido via LAI",
+    group: "investigacao",
   },
   {
     id: "direitos",
@@ -186,7 +225,10 @@ export const AXES: readonly Axis[] = [
     dimensions: ["legislação", "decisões", "implementação"],
     unpublishedReason: "",
     state: "conteúdo editorial",
-    publication: "published", status: "publicado", statusNote: "Linha do tempo jurídica e política publicada.", group: "investigacao",
+    publication: "published",
+    status: "publicado",
+    statusNote: "Linha do tempo jurídica e política publicada.",
+    group: "investigacao",
   },
   {
     id: "em-disputa",
@@ -198,7 +240,11 @@ export const AXES: readonly Axis[] = [
     dimensions: ["projetos de lei", "resoluções", "decisões judiciais"],
     unpublishedReason: "",
     state: "conteúdo editorial",
-    publication: "published", status: "publicado", statusNote: "Regras em vigor em 2026; projetos em tramitação ainda não listados.", group: "investigacao",
+    publication: "published",
+    status: "publicado",
+    statusNote:
+      "Regras em vigor e projetos em tramitação na Câmara, verificados em 28/10/2026; Senado ainda não levantado.",
+    group: "investigacao",
   },
   {
     id: "metodo",
@@ -210,7 +256,10 @@ export const AXES: readonly Axis[] = [
     dimensions: ["fonte", "universo", "fórmula", "limitações"],
     unpublishedReason: "",
     state: "conteúdo editorial",
-    publication: "published", status: "publicado", statusNote: "Fontes, contas e limites documentados.", group: "projeto",
+    publication: "published",
+    status: "publicado",
+    statusNote: "Fontes, contas e limites documentados.",
+    group: "projeto",
   },
   {
     id: "sobre",
@@ -222,7 +271,10 @@ export const AXES: readonly Axis[] = [
     dimensions: ["equipe", "princípios", "transparência"],
     unpublishedReason: "",
     state: "conteúdo editorial",
-    publication: "published", status: "publicado", statusNote: "Princípios, equipe e compromissos editoriais.", group: "projeto",
+    publication: "published",
+    status: "publicado",
+    statusNote: "Princípios, equipe e compromissos editoriais.",
+    group: "projeto",
   },
   {
     id: "downloads",
@@ -232,9 +284,13 @@ export const AXES: readonly Axis[] = [
     summary:
       "Cartilhas, materiais educativos e infográficos para impressão e compartilhamento. A tabela da fotografia vigente já sai pelo Método.",
     dimensions: ["materiais"],
-    unpublishedReason: "Cartilhas e infográficos em preparação.",
+    unpublishedReason: "",
     state: "arquitetura preparada",
-    publication: "published", status: "parcial", statusNote: "catálogo publicado; 1 de 4 materiais disponível", group: "materiais",
+    publication: "published",
+    status: "publicado",
+    statusNote:
+      "4 materiais disponíveis: cartilha, infográfico, roteiro de oficina e base de dados",
+    group: "materiais",
   },
 ];
 
@@ -263,11 +319,18 @@ export const NAV_ITEMS = [
   navItem("quem-sao-elas"),
   navItem("quem-controla"),
   navItem("direitos"),
-  { to: "/investigacoes", label: "Investigação", question: "O que está publicado e o que ainda está em apuração?" },
+  { to: "/reportagens", label: "Reportagens", question: "O que apuramos?" },
+  {
+    to: "/investigacoes",
+    label: "Investigação",
+    question: "O que está publicado e o que ainda está em apuração?",
+  },
   navItem("metodo"),
 ] as const;
 
-export const PUBLISHED_AXES = AXES.filter((item) => item.publication === "published").map((item) => item.id);
+export const PUBLISHED_AXES = AXES.filter((item) => item.publication === "published").map(
+  (item) => item.id,
+);
 
 export const DATA_2026_NAV_ITEMS = [
   { label: "Brasil", to: "/", hash: undefined },

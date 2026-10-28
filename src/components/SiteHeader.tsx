@@ -36,7 +36,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
           </span>
         </Link>
 
-        <div className="ml-auto hidden items-center gap-3 lg:flex">
+        <div className="ml-auto hidden items-center gap-3 xl:flex">
         <nav aria-label="Principal" className={`flex items-center ${home ? "gap-5" : "gap-3 xl:gap-4"}`}>
           {NAV_ITEMS.map((item) => item.to === "/" ? (
             <div key={item.to} className="relative" onKeyDown={(event) => { if (event.key === "Escape") { setDataOpen(false); (event.currentTarget.querySelector("button") as HTMLButtonElement | null)?.focus(); } }} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setDataOpen(false); }}>
@@ -80,7 +80,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
           type="button"
           variant="outline"
           size="icon"
-          className="ml-auto inline-flex h-10 w-10 items-center justify-center rounded-none border border-rule text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum lg:hidden"
+          className="ml-auto inline-flex h-10 w-10 items-center justify-center rounded-none border border-rule text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum xl:hidden"
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
           aria-controls="menu-movel"
@@ -98,7 +98,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
         <nav
           id="menu-movel"
           aria-label="Principal (móvel)"
-          className="max-h-[75vh] overflow-y-auto border-t border-rule bg-paper px-5 pb-6 lg:hidden"
+          className="max-h-[75vh] overflow-y-auto border-t border-rule bg-paper px-5 pb-6 xl:hidden"
         >
           <div className="border-b border-rule py-3">
             <p className="font-display text-base text-ink">Dados 2026</p>

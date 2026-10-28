@@ -223,7 +223,7 @@ export function HomeHistoryHighlight({ historical: _historical }: { historical: 
     { year: HISTORY_YEARS[0], value: 31.5, candidacies: "7.930" },
     { year: HISTORY_YEARS[1], value: 32.0, candidacies: "8.820" },
     { year: HISTORY_YEARS[2], value: 34.1, candidacies: "9.532" },
-    { year: HISTORY_YEARS[3], value: 35.6, candidacies: "6.951" },
+    { year: HISTORY_YEARS[3], value: 35.6, candidacies: "6.953" },
   ];
   const maxCount = 9532;
   return (
@@ -231,7 +231,7 @@ export function HomeHistoryHighlight({ historical: _historical }: { historical: 
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-16 md:grid-cols-[1.1fr_minmax(0,24rem)] md:px-8 md:py-24">
         <div>
           <ChapterKicker n="05" label="Como chegamos até aqui" dark />
-          <p className="mt-6 font-display text-[clamp(4rem,9vw,7rem)] font-semibold leading-[0.9] text-cream">2.581</p>
+          <p className="mt-6 font-display text-[clamp(4rem,9vw,7rem)] font-semibold leading-[0.9] text-cream">2.579</p>
           <h2 className="mt-3 max-w-md font-display text-2xl leading-[1.1] text-cream md:text-3xl">
             candidatas a deputada a menos que em 2022
           </h2>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Dois universos · Quem são elas?</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  body { background: var(--cream); }
+  .art { width: 1080px; padding: 72px; display: flex; flex-direction: column; gap: 44px; }
+  .art.sq { height: 1080px; }
+  .art.vt { height: 1920px; justify-content: space-between; padding: 110px 80px; }
+  .kick { font-size: 22px; color: var(--plum); }
+  h1 { font-size: 64px; color: var(--ink); max-width: 900px; }
+  .vt h1 { font-size: 86px; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .vt .cols { grid-template-columns: 1fr; gap: 70px; }
+  .u { border-top: 6px solid var(--ink); padding-top: 22px; }
+  .u h2 { font-family: "Fraunces", serif; font-size: 34px; font-weight: 600; }
+  .vt .u h2 { font-size: 46px; }
+  .u p.who { font-size: 20px; color: var(--muted); margin-top: 6px; line-height: 1.35; }
+  .vt .u p.who { font-size: 26px; }
+  .row { margin-top: 22px; }
+  .row .lab { font-size: 18px; }
+  .vt .row .lab { font-size: 24px; }
+  .row .line { display: flex; align-items: center; gap: 16px; margin-top: 6px; }
+  .track { flex: 1; height: 22px; background: var(--rule); }
+  .vt .track { height: 30px; }
+  .fill { height: 100%; background: var(--plum); }
+  .fill.now { background: var(--coral); }
+  .num { font-family: "Fraunces", serif; font-size: 44px; font-weight: 600; width: 150px; text-align: right; }
+  .vt .num { font-size: 60px; width: 190px; }
+  .base { font-family: "IBM Plex Mono", monospace; font-size: 15px; color: var(--muted); margin-top: 4px; }
+  .vt .base { font-size: 20px; }
+  .rule { background: var(--plum); color: var(--cream); padding: 26px 30px; font-size: 22px; line-height: 1.4; }
+  .vt .rule { font-size: 30px; padding: 40px; }
+  .rule b { font-family: "Fraunces", serif; font-size: 26px; }
+  .vt .rule b { font-size: 36px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; font-family: "IBM Plex Mono", monospace; font-size: 15px; color: var(--muted); }
+  .vt .foot { font-size: 20px; }
+  .foot .brand { font-size: 18px; color: var(--ink); }
+  .vt .foot .brand { font-size: 24px; }
+  .foot .brand svg { width: 34px; height: 34px; }
+</style>
+</head>
+<body>
+<template id="logo"><svg viewBox="0 0 512 512"><circle cx="256" cy="256" r="240" fill="#5b2a86"/><path d="M68 256c47-87 108-129 188-129s141 42 188 129c-47 87-108 129-188 129S115 343 68 256Z" fill="#1a1420"/><circle cx="256" cy="256" r="83" fill="#f5f1e8"/><path d="M256 173a83 83 0 0 1 71 41l-71 42Z" fill="#f2c230"/><path d="M327 214a83 83 0 0 1-12 94l-59-52Z" fill="#e8552b"/><circle cx="256" cy="256" r="29" fill="#1a1420"/></svg></template>
+<script>
+const content = (cls) => `
+<div class="art ${cls}">
+  <div>
+    <p class="mono kick">Eleições 2026 · como ler os números</p>
+    <h1 class="display" style="margin-top:18px">Dois universos, duas contas que não se somam</h1>
+  </div>
+  <div class="cols">
+    <div class="u">
+      <h2>Proporcional</h2>
+      <p class="who">Deputada e deputado federal, estadual e distrital. Vale a cota de 30% de candidaturas.</p>
+      <div class="row"><div class="lab">Mulheres entre os pedidos de registro</div><div class="line"><div class="track"><div class="fill" style="width:35.6%"></div></div><span class="num">35,6%</span></div><div class="base">6.953 de 19.531</div></div>
+      <div class="row"><div class="lab">Mulheres entre as eleitas e eleitos</div><div class="line"><div class="track"><div class="fill now" style="width:20.8%"></div></div><span class="num">20,8%</span></div><div class="base">327 de 1.572 cadeiras</div></div>
+    </div>
+    <div class="u">
+      <h2>Majoritário</h2>
+      <p class="who">Presidência, governos e Senado. A cota de candidaturas não vale aqui.</p>
+      <div class="row"><div class="lab">Mulheres entre os pedidos de registro</div><div class="line"><div class="track"><div class="fill" style="width:20.0%"></div></div><span class="num">20,0%</span></div><div class="base">107 de 534</div></div>
+      <div class="row"><div class="lab">Mulheres entre as eleitas e eleitos</div><div class="line"><div class="track"><div class="fill now" style="width:18.3%"></div></div><span class="num">18,3%</span></div><div class="base">15 de 82: 12 senadoras, 3 governadoras, 0 na Presidência</div></div>
+    </div>
+  </div>
+  <div class="rule"><b>Por que separar.</b> As regras são diferentes, e os totais também. Somar deputadas e senadoras numa porcentagem só mistura uma eleição com cota e outra sem cota.</div>
+  <div class="foot"><span class="brand">${document.getElementById("logo").innerHTML} quemsaoelas.com.br</span><span>Fonte: TSE, Candidatos 2026, base de 27/10/2026</span></div>
+</div>`;
+const mode = new URLSearchParams(location.search).get("formato") || "sq";
+document.body.insertAdjacentHTML("beforeend", content(mode));
+</script>
+</body>
+</html>

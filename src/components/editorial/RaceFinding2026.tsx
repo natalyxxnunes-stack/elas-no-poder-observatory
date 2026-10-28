@@ -37,15 +37,9 @@ function getCandidateData(snapshot: PublicSnapshot | null) {
       const key = normalizeRaceKey(label);
       normalized[key] = (normalized[key] ?? 0) + (count ?? 0);
     }
-    const total = RACE_FINDING_CATEGORIES.reduce(
-      (sum, key) => sum + (normalized[key] ?? 0),
-      0,
-    );
+    const total = RACE_FINDING_CATEGORIES.reduce((sum, key) => sum + (normalized[key] ?? 0), 0);
     if (total > 0) {
-      const byRace = {} as Record<
-        RaceFindingCategory,
-        { count: number; percent: number }
-      >;
+      const byRace = {} as Record<RaceFindingCategory, { count: number; percent: number }>;
       for (const key of RACE_FINDING_CATEGORIES) {
         const count = normalized[key] ?? 0;
         byRace[key] = { count, percent: (count / total) * 100 };
@@ -65,8 +59,6 @@ function getCandidateData(snapshot: PublicSnapshot | null) {
     conferido: false,
   };
 }
-
-
 
 const RACE_BAR_CLASS: Record<RaceFindingCategory, string> = {
   branca: "bg-[var(--race-branca)]",
@@ -89,19 +81,30 @@ function RacePair({
   return (
     <li className="space-y-2 border-b border-rule py-4 first:pt-0 last:border-b-0">
       <p className="font-display text-lg text-ink">{RACE_LABELS[category]}</p>
-      <ChartBar label="Mulheres 18+" base={`${n(pop.count)} mulheres`} value={pop.percent} scaleMax={50} display={pct(pop.percent)} barClass={`${bar} opacity-45`} valueClass="text-muted-foreground" />
-      <ChartBar label="Candidatas 2026" base={`${n(cand.count)} candidatas`} value={cand.percent} scaleMax={50} display={pct(cand.percent)} barClass={bar} />
+      <ChartBar
+        label="Mulheres 18+"
+        base={`${n(pop.count)} mulheres`}
+        value={pop.percent}
+        scaleMax={50}
+        display={pct(pop.percent)}
+        barClass={`${bar} opacity-45`}
+        valueClass="text-muted-foreground"
+      />
+      <ChartBar
+        label="Candidatas 2026"
+        base={`${n(cand.count)} candidatas`}
+        value={cand.percent}
+        scaleMax={50}
+        display={pct(cand.percent)}
+        barClass={bar}
+      />
     </li>
   );
 }
 
 /** Bloco editorial e visual: mulheres de 18+ (Censo 2022) × candidaturas de
  *  mulheres nas proporcionais de 2026 (TSE), por cor/raça. */
-export function RaceFinding2026({
-  snapshot,
-}: {
-  snapshot: PublicSnapshot | null;
-}) {
+export function RaceFinding2026({ snapshot }: { snapshot: PublicSnapshot | null }) {
   const { total, byRace, fromSnapshot, conferido } = getCandidateData(snapshot);
 
   // Texto e gráfico leem os MESMOS valores: nada de número fixo no corpo.
@@ -112,30 +115,37 @@ export function RaceFinding2026({
   const candBranca = byRace.branca;
   const candPreta = byRace.preta;
   const gapParda = candParda.percent - popParda.percent;
-  const pp = (v: number) =>
-    `${formatDecimal(Math.abs(v))} p.p.`;
+  const pp = (v: number) => `${formatDecimal(Math.abs(v))} p.p.`;
   const sourceLabel = fromSnapshot
     ? conferido
       ? "fotografia vigente conferida"
       : "fotografia vigente"
     : "conferência manual dos valores curados contra o TSE";
 
-
   return (
     <div className="space-y-8">
       <div className="space-y-6">
         <ChartFrame
           ficha={{
-        vendo: "A distribuição por cor/raça de duas populações lado a lado: mulheres adultas e candidatas a deputada.",
-        contados: "Mulheres de 18 anos ou mais no Censo 2022 e candidaturas de mulheres a deputada federal, estadual e distrital em 2026.",
-        denominador: "Cada barra sobre o total da própria população: todas as mulheres adultas ou todas as candidatas a deputada.",
-        data: "Censo 2022; candidaturas da fotografia do TSE de 25/09/2026",
-        fonte: "IBGE, Censo 2022; TSE, Candidaturas 2026",
-        limitacao: "Censo e TSE usam as mesmas cinco categorias autodeclaradas, em coletas e anos diferentes. A comparação mostra composição, não causa.",
-      }}
-      eyebrow="Cinco categorias, dois retratos"
+            vendo:
+              "A distribuição por cor/raça de duas populações lado a lado: mulheres adultas e candidatas a deputada.",
+            contados:
+              "Mulheres de 18 anos ou mais no Censo 2022 e candidaturas de mulheres a deputada federal, estadual e distrital em 2026.",
+            denominador:
+              "Cada barra sobre o total da própria população: todas as mulheres adultas ou todas as candidatas a deputada.",
+            data: "Censo 2022; candidaturas da fotografia do TSE de 27/10/2026",
+            fonte: "IBGE, Censo 2022; TSE, Candidaturas 2026",
+            limitacao:
+              "Censo e TSE usam as mesmas cinco categorias autodeclaradas, em coletas e anos diferentes. A comparação mostra composição, não causa.",
+          }}
+          eyebrow="Cinco categorias, dois retratos"
           title="Mulheres adultas (Censo 2022) × candidatas a deputada (2026)"
-          legend={<><LegendSwatch className="bg-plum opacity-45">Mulheres 18+</LegendSwatch><LegendSwatch className="bg-plum">Candidatas</LegendSwatch></>}
+          legend={
+            <>
+              <LegendSwatch className="bg-plum opacity-45">Mulheres 18+</LegendSwatch>
+              <LegendSwatch className="bg-plum">Candidatas</LegendSwatch>
+            </>
+          }
           note="Cada categoria na sua cor: a barra clara mostra as mulheres de 18 anos ou mais; a escura, as candidatas. Régua de 0 a 50%."
           source="Fontes: IBGE, Censo 2022 (mulheres de 18 anos ou mais); TSE, Candidaturas 2026"
         >
@@ -155,75 +165,75 @@ export function RaceFinding2026({
         <div className="grid gap-5 md:grid-cols-3">
           <article className="poster-frame-accent p-5">
             <p className="record-label border-plum text-plum">Fato</p>
-            <h3 className="mt-3 font-display text-xl text-ink">
-              O que o dado mostra
-            </h3>
+            <h3 className="mt-3 font-display text-xl text-ink">O que o dado mostra</h3>
             <div className="mt-3 space-y-3 leading-relaxed text-ink/70">
               <p>
-                No Censo de 2022, entre as mulheres de 18 anos ou mais, pardas e
-                brancas têm quase o mesmo tamanho: {pct(popParda.percent)} e{" "}
-                {pct(popBranca.percent)}.
+                No Censo de 2022, entre as mulheres de 18 anos ou mais, pardas e brancas têm quase o
+                mesmo tamanho: {pct(popParda.percent)} e {pct(popBranca.percent)}.
               </p>
               <p>
-                Entre as candidaturas de mulheres às proporcionais de 2026,
-                brancas são {pct(candBranca.percent)} e pardas{" "}
-                {pct(candParda.percent)}. A candidatura parda fica {pp(gapParda)}{" "}
-                {gapParda < 0 ? "abaixo" : "acima"} do peso das pardas entre as
+                Entre as candidaturas de mulheres às proporcionais de 2026, brancas são{" "}
+                {pct(candBranca.percent)} e pardas {pct(candParda.percent)}. A candidatura parda
+                fica {pp(gapParda)} {gapParda < 0 ? "abaixo" : "acima"} do peso das pardas entre as
                 mulheres adultas.
               </p>
               <p>
-                A candidatura preta aparece no sentido oposto:{" "}
-                {pct(candPreta.percent)} das candidatas, contra{" "}
-                {pct(popPreta.percent)} das mulheres adultas. Os percentuais
+                A candidatura preta aparece no sentido oposto: {pct(candPreta.percent)} das
+                candidatas, contra {pct(popPreta.percent)} das mulheres adultas. Os percentuais
                 deste parágrafo e as barras acima vêm da mesma fonte: a {sourceLabel}.
               </p>
             </div>
-
           </article>
 
           <article className="poster-frame-accent p-5">
             <p className="record-label border-ink text-ink [border-style:dashed]">
               Interpretação editorial
             </p>
-            <h3 className="mt-3 font-display text-xl text-ink">
-              Como lemos esse número
-            </h3>
+            <h3 className="mt-3 font-display text-xl text-ink">Como lemos esse número</h3>
             <div className="mt-3 space-y-3 leading-relaxed text-ink/70">
               <p>
-                Olhar só o total esconde a questão. Somadas, pretas e pardas são
-                a maioria das mulheres do país, e esse total apaga que os dois
-                grupos aparecem em direções opostas na disputa.
+                Olhar só o total esconde a questão. Somadas, pretas e pardas são a maioria das
+                mulheres do país, e esse total apaga que os dois grupos aparecem em direções opostas
+                na disputa.
               </p>
               <p>
-                É por isso que aqui as categorias ficam separadas. A distância
-                parda só fica visível quando o número da candidatura é colocado
-                ao lado do da população.
+                É por isso que aqui as categorias ficam separadas. A distância parda só fica visível
+                quando o número da candidatura é colocado ao lado do da população.
               </p>
             </div>
           </article>
 
           <article className="poster-frame-accent p-5">
-            <p className="record-label border-ink text-ink">
-              Hipótese em investigação
-            </p>
-            <h3 className="mt-3 font-display text-xl text-ink">
-              O que ainda precisa ser apurado
-            </h3>
+            <p className="record-label border-ink text-ink">Hipótese em investigação</p>
+            <h3 className="mt-3 font-display text-xl text-ink">O que ainda precisa ser apurado</h3>
             <div className="mt-3 space-y-3 leading-relaxed text-ink/70">
               <p>
-                Por que a candidatura parda fica abaixo do peso populacional,
-                esta comparação não responde: declaração de cor/raça, seleção
-                partidária e composição de listas são hipóteses a testar com
-                outras fontes, nenhuma delas demonstrada aqui.
+                Por que a candidatura parda fica abaixo do peso populacional, esta comparação não
+                responde: declaração de cor/raça, seleção partidária e composição de listas são
+                hipóteses a testar com outras fontes, nenhuma delas demonstrada aqui.
               </p>
               <p>
-                Também não sabemos o que acontece depois: estar na lista não é
-                receber recursos, tempo de televisão, voto ou cadeira. O
-                resultado do 1º turno já saiu: entre as {formatInt(RESULT_2026_PROPORCIONAL.elected.feminine)} deputadas eleitas,
-                {formatPct((RESULT_2026_PROPORCIONAL.electedRaceFeminine["PARDA"] ?? 0) / RESULT_2026_PROPORCIONAL.elected.feminine * 100)} são pardas,{" "}
-                {formatPct((RESULT_2026_PROPORCIONAL.electedRaceFeminine["PRETA"] ?? 0) / RESULT_2026_PROPORCIONAL.elected.feminine * 100)} pretas e{" "}
-                {formatPct((RESULT_2026_PROPORCIONAL.electedRaceFeminine["BRANCA"] ?? 0) / RESULT_2026_PROPORCIONAL.elected.feminine * 100)} brancas
-                (série completa no histórico).
+                Também não sabemos o que acontece depois: estar na lista não é receber recursos,
+                tempo de televisão, voto ou cadeira. O resultado do 1º turno já saiu: entre as{" "}
+                {formatInt(RESULT_2026_PROPORCIONAL.elected.feminine)} deputadas eleitas,
+                {formatPct(
+                  ((RESULT_2026_PROPORCIONAL.electedRaceFeminine["PARDA"] ?? 0) /
+                    RESULT_2026_PROPORCIONAL.elected.feminine) *
+                    100,
+                )}{" "}
+                são pardas,{" "}
+                {formatPct(
+                  ((RESULT_2026_PROPORCIONAL.electedRaceFeminine["PRETA"] ?? 0) /
+                    RESULT_2026_PROPORCIONAL.elected.feminine) *
+                    100,
+                )}{" "}
+                pretas e{" "}
+                {formatPct(
+                  ((RESULT_2026_PROPORCIONAL.electedRaceFeminine["BRANCA"] ?? 0) /
+                    RESULT_2026_PROPORCIONAL.elected.feminine) *
+                    100,
+                )}{" "}
+                brancas (série completa no histórico).
               </p>
             </div>
           </article>
@@ -231,21 +241,18 @@ export function RaceFinding2026({
       </div>
 
       <p className="text-sm leading-relaxed text-ink/70">
-        Denominadores: {n(total)} candidaturas de mulheres nas eleições
-        proporcionais de 2026
+        Denominadores: {n(total)} candidaturas de mulheres nas eleições proporcionais de 2026
         {fromSnapshot
           ? conferido
             ? " (lidas da fotografia vigente, conferida manualmente)"
             : " (lidas da fotografia vigente)"
           : ""}
-        ; população
-
-        de {n(POPULATION_FEMININE_2022)} mulheres de 18 anos ou mais (Censo 2022, o mesmo recorte de idade das candidatas). Cor/raça autodeclarada, nas
-        categorias do IBGE/TSE. Preta e parda são lidas separadamente; quando somadas como população negra, a soma é declarada. A
-        comparação entre candidaturas (TSE proporcional 2026) e mulheres
-        adultas (Censo 2022) são dois retratos, cada um com seu denominador;
-        leitura descritiva, não causal. Indígenas e amarelas: poucas
-        candidaturas, ler pelo absoluto.
+        ; população de {n(POPULATION_FEMININE_2022)} mulheres de 18 anos ou mais (Censo 2022, o
+        mesmo recorte de idade das candidatas). Cor/raça autodeclarada, nas categorias do IBGE/TSE.
+        Preta e parda são lidas separadamente; quando somadas como população negra, a soma é
+        declarada. A comparação entre candidaturas (TSE proporcional 2026) e mulheres adultas (Censo
+        2022) são dois retratos, cada um com seu denominador; leitura descritiva, não causal.
+        Indígenas e amarelas: poucas candidaturas, ler pelo absoluto.
       </p>
     </div>
   );

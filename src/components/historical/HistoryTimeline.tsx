@@ -36,18 +36,24 @@ export function HistoryTimeline({
             <p className="font-display text-3xl text-ink">{year}</p>
             <div className="mt-2">
               {missing ? (
-                <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">fotografia não coletada</p>
+                <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
+                  fotografia não coletada
+                </p>
               ) : current ? (
-                <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">eleição encerrada</p>
+                <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
+                  eleição encerrada
+                </p>
               ) : (
-                <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">eleição encerrada</p>
+                <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
+                  eleição encerrada
+                </p>
               )}
             </div>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               {missing
                 ? "Sem fotografia gravada: nada é exibido nem estimado para este ano."
                 : current
-                  ? "Candidaturas da fotografia de 25/09. Resultado final (1º turno de 4/10 e 2º turno de 25/10) lido do arquivo oficial do TSE de 27/10/2026."
+                  ? "Candidaturas e resultado final (1º turno de 4/10 e 2º turno de 25/10) lidos do arquivo oficial do TSE de 27/10/2026."
                   : "Candidaturas e resultado de 1º turno lidos do arquivo oficial do TSE."}
             </p>
             {date && (
@@ -57,8 +63,7 @@ export function HistoryTimeline({
             )}
             {snap && snap.recordCount > 0 && (
               <p className="mt-1 font-mono text-[12px] text-muted-foreground">
-                {formatInt(snap.recordCount)} candidaturas
-                deduplicadas
+                {formatInt(snap.recordCount)} candidaturas deduplicadas
               </p>
             )}
             {snap && snap.anomalies.length > 0 && (
