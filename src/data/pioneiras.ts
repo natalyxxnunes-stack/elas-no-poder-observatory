@@ -2,7 +2,8 @@
  * pioneiras — mulheres cujos nomes acompanham a linha do tempo de direitos.
  *
  * Conteúdo editorial, sem número derivado da base do TSE (exceto a linha
- * `em2026`, lida do arquivo oficial de candidaturas de 2026). Cada perfil
+ * `em2026`, lida do arquivo oficial de candidaturas de 2026, e a votação de
+ * Pagu em 1950, recontada em `perfis-pioneiras.ts`). Cada perfil
  * aponta para uma fonte específica. Quando um fato é reputação histórica e
  * não registro documental, o texto diz isso.
  *
@@ -21,6 +22,8 @@ export type Pioneira = {
   milestoneYear?: string;
   /** situação na eleição de 2026, lida do arquivo oficial do TSE */
   em2026?: string;
+  /** rota do perfil longo na seção Pioneiras, quando publicado */
+  perfil?: "/pioneiras/pagu";
   sourceLabel: string;
   sourceUrl: string;
 };
@@ -51,12 +54,12 @@ export const PIONEIRAS: readonly Pioneira[] = [
     id: "pagu",
     name: "Patrícia Galvão, a Pagu",
     years: "1910–1962",
-    mark: "Ficou conhecida como a primeira mulher presa por motivo político no Brasil",
+    mark: "Presa num comício em Santos em 1931, candidata a deputada estadual em 1950",
     text:
-      "Escritora e jornalista, foi presa pela polícia política em 1931, em Santos, ao ajudar a organizar uma greve de estivadores. Foi a primeira de uma série de 23 prisões ao longo da vida, uma delas de quatro anos. O título de primeira presa política é reputação histórica consolidada, sem registro oficial que o comprove.",
-    sourceLabel: "Estado de Minas, 2 jul. 2023; Outras Palavras, A rebeldia e o marxismo de Pagu",
-    sourceUrl:
-      "https://www.em.com.br/app/noticia/cultura/2023/07/02/interna_cultura,1515192/escritora-patricia-galvao-a-pagu-e-a-homenageada-da-flip-2023.shtml",
+      "Escritora e jornalista, foi presa em 23 de agosto de 1931, em Santos, num comício reprimido pela polícia em que o ensacador de café Herculano de Souza foi morto. Outra militante, Guiomar Gonçalves, foi presa com ela. O título de primeira presa política do país, que acompanha o nome de Pagu, é reputação sem documento que o comprove. Em 1950, disputou uma vaga na Assembleia de São Paulo pelo PSB e teve 171 votos (TSE, recontagem independente).",
+    perfil: "/pioneiras/pagu",
+    sourceLabel: "Fundação Perseu Abramo, 23 de agosto de 1931; TSE, Resultados 1950",
+    sourceUrl: "https://fpabramo.org.br/a-semana-na-historia-21-a-27-de-agosto/",
   },
   {
     id: "carlota-pereira-de-queiros",

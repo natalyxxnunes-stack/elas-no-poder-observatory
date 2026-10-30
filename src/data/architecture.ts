@@ -319,6 +319,7 @@ export const NAV_ITEMS = [
   navItem("quem-controla"),
   navItem("direitos"),
   { to: "/reportagens", label: "Reportagens", question: "O que apuramos?" },
+  { to: "/pioneiras", label: "Pioneiras", question: "Quem abriu o caminho?" },
   {
     to: "/investigacoes",
     label: "Investigação",

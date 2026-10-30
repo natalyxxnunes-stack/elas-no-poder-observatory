@@ -30,6 +30,8 @@ import { Route as QuemSaoElasRouteImport } from './routes/quem-sao-elas'
 import { Route as ReportagensRouteImport } from './routes/reportagens'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as VotosRouteImport } from './routes/votos'
+import { Route as PioneirasIndexRouteImport } from './routes/pioneiras.index'
+import { Route as PioneirasPaguRouteImport } from './routes/pioneiras.pagu'
 import { Route as ApiPublicTseIngestRouteImport } from './routes/api/public/tse/ingest'
 import { Route as ApiPublicTseIngestHistoryRouteImport } from './routes/api/public/tse/ingest-history'
 
@@ -138,6 +140,16 @@ const VotosRoute = VotosRouteImport.update({
   path: '/votos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PioneirasIndexRoute = PioneirasIndexRouteImport.update({
+  id: '/pioneiras/',
+  path: '/pioneiras/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PioneirasPaguRoute = PioneirasPaguRouteImport.update({
+  id: '/pioneiras/pagu',
+  path: '/pioneiras/pagu',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicTseIngestRoute = ApiPublicTseIngestRouteImport.update({
   id: '/api/public/tse/ingest',
   path: '/api/public/tse/ingest',
@@ -172,6 +184,8 @@ export interface FileRoutesByFullPath {
   '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
+  '/pioneiras/pagu': typeof PioneirasPaguRoute
+  '/pioneiras/': typeof PioneirasIndexRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
   '/api/public/tse/ingest-history': typeof ApiPublicTseIngestHistoryRoute
 }
@@ -197,6 +211,8 @@ export interface FileRoutesByTo {
   '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
+  '/pioneiras/pagu': typeof PioneirasPaguRoute
+  '/pioneiras': typeof PioneirasIndexRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
   '/api/public/tse/ingest-history': typeof ApiPublicTseIngestHistoryRoute
 }
@@ -223,6 +239,8 @@ export interface FileRoutesById {
   '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
+  '/pioneiras/pagu': typeof PioneirasPaguRoute
+  '/pioneiras/': typeof PioneirasIndexRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
   '/api/public/tse/ingest-history': typeof ApiPublicTseIngestHistoryRoute
 }
@@ -250,6 +268,8 @@ export interface FileRouteTypes {
     | '/reportagens'
     | '/sobre'
     | '/votos'
+    | '/pioneiras/pagu'
+    | '/pioneiras/'
     | '/api/public/tse/ingest'
     | '/api/public/tse/ingest-history'
   fileRoutesByTo: FileRoutesByTo
@@ -275,6 +295,8 @@ export interface FileRouteTypes {
     | '/reportagens'
     | '/sobre'
     | '/votos'
+    | '/pioneiras/pagu'
+    | '/pioneiras'
     | '/api/public/tse/ingest'
     | '/api/public/tse/ingest-history'
   id:
@@ -300,6 +322,8 @@ export interface FileRouteTypes {
     | '/reportagens'
     | '/sobre'
     | '/votos'
+    | '/pioneiras/pagu'
+    | '/pioneiras/'
     | '/api/public/tse/ingest'
     | '/api/public/tse/ingest-history'
   fileRoutesById: FileRoutesById
@@ -326,6 +350,8 @@ export interface RootRouteChildren {
   ReportagensRoute: typeof ReportagensRoute
   SobreRoute: typeof SobreRoute
   VotosRoute: typeof VotosRoute
+  PioneirasPaguRoute: typeof PioneirasPaguRoute
+  PioneirasIndexRoute: typeof PioneirasIndexRoute
   ApiPublicTseIngestRoute: typeof ApiPublicTseIngestRoute
   ApiPublicTseIngestHistoryRoute: typeof ApiPublicTseIngestHistoryRoute
 }
@@ -479,6 +505,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VotosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pioneiras/': {
+      id: '/pioneiras/'
+      path: '/pioneiras'
+      fullPath: '/pioneiras/'
+      preLoaderRoute: typeof PioneirasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pioneiras/pagu': {
+      id: '/pioneiras/pagu'
+      path: '/pioneiras/pagu'
+      fullPath: '/pioneiras/pagu'
+      preLoaderRoute: typeof PioneirasPaguRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/tse/ingest': {
       id: '/api/public/tse/ingest'
       path: '/api/public/tse/ingest'
@@ -518,6 +558,8 @@ const rootRouteChildren: RootRouteChildren = {
   ReportagensRoute: ReportagensRoute,
   SobreRoute: SobreRoute,
   VotosRoute: VotosRoute,
+  PioneirasPaguRoute: PioneirasPaguRoute,
+  PioneirasIndexRoute: PioneirasIndexRoute,
   ApiPublicTseIngestRoute: ApiPublicTseIngestRoute,
   ApiPublicTseIngestHistoryRoute: ApiPublicTseIngestHistoryRoute,
 }

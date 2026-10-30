@@ -204,6 +204,14 @@ function DireitosPage() {
               <h3 className="mt-2 font-display text-2xl leading-tight text-ink">{p.name}</h3>
               <p className="mt-2 font-display text-base italic leading-snug text-plum">{p.mark}</p>
               <p className="mt-3 text-sm leading-relaxed text-ink">{p.text}</p>
+              {p.perfil && (
+                <Link
+                  to={p.perfil}
+                  className="mt-3 inline-block font-mono text-xs uppercase tracking-wider text-plum underline decoration-plum underline-offset-4"
+                >
+                  Ler o perfil →
+                </Link>
+              )}
               {p.em2026 && (
                 <p className="mt-3 border-t border-rule pt-3 text-sm leading-relaxed text-muted-foreground">
                   <span className="font-mono text-[12px] uppercase tracking-wider">Em 2026: </span>
