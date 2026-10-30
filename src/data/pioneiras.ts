@@ -23,7 +23,7 @@ export type Pioneira = {
   /** situação na eleição de 2026, lida do arquivo oficial do TSE */
   em2026?: string;
   /** rota do perfil longo na seção Pioneiras, quando publicado */
-  perfil?: "/pioneiras/pagu";
+  perfil?: "/pioneiras/pagu" | "/pioneiras/lelia-gonzalez";
   sourceLabel: string;
   sourceUrl: string;
 };

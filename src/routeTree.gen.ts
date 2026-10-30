@@ -31,6 +31,7 @@ import { Route as ReportagensRouteImport } from './routes/reportagens'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as VotosRouteImport } from './routes/votos'
 import { Route as PioneirasIndexRouteImport } from './routes/pioneiras.index'
+import { Route as PioneirasLeliaGonzalezRouteImport } from './routes/pioneiras.lelia-gonzalez'
 import { Route as PioneirasPaguRouteImport } from './routes/pioneiras.pagu'
 import { Route as ApiPublicTseIngestRouteImport } from './routes/api/public/tse/ingest'
 import { Route as ApiPublicTseIngestHistoryRouteImport } from './routes/api/public/tse/ingest-history'
@@ -145,6 +146,11 @@ const PioneirasIndexRoute = PioneirasIndexRouteImport.update({
   path: '/pioneiras/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PioneirasLeliaGonzalezRoute = PioneirasLeliaGonzalezRouteImport.update({
+  id: '/pioneiras/lelia-gonzalez',
+  path: '/pioneiras/lelia-gonzalez',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PioneirasPaguRoute = PioneirasPaguRouteImport.update({
   id: '/pioneiras/pagu',
   path: '/pioneiras/pagu',
@@ -184,6 +190,7 @@ export interface FileRoutesByFullPath {
   '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
+  '/pioneiras/lelia-gonzalez': typeof PioneirasLeliaGonzalezRoute
   '/pioneiras/pagu': typeof PioneirasPaguRoute
   '/pioneiras/': typeof PioneirasIndexRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
@@ -211,6 +218,7 @@ export interface FileRoutesByTo {
   '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
+  '/pioneiras/lelia-gonzalez': typeof PioneirasLeliaGonzalezRoute
   '/pioneiras/pagu': typeof PioneirasPaguRoute
   '/pioneiras': typeof PioneirasIndexRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
@@ -239,6 +247,7 @@ export interface FileRoutesById {
   '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
+  '/pioneiras/lelia-gonzalez': typeof PioneirasLeliaGonzalezRoute
   '/pioneiras/pagu': typeof PioneirasPaguRoute
   '/pioneiras/': typeof PioneirasIndexRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
@@ -268,6 +277,7 @@ export interface FileRouteTypes {
     | '/reportagens'
     | '/sobre'
     | '/votos'
+    | '/pioneiras/lelia-gonzalez'
     | '/pioneiras/pagu'
     | '/pioneiras/'
     | '/api/public/tse/ingest'
@@ -295,6 +305,7 @@ export interface FileRouteTypes {
     | '/reportagens'
     | '/sobre'
     | '/votos'
+    | '/pioneiras/lelia-gonzalez'
     | '/pioneiras/pagu'
     | '/pioneiras'
     | '/api/public/tse/ingest'
@@ -322,6 +333,7 @@ export interface FileRouteTypes {
     | '/reportagens'
     | '/sobre'
     | '/votos'
+    | '/pioneiras/lelia-gonzalez'
     | '/pioneiras/pagu'
     | '/pioneiras/'
     | '/api/public/tse/ingest'
@@ -350,6 +362,7 @@ export interface RootRouteChildren {
   ReportagensRoute: typeof ReportagensRoute
   SobreRoute: typeof SobreRoute
   VotosRoute: typeof VotosRoute
+  PioneirasLeliaGonzalezRoute: typeof PioneirasLeliaGonzalezRoute
   PioneirasPaguRoute: typeof PioneirasPaguRoute
   PioneirasIndexRoute: typeof PioneirasIndexRoute
   ApiPublicTseIngestRoute: typeof ApiPublicTseIngestRoute
@@ -512,6 +525,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PioneirasIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pioneiras/lelia-gonzalez': {
+      id: '/pioneiras/lelia-gonzalez'
+      path: '/pioneiras/lelia-gonzalez'
+      fullPath: '/pioneiras/lelia-gonzalez'
+      preLoaderRoute: typeof PioneirasLeliaGonzalezRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pioneiras/pagu': {
       id: '/pioneiras/pagu'
       path: '/pioneiras/pagu'
@@ -558,6 +578,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReportagensRoute: ReportagensRoute,
   SobreRoute: SobreRoute,
   VotosRoute: VotosRoute,
+  PioneirasLeliaGonzalezRoute: PioneirasLeliaGonzalezRoute,
   PioneirasPaguRoute: PioneirasPaguRoute,
   PioneirasIndexRoute: PioneirasIndexRoute,
   ApiPublicTseIngestRoute: ApiPublicTseIngestRoute,

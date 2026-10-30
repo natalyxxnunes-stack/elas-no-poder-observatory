@@ -21,7 +21,7 @@ export type PerfilPioneira = {
   years: string;
   linhaFina: string;
   /** rota do perfil publicado; ausente quando o perfil ainda está em apuração */
-  to?: "/pioneiras/pagu";
+  to?: "/pioneiras/pagu" | "/pioneiras/lelia-gonzalez";
 };
 
 export const PERFIS_PIONEIRAS: readonly PerfilPioneira[] = [
@@ -38,7 +38,8 @@ export const PERFIS_PIONEIRAS: readonly PerfilPioneira[] = [
     name: "Lélia Gonzalez",
     years: "1935–1994",
     linhaFina:
-      "Intelectual e militante do movimento negro, candidata a deputada federal em 1982 e a deputada estadual em 1986, no Rio de Janeiro.",
+      "Intelectual do movimento negro, teve 14.909 votos para deputada federal em 1982 e 8.286 para deputada estadual em 1986, no Rio. Ficou suplente nas duas.",
+    to: "/pioneiras/lelia-gonzalez",
   },
   {
     id: "rosa-luxemburgo",
@@ -81,4 +82,56 @@ export const SP_1950 = {
     { nome: "Conceição da Costa Neves", registro: "Maria da Conceição Neves Santamaria", partido: "PTB", votos: 10905 },
     { nome: "Tereza Delta", registro: "Tereza Delta", partido: "PSP", votos: 5390 },
   ],
+} as const;
+
+/**
+ * Eleições de Lélia Gonzalez no Rio de Janeiro.
+ * Fonte: TSE, Dados Abertos, Resultados 1982 e 1986, Votação nominal por UF.
+ * Recontagem independente com scripts/pioneiras/votacao_historica.py,
+ * conferida de novo em 30/10/2026. As bases de 1982 e 1986 não registram
+ * sexo nem cor/raça.
+ */
+export const RJ_1982 = {
+  data: "15/11/1982",
+  cargo: "deputada federal",
+  zipSha256: "4f17001ac0cd190c2774003dc6809bfd6fe4e015a4b806e6fb6a87813c575173",
+  arquivo: "VOTACAO_CANDIDATO_UF_1982_RJ.txt",
+  arquivoSha256: "53102287dea7b653dc7040b54097bbbcd0e39691b533b6cf8a63ad0789fb43eb",
+  registro: "LELIA DE ALMEIDA GONZALES",
+  candidaturas: 261,
+  cadeiras: 46,
+  menorVotacaoEleita: 17708,
+  medianaGeral: 6500,
+  posicaoGeral: 74,
+  lelia: { votos: 14909, partido: "PT", situacao: "suplente" },
+  partido: {
+    sigla: "PT",
+    candidaturas: 30,
+    eleitos: 1,
+    posicaoLelia: 2,
+    eleito: { nome: "José Eudes Freitas", votos: 36014 },
+  },
+} as const;
+
+export const RJ_1986 = {
+  data: "15/11/1986",
+  cargo: "deputada estadual",
+  zipSha256: "c2e3201a0f58e4e77ee951322d47b0a88fddcbfb94d553777f598ad5c83ddeee",
+  arquivo: "VOTACAO_CANDIDATO_UF_1986_RJ.txt",
+  arquivoSha256: "4a808a38cb566022a2663d7d5a90f504388739b5f3387e1ed08212642ed96091",
+  registro: "LELIA DE ALMEIDA GONZALEZ",
+  candidaturas: 1711,
+  cadeiras: 70,
+  menorVotacaoEleita: 2837,
+  medianaGeral: 911,
+  posicaoGeral: 140,
+  lelia: { votos: 8286, partido: "PDT", situacao: "suplente" },
+  partido: { sigla: "PDT", candidaturas: 105, eleitos: 17, posicaoLelia: 36 },
+  /** a cadeira dependia da votação da coligação, não só do partido */
+  coligacao: {
+    nome: "Pacto Democrático Trabalhista (PDT, PMB, PRN, PCN)",
+    candidaturas: 166,
+    eleitos: 17,
+    menorVotacaoEleita: 12260,
+  },
 } as const;

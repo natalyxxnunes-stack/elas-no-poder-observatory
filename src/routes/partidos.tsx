@@ -11,7 +11,7 @@ import { RESULT_2026_GOVERNO, RESULT_2026_META, RESULT_2026_PARTIDOS } from "@/d
 import { SENADO_2027, SENADO_2027_META } from "@/data/senado-2027";
 import { PARTIDOS_VOTOS } from "@/data/partidos-votos";
 import { VOTACOES } from "@/data/votacoes-camara";
-import { formatInt, formatPct } from "@/lib/format-br";
+import { formatDecimal, formatInt, formatPct } from "@/lib/format-br";
 
 export const Route = createFileRoute("/partidos")({
   head: () => ({
@@ -200,7 +200,7 @@ function FundoTable() {
                   {partido}
                 </th>
                 <td className={td}>
-                  R$ {(d.fefc / 1e6).toLocaleString("pt-BR", { maximumFractionDigits: 1 })} mi
+                  R$ {formatDecimal(d.fefc / 1e6).replace(/,0$/, "")} mi
                 </td>
                 <td className={td}>{p(d.mulheres.candidaturas, d.candidaturas)}</td>
                 <td className={`${td} ${mf < 30 ? "bg-coral/40" : ""}`}>{formatPct(mf)}</td>

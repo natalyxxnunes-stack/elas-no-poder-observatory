@@ -16,7 +16,7 @@ import {
 } from "@/data/resultado-2026";
 import { VOTOS_2026 } from "@/data/votos-2026";
 import { FEMINICIDIO_2025, FEMINICIDIO_META, VPG, VPG_META } from "@/data/violencia-2026";
-import { formatInt, formatPct } from "@/lib/format-br";
+import { formatDecimal, formatInt, formatPct } from "@/lib/format-br";
 
 const n = formatInt;
 const pct = (a: number, b: number) => formatPct(b > 0 ? (a / b) * 100 : 0);
@@ -202,7 +202,7 @@ export const M_VPG: Manchete = {
 
 export const M_FEMINICIDIO: Manchete = {
   id: "feminicidio",
-  texto: `Em 2025, ${FEMINICIDIO_2025.razoesDeGeneroPct.toLocaleString("pt-BR")}% das mulheres assassinadas no Brasil foram mortas por razões de gênero, o maior percentual desde 2015: ${n(FEMINICIDIO_2025.vitimas)} vítimas de feminicídio`,
+  texto: `Em 2025, ${formatDecimal(FEMINICIDIO_2025.razoesDeGeneroPct)}% das mulheres assassinadas no Brasil foram mortas por razões de gênero, o maior percentual desde 2015: ${n(FEMINICIDIO_2025.vitimas)} vítimas de feminicídio`,
   to: "/barreiras#feminicidio",
   pagina: "Barreiras",
   fonte: `${FEMINICIDIO_META.fonte}, publicado em ${FEMINICIDIO_META.publicadoEm}`,

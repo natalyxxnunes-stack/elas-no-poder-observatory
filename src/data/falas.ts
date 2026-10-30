@@ -11,6 +11,7 @@
  *    original; não aparece no site.
  */
 import { FEMINICIDIO_2025, FEMINICIDIO_META } from "@/data/violencia-2026";
+import { formatDecimal, formatInt } from "@/lib/format-br";
 
 export type Fala = {
   id: string;
@@ -51,7 +52,7 @@ export const FALAS: Fala[] = [
     fonteUrl: DC("11/3/2026", 163),
     fonteRotulo: "Diário da Câmara, 11/03/2026, p. 163",
     dado: {
-      texto: `O Anuário confirma: ${FEMINICIDIO_2025.vitimas.toLocaleString("pt-BR")} vítimas de feminicídio em 2025, ${FEMINICIDIO_2025.variacao}.`,
+      texto: `O Anuário confirma: ${formatInt(FEMINICIDIO_2025.vitimas)} vítimas de feminicídio em 2025, ${FEMINICIDIO_2025.variacao}.`,
       fonte: ANUARIO,
     },
     publicar: true,
@@ -150,7 +151,7 @@ export const FALAS: Fala[] = [
     fonteUrl: "https://www.youtube.com/watch?v=SK228weoMi4",
     fonteRotulo: "Gazeta do Povo, Café com a Gazeta, 13/10/2026, por volta de 1:20 e 3:05",
     dado: {
-      texto: `O feminicídio é crime autônomo no Código Penal desde a Lei 14.994/2024. Em 2025, ${FEMINICIDIO_2025.razoesDeGeneroPct.toLocaleString("pt-BR")}% das mulheres assassinadas no Brasil foram mortas por razões de gênero, o maior percentual desde 2015, e houve ${FEMINICIDIO_2025.vitimas.toLocaleString("pt-BR")} vítimas de feminicídio.`,
+      texto: `O feminicídio é crime autônomo no Código Penal desde a Lei 14.994/2024. Em 2025, ${formatDecimal(FEMINICIDIO_2025.razoesDeGeneroPct)}% das mulheres assassinadas no Brasil foram mortas por razões de gênero, o maior percentual desde 2015, e houve ${formatInt(FEMINICIDIO_2025.vitimas)} vítimas de feminicídio.`,
       fonte: ANUARIO,
     },
     publicar: false,
