@@ -34,6 +34,34 @@ export type Manchete = {
   fonte: string;
   /** marcado quando o dado ainda pode mudar */
   parcial?: boolean;
+  /** versão em card: número-âncora, rótulo, tensão e mini-gráfico (capa e faixas) */
+  ancora?: Ancora;
+  /** fonte em uma linha, para o rodapé do card; a completa fica em `fonte` */
+  fonteCurta?: string;
+};
+
+export type Visual =
+  | {
+      tipo: "barras";
+      dados: { rotulo: string; valor: number; atual?: boolean }[];
+      /** linha de referência, em % */
+      piso?: number;
+      /** "pct" = escala de 0 a 100%; "contagem" = escala até o maior valor */
+      escala?: "pct" | "contagem";
+    }
+  | { tipo: "pontos"; total: number; cheios: number; legendaCheios: string; legendaVazios: string; atual?: boolean }
+  | { tipo: "waffle"; partes: { raca: string; rotulo: string; n: number }[]; colunas?: number; titulo?: string };
+
+export type Ancora = {
+  /** o número em destaque, já formatado */
+  valor: string;
+  /** o que o número conta, em uma frase curta */
+  rotulo: string;
+  /** a comparação que dá sentido ao número, com denominador */
+  tensao: string;
+  visual?: Visual;
+  /** segundo gráfico, só no card de destaque */
+  visualExtra?: Visual;
 };
 
 const R = RESULT_2026_PROPORCIONAL;
@@ -209,3 +237,114 @@ export const M_FEMINICIDIO: Manchete = {
 };
 
 CAPA.push(M_VPG);
+
+/* ---------- Versão em card das manchetes da capa ----------
+ * Todos os números saem das mesmas variáveis que montam o `texto`. */
+const pctN = (a: number, b: number) => (b > 0 ? (a / b) * 100 : 0);
+
+M_CADEIRAS.ancora = {
+  valor: pct(R.elected.feminine, R.seats),
+  rotulo: "das cadeiras de deputada ficaram com mulheres",
+  tensao: `Eram ${pct(R.candidacies.feminine, R.candidacies.total)} das candidaturas. ${n(R.elected.feminine)} de ${n(R.seats)} cadeiras.`,
+  visual: {
+    tipo: "barras",
+    dados: [
+      { rotulo: "Candidaturas", valor: pctN(R.candidacies.feminine, R.candidacies.total) },
+      { rotulo: "Cadeiras", valor: pctN(R.elected.feminine, R.seats), atual: true },
+    ],
+  },
+};
+M_CADEIRAS.fonteCurta = "TSE · base de 27/10/2026";
+
+M_BRANCAS.ancora = {
+  valor: pct(brancasEleitas, R.elected.feminine),
+  rotulo: "das deputadas eleitas em 2026 são brancas",
+  tensao: `Eram ${pct(brancasCand, R.candidacies.feminine)} das candidatas. ${n(brancasEleitas)} das ${n(R.elected.feminine)} eleitas.`,
+  visual: {
+    tipo: "barras",
+    dados: [
+      { rotulo: "Candidatas", valor: pctN(brancasCand, R.candidacies.feminine) },
+      { rotulo: "Eleitas", valor: pctN(brancasEleitas, R.elected.feminine), atual: true },
+    ],
+  },
+  visualExtra: {
+    tipo: "waffle",
+    titulo: `As ${n(R.elected.feminine)} deputadas eleitas, uma por quadrado`,
+    colunas: 27,
+    partes: (["BRANCA", "PARDA", "PRETA", "INDÍGENA", "AMARELA"] as const).map((raca) => ({
+      raca,
+      rotulo: { BRANCA: "brancas", PARDA: "pardas", PRETA: "pretas", "INDÍGENA": "indígenas", AMARELA: "amarelas" }[raca],
+      n: R.electedRaceFeminine[raca] ?? 0,
+    })),
+  },
+};
+M_BRANCAS.fonteCurta = "TSE · base de 27/10/2026 · cor/raça declarada";
+
+const plPretas = plRace["PRETA"] ?? 0;
+M_PL_PRETAS.ancora = {
+  valor: n(plPretas),
+  rotulo: `deputadas pretas entre as ${n(plF)} eleitas pelo PL`,
+  tensao: `${n(plRace["BRANCA"] ?? 0)} são brancas. O PL é o partido com mais cadeiras.`,
+  visual: {
+    tipo: "waffle",
+    partes: (["BRANCA", "PARDA", "PRETA", "INDÍGENA", "AMARELA"] as const).map((raca) => ({
+      raca,
+      rotulo: { BRANCA: "brancas", PARDA: "pardas", PRETA: "pretas", "INDÍGENA": "indígenas", AMARELA: "amarelas" }[raca],
+      n: plRace[raca] ?? 0,
+    })),
+  },
+};
+M_PL_PRETAS.fonteCurta = "TSE · base de 27/10/2026 · cor/raça declarada";
+
+M_IGUALDADE.ancora = {
+  valor: "8 de 8",
+  rotulo: "deputadas que votaram contra a igualdade salarial e tentaram voltar se elegeram",
+  tensao: "10 votaram Não em 2023; 8 concorreram em 2026.",
+  visual: { tipo: "pontos", total: 10, cheios: 8, legendaCheios: "concorreram e se elegeram", legendaVazios: "não concorreram", atual: true },
+};
+M_IGUALDADE.fonteCurta = "Câmara dos Deputados; TSE";
+
+M_SENADO.ancora = {
+  valor: "27 de 81",
+  rotulo: "cadeiras do Senado serão do PL em 2027",
+  tensao: "Um terço da Casa. Os projetos que reservam cadeiras para mulheres esperam relatoria há anos.",
+  visual: { tipo: "pontos", total: 81, cheios: 27, legendaCheios: "PL", legendaVazios: "outros partidos" },
+};
+M_SENADO.fonteCurta = "TSE; Senado Federal · 28/10/2026";
+
+const piso0 = ABAIXO_PISO_PP[0];
+if (piso0) {
+  M_PISO.ancora = {
+    valor: formatPct(piso0.fatia),
+    rotulo: `do fundo eleitoral do ${piso0.partido} para deputado foi para candidaturas pretas e pardas`,
+    tensao: `O piso da Constituição é 30%. ${ABAIXO_PISO_PP.slice(1).map((x) => `${x.partido}: ${formatPct(x.fatia)}`).join("; ")}. Pretas e pardas somadas, como na EC 133/2024.`,
+    visual: {
+      tipo: "barras",
+      piso: 30,
+      dados: ABAIXO_PISO_PP.map((x) => ({ rotulo: x.partido, valor: x.fatia, atual: true })),
+    },
+  };
+}
+M_PISO.fonteCurta = `TSE · contas de ${FEFC_META.baseGeneratedAt}`;
+
+M_VPG.ancora = {
+  valor: n(vpg26),
+  rotulo: "processos de violência política de gênero na Justiça Eleitoral em 2026",
+  tensao: `Em 2022 foram ${n(vpg22)}. Dados até ${VPG_META.extraidoEm}.`,
+  visual: {
+    tipo: "barras",
+    dados: [
+      { rotulo: "2022", valor: vpg22 },
+      { rotulo: "2026", valor: vpg26, atual: true },
+    ],
+    escala: "contagem",
+  },
+};
+M_VPG.fonteCurta = `TSE e MPF · ${VPG_META.extraidoEm}`;
+
+/**
+ * Cards da capa (decisão de 30/10/2026, a partir de avaliação de design e UX):
+ * o primeiro é o destaque; a manchete das cadeiras sai da capa porque o
+ * número dela já abre a página no topo.
+ */
+export const CAPA_CARDS: Manchete[] = [M_BRANCAS, M_PL_PRETAS, M_IGUALDADE, M_SENADO, M_PISO, M_VPG];

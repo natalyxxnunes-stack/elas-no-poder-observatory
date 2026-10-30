@@ -1,5 +1,5 @@
-import { CapaManchetes } from "@/components/editorial/Manchetes";
-import { CAPA } from "@/data/manchetes";
+import { CapaCards } from "@/components/editorial/Manchetes";
+import { CAPA_CARDS } from "@/data/manchetes";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { AchadoCard } from "@/components/editorial/AchadoCard";
@@ -176,9 +176,7 @@ function DadosPage() {
   return (
     <PageShell home>
       <HomeHeroEditorial snapshot={snapshot} baseDate={baseDate} />
-      <div className="pt-12">
-        <CapaManchetes items={CAPA} />
-      </div>
+      <CapaCards items={CAPA_CARDS} baseLabel="Resultado da eleição · base do TSE de 27/10/2026" />
       <CurrentSnapshot snapshot={snapshot} baseDate={baseDate} pendingDate={pendingDate} />
       <WhatChanged />
       <section className="relative left-1/2 -ml-[50vw] w-screen bg-butter">
