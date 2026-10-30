@@ -42,7 +42,7 @@ export function SiteFooter({ flush = false }: { flush?: boolean }) {
         </div>
 
         <div>
-          <h2 className="font-mono text-[12px] uppercase tracking-[0.18em] text-cream/80">
+          <h2 className="font-mono text-[13px] uppercase tracking-[0.12em] text-cream/80">
             Navegue
           </h2>
           <ul className="mt-4 space-y-2">
@@ -59,7 +59,7 @@ export function SiteFooter({ flush = false }: { flush?: boolean }) {
           </ul>
         </div>
         <div>
-          <h2 className="font-mono text-[12px] uppercase tracking-[0.18em] text-cream/80">
+          <h2 className="font-mono text-[13px] uppercase tracking-[0.12em] text-cream/80">
             Dados 2026
           </h2>
           <ul className="mt-4 grid grid-cols-2 gap-x-5 gap-y-2">

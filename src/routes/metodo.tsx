@@ -190,7 +190,7 @@ function MetodoPage() {
               Processada pelo observatório em {br(snapshot?.collectedAt ?? null)}
             </p>
             {snapshot && (
-              <p className="mt-3 font-mono text-[12px] text-muted-foreground">
+              <p className="mt-3 font-mono text-[13px] text-muted-foreground">
                 {formatInt(snapshot.recordCount)} candidaturas nos dois universos
               </p>
             )}
@@ -204,7 +204,7 @@ function MetodoPage() {
           aria-label="Em três pontos"
           className="editorial-card overflow-hidden"
         >
-          <h2 className="border-b border-rule bg-secondary px-5 py-3 font-mono text-[12px] uppercase tracking-[0.16em] text-plum">
+          <h2 className="border-b border-rule bg-secondary px-5 py-3 font-mono text-[13px] uppercase tracking-[0.12em] text-plum">
             Em três pontos
           </h2>
           <dl className="divide-y divide-rule">
@@ -223,7 +223,7 @@ function MetodoPage() {
               },
             ].map((r) => (
               <div key={r.label} className="px-5 py-4 sm:flex sm:gap-6">
-                <dt className="shrink-0 font-mono text-[12px] uppercase tracking-wider text-muted-foreground sm:w-48">
+                <dt className="shrink-0 font-mono text-[13px] uppercase tracking-wider text-muted-foreground sm:w-48">
                   {r.label}
                 </dt>
                 <dd className="mt-1 text-sm leading-relaxed text-ink sm:mt-0">
@@ -393,7 +393,7 @@ function MetodoPage() {
               <p className="kicker">Procedência do arquivo</p>
               {snapshot.zipSha256 || snapshot.brasilCsvSha256 ? (
                 <>
-                  <dl className="mt-3 space-y-2 font-mono text-[12px] text-muted-foreground">
+                  <dl className="mt-3 space-y-2 font-mono text-[13px] text-muted-foreground">
                     {snapshot.zipSha256 && (
                       <div>
                         <dt className="uppercase tracking-wider">
@@ -419,7 +419,7 @@ function MetodoPage() {
                       <dd>recontagem independente em 28/10/2026 (base de 27/10/2026)</dd>
                     </div>
                   </dl>
-                  <p className="mt-2 font-mono text-[12px] text-muted-foreground">
+                  <p className="mt-2 font-mono text-[13px] text-muted-foreground">
                     O código identifica o arquivo processado: quem baixar o mesmo
                     arquivo do TSE chega ao mesmo código. Ele comprova a
                     procedência do arquivo, não a correção dos cálculos feitos
@@ -499,7 +499,7 @@ function MetodoPage() {
                 >
                   Baixar a planilha (CSV)
                 </button>
-                <p className="mt-2 font-mono text-[12px] text-muted-foreground">
+                <p className="mt-2 font-mono text-[13px] text-muted-foreground">
                   O arquivo bruto original continua disponível direto no TSE, no
                   endereço citado na ficha técnica.
                 </p>
@@ -538,7 +538,7 @@ function MetodoPage() {
               .sort((a, b) => b[1] - a[1])
               .map(([k, v]) => (
                 <div key={k} className="poster-frame p-4">
-                  <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+                  <dt className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
                     {k}
                   </dt>
                   <dd className="poster-figure mt-2 text-3xl text-plum md:text-4xl">
@@ -575,7 +575,7 @@ function MetodoPage() {
                       <th
                         key={h}
                         scope="col"
-                        className="py-3 pr-4 font-mono text-[12px] uppercase tracking-wider text-muted-foreground"
+                        className="py-3 pr-4 font-mono text-[13px] uppercase tracking-wider text-muted-foreground"
                       >
                         {h}
                       </th>
@@ -895,11 +895,11 @@ function MetodoPage() {
                 Candidatos 2026 · TSE Dados Abertos
               </a>
               . Pacote:{" "}
-              <span className="break-all font-mono text-[12px]">
+              <span className="break-all font-mono text-[13px]">
                 {TSE_SOURCE.resourceUrl}
               </span>
               . Dentro dele, o arquivo processado é{" "}
-              <span className="break-all font-mono text-[12px]">
+              <span className="break-all font-mono text-[13px]">
                 {snapshot?.fileName ?? TSE_SOURCE.resourceName}
               </span>
               , com codificação ISO-8859-1 e separador “;”. A fotografia vigente
@@ -1097,11 +1097,11 @@ function MetodoPage() {
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <h3 className="font-display text-lg text-ink">{c.label}</h3>
               </div>
-              <p className="mt-1 font-mono text-[12px] text-muted-foreground">Situação: {c.status}</p>
+              <p className="mt-1 font-mono text-[13px] text-muted-foreground">Situação: {c.status}</p>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
                 {c.note}
               </p>
-              <p className="mt-2 font-mono text-[12px] break-words text-ink/60">
+              <p className="mt-2 font-mono text-[13px] break-words text-ink/60">
                 {c.url}
               </p>
             </article>
@@ -1189,7 +1189,7 @@ function MetodoPage() {
           </Link>.
         </p>
 
-        <p className="mt-6 font-mono text-[12px] text-muted-foreground">
+        <p className="mt-6 font-mono text-[13px] text-muted-foreground">
           Como citar e política de correções em{" "}
           <Link to="/sobre" className="text-plum underline underline-offset-4">
             Sobre

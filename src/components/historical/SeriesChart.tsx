@@ -35,7 +35,7 @@ function UniverseColumn({ series, universe }: { series: Series; universe: Univer
 
   return (
     <div>
-      <h3 className="font-mono text-[12px] uppercase tracking-[0.16em] text-plum">
+      <h3 className="font-mono text-[13px] uppercase tracking-[0.12em] text-plum">
         {UNIVERSE_LABEL[universe]}
       </h3>
 
@@ -48,7 +48,7 @@ function UniverseColumn({ series, universe }: { series: Series; universe: Univer
                   className="flex h-full w-full items-end justify-center rounded-t-sm border-x border-t border-dashed border-rule"
                   aria-hidden
                 >
-                  <span className="pb-2 font-mono text-[12px] text-muted-foreground">sem dado</span>
+                  <span className="pb-2 font-mono text-[13px] text-muted-foreground">sem dado</span>
                 </div>
               ) : isSplitRace &&
                 p.denominator &&
@@ -86,7 +86,7 @@ function UniverseColumn({ series, universe }: { series: Series; universe: Univer
               {p.value === null ? "—" : isSplitRace ? `(${fmt(p.value)}%)` : `${fmt(p.value)}%`}
             </p>
             <p
-              className={`font-mono text-[12px] ${p.year === 2026 ? "font-semibold text-coral-ink" : "text-muted-foreground"}`}
+              className={`font-mono text-[13px] ${p.year === 2026 ? "font-semibold text-coral-ink" : "text-muted-foreground"}`}
             >
               {p.year}
               {p.stage === "em_curso" ? "*" : ""}
@@ -99,7 +99,7 @@ function UniverseColumn({ series, universe }: { series: Series; universe: Univer
         {points.map((p) => (
           <div
             key={p.year}
-            className="flex items-baseline justify-between gap-3 font-mono text-[12px] text-muted-foreground"
+            className="flex items-baseline justify-between gap-3 font-mono text-[13px] text-muted-foreground"
           >
             <dt>{p.year}</dt>
             <dd className="text-right">

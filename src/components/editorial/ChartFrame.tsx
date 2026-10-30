@@ -37,7 +37,7 @@ export function FichaGrafico({ ficha }: { ficha: ChartFicha }) {
       <dl className="mt-3 grid gap-x-6 gap-y-3 text-sm leading-relaxed md:grid-cols-2">
         {FICHA_ROWS.map((row) => (
           <div key={row.key} className="min-w-0">
-            <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">{row.label}</dt>
+            <dt className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">{row.label}</dt>
             <dd className="mt-0.5 text-ink/85">{ficha[row.key]}</dd>
           </div>
         ))}

@@ -53,7 +53,7 @@ export function PerfilHero({
   return (
     <header className="grid gap-8 border-b border-ink py-10 md:py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:gap-12">
       <div>
-        <p className="font-mono text-xs uppercase tracking-[0.16em] text-plum">Pioneiras · {years}</p>
+        <p className="font-mono text-xs uppercase tracking-[0.12em] text-plum">Pioneiras · {years}</p>
         <h1 className="mt-4 font-display text-5xl leading-[0.98] text-ink md:text-7xl">{nome}</h1>
         <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink/80">{quemFoi}</p>
       </div>
@@ -171,7 +171,7 @@ export function Conferencia({
       {itens.map((it, i) => (
         <li key={i} className="grid gap-3 py-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:gap-8">
           <div>
-            <p className="inline-block border border-plum px-2 py-0.5 font-mono text-[12px] uppercase tracking-wider text-plum">
+            <p className="inline-block border border-plum px-2 py-0.5 font-mono text-[13px] uppercase tracking-wider text-plum">
               {it.status}
             </p>
             <p className="mt-3 font-display text-lg leading-snug text-ink">{it.circula}</p>

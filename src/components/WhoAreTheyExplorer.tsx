@@ -52,7 +52,7 @@ export function WhoAreTheyExplorer() {
               >
                 <span className="font-display text-lg text-ink">{row.level}</span>
                 <span
-                  className={`font-mono text-[12px] uppercase tracking-wider ${
+                  className={`font-mono text-[13px] uppercase tracking-wider ${
                     counts ? "text-plum" : "text-coral-ink"
                   }`}
                 >
@@ -66,14 +66,14 @@ export function WhoAreTheyExplorer() {
                   </p>
                   {counts && denominator ? (
                     <>
-                      <p className="mb-3 font-mono text-[12px] text-muted-foreground">
+                      <p className="mb-3 font-mono text-[13px] text-muted-foreground">
                         Denominador: {formatInt(denominator)}{" "}
                         candidaturas de mulheres neste universo.
                       </p>
                       <dl className="grid gap-3 sm:grid-cols-3">
                         {Object.entries(counts).map(([k, v]) => (
                           <div key={k} className="editorial-card p-3">
-                            <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+                            <dt className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
                               {k}
                             </dt>
                             <dd className="data-figure mt-1 text-2xl text-plum">

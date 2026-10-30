@@ -61,7 +61,7 @@ function SobrePage() {
               {SITE.name}
             </p>
             <p className="mt-1 text-sm text-muted-foreground">{SITE.tagline}</p>
-            <p className="mt-3 font-mono text-[12px] text-muted-foreground">
+            <p className="mt-3 font-mono text-[13px] text-muted-foreground">
               {SITE.cycle}
             </p>
           </div>
@@ -74,13 +74,13 @@ function SobrePage() {
           <p className="kicker">Ficha do projeto</p>
           <dl className="mt-5 grid gap-6 md:grid-cols-2 md:gap-x-8 md:gap-y-6">
             <div>
-              <dt className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
+              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
                 Responsável editorial
               </dt>
               <dd className="mt-1 text-ink">Nataly Nunes Pinto, jornalista</dd>
             </div>
             <div>
-              <dt className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
+              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
                 O que é
               </dt>
               <dd className="mt-1 text-ink">
@@ -89,7 +89,7 @@ function SobrePage() {
               </dd>
             </div>
             <div>
-              <dt className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
+              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
                 Fontes primárias
               </dt>
               <dd className="mt-1 text-ink">
@@ -98,7 +98,7 @@ function SobrePage() {
               </dd>
             </div>
             <div>
-              <dt className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
+              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
                 Atualização
               </dt>
               <dd className="mt-1 text-ink">
@@ -106,7 +106,7 @@ function SobrePage() {
               </dd>
             </div>
             <div>
-              <dt className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
+              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
                 Método
               </dt>
               <dd className="mt-1 text-ink">
@@ -114,7 +114,7 @@ function SobrePage() {
               </dd>
             </div>
             <div>
-              <dt className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
+              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
                 Uso de IA
               </dt>
               <dd className="mt-1 text-ink">
@@ -123,7 +123,7 @@ function SobrePage() {
               </dd>
             </div>
             <div>
-              <dt className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
+              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
                 Correções
               </dt>
               <dd className="mt-1 text-ink">
@@ -131,7 +131,7 @@ function SobrePage() {
               </dd>
             </div>
             <div>
-              <dt className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
+              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
                 Contato
               </dt>
               <dd className="mt-1 text-ink">
@@ -249,7 +249,7 @@ function SobrePage() {
               alguma coisa ficou de fora, me escreva. É assim que o projeto
               melhora.
             </p>
-            <p className="mt-3 font-mono text-[12px] text-ink">
+            <p className="mt-3 font-mono text-[13px] text-ink">
               Contato:{" "}
               <a
                 href="mailto:contato@quemsaoelas.com.br"

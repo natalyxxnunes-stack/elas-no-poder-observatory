@@ -135,7 +135,7 @@ function OfficeBars() {
       <ChartScale max={50} />
       <div className="mt-6 grid gap-4 border-t border-rule pt-5 sm:grid-cols-2">
         <div>
-          <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">Governos estaduais e do DF</p>
+          <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">Governos estaduais e do DF</p>
           <p className="mt-1 font-display text-3xl leading-none text-ink">
             {n(gov.electedFeminine)} de {n(gov.totalUfs)}
           </p>
@@ -150,7 +150,7 @@ function OfficeBars() {
           </p>
         </div>
         <div>
-          <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">Presidência · 2º turno</p>
+          <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">Presidência · 2º turno</p>
           <p className="mt-1 font-display text-3xl leading-none text-ink">
             {n(pres.mulheresNoSegundoTurno)} de {n(pres.segundoTurno)}
           </p>
@@ -235,7 +235,7 @@ function ElectionRateTable() {
     den >= SMALL ? (
       <>
         <span className="font-display text-lg text-ink">{pct(num, den)}</span>
-        <span className="block font-mono text-[11px] text-muted-foreground">
+        <span className="block font-mono text-[13px] text-muted-foreground">
           {n(num)} de {n(den)}
         </span>
       </>
@@ -262,7 +262,7 @@ function ElectionRateTable() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[22rem] text-sm">
           <thead>
-            <tr className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+            <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
               <th className="pb-2 text-left font-normal">Cor/raça</th>
               <th className="pb-2 text-right font-normal">Mulheres</th>
               <th className="pb-2 text-right font-normal">Homens</th>
@@ -315,7 +315,7 @@ function UfGrid() {
           <li key={uf} className="min-w-0">
             <div className="flex items-baseline justify-between gap-2">
               <span className="font-mono text-xs font-semibold text-ink">{uf}</span>
-              <span className="font-mono text-[11px] text-muted-foreground">
+              <span className="font-mono text-[13px] text-muted-foreground">
                 {n(f)} de {n(t)}
                 {t >= SMALL ? ` · ${pct(f, t)}` : ""}
               </span>
@@ -356,7 +356,7 @@ function PartyTable() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[30rem] text-sm">
           <thead>
-            <tr className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+            <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
               <th className="pb-2 text-left font-normal">Partido</th>
               <th className="pb-2 text-right font-normal">Eleitos</th>
               <th className="pb-2 text-right font-normal">Mulheres</th>
@@ -375,7 +375,7 @@ function PartyTable() {
                     <span className="font-display text-base text-ink">
                       {total >= SMALL ? pct(f, total) : `${n(f)} de ${n(total)}`}
                     </span>
-                    {total >= SMALL && <span className="block font-mono text-[11px] text-muted-foreground">{n(f)} de {n(total)}</span>}
+                    {total >= SMALL && <span className="block font-mono text-[13px] text-muted-foreground">{n(f)} de {n(total)}</span>}
                   </td>
                   <td className="hidden py-2 pl-4 text-xs leading-relaxed text-muted-foreground sm:table-cell">
                     {f === 0
@@ -521,7 +521,7 @@ function QuemChegaPage() {
             </p>
           </article>
         </div>
-        <p className="mt-6 font-mono text-[12px] text-muted-foreground">
+        <p className="mt-6 font-mono text-[13px] text-muted-foreground">
           Senado: as {n(RESULT_2026_SENADO.electedFeminine)} senadoras eleitas são{" "}
           {n((RESULT_2026_SENADO.electedRaceFeminine as Record<string, number>)["BRANCA"] ?? 0)} brancas e{" "}
           {n((RESULT_2026_SENADO.electedRaceFeminine as Record<string, number>)["PARDA"] ?? 0)} pardas. Nenhuma das{" "}
@@ -557,7 +557,7 @@ function QuemChegaPage() {
                 <StatusTag tone="pending">a partir de 2027</StatusTag>
               </div>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l.detail}</p>
-              <p className="mt-3 font-mono text-[12px] text-muted-foreground">{l.pending}</p>
+              <p className="mt-3 font-mono text-[13px] text-muted-foreground">{l.pending}</p>
             </li>
           ))}
         </ul>
@@ -580,7 +580,7 @@ function QuemChegaPage() {
             Nenhuma projeção de composição de mesas é publicada antes das fontes oficiais.
           </GapNote>
         </div>
-        <p className="mt-6 font-mono text-[12px] text-muted-foreground">
+        <p className="mt-6 font-mono text-[13px] text-muted-foreground">
           Critérios e fórmulas em{" "}
           <Link to="/metodo" className="text-plum underline underline-offset-4">
             Método

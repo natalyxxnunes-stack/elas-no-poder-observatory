@@ -27,7 +27,7 @@ function PioneirasPage() {
   return (
     <PageShell breadcrumb={[{ label: "Pioneiras" }]}>
       <header className="py-10 md:py-14">
-        <p className="font-mono text-xs uppercase tracking-[0.16em] text-plum">
+        <p className="font-mono text-xs uppercase tracking-[0.12em] text-plum">
           Série · {publicados.length} perfis publicados
         </p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] text-ink md:text-7xl">
@@ -52,7 +52,7 @@ function PioneirasPage() {
 
           {emApuracao.map((p) => (
             <div key={p.id} className="mt-5 border border-dashed border-plum/40 p-5 md:p-6">
-              <p className="inline-block border border-muted-foreground/60 px-2 py-0.5 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+              <p className="inline-block border border-muted-foreground/60 px-2 py-0.5 font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
                 Próximo perfil · em apuração
               </p>
               <p className="mt-3 font-display text-2xl leading-tight text-ink/75">

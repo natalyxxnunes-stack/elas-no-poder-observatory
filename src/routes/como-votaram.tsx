@@ -172,7 +172,7 @@ function VoteNames({ v }: { v: Votacao }) {
     <div className="mt-5 border-t border-rule pt-4">
       {lista.length > 0 && lista.length <= 25 && (
         <>
-          <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+          <p className="text-[13px] text-muted-foreground">
             As {n(lista.length)} deputadas que votaram {minoria}, por partido
           </p>
           <div className="mt-2">
@@ -189,7 +189,7 @@ function VoteNames({ v }: { v: Votacao }) {
             .filter(([, xs]) => xs.length)
             .map(([k, xs]) => (
               <div key={k}>
-                <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
                   {VOTE_PLURAL[k]} · {n(xs.length)}
                 </p>
                 <div className="mt-1.5">
@@ -277,7 +277,7 @@ function RaceVoteTable() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[36rem] text-sm">
           <thead>
-            <tr className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+            <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
               <th className="pb-2 text-left font-normal">Grupo</th>
               {VOTACOES.map((v) => (
                 <th key={v.id} className="pb-2 text-right font-normal">
@@ -433,7 +433,7 @@ function DeputadasTable() {
       (!soContra || Object.values(d.votos).some((x) => x.alinhamento === "contra a bancada")),
   );
   const chip = (active: boolean) =>
-    `border px-2 py-1 font-mono text-[11px] uppercase tracking-wider ${active ? "border-ink bg-ink text-cream" : "border-rule bg-card text-ink hover:border-ink"}`;
+    `border px-2 py-1 font-mono text-[13px] uppercase tracking-wider ${active ? "border-ink bg-ink text-cream" : "border-rule bg-card text-ink hover:border-ink"}`;
   const OUT_LABEL: Record<string, string> = {
     reeleita: "reeleita",
     "eleita para outro cargo": "outro cargo",
@@ -477,7 +477,7 @@ function DeputadasTable() {
         </label>
       </div>
       <p
-        className="mb-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground"
+        className="mb-2 font-mono text-[13px] uppercase tracking-wider text-muted-foreground"
         aria-live="polite"
       >
         {n(rows.length)} de {n(DEPUTADAS.length)} deputadas
@@ -485,7 +485,7 @@ function DeputadasTable() {
       <div className="overflow-x-auto border border-rule bg-card">
         <table className="w-full min-w-[56rem] text-sm">
           <thead>
-            <tr className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+            <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
               <th className="px-3 pb-2 pt-3 text-left font-normal">Deputada</th>
               <th className="px-3 pb-2 pt-3 text-left font-normal">Cor/raça (2022)</th>
               {VOTACOES.map((v) => (
@@ -505,7 +505,7 @@ function DeputadasTable() {
                 <tr key={d.nome} className="border-t border-rule align-top">
                   <th scope="row" className="px-3 py-2 text-left font-normal">
                     <span className="text-ink">{d.nome}</span>
-                    <span className="block font-mono text-[11px] text-muted-foreground">
+                    <span className="block font-mono text-[13px] text-muted-foreground">
                       {last?.partido}-{d.uf}
                     </span>
                   </th>
@@ -518,7 +518,7 @@ function DeputadasTable() {
                       return (
                         <td
                           key={v.id}
-                          className="px-2 py-2 text-center font-mono text-[11px] text-muted-foreground"
+                          className="px-2 py-2 text-center font-mono text-[13px] text-muted-foreground"
                         >
                           fora do mandato
                         </td>
@@ -526,7 +526,7 @@ function DeputadasTable() {
                     return (
                       <td key={v.id} className="px-2 py-2 text-center">
                         <span
-                          className={`inline-block min-w-14 px-1.5 py-0.5 font-mono text-[11px] ${VOTO_CLASS[x.voto] ?? "bg-secondary"}`}
+                          className={`inline-block min-w-14 px-1.5 py-0.5 font-mono text-[13px] ${VOTO_CLASS[x.voto] ?? "bg-secondary"}`}
                           title={
                             x.alinhamento
                               ? `${x.alinhamento} (maioria do ${x.partido}: ${x.bancada})`
@@ -542,7 +542,7 @@ function DeputadasTable() {
                   <td className="px-3 py-2 font-mono text-xs text-ink">
                     {OUT_LABEL[d.desfecho2026] ?? d.desfecho2026}
                     {d.desfecho2026 === "eleita para outro cargo" && d.cargo2026 ? (
-                      <span className="block text-[11px] text-muted-foreground">
+                      <span className="block text-[13px] text-muted-foreground">
                         {d.cargo2026.toLowerCase()}
                       </span>
                     ) : null}
@@ -598,13 +598,13 @@ function AsDezDaIgualdade() {
           return (
             <li key={d.nome} className="bg-card p-3">
               <p className="font-display text-lg leading-snug text-ink">{d.nome}</p>
-              <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+              <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
                 {x.partido}-{d.uf} em 2023
               </p>
               {x.alinhamento === "contra a bancada" && (
                 <p className="mt-1 text-xs text-ink/70">contra a maioria do partido</p>
               )}
-              <p className="mt-2 inline-block bg-coral px-1.5 py-0.5 font-mono text-[11px] text-ink">
+              <p className="mt-2 inline-block bg-coral px-1.5 py-0.5 font-mono text-[13px] text-ink">
                 em 2026: {destino(d)}
               </p>
             </li>
@@ -657,7 +657,7 @@ function AnistiaCotas() {
         oficial: {n(v.placar.sim)} a {n(v.placar.nao)}.
       </p>
       <div className="mt-4">
-        <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+        <p className="text-[13px] text-muted-foreground">
           As {n(lista.length)} deputadas que votaram Sim, por partido
         </p>
         <div className="mt-2">
@@ -966,7 +966,7 @@ function ComoVotaramPage() {
         ]}
       />
 
-      <p className="pb-6 font-mono text-[12px] text-muted-foreground">
+      <p className="pb-6 font-mono text-[13px] text-muted-foreground">
         Votos de 2026 na urna em{" "}
         <Link to="/votos" className="text-plum underline underline-offset-4">
           Votos

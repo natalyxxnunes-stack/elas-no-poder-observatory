@@ -12,7 +12,7 @@ import { formatInt, formatPct } from "@/lib/format-br";
 /** Número de capítulo da home: guia o olho pela sequência 01 a 06. */
 export function ChapterKicker({ n, label, dark = false }: { n: string; label: string; dark?: boolean }) {
   return (
-    <p className={`flex items-baseline gap-3 font-mono text-xs uppercase tracking-[0.16em] ${dark ? "text-cream/85" : "text-plum"}`}>
+    <p className={`flex items-baseline gap-3 font-mono text-xs uppercase tracking-[0.12em] ${dark ? "text-cream/85" : "text-plum"}`}>
       <span className={`font-display text-2xl font-semibold leading-none tracking-normal ${dark ? "text-cream" : "text-coral-ink"}`}>{n}</span>
       <span className={`h-px w-6 ${dark ? "bg-cream/60" : "bg-coral"}`} aria-hidden="true" />
       {label}
@@ -154,7 +154,7 @@ export function HomeHeroEditorial({ snapshot: _snapshot, baseDate: _baseDate }: 
     <section className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden border-b border-rule bg-paper">
       <div className="grid min-h-[min(50vh,22rem)] lg:grid-cols-[54%_46%] lg:items-stretch">
         <div className="relative bg-plum px-5 py-6 text-cream md:px-10 md:py-9 lg:flex lg:flex-col lg:justify-center lg:pl-[max(2.5rem,calc((100vw-72rem)/2+2rem))] lg:pr-24">
-          <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.16em] text-cream/80">
+          <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.12em] text-cream/80">
             <span className="h-1 w-8 bg-cream/70" aria-hidden="true" /> Eleições 2026 · Brasil
           </p>
           <h1 className="mt-4 max-w-3xl font-display text-[clamp(2.1rem,3.6vw,3.75rem)] leading-[0.93] text-cream">
@@ -176,9 +176,8 @@ export function HomeHeroEditorial({ snapshot: _snapshot, baseDate: _baseDate }: 
 
         <div className="relative bg-butter px-5 py-8 md:px-10 lg:flex lg:flex-col lg:justify-center lg:pl-20 lg:pr-[max(2.5rem,calc((100vw-72rem)/2+2rem))]">
           <span className="mb-4 block h-1 w-12 bg-coral" aria-hidden="true" />
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
-            Resultado do 1º turno · 4/10/2026<br />Deputado(a) federal, estadual e distrital
-          </p>
+          <p className="font-mono text-xs uppercase tracking-[0.12em] text-plum">Resultado de 2026</p>
+          <p className="mt-1 text-[13px] text-ink/75">Deputadas e deputados federais, estaduais e distritais, eleitos no 1º turno (4/10/2026)</p>
           <div className="mt-2 border-b border-ink pb-5 pr-20">
             <p className="font-display text-[clamp(4rem,8vw,6.75rem)] font-semibold leading-none text-plum">
               {formatPct(electedShare)}
@@ -190,7 +189,7 @@ export function HomeHeroEditorial({ snapshot: _snapshot, baseDate: _baseDate }: 
             <p className="mt-2 max-w-md text-xs leading-relaxed text-muted-foreground">
               Entre as candidaturas, mulheres eram {formatPct(candidacyShare)} ({formatInt(RESULT_2026_PROPORCIONAL.candidacies.feminine)} de {formatInt(RESULT_2026_PROPORCIONAL.candidacies.total)}). Em 2022, ficaram com {formatPct(elected2022.femininePercent)} das cadeiras ({formatInt(elected2022.feminine)} de {formatInt(elected2022.total)}).
             </p>
-            <p className="mt-1 font-mono text-xs uppercase text-muted-foreground">TSE · base de 27/10/2026 · recontagem própria</p>
+            <p className="mt-1 text-xs text-muted-foreground">TSE · base de 27/10/2026 · recontagem própria</p>
           </div>
         </div>
       </div>
@@ -348,7 +347,7 @@ export function HomeAboutBand() {
     <section className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-cream">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 md:grid-cols-12 md:px-8 md:py-20">
         <div className="md:col-span-4">
-          <p className="font-mono text-xs uppercase tracking-[0.16em] text-cream/70">Sobre o projeto</p>
+          <p className="font-mono text-xs uppercase tracking-[0.12em] text-cream/70">Sobre o projeto</p>
           <h2 className="mt-4 font-display text-4xl leading-[0.95] text-cream md:text-5xl">Da candidatura<br />ao poder, com<br />a conta aberta.</h2>
         </div>
         <div className="border-cream/25 md:col-span-5 md:border-l md:pl-10">

@@ -37,7 +37,7 @@ export function AchadoCard({ achado }: { achado: Achado }) {
                 style={{ width: `${Math.min(Math.max(barra.valor, 0), 100)}%` }}
               />
             </span>
-            <span className="text-right font-mono text-[12px] text-ink">
+            <span className="text-right font-mono text-[13px] text-ink">
               {formatPct(barra.valor)}
             </span>
           </div>

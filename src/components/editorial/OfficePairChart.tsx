@@ -127,7 +127,7 @@ export function OfficePairChart({ snapshot }: { snapshot: PublicSnapshot | null 
               aria-label={`${group.label}. ${group.titular.label}: ${formatInt(group.titular.women)} mulheres em ${formatInt(group.titular.total)} candidaturas. ${ariaComparison}.`}
             >
               <div className="flex items-center justify-between gap-3">
-                <h4 className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">{group.label}</h4>
+                <h4 className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">{group.label}</h4>
                 {!isPresidency && <div className="flex flex-wrap justify-end gap-1.5">
                   {differences.map((difference, index) => (
                     <span key={group.apoio[index]?.label} className="border border-plum-soft px-2 py-1 font-mono text-xs font-semibold text-plum-soft">

@@ -109,7 +109,7 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
                 type="button"
                 onClick={() => setUniverse(u)}
                 aria-pressed={universe === u}
-                className={`border border-rule px-3 py-1.5 font-mono text-[12px] uppercase tracking-wider ${
+                className={`border border-rule px-3 py-1.5 font-mono text-[13px] uppercase tracking-wider ${
                   universe === u ? "bg-plum text-cream border-plum" : "bg-paper text-ink"
                 }`}
               >
@@ -183,7 +183,7 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
                   type="button"
                   onClick={() => setSortBy(key)}
                   aria-pressed={sortBy === key}
-                  className={`border border-rule px-2.5 py-1 font-mono text-[12px] uppercase tracking-wider ${
+                  className={`border border-rule px-2.5 py-1 font-mono text-[13px] uppercase tracking-wider ${
                     sortBy === key ? "bg-plum text-cream border-plum" : "bg-paper text-ink"
                   }`}
                 >
@@ -212,7 +212,7 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
                       <th
                         key={h}
                         scope="col"
-                        className="py-2 pr-3 font-mono text-[12px] uppercase tracking-wider text-muted-foreground"
+                        className="py-2 pr-3 font-mono text-[13px] uppercase tracking-wider text-muted-foreground"
                       >
                         {h}
                       </th>

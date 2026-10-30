@@ -34,7 +34,7 @@ const compactTitle = "font-display text-[clamp(2rem,3.6vw,3.25rem)] font-semibol
 function OpeningText({ kicker, question, lead, inverse = false, compact = false }: OpeningBase & { inverse?: boolean; compact?: boolean }) {
   return (
     <div className="min-w-0">
-      <p className={`flex items-center gap-3 font-mono text-xs font-medium uppercase tracking-[0.16em] ${inverse ? "text-cream/75" : "text-ink/70"}`}>
+      <p className={`flex items-center gap-3 font-mono text-xs font-medium uppercase tracking-[0.12em] ${inverse ? "text-cream/75" : "text-ink/70"}`}>
         <span className={`h-px w-12 ${inverse ? "bg-cream/55" : "bg-ink/45"}`} aria-hidden="true" />
         {kicker}
       </p>
@@ -208,7 +208,7 @@ function FinancialOpening({ layers, gap, snapshot, ...text }: OpeningBase & { la
       <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <OpeningText {...text} inverse />
         <figure aria-label="Participação das mulheres na receita declarada nos universos proporcional e majoritário" className="min-w-0">
-          <p className="border-b border-cream/25 pb-3 font-mono text-xs uppercase text-cream/85">Receita declarada · fotografia de {FINANCE_BASE_LABEL}</p>
+          <p className="border-b border-cream/25 pb-3 text-xs text-cream/85">Receita declarada · fotografia de {FINANCE_BASE_LABEL}</p>
           <div className="mt-5 space-y-4">
             {rows.map((row, index) => (
               <div key={row.label} className="grid grid-cols-[7rem_minmax(0,1fr)_3rem] items-center gap-3">
@@ -218,7 +218,7 @@ function FinancialOpening({ layers, gap, snapshot, ...text }: OpeningBase & { la
               </div>
             ))}
           </div>
-          <p className="mt-5 font-mono text-xs uppercase leading-relaxed text-cream/80">Camadas publicadas: {layers.slice(0, 4).join(" · ")}</p>
+          <p className="mt-5 text-xs leading-relaxed text-cream/80">Camadas publicadas: {layers.slice(0, 4).join(" · ")}</p>
           <figcaption className="mt-6 border-l-2 border-cream/60 pl-3 text-sm leading-relaxed text-cream/85">{gap}</figcaption>
         </figure>
       </div>

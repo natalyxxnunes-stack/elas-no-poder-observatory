@@ -399,7 +399,7 @@ function QuemSaoElasPage() {
         ]}
       >
         <details className="border-b border-rule pb-4">
-          <summary className="cursor-pointer font-mono text-[12px] uppercase tracking-wider text-plum">
+          <summary className="cursor-pointer font-mono text-[13px] uppercase tracking-wider text-plum">
             O que já é possível cruzar
           </summary>
           <div className="mt-4">

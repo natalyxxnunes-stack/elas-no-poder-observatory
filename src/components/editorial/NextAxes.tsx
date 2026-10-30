@@ -20,7 +20,7 @@ export function NextAxes({ ids }: { ids: readonly string[] }) {
               to={a.to}
               className="editorial-card block h-full p-5 transition-colors hover:border-plum"
             >
-              <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+              <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
                 {a.label}
               </p>
               <p className="mt-2 font-display text-lg leading-snug text-ink">

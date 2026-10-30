@@ -100,7 +100,7 @@ export function PartyStateMatrix({ snapshot }: { snapshot: PublicSnapshot | null
       }}
     >
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[60rem] border-separate border-spacing-0.5 text-[10px]">
+        <table className="w-full min-w-[60rem] border-separate border-spacing-0.5 text-[13px]">
           <thead>
             <tr className="font-mono uppercase text-muted-foreground">
               <th className="sticky left-0 z-10 bg-card pr-2 text-left font-normal">Partido</th>
@@ -120,11 +120,11 @@ export function PartyStateMatrix({ snapshot }: { snapshot: PublicSnapshot | null
                 <tr key={party}>
                   <th
                     scope="row"
-                    className="sticky left-0 z-10 bg-card pr-2 text-left font-mono text-[11px] font-semibold text-ink"
+                    className="sticky left-0 z-10 bg-card pr-2 text-left font-mono text-[13px] font-semibold text-ink"
                   >
                     {party}
                   </th>
-                  <td className="pr-2 text-right font-mono text-[11px] text-ink">
+                  <td className="pr-2 text-right font-mono text-[13px] text-ink">
                     {pt >= SMALL ? formatPct((pf / pt) * 100) : `${formatInt(pf)}/${formatInt(pt)}`}
                   </td>
                   {UFS.map((uf) => {
@@ -144,7 +144,7 @@ export function PartyStateMatrix({ snapshot }: { snapshot: PublicSnapshot | null
                       return (
                         <td
                           key={uf}
-                          className="h-7 bg-secondary text-center font-mono text-[9px] text-muted-foreground"
+                          className="h-7 bg-secondary text-center font-mono text-[13px] text-muted-foreground"
                           title={`${party} em ${uf}: ${f} mulheres em ${t} pedidos`}
                         >
                           {f}/{t}

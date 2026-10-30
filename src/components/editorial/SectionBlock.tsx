@@ -18,10 +18,10 @@ const TONE_WRAP: Record<Tone, string> = {
 
 const TONE_KICKER: Record<Tone, string> = {
   paper: "kicker",
-  plum: "font-mono text-xs uppercase tracking-[0.18em] text-cream/80",
-  ink: "font-mono text-xs uppercase tracking-[0.18em] text-cream/80",
-  lilac: "font-mono text-xs uppercase tracking-[0.18em] text-plum",
-  butter: "font-mono text-xs uppercase tracking-[0.18em] text-plum",
+  plum: "font-mono text-xs uppercase tracking-[0.12em] text-cream/80",
+  ink: "font-mono text-xs uppercase tracking-[0.12em] text-cream/80",
+  lilac: "font-mono text-xs uppercase tracking-[0.12em] text-plum",
+  butter: "font-mono text-xs uppercase tracking-[0.12em] text-plum",
 };
 
 const TONE_TITLE: Record<Tone, string> = {

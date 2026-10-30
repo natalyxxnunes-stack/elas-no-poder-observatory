@@ -30,7 +30,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
           <BrandLogo className={`${home ? "h-10 w-10" : "h-8 w-8"} shrink-0`} />
           <span className="leading-tight">
             <BrandWordmark className={`block font-display font-semibold text-ink ${home ? "text-lg" : "text-base"}`} />
-            <span className={`${home ? "block" : "hidden xl:block"} text-[12px] uppercase tracking-[0.16em] text-muted-foreground`}>
+            <span className={`${home ? "block" : "hidden xl:block"} text-[13px] uppercase tracking-[0.12em] text-muted-foreground`}>
               {SITE.tagline}
             </span>
           </span>

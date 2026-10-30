@@ -39,7 +39,7 @@ export function HistoryByOffice() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[36rem] text-sm">
           <thead>
-            <tr className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+            <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
               <th className="pb-2 text-left font-normal">Cargo</th>
               {YEARS.map((y) => (
                 <th
@@ -108,7 +108,7 @@ export function HistoryByUf() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[30rem] text-sm">
           <thead>
-            <tr className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+            <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
               <th className="pb-2 text-left font-normal">UF</th>
               <th className="pb-2 text-right font-normal">Cadeiras</th>
               {YEARS.map((y) => (

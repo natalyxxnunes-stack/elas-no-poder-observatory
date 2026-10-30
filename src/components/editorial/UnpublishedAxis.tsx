@@ -36,7 +36,7 @@ export function UnpublishedAxis({ axisId, opening }: { axisId: string; opening?:
           </GapNote>
         </div>
 
-        <nav className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-rule pt-6 font-mono text-[12px] uppercase tracking-[0.14em]">
+        <nav className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-rule pt-6 font-mono text-[13px] uppercase tracking-[0.14em]">
           <Link to="/" className="text-plum underline underline-offset-4">
             Dados 2026
           </Link>

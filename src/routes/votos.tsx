@@ -177,7 +177,7 @@ function RaceGenderTable({ cargo }: { cargo: keyof typeof VOTOS_2026 }) {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[30rem] text-sm">
           <thead>
-            <tr className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+            <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
               <th className="pb-2 text-left font-normal">Grupo</th>
               <th className="pb-2 text-right font-normal">Candidaturas</th>
               <th className="pb-2 text-right font-normal">Votos</th>
@@ -190,15 +190,15 @@ function RaceGenderTable({ cargo }: { cargo: keyof typeof VOTOS_2026 }) {
                 <th scope="row" className="py-2 pl-1 text-left font-normal text-ink">{g.label}</th>
                 <td className="py-2 text-right">
                   <span className="font-display text-base text-ink">{pct(g.cand, s.cand.t)}</span>
-                  <span className="block font-mono text-[11px] text-muted-foreground">{n(g.cand)}</span>
+                  <span className="block font-mono text-[13px] text-muted-foreground">{n(g.cand)}</span>
                 </td>
                 <td className="py-2 text-right">
                   <span className="font-display text-base text-ink">{pct(g.votes, s.votes.t)}</span>
-                  <span className="block font-mono text-[11px] text-muted-foreground">{n(g.votes)}</span>
+                  <span className="block font-mono text-[13px] text-muted-foreground">{n(g.votes)}</span>
                 </td>
                 <td className="py-2 text-right">
                   <span className="font-display text-base text-ink">{pct(g.seats, s.seats.t)}</span>
-                  <span className="block font-mono text-[11px] text-muted-foreground">{n(g.seats)}</span>
+                  <span className="block font-mono text-[13px] text-muted-foreground">{n(g.seats)}</span>
                 </td>
               </tr>
             ))}
@@ -310,7 +310,7 @@ function VotosPage() {
           <StageChart cargo="federal" />
           <StageChart cargo="estadual" />
         </div>
-        <p className="mt-4 font-mono text-[12px] text-muted-foreground">
+        <p className="mt-4 font-mono text-[13px] text-muted-foreground">
           Câmara Legislativa do DF: mulheres foram {pct(stages(VOTOS_2026.distrital).cand.f, stages(VOTOS_2026.distrital).cand.t)} das
           candidaturas, receberam {pct(stages(VOTOS_2026.distrital).votes.f, stages(VOTOS_2026.distrital).votes.t)} dos votos e ficaram
           com {n(stages(VOTOS_2026.distrital).seats.f)} de {n(stages(VOTOS_2026.distrital).seats.t)} cadeiras.
@@ -383,7 +383,7 @@ function VotosPage() {
             índice depois: as condições de disputa são mostradas separadamente, sem nota única.
           </GapNote>
         </div>
-        <p className="mt-6 font-mono text-[12px] text-muted-foreground">
+        <p className="mt-6 font-mono text-[13px] text-muted-foreground">
           SHA-256 do arquivo de votação: <span className="break-all">{VOTOS_2026_META.zipSha256}</span>. Definições e
           fórmulas em{" "}
           <Link to="/metodo" className="text-plum underline underline-offset-4">

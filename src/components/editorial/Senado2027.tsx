@@ -74,7 +74,7 @@ export function Senadoras2027() {
       <table className="w-full min-w-[34rem] text-sm">
         <caption className="sr-only">Senadoras previstas para 2027</caption>
         <thead>
-          <tr className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+          <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
             <th className="px-3 pb-2 pt-3 text-left font-normal">Senadora</th>
             <th className="px-3 pb-2 pt-3 text-left font-normal">Partido</th>
             <th className="px-3 pb-2 pt-3 text-left font-normal">UF</th>

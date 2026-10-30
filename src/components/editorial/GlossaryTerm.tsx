@@ -55,7 +55,7 @@ export function GlossaryTerm({
         collisionPadding={12}
         className="w-[min(20rem,calc(100vw-2rem))] rounded-md border border-rule bg-paper p-4 text-left"
       >
-        <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-plum">
+        <p className="font-mono text-[13px] uppercase tracking-[0.14em] text-plum">
           {entry.title}
         </p>
         <p className="mt-2 text-sm leading-relaxed text-ink">{entry.body}</p>
@@ -67,7 +67,7 @@ export function GlossaryTerm({
         {method && (
           <Link
             to="/metodo"
-            className="mt-3 inline-block font-mono text-[12px] text-plum underline underline-offset-4"
+            className="mt-3 inline-block font-mono text-[13px] text-plum underline underline-offset-4"
             onClick={() => setOpen(false)}
           >
             ver o método →

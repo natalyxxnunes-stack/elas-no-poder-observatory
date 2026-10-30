@@ -50,7 +50,7 @@ export function PageHero({
 
         {/* etiqueta opcional da página, discreta, sobre a imagem */}
         {aside && (
-          <div className="absolute right-4 top-4 rounded-md bg-paper/85 px-3 py-1.5 font-mono text-[12px] uppercase tracking-[0.14em] text-ink md:right-8 md:top-6">
+          <div className="absolute right-4 top-4 rounded-md bg-paper/85 px-3 py-1.5 font-mono text-[13px] uppercase tracking-[0.14em] text-ink md:right-8 md:top-6">
             {aside}
           </div>
         )}

@@ -30,7 +30,7 @@ const pct = (v: number) => formatPct(v);
 function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: string }) {
   return (
     <div className="mt-4">
-      <p className="mb-2.5 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+      <p className="mb-2.5 font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
         Cor/raça: {stageLabel.toLowerCase()}
       </p>
       <ul className="space-y-2.5">
@@ -43,7 +43,7 @@ function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: s
               className="grid min-w-0 items-center gap-2"
               style={{ gridTemplateColumns: "5.5rem minmax(0,1fr) minmax(0,4.5rem)" }}
             >
-              <span className="min-w-0 truncate font-mono text-[12px] leading-none text-muted-foreground">
+              <span className="min-w-0 truncate font-mono text-[13px] leading-none text-muted-foreground">
                 {RACE_LABELS[key]}
               </span>
               <div className="h-1.5 min-w-0 overflow-hidden rounded-sm bg-secondary" aria-hidden>
@@ -57,7 +57,7 @@ function RaceMiniBars({ race, stageLabel }: { race: RaceBreakdown; stageLabel: s
                 />
               </div>
               <span
-                className="min-w-0 truncate text-right font-mono text-[12px] leading-none text-ink"
+                className="min-w-0 truncate text-right font-mono text-[13px] leading-none text-ink"
                 title={`${n(item.count)} · ${pct(item.percent)}`}
               >
                 {n(item.count)} · {pct(item.percent)}
@@ -91,7 +91,7 @@ function StageColumn({
 }) {
   return (
     <div className="flex flex-col">
-      <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+      <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
         {heading}
       </p>
       <p
@@ -115,7 +115,7 @@ function StageColumn({
       >
         {empty ? (
           <div className="flex h-full w-full items-center justify-center rounded-sm border border-dashed border-rule bg-[repeating-linear-gradient(135deg,transparent,transparent_6px,var(--color-rule,#ddd)_6px,var(--color-rule,#ddd)_7px)]">
-            <span className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+            <span className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
               {emptyLabel ?? "não disponível"}
             </span>
           </div>

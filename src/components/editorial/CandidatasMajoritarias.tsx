@@ -96,7 +96,7 @@ export function CandidatasMajoritarias() {
   return (
     <figure className="border border-rule bg-card">
       <figcaption className="border-b border-ink px-5 pb-4 pt-5 md:px-6">
-        <p className="font-mono text-xs uppercase tracking-[0.14em] text-plum">Lista de registro · base de {CANDIDATAS_BASE}</p>
+        <p className="text-xs text-plum">Lista de registro · base de {CANDIDATAS_BASE}</p>
         <p className="mt-2 text-sm text-ink">
           {counts.presidencia} à Presidência, {counts.governo} aos governos estaduais e {counts.senado} ao Senado. Nome de urna como registrado no TSE.
         </p>

@@ -122,7 +122,7 @@ function DireitosPage() {
                   {m.title}
                 </h3>
                 {PIONEIRAS.some((p) => p.milestoneYear === m.year) && (
-                  <p className="mt-2 flex flex-wrap items-center gap-2 font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+                  <p className="mt-2 flex flex-wrap items-center gap-2 font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
                     <span>Nomes deste marco:</span>
                     {PIONEIRAS.filter((p) => p.milestoneYear === m.year).map((p) => (
                       <a
@@ -138,7 +138,7 @@ function DireitosPage() {
                 <dl className="mt-4 space-y-3">
                   {FIELDS.slice(0, 1).map((f) => (
                     <div key={f.key} className="sm:flex sm:gap-5">
-                      <dt className="shrink-0 font-mono text-[12px] uppercase tracking-wider text-muted-foreground sm:w-36 sm:pt-0.5">
+                      <dt className="shrink-0 font-mono text-[13px] uppercase tracking-wider text-muted-foreground sm:w-36 sm:pt-0.5">
                         {f.label}
                       </dt>
                       <dd className="mt-1 text-base leading-relaxed text-ink sm:mt-0">
@@ -155,7 +155,7 @@ function DireitosPage() {
                   <dl className="mt-3 space-y-3">
                     {FIELDS.slice(1).map((f) => (
                       <div key={f.key} className="sm:flex sm:gap-5">
-                        <dt className="shrink-0 font-mono text-[12px] uppercase tracking-wider text-muted-foreground sm:w-36 sm:pt-0.5">
+                        <dt className="shrink-0 font-mono text-[13px] uppercase tracking-wider text-muted-foreground sm:w-36 sm:pt-0.5">
                           {f.label}
                         </dt>
                         <dd className="mt-1 text-sm leading-relaxed text-ink sm:mt-0">
@@ -165,7 +165,7 @@ function DireitosPage() {
                     ))}
                   </dl>
                 </details>
-                <p className="mt-4 font-mono text-[12px] text-muted-foreground">
+                <p className="mt-4 font-mono text-[13px] text-muted-foreground">
                   Fonte:{" "}
                   <a
                     href={m.sourceUrl}
@@ -196,7 +196,7 @@ function DireitosPage() {
         <ol className="grid gap-4 md:grid-cols-2">
           {PIONEIRAS.map((p, i) => (
             <li key={p.id} id={p.id} className="poster-frame scroll-mt-24 border-l-4 border-l-coral p-5">
-              <p className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">
+              <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
                 {String(i + 1).padStart(2, "0")}
                 {p.years ? ` · ${p.years}` : ""}
                 {p.milestoneYear ? ` · marco de ${p.milestoneYear}` : ""}
@@ -214,11 +214,11 @@ function DireitosPage() {
               )}
               {p.em2026 && (
                 <p className="mt-3 border-t border-rule pt-3 text-sm leading-relaxed text-muted-foreground">
-                  <span className="font-mono text-[12px] uppercase tracking-wider">Em 2026: </span>
+                  <span className="font-mono text-[13px] uppercase tracking-wider">Em 2026: </span>
                   {p.em2026} Fonte: TSE, Candidatos 2026.
                 </p>
               )}
-              <p className="mt-3 font-mono text-[12px] text-muted-foreground">
+              <p className="mt-3 font-mono text-[13px] text-muted-foreground">
                 Fonte:{" "}
                 <a href={p.sourceUrl} target="_blank" rel="noreferrer" className="underline">
                   {p.sourceLabel}
@@ -261,7 +261,7 @@ function DireitosPage() {
           ))}
         </ul>
 
-        <p className="mt-6 font-mono text-[12px] uppercase tracking-[0.14em]">
+        <p className="mt-6 font-mono text-[13px] uppercase tracking-[0.14em]">
           <Link to="/em-disputa" className="text-plum underline underline-offset-4">
             Ver as regras que valem em 2026 →
           </Link>
@@ -334,7 +334,7 @@ function DireitosPage() {
             </p>
           </ContextBox>
         </div>
-        <p className="mt-6 font-mono text-[12px] text-muted-foreground">
+        <p className="mt-6 font-mono text-[13px] text-muted-foreground">
           Fórmulas, filtros e limitações em{" "}
           <Link to="/metodo" className="text-plum underline underline-offset-4">
             Método

@@ -57,7 +57,7 @@ export function ManchetesStrip({
               <span>
                 {m.fonteCurta ?? m.fonte}
                 {m.parcial && (
-                  <span className="ml-2 border border-muted-foreground/50 px-1.5 py-0.5 font-mono text-[11px] uppercase tracking-wider">
+                  <span className="ml-2 border border-muted-foreground/50 px-1.5 py-0.5 font-mono text-[13px] uppercase tracking-wider">
                     parcial
                   </span>
                 )}
@@ -240,7 +240,7 @@ function CardManchete({
       {grande && (
         <span aria-hidden="true" className="absolute inset-x-0 top-0 h-2 bg-coral md:inset-y-0 md:left-0 md:h-auto md:w-2" />
       )}
-      <p className="font-mono text-xs tracking-[0.16em] text-muted-foreground">
+      <p className="font-mono text-xs tracking-[0.12em] text-muted-foreground">
         {String(i + 1).padStart(2, "0")}
       </p>
       <p className={`poster-figure mt-2 text-plum ${FIGURA[tamanho]}`}>{a.valor}</p>
@@ -270,7 +270,7 @@ function CardManchete({
         <span>
           {m.fonteCurta ?? m.fonte}
           {m.parcial && (
-            <span className="ml-2 border border-muted-foreground/50 px-1.5 py-0.5 font-mono text-[11px] uppercase tracking-wider">
+            <span className="ml-2 border border-muted-foreground/50 px-1.5 py-0.5 font-mono text-[13px] uppercase tracking-wider">
               parcial
             </span>
           )}

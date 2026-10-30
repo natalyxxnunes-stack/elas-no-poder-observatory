@@ -27,7 +27,7 @@ export const Route = createFileRoute("/na-voz-delas")({
 function FalaCard({ f }: { f: Fala }) {
   return (
     <article className="border-t-2 border-ink bg-card p-5 sm:p-6">
-      <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+      <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
         {f.data} · {f.onde}
       </p>
       <h3 className="mt-2 font-display text-xl leading-snug text-ink">
@@ -38,28 +38,28 @@ function FalaCard({ f }: { f: Fala }) {
         “{f.fala}”
       </blockquote>
       <p className="mt-3 text-sm leading-relaxed text-ink/80">
-        <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+        <span className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
           Contexto ·{" "}
         </span>
         {f.contexto}
       </p>
       {f.dado && (
         <div className="mt-3 bg-butter px-4 py-3">
-          <p className="font-mono text-[11px] uppercase tracking-wider text-ink">O dado oficial</p>
+          <p className="font-mono text-[13px] uppercase tracking-wider text-ink">O dado oficial</p>
           <p className="mt-1 text-sm leading-relaxed text-ink">{f.dado.texto}</p>
           <p className="mt-1 text-xs text-ink/70">{f.dado.fonte}</p>
         </div>
       )}
       {f.versao && (
         <p className="mt-3 text-sm leading-relaxed text-ink/80">
-          <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+          <span className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
             A versão dela ·{" "}
           </span>
           {f.versao.texto} ({f.versao.fonte}, {f.versao.data})
         </p>
       )}
       <p className="mt-3 text-sm leading-relaxed text-ink/80">
-        <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+        <span className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
           Posicionamento ·{" "}
         </span>
         {f.posicionamento

@@ -38,7 +38,7 @@ function UniverseTable({ title, k }: { title: string; k: "proporcional" | "major
       </p>
       <table className="mt-4 w-full text-sm">
         <thead>
-          <tr className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+          <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
             <th className="pb-2 text-left font-normal">Candidaturas</th>
             <th className="pb-2 pr-3 text-right font-normal">{CHANGE_FROM.label.slice(0, 5)}</th>
             <th className="pb-2 pr-3 text-right font-normal">{CHANGE_TO.label.slice(0, 5)}</th>
@@ -79,7 +79,7 @@ export function WhatChanged() {
         <UniverseTable title="Deputadas e deputados (proporcional)" k="proporcional" />
         <UniverseTable title="Presidência, governos e Senado (majoritário)" k="majoritario" />
       </div>
-      <p className="mt-5 font-mono text-[12px] leading-relaxed text-muted-foreground">
+      <p className="mt-5 font-mono text-[13px] leading-relaxed text-muted-foreground">
         Fonte: TSE, Candidatos 2026, arquivo consulta_cand_2026_BRASIL.csv. SHA-256 de {CHANGE_FROM.label}:{" "}
         <span className="break-all">{CHANGE_FROM.brasilCsvSha256}</span>. SHA-256 de {CHANGE_TO.label}:{" "}
         <span className="break-all">{CHANGE_TO.brasilCsvSha256}</span>.{" "}

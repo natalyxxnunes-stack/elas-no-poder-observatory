@@ -30,7 +30,7 @@ const PISO: Record<string, number> = { mulheres: 30, soma: 30 };
 function Cell({ g, p, k }: { g: FefcGrupo; p: FefcPartido; k: string }) {
   if (p.candidaturas < SMALL || p.comFefc < SMALL) {
     return (
-      <span className="font-mono text-[11px] text-muted-foreground">
+      <span className="font-mono text-[13px] text-muted-foreground">
         {n(g.candidaturas)} de {n(p.candidaturas)}
       </span>
     );
@@ -41,7 +41,7 @@ function Cell({ g, p, k }: { g: FefcGrupo; p: FefcPartido; k: string }) {
   const piso = PISO[k];
   const abaixoDoPiso = piso !== undefined && fundo < piso;
   return (
-    <span className="block font-mono text-[11px] leading-tight">
+    <span className="block font-mono text-[13px] leading-tight">
       <span className="text-muted-foreground">{formatPct(cand)}</span>
       <span className="text-muted-foreground"> → </span>
       <span className={abaixoDoPiso ? "border-b-2 border-coral font-semibold text-ink" : "text-ink"}>
@@ -93,7 +93,7 @@ export function FefcPartidos() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[64rem] text-sm">
           <thead>
-            <tr className="align-bottom font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+            <tr className="align-bottom font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
               <th className="pb-2 pr-3 text-left font-normal">Partido</th>
               <th className="pb-2 pr-3 text-right font-normal">FEFC</th>
               {GRUPOS.map((g) => (

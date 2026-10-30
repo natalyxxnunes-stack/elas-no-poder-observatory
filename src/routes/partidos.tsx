@@ -103,66 +103,200 @@ function linhas(): Linha[] {
 const th = "px-3 pb-2 pt-3 text-right font-normal";
 const td = "px-3 py-2 text-right font-mono text-xs text-ink";
 
+const RACA_COR: Record<string, string> = {
+  BRANCA: "bg-[var(--race-branca)]",
+  PARDA: "bg-[var(--race-parda)]",
+  PRETA: "bg-plum",
+  "INDÍGENA": "bg-forest",
+  AMARELA: "bg-[var(--race-amarela)]",
+};
+const RACAS = [
+  ["BRANCA", "brancas"],
+  ["PARDA", "pardas"],
+  ["PRETA", "pretas"],
+  ["INDÍGENA", "indígenas"],
+  ["AMARELA", "amarelas"],
+] as const;
+const GRANDES = 10;
+
+/**
+ * Gráfico de abertura: partidos com 10 ou mais cadeiras. A barra inteira são
+ * as cadeiras do partido; a parte pintada, as deputadas eleitas, por cor/raça.
+ */
+function EleitasGrafico() {
+  const rows = linhas().filter((r) => r.cadeiras >= GRANDES);
+  const max = Math.max(...rows.map((r) => r.cadeiras));
+  return (
+    <figure className="border border-rule bg-card p-4 md:p-6">
+      <figcaption className="font-display text-xl leading-snug text-ink">
+        Cadeiras de cada partido e, dentro delas, as deputadas eleitas por cor/raça
+      </figcaption>
+      <ul aria-hidden="true" className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[13px] text-ink/80">
+        {RACAS.map(([k, l]) => (
+          <li key={k} className="inline-flex items-center gap-1.5">
+            <span className={`size-3 ${RACA_COR[k]}`} />
+            {l}
+          </li>
+        ))}
+        <li className="inline-flex items-center gap-1.5">
+          <span className="size-3 bg-plum/10 ring-1 ring-inset ring-plum/20" />
+          homens
+        </li>
+      </ul>
+      <ol className="mt-5 space-y-3">
+        {rows.map((r) => {
+          const pretas = r.raca["PRETA"] ?? 0;
+          return (
+            <li key={r.partido} className="grid grid-cols-1 items-center gap-x-3 md:grid-cols-[7.5rem_minmax(0,1fr)_15rem]">
+              <span className="font-mono text-[13px] font-semibold text-ink">{r.partido}</span>
+              <span className="relative mt-1 block h-5 md:mt-0 bg-plum/10 ring-1 ring-inset ring-plum/20" style={{ width: `${(r.cadeiras / max) * 100}%` }}>
+                <span className="absolute inset-y-0 left-0 flex" style={{ width: `${(r.mulheres / r.cadeiras) * 100}%` }}>
+                  {RACAS.map(([k]) =>
+                    (r.raca[k] ?? 0) > 0 ? (
+                      <span key={k} className={`h-full ${RACA_COR[k]}`} style={{ width: `${((r.raca[k] ?? 0) / r.mulheres) * 100}%` }} />
+                    ) : null,
+                  )}
+                </span>
+              </span>
+              <span className="mt-1 text-[13px] text-ink/80 md:mt-0">
+                {n(r.mulheres)} de {n(r.cadeiras)}
+                {r.cadeiras >= SMALL ? ` (${formatPct((r.mulheres / r.cadeiras) * 100)})` : ""}
+                {r.mulheres >= GRANDES && pretas === 0 && (
+                  <strong className="ml-1 border-b-2 border-coral font-semibold text-ink">nenhuma preta</strong>
+                )}
+              </span>
+            </li>
+          );
+        })}
+      </ol>
+      <p className="mt-5 text-[13px] leading-relaxed text-muted-foreground">
+        Partidos com {GRANDES} ou mais cadeiras de deputado federal, estadual e distrital eleitas em
+        2026. Cor/raça declarada ao TSE. Fonte: TSE, Candidatos 2026, base de{" "}
+        {RESULT_2026_META.baseGeneratedAt}.
+      </p>
+    </figure>
+  );
+}
+
+function LinhaPartido({ r }: { r: Linha }) {
+  const pretas = r.raca["PRETA"] ?? 0;
+  return (
+    <tr className="border-t border-rule">
+      <th scope="row" className="px-3 py-2 text-left font-mono text-xs font-normal text-ink">
+        {r.partido}
+      </th>
+      <td className={td}>{n(r.cadeiras)}</td>
+      <td className={td}>
+        {n(r.mulheres)}
+        {r.cadeiras > 0 && (
+          <span className="block text-[13px] text-muted-foreground">{share(r.mulheres, r.cadeiras)}</span>
+        )}
+      </td>
+      <td className={td}>{n(r.raca["BRANCA"] ?? 0)}</td>
+      <td className={td}>{n(r.raca["PARDA"] ?? 0)}</td>
+      <td className={`${td} ${r.mulheres >= GRANDES && !pretas ? "border-l-4 border-coral font-semibold" : ""}`}>
+        {n(pretas)}
+      </td>
+      <td className={td}>{n(r.raca["INDÍGENA"] ?? 0)}</td>
+      <td className={td}>{r.senado > 0 ? `${n(r.senadoras)} de ${n(r.senado)}` : "—"}</td>
+      <td className={td}>{r.governadoras > 0 ? n(r.governadoras) : "—"}</td>
+    </tr>
+  );
+}
+
+function CardPartido({ r }: { r: Linha }) {
+  const pretas = r.raca["PRETA"] ?? 0;
+  return (
+    <li className="border-t-4 border-plum bg-card p-4">
+      <p className="flex items-baseline justify-between gap-3">
+        <span className="font-mono text-base font-semibold text-ink">{r.partido}</span>
+        <span className="text-[13px] text-muted-foreground">{n(r.cadeiras)} cadeiras de deputado</span>
+      </p>
+      <p className="mt-2 font-display text-2xl text-plum">
+        {n(r.mulheres)} <span className="font-sans text-[15px] text-ink">mulheres eleitas ({share(r.mulheres, r.cadeiras)})</span>
+      </p>
+      <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-[15px] text-ink">
+        {RACAS.slice(0, 4).map(([k, l]) => (
+          <div key={k} className={`flex justify-between ${k === "PRETA" && r.mulheres >= GRANDES && !pretas ? "border-b-2 border-coral font-semibold" : ""}`}>
+            <dt>{l[0]?.toUpperCase() + l.slice(1)}</dt>
+            <dd className="font-mono">{n(r.raca[k] ?? 0)}</dd>
+          </div>
+        ))}
+        <div className="flex justify-between">
+          <dt>Senado 2027</dt>
+          <dd className="font-mono">{r.senado > 0 ? `${n(r.senadoras)} de ${n(r.senado)}` : "—"}</dd>
+        </div>
+        <div className="flex justify-between">
+          <dt>Governadoras</dt>
+          <dd className="font-mono">{r.governadoras > 0 ? n(r.governadoras) : "—"}</dd>
+        </div>
+      </dl>
+    </li>
+  );
+}
+
+function TabelaPartidos({ rows }: { rows: Linha[] }) {
+  return (
+    <>
+      <div className="hidden overflow-x-auto border border-rule bg-card md:block">
+        <table className="w-full min-w-[52rem] text-sm">
+          <caption className="sr-only">Mulheres eleitas por partido em 2026</caption>
+          <thead>
+            <tr className="text-[13px] text-muted-foreground">
+              <th className="px-3 pb-2 pt-3 text-left font-normal">Partido</th>
+              <th className={th}>Cadeiras de deputado</th>
+              <th className={th}>Mulheres eleitas</th>
+              <th className={th}>Brancas</th>
+              <th className={th}>Pardas</th>
+              <th className={th}>Pretas</th>
+              <th className={th}>Indígenas</th>
+              <th className={th}>Senado 2027</th>
+              <th className={th}>Governadoras</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <LinhaPartido key={r.partido} r={r} />
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <ul className="grid gap-3 md:hidden">
+        {rows.map((r) => (
+          <CardPartido key={r.partido} r={r} />
+        ))}
+      </ul>
+    </>
+  );
+}
+
 function EleitasTable() {
   const rows = linhas();
+  const grandes = rows.filter((r) => r.cadeiras >= GRANDES);
+  const outros = rows.filter((r) => r.cadeiras < GRANDES);
   return (
-    <div className="overflow-x-auto border border-rule bg-card">
-      <table className="w-full min-w-[52rem] text-sm">
-        <caption className="sr-only">Mulheres eleitas por partido em 2026</caption>
-        <thead>
-          <tr className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-            <th className="px-3 pb-2 pt-3 text-left font-normal">Partido</th>
-            <th className={th}>Cadeiras de deputado</th>
-            <th className={th}>Mulheres eleitas</th>
-            <th className={th}>Brancas</th>
-            <th className={th}>Pardas</th>
-            <th className={th}>Pretas</th>
-            <th className={th}>Indígenas</th>
-            <th className={th}>Senado 2027</th>
-            <th className={th}>Governadoras</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r) => (
-            <tr key={r.partido} className="border-t border-rule">
-              <th
-                scope="row"
-                className="px-3 py-2 text-left font-mono text-xs font-normal text-ink"
-              >
-                {r.partido}
-              </th>
-              <td className={td}>{n(r.cadeiras)}</td>
-              <td className={td}>
-                {n(r.mulheres)}
-                {r.cadeiras > 0 && (
-                  <span className="block text-[11px] text-muted-foreground">
-                    {share(r.mulheres, r.cadeiras)}
-                  </span>
-                )}
-              </td>
-              <td className={td}>{n(r.raca["BRANCA"] ?? 0)}</td>
-              <td className={td}>{n(r.raca["PARDA"] ?? 0)}</td>
-              <td
-                className={`${td} ${r.mulheres >= 10 && !(r.raca["PRETA"] ?? 0) ? "border-l-4 border-coral font-semibold" : ""}`}
-              >
-                {n(r.raca["PRETA"] ?? 0)}
-              </td>
-              <td className={td}>{n(r.raca["INDÍGENA"] ?? 0)}</td>
-              <td className={td}>{r.senado > 0 ? `${n(r.senadoras)} de ${n(r.senado)}` : "—"}</td>
-              <td className={td}>{r.governadoras > 0 ? n(r.governadoras) : "—"}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <p className="border-t border-rule px-3 py-3 text-xs leading-relaxed text-muted-foreground">
-        Cadeiras de deputado federal, estadual e distrital eleitas em 2026, pelo partido do
-        registro. Cor/raça declarada ao TSE, categorias originais; amarelas aparecem no total de
-        mulheres. Fundo coral: partido com 10 ou mais deputadas eleitas e nenhuma preta. Senado
-        2027: senadoras sobre o total previsto de cadeiras do partido (eleitas em 2026 e mandatos
-        até 2031). Base de {n(RESULT_2026_PARTIDOS.seats)} cadeiras e{" "}
-        {n(RESULT_2026_PARTIDOS.feminine)} mulheres eleitas. Fonte: TSE, Candidatos 2026 (base de{" "}
-        {RESULT_2026_META.baseGeneratedAt}); Senado Federal, Dados Abertos (consulta de{" "}
-        {SENADO_2027_META.consultaSenado}).
+    <div className="space-y-6">
+      <EleitasGrafico />
+      <TabelaPartidos rows={grandes} />
+      {outros.length > 0 && (
+        <details className="group border border-rule bg-card">
+          <summary className="flex min-h-12 cursor-pointer items-center justify-between px-4 font-medium text-plum">
+            Ver os outros {n(outros.length)} partidos, com menos de {GRANDES} cadeiras
+            <span aria-hidden="true" className="transition-transform group-open:rotate-180">↓</span>
+          </summary>
+          <div className="border-t border-rule p-3 md:p-0">
+            <TabelaPartidos rows={outros} />
+          </div>
+        </details>
+      )}
+      <p className="text-[13px] leading-relaxed text-muted-foreground">
+        Cadeiras de deputado federal, estadual e distrital eleitas em 2026, pelo partido do registro.
+        Cor/raça declarada ao TSE, categorias originais; amarelas aparecem no total de mulheres. Fio
+        laranja: partido com {GRANDES} ou mais deputadas eleitas e nenhuma preta. Senado 2027:
+        senadoras sobre o total previsto de cadeiras do partido (eleitas em 2026 e mandatos até
+        2031). Base de {n(RESULT_2026_PARTIDOS.seats)} cadeiras e {n(RESULT_2026_PARTIDOS.feminine)}{" "}
+        mulheres eleitas. Fonte: TSE, Candidatos 2026 (base de {RESULT_2026_META.baseGeneratedAt});
+        Senado Federal, Dados Abertos (consulta de {SENADO_2027_META.consultaSenado}).
       </p>
     </div>
   );
@@ -174,11 +308,13 @@ function FundoTable() {
     .sort((a, b) => b[1].fefc - a[1].fefc);
   const p = (a: number, b: number) => formatPct(b > 0 ? (a / b) * 100 : 0);
   return (
+    <>
+    <p className="mb-2 text-[13px] text-muted-foreground md:hidden">Deslize a tabela para ver todas as colunas →</p>
     <div className="overflow-x-auto border border-rule bg-card">
       <table className="w-full min-w-[48rem] text-sm">
         <caption className="sr-only">Fundo eleitoral por partido, candidaturas a deputado</caption>
         <thead>
-          <tr className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+          <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
             <th className="px-3 pb-2 pt-3 text-left font-normal">Partido</th>
             <th className={th}>Fundo recebido</th>
             <th className={th}>Mulheres · candidaturas</th>
@@ -222,6 +358,7 @@ function FundoTable() {
         está aberta e os números podem mudar.
       </p>
     </div>
+    </>
   );
 }
 
@@ -241,11 +378,13 @@ function VotosTable() {
         ? "border-2 border-ink bg-paper text-ink"
         : "bg-secondary text-muted-foreground";
   return (
+    <>
+    <p className="mb-2 text-[13px] text-muted-foreground md:hidden">Deslize a tabela para ver todas as colunas →</p>
     <div className="overflow-x-auto border border-rule bg-card">
       <table className="w-full min-w-[56rem] text-sm">
         <caption className="sr-only">Voto de cada bancada nas seis votações</caption>
         <thead>
-          <tr className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+          <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
             <th className="px-3 pb-2 pt-3 text-left font-normal">Bancada</th>
             {VOTE_IDS.map((v) => (
               <th key={v} className="px-2 pb-2 pt-3 text-center font-normal">
@@ -269,7 +408,7 @@ function VotosTable() {
                   return (
                     <td
                       key={v}
-                      className="px-2 py-2 text-center font-mono text-[11px] text-muted-foreground"
+                      className="px-2 py-2 text-center font-mono text-[13px] text-muted-foreground"
                     >
                       —
                     </td>
@@ -277,11 +416,11 @@ function VotosTable() {
                 return (
                   <td key={v} className="px-2 py-2 text-center">
                     <span
-                      className={`inline-block min-w-16 px-1.5 py-0.5 font-mono text-[11px] ${cls(d.maioria)}`}
+                      className={`inline-block min-w-16 px-1.5 py-0.5 font-mono text-[13px] ${cls(d.maioria)}`}
                     >
                       {d.maioria === "dividida" ? "dividida" : d.maioria}
                     </span>
-                    <span className="mt-1 block font-mono text-[10px] text-muted-foreground">
+                    <span className="mt-1 block font-mono text-[13px] text-muted-foreground">
                       {n(d.sim)} a {n(d.nao)}
                       {d.simF + d.naoF > 0 ? ` · elas ${n(d.simF)} a ${n(d.naoF)}` : ""}
                     </span>
@@ -318,6 +457,7 @@ function VotosTable() {
         </p>
       </div>
     </div>
+    </>
   );
 }
 

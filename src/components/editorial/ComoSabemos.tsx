@@ -41,13 +41,13 @@ export function ComoSabemos({
       <dl className="mt-6 max-w-4xl divide-y divide-rule border-y border-rule">
         {rows.map((row) => (
           <div key={row.label} className="py-3 sm:grid sm:grid-cols-[11rem_1fr] sm:gap-6">
-            <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">{row.label}</dt>
+            <dt className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">{row.label}</dt>
             <dd className="mt-1 text-sm leading-relaxed text-ink/80 [overflow-wrap:anywhere] sm:mt-0">{row.body}</dd>
           </div>
         ))}
       </dl>
       {children && <div className="mt-6 max-w-4xl">{children}</div>}
-      <p className="mt-6 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[12px] text-muted-foreground">
+      <p className="mt-6 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[13px] text-muted-foreground">
         <Link to="/metodo" className="text-plum underline underline-offset-4">
           Fórmulas, filtros e versões no Método
         </Link>
