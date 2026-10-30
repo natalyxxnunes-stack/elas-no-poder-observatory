@@ -1,10 +1,15 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { FichaGrafico } from "@/components/editorial/ChartFrame";
-import { SP_1950 } from "@/data/perfis-pioneiras";
+import {
+  Conferencia,
+  LinhaDoTempo,
+  PerfilHero,
+  PerfilNav,
+} from "@/components/editorial/Pioneiras";
+import { ANCORAS_PIONEIRAS, SP_1950 } from "@/data/perfis-pioneiras";
 import { formatInt, formatPct } from "@/lib/format-br";
 
 export const Route = createFileRoute("/pioneiras/pagu")({
@@ -32,18 +37,15 @@ export const Route = createFileRoute("/pioneiras/pagu")({
 const n = formatInt;
 const d = SP_1950;
 
-function Paragrafo({ titulo, children }: { titulo: string; children: React.ReactNode }) {
-  return (
-    <p className="max-w-3xl text-lg leading-relaxed text-ink">
-      <strong className="font-display">{titulo}</strong> {children}
-    </p>
-  );
-}
-
 function Fonte({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <li>
-      <a href={href} target="_blank" rel="noreferrer" className="underline decoration-plum underline-offset-4">
+      <a
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        className="inline-block py-1.5 underline decoration-plum underline-offset-4"
+      >
         {children}
       </a>
     </li>
@@ -52,8 +54,7 @@ function Fonte({ href, children }: { href: string; children: React.ReactNode }) 
 
 function PaguPage() {
   const linhas = [
-    { rotulo: "Pagu (PSB)", valor: d.pagu.votos, destaque: true },
-    { rotulo: "Mediana da lista do PSB", valor: d.psb.mediana },
+    { rotulo: "Pagu (PSB), igual à mediana da lista do PSB", valor: d.pagu.votos, destaque: true },
     { rotulo: "Mediana de todas as candidaturas", valor: d.medianaGeral },
     { rotulo: "Eleita com menos votos", valor: d.menorVotacaoEleita },
   ];
@@ -61,74 +62,12 @@ function PaguPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Pioneiras", to: "/pioneiras" }, { label: "Pagu" }]}>
-      <PageHero
-        kicker="Pioneiras · 1910–1962"
-        question="Patrícia Galvão, a Pagu"
-        lead={
-          <p>
-            Escritora, jornalista e militante, foi presa pela primeira vez aos 21 anos, num comício
-            em Santos. Em 1950, disputou uma vaga na Assembleia de São Paulo e teve{" "}
-            {n(d.pagu.votos)} votos. A eleita com menos votos precisou de{" "}
-            {n(d.menorVotacaoEleita)}.
-          </p>
-        }
+      <PerfilHero
+        years="1910–1962"
+        nome="Patrícia Galvão, a Pagu"
+        quemFoi="Escritora, jornalista e militante, foi presa pela primeira vez aos 21 anos, num comício em Santos. Vinte anos depois, tentou uma vaga na Assembleia de São Paulo."
+        ancora={ANCORAS_PIONEIRAS["pagu"]!}
       />
-
-      <SectionBlock id="quem-foi" kicker="Quem foi" question="Da antropofagia ao Partido Comunista">
-        <div className="space-y-5">
-          <p className="max-w-3xl text-lg leading-relaxed text-ink">
-            Patrícia Rehder Galvão nasceu em 9 de junho de 1910, em São João da Boa Vista (SP), e
-            morreu em 12 de dezembro de 1962, em Santos, de câncer, aos 52 anos. Começou a escrever
-            em jornais ainda adolescente. Em 1928, Raul Bopp a apresentou a Tarsila do Amaral e a
-            Oswald de Andrade, e foi ele quem lhe deu o apelido. Publicou desenhos na{" "}
-            <em>Revista de Antropofagia</em>. Em 1930, casou-se com Oswald, com quem teve o filho
-            Rudá.
-          </p>
-          <Paragrafo titulo="O partido.">
-            Entrou para o Partido Comunista entre 1930 e 1931 (as fontes divergem sobre o ano). Com
-            Oswald, editou em 1931 o jornal <em>O Homem do Povo</em>, que durou oito números. Nele,
-            assinava a coluna “A Mulher do Povo”, em que criticava os modelos de mulher da sociedade
-            em que vivia.
-          </Paragrafo>
-        </div>
-      </SectionBlock>
-
-      <SectionBlock
-        id="militancia"
-        tone="lilac"
-        kicker="A militância"
-        question="Presa em Santos, em Paris e na ditadura de Vargas"
-      >
-        <div className="space-y-5">
-          <Paragrafo titulo="A primeira prisão.">
-            Em 23 de agosto de 1931, a polícia ocupou o centro de Santos para impedir um comício em
-            memória de Sacco e Vanzetti, convocado pelo Socorro Vermelho e pela federação sindical da
-            cidade, em meio às greves dos estivadores. Na Praça da República, o ensacador de café
-            Herculano de Souza, militante comunista e negro, foi baleado pela polícia e morreu. Pagu,
-            que tentava socorrê-lo, foi presa, junto com a militante Guiomar Gonçalves. Ficou detida
-            na cadeia da Praça dos Andradas, onde hoje funciona um centro cultural com o nome dela.
-          </Paragrafo>
-          <Paragrafo titulo="O livro.">
-            Em 1933, publicou <em>Parque Industrial</em>, em edição própria e com o pseudônimo de Mara
-            Lobo. O romance acompanha operárias do Brás, em São Paulo, e costuma ser apontado como o
-            primeiro romance proletário brasileiro.
-          </Paragrafo>
-          <Paragrafo titulo="A viagem e a volta.">
-            Entre 1933 e 1934, viajou por Estados Unidos, Japão, China, Manchúria e União Soviética, e
-            depois pela Europa. Em Paris, foi presa como comunista estrangeira e mandada de volta ao
-            Brasil.
-          </Paragrafo>
-          <Paragrafo titulo="Cinco anos de prisão.">
-            Na repressão que se seguiu ao levante comunista de novembro de 1935, foi presa de novo e
-            torturada pela polícia de Getúlio Vargas. Saiu em 1940, com 44 quilos.
-          </Paragrafo>
-          <Paragrafo titulo="A ruptura.">
-            Ao sair, rompeu com o Partido Comunista e se aproximou do trotskismo. Casou-se com o
-            jornalista Geraldo Ferraz e passou a escrever na <em>Vanguarda Socialista</em>, jornal de
-            Mário Pedrosa. Em 1945, publicou com Ferraz o romance <em>A Famosa Revista</em>.
-          </Paragrafo>
-        </div>
-      </SectionBlock>
 
       <SectionBlock
         id="eleicao-1950"
@@ -145,18 +84,18 @@ function PaguPage() {
       >
         <figure className="poster-frame max-w-3xl p-5 md:p-6">
           <figcaption className="font-display text-xl leading-snug text-ink">
-            A votação de Pagu e as referências da disputa
+            A votação de Pagu e as referências da disputa, em votos
           </figcaption>
           <ul className="mt-5 space-y-4">
             {linhas.map((l) => (
               <li key={l.rotulo}>
-                <div className="flex items-baseline justify-between gap-4 text-sm">
+                <div className="flex items-baseline justify-between gap-4 text-[15px]">
                   <span className={l.destaque ? "font-semibold text-ink" : "text-ink/80"}>{l.rotulo}</span>
-                  <span className="font-mono text-ink">{n(l.valor)} votos</span>
+                  <span className="whitespace-nowrap font-mono text-ink">{n(l.valor)}</span>
                 </div>
-                <div className="mt-1 h-3 w-full bg-rule/40">
+                <div className="mt-1 h-4 w-full bg-plum/10">
                   <div
-                    className={l.destaque ? "h-3 bg-coral" : "h-3 bg-plum/70"}
+                    className={l.destaque ? "h-4 bg-plum" : "h-4 bg-plum/35"}
                     style={{ width: `${(l.valor / max) * 100}%` }}
                   />
                 </div>
@@ -166,7 +105,7 @@ function PaguPage() {
           <FichaGrafico
             ficha={{
               vendo:
-                "Votos nominais de Pagu comparados com três referências da eleição para a Assembleia Legislativa de São Paulo.",
+                "Votos nominais de Pagu comparados com duas referências da eleição para a Assembleia Legislativa de São Paulo. Os 171 votos dela são exatamente a mediana da lista do PSB.",
               contados: `As ${n(d.candidaturas)} candidaturas a deputado estadual em São Paulo, de ${n(d.partidos)} partidos; a lista do PSB tinha ${n(d.psb.candidaturas)}.`,
               denominador:
                 "Cada barra é um número absoluto de votos; a escala vai até a votação da eleita com menos votos.",
@@ -203,25 +142,17 @@ function PaguPage() {
           </li>
         </ul>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-plum text-plum">Fato</p>
-            <p className="mt-3 leading-relaxed text-ink/80">
-              Pagu teve {n(d.pagu.votos)} votos. A eleita com menos votos teve{" "}
-              {n(d.menorVotacaoEleita)}, e só {n(d.mulheresEleitas.length)} das {n(d.cadeiras)}{" "}
-              cadeiras ficaram com mulheres.
-            </p>
-          </article>
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-ink text-ink [border-style:dashed]">Interpretação editorial</p>
-            <p className="mt-3 leading-relaxed text-ink/80">
+        <div className="mt-8 grid max-w-4xl gap-4 md:grid-cols-2">
+          <article className="border-t-2 border-dashed border-ink pt-4">
+            <p className="text-[13px] font-semibold uppercase tracking-wider text-ink">Interpretação editorial</p>
+            <p className="mt-2 text-[17px] leading-relaxed text-ink">
               Notoriedade e sacrifício político não viraram voto. A candidata conhecida dos jornais e
               com cinco anos de cadeia teve a votação típica de um partido pequeno.
             </p>
           </article>
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-ink text-ink">Hipótese em investigação</p>
-            <p className="mt-3 leading-relaxed text-ink/80">
+          <article className="border-t-2 border-ink pt-4">
+            <p className="text-[13px] font-semibold uppercase tracking-wider text-ink">Hipótese em investigação</p>
+            <p className="mt-2 text-[17px] leading-relaxed text-ink">
               A votação baixa pode ter mais a ver com o tamanho do PSB em São Paulo do que com o fato
               de ela ser mulher: {n(d.psb.homensAbaixoDe200)} dos {n(d.psb.homens)} homens da lista
               também ficaram abaixo de 200 votos. Falta comparar com outras eleições e partidos.
@@ -230,58 +161,131 @@ function PaguPage() {
         </div>
       </SectionBlock>
 
-      <SectionBlock id="santos" tone="butter" kicker="Santos" question="Jornal e teatro nos últimos anos">
-        <p className="max-w-3xl text-lg leading-relaxed text-ink">
-          Nos últimos anos, viveu entre São Vicente e Santos. Escreveu no jornal <em>A Tribuna</em>,
-          onde assinou com o pseudônimo Gim uma das primeiras colunas de televisão do país. Coordenou o
-          Teatro Universitário Santista a partir de 1956 e dirigiu <em>Fando e Lis</em>, de Arrabal.
-          Ajudou a fundar a associação de jornalistas e a união do teatro amador da cidade.
+      <SectionBlock id="quem-foi" kicker="Quem foi" question="Da antropofagia à Assembleia">
+        <p className="mb-10 max-w-3xl text-lg leading-relaxed text-ink">
+          Patrícia Rehder Galvão nasceu em 9 de junho de 1910, em São João da Boa Vista (SP), e morreu
+          em 12 de dezembro de 1962, em Santos, de câncer, aos 52 anos. Começou a escrever em jornais
+          ainda adolescente. Em 1928, Raul Bopp a apresentou a Tarsila do Amaral e a Oswald de Andrade,
+          e foi ele quem lhe deu o apelido. Publicou desenhos na <em>Revista de Antropofagia</em>. Em
+          1930, casou-se com Oswald, com quem teve o filho Rudá.
         </p>
+        <LinhaDoTempo
+          itens={[
+            {
+              ano: "1931",
+              titulo: "O partido e o jornal",
+              texto: (
+                <>
+                  Entrou para o Partido Comunista entre 1930 e 1931 (as fontes divergem sobre o ano).
+                  Com Oswald, editou <em>O Homem do Povo</em>, que durou oito números, e assinou nele a
+                  coluna “A Mulher do Povo”, em que criticava os modelos de mulher da sociedade em que
+                  vivia.
+                </>
+              ),
+            },
+            {
+              ano: "1931",
+              titulo: "A primeira prisão",
+              texto:
+                "Em 23 de agosto, a polícia ocupou o centro de Santos para impedir um comício em memória de Sacco e Vanzetti, convocado pelo Socorro Vermelho e pela federação sindical da cidade, em meio às greves dos estivadores. Na Praça da República, o ensacador de café Herculano de Souza, militante comunista e negro, foi baleado pela polícia e morreu. Pagu, que tentava socorrê-lo, foi presa, junto com a militante Guiomar Gonçalves. Ficou detida na cadeia da Praça dos Andradas, onde hoje funciona um centro cultural com o nome dela.",
+            },
+            {
+              ano: "1933",
+              titulo: "O livro",
+              texto: (
+                <>
+                  Publicou <em>Parque Industrial</em>, em edição própria e com o pseudônimo de Mara
+                  Lobo. O romance acompanha operárias do Brás, em São Paulo, e costuma ser apontado como
+                  o primeiro romance proletário brasileiro.
+                </>
+              ),
+            },
+            {
+              ano: "1934",
+              titulo: "A viagem e a volta",
+              texto:
+                "Entre 1933 e 1934, viajou por Estados Unidos, Japão, China, Manchúria e União Soviética, e depois pela Europa. Em Paris, foi presa como comunista estrangeira e mandada de volta ao Brasil.",
+            },
+            {
+              ano: "1935",
+              titulo: "Cinco anos de prisão",
+              texto:
+                "Na repressão que se seguiu ao levante comunista de novembro de 1935, foi presa de novo e torturada pela polícia de Getúlio Vargas. Saiu em 1940, com 44 quilos.",
+            },
+            {
+              ano: "1940",
+              titulo: "A ruptura",
+              texto: (
+                <>
+                  Rompeu com o Partido Comunista e se aproximou do trotskismo. Casou-se com o jornalista
+                  Geraldo Ferraz e passou a escrever na <em>Vanguarda Socialista</em>, jornal de Mário
+                  Pedrosa. Em 1945, publicou com Ferraz o romance <em>A Famosa Revista</em>.
+                </>
+              ),
+            },
+            {
+              ano: "1950",
+              titulo: "A candidatura",
+              texto: `Disputou uma vaga na Assembleia de São Paulo pelo PSB e teve ${n(d.pagu.votos)} votos. Os números estão no topo desta página.`,
+            },
+            {
+              ano: "1956",
+              titulo: "Jornal e teatro em Santos",
+              texto: (
+                <>
+                  Nos últimos anos, viveu entre São Vicente e Santos. Escreveu no jornal{" "}
+                  <em>A Tribuna</em>, onde assinou com o pseudônimo Gim uma das primeiras colunas de
+                  televisão do país. Coordenou o Teatro Universitário Santista a partir de 1956 e dirigiu{" "}
+                  <em>Fando e Lis</em>, de Arrabal. Ajudou a fundar a associação de jornalistas e a união
+                  do teatro amador da cidade.
+                </>
+              ),
+            },
+          ]}
+        />
       </SectionBlock>
 
       <SectionBlock
         id="reputacao"
+        tone="lilac"
         kicker="O que se sabe e o que é reputação"
-        question="O que este perfil não afirma, e por quê"
+        question="O que circula sobre Pagu, e o que o documento mostra"
       >
-        <ul className="max-w-3xl space-y-4 text-base leading-relaxed text-ink">
-          <li>
-            <strong>“A primeira mulher presa por motivo político no Brasil.”</strong> O título é
-            repetido em livros, jornais e no site da Prefeitura de Santos, mas não encontramos
-            documento que o sustente, e a própria prisão de 1931 teve outra mulher detida junto,
-            Guiomar Gonçalves. O que dá para afirmar: Pagu está entre as primeiras mulheres com
-            prisão política documentada no país.
-          </li>
-          <li>
-            <strong>As 23 prisões.</strong> O número aparece na obra do historiador John W. F. Dulles
-            e é repetido por muitas fontes, sem a lista das detenções.
-          </li>
-          <li>
-            <strong>Quanto durou a prisão de 1931.</strong> As fontes divergem entre cerca de duas
-            semanas e quase três meses. Este perfil não traz a duração até conferirmos no prontuário
-            do Deops, no Arquivo Público do Estado de São Paulo.
-          </li>
-          <li>
-            <strong>A relação com o partido antes de 1940.</strong> Há relatos de afastamento já em
-            1932. O perfil usa só a ruptura de 1940, documentada nas biografias.
-          </li>
-        </ul>
-        <p className="mt-6 max-w-3xl text-sm text-muted-foreground">
-          Os cards da linha do tempo de direitos estão em{" "}
-          <Link to="/direitos" hash="pioneiras" className="underline decoration-plum underline-offset-4">
-            Direitos
-          </Link>
-          . Os outros perfis da série estão em{" "}
-          <Link to="/pioneiras" className="underline decoration-plum underline-offset-4">
-            Pioneiras
-          </Link>
-          .
-        </p>
+        <Conferencia
+          itens={[
+            {
+              status: "Sem documento",
+              circula: "“A primeira mulher presa por motivo político no Brasil.”",
+              documento:
+                "O título é repetido em livros, jornais e no site da Prefeitura de Santos, mas não encontramos documento que o sustente, e a própria prisão de 1931 teve outra mulher detida junto, Guiomar Gonçalves. O que dá para afirmar: Pagu está entre as primeiras mulheres com prisão política documentada no país.",
+            },
+            {
+              status: "Sem lista",
+              circula: "“Foi presa 23 vezes.”",
+              documento:
+                "O número aparece na obra do historiador John W. F. Dulles e é repetido por muitas fontes, sem a lista das detenções.",
+            },
+            {
+              status: "Fontes divergem",
+              circula: "Quanto durou a prisão de 1931.",
+              documento:
+                "As fontes divergem entre cerca de duas semanas e quase três meses. Este perfil não traz a duração até conferirmos no prontuário do Deops, no Arquivo Público do Estado de São Paulo.",
+            },
+            {
+              status: "Fontes divergem",
+              circula: "Quando ela se afastou do partido.",
+              documento:
+                "Há relatos de afastamento já em 1932. O perfil usa só a ruptura de 1940, documentada nas biografias.",
+            },
+          ]}
+        />
       </SectionBlock>
+
+      <PerfilNav atual="pagu" />
 
       <ComoSabemos
         fonte={
-          <ul className="space-y-1">
+          <ul>
             <Fonte href="https://dadosabertos.tse.jus.br/dataset/resultados-1950">
               TSE, Dados Abertos, Resultados 1950, Votação nominal por UF
             </Fonte>
@@ -297,8 +301,8 @@ function PaguPage() {
             <Fonte href="https://www.santos.sp.gov.br/?q=hotsite%2Fpagu">
               Prefeitura de Santos, hotsite Pagu (texto de Lúcia Teixeira, Centro Cultural Pagu Unisanta)
             </Fonte>
-            <li>Augusto de Campos, <em>Pagu: vida e obra</em>, Companhia das Letras, 2014.</li>
-            <li>John W. F. Dulles, <em>Brazilian Communism, 1935–1945</em>, University of Texas Press.</li>
+            <li className="py-1.5">Augusto de Campos, <em>Pagu: vida e obra</em>, Companhia das Letras, 2014.</li>
+            <li className="py-1.5">John W. F. Dulles, <em>Brazilian Communism, 1935–1945</em>, University of Texas Press.</li>
           </ul>
         }
         universo={`Eleição para a Assembleia Legislativa de São Paulo de ${d.data}: ${n(d.candidaturas)} candidaturas a deputado estadual, ${n(d.cadeiras)} cadeiras.`}
@@ -306,9 +310,9 @@ function PaguPage() {
         calculo={
           <>
             Recontagem da votação nominal, candidatura por candidatura. A base de 1950 não registra o
-            sexo: identificamos as candidatas pelo prenome e conferimos um a um. Três prenomes
-            ambíguos ({d.prenomesAmbiguosFora.join(", ")}) ficaram fora, por isso o número é “pelo
-            menos {n(d.mulheresCandidatasMinimo)}”. Script em scripts/pioneiras/votacao_historica.py.
+            sexo: identificamos as candidatas pelo prenome e conferimos um a um. Três prenomes ambíguos
+            ({d.prenomesAmbiguosFora.join(", ")}) ficaram fora, por isso o número é “pelo menos{" "}
+            {n(d.mulheresCandidatasMinimo)}”. Script em scripts/pioneiras/votacao_historica.py.
           </>
         }
         limites={[

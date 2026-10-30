@@ -44,7 +44,7 @@ function Cell({ g, p, k }: { g: FefcGrupo; p: FefcPartido; k: string }) {
     <span className="block font-mono text-[11px] leading-tight">
       <span className="text-muted-foreground">{formatPct(cand)}</span>
       <span className="text-muted-foreground"> → </span>
-      <span className={abaixoDoPiso ? "bg-coral px-0.5 font-semibold text-ink" : "text-ink"}>
+      <span className={abaixoDoPiso ? "border-b-2 border-coral font-semibold text-ink" : "text-ink"}>
         {formatPct(fundo)}
       </span>
       <span className="block text-muted-foreground">

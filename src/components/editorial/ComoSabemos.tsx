@@ -42,7 +42,7 @@ export function ComoSabemos({
         {rows.map((row) => (
           <div key={row.label} className="py-3 sm:grid sm:grid-cols-[11rem_1fr] sm:gap-6">
             <dt className="font-mono text-[12px] uppercase tracking-wider text-muted-foreground">{row.label}</dt>
-            <dd className="mt-1 text-sm leading-relaxed text-ink/80 sm:mt-0">{row.body}</dd>
+            <dd className="mt-1 text-sm leading-relaxed text-ink/80 [overflow-wrap:anywhere] sm:mt-0">{row.body}</dd>
           </div>
         ))}
       </dl>

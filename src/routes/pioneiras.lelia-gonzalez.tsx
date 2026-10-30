@@ -1,10 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { FichaGrafico } from "@/components/editorial/ChartFrame";
-import { RJ_1982, RJ_1986 } from "@/data/perfis-pioneiras";
+import { Conferencia, LinhaDoTempo, PerfilHero, PerfilNav } from "@/components/editorial/Pioneiras";
+import { ANCORAS_PIONEIRAS, RJ_1982, RJ_1986 } from "@/data/perfis-pioneiras";
 import { formatInt } from "@/lib/format-br";
 
 export const Route = createFileRoute("/pioneiras/lelia-gonzalez")({
@@ -33,18 +33,10 @@ const n = formatInt;
 const a = RJ_1982;
 const b = RJ_1986;
 
-function Paragrafo({ titulo, children }: { titulo: string; children: React.ReactNode }) {
-  return (
-    <p className="max-w-3xl text-lg leading-relaxed text-ink">
-      <strong className="font-display">{titulo}</strong> {children}
-    </p>
-  );
-}
-
 function Fonte({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <li>
-      <a href={href} target="_blank" rel="noreferrer" className="underline decoration-plum underline-offset-4">
+      <a href={href} target="_blank" rel="noreferrer" className="inline-block py-1.5 underline decoration-plum underline-offset-4">
         {children}
       </a>
     </li>
@@ -61,13 +53,13 @@ function Barras({ titulo, linhas }: { titulo: string; linhas: Linha[] }) {
       <ul className="mt-5 space-y-4">
         {linhas.map((l) => (
           <li key={l.rotulo}>
-            <div className="flex items-baseline justify-between gap-4 text-sm">
+            <div className="flex items-baseline justify-between gap-4 text-[15px]">
               <span className={l.destaque ? "font-semibold text-ink" : "text-ink/80"}>{l.rotulo}</span>
-              <span className="font-mono text-ink">{n(l.valor)} votos</span>
+              <span className="whitespace-nowrap font-mono text-ink">{n(l.valor)}</span>
             </div>
-            <div className="mt-1 h-3 w-full bg-rule/40">
+            <div className="mt-1 h-4 w-full bg-plum/10">
               <div
-                className={l.destaque ? "h-3 bg-coral" : "h-3 bg-plum/70"}
+                className={l.destaque ? "h-4 bg-plum" : "h-4 bg-plum/35"}
                 style={{ width: `${(l.valor / max) * 100}%` }}
               />
             </div>
@@ -81,65 +73,12 @@ function Barras({ titulo, linhas }: { titulo: string; linhas: Linha[] }) {
 function LeliaPage() {
   return (
     <PageShell breadcrumb={[{ label: "Pioneiras", to: "/pioneiras" }, { label: "Lélia Gonzalez" }]}>
-      <PageHero
-        kicker="Pioneiras · 1935–1994"
-        question="Lélia Gonzalez"
-        lead={
-          <p>
-            Filósofa, antropóloga e uma das fundadoras do Movimento Negro Unificado, disputou duas
-            eleições no Rio de Janeiro e ficou suplente nas duas. Em 1986, teve {n(b.lelia.votos)}{" "}
-            votos para a Assembleia. O deputado eleito com menos votos teve {n(b.menorVotacaoEleita)}.
-          </p>
-        }
+      <PerfilHero
+        years="1935–1994"
+        nome="Lélia Gonzalez"
+        quemFoi="Filósofa, antropóloga e uma das fundadoras do Movimento Negro Unificado. Disputou duas eleições no Rio de Janeiro e ficou suplente nas duas."
+        ancora={ANCORAS_PIONEIRAS["lelia-gonzalez"]!}
       />
-
-      <SectionBlock id="quem-foi" kicker="Quem foi" question="De Belo Horizonte à sala de aula da PUC-Rio">
-        <div className="space-y-5">
-          <p className="max-w-3xl text-lg leading-relaxed text-ink">
-            Lélia de Almeida nasceu em Belo Horizonte, em 1935, penúltima de 18 irmãos. O pai,
-            Accacio, era ferroviário e negro; a mãe, Orcinda, empregada doméstica de origem indígena.
-            A família se mudou para o Rio em 1942. Lélia trabalhou como babá ainda menina e estudou
-            no Colégio Pedro II.
-          </p>
-          <Paragrafo titulo="A formação.">
-            Formou-se em História e Geografia e depois em Filosofia na Universidade do Estado da
-            Guanabara, hoje Uerj. Fez mestrado em Comunicação e doutorado em Antropologia. Em 1964,
-            casou-se com o colega de faculdade Luiz Carlos Gonzalez, de quem ficou com o sobrenome.
-          </Paragrafo>
-          <Paragrafo titulo="A professora.">
-            Deu aula em escolas públicas e particulares antes de chegar à universidade. Na PUC-Rio,
-            onde ensinou de 1978 até morrer, deu aulas de Antropologia e Cultura Popular Brasileira e
-            chefiou o departamento de Sociologia e Política.
-          </Paragrafo>
-        </div>
-      </SectionBlock>
-
-      <SectionBlock
-        id="militancia"
-        tone="lilac"
-        kicker="A militância"
-        question="Movimento negro, mulheres negras e a Constituinte"
-      >
-        <div className="space-y-5">
-          <Paragrafo titulo="As organizações.">
-            Em 1976, ajudou a criar o Instituto de Pesquisas das Culturas Negras (IPCN), no Rio, e
-            deu no Parque Lage um dos primeiros cursos de cultura negra do país. Esteve na fundação
-            do Movimento Negro Unificado, em 1978. Em 1983, fundou o Nzinga, Coletivo de Mulheres
-            Negras.
-          </Paragrafo>
-          <Paragrafo titulo="O pensamento.">
-            Em outubro de 1980, apresentou num encontro da Anpocs o texto “Racismo e sexismo na
-            cultura brasileira”, em que mostra como raça e gênero se combinam na vida das mulheres
-            negras. Em 1982, publicou com o sociólogo Carlos Hasenbalg o livro{" "}
-            <em>Lugar de negro</em>. Em 1988, formulou a categoria de amefricanidade, para nomear a
-            experiência comum dos povos negros e indígenas nas Américas.
-          </Paragrafo>
-          <Paragrafo titulo="O Estado.">
-            Integrou o primeiro Conselho Nacional dos Direitos da Mulher, criado em 1985, e trabalhou
-            com o movimento de mulheres junto à Assembleia Constituinte de 1987 e 1988.
-          </Paragrafo>
-        </div>
-      </SectionBlock>
 
       <SectionBlock
         id="eleicoes"
@@ -158,7 +97,7 @@ function LeliaPage() {
         <div className="grid gap-6 lg:grid-cols-2">
           <figure className="poster-frame p-5 md:p-6">
             <Barras
-              titulo={`1982 · deputada federal · PT`}
+              titulo="1982 · deputada federal · PT, em votos"
               linhas={[
                 { rotulo: "Lélia Gonzalez (PT)", valor: a.lelia.votos, destaque: true },
                 { rotulo: `${a.partido.eleito.nome}, único eleito do PT`, valor: a.partido.eleito.votos },
@@ -182,7 +121,7 @@ function LeliaPage() {
 
           <figure className="poster-frame p-5 md:p-6">
             <Barras
-              titulo={`1986 · deputada estadual · PDT`}
+              titulo="1986 · deputada estadual · PDT, em votos"
               linhas={[
                 { rotulo: "Lélia Gonzalez (PDT)", valor: b.lelia.votos, destaque: true },
                 { rotulo: "Eleito com menos votos na coligação dela", valor: b.coligacao.menorVotacaoEleita },
@@ -223,26 +162,18 @@ function LeliaPage() {
           </li>
         </ul>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-plum text-plum">Fato</p>
-            <p className="mt-3 leading-relaxed text-ink/80">
-              Em 1986, Lélia teve {n(b.lelia.votos)} votos para deputada estadual e ficou suplente. No
-              mesmo pleito, {n(b.menorVotacaoEleita)} votos bastaram para eleger um deputado de outra
-              coligação.
-            </p>
-          </article>
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-ink text-ink [border-style:dashed]">Interpretação editorial</p>
-            <p className="mt-3 leading-relaxed text-ink/80">
+        <div className="mt-8 grid max-w-4xl gap-4 md:grid-cols-2">
+          <article className="border-t-2 border-dashed border-ink pt-4">
+            <p className="text-[13px] font-semibold uppercase tracking-wider text-ink">Interpretação editorial</p>
+            <p className="mt-2 text-[17px] leading-relaxed text-ink">
               No sistema proporcional, a vaga depende de onde a candidata disputa. Numa lista forte,
               com muitos nomes bem votados, uma votação alta pode render só a suplência; numa lista que
               elege pouca gente, quem lidera leva a cadeira com bem menos votos.
             </p>
           </article>
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-ink text-ink">Hipótese em investigação</p>
-            <p className="mt-3 leading-relaxed text-ink/80">
+          <article className="border-t-2 border-ink pt-4">
+            <p className="text-[13px] font-semibold uppercase tracking-wider text-ink">Hipótese em investigação</p>
+            <p className="mt-2 text-[17px] leading-relaxed text-ink">
               A posição de uma mulher negra dentro da lista do partido pode pesar tanto quanto o total
               de votos que ela recebe. Para testar, falta comparar a posição de candidatas e
               candidatos negros nas listas das grandes legendas em 2026, que já registram cor/raça.
@@ -251,48 +182,119 @@ function LeliaPage() {
         </div>
       </SectionBlock>
 
-      <SectionBlock id="legado" tone="butter" kicker="Depois" question="As últimas décadas e o que ficou">
-        <p className="max-w-3xl text-lg leading-relaxed text-ink">
-          Lélia morreu no Rio de Janeiro em 10 de julho de 1994, aos 59 anos, de problemas
-          cardiorrespiratórios. Seus textos espalhados por revistas e jornais foram reunidos depois da
-          morte, e o livro <em>Por um feminismo afro-latino-americano</em>, de 2020, levou sua obra a
-          um público novo.
+      <SectionBlock id="quem-foi" kicker="Quem foi" question="De Belo Horizonte à Constituinte">
+        <p className="mb-10 max-w-3xl text-lg leading-relaxed text-ink">
+          Lélia de Almeida nasceu em Belo Horizonte, em 1935, penúltima de 18 irmãos. O pai, Accacio,
+          era ferroviário e negro; a mãe, Orcinda, empregada doméstica de origem indígena. A família se
+          mudou para o Rio em 1942. Lélia trabalhou como babá ainda menina e estudou no Colégio Pedro
+          II. Formou-se em História e Geografia e depois em Filosofia na Universidade do Estado da
+          Guanabara, hoje Uerj, e fez mestrado em Comunicação e doutorado em Antropologia. Em 1964,
+          casou-se com o colega de faculdade Luiz Carlos Gonzalez, de quem ficou com o sobrenome.
         </p>
+        <LinhaDoTempo
+          itens={[
+            {
+              ano: "1976",
+              titulo: "Cultura negra como objeto de estudo",
+              texto:
+                "Ajudou a criar o Instituto de Pesquisas das Culturas Negras (IPCN), no Rio, e deu no Parque Lage um dos primeiros cursos de cultura negra do país.",
+            },
+            {
+              ano: "1978",
+              titulo: "MNU e PUC-Rio",
+              texto:
+                "Esteve na fundação do Movimento Negro Unificado. No mesmo ano começou a dar aulas na PUC-Rio, onde ensinou Antropologia e Cultura Popular Brasileira até morrer e chefiou o departamento de Sociologia e Política.",
+            },
+            {
+              ano: "1980",
+              titulo: "Racismo e sexismo",
+              texto:
+                "Em outubro, apresentou num encontro da Anpocs o texto “Racismo e sexismo na cultura brasileira”, em que mostra como raça e gênero se combinam na vida das mulheres negras.",
+            },
+            {
+              ano: "1982",
+              titulo: "Lugar de negro e a primeira candidatura",
+              texto: (
+                <>
+                  Publicou com o sociólogo Carlos Hasenbalg o livro <em>Lugar de negro</em>. Disputou
+                  uma vaga de deputada federal pelo PT e teve {n(a.lelia.votos)} votos.
+                </>
+              ),
+            },
+            {
+              ano: "1983",
+              titulo: "Nzinga",
+              texto: "Fundou o Nzinga, Coletivo de Mulheres Negras.",
+            },
+            {
+              ano: "1985",
+              titulo: "O Estado",
+              texto:
+                "Integrou o primeiro Conselho Nacional dos Direitos da Mulher e trabalhou com o movimento de mulheres junto à Assembleia Constituinte de 1987 e 1988.",
+            },
+            {
+              ano: "1986",
+              titulo: "A segunda candidatura",
+              texto: `Disputou uma vaga de deputada estadual pelo PDT e teve ${n(b.lelia.votos)} votos. Os números estão no topo desta página.`,
+            },
+            {
+              ano: "1988",
+              titulo: "Amefricanidade",
+              texto:
+                "Formulou a categoria de amefricanidade, para nomear a experiência comum dos povos negros e indígenas nas Américas.",
+            },
+            {
+              ano: "1994",
+              titulo: "Morte e obra reunida",
+              texto: (
+                <>
+                  Morreu no Rio de Janeiro em 10 de julho, aos 59 anos, de problemas
+                  cardiorrespiratórios. Seus textos foram reunidos depois, e o livro{" "}
+                  <em>Por um feminismo afro-latino-americano</em>, de 2020, levou sua obra a um público
+                  novo.
+                </>
+              ),
+            },
+          ]}
+        />
       </SectionBlock>
 
       <SectionBlock
         id="reputacao"
+        tone="lilac"
         kicker="O que se sabe e o que é reputação"
-        question="O que este perfil corrige, e o que deixa em aberto"
+        question="O que circula sobre Lélia, e o que o documento mostra"
       >
-        <ul className="max-w-3xl space-y-4 text-base leading-relaxed text-ink">
-          <li>
-            <strong>“Candidata a deputada federal em 1982 e em 1986.”</strong> Várias biografias dizem
-            isso, inclusive em enciclopédias acadêmicas. O arquivo oficial do TSE registra outra
-            coisa: em 1986, Lélia Gonzalez concorreu a deputada estadual, com {n(b.lelia.votos)} votos.
-            Não há candidatura dela a deputada federal em 1986 no arquivo do Rio de Janeiro.
-          </li>
-          <li>
-            <strong>O nome nas urnas.</strong> Em 1982, ela aparece registrada como “Lélia de Almeida
-            Gonzales”, com s; em 1986, como “Lélia de Almeida Gonzalez”, com z.
-          </li>
-          <li>
-            <strong>Data de nascimento.</strong> As fontes que consultamos concordam no ano, 1935, e
-            apontam 1º de fevereiro como o dia. O perfil usa só o ano até conferirmos em documento.
-          </li>
-          <li>
-            <strong>Mestrado e doutorado.</strong> As biografias registram os dois títulos, mas
-            divergem sobre instituições e datas. O perfil cita só as áreas.
-          </li>
-        </ul>
-        <p className="mt-6 max-w-3xl text-sm text-muted-foreground">
-          Os outros perfis da série estão em{" "}
-          <Link to="/pioneiras" className="underline decoration-plum underline-offset-4">
-            Pioneiras
-          </Link>
-          .
-        </p>
+        <Conferencia
+          itens={[
+            {
+              status: "Corrigido pelo TSE",
+              circula: "“Candidata a deputada federal em 1982 e em 1986.”",
+              documento: `Várias biografias dizem isso, inclusive em enciclopédias acadêmicas. O arquivo oficial do TSE registra outra coisa: em 1986, Lélia Gonzalez concorreu a deputada estadual, com ${n(b.lelia.votos)} votos. Não há candidatura dela a deputada federal em 1986 no arquivo do Rio de Janeiro.`,
+            },
+            {
+              status: "Documento",
+              circula: "O nome nas urnas.",
+              documento:
+                "Em 1982, ela aparece registrada como “Lélia de Almeida Gonzales”, com s; em 1986, como “Lélia de Almeida Gonzalez”, com z.",
+            },
+            {
+              status: "A conferir",
+              circula: "Nasceu em 1º de fevereiro de 1935.",
+              documento:
+                "As fontes que consultamos concordam no ano e apontam o dia. O perfil usa só o ano até conferirmos em documento.",
+            },
+            {
+              status: "Fontes divergem",
+              circula: "Mestrado e doutorado.",
+              documento:
+                "As biografias registram os dois títulos, mas divergem sobre instituições e datas. O perfil cita só as áreas.",
+            },
+          ]}
+        />
       </SectionBlock>
+
+      <PerfilNav atual="lelia-gonzalez" />
 
       <ComoSabemos
         fonte={

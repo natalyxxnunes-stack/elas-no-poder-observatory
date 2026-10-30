@@ -143,7 +143,7 @@ function EleitasTable() {
               <td className={td}>{n(r.raca["BRANCA"] ?? 0)}</td>
               <td className={td}>{n(r.raca["PARDA"] ?? 0)}</td>
               <td
-                className={`${td} ${r.mulheres >= 10 && !(r.raca["PRETA"] ?? 0) ? "bg-coral/30" : ""}`}
+                className={`${td} ${r.mulheres >= 10 && !(r.raca["PRETA"] ?? 0) ? "border-l-4 border-coral font-semibold" : ""}`}
               >
                 {n(r.raca["PRETA"] ?? 0)}
               </td>
@@ -203,9 +203,9 @@ function FundoTable() {
                   R$ {formatDecimal(d.fefc / 1e6).replace(/,0$/, "")} mi
                 </td>
                 <td className={td}>{p(d.mulheres.candidaturas, d.candidaturas)}</td>
-                <td className={`${td} ${mf < 30 ? "bg-coral/40" : ""}`}>{formatPct(mf)}</td>
+                <td className={`${td} ${mf < 30 ? "border-l-4 border-coral font-semibold" : ""}`}>{formatPct(mf)}</td>
                 <td className={td}>{p(d.pretasPardasSoma.candidaturas, d.candidaturas)}</td>
-                <td className={`${td} ${pf < 30 ? "bg-coral/40" : ""}`}>{formatPct(pf)}</td>
+                <td className={`${td} ${pf < 30 ? "border-l-4 border-coral font-semibold" : ""}`}>{formatPct(pf)}</td>
               </tr>
             );
           })}
@@ -238,7 +238,7 @@ function VotosTable() {
     m === "Sim"
       ? "bg-plum text-cream"
       : m === "Não"
-        ? "bg-coral text-ink"
+        ? "border-2 border-ink bg-paper text-ink"
         : "bg-secondary text-muted-foreground";
   return (
     <div className="overflow-x-auto border border-rule bg-card">

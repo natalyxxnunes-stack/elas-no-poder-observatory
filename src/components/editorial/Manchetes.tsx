@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { useLocation } from "@tanstack/react-router";
 import type { Manchete, Visual } from "@/data/manchetes";
 import { formatInt, formatPct } from "@/lib/format-br";
 
 /**
- * Manchetes secundárias logo abaixo da abertura de uma página: frases curtas,
- * com fonte, para quem lê só o topo. Cada uma aponta para a seção ou página
- * que a prova.
+ * Manchetes secundárias logo abaixo da abertura de uma página, em cards
+ * compactos: número-âncora quando houver, frase, fonte e destino. O card
+ * inteiro é clicável. Quando a manchete aponta para a própria página, o
+ * destino vira "Mais abaixo nesta página".
  */
 export function ManchetesStrip({
   items,
@@ -14,27 +16,56 @@ export function ManchetesStrip({
   items: Manchete[];
   label?: string;
 }) {
+  const { pathname } = useLocation();
+  const aqui = (to: string) => (to.split("#")[0] ?? "").replace(/\/$/, "") === pathname.replace(/\/$/, "");
   return (
-    <section aria-label={label} className="mb-8 border-y-2 border-ink">
-      <p className="pt-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
-        {label}
-      </p>
+    <section aria-label={label} className="mb-10">
+      <p className="font-mono text-xs uppercase tracking-[0.14em] text-plum">{label}</p>
       <ul
-        className={`grid gap-px bg-rule ${items.length === 1 ? "" : items.length === 2 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3"}`}
+        className={`mt-3 grid gap-3 ${items.length === 1 ? "md:max-w-2xl" : items.length === 2 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3"}`}
       >
         {items.map((m) => (
-          <li key={m.id} className="bg-paper py-4 pr-5">
-            <p className="font-display text-lg leading-snug text-ink">{m.texto}.</p>
-            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-              {m.fonte}
-              {m.parcial ? ". Prestação de contas em andamento; o número pode mudar." : "."}
-            </p>
-            <a
-              href={m.to}
-              className="mt-2 inline-block font-mono text-xs uppercase tracking-wider text-plum underline decoration-plum underline-offset-4"
-            >
-              Ver em {m.pagina} →
-            </a>
+          <li
+            key={m.id}
+            className="group relative flex flex-col border-t-4 border-plum bg-cream p-5 outline-offset-4 outline-plum focus-within:outline-2"
+          >
+            {m.ancora ? (
+              <>
+                <p className="poster-figure text-5xl text-plum">{m.ancora.valor}</p>
+                <p className="mt-2 font-medium leading-snug text-ink">
+                  <a
+                    href={m.to}
+                    className="after:absolute after:inset-0 focus-visible:outline-none group-hover:underline group-hover:decoration-plum group-hover:underline-offset-4"
+                  >
+                    {m.ancora.rotulo}
+                  </a>
+                </p>
+                <p className="mt-2 font-display text-lg leading-snug text-ink/90">{m.ancora.tensao}</p>
+              </>
+            ) : (
+              <p className="font-display text-lg leading-snug text-ink">
+                <a
+                  href={m.to}
+                  className="after:absolute after:inset-0 focus-visible:outline-none group-hover:underline group-hover:decoration-plum group-hover:underline-offset-4"
+                >
+                  {m.texto}.
+                </a>
+              </p>
+            )}
+            <div className="mt-auto pt-4" />
+            <div className="flex flex-wrap items-center justify-between gap-x-4 border-t border-rule pt-2 text-[13px] text-muted-foreground">
+              <span>
+                {m.fonteCurta ?? m.fonte}
+                {m.parcial && (
+                  <span className="ml-2 border border-muted-foreground/50 px-1.5 py-0.5 font-mono text-[11px] uppercase tracking-wider">
+                    parcial
+                  </span>
+                )}
+              </span>
+              <span aria-hidden="true" className="inline-flex min-h-11 items-center font-medium text-plum">
+                {aqui(m.to) ? "Mais abaixo nesta página ↓" : `Ver em ${m.pagina} →`}
+              </span>
+            </div>
           </li>
         ))}
       </ul>

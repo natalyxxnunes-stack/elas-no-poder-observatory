@@ -35,7 +35,7 @@ const UFS = [
 
 /** Faixas de cor da fatia de mulheres; a primeira fica abaixo da referência de 30%. */
 const BANDS = [
-  { max: 30, cls: "bg-coral text-ink", label: "abaixo de 30%" },
+  { max: 30, cls: "bg-paper font-semibold text-ink ring-2 ring-inset ring-coral", label: "abaixo de 30%" },
   { max: 34, cls: "bg-lilac text-ink", label: "30% a 33,9%" },
   { max: 38, cls: "bg-plum/45 text-ink", label: "34% a 37,9%" },
   { max: 42, cls: "bg-plum/75 text-cream", label: "38% a 41,9%" },

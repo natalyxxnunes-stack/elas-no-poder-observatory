@@ -135,3 +135,47 @@ export const RJ_1986 = {
     menorVotacaoEleita: 12260,
   },
 } as const;
+
+/**
+ * Número-âncora de cada perfil (topo do perfil, card do índice, navegação
+ * entre perfis). Sai das constantes acima; nenhum número digitado à mão.
+ */
+export type CortePerfil = { valor: number; rotulo: string };
+export type AncoraPerfil = {
+  valor: number;
+  rotulo: string;
+  eleicao: string;
+  cortes: CortePerfil[];
+  tensao: string;
+  fonte: string;
+};
+
+const fmt = (v: number) => v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+export const ANCORAS_PIONEIRAS: Record<string, AncoraPerfil> = {
+  pagu: {
+    valor: SP_1950.pagu.votos,
+    rotulo: "votos para deputada estadual em São Paulo, 1950",
+    eleicao: "Eleição de 1950 · Assembleia de São Paulo",
+    cortes: [{ valor: SP_1950.menorVotacaoEleita, rotulo: "eleita com menos votos" }],
+    tensao: `A eleita com menos votos precisou de ${fmt(SP_1950.menorVotacaoEleita)}. A Assembleia teve ${SP_1950.mulheresEleitas.length} mulheres em ${SP_1950.cadeiras} cadeiras.`,
+    fonte: "TSE, Resultados 1950 · recontagem independente",
+  },
+  "lelia-gonzalez": {
+    valor: RJ_1986.lelia.votos,
+    rotulo: "votos para deputada estadual no Rio de Janeiro, 1986",
+    eleicao: "Eleição de 1986 · Assembleia do Rio de Janeiro",
+    cortes: [
+      { valor: RJ_1986.menorVotacaoEleita, rotulo: "menor eleito no estado" },
+      { valor: RJ_1986.coligacao.menorVotacaoEleita, rotulo: "último eleito da coligação dela" },
+    ],
+    tensao: `Quase o triplo do eleito com menos votos no estado, ${fmt(RJ_1986.menorVotacaoEleita)}. Ficou suplente: na coligação dela, o último eleito precisou de ${fmt(RJ_1986.coligacao.menorVotacaoEleita)}.`,
+    fonte: "TSE, Resultados 1986 · recontagem independente",
+  },
+};
+
+/** frase do slot de perfil em apuração */
+export const EM_APURACAO: Record<string, string> = {
+  "rosa-luxemburgo":
+    "Não disputou eleição no Brasil. O perfil vai mostrar a ponte com as brasileiras antes de entrar na série.",
+};

@@ -342,6 +342,10 @@ M_VPG.ancora = {
 };
 M_VPG.fonteCurta = `TSE e MPF · ${VPG_META.extraidoEm}`;
 
+M_PRETAS_PARTIDOS.fonteCurta = "TSE · base de 27/10/2026 · cor/raça declarada";
+M_CONTROLA.fonteCurta = `TSE · contas de ${FEFC_META.baseGeneratedAt} · pretas e pardas somadas, como na EC 133/2024`;
+M_FEMINICIDIO.fonteCurta = `${FEMINICIDIO_META.fonte} · ${FEMINICIDIO_META.publicadoEm}`;
+
 /**
  * Cards da capa (decisão de 30/10/2026, a partir de avaliação de design e UX):
  * o primeiro é o destaque; a manchete das cadeiras sai da capa porque o
