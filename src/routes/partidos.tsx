@@ -3,9 +3,8 @@ import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
-import { ManchetesStrip } from "@/components/editorial/Manchetes";
 import { GapNote } from "@/components/GapNote";
-import { M_PISO, M_PL_PRETAS, M_PRETAS_PARTIDOS, M_SENADO } from "@/data/manchetes";
+import { M_PL_PRETAS } from "@/data/manchetes";
 import { FEFC_META, FEFC_PARTIDOS } from "@/data/fefc-partidos-2026";
 import { RESULT_2026_GOVERNO, RESULT_2026_META, RESULT_2026_PARTIDOS } from "@/data/resultado-2026";
 import { SENADO_2027, SENADO_2027_META } from "@/data/senado-2027";
@@ -482,7 +481,6 @@ function PartidosPage() {
         }
       />
 
-      <ManchetesStrip items={[M_PRETAS_PARTIDOS, M_PISO, M_SENADO]} />
 
       <SectionBlock
         id="eleitas"

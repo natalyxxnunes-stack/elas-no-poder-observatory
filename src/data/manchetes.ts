@@ -82,8 +82,8 @@ const brancasEleitas = R.electedRaceFeminine["BRANCA"] ?? 0;
 export const M_BRANCAS: Manchete = {
   id: "brancas",
   texto: `Brancas eram ${pct(brancasCand, R.candidacies.feminine)} das candidatas a deputada e são ${pct(brancasEleitas, R.elected.feminine)} das eleitas: ${n(brancasEleitas)} de ${n(R.elected.feminine)}`,
-  to: "/quem-sao-elas",
-  pagina: "Quem são elas",
+  to: "/quem-chega#raca",
+  pagina: "Quem chega",
   fonte: `${TSE}. Deputadas federais, estaduais e distritais; cor/raça declarada ao TSE`,
 };
 
@@ -135,15 +135,21 @@ export const ABAIXO_PISO_PP = Object.entries(FEFC_PARTIDOS)
   .filter((x) => x.fatia < 30)
   .sort((a, b) => b.fundo - a.fundo);
 
+const plPiso = FEFC_PARTIDOS["PL"];
+const pf = (g: { candidaturas: number; fefc: number } | undefined, d: { candidaturas: number; fefc: number }) => ({
+  cand: g ? (g.candidaturas / d.candidaturas) * 100 : 0,
+  fundo: g ? (g.fefc / d.fefc) * 100 : 0,
+});
+const plPardas = plPiso ? pf(plPiso.raca["PARDA"], plPiso) : { cand: 0, fundo: 0 };
+const plPretasF = plPiso ? pf(plPiso.raca["PRETA"], plPiso) : { cand: 0, fundo: 0 };
+const plSoma = plPiso ? pf(plPiso.pretasPardasSoma, plPiso) : { cand: 0, fundo: 0 };
+
 export const M_PISO: Manchete = {
   id: "piso",
-  texto:
-    ABAIXO_PISO_PP.length === 0
-      ? "Nenhum dos partidos com mais fundo eleitoral ficou abaixo do piso de 30% para candidaturas pretas e pardas"
-      : `${ABAIXO_PISO_PP.map((x) => x.partido).join(" e ")} deram menos de 30% do fundo eleitoral a candidaturas pretas e pardas a deputado, o piso da Constituição: ${ABAIXO_PISO_PP.map((x) => `${x.partido} ${formatPct(x.fatia)}`).join(", ")}`,
-  to: "/dinheiro",
-  pagina: "Dinheiro",
-  fonte: `TSE, Prestação de Contas 2026, base de ${FEFC_META.baseGeneratedAt}. Pretas e pardas somadas, como na EC 133/2024`,
+  texto: `No PL, candidaturas pardas eram ${formatPct(plPardas.cand)} das candidaturas a deputado e ficaram com ${formatPct(plPardas.fundo)} do fundo eleitoral; pretas, ${formatPct(plPretasF.cand)} e ${formatPct(plPretasF.fundo)}`,
+  to: "/partidos",
+  pagina: "Partido por partido",
+  fonte: `TSE, Prestação de Contas 2026, base de ${FEFC_META.baseGeneratedAt}. Só candidaturas a deputado; contas em andamento`,
   parcial: true,
 };
 
@@ -174,7 +180,7 @@ export const M_GOVERNOS: Manchete = {
 export const M_SENADO: Manchete = {
   id: "senado",
   texto:
-    "O PL terá 27 das 81 cadeiras do Senado em 2027, um terço da Casa, e os projetos que reservam cadeiras para mulheres esperam relatoria há anos",
+    "O PL deve começar 2027 com 27 das 81 cadeiras do Senado, um terço da Casa",
   to: "/quem-chega#senado",
   pagina: "Quem chega",
   fonte: "TSE, Candidatos 2026; Senado Federal, Dados Abertos (28/10/2026)",
@@ -198,12 +204,10 @@ export const CAPA: Manchete[] = [M_CADEIRAS, M_IGUALDADE, M_SENADO, M_PISO, M_BR
 const plFundo = ABAIXO_PISO_PP.find((x) => x.partido === "PL");
 export const M_CONTROLA: Manchete = {
   id: "controla",
-  texto: plFundo
-    ? `O partido decide quem recebe o dinheiro: no PL, candidaturas pretas e pardas eram ${formatPct(plFundo.cand)} das candidaturas a deputado e ficaram com ${formatPct(plFundo.fatia)} do fundo eleitoral`
-    : "O partido decide quem recebe o dinheiro da campanha",
+  texto: M_PISO.texto,
   to: "/partidos",
   pagina: "Partido por partido",
-  fonte: `TSE, Prestação de Contas 2026, base de ${FEFC_META.baseGeneratedAt}. Pretas e pardas somadas, como na EC 133/2024`,
+  fonte: M_PISO.fonte,
   parcial: true,
 };
 
@@ -222,7 +226,7 @@ const vpg22 = VPG.porAno.find((a) => a.ano === "2022")?.processos ?? 0;
 const vpg26 = VPG.porAno.find((a) => a.ano === "2026")?.processos ?? 0;
 export const M_VPG: Manchete = {
   id: "vpg",
-  texto: `A Justiça Eleitoral registrou ${n(vpg26)} processos de violência política de gênero em 2026, contra ${n(vpg22)} em 2022`,
+  texto: `A Justiça Eleitoral registrou ${n(vpg26)} processos de violência política de gênero em 2026, até ${VPG_META.extraidoEm.slice(0, 5)}, contra ${n(vpg22)} em 2022`,
   to: "/barreiras",
   pagina: "Barreiras",
   fonte: `${VPG_META.fonte}; dados extraídos em ${VPG_META.extraidoEm}`,
@@ -298,33 +302,34 @@ M_PL_PRETAS.fonteCurta = "TSE · base de 27/10/2026 · cor/raça declarada";
 
 M_IGUALDADE.ancora = {
   valor: "8 de 8",
-  rotulo: "deputadas que votaram contra a igualdade salarial e tentaram voltar se elegeram",
-  tensao: "10 votaram Não em 2023; 8 concorreram em 2026.",
+  rotulo: "deputadas que votaram contra a igualdade salarial e concorreram em 2026 se elegeram",
+  tensao: "6 voltam à Câmara e 2 vão ao Senado. Das 10 que votaram Não em 2023, 2 não concorreram.",
   visual: { tipo: "pontos", total: 10, cheios: 8, legendaCheios: "concorreram e se elegeram", legendaVazios: "não concorreram", atual: true },
 };
 M_IGUALDADE.fonteCurta = "Câmara dos Deputados; TSE";
 
 M_SENADO.ancora = {
   valor: "27 de 81",
-  rotulo: "cadeiras do Senado serão do PL em 2027",
-  tensao: "Um terço da Casa. Os projetos que reservam cadeiras para mulheres esperam relatoria há anos.",
+  rotulo: "cadeiras do Senado devem ser do PL em 2027",
+  tensao: "Hoje são 15. Um terço é o número de assinaturas para criar uma CPI ou propor emenda constitucional, se a bancada prevista se mantiver.",
   visual: { tipo: "pontos", total: 81, cheios: 27, legendaCheios: "PL", legendaVazios: "outros partidos" },
 };
 M_SENADO.fonteCurta = "TSE; Senado Federal · 28/10/2026";
 
-const piso0 = ABAIXO_PISO_PP[0];
-if (piso0) {
-  M_PISO.ancora = {
-    valor: formatPct(piso0.fatia),
-    rotulo: `do fundo eleitoral do ${piso0.partido} para deputado foi para candidaturas pretas e pardas`,
-    tensao: `O piso da Constituição é 30%. ${ABAIXO_PISO_PP.slice(1).map((x) => `${x.partido}: ${formatPct(x.fatia)}`).join("; ")}. Pretas e pardas somadas, como na EC 133/2024.`,
-    visual: {
-      tipo: "barras",
-      piso: 30,
-      dados: ABAIXO_PISO_PP.map((x) => ({ rotulo: x.partido, valor: x.fatia, atual: true })),
-    },
-  };
-}
+M_PISO.ancora = {
+  valor: formatPct(plPardas.fundo),
+  rotulo: `do fundo do PL para deputado foi para candidaturas pardas, que eram ${formatPct(plPardas.cand)} delas`,
+  tensao: `Pretas: ${formatPct(plPretasF.cand)} das candidaturas e ${formatPct(plPretasF.fundo)} do fundo. Somadas, como na EC 133/2024: ${formatPct(plSoma.fundo)}. O piso de 30% vale para o fundo do partido inteiro, em todos os cargos; aqui, só deputado.`,
+  visual: {
+    tipo: "barras",
+    dados: [
+      { rotulo: "Pardas · candidaturas", valor: plPardas.cand },
+      { rotulo: "Pardas · fundo", valor: plPardas.fundo, atual: true },
+      { rotulo: "Pretas · candidaturas", valor: plPretasF.cand },
+      { rotulo: "Pretas · fundo", valor: plPretasF.fundo, atual: true },
+    ],
+  },
+};
 M_PISO.fonteCurta = `TSE · contas de ${FEFC_META.baseGeneratedAt}`;
 
 M_VPG.ancora = {

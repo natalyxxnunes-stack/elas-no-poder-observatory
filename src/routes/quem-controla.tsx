@@ -1,5 +1,4 @@
-import { M_CONTROLA, M_PISO, M_PL_PRETAS } from "@/data/manchetes";
-import { ManchetesStrip } from "@/components/editorial/Manchetes";
+import { M_CONTROLA } from "@/data/manchetes";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
@@ -63,8 +62,8 @@ const CONTROL_LEVERS = [
   },
   {
     lever: "Quem recebe recursos",
-    what: "Os partidos distribuem recursos de campanha entre suas candidaturas, dentro das regras de destinação mínima. A receita declarada por partido já está publicada para os 5 maiores partidos, cruzada com gênero. Faltam a despesa e os demais partidos.",
-    needs: "Receita já disponível para os 5 maiores partidos em /dinheiro; despesa contratada e paga, e os partidos fora do top 5, seguem pendentes",
+    what: "Os partidos distribuem recursos de campanha entre suas candidaturas, dentro das regras de destinação mínima. O fundo eleitoral por partido já está publicado em Partido por partido, cruzado com gênero e cor/raça. Falta a despesa.",
+    needs: "Fundo por partido já disponível em /partidos; despesa contratada e paga segue pendente",
     ready: "partial",
   },
   {
@@ -92,7 +91,7 @@ function QuemControlaPage() {
       <EditorialOpening
         variant="power-flow"
         kicker="Quem controla?"
-        question={M_CONTROLA.texto}
+        question="A lei fixa os pisos. A lista, o dinheiro e a propaganda, quem divide é o partido"
         lead={
           <p>
             A legislação eleitoral fixa pisos de candidaturas, de recursos e regras de distribuição de propaganda para mulheres. Dentro dessas regras, a definição concreta de candidaturas, recursos e posição passa pelos partidos e federações. A Justiça Eleitoral julga os registros, confere a cota e analisa as contas. Das {numberWords[leverTotal] ?? leverTotal} decisões mapeadas aqui, {numberWords[readyTotal] ?? readyTotal} já podem ser medidas com dado público e {numberWords[partialTotal] ?? partialTotal}, em parte.
@@ -101,7 +100,6 @@ function QuemControlaPage() {
         levers={CONTROL_LEVERS.map(({ lever, ready }) => ({ label: lever, ready }))}
       />
 
-      <ManchetesStrip items={[M_PISO, M_PL_PRETAS]} />
 
       <div className="pb-4">
         <InBrief

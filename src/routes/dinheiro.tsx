@@ -1,5 +1,4 @@
-import { M_CONTROLA, M_FUNDO_BRANCAS, M_PISO } from "@/data/manchetes";
-import { ManchetesStrip } from "@/components/editorial/Manchetes";
+import { M_FUNDO_BRANCAS } from "@/data/manchetes";
 import { FundoNoGasto, TiposDeGasto, Vaquinhas } from "@/components/editorial/DespesasCharts";
 import { FefcPartidos } from "@/components/editorial/FefcPartidos";
 import { createFileRoute } from "@tanstack/react-router";
@@ -109,7 +108,6 @@ function DinheiroPage() {
         snapshot={financeSnapshot}
       />
 
-      <ManchetesStrip items={[M_PISO, M_CONTROLA]} />
 
       <div className="pb-4">
         <InBrief
@@ -135,7 +133,7 @@ function DinheiroPage() {
         <FinanceCoverage snapshot={financeSnapshot} />
       </SectionBlock>
 
-      <SectionBlock id="cargo" kicker="Por cargo" question="Presença e receita, cargo a cargo" align="wide" tone="lilac" lead={<p>Em duas disputas as mulheres recebem mais do que a presença delas: Senado (25,7% da receita, 22,3% das candidaturas com receita) e, por pouco, assembleias legislativas (35,5% e 35,2%). Nas outras, recebem menos: Câmara dos Deputados (32,0% e 37,1%), Câmara Legislativa do DF (29,1% e 35,7%) e governos estaduais (12,2% e 17,9%). Na Presidência, as mulheres são 2 das 13 candidaturas com receita e ficam com 0,7% do dinheiro declarado.</p>}>
+      <SectionBlock id="cargo" kicker="Por cargo" question="Presença e receita, cargo a cargo" align="wide" tone="lilac" lead={<p>Em duas disputas as mulheres recebem mais do que a presença delas: Senado (25,7% da receita, 22,3% das candidaturas com receita) e, por pouco, assembleias legislativas (35,5% e 35,2%). Nas outras, recebem menos: Câmara dos Deputados (32,0% e 37,1%), Câmara Legislativa do DF (29,1% e 35,7%) e governos estaduais (12,2% e 17,9%). Na Presidência, as mulheres são 2 das 13 candidaturas com receita; com base tão pequena, a fatia delas no dinheiro não vira percentual aqui.</p>}>
         <FinanceByOffice snapshot={financeSnapshot} />
       </SectionBlock>
 

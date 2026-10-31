@@ -17,7 +17,7 @@ import { formatPercent } from "@/data/election-2026";
 import { ACHADOS } from "@/data/achados";
 
 // O achado da queda de candidaturas já é a manchete do capítulo 05; fora da lista para não repetir.
-const HOME_ACHADOS = [...ACHADOS].reverse().filter((a) => a.id !== "menos-candidatas-que-2022").slice(0, 3);
+const HOME_ACHADOS = [...ACHADOS].reverse().filter((a) => !["menos-candidatas-que-2022", "senado-pl-um-terco"].includes(a.id)).slice(0, 3);
 import { formatInt } from "@/lib/format-br";
 import {
   getHistoricalSeries,
@@ -114,11 +114,11 @@ function DadosPage() {
     <PageShell home>
       <HomeHeroEditorial snapshot={snapshot} baseDate={baseDate} />
       <CapaCards items={CAPA_CARDS} baseLabel="Resultado da eleição · base do TSE de 27/10/2026" />
-      <section className="relative left-1/2 -ml-[50vw] w-screen bg-butter">
+      <section className="relative left-1/2 -ml-[50vw] w-screen bg-lilac">
         <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
           <ChapterKicker n="01" label="Achados" />
           <h2 className="mt-5 font-display text-3xl leading-tight text-ink md:text-4xl">O que encontramos</h2>
-          <div className="mt-10 grid gap-10 md:grid-cols-3">
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
             {HOME_ACHADOS.map((achado) => <AchadoCard key={achado.id} achado={achado} />)}
           </div>
           <p className="mt-10"><Link to="/achados" className="font-mono text-xs font-semibold uppercase text-plum underline underline-offset-4">Todos os achados →</Link></p>

@@ -14,11 +14,31 @@ export type Achado = {
   fonte: string;
   to: "/quem-sao-elas" | "/dinheiro" | "/historico" | "/quem-chega" | "/como-votaram";
   linkLabel: string;
+  /** número em destaque e o que ele conta (30/10/2026, redesenho de Achados) */
+  ancora?: { valor: string; rotulo: string };
+  /** rótulo da única barra que leva laranja; as demais ficam em roxo */
+  foco?: string;
+  /** fim da escala das barras, em %, quando 0–100 esmaga a diferença */
+  escala?: number;
+  tema?: TemaAchado;
 };
+
+export type TemaAchado = "poder" | "dinheiro" | "cor-raca" | "vices" | "serie";
+
+export const TEMAS_ACHADOS: { id: TemaAchado; titulo: string; linha: string }[] = [
+  { id: "poder", titulo: "Quem manda a partir de 2027", linha: "Senado, governos e as cadeiras que viraram poder." },
+  { id: "dinheiro", titulo: "O dinheiro da campanha", linha: "Para quem foi o fundo eleitoral e o que ele comprou." },
+  { id: "cor-raca", titulo: "Cor e raça", linha: "Quais mulheres chegam, e quais ficam pelo caminho." },
+  { id: "vices", titulo: "Vice e suplência", linha: "Onde as mulheres aparecem quando não encabeçam a chapa." },
+  { id: "serie", titulo: "A série desde 2014", linha: "O que mudou em relação às eleições anteriores." },
+];
 
 export const ACHADOS: Achado[] = [
   {
     id: "quanto-mais-alto-mais-brancas",
+    ancora: { valor: "60,7%", rotulo: "das candidatas a presidente, governadora e senadora são brancas; entre as candidatas a deputada, 46,8%" },
+    tema: "cor-raca",
+    foco: "Majoritárias",
     numero: "01",
     data: "2026-09-25",
     titulo: "A cor das candidatas muda com o cargo em disputa",
@@ -36,6 +56,9 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "dinheiro-brancas-peso",
+    ancora: { valor: "56,2%", rotulo: "do dinheiro das candidatas a deputada foi para as brancas, que eram 46,9% delas" },
+    tema: "dinheiro",
+    foco: "Brancas · receita",
     numero: "02",
     data: "2026-09-25",
     titulo: "No dinheiro, as candidatas brancas ficam com mais do que o seu peso",
@@ -57,6 +80,9 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "vice-desde-2014",
+    ancora: { valor: "41,7%", rotulo: "das candidaturas a vice-governadora são de mulheres; a governadora, 17,4%" },
+    tema: "vices",
+    foco: "Vice 2026",
     numero: "03",
     data: "2026-09-25",
     titulo: "Desde 2014, mulheres aparecem mais entre as vices do que entre as titulares",
@@ -76,6 +102,9 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "vice-nao-titular",
+    ancora: { valor: "6 de 14", rotulo: "candidaturas a vice-presidente eram de mulheres; a presidente, 2 de 14" },
+    tema: "vices",
+    foco: "Vice-governadora",
     numero: "04",
     data: "2026-09-25",
     titulo: "Vice, não titular",
@@ -93,6 +122,10 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "candidatar-se-nao-e-eleger-se",
+    ancora: { valor: "1 em 21", rotulo: "candidatas a deputada se elegeu em 2026; entre os homens, 1 em 10" },
+    tema: "serie",
+    foco: "Candidatas 2026",
+    escala: 12,
     numero: "05",
     data: "2026-09-25",
     titulo: "Candidatar-se não é eleger-se",
@@ -111,6 +144,10 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "menos-candidatas-que-2022",
+    ancora: { valor: "2.579", rotulo: "candidaturas de mulheres a deputada a menos que em 2022" },
+    tema: "serie",
+    foco: "Queda nas candidaturas de mulheres",
+    escala: 40,
     numero: "06",
     data: "2026-09-25",
     titulo: "2.579 candidatas a menos que em 2022",
@@ -129,6 +166,9 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "vice-de-quem",
+    ancora: { valor: "30,4%", rotulo: "das primeiras suplências ao Senado são de mulheres; a senadora, 22,4%" },
+    tema: "vices",
+    foco: "Vice-governadora",
     numero: "07",
     data: "2026-09-25",
     titulo: "Vice e suplência concentram mais mulheres do que as chapas titulares",
@@ -147,6 +187,8 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "pretas-sozinhas",
+    ancora: { valor: "0", rotulo: "eleitas entre as 17 mulheres pretas candidatas a presidente, governadora ou senadora" },
+    tema: "cor-raca",
     numero: "08",
     data: "2026-09-25",
     titulo: "Candidatas pretas ao comando: um recorte que pede contexto",
@@ -161,6 +203,8 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "governadoras-brancas",
+    ancora: { valor: "3 de 27", rotulo: "estados terão governadora a partir de 2027, e as três são brancas" },
+    tema: "poder",
     numero: "09",
     data: "2026-10-28",
     titulo: "Três governadoras em 27 estados, as três brancas",
@@ -174,6 +218,9 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "fundo-eleitoral-cor",
+    ancora: { valor: "65,4%", rotulo: "do fundo eleitoral foi para candidaturas brancas, que eram 50,1% das titulares" },
+    tema: "dinheiro",
+    foco: "Brancas · fundo",
     numero: "10",
     data: "2026-10-28",
     titulo: "O fundo eleitoral foi mais para candidaturas brancas",
@@ -187,16 +234,19 @@ export const ACHADOS: Achado[] = [
       { rotulo: "Pretas · candidaturas", valor: 13.6 },
       { rotulo: "Pretas · fundo", valor: 8.1 },
     ],
-    legenda: "Candidaturas titulares e Fundo Especial de Financiamento de Campanha",
+    legenda: "Todas as candidaturas titulares, de deputado à Presidência, e o Fundo Especial que chegou a elas. Só deputado, a fatia branca é 60,7% (ver Dinheiro)",
     fonte: "TSE, Candidaturas e Prestação de Contas 2026 · base de 27/10/2026, contas em andamento",
     to: "/dinheiro",
     linkLabel: "Ver em Dinheiro",
   },
   {
     id: "dinheiro-reeleicao",
+    ancora: { valor: "33 de 39", rotulo: "deputadas do terço de maior receita se reelegeram; no terço de menor receita, 4 de 17" },
+    tema: "dinheiro",
+    foco: "Mulheres · mais receita",
     numero: "11",
     data: "2026-10-28",
-    titulo: "Entre as deputadas que tentaram voltar, o dinheiro separou quem voltou",
+    titulo: "Entre as deputadas que tentaram voltar, as de maior receita voltaram mais",
     texto:
       "No terço de maior receita de campanha, 33 de 39 deputadas se reelegeram. No terço de menor receita, 4 de 17. Entre os homens, a diferença é menor: 76,5% e 47,9%. O voto em seis pautas da Câmara separou bem menos: a reeleição das deputadas variou entre 52,7% e 72,2%.",
     barras: [
@@ -212,6 +262,9 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "senado-pl-um-terco",
+    ancora: { valor: "27 de 81", rotulo: "cadeiras do Senado serão do PL a partir de 2027, contra 15 hoje" },
+    tema: "poder",
+    foco: "PL 2027",
     numero: "12",
     data: "2026-10-28",
     titulo: "O PL terá um terço do Senado a partir de 2027",

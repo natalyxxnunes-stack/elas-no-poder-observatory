@@ -1,5 +1,4 @@
-import { M_BRANCAS, M_PL_PRETAS, M_PRETAS_PARTIDOS, M_SENADO } from "@/data/manchetes";
-import { ManchetesStrip } from "@/components/editorial/Manchetes";
+import { M_BRANCAS } from "@/data/manchetes";
 import { Senado2027Chart, Senadoras2027 } from "@/components/editorial/Senado2027";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
@@ -414,7 +413,6 @@ function QuemChegaPage() {
         gap={`Câmara dos Deputados, eleição de 2026: ${n(fed.feminine)} de ${n(fed.seats)} cadeiras (${pct(fed.feminine, fed.seats)}). Cada ponto é uma cadeira.`}
       />
 
-      <ManchetesStrip items={[M_PL_PRETAS, M_PRETAS_PARTIDOS, M_SENADO]} />
 
       <div className="pb-4">
         <InBrief

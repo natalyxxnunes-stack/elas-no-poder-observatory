@@ -1,5 +1,4 @@
-import { M_BRANCAS, M_CADEIRAS, M_GOVERNOS } from "@/data/manchetes";
-import { ManchetesStrip } from "@/components/editorial/Manchetes";
+import { M_GOVERNOS } from "@/data/manchetes";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
@@ -112,7 +111,6 @@ function FunilPage() {
         baseDate={stampLabel}
       />
 
-      <ManchetesStrip items={[M_CADEIRAS, M_BRANCAS]} />
 
       <div className="pb-4">
         <InBrief

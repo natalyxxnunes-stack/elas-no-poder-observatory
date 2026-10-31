@@ -1,5 +1,3 @@
-import { M_BRANCAS } from "@/data/manchetes";
-import { ManchetesStrip } from "@/components/editorial/Manchetes";
 import { PartyStateMatrix } from "@/components/editorial/PartyStateMatrix";
 import { SituacaoChart } from "@/components/editorial/SituacaoChart";
 import { SITUACAO_2026 } from "@/data/situacao-candidaturas-2026";
@@ -147,7 +145,6 @@ function QuemSaoElasPage() {
         snapshot={snapshot}
       />
 
-      <ManchetesStrip items={[M_BRANCAS]} label="Depois da urna" />
 
       <div className="pb-4">
         <InBrief
@@ -169,8 +166,8 @@ function QuemSaoElasPage() {
           }
           unknown={
             <>
-              Em aberto para 2026: recursos, votos, eleitas e posições de poder
-              por cor/raça. Identidade trans ou travesti e deficiência ficam
+              Em aberto: as posições de poder a partir de 2027 (mesas, comissões,
+              lideranças) por cor/raça. Identidade trans ou travesti e deficiência ficam
               fora da leitura, porque a base não as registra de modo comparável.
             </>
           }

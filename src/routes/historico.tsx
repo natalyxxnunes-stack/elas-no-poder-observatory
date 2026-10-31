@@ -130,8 +130,8 @@ function HistoricoPage() {
           }
           unknown={
             <>
-              Em aberto nesta versão: o resultado de 2026 e as lacunas
-              documentadas nos arquivos históricos oficiais.
+              Em aberto: as lacunas documentadas nos arquivos históricos
+              oficiais, listadas no fim da página.
             </>
           }
         />
