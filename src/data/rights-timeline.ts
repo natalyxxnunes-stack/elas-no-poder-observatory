@@ -193,6 +193,18 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     consequence:
       "Criou incentivo financeiro partidário para investir nessas candidaturas, sem alterar o resultado eleitoral em si.",
     sourceLabel: "Emenda Constitucional nº 111/2021, art. 2º",
+    facsimile: {
+      cabecalho: "Emenda Constitucional nº 111, de 28 de setembro de 2021",
+      dispositivo: "Art. 2º, caput",
+      depois: {
+        prefixo:
+          "Para fins de distribuição entre os partidos políticos dos recursos do fundo partidário e do Fundo Especial de Financiamento de Campanha (FEFC), os votos dados a candidatas mulheres ou a candidatos negros para a Câmara dos Deputados nas eleições realizadas de 2022 a 2030 ",
+        troca: "serão contados em dobro",
+        sufixo: ".",
+      },
+      notaDepois: "Só o caput; o parágrafo único não foi reproduzido",
+      fonte: "Texto conferido por busca da frase exata em publicações do TSE e do Congresso; o parágrafo único fica de fora até a conferência no texto oficial.",
+    },
     sourceUrl:
       "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm",
   },
