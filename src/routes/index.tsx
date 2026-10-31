@@ -114,9 +114,10 @@ function DadosPage() {
     <PageShell home>
       <HomeHeroEditorial snapshot={snapshot} baseDate={baseDate} />
       <CapaCards items={CAPA_CARDS} baseLabel="Resultado da eleição · base do TSE de 27/10/2026" />
+      <HomeFunnelFeature snapshot={snapshot} />
       <section className="relative left-1/2 -ml-[50vw] w-screen bg-lilac">
         <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
-          <ChapterKicker n="01" label="Achados" />
+          <ChapterKicker n="02" label="Achados" />
           <h2 className="mt-5 font-display text-3xl leading-tight text-ink md:text-4xl">O que encontramos</h2>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {HOME_ACHADOS.map((achado) => <AchadoCard key={achado.id} achado={achado} />)}
@@ -125,8 +126,6 @@ function DadosPage() {
         </div>
       </section>
       <HomeHistoryHighlight historical={historical} />
-      <HomeFunnelFeature snapshot={snapshot} />
-      <HomeMapSection snapshot={snapshot} />
       <HomeInvestigationGrid snapshot={snapshot} />
       <HomeAboutBand />
     </PageShell>

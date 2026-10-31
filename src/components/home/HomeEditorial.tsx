@@ -1,3 +1,4 @@
+import { VOTOS_2026 } from "@/data/votos-2026";
 import { Link } from "@tanstack/react-router";
 import { RESULT_2026_GOVERNO, RESULT_2026_PROPORCIONAL, RESULT_2026_SENADO } from "@/data/resultado-2026";
 import { HISTORICAL_FUNNEL } from "@/data/historical-funnel";
@@ -229,7 +230,7 @@ export function HomeHistoryHighlight({ historical: _historical }: { historical: 
     <section className="relative left-1/2 -ml-[50vw] w-screen bg-plum text-cream">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-16 md:grid-cols-[1.1fr_minmax(0,24rem)] md:px-8 md:py-24">
         <div>
-          <ChapterKicker n="02" label="Como chegamos até aqui" dark />
+          <ChapterKicker n="03" label="Como chegamos até aqui" dark />
           <p className="mt-6 font-display text-[clamp(4rem,9vw,7rem)] font-semibold leading-[0.9] text-cream">2.579</p>
           <h2 className="mt-3 max-w-md font-display text-2xl leading-[1.1] text-cream md:text-3xl">
             candidatas a deputada a menos que em 2022
@@ -279,26 +280,30 @@ export function HomeHistoryHighlight({ historical: _historical }: { historical: 
 }
 
 export function HomeFunnelFeature({ snapshot }: { snapshot: PublicSnapshot | null }) {
-  const prop = snapshot?.universes.proporcional;
-  const maj = snapshot?.universes.majoritario;
-  const propShare = prop && prop.total > 0 ? formatPct((prop.feminine / prop.total) * 100) : "—";
-  const majShare = maj && maj.total > 0 ? formatPct((maj.feminine / maj.total) * 100) : "—";
+  // Um universo só, a Câmara dos Deputados: candidaturas, votos e cadeiras de 2026.
+  void snapshot;
+  const fed = VOTOS_2026.federal;
+  const sum = (o: Record<string, number> | undefined) => Object.values(o ?? {}).reduce((x, y) => x + y, 0);
+  const candF = sum(fed.candidacies["FEMININO"]);
+  const candT = candF + sum(fed.candidacies["MASCULINO"]);
+  const votF = sum(fed.votes["FEMININO"]);
+  const cad = RESULT_2026_PROPORCIONAL.byCargo.federal;
   const steps = [
-    { n: "01", label: "Contexto", figure: propShare, note: `das candidaturas a deputada; ${majShare} nas majoritárias`, to: "/quem-sao-elas" as const, link: "Quem são elas?" },
-    { n: "02", label: "Competição", figure: "R$", note: "receita declarada até 27/10, por gênero e cor/raça", to: "/dinheiro" as const, link: "Dinheiro" },
-    { n: "03", label: "Resultado", figure: formatPct((RESULT_2026_PROPORCIONAL.elected.feminine / RESULT_2026_PROPORCIONAL.seats) * 100), note: `das cadeiras de deputado(a) (${formatInt(RESULT_2026_PROPORCIONAL.elected.feminine)} de ${formatInt(RESULT_2026_PROPORCIONAL.seats)}); Senado: ${RESULT_2026_SENADO.electedFeminine} de ${RESULT_2026_SENADO.seats}; governos: ${RESULT_2026_GOVERNO.electedFeminine} de ${RESULT_2026_GOVERNO.totalUfs}`, to: "/historico" as const, link: "Histórico" },
-    { n: "04", label: "Poder", figure: "?", note: "a partir de 2027: comissões, mesas e lideranças", to: null, link: null },
+    { n: "01", label: "Candidatura", figure: formatPct((candF / candT) * 100), note: `das candidaturas a deputado federal (${formatInt(candF)} de ${formatInt(candT)})`, to: "/quem-sao-elas" as const, link: "Quem são elas?" },
+    { n: "02", label: "Voto", figure: formatPct((votF / fed.votesTotal) * 100), note: `dos votos nominais válidos para deputado federal (${formatInt(votF)} de ${formatInt(fed.votesTotal)})`, to: "/votos" as const, link: "Na urna" },
+    { n: "03", label: "Cadeira", figure: formatPct((cad.feminine / cad.seats) * 100), note: `das cadeiras da Câmara (${formatInt(cad.feminine)} de ${formatInt(cad.seats)})`, to: "/quem-chega" as const, link: "Quem chega" },
+    { n: "04", label: "Poder", figure: null, note: "Mesa, comissões e lideranças entram a partir de fevereiro de 2027, com a posse.", to: null, link: null },
   ];
   return (
     <section className="py-16 md:py-24" aria-labelledby="funil-home-titulo">
-      <ChapterKicker n="03" label="O funil" />
-      <h2 id="funil-home-titulo" className="mt-4 max-w-3xl font-display text-3xl leading-[1.05] text-ink md:text-4xl">Quatro etapas entre a candidatura e o poder. Com a eleição apurada, três já têm número.</h2>
+      <ChapterKicker n="01" label="O funil" />
+      <h2 id="funil-home-titulo" className="mt-4 max-w-3xl font-display text-3xl leading-[1.05] text-ink md:text-4xl">Na Câmara, a fatia das mulheres em cada etapa de 2026</h2>
       <ol className="mt-10 grid border-t-4 border-coral sm:grid-cols-2 lg:grid-cols-4">
         {steps.map((step, index) => (
           <li key={step.n} className={`min-w-0 border-b border-rule py-6 sm:px-5 ${index > 0 ? "lg:border-l" : "sm:pl-0"}`}>
             <p className="font-mono text-xs font-semibold text-coral-ink">{step.n}</p>
             <h3 className="mt-2 font-display text-2xl text-ink">{step.label}</h3>
-            <p className={`mt-4 font-display text-5xl font-semibold leading-none ${step.figure === "?" ? "text-muted-foreground" : "text-plum"}`}>{step.figure}</p>
+            {step.figure && <p className="mt-4 font-display text-5xl font-semibold leading-none text-plum">{step.figure}</p>}
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{step.note}</p>
             {step.to && (
               <Link to={step.to} className="mt-4 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-xs font-semibold uppercase text-plum">
@@ -308,22 +313,22 @@ export function HomeFunnelFeature({ snapshot }: { snapshot: PublicSnapshot | nul
           </li>
         ))}
       </ol>
-      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Cada etapa tem universo, fonte e data próprios. <Link to="/funil" className="text-plum underline underline-offset-4">Entenda o funil</Link></p>
+      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Cada etapa tem o próprio denominador; as porcentagens não se subtraem. Fonte: TSE, Candidatos e Votação 2026, base de 27/10/2026. <Link to="/funil" className="text-plum underline underline-offset-4">Entenda o funil</Link> · <Link to="/quem-sao-elas" hash="estados" className="text-plum underline underline-offset-4">E no seu estado?</Link></p>
     </section>
   );
 }
 
 const INVESTIGATIONS = [
-  { id: "historico", title: "Em 2026, 1 em cada 21 candidatas a deputada se elegeu. Entre os homens, 1 em cada 10.", support: "Candidaturas e eleitas em cada eleição geral, de 2014 a 2026.", to: "/historico", link: "Ver a série histórica" },
+  { id: "como-votaram", title: "Seis votações na Câmara, deputada por deputada, cruzadas com o resultado de 2026", support: "Da igualdade salarial à norma do Conanda, com a posição da bancada e o dinheiro de campanha.", to: "/como-votaram", link: "Ver no plenário" },
   { id: "direitos", title: "Treze marcos, de 1932 a 2026", support: "Cada lei, decisão e emenda que mudou o acesso das mulheres às urnas e ao dinheiro de campanha, com o texto oficial.", to: "/direitos", link: "Ver a linha do tempo" },
-  { id: "dinheiro", title: "Candidata a deputada branca declarou R$ 144 mil nos maiores partidos. Parda, R$ 98 mil.", support: "Receitas declaradas até 27/10, por gênero, cor/raça, cargo, partido e estado.", to: "/dinheiro", link: "Ver quem recebe" },
+  { id: "dinheiro", title: "Mediana da candidata a deputada nos 12 partidos com mais receita: branca, R$ 144 mil; parda, R$ 98 mil; preta, R$ 79 mil", support: "Receitas declaradas até 27/10, por gênero, cor/raça, cargo, partido e estado.", to: "/dinheiro", link: "Ver quem recebe" },
 ] as const;
 
 export function HomeInvestigationGrid({ snapshot: _snapshot }: { snapshot: PublicSnapshot | null }) {
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen bg-paper">
       <div className="mx-auto max-w-6xl px-5 pt-16 md:px-8 md:pt-20">
-        <ChapterKicker n="05" label="Investigações" />
+        <ChapterKicker n="04" label="Investigações" />
       </div>
       <div className="mx-auto max-w-6xl px-5 pb-6 md:px-8"><div className="mt-6 grid border-t-4 border-coral md:grid-cols-3">
         {INVESTIGATIONS.map((item) => {

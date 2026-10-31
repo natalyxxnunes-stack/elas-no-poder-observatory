@@ -116,7 +116,7 @@ export const M_PRETAS_PARTIDOS: Manchete = {
 const fb = FEFC_TOTAL.mulheresRaca["BRANCA"] ?? { candidaturas: 0, fefc: 0 };
 export const M_FUNDO_BRANCAS: Manchete = {
   id: "fundo-brancas",
-  texto: `Brancas eram ${pct(fb.candidaturas, FEFC_TOTAL.mulheres.candidaturas)} das candidatas a deputada e receberam ${pct(fb.fefc, FEFC_TOTAL.mulheres.fefc)} do fundo eleitoral que foi para mulheres`,
+  texto: `Brancas: ${pct(fb.candidaturas, FEFC_TOTAL.mulheres.candidaturas)} das candidatas a deputada, ${pct(fb.fefc, FEFC_TOTAL.mulheres.fefc)} do fundo eleitoral que foi para mulheres`,
   to: "/dinheiro",
   pagina: "Dinheiro",
   fonte: `TSE, Prestação de Contas 2026, base de ${FEFC_META.baseGeneratedAt}`,
@@ -160,7 +160,7 @@ const candAll = candF + sum(vf.candidacies["MASCULINO"]);
 const votF = sum(vf.votes["FEMININO"]);
 export const M_VOTOS: Manchete = {
   id: "votos",
-  texto: `Elas eram ${pct(candF, candAll)} das candidaturas à Câmara, tiveram ${pct(votF, vf.votesTotal)} dos votos e ficaram com ${pct(R.byCargo.federal.feminine, R.byCargo.federal.seats)} das cadeiras`,
+  texto: `Na Câmara, mulheres foram ${pct(candF, candAll)} das candidaturas, ${pct(votF, vf.votesTotal)} dos votos e ${pct(R.byCargo.federal.feminine, R.byCargo.federal.seats)} das cadeiras`,
   to: "/votos",
   pagina: "Votos",
   fonte: `${TSE}; TSE, Votação por candidato 2026`,
@@ -170,7 +170,7 @@ export const M_VOTOS: Manchete = {
 const P = RESULT_2026_PRESIDENCIA;
 export const M_GOVERNOS: Manchete = {
   id: "governos",
-  texto: `${n(RESULT_2026_GOVERNO.electedFeminine)} governadoras em ${n(RESULT_2026_GOVERNO.totalUfs)} estados, e ${P.mulheresEleitas === 0 ? "nenhuma mulher eleita para a Presidência" : `${n(P.mulheresEleitas)} presidenta eleita`}: ${n(P.mulheres)} das ${n(P.registros)} candidaturas presidenciais eram de mulheres, e nenhuma chegou ao 2º turno`,
+  texto: `${n(RESULT_2026_GOVERNO.electedFeminine)} governadoras em ${n(RESULT_2026_GOVERNO.totalUfs)} estados e ${P.mulheresEleitas === 0 ? "nenhuma mulher no 2º turno da Presidência" : `${n(P.mulheresEleitas)} presidenta eleita`}`,
   to: "/funil",
   pagina: "O funil",
   fonte: TSE,
@@ -226,7 +226,7 @@ const vpg22 = VPG.porAno.find((a) => a.ano === "2022")?.processos ?? 0;
 const vpg26 = VPG.porAno.find((a) => a.ano === "2026")?.processos ?? 0;
 export const M_VPG: Manchete = {
   id: "vpg",
-  texto: `A Justiça Eleitoral registrou ${n(vpg26)} processos de violência política de gênero em 2026, até ${VPG_META.extraidoEm.slice(0, 5)}, contra ${n(vpg22)} em 2022`,
+  texto: `${n(vpg26)} processos de violência política de gênero em 2026, até ${VPG_META.extraidoEm.slice(0, 5)}. Em 2022, foram ${n(vpg22)}`,
   to: "/barreiras",
   pagina: "Barreiras",
   fonte: `${VPG_META.fonte}; dados extraídos em ${VPG_META.extraidoEm}`,

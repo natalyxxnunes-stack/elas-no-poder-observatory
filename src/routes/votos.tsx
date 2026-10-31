@@ -262,9 +262,8 @@ function VotosPage() {
         question={M_VOTOS.texto}
         lead={
           <p>
-            Ter candidatura, receber votos e ganhar cadeira são três etapas diferentes. Em 2026, na Câmara, mulheres
-            foram {pct(fed.cand.f, fed.cand.t)} das candidaturas, receberam {pct(fed.votes.f, fed.votes.t)} dos votos
-            nominais válidos e ficaram com {pct(fed.seats.f, fed.seats.t)} das cadeiras.
+            Ter candidatura, receber votos e ganhar cadeira são três etapas diferentes, cada uma com o próprio
+            denominador. Os votos aqui são os nominais válidos, dados a candidaturas a deputado federal.
           </p>
         }
         aside={

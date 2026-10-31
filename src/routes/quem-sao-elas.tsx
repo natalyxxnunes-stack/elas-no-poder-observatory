@@ -136,10 +136,10 @@ function QuemSaoElasPage() {
       <EditorialOpening
         variant="race"
         kicker="Quem são elas?"
-        question={`Brancas são ${proportionalWhite} das candidatas a deputada e ${majoritarianWhite} das que disputam Presidência, governos e Senado`}
+        question={`Brancas: ${proportionalWhite} das candidatas a deputada, ${majoritarianWhite} a governo, Senado e Presidência`}
         lead={
           <p>
-            Brancas são {proportionalWhite} das candidatas a deputada e {majoritarianWhite} das que disputam Presidência, governos e Senado. Nessas disputas majoritárias, das {majoritarianRaceTotal > 0 ? formatInt(majoritarianRaceTotal) : "—"} mulheres, {majoritarianRaceCounts ? formatInt(majoritarianRaceCounts["BRANCA"] ?? 0) : "—"} são brancas, {majoritarianPardaCount !== undefined ? formatInt(majoritarianPardaCount) : "—"} pardas e {majoritarianPretaCount !== undefined ? formatInt(majoritarianPretaCount) : "—"} pretas. A queda está sobretudo nas pardas: eram {proportionalPardaFrequency} candidatas a deputada e viram {majoritarianPardaFrequency} nas candidaturas majoritárias.
+            Nas disputas por governo, Senado e Presidência, das {majoritarianRaceTotal > 0 ? formatInt(majoritarianRaceTotal) : "—"} mulheres, {majoritarianRaceCounts ? formatInt(majoritarianRaceCounts["BRANCA"] ?? 0) : "—"} são brancas, {majoritarianPardaCount !== undefined ? formatInt(majoritarianPardaCount) : "—"} pardas e {majoritarianPretaCount !== undefined ? formatInt(majoritarianPretaCount) : "—"} pretas. A queda está sobretudo nas pardas: eram {proportionalPardaFrequency} candidatas a deputada e viram {majoritarianPardaFrequency} nas candidaturas majoritárias.
           </p>
         }
         snapshot={snapshot}

@@ -149,7 +149,7 @@ export const AXES: readonly Axis[] = [
   {
     id: "votos",
     to: "/votos",
-    label: "Votos",
+    label: "Na urna",
     question: "Quem consegue transformar candidatura em voto?",
     summary:
       "Candidatura, competitividade, desempenho e resultado são coisas distintas. Definimos os indicadores antes de chamar qualquer coisa de competitividade.",
@@ -187,7 +187,7 @@ export const AXES: readonly Axis[] = [
   {
     id: "como-votaram",
     to: "/como-votaram",
-    label: "Como votaram",
+    label: "No plenário",
     question: "Como votaram as deputadas, e quem voltou?",
     summary:
       "Investigação assinada: o voto das deputadas federais em seis votações de mérito da Câmara (igualdade salarial, anistia às cotas, norma do Conanda sobre vítimas de violência sexual, marco temporal, dosimetria do 8 de janeiro e PEC das prerrogativas), com a posição da própria bancada, cor/raça e o resultado de 2026.",
@@ -338,7 +338,7 @@ export const DATA_2026_NAV_ITEMS = [
   { label: "Partidos", to: "/partidos", hash: undefined },
   { label: "Cargos", to: "/quem-sao-elas", hash: "cargos" },
   { label: "Raça", to: "/quem-sao-elas", hash: "raca" },
-  { label: "Votos", to: "/votos", hash: undefined },
+  { label: "Na urna", to: "/votos", hash: undefined },
   { label: "Eleitas", to: "/quem-chega", hash: undefined },
   { label: "Dinheiro", to: "/dinheiro", hash: undefined },
   { label: "Histórico", to: "/historico", hash: undefined },

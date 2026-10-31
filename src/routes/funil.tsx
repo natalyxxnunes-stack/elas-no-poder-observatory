@@ -85,8 +85,6 @@ function FunilPage() {
     feminine !== undefined && total !== undefined && total > 0
       ? formatUmEmCada((feminine / total) * 100)
       : "—";
-  const resultShare = formatPct((RESULT_2026_PROPORCIONAL.elected.feminine / RESULT_2026_PROPORCIONAL.seats) * 100);
-  const resultCount = `${formatInt(RESULT_2026_PROPORCIONAL.elected.feminine)} de ${formatInt(RESULT_2026_PROPORCIONAL.seats)}`;
   const proportionalFrequency = frequency(
     snapshot?.universes.proporcional.feminine,
     snapshot?.universes.proporcional.total,
@@ -104,7 +102,7 @@ function FunilPage() {
         question={M_GOVERNOS.texto}
         lead={
           <p>
-            Mulheres são {proportionalFrequency} candidaturas a deputada e {majoritarianFrequency} nas disputas por Presidência, governos e Senado. Nas candidaturas majoritárias, a presença cai. No 1º turno de 4 de outubro, mulheres ficaram com {resultShare} das cadeiras de deputado(a): {resultCount}. Com o 2º turno de 25 de outubro, os governos fecharam com 3 mulheres em 27, e a Presidência segue sem nenhuma.
+            Mulheres são {proportionalFrequency} candidaturas a deputada e {majoritarianFrequency} nas disputas por Presidência, governos e Senado. Nas candidaturas majoritárias, a presença cai. Na Presidência, {/* n=14, número absoluto */}2 das 14 candidaturas eram de mulheres.
           </p>
         }
         snapshot={snapshot}
