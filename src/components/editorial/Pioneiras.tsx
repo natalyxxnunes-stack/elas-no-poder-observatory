@@ -46,6 +46,7 @@ export function PerfilHero({
   quemFoi,
   ancora,
   fotoId,
+  ficha,
 }: {
   years: string;
   nome: string;
@@ -53,13 +54,15 @@ export function PerfilHero({
   ancora: AncoraPerfil;
   /** foto documental registrada em src/data/fotos.ts; sem registro, nada aparece */
   fotoId?: string;
+  /** peça que ocupa o lugar da foto enquanto ela não existe */
+  ficha?: React.ReactNode;
 }) {
   return (
     <header className="grid gap-8 border-b border-ink py-10 md:py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:gap-12">
       <div>
         {fotoId && (
-          <div className="mb-6 max-w-[15rem]">
-            <FotoDocumental id={fotoId} />
+          <div className="mb-8 empty:hidden">
+            <FotoDocumental id={fotoId} fallback={ficha ? <div className="hidden lg:block">{ficha}</div> : null} />
           </div>
         )}
         <p className="font-mono text-xs uppercase tracking-[0.12em] text-plum">Pioneiras · {years}</p>
@@ -189,5 +192,65 @@ export function Conferencia({
         </li>
       ))}
     </ul>
+  );
+}
+
+/**
+ * Ficha de votação: a linha do arquivo oficial do TSE recomposta como ficha
+ * de arquivo. Reprodução tipográfica a partir do dado público; ocupa o lugar
+ * da foto enquanto não houver fotografia documental registrada.
+ */
+export function FichaVotacao({
+  ano,
+  uf,
+  cargo,
+  registro,
+  partido,
+  votos,
+  situacao,
+  arquivo,
+  sha,
+}: {
+  ano: string;
+  uf: string;
+  cargo: string;
+  registro: string;
+  partido: string;
+  votos: number;
+  situacao: string;
+  arquivo: string;
+  sha: string;
+}) {
+  const linhas: [string, string][] = [
+    ["Eleição", ano],
+    ["UF", uf],
+    ["Cargo", cargo],
+    ["Nome no registro", registro],
+    ["Partido", partido],
+    ["Votos nominais", formatInt(votos)],
+    ["Situação", situacao],
+  ];
+  return (
+    <figure className="max-w-sm">
+      <div className="border-2 border-ink bg-cream p-4 font-mono text-[13px] text-ink">
+        <p className="border-b border-ink pb-2 text-[13px] uppercase tracking-[0.1em]">
+          Tribunal Superior Eleitoral · votação nominal
+        </p>
+        <dl className="mt-2 divide-y divide-ink/20">
+          {linhas.map(([k, v]) => (
+            <div key={k} className="grid grid-cols-[8.5rem_minmax(0,1fr)] gap-2 py-1.5">
+              <dt className="uppercase text-ink/60">{k}</dt>
+              <dd className={k === "Votos nominais" ? "font-semibold text-plum" : ""}>{v}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-2 break-all border-t border-ink pt-2 text-[13px] leading-snug text-ink/60">
+          {arquivo} · sha256 {sha.slice(0, 16)}…
+        </p>
+      </div>
+      <figcaption className="mt-2 text-[13px] text-muted-foreground">
+        Reprodução tipográfica da linha do arquivo oficial do TSE; não é imagem do documento.
+      </figcaption>
+    </figure>
   );
 }

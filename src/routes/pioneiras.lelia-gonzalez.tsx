@@ -3,7 +3,7 @@ import { PageShell } from "@/components/PageShell";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { FichaGrafico } from "@/components/editorial/ChartFrame";
-import { Conferencia, LinhaDoTempo, PerfilHero, PerfilNav } from "@/components/editorial/Pioneiras";
+import { Conferencia, FichaVotacao, LinhaDoTempo, PerfilHero, PerfilNav } from "@/components/editorial/Pioneiras";
 import { ANCORAS_PIONEIRAS, RJ_1982, RJ_1986 } from "@/data/perfis-pioneiras";
 import { formatInt } from "@/lib/format-br";
 
@@ -74,6 +74,9 @@ function LeliaPage() {
   return (
     <PageShell breadcrumb={[{ label: "Pioneiras", to: "/pioneiras" }, { label: "Lélia Gonzalez" }]}>
       <PerfilHero
+        ficha={
+          <FichaVotacao ano="1986" uf="RJ" cargo="Deputado estadual" registro={RJ_1986.registro} partido="PDT" votos={RJ_1986.lelia.votos} situacao="Suplente" arquivo={RJ_1986.arquivo} sha={RJ_1986.arquivoSha256} />
+        }
         fotoId="lelia-gonzalez"
         years="1935–1994"
         nome="Lélia Gonzalez"

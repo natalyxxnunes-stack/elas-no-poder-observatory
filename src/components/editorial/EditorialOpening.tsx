@@ -188,15 +188,15 @@ function MilestonesOpening({ milestones, ...text }: OpeningBase & { milestones: 
 
 function ProcessOpening({ steps, ...text }: OpeningBase & { steps: readonly string[] }) {
   return (
-    <Frame className="bg-cream">
+    <Frame className="bg-plum">
       <div className="grid min-h-[30rem] lg:grid-cols-2">
-        <div className="bg-plum px-5 py-12 text-cream md:px-8 lg:flex lg:items-center lg:py-16 lg:pl-[max(2rem,calc((100vw-72rem)/2+2rem))] lg:pr-12"><OpeningText {...text} inverse /></div>
+        <div className="px-5 py-12 text-cream md:px-8 lg:flex lg:items-center lg:py-16 lg:pl-[max(2rem,calc((100vw-72rem)/2+2rem))] lg:pr-12"><OpeningText {...text} inverse /></div>
         <ol className="relative flex max-w-2xl flex-col justify-center px-5 py-9 md:px-10 lg:py-12 lg:pr-[max(2rem,calc((100vw-72rem)/2+2rem))]">
-          <div className="absolute bottom-12 left-[2.2rem] top-12 w-px bg-plum/30 md:left-[3.45rem]" aria-hidden="true" />
+          <div className="absolute bottom-12 left-[2.2rem] top-12 w-px bg-cream/30 md:left-[3.45rem]" aria-hidden="true" />
           {steps.map((step, index) => (
-            <li key={step} className="relative grid grid-cols-[2.25rem_minmax(0,1fr)] items-center gap-4 border-b border-rule py-3.5">
-              <span className="z-10 grid size-8 place-items-center rounded-full bg-plum font-mono text-xs text-cream">{String(index + 1).padStart(2, "0")}</span>
-              <span className="text-sm text-ink">{step}</span>
+            <li key={step} className="relative grid grid-cols-[2.25rem_minmax(0,1fr)] items-center gap-4 border-b border-cream/20 py-3.5">
+              <span className="z-10 grid size-8 place-items-center rounded-full bg-cream font-mono text-xs text-plum">{String(index + 1).padStart(2, "0")}</span>
+              <span className="text-[15px] text-cream">{step}</span>
             </li>
           ))}
         </ol>
@@ -274,17 +274,17 @@ function RepresentationOpening({ labels, gap, seats: real, ...text }: OpeningBas
 
 function PowerFlowOpening({ levers, ...text }: OpeningBase & { levers: readonly { label: string; ready: "yes" | "partial" | "no" }[] }) {
   return (
-    <Frame className="bg-cream">
+    <Frame className="bg-plum">
       <div className="grid min-h-[31rem] lg:grid-cols-2">
-        <div className="bg-plum px-5 py-12 text-cream md:px-8 lg:flex lg:items-center lg:py-16 lg:pl-[max(2rem,calc((100vw-72rem)/2+2rem))] lg:pr-12"><OpeningText {...text} inverse /></div>
+        <div className="px-5 py-12 text-cream md:px-8 lg:flex lg:items-center lg:py-16 lg:pl-[max(2rem,calc((100vw-72rem)/2+2rem))] lg:pr-12"><OpeningText {...text} inverse /></div>
         <figure aria-label="Fluxo das decisões partidárias que controlam o acesso à disputa" className="flex min-w-0 max-w-2xl flex-col justify-center px-5 py-10 md:px-10 lg:pr-[max(2rem,calc((100vw-72rem)/2+2rem))]">
-          <div className="mx-auto bg-plum px-6 py-3 font-mono text-xs uppercase text-cream">Partidos e federações</div>
-          <div className="mx-auto h-7 w-px bg-ink/35" />
-          <div className="grid grid-cols-3 gap-2">
-            {levers.slice(0, 3).map((lever, index) => <div key={lever.label} className={`${index === 1 ? "bg-paper" : "bg-lilac"} border border-ink/30 px-2 py-4 text-center font-mono text-xs uppercase text-ink`}>{lever.label}<span className="mt-2 block text-xs opacity-60">{lever.ready === "yes" ? "disponível" : lever.ready === "partial" ? "parcial" : "aguardando dado"}</span></div>)}
+          <div className="mx-auto bg-cream px-6 py-3 font-mono text-xs uppercase text-plum">Partidos e federações</div>
+          <div className="mx-auto h-7 w-px bg-cream/50" />
+          <div className="grid gap-2 sm:grid-cols-3">
+            {levers.slice(0, 3).map((lever, index) => <div key={lever.label} className={`${index === 1 ? "bg-paper" : "bg-lilac"} min-w-[9rem] text-balance border border-cream/40 px-3 py-4 text-center text-[15px] text-ink`}>{lever.label}<span className="mt-2 block text-[13px] text-ink/65">{lever.ready === "yes" ? "disponível" : lever.ready === "partial" ? "parcial" : "aguardando dado"}</span></div>)}
           </div>
-          <div className="mx-auto h-7 w-px bg-ink/35" />
-          <div className="mx-auto bg-ink px-7 py-3 font-mono text-xs uppercase text-cream">Acesso ao poder</div>
+          <div className="mx-auto h-7 w-px bg-cream/50" />
+          <div className="mx-auto border border-cream px-7 py-3 font-mono text-xs uppercase text-cream">Acesso ao poder</div>
         </figure>
       </div>
     </Frame>

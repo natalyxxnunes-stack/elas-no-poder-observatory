@@ -17,7 +17,7 @@ import {
   VOTACOES_META,
   type Votacao,
 } from "@/data/votacoes-camara";
-import { formatBRLCompact, formatInt, formatPct } from "@/lib/format-br";
+import { formatBRLCompact, formatDateBR, formatInt, formatPct } from "@/lib/format-br";
 
 /**
  * Como votaram — investigação assinada: o voto das deputadas federais em cinco
@@ -30,6 +30,51 @@ import { formatBRLCompact, formatInt, formatPct } from "@/lib/format-br";
  *  - o cruzamento com a reeleição descreve; não mede efeito do voto;
  *  - bases abaixo de 20 aparecem como "X de Y".
  */
+
+
+/** Placar das deputadas nas seis votações: uma barra por votação, Sim, Não e ausência. */
+function PlacarDeputadas() {
+  return (
+    <section aria-labelledby="placar-deputadas" className="relative left-1/2 -ml-[50vw] mb-10 w-screen bg-cream">
+      <div className="mx-auto max-w-6xl px-5 py-10 md:px-8 md:py-14">
+        <h2 id="placar-deputadas" className="font-display text-2xl leading-tight text-ink md:text-3xl">
+          Como as deputadas votaram, votação por votação
+        </h2>
+        <ul aria-hidden="true" className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[13px] text-ink/80">
+          <li className="inline-flex items-center gap-1.5"><span className="size-3 bg-plum" />Sim</li>
+          <li className="inline-flex items-center gap-1.5"><span className="size-3 border-2 border-ink bg-paper" />Não</li>
+          <li className="inline-flex items-center gap-1.5"><span className="size-3 bg-[var(--race-na)]" />Ausente ou abstenção</li>
+        </ul>
+        <ol className="mt-6 grid gap-x-10 gap-y-6 md:grid-cols-2">
+          {VOTACOES.map((v) => {
+            const f = v.porSexo.F;
+            const sim = f.votos["Sim"] ?? 0;
+            const nao = f.votos["Não"] ?? 0;
+            const outros = f.total - sim - nao;
+            const w = (x: number) => `${(x / f.total) * 100}%`;
+            return (
+              <li key={v.id}>
+                <p className="font-medium leading-snug text-ink">{v.titulo}</p>
+                <div className="mt-2 flex h-5 w-full overflow-hidden">
+                  <span className="h-full bg-plum" style={{ width: w(sim) }} />
+                  <span className="h-full border-2 border-ink bg-paper" style={{ width: w(nao) }} />
+                  <span className="h-full bg-[var(--race-na)]" style={{ width: w(outros) }} />
+                </div>
+                <p className="mt-1 text-[13px] text-ink/80">
+                  <span className="font-semibold text-ink">{n(sim)} Sim</span> · {n(nao)} Não · {n(outros)} ausentes
+                  ou abstenção, de {n(f.total)} deputadas em exercício · {formatDateBR(v.data)}
+                </p>
+              </li>
+            );
+          })}
+        </ol>
+        <p className="mt-5 text-[13px] text-muted-foreground">
+          Fonte: Câmara dos Deputados, Dados Abertos, votos nominais; placar recontado igual ao oficial.
+        </p>
+      </div>
+    </section>
+  );
+}
 
 export const Route = createFileRoute("/como-votaram")({
   head: () => ({
@@ -715,13 +760,7 @@ function ComoVotaramPage() {
         }
       />
 
-      <div className="pb-8">
-        <AsDezDaIgualdade />
-      </div>
-
-      <div className="pb-8">
-        <AnistiaCotas />
-      </div>
+      <PlacarDeputadas />
 
       <div className="pb-4">
         <InBrief aberto
@@ -755,6 +794,15 @@ function ComoVotaramPage() {
           }
         />
       </div>
+
+      <div className="pb-8">
+        <AsDezDaIgualdade />
+      </div>
+
+      <div className="pb-8">
+        <AnistiaCotas />
+      </div>
+
 
       <div className="pb-4">
         <GapNote label="Correção em 28/10/2026">

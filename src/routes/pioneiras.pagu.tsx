@@ -6,6 +6,7 @@ import { FichaGrafico } from "@/components/editorial/ChartFrame";
 import {
   Conferencia,
   LinhaDoTempo,
+  FichaVotacao,
   PerfilHero,
   PerfilNav,
 } from "@/components/editorial/Pioneiras";
@@ -63,6 +64,9 @@ function PaguPage() {
   return (
     <PageShell breadcrumb={[{ label: "Pioneiras", to: "/pioneiras" }, { label: "Pagu" }]}>
       <PerfilHero
+        ficha={
+          <FichaVotacao ano="1950" uf="SP" cargo="Deputado estadual" registro="PATRÍCIA GALVÃO" partido="PSB" votos={SP_1950.pagu.votos} situacao="Suplente" arquivo={SP_1950.arquivoSp} sha={SP_1950.arquivoSpSha256} />
+        }
         fotoId="pagu"
         years="1910–1962"
         nome="Patrícia Galvão, a Pagu"
