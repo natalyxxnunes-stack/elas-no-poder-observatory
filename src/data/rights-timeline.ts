@@ -210,6 +210,19 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     consequence:
       "A cota de recursos ganhou status constitucional, e o descumprimento anterior ficou sem punição.",
     sourceLabel: "Emenda Constitucional nº 117/2022",
+    facsimile: {
+      cabecalho: "Constituição da República Federativa do Brasil",
+      dispositivo: "Art. 17, § 8º",
+      depois: {
+        prefixo:
+          "O montante do Fundo Especial de Financiamento de Campanha e da parcela do fundo partidário destinada a campanhas eleitorais, bem como o tempo de propaganda gratuita no rádio e na televisão a ser distribuído pelos partidos às respectivas candidatas, deverão ser de ",
+        troca: "no mínimo 30% (trinta por cento), proporcional ao número de candidatas",
+        sufixo:
+          ", e a distribuição deverá ser realizada conforme critérios definidos pelos respectivos órgãos de direção e pelas normas estatutárias, considerados a autonomia e o interesse partidário.",
+      },
+      notaDepois: "Incluído pela Emenda Constitucional nº 117, de 2022",
+      fonte: "Texto conferido na publicação original, Câmara dos Deputados, Legislação Informatizada.",
+    },
     sourceUrl: "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc117.htm",
   },
   {
@@ -243,6 +256,18 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
       "A regra racial de recursos, antes construída por decisões judiciais, passou a ter base constitucional própria, com percentual fixo de 30%.",
     sourceLabel: "Emenda Constitucional nº 133/2024",
     sourceUrl: "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc133.htm",
+    facsimile: {
+      cabecalho: "Constituição da República Federativa do Brasil",
+      dispositivo: "Art. 17, § 9º",
+      depois: {
+        prefixo:
+          "Dos recursos oriundos do Fundo Especial de Financiamento de Campanha e do fundo partidário destinados às campanhas eleitorais, os partidos políticos devem, obrigatoriamente, ",
+        troca: "aplicar 30% (trinta por cento) em candidaturas de pessoas pretas e pardas",
+        sufixo: ", nas circunscrições que melhor atendam aos interesses e às estratégias partidárias.",
+      },
+      notaDepois: "Incluído pela Emenda Constitucional nº 133, de 2024",
+      fonte: "Texto conferido na publicação original, Câmara dos Deputados, Legislação Informatizada. A regra vale para os recursos do partido inteiro, em todos os cargos.",
+    },
   },
   {
     year: "2026",
