@@ -237,7 +237,7 @@ function MetodoPage() {
       </div>
 
       {/* CAMADA 1 — linguagem simples */}
-      <SectionBlock id="calculo"
+      <SectionBlock collapsible="Ver as contas, passo a passo" id="calculo"
         kicker="Camada 1 · linguagem simples"
         question="Como calculamos?"
         align="wide"

@@ -9,6 +9,7 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { GapNote } from "@/components/GapNote";
 import { RIGHTS_TIMELINE, RIGHTS_TIMELINE_RULE } from "@/data/rights-timeline";
 import { PIONEIRAS } from "@/data/pioneiras";
+import { Facsimile } from "@/components/editorial/Facsimile";
 import { RIGHTS_OPEN_QUESTIONS } from "@/data/election-2026";
 import { DISPUTE_ITEMS, DISPUTE_RULE } from "@/data/rules-in-dispute";
 import { PullQuote } from "@/components/editorial/PullQuote";
@@ -128,13 +129,14 @@ function DireitosPage() {
                       <a
                         key={p.id}
                         href={`#${p.id}`}
-                        className="border border-coral px-2 py-0.5 normal-case tracking-normal text-ink no-underline hover:bg-coral/10"
+                        className="border border-plum/50 px-2 py-0.5 normal-case tracking-normal text-ink no-underline hover:bg-lilac"
                       >
                         {p.name}
                       </a>
                     ))}
                   </p>
                 )}
+                {m.facsimile && <Facsimile f={m.facsimile} />}
                 <dl className="mt-4 space-y-3">
                   {FIELDS.slice(0, 1).map((f) => (
                     <div key={f.key} className="sm:flex sm:gap-5">

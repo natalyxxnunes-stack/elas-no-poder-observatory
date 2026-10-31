@@ -2,6 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
+import { formatInt } from "@/lib/format-br";
+import { CHANGE_TO } from "@/data/o-que-mudou";
+import { ACHADOS } from "@/data/achados";
+import { REPORTAGENS } from "@/data/reportagens";
+import { PERFIS_PIONEIRAS } from "@/data/perfis-pioneiras";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { PullQuote } from "@/components/editorial/PullQuote";
@@ -147,6 +152,26 @@ function SobrePage() {
         </div>
       </section>
 
+
+      {/* O acervo em números (30/10/2026): respiro visual no meio de texto institucional */}
+      <section aria-label="O acervo em números" className="relative left-1/2 -ml-[50vw] w-screen bg-lilac">
+        <dl className="mx-auto grid max-w-6xl gap-8 px-5 py-12 sm:grid-cols-2 md:px-8 md:py-16 lg:grid-cols-4">
+          {[
+            [formatInt(CHANGE_TO.proporcional.total + CHANGE_TO.majoritario.total), "candidaturas titulares de 2026 recontadas a partir do arquivo do TSE"],
+            ["4", "eleições gerais na série histórica: 2014, 2018, 2022 e 2026"],
+            [formatInt(ACHADOS.length), "achados datados, cada um com fonte e conta"],
+            [formatInt(REPORTAGENS.length + PERFIS_PIONEIRAS.filter((p) => p.to).length), "reportagens e perfis assinados"],
+          ].map(([v, l]) => (
+            <div key={l}>
+              <dt className="sr-only">{l}</dt>
+              <dd>
+                <span className="poster-figure block text-6xl text-plum md:text-7xl">{v}</span>
+                <span className="mt-2 block max-w-[24ch] text-[15px] leading-snug text-ink/85">{l}</span>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </section>
 
       <SectionBlock id="quem-faz"
         kicker="Quem faz"

@@ -7,6 +7,8 @@
  * específica, e não para páginas iniciais de instituições.
  */
 
+import type { FacsimileLei } from "@/components/editorial/Facsimile";
+
 export type RightsMilestone = {
   year: string;
   title: string;
@@ -22,6 +24,8 @@ export type RightsMilestone = {
   consequence: string;
   sourceLabel: string;
   sourceUrl: string;
+  /** texto legal recomposto, quando a mudança cabe em uma palavra */
+  facsimile?: FacsimileLei;
 };
 
 export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
@@ -122,6 +126,22 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
     consequence:
       "O número de candidaturas de mulheres cresceu; a discussão passou a ser a qualidade e as condições dessas candidaturas.",
     sourceLabel: "Lei nº 12.034/2009",
+    facsimile: {
+      cabecalho: "Lei nº 9.504, de 30 de setembro de 1997 · Lei das Eleições",
+      dispositivo: "Art. 10, § 3º",
+      antes: {
+        prefixo: "Do número de vagas resultante das regras previstas neste artigo, cada partido ou coligação ",
+        troca: "deverá reservar",
+        sufixo: " o mínimo de trinta por cento e o máximo de setenta por cento para candidaturas de cada sexo.",
+      },
+      depois: {
+        prefixo: "Do número de vagas resultante das regras previstas neste artigo, cada partido ou coligação ",
+        troca: "preencherá",
+        sufixo: " o mínimo de 30% (trinta por cento) e o máximo de 70% (setenta por cento) para candidaturas de cada sexo.",
+      },
+      notaDepois: "Redação dada pela Lei nº 12.034, de 2009",
+      fonte: "Texto conferido em transcrições da redação original e da vigente (Conjur, 29/06/2012) e em decisões da Justiça Eleitoral.",
+    },
     sourceUrl:
       "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12034.htm",
   },
