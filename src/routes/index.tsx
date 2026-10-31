@@ -1,4 +1,5 @@
 import { CapaCards } from "@/components/editorial/Manchetes";
+import { FitaEleitas } from "@/components/editorial/FitaEleitas";
 import { CAPA_CARDS } from "@/data/manchetes";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
@@ -127,6 +128,7 @@ function DadosPage() {
       </section>
       <HomeHistoryHighlight historical={historical} />
       <HomeInvestigationGrid snapshot={snapshot} />
+      <FitaEleitas />
       <HomeAboutBand />
     </PageShell>
   );

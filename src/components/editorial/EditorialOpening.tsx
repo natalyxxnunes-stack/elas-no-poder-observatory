@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Hemiciclo } from "@/components/editorial/Hemiciclo";
 import { RESULT_2026_PROPORCIONAL } from "@/data/resultado-2026";
 import { FINANCE_BASE_LABEL } from "@/data/tse-finance-snapshot";
 import { formatInt, formatPct } from "@/lib/format-br";
@@ -236,23 +237,15 @@ function FinancialOpening({ layers, gap, snapshot, ...text }: OpeningBase & { la
 
 function RepresentationOpening({ labels, gap, seats: real, ...text }: OpeningBase & { labels: readonly string[]; gap: string; seats?: { filled: number; total: number; cols: number } }) {
   if (real) {
-    const dots = Array.from({ length: real.total }, (_, index) => index < real.filled);
     return (
       <Frame className="bg-plum text-cream">
         <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <OpeningText {...text} inverse />
           <figure aria-label={`${real.filled} de ${real.total} cadeiras ocupadas por mulheres`} className="min-w-0">
-            <div
-              className="grid gap-[3px] border border-cream/30 p-4 sm:gap-1 sm:p-6"
-              style={{ gridTemplateColumns: `repeat(${real.cols}, minmax(0, 1fr))` }}
-            >
-              {dots.map((woman, index) => (
-                <span key={index} className={`aspect-square rounded-full ${woman ? "bg-coral" : "border border-cream/45 bg-cream/10"}`} />
-              ))}
-            </div>
-            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs uppercase text-cream/85">
-              <span className="flex items-center gap-2"><span className="size-2.5 rounded-full bg-coral" />{labels[0]} · {real.filled}</span>
-              <span className="flex items-center gap-2"><span className="size-2.5 rounded-full border border-cream" />{labels[1]} · {real.total - real.filled}</span>
+            <Hemiciclo total={real.total} destaque={real.filled} titulo={`Plenário com ${real.total} cadeiras; ${real.filled} ocupadas por mulheres`} />
+            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-[15px] text-cream/90">
+              <span className="flex items-center gap-2"><span className="size-3 rounded-full bg-cream" />{labels[0]} · {real.filled}</span>
+              <span className="flex items-center gap-2"><span className="size-3 rounded-full bg-cream/25" />{labels[1]} · {real.total - real.filled}</span>
             </div>
             <figcaption className="mt-4 border-t border-cream/25 pt-3 font-mono text-xs text-cream/85">{gap}</figcaption>
           </figure>

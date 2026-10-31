@@ -724,7 +724,7 @@ function ComoVotaramPage() {
       </div>
 
       <div className="pb-4">
-        <InBrief
+        <InBrief aberto
           found={
             <>
               Entre as deputadas que votaram, a taxa de reeleição em 2026 ficou entre{" "}

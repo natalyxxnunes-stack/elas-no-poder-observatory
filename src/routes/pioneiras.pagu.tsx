@@ -63,6 +63,7 @@ function PaguPage() {
   return (
     <PageShell breadcrumb={[{ label: "Pioneiras", to: "/pioneiras" }, { label: "Pagu" }]}>
       <PerfilHero
+        fotoId="pagu"
         years="1910–1962"
         nome="Patrícia Galvão, a Pagu"
         quemFoi="Escritora, jornalista e militante, foi presa pela primeira vez aos 21 anos, num comício em Santos. Vinte anos depois, tentou uma vaga na Assembleia de São Paulo."

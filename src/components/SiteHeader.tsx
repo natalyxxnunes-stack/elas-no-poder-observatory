@@ -26,18 +26,18 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
   return (
     <header className="sticky top-0 z-40 border-b border-rule bg-paper/95 backdrop-blur">
       <div className={`mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-5 md:px-8 ${home ? "max-w-none py-2" : "max-w-none py-1.5"}`}>
-        <Link to="/" className="flex items-center gap-3" onClick={close}>
+        <Link to="/" className="flex shrink-0 items-center gap-3" onClick={close}>
           <BrandLogo className={`${home ? "h-10 w-10" : "h-8 w-8"} shrink-0`} />
-          <span className="leading-tight">
+          <span className="whitespace-nowrap leading-tight">
             <BrandWordmark className={`block font-display font-semibold text-ink ${home ? "text-lg" : "text-base"}`} />
-            <span className={`${home ? "block" : "hidden xl:block"} text-[13px] uppercase tracking-[0.12em] text-muted-foreground`}>
+            <span className="hidden text-[13px] uppercase tracking-[0.12em] text-muted-foreground 2xl:block">
               {SITE.tagline}
             </span>
           </span>
         </Link>
 
         <div className="ml-auto hidden items-center gap-3 xl:flex">
-        <nav aria-label="Principal" className={`flex items-center ${home ? "gap-5" : "gap-3 xl:gap-4"}`}>
+        <nav aria-label="Principal" className="flex items-center gap-3 xl:gap-4">
           {NAV_ITEMS.map((item) => item.to === "/" ? (
             <div key={item.to} className="relative" onKeyDown={(event) => { if (event.key === "Escape") { setDataOpen(false); (event.currentTarget.querySelector("button") as HTMLButtonElement | null)?.focus(); } }} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setDataOpen(false); }}>
               <Button

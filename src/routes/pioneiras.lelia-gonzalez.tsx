@@ -74,6 +74,7 @@ function LeliaPage() {
   return (
     <PageShell breadcrumb={[{ label: "Pioneiras", to: "/pioneiras" }, { label: "Lélia Gonzalez" }]}>
       <PerfilHero
+        fotoId="lelia-gonzalez"
         years="1935–1994"
         nome="Lélia Gonzalez"
         quemFoi="Filósofa, antropóloga e uma das fundadoras do Movimento Negro Unificado. Disputou duas eleições no Rio de Janeiro e ficou suplente nas duas."

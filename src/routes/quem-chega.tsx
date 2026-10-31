@@ -400,12 +400,11 @@ function QuemChegaPage() {
       <EditorialOpening
         variant="representation"
         kicker="Quem chega?"
-        question={M_BRANCAS.texto}
+        question={`${n(fed.feminine)} das ${n(fed.seats)} cadeiras da Câmara dos Deputados ficaram com mulheres`}
         lead={
           <p>
-            Em 2026, {n(fed.feminine)} das {n(fed.seats)} cadeiras da Câmara dos Deputados ficaram com mulheres.
-            Esta página mostra quem são elas, por cor/raça, estado e partido. E separa duas coisas: ser eleita é uma
-            etapa; ocupar uma posição de poder é outra.
+            Nas três casas de deputados, federal, estaduais e distrital: {M_BRANCAS.texto.charAt(0).toLowerCase() + M_BRANCAS.texto.slice(1)}. Esta página
+            mostra quem são elas, por cor/raça, estado e partido.
           </p>
         }
         labels={["Mulheres", "Homens"]}

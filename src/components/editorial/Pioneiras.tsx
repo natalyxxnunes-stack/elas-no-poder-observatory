@@ -6,6 +6,7 @@ import {
   type PerfilPioneira,
 } from "@/data/perfis-pioneiras";
 import { formatInt } from "@/lib/format-br";
+import { FotoDocumental } from "@/components/editorial/FotoDocumental";
 
 /**
  * Peças visuais da série Pioneiras (30/10/2026, a partir da avaliação de
@@ -44,15 +45,23 @@ export function PerfilHero({
   nome,
   quemFoi,
   ancora,
+  fotoId,
 }: {
   years: string;
   nome: string;
   quemFoi: string;
   ancora: AncoraPerfil;
+  /** foto documental registrada em src/data/fotos.ts; sem registro, nada aparece */
+  fotoId?: string;
 }) {
   return (
     <header className="grid gap-8 border-b border-ink py-10 md:py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:gap-12">
       <div>
+        {fotoId && (
+          <div className="mb-6 max-w-[15rem]">
+            <FotoDocumental id={fotoId} />
+          </div>
+        )}
         <p className="font-mono text-xs uppercase tracking-[0.12em] text-plum">Pioneiras · {years}</p>
         <h1 className="mt-4 font-display text-5xl leading-[0.98] text-ink md:text-7xl">{nome}</h1>
         <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink/80">{quemFoi}</p>
