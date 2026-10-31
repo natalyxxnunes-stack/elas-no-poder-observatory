@@ -79,30 +79,40 @@ export function PageHero({
     );
   }
 
+  const semFigura = !image && !aside;
+  const len = typeof question === "string" ? question.length : 0;
+  const titulo =
+    len > 70
+      ? "text-[2rem] leading-[1.06] md:text-5xl"
+      : "text-4xl leading-[1.02] md:text-6xl";
   return (
-    <section className="grid gap-8 py-12 md:py-16 lg:grid-cols-[1.35fr_0.65fr] lg:items-end">
+    <section
+      className={`grid gap-8 border-b-2 border-ink py-10 md:py-14 ${semFigura ? "" : "lg:grid-cols-[1.35fr_0.65fr] lg:items-end"}`}
+    >
       <div>
         <p className="kicker">{kicker}</p>
-        <h1 className="mt-4 max-w-3xl font-display text-4xl leading-[1.03] text-ink md:text-6xl">
+        <h1 className={`mt-4 max-w-4xl text-balance font-display text-ink ${titulo}`}>
           {question}
         </h1>
-        <div className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+        <div className="mt-6 max-w-2xl text-lg leading-relaxed text-ink/80">
           {lead}
         </div>
         {actions && <div className="mt-7 flex flex-wrap gap-3">{actions}</div>}
       </div>
-      <div className="lg:pb-2">
-        {image && (
-          <img
-            src={image}
-            alt={imageAlt ?? ""}
-            aria-hidden={imageAlt ? undefined : true}
-            loading="lazy"
-            className="mx-auto h-auto w-full max-w-md lg:mx-0"
-          />
-        )}
-        {aside}
-      </div>
+      {!semFigura && (
+        <div className="lg:pb-2">
+          {image && (
+            <img
+              src={image}
+              alt={imageAlt ?? ""}
+              aria-hidden={imageAlt ? undefined : true}
+              loading="lazy"
+              className="mx-auto h-auto w-full max-w-md lg:mx-0"
+            />
+          )}
+          {aside}
+        </div>
+      )}
     </section>
   );
 }

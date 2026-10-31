@@ -24,58 +24,62 @@ export const Route = createFileRoute("/na-voz-delas")({
   component: NaVozDelasPage,
 });
 
-function FalaCard({ f }: { f: Fala }) {
+function FalaCard({ f, i }: { f: Fala; i: number }) {
+  const posicionamento = f.posicionamento
+    ? `${f.posicionamento.texto} (${f.posicionamento.data})`
+    : FALAS_PEDIDO_ENVIADO_EM
+      ? `Pedido enviado em ${FALAS_PEDIDO_ENVIADO_EM}; sem resposta até a última atualização`
+      : "Aguardando resposta";
   return (
-    <article className="border-t-2 border-ink bg-card p-5 sm:p-6">
-      <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
-        {f.data} · {f.onde}
-      </p>
-      <h3 className="mt-2 font-display text-xl leading-snug text-ink">
-        {f.pessoa} <span className="font-mono text-sm text-plum">{f.partido}</span>
-      </h3>
-      <p className="text-xs text-muted-foreground">{f.cargo}</p>
-      <blockquote className="mt-4 border-l-4 border-coral pl-4 font-display text-lg leading-snug text-ink">
-        “{f.fala}”
-      </blockquote>
-      <p className="mt-3 text-sm leading-relaxed text-ink/80">
-        <span className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
-          Contexto ·{" "}
-        </span>
-        {f.contexto}
-      </p>
-      {f.dado && (
-        <div className="mt-3 bg-butter px-4 py-3">
-          <p className="font-mono text-[13px] uppercase tracking-wider text-ink">O dado oficial</p>
-          <p className="mt-1 text-sm leading-relaxed text-ink">{f.dado.texto}</p>
-          <p className="mt-1 text-xs text-ink/70">{f.dado.fonte}</p>
+    <article className={`relative left-1/2 -ml-[50vw] w-screen ${i % 2 === 0 ? "bg-cream" : "bg-lilac/60"}`}>
+      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-12">
+        <div className="lg:col-span-7">
+          <p className="font-mono text-[13px] uppercase tracking-[0.1em] text-muted-foreground">
+            {f.data} · {f.onde}
+          </p>
+          <blockquote className="relative mt-5 border-l-4 border-plum pl-5 md:pl-7">
+            <span aria-hidden="true" className="pointer-events-none absolute -left-1 -top-10 select-none font-display text-[6rem] leading-none text-plum/20">
+              “
+            </span>
+            <p className="font-display text-2xl leading-snug text-ink md:text-3xl">{f.fala}</p>
+          </blockquote>
+          <p className="mt-5 pl-6 md:pl-8">
+            <span className="font-display text-xl text-ink">{f.pessoa}</span>{" "}
+            <span className="font-mono text-[15px] text-plum">{f.partido}</span>
+            <span className="block text-[13px] text-muted-foreground">{f.cargo}</span>
+          </p>
         </div>
-      )}
-      {f.versao && (
-        <p className="mt-3 text-sm leading-relaxed text-ink/80">
-          <span className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
-            A versão dela ·{" "}
-          </span>
-          {f.versao.texto} ({f.versao.fonte}, {f.versao.data})
-        </p>
-      )}
-      <p className="mt-3 text-sm leading-relaxed text-ink/80">
-        <span className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
-          Posicionamento ·{" "}
-        </span>
-        {f.posicionamento
-          ? `${f.posicionamento.texto} (${f.posicionamento.data})`
-          : FALAS_PEDIDO_ENVIADO_EM
-            ? `Pedido enviado em ${FALAS_PEDIDO_ENVIADO_EM}; sem resposta até a última atualização.`
-            : "Pedido de posicionamento em andamento; a resposta entra aqui com data."}
-      </p>
-      <a
-        href={f.fonteUrl}
-        className="mt-3 inline-block font-mono text-xs uppercase tracking-wider text-plum underline decoration-plum underline-offset-4"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        Fonte: {f.fonteRotulo} →
-      </a>
+        <div className="space-y-4 lg:col-span-5 lg:pt-10">
+          {f.dado && (
+            <div className="bg-butter px-5 py-4">
+              <p className="text-[13px] font-semibold text-ink">O dado oficial</p>
+              <p className="mt-1 text-[15px] leading-relaxed text-ink">{f.dado.texto}</p>
+              <p className="mt-1 text-[13px] text-ink/70">{f.dado.fonte}</p>
+            </div>
+          )}
+          <p className="text-[15px] leading-relaxed text-ink/85">
+            <span className="font-semibold text-ink">Contexto. </span>
+            {f.contexto}
+          </p>
+          {f.versao && (
+            <p className="text-[15px] leading-relaxed text-ink/85">
+              <span className="font-semibold text-ink">A versão dela. </span>
+              {f.versao.texto} ({f.versao.fonte}, {f.versao.data})
+            </p>
+          )}
+          <p className="inline-block border border-ink/40 px-2 py-1 text-[13px] text-ink/80">
+            Posicionamento: {posicionamento}
+          </p>
+          <a
+            href={f.fonteUrl}
+            className="flex min-h-11 items-center font-medium text-plum underline decoration-plum underline-offset-4"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Fonte: {f.fonteRotulo} →
+          </a>
+        </div>
+      </div>
     </article>
   );
 }
@@ -121,9 +125,9 @@ function NaVozDelasPage() {
         question={`${pub.length} falas, da mais recente para a mais antiga`}
         align="wide"
       >
-        <div className="grid gap-6 md:grid-cols-2">
-          {pub.map((f) => (
-            <FalaCard key={f.id} f={f} />
+        <div>
+          {pub.map((f, i) => (
+            <FalaCard key={f.id} f={f} i={i} />
           ))}
         </div>
       </SectionBlock>

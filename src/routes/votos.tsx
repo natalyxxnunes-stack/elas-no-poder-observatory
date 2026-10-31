@@ -266,18 +266,6 @@ function VotosPage() {
             denominador. Os votos aqui são os nominais válidos, dados a candidaturas a deputado federal.
           </p>
         }
-        aside={
-          <div className="editorial-card p-5">
-            <p className="kicker">Regra</p>
-            <p className="mt-2 font-display text-lg leading-snug text-ink">
-              Definir o indicador antes de usar a palavra.
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Esta página mede desempenho (voto recebido). “Competitividade” só entra no site com definição publicada no
-              método.
-            </p>
-          </div>
-        }
       />
 
       <div className="pb-4">
