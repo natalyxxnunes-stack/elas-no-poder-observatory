@@ -100,69 +100,6 @@ const UF_NAMES: Record<string, string> = {
   SP: "São Paulo", SE: "Sergipe", TO: "Tocantins",
 };
 
-function CurrentSnapshot({ snapshot, baseDate, pendingDate }: {
-  snapshot: PublicSnapshot | null;
-  baseDate: string | null;
-  pendingDate: string | null;
-}) {
-  const majoritarian = snapshot?.universes.majoritario ?? null;
-  const territory = ufRange(snapshot);
-  const majoritarianShare = majoritarian && majoritarian.total > 0
-    ? (majoritarian.feminine / majoritarian.total) * 100
-    : null;
-
-  return (
-    <section className="py-14 md:py-20">
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-stretch lg:gap-16">
-        <div className="flex min-w-0 flex-col">
-          <ChapterKicker n="01" label="Registros · base de 27/10" />
-          <h2 className="mt-4 font-display text-4xl leading-none text-ink md:text-5xl">O que os registros permitem dizer agora</h2>
-          <p className="mt-5 max-w-md leading-relaxed text-muted-foreground">
-            Esta parte da página mostra quem pediu registro para disputar 2026: quem entrou na disputa. O resultado da eleição, com o 2º turno de 25 de outubro, está no topo da página, em Quem chega e no histórico.
-          </p>
-          {snapshot && (
-            <div className="mt-8 border-l-4 border-coral pl-4">
-              <p className="font-display text-2xl leading-tight text-ink">
-                {formatInt(snapshot.recordCount)} candidaturas nos universos proporcional e majoritário.
-              </p>
-              {snapshot.outOfUniverse && (
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Outras {formatInt(snapshot.outOfUniverse.total)}, de vices e suplentes, ficam fora da conta.
-                </p>
-              )}
-            </div>
-          )}
-          <p className="mt-7 max-w-xl text-sm leading-relaxed text-muted-foreground lg:mt-auto lg:pt-7">
-            Dados de {baseDate ?? "data em atualização"}.{pendingDate ? ` Uma atualização (dados de ${pendingDate}) está em conferência.` : ""} Fonte: TSE · Candidaturas 2026 · <Link to="/metodo" className="text-plum underline underline-offset-4">ver o método</Link>
-          </p>
-        </div>
-
-        <div className="flex min-w-0 flex-col justify-center lg:border-l lg:border-rule lg:pl-12">
-          <article className="pb-7">
-            <p className="font-mono text-xs uppercase text-muted-foreground">Presidência, governos e Senado</p>
-            <p className="mt-2 font-display text-5xl font-semibold leading-none text-plum md:text-6xl">{majoritarianShare !== null ? formatPercent(majoritarianShare) : "—"}</p>
-            <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink">das candidaturas majoritárias são de mulheres</p>
-            <p className="mt-2 font-mono text-xs text-muted-foreground">{majoritarian ? `${formatInt(majoritarian.feminine)} de ${formatInt(majoritarian.total)}` : "em atualização"}</p>
-          </article>
-          <article className="border-t border-rule pt-7">
-            <p className="font-mono text-xs uppercase text-muted-foreground">Território</p>
-            <p className="mt-2 font-display text-5xl font-semibold leading-none text-plum md:text-6xl">{territory ? formatPercent(territory.max.share) : "—"}</p>
-            <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink">
-              {territory
-                ? `${UF_NAMES[territory.max.uf] ?? territory.max.uf} tem a maior proporção de candidatas a deputada (${formatPercent(territory.max.share)}) e ${UF_NAMES[territory.min.uf] ?? territory.min.uf}, a menor (${formatPercent(territory.min.share)}). Em todos os estados a proporção fica acima de 30%, o mínimo que a lei exige de cada lista partidária.`
-                : "em atualização"}
-            </p>
-            <p className="mt-2 font-mono text-xs text-muted-foreground">
-              {territory
-                ? `de ${formatPercent(territory.min.share)} em ${territory.min.uf} (${formatInt(territory.min.feminine)} de ${formatInt(territory.min.total)}) a ${formatPercent(territory.max.share)} em ${territory.max.uf} (${formatInt(territory.max.feminine)} de ${formatInt(territory.max.total)})${territory.runnerUp && territory.max.share - territory.runnerUp.share < 0.1 ? ` e ${formatPercent(territory.runnerUp.share)} em ${territory.runnerUp.uf} (${formatInt(territory.runnerUp.feminine)} de ${formatInt(territory.runnerUp.total)}), praticamente empatados` : ""}`
-                : "em atualização"}
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function DadosPage() {
   const { snapshot, pendingReviewBaseDate, historical } = Route.useLoaderData() as {
@@ -177,11 +114,9 @@ function DadosPage() {
     <PageShell home>
       <HomeHeroEditorial snapshot={snapshot} baseDate={baseDate} />
       <CapaCards items={CAPA_CARDS} baseLabel="Resultado da eleição · base do TSE de 27/10/2026" />
-      <CurrentSnapshot snapshot={snapshot} baseDate={baseDate} pendingDate={pendingDate} />
-      <WhatChanged />
       <section className="relative left-1/2 -ml-[50vw] w-screen bg-butter">
         <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
-          <ChapterKicker n="02" label="Achados" />
+          <ChapterKicker n="01" label="Achados" />
           <h2 className="mt-5 font-display text-3xl leading-tight text-ink md:text-4xl">O que encontramos</h2>
           <div className="mt-10 grid gap-10 md:grid-cols-3">
             {HOME_ACHADOS.map((achado) => <AchadoCard key={achado.id} achado={achado} />)}
@@ -189,10 +124,10 @@ function DadosPage() {
           <p className="mt-10"><Link to="/achados" className="font-mono text-xs font-semibold uppercase text-plum underline underline-offset-4">Todos os achados →</Link></p>
         </div>
       </section>
-      <HomeInvestigationGrid snapshot={snapshot} />
-      <HomeMapSection snapshot={snapshot} />
       <HomeHistoryHighlight historical={historical} />
       <HomeFunnelFeature snapshot={snapshot} />
+      <HomeMapSection snapshot={snapshot} />
+      <HomeInvestigationGrid snapshot={snapshot} />
       <HomeAboutBand />
     </PageShell>
   );

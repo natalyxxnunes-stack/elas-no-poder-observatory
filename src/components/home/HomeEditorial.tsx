@@ -229,7 +229,7 @@ export function HomeHistoryHighlight({ historical: _historical }: { historical: 
     <section className="relative left-1/2 -ml-[50vw] w-screen bg-plum text-cream">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-16 md:grid-cols-[1.1fr_minmax(0,24rem)] md:px-8 md:py-24">
         <div>
-          <ChapterKicker n="05" label="Como chegamos até aqui" dark />
+          <ChapterKicker n="02" label="Como chegamos até aqui" dark />
           <p className="mt-6 font-display text-[clamp(4rem,9vw,7rem)] font-semibold leading-[0.9] text-cream">2.579</p>
           <h2 className="mt-3 max-w-md font-display text-2xl leading-[1.1] text-cream md:text-3xl">
             candidatas a deputada a menos que em 2022
@@ -291,7 +291,7 @@ export function HomeFunnelFeature({ snapshot }: { snapshot: PublicSnapshot | nul
   ];
   return (
     <section className="py-16 md:py-24" aria-labelledby="funil-home-titulo">
-      <ChapterKicker n="06" label="O funil" />
+      <ChapterKicker n="03" label="O funil" />
       <h2 id="funil-home-titulo" className="mt-4 max-w-3xl font-display text-3xl leading-[1.05] text-ink md:text-4xl">Quatro etapas entre a candidatura e o poder. Com a eleição apurada, três já têm número.</h2>
       <ol className="mt-10 grid border-t-4 border-coral sm:grid-cols-2 lg:grid-cols-4">
         {steps.map((step, index) => (
@@ -323,7 +323,7 @@ export function HomeInvestigationGrid({ snapshot: _snapshot }: { snapshot: Publi
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen bg-paper">
       <div className="mx-auto max-w-6xl px-5 pt-16 md:px-8 md:pt-20">
-        <ChapterKicker n="03" label="Investigações" />
+        <ChapterKicker n="05" label="Investigações" />
       </div>
       <div className="mx-auto max-w-6xl px-5 pb-6 md:px-8"><div className="mt-6 grid border-t-4 border-coral md:grid-cols-3">
         {INVESTIGATIONS.map((item) => {

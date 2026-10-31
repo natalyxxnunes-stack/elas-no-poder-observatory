@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { buildSnapshotCsv } from "@/lib/tse/snapshot-csv";
+import { WhatChanged } from "@/components/home/WhatChanged";
 import { formatDateBR, formatInt } from "@/lib/format-br";
 import { INSPECTED_AT } from "@/lib/tse/data-dictionary";
 
@@ -549,6 +550,9 @@ function MetodoPage() {
           </dl>
         </SectionBlock>
       )}
+
+      {/* O que mudou entre as fotografias (saiu da página inicial em 30/10/2026) */}
+      <WhatChanged />
 
       {/* Histórico de fotografias */}
       <SectionBlock collapsible="Ver as fotografias" id="fotografias" tone="lilac"

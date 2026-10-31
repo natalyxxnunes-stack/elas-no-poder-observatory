@@ -31,6 +31,14 @@ type EditorialOpeningProps = OpeningBase &
 const baseTitle = "font-display text-[clamp(2rem,3.6vw,3.25rem)] font-semibold leading-[1.02]";
 const compactTitle = "font-display text-[clamp(2rem,3.6vw,3.25rem)] font-semibold leading-[1.02]";
 
+/** Título escala pelo tamanho da frase: manchete longa não pode virar torre de 12 linhas. */
+function titleFor(question: ReactNode, compact: boolean) {
+  const len = typeof question === "string" ? question.length : 0;
+  if (len > 110) return "font-display text-[clamp(1.75rem,2.4vw,2.5rem)] font-semibold leading-[1.08]";
+  if (len > 70) return "font-display text-[clamp(1.9rem,2.9vw,2.9rem)] font-semibold leading-[1.05]";
+  return compact ? compactTitle : baseTitle;
+}
+
 function OpeningText({ kicker, question, lead, inverse = false, compact = false }: OpeningBase & { inverse?: boolean; compact?: boolean }) {
   return (
     <div className="min-w-0">
@@ -38,7 +46,7 @@ function OpeningText({ kicker, question, lead, inverse = false, compact = false 
         <span className={`h-px w-12 ${inverse ? "bg-cream/55" : "bg-ink/45"}`} aria-hidden="true" />
         {kicker}
       </p>
-      <h1 className={`mt-5 max-w-3xl ${compact ? compactTitle : baseTitle} ${inverse ? "text-cream" : "text-ink"}`}>{question}</h1>
+      <h1 className={`mt-5 max-w-3xl text-balance ${titleFor(question, compact)} ${inverse ? "text-cream" : "text-ink"}`}>{question}</h1>
       <div className={`mt-5 max-w-xl text-sm leading-relaxed md:text-base ${inverse ? "text-cream/80" : "text-ink/75"}`}>{lead}</div>
     </div>
   );
@@ -180,9 +188,9 @@ function MilestonesOpening({ milestones, ...text }: OpeningBase & { milestones: 
 function ProcessOpening({ steps, ...text }: OpeningBase & { steps: readonly string[] }) {
   return (
     <Frame className="bg-cream">
-      <div className="mx-auto grid min-h-[30rem] max-w-6xl lg:grid-cols-[0.92fr_1.08fr]">
-        <div className="bg-plum px-5 py-12 text-cream md:px-8 lg:flex lg:items-center lg:px-12"><OpeningText {...text} inverse /></div>
-        <ol className="relative flex flex-col justify-center px-5 py-9 md:px-10 lg:py-12">
+      <div className="grid min-h-[30rem] lg:grid-cols-2">
+        <div className="bg-plum px-5 py-12 text-cream md:px-8 lg:flex lg:items-center lg:py-16 lg:pl-[max(2rem,calc((100vw-72rem)/2+2rem))] lg:pr-12"><OpeningText {...text} inverse /></div>
+        <ol className="relative flex max-w-2xl flex-col justify-center px-5 py-9 md:px-10 lg:py-12 lg:pr-[max(2rem,calc((100vw-72rem)/2+2rem))]">
           <div className="absolute bottom-12 left-[2.2rem] top-12 w-px bg-plum/30 md:left-[3.45rem]" aria-hidden="true" />
           {steps.map((step, index) => (
             <li key={step} className="relative grid grid-cols-[2.25rem_minmax(0,1fr)] items-center gap-4 border-b border-rule py-3.5">
@@ -274,9 +282,9 @@ function RepresentationOpening({ labels, gap, seats: real, ...text }: OpeningBas
 function PowerFlowOpening({ levers, ...text }: OpeningBase & { levers: readonly { label: string; ready: "yes" | "partial" | "no" }[] }) {
   return (
     <Frame className="bg-cream">
-      <div className="mx-auto grid min-h-[31rem] max-w-6xl lg:grid-cols-[0.92fr_1.08fr]">
-        <div className="bg-plum px-5 py-12 text-cream md:px-8 lg:flex lg:items-center lg:px-12"><OpeningText {...text} inverse /></div>
-        <figure aria-label="Fluxo das decisões partidárias que controlam o acesso à disputa" className="flex min-w-0 flex-col justify-center px-5 py-10 md:px-10">
+      <div className="grid min-h-[31rem] lg:grid-cols-2">
+        <div className="bg-plum px-5 py-12 text-cream md:px-8 lg:flex lg:items-center lg:py-16 lg:pl-[max(2rem,calc((100vw-72rem)/2+2rem))] lg:pr-12"><OpeningText {...text} inverse /></div>
+        <figure aria-label="Fluxo das decisões partidárias que controlam o acesso à disputa" className="flex min-w-0 max-w-2xl flex-col justify-center px-5 py-10 md:px-10 lg:pr-[max(2rem,calc((100vw-72rem)/2+2rem))]">
           <div className="mx-auto bg-plum px-6 py-3 font-mono text-xs uppercase text-cream">Partidos e federações</div>
           <div className="mx-auto h-7 w-px bg-ink/35" />
           <div className="grid grid-cols-3 gap-2">
