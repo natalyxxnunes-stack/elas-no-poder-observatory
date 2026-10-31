@@ -206,9 +206,6 @@ export const RIGHTS_TIMELINE: readonly RightsMilestone[] = [
       notaDepois: "Emenda Constitucional nº 111, de 2021",
       fonte: "Texto conferido na publicação original, Câmara dos Deputados, Legislação Informatizada.",
     },
-      notaDepois: "Só o caput; o parágrafo único não foi reproduzido",
-      fonte: "Texto conferido por busca da frase exata em publicações do TSE e do Congresso; o parágrafo único fica de fora até a conferência no texto oficial.",
-    },
     sourceUrl:
       "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm",
   },
