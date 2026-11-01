@@ -109,7 +109,7 @@ export function SectionBlock({
       id={id}
       className={`${TONE_WRAP[tone]} relative left-1/2 -ml-[50vw] w-screen scroll-mt-20`}
     >
-      <div className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">{body}</div>
+      <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">{body}</div>
     </section>
   );
 }

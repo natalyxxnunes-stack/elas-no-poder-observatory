@@ -67,7 +67,7 @@ function AchadosPage() {
       </header>
 
       <section aria-labelledby="mais-recentes" className="relative left-1/2 -ml-[50vw] w-screen bg-cream">
-        <div className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
+        <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
           <h2 id="mais-recentes" className="font-mono text-xs uppercase tracking-[0.12em] text-plum">
             Mais recentes
           </h2>
@@ -88,7 +88,7 @@ function AchadosPage() {
           aria-labelledby={`h-${t.id}`}
           className={`relative left-1/2 -ml-[50vw] w-screen scroll-mt-16 ${FUNDOS[i % FUNDOS.length]}`}
         >
-          <div className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
+          <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
             <div className="flex items-end gap-5 border-t-2 border-ink pt-5">
               <span aria-hidden="true" className="poster-figure text-5xl text-plum/60 md:text-6xl">
                 {String(i + 1).padStart(2, "0")}

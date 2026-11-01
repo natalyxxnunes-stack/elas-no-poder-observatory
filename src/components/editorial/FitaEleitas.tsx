@@ -19,7 +19,7 @@ export function FitaEleitas() {
   const celulas = ORDEM.flatMap(([k, , cor]) => Array.from({ length: raca[k] ?? 0 }, () => cor));
   return (
     <figure className="relative left-1/2 -ml-[50vw] w-screen bg-paper">
-      <div className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
+      <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
         <div aria-hidden="true" className="flex flex-wrap gap-[3px]">
           {celulas.map((c, i) => (
             <span key={i} className={`block size-[9px] md:size-[11px] ${c}`} />

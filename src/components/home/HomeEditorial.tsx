@@ -154,7 +154,7 @@ export function HomeHeroEditorial({ snapshot: _snapshot, baseDate: _baseDate }: 
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden border-b border-rule bg-paper">
       <div className="grid min-h-[min(50vh,22rem)] lg:grid-cols-[54%_46%] lg:items-stretch">
-        <div className="relative bg-plum px-5 py-6 text-cream md:px-10 md:py-9 lg:flex lg:flex-col lg:justify-center lg:pl-[max(2.5rem,calc((100vw-72rem)/2+2rem))] lg:pr-24">
+        <div className="relative bg-plum px-5 py-6 text-cream md:px-10 md:py-9 lg:flex lg:flex-col lg:justify-center lg:pl-[max(2.5rem,calc((100vw-80rem)/2+2rem))] lg:pr-24">
           <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.12em] text-cream/80">
             <span className="h-1 w-8 bg-cream/70" aria-hidden="true" /> Eleições 2026 · Brasil
           </p>
@@ -175,7 +175,7 @@ export function HomeHeroEditorial({ snapshot: _snapshot, baseDate: _baseDate }: 
           </div>
         </div>
 
-        <div className="relative bg-butter px-5 py-8 md:px-10 lg:flex lg:flex-col lg:justify-center lg:pl-20 lg:pr-[max(2.5rem,calc((100vw-72rem)/2+2rem))]">
+        <div className="relative bg-butter px-5 py-8 md:px-10 lg:flex lg:flex-col lg:justify-center lg:pl-20 lg:pr-[max(2.5rem,calc((100vw-80rem)/2+2rem))]">
           <span className="mb-4 block h-1 w-12 bg-coral" aria-hidden="true" />
           <p className="font-mono text-xs uppercase tracking-[0.12em] text-plum">Resultado de 2026</p>
           <p className="mt-1 text-[13px] text-ink/75">Deputadas e deputados federais, estaduais e distritais, eleitos no 1º turno (4/10/2026)</p>
@@ -201,7 +201,7 @@ export function HomeHeroEditorial({ snapshot: _snapshot, baseDate: _baseDate }: 
 export function HomeMapSection({ snapshot }: { snapshot: PublicSnapshot | null }) {
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen bg-lilac">
-      <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:px-8 md:py-20 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 md:px-8 md:py-20 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
         <div>
           <ChapterKicker n="04" label="Território" />
           <h2 className="mt-5 font-display text-3xl leading-[1.05] text-ink md:text-4xl">A entrada não é igual em todo o país</h2>
@@ -228,7 +228,7 @@ export function HomeHistoryHighlight({ historical: _historical }: { historical: 
   const maxCount = 9532;
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen bg-plum text-cream">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-16 md:grid-cols-[1.1fr_minmax(0,24rem)] md:px-8 md:py-24">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 md:grid-cols-[1.1fr_minmax(0,24rem)] md:px-8 md:py-24">
         <div>
           <ChapterKicker n="03" label="Como chegamos até aqui" dark />
           <p className="mt-6 font-display text-[clamp(4rem,9vw,7rem)] font-semibold leading-[0.9] text-cream">2.579</p>
@@ -327,10 +327,10 @@ const INVESTIGATIONS = [
 export function HomeInvestigationGrid({ snapshot: _snapshot }: { snapshot: PublicSnapshot | null }) {
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen bg-paper">
-      <div className="mx-auto max-w-6xl px-5 pt-16 md:px-8 md:pt-20">
+      <div className="mx-auto max-w-7xl px-5 pt-16 md:px-8 md:pt-20">
         <ChapterKicker n="04" label="Investigações" />
       </div>
-      <div className="mx-auto max-w-6xl px-5 pb-6 md:px-8"><div className="mt-6 grid border-t-4 border-coral md:grid-cols-3">
+      <div className="mx-auto max-w-7xl px-5 pb-6 md:px-8"><div className="mt-6 grid border-t-4 border-coral md:grid-cols-3">
         {INVESTIGATIONS.map((item) => {
           const axis = AXES.find((candidate) => candidate.id === item.id);
           return (
@@ -350,7 +350,7 @@ export function HomeInvestigationGrid({ snapshot: _snapshot }: { snapshot: Publi
 export function HomeAboutBand() {
   return (
     <section className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-cream">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 md:grid-cols-12 md:px-8 md:py-20">
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:grid-cols-12 md:px-8 md:py-20">
         <div className="md:col-span-4">
           <p className="font-mono text-xs uppercase tracking-[0.12em] text-cream/70">Sobre o projeto</p>
           <h2 className="mt-4 font-display text-4xl leading-[0.95] text-cream md:text-5xl">Da candidatura<br />ao poder, com<br />a conta aberta.</h2>

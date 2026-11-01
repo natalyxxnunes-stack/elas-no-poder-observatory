@@ -71,7 +71,7 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
   ] as const;
   return (
     <Frame className="bg-plum text-cream">
-      <div className="mx-auto grid min-h-[31rem] max-w-6xl items-center gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:py-14">
+      <div className="mx-auto grid min-h-[31rem] max-w-7xl items-center gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:py-14">
         <OpeningText {...text} inverse />
         <figure aria-label="Participação das mulheres nas candidaturas proporcionais e majoritárias e entre as eleitas a deputada em 2026, cada uma em seu universo; poder a partir de 2027" className="min-w-0 border-l border-cream/25 pl-4 md:pl-8">
           <div className="space-y-2">
@@ -109,7 +109,7 @@ function RaceOpening({ snapshot, ...text }: OpeningBase & { snapshot: PublicSnap
     : [];
   return (
     <Frame className="bg-plum text-cream">
-      <div className="mx-auto grid min-h-[31rem] max-w-6xl items-center gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:py-14">
+      <div className="mx-auto grid min-h-[31rem] max-w-7xl items-center gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:py-14">
         <OpeningText {...text} inverse compact />
         <figure aria-label="Distribuição por cor/raça das candidaturas de mulheres no universo proporcional" className="min-w-0 border-l border-cream/25 pl-4 md:pl-8">
           <div className="space-y-3">
@@ -148,7 +148,7 @@ function RaceOpening({ snapshot, ...text }: OpeningBase & { snapshot: PublicSnap
 function TimelineOpening({ years, ...text }: OpeningBase & { years: readonly string[] }) {
   return (
     <Frame className="bg-lilac">
-      <div className="mx-auto grid min-h-[30rem] max-w-6xl gap-12 px-5 py-12 md:px-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+      <div className="mx-auto grid min-h-[30rem] max-w-7xl gap-12 px-5 py-12 md:px-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
         <OpeningText {...text} compact />
         <figure aria-label={`Linha histórica: ${years.join(", ")}`} className="relative min-w-0 py-12">
           <div className="absolute left-0 right-0 top-1/2 h-px bg-ink" />
@@ -170,7 +170,7 @@ function TimelineOpening({ years, ...text }: OpeningBase & { years: readonly str
 function MilestonesOpening({ milestones, ...text }: OpeningBase & { milestones: readonly { year: string; title: string }[] }) {
   return (
     <Frame className="bg-lilac">
-      <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+      <div className="mx-auto grid min-h-[31rem] max-w-7xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
         <OpeningText {...text} />
         <ol className="relative border-l-2 border-coral pl-7">
           {milestones.map((milestone) => (
@@ -190,8 +190,8 @@ function ProcessOpening({ steps, ...text }: OpeningBase & { steps: readonly stri
   return (
     <Frame className="bg-plum">
       <div className="grid min-h-[30rem] lg:grid-cols-2">
-        <div className="px-5 py-12 text-cream md:px-8 lg:flex lg:items-center lg:py-16 lg:pl-[max(2rem,calc((100vw-72rem)/2+2rem))] lg:pr-12"><OpeningText {...text} inverse /></div>
-        <ol className="relative flex max-w-2xl flex-col justify-center px-5 py-9 md:px-10 lg:py-12 lg:pr-[max(2rem,calc((100vw-72rem)/2+2rem))]">
+        <div className="px-5 py-12 text-cream md:px-8 lg:flex lg:items-center lg:py-16 lg:pl-[max(2rem,calc((100vw-80rem)/2+2rem))] lg:pr-12"><OpeningText {...text} inverse /></div>
+        <ol className="relative flex max-w-2xl flex-col justify-center px-5 py-9 md:px-10 lg:py-12 lg:pr-[max(2rem,calc((100vw-80rem)/2+2rem))]">
           <div className="absolute bottom-12 left-[2.2rem] top-12 w-px bg-cream/30 md:left-[3.45rem]" aria-hidden="true" />
           {steps.map((step, index) => (
             <li key={step} className="relative grid grid-cols-[2.25rem_minmax(0,1fr)] items-center gap-4 border-b border-cream/20 py-3.5">
@@ -214,7 +214,7 @@ function FinancialOpening({ layers, gap, snapshot, ...text }: OpeningBase & { la
   ];
   return (
     <Frame className="bg-plum text-cream">
-      <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <div className="mx-auto grid min-h-[31rem] max-w-7xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <OpeningText {...text} inverse />
         <figure aria-label="Participação das mulheres na receita declarada nos universos proporcional e majoritário" className="min-w-0">
           <p className="border-b border-cream/25 pb-3 text-xs text-cream/85">Receita declarada · fotografia de {FINANCE_BASE_LABEL}</p>
@@ -239,7 +239,7 @@ function RepresentationOpening({ labels, gap, seats: real, ...text }: OpeningBas
   if (real) {
     return (
       <Frame className="bg-plum text-cream">
-        <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <div className="mx-auto grid min-h-[31rem] max-w-7xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <OpeningText {...text} inverse />
           <figure aria-label={`${real.filled} de ${real.total} cadeiras ocupadas por mulheres`} className="min-w-0">
             <Hemiciclo total={real.total} destaque={real.filled} titulo={`Plenário com ${real.total} cadeiras; ${real.filled} ocupadas por mulheres`} />
@@ -256,7 +256,7 @@ function RepresentationOpening({ labels, gap, seats: real, ...text }: OpeningBas
   const seats = Array.from({ length: 72 }, (_, index) => index);
   return (
     <Frame className="bg-plum text-cream">
-      <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <div className="mx-auto grid min-h-[31rem] max-w-7xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <OpeningText {...text} inverse />
         <figure aria-label="Matriz de representação: cada ponto é uma cadeira" className="min-w-0">
           <div className="grid grid-cols-12 gap-2 rounded-t-[8rem] border-x border-t border-cream/30 px-7 pb-5 pt-14 sm:px-12">
@@ -276,8 +276,8 @@ function PowerFlowOpening({ levers, ...text }: OpeningBase & { levers: readonly 
   return (
     <Frame className="bg-plum">
       <div className="grid min-h-[31rem] lg:grid-cols-2">
-        <div className="px-5 py-12 text-cream md:px-8 lg:flex lg:items-center lg:py-16 lg:pl-[max(2rem,calc((100vw-72rem)/2+2rem))] lg:pr-12"><OpeningText {...text} inverse /></div>
-        <figure aria-label="Fluxo das decisões partidárias que controlam o acesso à disputa" className="flex min-w-0 max-w-2xl flex-col justify-center px-5 py-10 md:px-10 lg:pr-[max(2rem,calc((100vw-72rem)/2+2rem))]">
+        <div className="px-5 py-12 text-cream md:px-8 lg:flex lg:items-center lg:py-16 lg:pl-[max(2rem,calc((100vw-80rem)/2+2rem))] lg:pr-12"><OpeningText {...text} inverse /></div>
+        <figure aria-label="Fluxo das decisões partidárias que controlam o acesso à disputa" className="flex min-w-0 max-w-2xl flex-col justify-center px-5 py-10 md:px-10 lg:pr-[max(2rem,calc((100vw-80rem)/2+2rem))]">
           <div className="mx-auto bg-cream px-6 py-3 font-mono text-xs uppercase text-plum">Partidos e federações</div>
           <div className="mx-auto h-7 w-px bg-cream/50" />
           <div className="grid gap-2 sm:grid-cols-3">
@@ -294,7 +294,7 @@ function PowerFlowOpening({ levers, ...text }: OpeningBase & { levers: readonly 
 function MethodOpening({ steps, aside, ...text }: OpeningBase & { steps: readonly { number: string; label: string; detail: string }[]; aside?: ReactNode }) {
   return (
     <Frame className="bg-lilac">
-      <div className="mx-auto grid min-h-[31rem] max-w-6xl gap-10 px-5 py-10 md:px-8 lg:grid-cols-[1fr_1fr] lg:items-center">
+      <div className="mx-auto grid min-h-[31rem] max-w-7xl gap-10 px-5 py-10 md:px-8 lg:grid-cols-[1fr_1fr] lg:items-center">
         <OpeningText {...text} />
         <div>
           <ol className="divide-y divide-ink/25 border-y border-ink/25">
@@ -310,7 +310,7 @@ function MethodOpening({ steps, aside, ...text }: OpeningBase & { steps: readonl
 function ManifestoOpening({ aside, ...text }: OpeningBase & { aside?: ReactNode }) {
   return (
     <Frame className="bg-paper">
-      <div className="relative mx-auto grid min-h-[31rem] max-w-6xl items-center px-5 py-12 md:px-8 lg:grid-cols-[0.62fr_0.38fr]">
+      <div className="relative mx-auto grid min-h-[31rem] max-w-7xl items-center px-5 py-12 md:px-8 lg:grid-cols-[0.62fr_0.38fr]">
         <div className="border-l-4 border-plum pl-6"><OpeningText {...text} />{aside && <div className="mt-7 max-w-sm border-l border-ink pl-4">{aside}</div>}</div>
       </div>
     </Frame>
@@ -321,7 +321,7 @@ function DownloadsOpening({ documents, ...text }: OpeningBase & { documents: rea
   const tones = ["bg-paper", "bg-lilac", "bg-cream", "bg-lilac"] as const;
   return (
     <Frame className="bg-plum text-cream">
-      <div className="mx-auto grid min-h-[30rem] max-w-6xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.76fr_1.24fr] lg:items-center">
+      <div className="mx-auto grid min-h-[30rem] max-w-7xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[0.76fr_1.24fr] lg:items-center">
         <OpeningText {...text} inverse />
         <figure aria-label="Formatos dos materiais disponíveis e em preparação" className="flex min-w-0 flex-col justify-center">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">

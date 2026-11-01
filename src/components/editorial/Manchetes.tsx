@@ -292,7 +292,7 @@ export function CapaCards({ items, baseLabel }: { items: Manchete[]; baseLabel: 
   const restantes = items.length - VISIVEIS_CELULAR;
   return (
     <section aria-labelledby="capa-manchetes" className="relative left-1/2 -ml-[50vw] w-screen bg-cream">
-      <div className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
+      <div className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
         <p className="font-mono text-xs uppercase tracking-[0.14em] text-plum">{baseLabel}</p>
         <h2 id="capa-manchetes" className="mt-3 max-w-3xl font-display text-3xl leading-tight text-ink md:text-5xl">
           O que os dados de 2026 mostram

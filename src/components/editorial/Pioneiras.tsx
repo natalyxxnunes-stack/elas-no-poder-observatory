@@ -132,7 +132,7 @@ export function PerfilNav({ atual }: { atual: string }) {
   if (outros.length === 0) return null;
   return (
     <nav aria-label="Outras pioneiras" className="relative left-1/2 -ml-[50vw] w-screen bg-cream">
-      <div className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
+      <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
         <p className="font-mono text-xs uppercase tracking-[0.14em] text-plum">Continue a série</p>
         <h2 className="mt-3 font-display text-3xl leading-tight text-ink">Outras pioneiras</h2>
         <ul className="mt-6 grid gap-4 md:grid-cols-2">

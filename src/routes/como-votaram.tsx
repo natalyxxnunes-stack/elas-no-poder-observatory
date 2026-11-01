@@ -36,7 +36,7 @@ import { formatBRLCompact, formatDateBR, formatInt, formatPct } from "@/lib/form
 function PlacarDeputadas() {
   return (
     <section aria-labelledby="placar-deputadas" className="relative left-1/2 -ml-[50vw] mb-10 w-screen bg-cream">
-      <div className="mx-auto max-w-6xl px-5 py-10 md:px-8 md:py-14">
+      <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
         <h2 id="placar-deputadas" className="font-display text-2xl leading-tight text-ink md:text-3xl">
           Como as deputadas votaram, votação por votação
         </h2>

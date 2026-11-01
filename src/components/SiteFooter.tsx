@@ -27,7 +27,7 @@ export function SiteFooter({ flush = false }: { flush?: boolean }) {
   return (
     <footer className={`ink-panel ${flush ? "border-t border-cream/15" : "mt-24"}`}>
 
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.5fr_1fr_1fr] md:px-8">
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-[1.5fr_1fr_1fr] md:px-8">
         <div>
           <div className="flex items-center gap-3">
             <BrandLogo className="h-11 w-11" />
@@ -77,7 +77,7 @@ export function SiteFooter({ flush = false }: { flush?: boolean }) {
         </div>
       </div>
       <div className="border-t border-cream/15">
-        <div className="mx-auto max-w-6xl px-5 py-5 text-sm leading-relaxed text-cream/70 md:px-8">
+        <div className="mx-auto max-w-7xl px-5 py-5 text-sm leading-relaxed text-cream/70 md:px-8">
           {generated && (
             <p className="text-cream/75">
               Última fotografia publicada: base gerada pelo TSE em {generated}

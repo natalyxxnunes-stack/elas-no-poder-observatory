@@ -40,7 +40,7 @@ function PioneirasPage() {
       </header>
 
       <section aria-labelledby="perfis" className="relative left-1/2 -ml-[50vw] w-screen bg-cream">
-        <div className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
+        <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
           <h2 id="perfis" className="sr-only">
             Perfis publicados
           </h2>
@@ -68,7 +68,7 @@ function PioneirasPage() {
 
       {naLinha.length > 0 && (
         <section aria-labelledby="linha" className="relative left-1/2 -ml-[50vw] w-screen bg-lilac">
-          <div className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
+          <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
             <p className="font-mono text-xs uppercase tracking-[0.14em] text-plum">Na linha do tempo dos direitos</p>
             <h2 id="linha" className="mt-3 max-w-3xl font-display text-3xl leading-tight text-ink">
               Outras mulheres que aparecem na história do voto

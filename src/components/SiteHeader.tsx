@@ -68,11 +68,11 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
 
   return (
     <header className="sticky top-0 z-40 border-b border-rule bg-paper/95 backdrop-blur">
-      <div className={`mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-5 md:px-8 ${home ? "max-w-none py-2" : "max-w-none py-1.5"}`}>
+      <div className={`mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-5 md:px-8 ${home ? "max-w-7xl py-3" : "max-w-7xl py-2.5"}`}>
         <Link to="/" className="flex shrink-0 items-center gap-3" onClick={close}>
-          <BrandLogo className={`${home ? "h-10 w-10" : "h-8 w-8"} shrink-0`} />
+          <BrandLogo className={`${home ? "h-12 w-12" : "h-11 w-11"} shrink-0`} />
           <span className="whitespace-nowrap leading-tight">
-            <BrandWordmark className={`block font-display font-semibold text-ink ${home ? "text-lg" : "text-base"}`} />
+            <BrandWordmark className={`block font-display font-semibold text-ink ${home ? "text-[1.4rem]" : "text-xl"}`} />
             <span className="hidden text-[13px] uppercase tracking-[0.12em] text-muted-foreground 2lg:block">
               {SITE.tagline}
             </span>
@@ -92,7 +92,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
                 >
                   <button
                     type="button"
-                    className="inline-flex min-h-11 items-center gap-1 px-3 text-[15px] text-ink hover:text-plum"
+                    className="inline-flex min-h-11 items-center gap-1 px-2.5 text-[15px] font-medium text-ink xl:px-3 xl:text-base hover:text-plum"
                     aria-expanded={aberta === sec.label}
                     onClick={(e) => {
                       e.stopPropagation();
@@ -122,7 +122,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
                 <Link
                   key={sec.label}
                   to={sec.to!}
-                  className="inline-flex min-h-11 items-center px-3 text-[15px] text-ink hover:text-plum"
+                  className="inline-flex min-h-11 items-center px-2.5 text-[15px] font-medium text-ink xl:px-3 xl:text-base hover:text-plum"
                   activeProps={{ className: "font-semibold text-plum" }}
                 >
                   {sec.label}
@@ -130,7 +130,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
               ),
             )}
           </nav>
-          <div className="flex items-center gap-4 border-l border-rule pl-4 font-mono text-[13px] uppercase tracking-[0.08em]">
+          <div className="flex items-center gap-4 border-l border-rule pl-4 font-mono text-sm uppercase tracking-[0.08em]">
             {CANTO.map((it) => (
               <Link key={it.to} to={it.to} className="text-muted-foreground hover:text-plum">
                 {it.label}
