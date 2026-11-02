@@ -11,7 +11,8 @@
  *  - números saem das mesmas variáveis das páginas de origem.
  */
 export const CAPA_MANCHETE = {
-  kicker: "Reportagem · Na voz delas",
+  secao: "Na voz delas",
+  tipo: "reportagem",
   titulo:
     "Elas separaram a bancada feminina do feminismo no plenário. As duas seguem no Congresso em 2027.",
   linhaFina:

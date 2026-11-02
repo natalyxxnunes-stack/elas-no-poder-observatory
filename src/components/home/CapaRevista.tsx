@@ -30,12 +30,38 @@ function Faixa({
   );
 }
 
-function Kicker({ children, claro = false }: { children: ReactNode; claro?: boolean }) {
+/**
+ * Abertura de seção em formato de revista (escolhida em 02/11/2026): fio grosso
+ * em cima, nome da seção em Fraunces itálico e, opcional, o tipo de matéria.
+ * A letra mono fica reservada para fontes e datas.
+ */
+function Secao({
+  nome,
+  tipo,
+  claro = false,
+  pequeno = false,
+}: {
+  nome: ReactNode;
+  tipo?: string;
+  claro?: boolean;
+  pequeno?: boolean;
+}) {
   return (
     <p
-      className={`font-mono text-[13px] uppercase tracking-[0.1em] ${claro ? "text-lilac" : "text-plum"}`}
+      className={`flex flex-wrap items-baseline gap-x-3 gap-y-1 ${pequeno ? "border-t-[3px] pt-2" : "border-t-[5px] pt-3"} ${
+        claro ? "border-lilac" : "border-plum"
+      }`}
     >
-      {children}
+      <span
+        className={`font-display italic font-medium ${pequeno ? "text-lg" : "text-[1.35rem] md:text-2xl"} ${
+          claro ? "text-paper" : "text-plum"
+        }`}
+      >
+        {nome}
+      </span>
+      {tipo ? (
+        <span className={`text-[14px] ${claro ? "text-paper/80" : "text-ink/65"}`}>{tipo}</span>
+      ) : null}
     </p>
   );
 }
@@ -51,7 +77,7 @@ export function CapaManchete() {
         className={`grid gap-8 py-10 md:items-end md:gap-12 md:py-16 ${temFoto ? "md:grid-cols-[1.15fr_1fr]" : ""}`}
       >
         <div className={temFoto ? "" : "max-w-5xl"}>
-          <Kicker>{m.kicker}</Kicker>
+          <Secao nome={m.secao} tipo={m.tipo} />
           <h1 className="mt-4 font-display text-[2.4rem] font-semibold leading-[1.05] tracking-[-0.01em] text-plum md:text-6xl">
             <Link to={m.to} className="hover:underline hover:underline-offset-4">
               {m.titulo}
@@ -137,7 +163,7 @@ export function CapaChamadas() {
     <Faixa fundo="bg-paper">
       <div className="grid gap-8 py-10 md:grid-cols-[1.4fr_1fr] md:gap-12 md:py-14">
         <article className="border-b border-rule pb-8 md:border-b-0 md:border-r md:pb-0 md:pr-12">
-          <Kicker>No plenário</Kicker>
+          <Secao nome="No plenário" tipo="reportagem" />
           <h2 className="mt-3 font-display text-[1.7rem] font-semibold leading-tight text-ink md:text-4xl">
             <Link to="/como-votaram" className="hover:underline hover:underline-offset-4">
               Entre as deputadas que tentaram voltar, as de maior receita voltaram mais
@@ -160,7 +186,7 @@ export function CapaChamadas() {
         </article>
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-1">
           <article className="bg-lilac p-5">
-            <Kicker>Dinheiro</Kicker>
+            <Secao nome="Dinheiro" pequeno />
             <h3 className="mt-2 font-display text-xl font-semibold leading-snug text-ink">
               <Link to="/dinheiro" className="hover:underline hover:underline-offset-4">
                 Mediana da candidata a deputada: branca, R$ 144 mil; parda, R$ 98 mil; preta, R$ 79
@@ -172,7 +198,7 @@ export function CapaChamadas() {
             </p>
           </article>
           <article className="bg-cream p-5">
-            <Kicker>Direitos</Kicker>
+            <Secao nome="Direitos" pequeno />
             <h3 className="mt-2 font-display text-xl font-semibold leading-snug text-ink">
               <Link to="/direitos" className="hover:underline hover:underline-offset-4">
                 Treze marcos, de 1932 a 2026
@@ -211,9 +237,9 @@ export function CapaNumeros() {
   ].filter((i) => i.valor && i.rotulo);
 
   return (
-    <Faixa fundo="bg-paper" className="border-t-[6px] border-plum">
+    <Faixa fundo="bg-paper">
       <div className="py-10 md:py-14">
-        <Kicker>Os números de 2026</Kicker>
+        <Secao nome="Os números de 2026" tipo="achados" />
         <ul className="mt-6 grid grid-cols-2 gap-x-5 gap-y-8 md:grid-cols-4 md:gap-x-10">
           {itens.map((i) => (
             <li key={i.rotulo}>
@@ -252,7 +278,7 @@ export function CapaPioneiras() {
   return (
     <Faixa fundo="bg-cream">
       <div className="py-10 md:py-14">
-        <Kicker>Pioneiras</Kicker>
+        <Secao nome="Pioneiras" tipo="perfis" />
         <h2 className="mt-3 font-display text-3xl font-semibold leading-tight text-ink md:text-4xl">
           Antes delas
         </h2>
@@ -331,7 +357,7 @@ export function CapaExplore() {
   return (
     <Faixa fundo="bg-plum" className="text-paper">
       <div className="py-10 md:py-14">
-        <Kicker claro>Explore os dados</Kicker>
+        <Secao nome="Explore os dados" claro />
         <ul className="mt-4 grid md:grid-cols-2 md:gap-x-12">
           {EXPLORE.map((e) => (
             <li key={e.label} className="border-b border-plum-soft">
