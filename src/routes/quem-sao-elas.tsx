@@ -1,4 +1,5 @@
 import { PartyStateMatrix } from "@/components/editorial/PartyStateMatrix";
+import { Registro } from "@/components/editorial/Registro";
 import { SituacaoChart } from "@/components/editorial/SituacaoChart";
 import { SITUACAO_2026 } from "@/data/situacao-candidaturas-2026";
 import { createFileRoute } from "@tanstack/react-router";
@@ -234,34 +235,19 @@ function QuemSaoElasPage() {
         <div className="space-y-8">
           <OfficePairChart snapshot={snapshot} />
 
-          <div className="grid gap-5 md:grid-cols-2">
-            <article className="poster-frame-accent p-5">
-              <p className="record-label border-plum text-plum">Fato</p>
-              <p className="mt-3 leading-relaxed text-ink/70">
-                Na Presidência e nos governos, a presença de mulheres fica nos menores números do levantamento: {presidentialAbsolute} candidaturas à Presidência e {g} nas candidaturas a governadora. Nas candidaturas a vice desses mesmos pleitos, são {vicePresidentialAbsolute} na vice-presidência e {vg} nas vice-governadorias. A vice só assume o comando se o titular deixar o cargo.
-              </p>
-            </article>
-
-            <article className="poster-frame-accent p-5">
-              <p className="record-label border-ink text-ink">Fato, em série</p>
-              <p className="mt-3 leading-relaxed text-ink/70">
-                Nos governos, o padrão se repete em todas as eleições desde 2014 e aumentou: mulheres passaram de 11,4% para 17,4% das candidaturas a titular e de 25,3% para 41,7% das candidaturas a vice. No Senado, a diferença oscila: em 2022, havia proporcionalmente mais mulheres entre as titulares (23,9%) do que entre as primeiras suplentes (23,4%).
-              </p>
-            </article>
-
-            <article className="poster-frame-accent p-5">
-              <p className="record-label border-ink text-ink [border-style:dashed]">Interpretação editorial</p>
-              <p className="mt-3 leading-relaxed text-ink/70">
-                Nos governos e na Presidência, as mulheres entram nas chapas sobretudo pela posição que não comanda. Contar só quantas mulheres estão nas chapas esconde essa diferença de lugar.
-              </p>
-            </article>
-
-            <article className="poster-frame-accent p-5">
-              <p className="record-label border-ink text-ink">Hipótese em investigação</p>
-              <p className="mt-3 leading-relaxed text-ink/70">
-                Os partidos podem estar usando a vaga de vice para incluir mulheres na chapa sem ceder a cabeça dela. Registrada em 02/11/2026 e ainda não testada: a base atual não registra o sexo de quem encabeça cada chapa, e esse cruzamento depende de ampliar a coleta.
-              </p>
-            </article>
+          <div className="grid gap-x-8 gap-y-6 md:grid-cols-2">
+            <Registro tipo="fato">
+              <p>Na Presidência e nos governos, a presença de mulheres fica nos menores números do levantamento: {presidentialAbsolute} candidaturas à Presidência e {g} nas candidaturas a governadora. Nas candidaturas a vice desses mesmos pleitos, são {vicePresidentialAbsolute} na vice-presidência e {vg} nas vice-governadorias. A vice só assume o comando se o titular deixar o cargo.</p>
+            </Registro>
+            <Registro tipo="fato" rotulo="Fato, em série">
+              <p>Nos governos, o padrão se repete em todas as eleições desde 2014 e aumentou: mulheres passaram de 11,4% para 17,4% das candidaturas a titular e de 25,3% para 41,7% das candidaturas a vice. No Senado, a diferença oscila: em 2022, havia proporcionalmente mais mulheres entre as titulares (23,9%) do que entre as primeiras suplentes (23,4%).</p>
+            </Registro>
+            <Registro tipo="interpretacao">
+              <p>Nos governos e na Presidência, as mulheres entram nas chapas sobretudo pela posição que não comanda. Contar só quantas mulheres estão nas chapas esconde essa diferença de lugar.</p>
+            </Registro>
+            <Registro tipo="hipotese" registradaEm="02/11/2026" status="aberta">
+              <p>Os partidos podem estar usando a vaga de vice para incluir mulheres na chapa sem ceder a cabeça dela. A base atual não registra o sexo de quem encabeça cada chapa, e esse cruzamento depende de ampliar a coleta.</p>
+            </Registro>
           </div>
 
           <div>
