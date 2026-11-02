@@ -183,7 +183,7 @@ function MetodoPage() {
         ]}
         aside={
           <div>
-            <p className="font-mono text-xs uppercase text-ink/65">Fotografia vigente</p>
+            <p className="text-[13px] text-ink/65 font-semibold">Fotografia vigente</p>
             <p className="mt-2 font-display text-lg leading-snug text-ink">
               Base do TSE gerada em{" "}
               {br(snapshot?.baseGeneratedAt ?? TSE_SOURCE.baseGeneratedAt)}
@@ -206,7 +206,7 @@ function MetodoPage() {
           aria-label="Em três pontos"
           className="editorial-card overflow-hidden"
         >
-          <h2 className="border-b border-rule bg-secondary px-5 py-3 font-mono text-[13px] uppercase tracking-[0.12em] text-plum">
+          <h2 className="border-b border-rule bg-secondary px-5 py-3 font-sans text-[13px] text-plum font-semibold">
             Em três pontos
           </h2>
           <dl className="divide-y divide-rule">
@@ -225,7 +225,7 @@ function MetodoPage() {
               },
             ].map((r) => (
               <div key={r.label} className="px-5 py-4 sm:flex sm:gap-6">
-                <dt className="shrink-0 font-mono text-[13px] uppercase tracking-wider text-muted-foreground sm:w-48">
+                <dt className="shrink-0 text-[13px] text-muted-foreground sm:w-48 font-semibold">
                   {r.label}
                 </dt>
                 <dd className="mt-1 text-sm leading-relaxed text-ink sm:mt-0">
@@ -540,7 +540,7 @@ function MetodoPage() {
               .sort((a, b) => b[1] - a[1])
               .map(([k, v]) => (
                 <div key={k} className="poster-frame p-4">
-                  <dt className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+                  <dt className="text-[13px] text-muted-foreground font-semibold">
                     {k}
                   </dt>
                   <dd className="poster-figure mt-2 text-3xl text-plum md:text-4xl">
@@ -580,7 +580,7 @@ function MetodoPage() {
                       <th
                         key={h}
                         scope="col"
-                        className="py-3 pr-4 font-mono text-[13px] uppercase tracking-wider text-muted-foreground"
+                        className="py-3 pr-4 text-[13px] text-muted-foreground font-semibold"
                       >
                         {h}
                       </th>

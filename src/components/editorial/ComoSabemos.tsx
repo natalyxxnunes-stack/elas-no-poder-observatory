@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { Secao } from "@/components/editorial/Secao";
 
 /** Camada 2 da página: fonte, universo, base, cálculo e limites, num lugar só, no fim. */
 export function ComoSabemos({
@@ -33,15 +34,15 @@ export function ComoSabemos({
     ),
   });
   return (
-    <section id="como-sabemos" aria-labelledby="como-sabemos-titulo" className="rule-top scroll-mt-20 py-12">
-      <p className="kicker">Como sabemos</p>
+    <section id="como-sabemos" aria-labelledby="como-sabemos-titulo" className="scroll-mt-20 py-12">
+      <Secao nome="Como sabemos" />
       <h2 id="como-sabemos-titulo" className="mt-3 max-w-2xl font-display text-xl leading-snug text-ink md:text-2xl">
         Fonte, conta e limites desta página
       </h2>
       <dl className="mt-6 max-w-4xl divide-y divide-rule border-y border-rule">
         {rows.map((row) => (
           <div key={row.label} className="py-3 sm:grid sm:grid-cols-[11rem_1fr] sm:gap-6">
-            <dt className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">{row.label}</dt>
+            <dt className="text-[13px] text-muted-foreground font-semibold">{row.label}</dt>
             <dd className="mt-1 text-sm leading-relaxed text-ink/80 [overflow-wrap:anywhere] sm:mt-0">{row.body}</dd>
           </div>
         ))}

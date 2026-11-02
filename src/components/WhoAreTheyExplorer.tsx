@@ -52,7 +52,7 @@ export function WhoAreTheyExplorer() {
               >
                 <span className="font-display text-lg text-ink">{row.level}</span>
                 <span
-                  className={`font-mono text-[13px] uppercase tracking-wider ${
+                  className={`text-[13px] font-semibold ${
                     counts ? "text-plum" : "text-coral-ink"
                   }`}
                 >
@@ -73,7 +73,7 @@ export function WhoAreTheyExplorer() {
                       <dl className="grid gap-3 sm:grid-cols-3">
                         {Object.entries(counts).map(([k, v]) => (
                           <div key={k} className="editorial-card p-3">
-                            <dt className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+                            <dt className="text-[13px] text-muted-foreground font-semibold">
                               {k}
                             </dt>
                             <dd className="data-figure mt-1 text-2xl text-plum">

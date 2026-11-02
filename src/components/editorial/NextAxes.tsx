@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { Secao } from "@/components/editorial/Secao";
 import { AXES, type Axis } from "@/data/architecture";
 
 /**
@@ -11,8 +12,8 @@ export function NextAxes({ ids }: { ids: readonly string[] }) {
     .filter((a): a is Axis => !!a);
 
   return (
-    <section aria-label="Continue a investigação" className="rule-top py-12">
-      <p className="kicker">Continue</p>
+    <section aria-label="Continue a investigação" className="py-12">
+      <Secao nome="Continue a leitura" />
       <ul className="mt-6 grid gap-4 md:grid-cols-3">
         {items.map((a) => (
           <li key={a.id}>
@@ -20,14 +21,14 @@ export function NextAxes({ ids }: { ids: readonly string[] }) {
               to={a.to}
               className="editorial-card block h-full p-5 transition-colors hover:border-plum"
             >
-              <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+              <p className="text-[13px] text-muted-foreground font-semibold">
                 {a.label}
               </p>
               <p className="mt-2 font-display text-lg leading-snug text-ink">
                 {a.question}
               </p>
               {a.publication === "unpublished" && (
-                <p className="mt-3 font-mono text-xs uppercase text-muted-foreground">
+                <p className="mt-3 text-[13px] text-muted-foreground font-semibold">
                   ainda não publicado
                 </p>
               )}

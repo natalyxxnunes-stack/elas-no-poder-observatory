@@ -16,7 +16,7 @@ export function AchadoCard({ achado, grande = false }: { achado: Achado; grande?
       {grande && (
         <span aria-hidden="true" className="absolute inset-x-0 top-0 h-2 bg-coral md:inset-y-0 md:left-0 md:h-auto md:w-2" />
       )}
-      <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
+      <p className="text-[13px] text-muted-foreground font-semibold">
         Achado {achado.numero} · {formatDateBR(achado.data)}
         {achado.atualizadoEm && (
           <span className="ml-2 border border-muted-foreground/50 px-1.5 py-0.5 normal-case tracking-normal">

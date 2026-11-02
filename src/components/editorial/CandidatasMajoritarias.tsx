@@ -110,7 +110,7 @@ export function CandidatasMajoritarias() {
               type="button"
               onClick={() => setCargo(f.id)}
               aria-pressed={cargo === f.id}
-              className={`min-h-10 border px-3 py-1.5 font-mono text-xs uppercase tracking-[0.1em] ${cargo === f.id ? "border-plum bg-plum text-cream" : "border-rule text-ink hover:border-plum"}`}
+              className={`min-h-10 border px-3 py-1.5 text-[13px] ${cargo === f.id ? "border-plum bg-plum text-cream" : "border-rule text-ink hover:border-plum"} font-semibold`}
             >
               {f.label}
             </button>
@@ -150,7 +150,7 @@ export function CandidatasMajoritarias() {
           <thead>
             <tr className="border-b-2 border-ink">
               {["Nome de urna", "Cargo", "UF", "Partido", "Cor/raça declarada", "Chapa", "Situação", "Receita declarada"].map((h, i) => (
-                <th key={h} scope="col" className={`py-2 pr-4 font-mono text-xs font-normal uppercase text-muted-foreground ${i === 7 ? "text-right" : ""}`}>{h}</th>
+                <th key={h} scope="col" className={`py-2 pr-4 text-[13px] font-normal text-muted-foreground ${i === 7 ? "text-right" : ""}`}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -193,7 +193,7 @@ export function CandidatasMajoritarias() {
             type="button"
             onClick={() => setTodas((v) => !v)}
             aria-expanded={todas}
-            className="inline-flex min-h-11 items-center gap-2 border border-plum px-4 py-2 font-mono text-xs uppercase tracking-[0.12em] text-plum hover:bg-lilac"
+            className="inline-flex min-h-11 items-center gap-2 border border-plum px-4 py-2 text-[13px] text-plum hover:bg-lilac font-semibold"
           >
             {todas ? "Mostrar menos" : `Mostrar todas as ${formatInt(rows.length)}`}
           </button>

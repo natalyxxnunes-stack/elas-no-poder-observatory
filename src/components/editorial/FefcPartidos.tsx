@@ -93,7 +93,7 @@ export function FefcPartidos() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[64rem] text-sm">
           <thead>
-            <tr className="align-bottom font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+            <tr className="align-bottom text-[13px] text-muted-foreground font-semibold">
               <th className="pb-2 pr-3 text-left font-normal">Partido</th>
               <th className="pb-2 pr-3 text-right font-normal">FEFC</th>
               {GRUPOS.map((g) => (

@@ -72,7 +72,7 @@ export function PageIndex() {
         type="button"
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
-        className="inline-flex min-h-11 items-center gap-3 bg-plum px-4 py-2 font-mono text-xs uppercase tracking-[0.12em] text-cream"
+        className="inline-flex min-h-11 items-center gap-3 bg-plum px-4 py-2 text-[13px] text-cream font-semibold"
       >
         Nesta página
         <span className="text-cream/85">{currentIndex >= 0 ? `${currentIndex + 1}/${entries.length}` : `${entries.length} partes`}</span>

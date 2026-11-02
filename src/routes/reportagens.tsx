@@ -46,7 +46,7 @@ function ReportagensPage() {
           .sort((a, b) => b.data.localeCompare(a.data))
           .map((r) => (
             <li key={r.to} className="py-8">
-              <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
+              <p className="text-[13px] text-muted-foreground font-semibold">
                 {r.tema} · {formatDateBR(r.data)} · {r.autora}
               </p>
               <h2 className="mt-3 max-w-3xl font-display text-2xl leading-tight text-ink md:text-4xl">

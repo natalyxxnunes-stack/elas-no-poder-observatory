@@ -88,7 +88,7 @@ function EmDisputaPage() {
             <li key={item.id} className="editorial-card p-6">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+                  <p className="text-[13px] text-muted-foreground font-semibold">
                     {item.kind}
                   </p>
                   <h3 className="mt-1 max-w-2xl font-display text-xl leading-snug text-ink">
@@ -102,19 +102,19 @@ function EmDisputaPage() {
 
               <dl className="mt-4 space-y-3 text-sm leading-relaxed">
                 <div>
-                  <dt className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+                  <dt className="text-[13px] text-muted-foreground font-semibold">
                     O que propõe
                   </dt>
                   <dd className="mt-1 text-ink">{item.proposal}</dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+                  <dt className="text-[13px] text-muted-foreground font-semibold">
                     Quem seria afetado
                   </dt>
                   <dd className="mt-1 text-muted-foreground">{item.affects}</dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+                  <dt className="text-[13px] text-muted-foreground font-semibold">
                     Situação
                   </dt>
                   <dd className="mt-1 text-muted-foreground">{item.statusNote}</dd>

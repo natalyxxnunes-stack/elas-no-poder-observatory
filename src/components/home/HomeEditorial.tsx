@@ -1,4 +1,5 @@
 import { VOTOS_2026 } from "@/data/votos-2026";
+import { Secao } from "@/components/editorial/Secao";
 import { Link } from "@tanstack/react-router";
 import { RESULT_2026_GOVERNO, RESULT_2026_PROPORCIONAL, RESULT_2026_SENADO } from "@/data/resultado-2026";
 import { HISTORICAL_FUNNEL } from "@/data/historical-funnel";
@@ -11,14 +12,8 @@ import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import { formatInt, formatPct } from "@/lib/format-br";
 
 /** Número de capítulo da home: guia o olho pela sequência 01 a 06. */
-export function ChapterKicker({ n, label, dark = false }: { n: string; label: string; dark?: boolean }) {
-  return (
-    <p className={`flex items-baseline gap-3 font-mono text-xs uppercase tracking-[0.12em] ${dark ? "text-cream/85" : "text-plum"}`}>
-      <span className={`font-display text-2xl font-semibold leading-none tracking-normal ${dark ? "text-cream" : "text-coral-ink"}`}>{n}</span>
-      <span className={`h-px w-6 ${dark ? "bg-cream/60" : "bg-coral"}`} aria-hidden="true" />
-      {label}
-    </p>
-  );
+export function ChapterKicker({ label, dark = false }: { n?: string; label: string; dark?: boolean }) {
+  return <Secao nome={label} claro={dark} />;
 }
 
 const UF_ORDER = [
@@ -132,7 +127,7 @@ function EditorialBrazilMap({ snapshot }: { snapshot: PublicSnapshot | null }) {
         </p>
       </figcaption>
       <details className="sm:col-span-2 border-t border-rule pt-3">
-        <summary className="cursor-pointer font-mono text-xs uppercase text-plum underline underline-offset-4">Ver os 27 estados</summary>
+        <summary className="cursor-pointer text-[13px] text-plum underline underline-offset-4 font-semibold">Ver os 27 estados</summary>
         <ol className="mt-3 grid gap-x-8 gap-y-1 text-sm sm:grid-cols-2 lg:grid-cols-3">
           {[...data].sort((a, b) => b.share - a.share).map((item) => (
             <li key={item.uf} className="flex justify-between gap-3 border-b border-rule/60 py-1">
@@ -155,7 +150,7 @@ export function HomeHeroEditorial({ snapshot: _snapshot, baseDate: _baseDate }: 
     <section className="relative left-1/2 -ml-[50vw] w-screen overflow-hidden border-b border-rule bg-paper">
       <div className="grid min-h-[min(50vh,22rem)] lg:grid-cols-[54%_46%] lg:items-stretch">
         <div className="relative bg-plum px-5 py-6 text-cream md:px-10 md:py-9 lg:flex lg:flex-col lg:justify-center lg:pl-[max(2.5rem,calc((100vw-80rem)/2+2rem))] lg:pr-24">
-          <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.12em] text-cream/80">
+          <p className="flex items-center gap-3 text-[13px] text-cream/80 font-semibold">
             <span className="h-1 w-8 bg-cream/70" aria-hidden="true" /> Eleições 2026 · Brasil
           </p>
           <h1 className="mt-4 max-w-3xl font-display text-[clamp(2.1rem,3.6vw,3.75rem)] leading-[0.93] text-cream">
@@ -177,7 +172,7 @@ export function HomeHeroEditorial({ snapshot: _snapshot, baseDate: _baseDate }: 
 
         <div className="relative bg-butter px-5 py-8 md:px-10 lg:flex lg:flex-col lg:justify-center lg:pl-20 lg:pr-[max(2.5rem,calc((100vw-80rem)/2+2rem))]">
           <span className="mb-4 block h-1 w-12 bg-coral" aria-hidden="true" />
-          <p className="font-mono text-xs uppercase tracking-[0.12em] text-plum">Resultado de 2026</p>
+          <p className="text-[13px] text-plum font-semibold">Resultado de 2026</p>
           <p className="mt-1 text-[13px] text-ink/75">Deputadas e deputados federais, estaduais e distritais, eleitos no 1º turno (4/10/2026)</p>
           <div className="mt-2 border-b border-ink pb-5 pr-20">
             <p className="font-display text-[clamp(4rem,8vw,6.75rem)] font-semibold leading-none text-plum">
@@ -206,7 +201,7 @@ export function HomeMapSection({ snapshot }: { snapshot: PublicSnapshot | null }
           <ChapterKicker n="04" label="Território" />
           <h2 className="mt-5 font-display text-3xl leading-[1.05] text-ink md:text-4xl">A entrada não é igual em todo o país</h2>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink/80">Proporção de mulheres nas candidaturas proporcionais por estado</p>
-          <Link to="/quem-sao-elas" className="mt-5 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-xs font-semibold uppercase text-plum">
+          <Link to="/quem-sao-elas" className="mt-5 inline-flex items-center gap-2 border-b border-plum pb-1 text-[13px] font-semibold text-plum">
             Explorar os dados por estado <ArrowRight className="size-3.5" aria-hidden="true" />
           </Link>
         </div>
@@ -241,12 +236,12 @@ export function HomeHistoryHighlight({ historical: _historical }: { historical: 
           <p className="mt-4 max-w-md text-sm leading-relaxed text-cream/80">
             Comparação entre pedidos de registro. Em 2022, 9,6% deles terminaram inaptos. Em 2026, até 27/10, 7,1% saíram por indeferimento, cancelamento ou renúncia, e 1,3% seguem indeferidos com recurso.
           </p>
-          <Link to="/historico" className="mt-7 inline-flex items-center gap-2 border-b border-cream pb-1 font-mono text-xs font-semibold uppercase text-cream">
+          <Link to="/historico" className="mt-7 inline-flex items-center gap-2 border-b border-cream pb-1 text-[13px] font-semibold text-cream">
             Ver a série completa <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
         </div>
         <figure>
-          <figcaption className="font-mono text-xs uppercase tracking-[0.14em] text-cream/85">Candidatas a deputada, por eleição</figcaption>
+          <figcaption className="text-[13px] text-cream/85 font-semibold">Candidatas a deputada, por eleição</figcaption>
           <ol
             className="mt-5 space-y-4"
             aria-label={`Candidatas a deputada por eleição: ${points.map((p) => `${p.year}, ${p.candidacies}, ${formatPct(p.value)} do total`).join("; ")}`}
@@ -306,7 +301,7 @@ export function HomeFunnelFeature({ snapshot }: { snapshot: PublicSnapshot | nul
             {step.figure && <p className="mt-4 font-display text-5xl font-semibold leading-none text-plum">{step.figure}</p>}
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{step.note}</p>
             {step.to && (
-              <Link to={step.to} className="mt-4 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-xs font-semibold uppercase text-plum">
+              <Link to={step.to} className="mt-4 inline-flex items-center gap-2 border-b border-plum pb-1 text-[13px] font-semibold text-plum">
                 {step.link} <ArrowRight className="size-3.5" aria-hidden="true" />
               </Link>
             )}
@@ -335,10 +330,10 @@ export function HomeInvestigationGrid({ snapshot: _snapshot }: { snapshot: Publi
           const axis = AXES.find((candidate) => candidate.id === item.id);
           return (
             <article key={item.id} className="border-b border-rule py-10 md:border-b-0 md:border-r md:px-8 md:py-14 md:first:pl-0 md:last:border-r-0 md:last:pr-0">
-              <p className="flex items-center gap-3 font-mono text-xs uppercase text-muted-foreground"><span className="h-1 w-3 bg-coral" aria-hidden="true" /> {axis?.label}</p>
+              <p className="flex items-center gap-3 text-[13px] text-muted-foreground font-semibold"><span className="h-1 w-3 bg-coral" aria-hidden="true" /> {axis?.label}</p>
               <h3 className="mt-5 font-display text-2xl leading-[1.08] text-ink md:text-3xl">{item.title}</h3>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.support}</p>
-              <Link to={item.to} className="mt-7 inline-flex items-center gap-2 border-b border-plum pb-1 font-mono text-xs font-semibold uppercase text-plum">{item.link} <ArrowRight className="size-3.5" /></Link>
+              <Link to={item.to} className="mt-7 inline-flex items-center gap-2 border-b border-plum pb-1 text-[13px] font-semibold text-plum">{item.link} <ArrowRight className="size-3.5" /></Link>
             </article>
           );
         })}
@@ -352,15 +347,15 @@ export function HomeAboutBand() {
     <section className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-cream">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:grid-cols-12 md:px-8 md:py-20">
         <div className="md:col-span-4">
-          <p className="font-mono text-xs uppercase tracking-[0.12em] text-cream/70">Sobre o projeto</p>
+          <p className="text-[13px] text-cream/70 font-semibold">Sobre o projeto</p>
           <h2 className="mt-4 font-display text-4xl leading-[0.95] text-cream md:text-5xl">Da candidatura<br />ao poder, com<br />a conta aberta.</h2>
         </div>
         <div className="border-cream/25 md:col-span-5 md:border-l md:pl-10">
           <p className="max-w-md text-sm leading-relaxed text-cream/80">O Quem são elas? é um observatório independente de dados sobre mulheres, eleições e poder. Transformamos números públicos em perguntas verificáveis, com fonte, denominador e método à vista.</p>
-          <Link to="/sobre" className="mt-7 inline-flex items-center gap-2 border-b border-cream/60 pb-1 font-mono text-xs uppercase text-cream hover:text-cream">Saiba mais <ArrowRight className="size-3.5" /></Link>
+          <Link to="/sobre" className="mt-7 inline-flex items-center gap-2 border-b border-cream/60 pb-1 text-[13px] text-cream hover:text-cream font-semibold">Saiba mais <ArrowRight className="size-3.5" /></Link>
         </div>
         <nav aria-label="Transparência do projeto" className="border-cream/25 md:col-span-3 md:border-l md:pl-10">
-          <ul className="divide-y divide-cream/25 border-y border-cream/25 font-mono text-xs uppercase">
+          <ul className="divide-y divide-cream/25 border-y border-cream/25 text-[13px] font-semibold">
             <li><Link to="/investigacoes" className="block py-3 text-cream/80 hover:text-cream">Índice da investigação</Link></li>
             <li><Link to="/metodo" className="block py-3 text-cream/80 hover:text-cream">Metodologia</Link></li>
           </ul>

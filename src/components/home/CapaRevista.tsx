@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Secao } from "@/components/editorial/Secao";
 import { Link } from "@tanstack/react-router";
 import { FotoDocumental } from "@/components/editorial/FotoDocumental";
 import { ACHADOS } from "@/data/achados";
@@ -27,42 +28,6 @@ function Faixa({
     <section className={`relative left-1/2 -ml-[50vw] w-screen ${fundo} ${className}`}>
       <div className="mx-auto max-w-7xl px-5 md:px-8">{children}</div>
     </section>
-  );
-}
-
-/**
- * Abertura de seção em formato de revista (escolhida em 02/11/2026): fio grosso
- * em cima, nome da seção em Fraunces itálico e, opcional, o tipo de matéria.
- * A letra mono fica reservada para fontes e datas.
- */
-function Secao({
-  nome,
-  tipo,
-  claro = false,
-  pequeno = false,
-}: {
-  nome: ReactNode;
-  tipo?: string;
-  claro?: boolean;
-  pequeno?: boolean;
-}) {
-  return (
-    <p
-      className={`flex flex-wrap items-baseline gap-x-3 gap-y-1 ${pequeno ? "border-t-[3px] pt-2" : "border-t-[5px] pt-3"} ${
-        claro ? "border-lilac" : "border-plum"
-      }`}
-    >
-      <span
-        className={`font-display italic font-medium ${pequeno ? "text-lg" : "text-[1.35rem] md:text-2xl"} ${
-          claro ? "text-paper" : "text-plum"
-        }`}
-      >
-        {nome}
-      </span>
-      {tipo ? (
-        <span className={`text-[14px] ${claro ? "text-paper/80" : "text-ink/65"}`}>{tipo}</span>
-      ) : null}
-    </p>
   );
 }
 

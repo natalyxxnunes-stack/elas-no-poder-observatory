@@ -30,14 +30,14 @@ const FICHA_ROWS: { key: keyof ChartFicha; label: string }[] = [
 export function FichaGrafico({ ficha }: { ficha: ChartFicha }) {
   return (
     <details className="group border-t border-rule px-5 py-3 md:px-6">
-      <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-plum underline underline-offset-4 [&::-webkit-details-marker]:hidden">
+      <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 text-[13px] text-plum underline underline-offset-4 [&::-webkit-details-marker]:hidden font-semibold">
         <span className="group-open:hidden">Ficha do gráfico</span>
         <span className="hidden group-open:inline">Fechar a ficha</span>
       </summary>
       <dl className="mt-3 grid gap-x-6 gap-y-3 text-sm leading-relaxed md:grid-cols-2">
         {FICHA_ROWS.map((row) => (
           <div key={row.key} className="min-w-0">
-            <dt className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">{row.label}</dt>
+            <dt className="text-[13px] text-muted-foreground font-semibold">{row.label}</dt>
             <dd className="mt-0.5 text-ink/85">{ficha[row.key]}</dd>
           </div>
         ))}
@@ -83,10 +83,10 @@ export function ChartFrame({
     <figure className={`border border-rule bg-card ${className}`} aria-label={ariaLabel}>
       <figcaption className="flex flex-wrap items-end justify-between gap-4 border-b border-ink px-5 pb-4 pt-5 md:px-6">
         <div className="min-w-0">
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-plum">{eyebrow}</p>
+          <p className="text-[13px] text-plum font-semibold">{eyebrow}</p>
           {title && <h3 className="mt-2 max-w-2xl font-display text-xl leading-tight text-ink md:text-2xl">{title}</h3>}
         </div>
-        {legend && <div className="flex flex-wrap gap-4 font-mono text-xs uppercase text-muted-foreground" aria-label="Legenda">{legend}</div>}
+        {legend && <div className="flex flex-wrap gap-4 text-[13px] text-muted-foreground font-semibold" aria-label="Legenda">{legend}</div>}
       </figcaption>
       <div className="px-5 py-5 md:px-6">{children}</div>
       {(note || source) && (

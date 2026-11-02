@@ -177,7 +177,7 @@ function RaceGenderTable({ cargo }: { cargo: keyof typeof VOTOS_2026 }) {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[30rem] text-sm">
           <thead>
-            <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+            <tr className="text-[13px] text-muted-foreground font-semibold">
               <th className="pb-2 text-left font-normal">Grupo</th>
               <th className="pb-2 text-right font-normal">Candidaturas</th>
               <th className="pb-2 text-right font-normal">Votos</th>
@@ -320,7 +320,7 @@ function VotosPage() {
       >
         <RaceGenderTable cargo="federal" />
         <details className="group mt-6">
-          <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-plum underline underline-offset-4 [&::-webkit-details-marker]:hidden">
+          <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 text-[13px] text-plum underline underline-offset-4 [&::-webkit-details-marker]:hidden font-semibold">
             <span className="group-open:hidden">Ver a mesma tabela para as assembleias legislativas</span>
             <span className="hidden group-open:inline">Recolher</span>
           </summary>

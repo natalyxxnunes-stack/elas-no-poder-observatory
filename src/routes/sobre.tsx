@@ -61,7 +61,7 @@ function SobrePage() {
         }
         aside={
           <div>
-            <p className="font-mono text-xs uppercase text-ink/65">O projeto</p>
+            <p className="text-[13px] text-ink/65 font-semibold">O projeto</p>
             <p className="mt-2 font-display text-lg leading-snug text-ink">
               {SITE.name}
             </p>
@@ -79,13 +79,13 @@ function SobrePage() {
           <p className="kicker">Ficha do projeto</p>
           <dl className="mt-5 grid gap-6 md:grid-cols-2 md:gap-x-8 md:gap-y-6">
             <div>
-              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
+              <dt className="text-[13px] text-muted-foreground font-semibold">
                 Responsável editorial
               </dt>
               <dd className="mt-1 text-ink">Nataly Nunes Pinto, jornalista</dd>
             </div>
             <div>
-              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
+              <dt className="text-[13px] text-muted-foreground font-semibold">
                 O que é
               </dt>
               <dd className="mt-1 text-ink">
@@ -94,7 +94,7 @@ function SobrePage() {
               </dd>
             </div>
             <div>
-              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
+              <dt className="text-[13px] text-muted-foreground font-semibold">
                 Fontes primárias
               </dt>
               <dd className="mt-1 text-ink">
@@ -103,7 +103,7 @@ function SobrePage() {
               </dd>
             </div>
             <div>
-              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
+              <dt className="text-[13px] text-muted-foreground font-semibold">
                 Atualização
               </dt>
               <dd className="mt-1 text-ink">
@@ -111,7 +111,7 @@ function SobrePage() {
               </dd>
             </div>
             <div>
-              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
+              <dt className="text-[13px] text-muted-foreground font-semibold">
                 Método
               </dt>
               <dd className="mt-1 text-ink">
@@ -119,7 +119,7 @@ function SobrePage() {
               </dd>
             </div>
             <div>
-              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
+              <dt className="text-[13px] text-muted-foreground font-semibold">
                 Uso de IA
               </dt>
               <dd className="mt-1 text-ink">
@@ -128,7 +128,7 @@ function SobrePage() {
               </dd>
             </div>
             <div>
-              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
+              <dt className="text-[13px] text-muted-foreground font-semibold">
                 Correções
               </dt>
               <dd className="mt-1 text-ink">
@@ -136,7 +136,7 @@ function SobrePage() {
               </dd>
             </div>
             <div>
-              <dt className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
+              <dt className="text-[13px] text-muted-foreground font-semibold">
                 Contato
               </dt>
               <dd className="mt-1 text-ink">

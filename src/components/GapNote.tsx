@@ -11,7 +11,7 @@ export function GapNote({
 }) {
   return (
     <p className="gap-note" data-gap="true" role="status" aria-live="polite">
-      <span className="font-mono text-xs font-semibold uppercase tracking-wider text-ink">
+      <span className="text-[13px] font-semibold text-ink">
         {label} ·{" "}
       </span>
       {children}

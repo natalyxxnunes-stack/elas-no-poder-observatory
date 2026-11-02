@@ -197,7 +197,7 @@ export function RaceExplorer({
               setUf("");
               setParty("");
             }}
-            className="mt-4 font-mono text-[13px] uppercase tracking-wider text-plum underline underline-offset-4"
+            className="mt-4 text-[13px] text-plum underline underline-offset-4 font-semibold"
           >
             limpar filtros
           </button>
@@ -227,7 +227,7 @@ export function RaceExplorer({
           <dl className="divide-y-2 divide-ink/10">
             {rows.map(([race, n]) => (
               <div key={race} className="flex items-baseline gap-4 px-5 py-3">
-                <dt className="w-32 shrink-0 font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+                <dt className="w-32 shrink-0 text-[13px] text-muted-foreground font-semibold">
                   {race}
                 </dt>
                 <dd className="flex-1">

@@ -21,7 +21,7 @@ function NotFoundComponent() {
         <p className="kicker">Erro 404</p>
         <h1 className="mt-4 font-display text-4xl text-ink md:text-5xl">Esta página não existe</h1>
         <p className="mt-4 max-w-md text-muted-foreground">O endereço pode ter mudado ou ter sido digitado com erro.</p>
-        <p className="mt-8 flex flex-wrap gap-6 font-mono text-xs uppercase">
+        <p className="mt-8 flex flex-wrap gap-6 text-[13px] font-semibold">
           <Link to="/" className="border-b border-plum pb-1 text-plum">Ir para a home</Link>
           <Link to="/investigacoes" className="border-b border-plum pb-1 text-plum">Índice da investigação</Link>
         </p>

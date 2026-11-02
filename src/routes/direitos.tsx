@@ -123,7 +123,7 @@ function DireitosPage() {
                   {m.title}
                 </h3>
                 {PIONEIRAS.some((p) => p.milestoneYear === m.year) && (
-                  <p className="mt-2 flex flex-wrap items-center gap-2 font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+                  <p className="mt-2 flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground font-semibold">
                     <span>Nomes deste marco:</span>
                     {PIONEIRAS.filter((p) => p.milestoneYear === m.year).map((p) => (
                       <a
@@ -140,7 +140,7 @@ function DireitosPage() {
                 <dl className="mt-4 space-y-3">
                   {FIELDS.slice(0, 1).map((f) => (
                     <div key={f.key} className="sm:flex sm:gap-5">
-                      <dt className="shrink-0 font-mono text-[13px] uppercase tracking-wider text-muted-foreground sm:w-36 sm:pt-0.5">
+                      <dt className="shrink-0 text-[13px] text-muted-foreground sm:w-36 sm:pt-0.5 font-semibold">
                         {f.label}
                       </dt>
                       <dd className="mt-1 text-base leading-relaxed text-ink sm:mt-0">
@@ -150,14 +150,14 @@ function DireitosPage() {
                   ))}
                 </dl>
                 <details className="group mt-3">
-                  <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-plum underline underline-offset-4 [&::-webkit-details-marker]:hidden">
+                  <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 text-[13px] text-plum underline underline-offset-4 [&::-webkit-details-marker]:hidden font-semibold">
                     <span className="group-open:hidden">Ver as outras {FIELDS.length - 1} perguntas</span>
                     <span className="hidden group-open:inline">Recolher</span>
                   </summary>
                   <dl className="mt-3 space-y-3">
                     {FIELDS.slice(1).map((f) => (
                       <div key={f.key} className="sm:flex sm:gap-5">
-                        <dt className="shrink-0 font-mono text-[13px] uppercase tracking-wider text-muted-foreground sm:w-36 sm:pt-0.5">
+                        <dt className="shrink-0 text-[13px] text-muted-foreground sm:w-36 sm:pt-0.5 font-semibold">
                           {f.label}
                         </dt>
                         <dd className="mt-1 text-sm leading-relaxed text-ink sm:mt-0">
@@ -198,7 +198,7 @@ function DireitosPage() {
         <ol className="grid gap-4 md:grid-cols-2">
           {PIONEIRAS.map((p, i) => (
             <li key={p.id} id={p.id} className="poster-frame scroll-mt-24 border-l-4 border-l-coral p-5">
-              <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+              <p className="text-[13px] text-muted-foreground font-semibold">
                 {String(i + 1).padStart(2, "0")}
                 {p.years ? ` · ${p.years}` : ""}
                 {p.milestoneYear ? ` · marco de ${p.milestoneYear}` : ""}
@@ -209,14 +209,14 @@ function DireitosPage() {
               {p.perfil && (
                 <Link
                   to={p.perfil}
-                  className="mt-3 inline-block font-mono text-xs uppercase tracking-wider text-plum underline decoration-plum underline-offset-4"
+                  className="mt-3 inline-block text-[13px] text-plum underline decoration-plum underline-offset-4 font-semibold"
                 >
                   Ler o perfil →
                 </Link>
               )}
               {p.em2026 && (
                 <p className="mt-3 border-t border-rule pt-3 text-sm leading-relaxed text-muted-foreground">
-                  <span className="font-mono text-[13px] uppercase tracking-wider">Em 2026: </span>
+                  <span className="text-[13px] font-semibold">Em 2026: </span>
                   {p.em2026} Fonte: TSE, Candidatos 2026.
                 </p>
               )}
@@ -263,7 +263,7 @@ function DireitosPage() {
           ))}
         </ul>
 
-        <p className="mt-6 font-mono text-[13px] uppercase tracking-[0.14em]">
+        <p className="mt-6 text-[13px] font-semibold">
           <Link to="/em-disputa" className="text-plum underline underline-offset-4">
             Ver as regras que valem em 2026 →
           </Link>

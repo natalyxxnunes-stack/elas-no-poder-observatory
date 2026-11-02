@@ -193,7 +193,7 @@ function PartyNames({ list }: { list: NomeVoto[] }) {
     <ul className="space-y-1.5 text-sm leading-relaxed text-ink">
       {byParty(list).map(([party, xs]) => (
         <li key={party}>
-          <span className="font-mono text-xs uppercase tracking-wider text-plum">
+          <span className="text-[13px] text-plum font-semibold">
             {party} ({n(xs.length)})
           </span>{" "}
           {xs
@@ -227,7 +227,7 @@ function VoteNames({ v }: { v: Votacao }) {
         </>
       )}
       <details className="mt-3 group">
-        <summary className="cursor-pointer font-mono text-xs uppercase tracking-wider text-plum">
+        <summary className="cursor-pointer text-[13px] text-plum font-semibold">
           Ver como votou cada deputada
         </summary>
         <div className="mt-3 space-y-4">
@@ -235,7 +235,7 @@ function VoteNames({ v }: { v: Votacao }) {
             .filter(([, xs]) => xs.length)
             .map(([k, xs]) => (
               <div key={k}>
-                <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+                <p className="text-[13px] text-muted-foreground font-semibold">
                   {VOTE_PLURAL[k]} · {n(xs.length)}
                 </p>
                 <div className="mt-1.5">
@@ -323,7 +323,7 @@ function RaceVoteTable() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[36rem] text-sm">
           <thead>
-            <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+            <tr className="text-[13px] text-muted-foreground font-semibold">
               <th className="pb-2 text-left font-normal">Grupo</th>
               {VOTACOES.map((v) => (
                 <th key={v.id} className="pb-2 text-right font-normal">
@@ -479,7 +479,7 @@ function DeputadasTable() {
       (!soContra || Object.values(d.votos).some((x) => x.alinhamento === "contra a bancada")),
   );
   const chip = (active: boolean) =>
-    `border px-2 py-1 font-mono text-[13px] uppercase tracking-wider ${active ? "border-ink bg-ink text-cream" : "border-rule bg-card text-ink hover:border-ink"}`;
+    `border px-2 py-1 text-[13px] ${active ? "border-ink bg-ink text-cream" : "border-rule bg-card text-ink hover:border-ink"} font-semibold`;
   const OUT_LABEL: Record<string, string> = {
     reeleita: "reeleita",
     "eleita para outro cargo": "outro cargo",
@@ -523,7 +523,7 @@ function DeputadasTable() {
         </label>
       </div>
       <p
-        className="mb-2 font-mono text-[13px] uppercase tracking-wider text-muted-foreground"
+        className="mb-2 text-[13px] text-muted-foreground font-semibold"
         aria-live="polite"
       >
         {n(rows.length)} de {n(DEPUTADAS.length)} deputadas
@@ -531,7 +531,7 @@ function DeputadasTable() {
       <div className="overflow-x-auto border border-rule bg-card">
         <table className="w-full min-w-[56rem] text-sm">
           <thead>
-            <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+            <tr className="text-[13px] text-muted-foreground font-semibold">
               <th className="px-3 pb-2 pt-3 text-left font-normal">Deputada</th>
               <th className="px-3 pb-2 pt-3 text-left font-normal">Cor/raça (2022)</th>
               {VOTACOES.map((v) => (
@@ -644,7 +644,7 @@ function AsDezDaIgualdade() {
           return (
             <li key={d.nome} className="bg-card p-3">
               <p className="font-display text-lg leading-snug text-ink">{d.nome}</p>
-              <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+              <p className="text-[13px] text-muted-foreground font-semibold">
                 {x.partido}-{d.uf} em 2023
               </p>
               {x.alinhamento === "contra a bancada" && (
@@ -826,7 +826,7 @@ function ComoVotaramPage() {
         <ul className="divide-y divide-rule border-y border-rule">
           {VOTACOES.map((v) => (
             <li key={v.id} className="grid gap-2 py-4 md:grid-cols-[10rem_1fr]">
-              <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+              <p className="text-[13px] text-muted-foreground font-semibold">
                 {v.bloco}
                 <span className="block normal-case tracking-normal">{fmtDate(v.data)}</span>
               </p>
@@ -845,7 +845,7 @@ function ComoVotaramPage() {
           ))}
         </ul>
         <details className="group mt-6">
-          <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-plum underline underline-offset-4 [&::-webkit-details-marker]:hidden">
+          <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 text-[13px] text-plum underline underline-offset-4 [&::-webkit-details-marker]:hidden font-semibold">
             <span className="group-open:hidden">Ver o que ficou de fora</span>
             <span className="hidden group-open:inline">Recolher</span>
           </summary>
@@ -896,7 +896,7 @@ function ComoVotaramPage() {
         <ul className="grid gap-4 md:grid-cols-2">
           {VOTACOES.map((v) => (
             <li key={v.id} className="editorial-card p-5">
-              <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+              <p className="text-[13px] text-muted-foreground font-semibold">
                 {SHORT[v.id]}
               </p>
               <p className="mt-1 font-display text-2xl text-ink">

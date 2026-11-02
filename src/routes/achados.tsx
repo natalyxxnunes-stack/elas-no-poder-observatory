@@ -41,7 +41,7 @@ function AchadosPage() {
     <PageShell breadcrumb={[{ label: "Achados" }]}>
       <header className="grid gap-8 py-10 md:py-14 lg:grid-cols-[1.4fr_1fr] lg:items-end">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.12em] text-plum">
+          <p className="text-[13px] text-plum font-semibold">
             {ACHADOS.length} achados · atualizado em {formatDateBR(ultima)}
           </p>
           <h1 className="mt-4 font-display text-5xl leading-[0.98] text-ink md:text-7xl">O que encontramos</h1>
@@ -68,7 +68,7 @@ function AchadosPage() {
 
       <section aria-labelledby="mais-recentes" className="relative left-1/2 -ml-[50vw] w-screen bg-cream">
         <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
-          <h2 id="mais-recentes" className="font-mono text-xs uppercase tracking-[0.12em] text-plum">
+          <h2 id="mais-recentes" className="border-t-[5px] border-plum pt-3 font-display text-[1.35rem] font-medium italic text-plum md:text-2xl">
             Mais recentes
           </h2>
           <div className="mt-5 grid gap-5 lg:grid-cols-12">

@@ -38,7 +38,7 @@ export function ContextBox({
     <aside
       className={`border-l-4 ${v.accent} ${v.tint} rounded-r-md px-5 py-4`}
     >
-      <h3 className="font-mono text-[13px] uppercase tracking-[0.12em] text-ink">
+      <h3 className="text-[13px] text-ink font-semibold">
         {title ?? v.title}
       </h3>
       <div className="mt-2 space-y-2 text-sm leading-relaxed text-muted-foreground">

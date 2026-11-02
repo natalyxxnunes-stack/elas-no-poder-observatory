@@ -102,7 +102,7 @@ export function PartyStateMatrix({ snapshot }: { snapshot: PublicSnapshot | null
       <div className="overflow-x-auto">
         <table className="w-full min-w-[60rem] border-separate border-spacing-0.5 text-[13px]">
           <thead>
-            <tr className="font-mono uppercase text-muted-foreground">
+            <tr className="text-muted-foreground font-semibold">
               <th className="sticky left-0 z-10 bg-card pr-2 text-left font-normal">Partido</th>
               <th className="pr-2 text-right font-normal">Brasil</th>
               {UFS.map((uf) => (

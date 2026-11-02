@@ -160,11 +160,12 @@
 
 /* --- utilitários editoriais --- */
 
+/* Rótulo de interface (02/11/2026): sans, sem caixa alta. Aberturas de seção usam <Secao>. */
 @utility kicker {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.8125rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0;
   color: var(--color-plum);
 }
 
@@ -234,10 +235,10 @@
 }
 
 @utility poster-eyebrow {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.8125rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 @utility record-label {

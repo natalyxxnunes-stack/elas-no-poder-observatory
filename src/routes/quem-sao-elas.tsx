@@ -257,7 +257,7 @@ function QuemSaoElasPage() {
                 <caption className="sr-only">Participação de mulheres entre candidaturas titulares, vices e suplentes de 2014 a 2026</caption>
                 <thead>
                   <tr className="border-b-2 border-ink">
-                    {['Ano', 'Governadora', 'Vice-governadora', 'Senadora', '1ª suplente', '2ª suplente', 'Presidenta', 'Vice-presidenta'].map((label) => <th key={label} scope="col" className="py-2 pr-4 font-mono text-xs uppercase text-muted-foreground">{label}</th>)}
+                    {['Ano', 'Governadora', 'Vice-governadora', 'Senadora', '1ª suplente', '2ª suplente', 'Presidenta', 'Vice-presidenta'].map((label) => <th key={label} scope="col" className="py-2 pr-4 text-[13px] text-muted-foreground font-semibold">{label}</th>)}
                   </tr>
                 </thead>
                 <tbody>
@@ -389,7 +389,7 @@ function QuemSaoElasPage() {
         ]}
       >
         <details className="border-b border-rule pb-4">
-          <summary className="cursor-pointer font-mono text-[13px] uppercase tracking-wider text-plum">
+          <summary className="cursor-pointer text-[13px] text-plum font-semibold">
             O que já é possível cruzar
           </summary>
           <div className="mt-4">

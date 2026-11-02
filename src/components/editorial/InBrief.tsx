@@ -40,7 +40,7 @@ export function InBrief({
   if (aberto) {
     return (
       <section aria-label="Em poucas linhas" className="border-y-2 border-ink py-2">
-        <h2 className="pt-2 font-mono text-[13px] uppercase tracking-[0.12em] text-plum">Em poucas linhas</h2>
+        <h2 className="pt-2 font-sans text-[13px] text-plum font-semibold">Em poucas linhas</h2>
         {lista}
       </section>
     );

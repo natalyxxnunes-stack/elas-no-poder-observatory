@@ -34,7 +34,7 @@ function FalaCard({ f, i }: { f: Fala; i: number }) {
     <article className={`relative left-1/2 -ml-[50vw] w-screen ${i % 2 === 0 ? "bg-cream" : "bg-lilac/60"}`}>
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-12">
         <div className="lg:col-span-7">
-          <p className="font-mono text-[13px] uppercase tracking-[0.1em] text-muted-foreground">
+          <p className="text-[13px] text-muted-foreground font-semibold">
             {f.data} · {f.onde}
           </p>
           <blockquote className="relative mt-5 border-l-4 border-plum pl-5 md:pl-7">

@@ -47,7 +47,7 @@ function Cell({
 }) {
   return (
     <td className="py-3 pr-4 align-top">
-      <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground md:hidden">
+      <p className="text-[13px] text-muted-foreground md:hidden font-semibold">
         {label}
       </p>
       <p className="poster-figure text-2xl text-ink">
@@ -86,19 +86,19 @@ export function ElectionRateByGender() {
             <tr className="border-b-2 border-ink">
               <th
                 scope="col"
-                className="py-3 pr-4 font-mono text-[13px] uppercase tracking-wider text-muted-foreground"
+                className="py-3 pr-4 text-[13px] text-muted-foreground font-semibold"
               >
                 Ano
               </th>
               <th
                 scope="col"
-                className="py-3 pr-4 font-mono text-[13px] uppercase tracking-wider text-muted-foreground"
+                className="py-3 pr-4 text-[13px] text-muted-foreground font-semibold"
               >
                 Taxa de eleição · mulheres
               </th>
               <th
                 scope="col"
-                className="py-3 pr-4 font-mono text-[13px] uppercase tracking-wider text-muted-foreground"
+                className="py-3 pr-4 text-[13px] text-muted-foreground font-semibold"
               >
                 Taxa de eleição · homens
               </th>

@@ -38,7 +38,7 @@ function UniverseTable({ title, k }: { title: string; k: "proporcional" | "major
       </p>
       <table className="mt-4 w-full text-sm">
         <thead>
-          <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+          <tr className="text-[13px] text-muted-foreground font-semibold">
             <th className="pb-2 text-left font-normal">Candidaturas</th>
             <th className="pb-2 pr-3 text-right font-normal">{CHANGE_FROM.label.slice(0, 5)}</th>
             <th className="pb-2 pr-3 text-right font-normal">{CHANGE_TO.label.slice(0, 5)}</th>

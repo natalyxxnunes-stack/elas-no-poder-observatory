@@ -130,7 +130,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
               ),
             )}
           </nav>
-          <div className="flex items-center gap-4 border-l border-rule pl-4 font-mono text-sm uppercase tracking-[0.08em]">
+          <div className="flex items-center gap-4 border-l border-rule pl-4 text-sm font-semibold">
             {CANTO.map((it) => (
               <Link key={it.to} to={it.to} className="text-muted-foreground hover:text-plum">
                 {it.label}
@@ -184,7 +184,7 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
               </Link>
             ),
           )}
-          <div className="mt-5 flex gap-6 font-mono text-[13px] uppercase tracking-[0.08em]">
+          <div className="mt-5 flex gap-6 text-[13px] font-semibold">
             {CANTO.map((it) => (
               <Link key={it.to} to={it.to} onClick={close} className="inline-flex min-h-11 items-center text-plum">
                 {it.label}

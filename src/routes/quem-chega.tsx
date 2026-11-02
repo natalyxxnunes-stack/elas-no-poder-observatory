@@ -135,7 +135,7 @@ function OfficeBars() {
       <ChartScale max={50} />
       <div className="mt-6 grid gap-4 border-t border-rule pt-5 sm:grid-cols-2">
         <div>
-          <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">Governos estaduais e do DF</p>
+          <p className="text-[13px] text-muted-foreground font-semibold">Governos estaduais e do DF</p>
           <p className="mt-1 font-display text-3xl leading-none text-ink">
             {n(gov.electedFeminine)} de {n(gov.totalUfs)}
           </p>
@@ -150,7 +150,7 @@ function OfficeBars() {
           </p>
         </div>
         <div>
-          <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">Presidência · 2º turno</p>
+          <p className="text-[13px] text-muted-foreground font-semibold">Presidência · 2º turno</p>
           <p className="mt-1 font-display text-3xl leading-none text-ink">
             {n(pres.mulheresNoSegundoTurno)} de {n(pres.segundoTurno)}
           </p>
@@ -262,7 +262,7 @@ function ElectionRateTable() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[22rem] text-sm">
           <thead>
-            <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+            <tr className="text-[13px] text-muted-foreground font-semibold">
               <th className="pb-2 text-left font-normal">Cor/raça</th>
               <th className="pb-2 text-right font-normal">Mulheres</th>
               <th className="pb-2 text-right font-normal">Homens</th>
@@ -356,7 +356,7 @@ function PartyTable() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[30rem] text-sm">
           <thead>
-            <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+            <tr className="text-[13px] text-muted-foreground font-semibold">
               <th className="pb-2 text-left font-normal">Partido</th>
               <th className="pb-2 text-right font-normal">Eleitos</th>
               <th className="pb-2 text-right font-normal">Mulheres</th>

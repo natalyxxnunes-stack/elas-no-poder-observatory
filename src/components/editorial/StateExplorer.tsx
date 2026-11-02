@@ -132,7 +132,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
   const hasGenderDenominatorByParty = parties.some((p) => p.total !== null);
 
   const btn = (active: boolean) =>
-    `border border-rule px-2.5 py-1 font-mono text-[13px] uppercase tracking-wider focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum ${
+    `border border-rule px-2.5 py-1 text-[13px] font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum ${
       active ? "bg-plum text-cream border-plum" : "bg-paper text-ink"
     }`;
 
@@ -182,7 +182,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
             <button
               type="button"
               onClick={() => setUf("")}
-              className="self-start font-mono text-[13px] uppercase tracking-wider text-plum underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum sm:self-auto"
+              className="self-start text-[13px] text-plum underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum sm:self-auto font-semibold"
             >
               voltar ao Brasil
             </button>
@@ -295,19 +295,19 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
                   <tr className="border-b-2 border-ink">
                     <th
                       scope="col"
-                      className="py-2 pr-3 font-mono text-[13px] uppercase tracking-wider text-muted-foreground"
+                      className="py-2 pr-3 text-[13px] text-muted-foreground font-semibold"
                     >
                       Cor/raça declarada
                     </th>
                     <th
                       scope="col"
-                      className="py-2 pr-3 font-mono text-[13px] uppercase tracking-wider text-muted-foreground"
+                      className="py-2 pr-3 text-[13px] text-muted-foreground font-semibold"
                     >
                       Candidaturas
                     </th>
                     <th
                       scope="col"
-                      className="py-2 font-mono text-[13px] uppercase tracking-wider text-muted-foreground"
+                      className="py-2 text-[13px] text-muted-foreground font-semibold"
                     >
                       % das mulheres em {uf}
                     </th>
@@ -356,7 +356,7 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
             Partidos em {uf} · {UNIVERSE_LABEL[universe]}
           </p>
           <details className="mt-4">
-            <summary className="cursor-pointer font-mono text-[13px] uppercase tracking-wider text-plum underline underline-offset-4">
+            <summary className="cursor-pointer text-[13px] text-plum underline underline-offset-4 font-semibold">
               Ver por partido em {uf}
             </summary>
               <>
@@ -374,13 +374,13 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
                     <tr className="border-b-2 border-ink">
                       <th
                         scope="col"
-                        className="py-2 pr-3 font-mono text-[13px] uppercase tracking-wider text-muted-foreground"
+                        className="py-2 pr-3 text-[13px] text-muted-foreground font-semibold"
                       >
                         Partido
                       </th>
                       <th
                         scope="col"
-                        className="py-2 pr-3 font-mono text-[13px] uppercase tracking-wider text-muted-foreground"
+                        className="py-2 pr-3 text-[13px] text-muted-foreground font-semibold"
                       >
                         {hasGenderDenominatorByParty
                           ? "Mulheres / total no estado"
@@ -389,14 +389,14 @@ export function StateExplorer({ snapshot }: { snapshot: PublicSnapshot | null })
                       {hasGenderDenominatorByParty && (
                         <th
                           scope="col"
-                          className="py-2 pr-3 font-mono text-[13px] uppercase tracking-wider text-muted-foreground"
+                          className="py-2 pr-3 text-[13px] text-muted-foreground font-semibold"
                         >
                           % de mulheres na lista
                         </th>
                       )}
                       <th
                         scope="col"
-                        className="py-2 font-mono text-[13px] uppercase tracking-wider text-muted-foreground"
+                        className="py-2 text-[13px] text-muted-foreground font-semibold"
                       >
                         Cor/raça entre essas candidaturas
                       </th>

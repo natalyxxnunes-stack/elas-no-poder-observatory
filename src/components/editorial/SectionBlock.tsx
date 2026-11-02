@@ -1,3 +1,4 @@
+import { Secao } from "@/components/editorial/Secao";
 /**
  * SectionBlock — ritmo editorial de scroll: pergunta → elemento gráfico →
  * dado → visualização → contexto → fonte. O componente cuida da moldura;
@@ -18,10 +19,10 @@ const TONE_WRAP: Record<Tone, string> = {
 
 const TONE_KICKER: Record<Tone, string> = {
   paper: "kicker",
-  plum: "font-mono text-xs uppercase tracking-[0.12em] text-cream/80",
-  ink: "font-mono text-xs uppercase tracking-[0.12em] text-cream/80",
-  lilac: "font-mono text-xs uppercase tracking-[0.12em] text-plum",
-  butter: "font-mono text-xs uppercase tracking-[0.12em] text-plum",
+  plum: "text-[13px] text-cream/80 font-semibold",
+  ink: "text-[13px] text-cream/80 font-semibold",
+  lilac: "text-[13px] text-plum font-semibold",
+  butter: "text-[13px] text-plum font-semibold",
 };
 
 const TONE_TITLE: Record<Tone, string> = {
@@ -66,7 +67,7 @@ export function SectionBlock({
 
   const body = (
     <>
-      <p className={TONE_KICKER[tone]}>{kicker}</p>
+      <Secao nome={kicker} claro={tone === "plum" || tone === "ink"} />
       <h2
         className={`mt-3 font-display text-2xl leading-snug md:text-4xl ${TONE_TITLE[tone]} ${
           align === "wide" ? "max-w-4xl" : "max-w-2xl"
@@ -82,7 +83,7 @@ export function SectionBlock({
       {children && !collapsible && <div className="mt-8">{children}</div>}
       {children && collapsible && (
         <details className="group mt-6">
-          <summary className={`inline-flex min-h-11 cursor-pointer list-none items-center gap-2 border px-4 py-2 font-mono text-xs uppercase tracking-[0.12em] [&::-webkit-details-marker]:hidden ${tone === "plum" || tone === "ink" ? "border-cream/70 text-cream" : "border-plum text-plum"}`}>
+          <summary className={`inline-flex min-h-11 cursor-pointer list-none items-center gap-2 border px-4 py-2 text-[13px] [&::-webkit-details-marker]:hidden ${tone === "plum" || tone === "ink" ? "border-cream/70 text-cream" : "border-plum text-plum"} font-semibold`}>
             <span className="group-open:hidden">{collapsible}</span>
             <span className="hidden group-open:inline">Recolher</span>
             <span aria-hidden="true" className="transition-transform group-open:rotate-180">▾</span>
@@ -98,7 +99,7 @@ export function SectionBlock({
 
   if (!colored) {
     return (
-      <section id={id} className="rule-top scroll-mt-20 py-12 md:py-14">
+      <section id={id} className="scroll-mt-20 py-12 md:py-14">
         {body}
       </section>
     );

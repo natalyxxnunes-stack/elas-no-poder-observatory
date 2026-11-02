@@ -60,7 +60,7 @@ function StageBar({
     <li className="poster-frame overflow-hidden">
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
-          <span className="block font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+          <span className="block text-[13px] text-muted-foreground font-semibold">
             etapa{" "}
             <span className="poster-figure align-middle text-3xl text-plum md:text-4xl">
               0{step}
@@ -168,7 +168,7 @@ function RaceStage({
                 className="mt-1 inline-block h-2 w-2 shrink-0 rounded-full"
                 style={{ backgroundColor: color(label) }}
               />
-              <dt className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+              <dt className="text-[13px] text-muted-foreground font-semibold">
                 {label}
               </dt>
               <dd className="ml-auto font-mono text-xs text-ink">
@@ -209,7 +209,7 @@ function ResultStage({ step }: { step: number }) {
     <li className="poster-frame overflow-hidden">
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
-          <span className="block font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+          <span className="block text-[13px] text-muted-foreground font-semibold">
             etapa{" "}
             <span className="poster-figure align-middle text-3xl text-plum md:text-4xl">
               0{step}
@@ -266,7 +266,7 @@ function ResultStage({ step }: { step: number }) {
                 className="mt-1 inline-block h-2 w-2 shrink-0 rounded-full"
                 style={{ backgroundColor: color(label) }}
               />
-              <dt className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+              <dt className="text-[13px] text-muted-foreground font-semibold">
                 {label}
               </dt>
               <dd className="ml-auto font-mono text-xs text-ink">
@@ -282,7 +282,7 @@ function ResultStage({ step }: { step: number }) {
 
       <div className="mt-4 grid gap-4 border-t border-rule px-5 py-4 sm:grid-cols-2">
         <p className="text-sm leading-relaxed text-ink">
-          <span className="block font-mono text-[13px] uppercase tracking-wider text-muted-foreground">Senado</span>
+          <span className="block text-[13px] text-muted-foreground font-semibold">Senado</span>
           {n(sen.electedFeminine)} mulheres em {n(sen.seats)} cadeiras em disputa (
           {pct((sen.electedFeminine / sen.seats) * 100)}). Eleitas por cor/raça:{" "}
           {Object.keys(sen.candidacyRaceFeminine)
@@ -291,7 +291,7 @@ function ResultStage({ step }: { step: number }) {
           . Candidatas pretas ao Senado: {n(sen.candidacyRaceFeminine["PRETA"] ?? 0)}.
         </p>
         <p className="text-sm leading-relaxed text-ink">
-          <span className="block font-mono text-[13px] uppercase tracking-wider text-muted-foreground">Governos</span>
+          <span className="block text-[13px] text-muted-foreground font-semibold">Governos</span>
           {n(gov.electedFeminine)} mulheres eleitas em {n(gov.totalUfs)} governos (26 estados e DF), em{" "}
           {gov.electedFeminineUfs.join(", ")}. No 1º turno, {n(gov.electedFeminineFirstRound)} (PE). No 2º turno de 25/10,
           {" "}{n(gov.runoffFeminine)} mulheres disputaram {n(gov.runoffFeminineUfs.length)} dos {n(gov.runoffUfs.length)} governos em jogo e{" "}
@@ -299,7 +299,7 @@ function ResultStage({ step }: { step: number }) {
           declaram brancas.
         </p>
         <p className="text-sm leading-relaxed text-ink sm:col-span-2">
-          <span className="block font-mono text-[13px] uppercase tracking-wider text-muted-foreground">Presidência</span>
+          <span className="block text-[13px] text-muted-foreground font-semibold">Presidência</span>
           {n(pres.mulheres)} mulheres em {n(pres.registros)} candidaturas (uma branca e uma preta). Nenhuma das duas
           foi ao 2º turno, disputado por {n(pres.segundoTurno)} homens em 25/10. Base pequena, por isso o número
           absoluto e não o percentual.
@@ -339,7 +339,7 @@ export function FunnelStages2026({
   return (
     <>
       <p className="mb-5 border-l-2 border-plum pl-3">
-        <span className="block font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground">
+        <span className="block text-[13px] text-muted-foreground font-semibold">
           leitura do funil
         </span>
         <span className="mt-1 block font-display text-base italic leading-snug text-ink">

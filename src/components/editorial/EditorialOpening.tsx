@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Secao } from "@/components/editorial/Secao";
 import { Hemiciclo } from "@/components/editorial/Hemiciclo";
 import { RESULT_2026_PROPORCIONAL } from "@/data/resultado-2026";
 import { FINANCE_BASE_LABEL } from "@/data/tse-finance-snapshot";
@@ -43,10 +44,7 @@ function titleFor(question: ReactNode, compact: boolean) {
 function OpeningText({ kicker, question, lead, inverse = false, compact = false }: OpeningBase & { inverse?: boolean; compact?: boolean }) {
   return (
     <div className="min-w-0">
-      <p className={`flex items-center gap-3 font-mono text-xs font-medium uppercase tracking-[0.12em] ${inverse ? "text-cream/75" : "text-ink/70"}`}>
-        <span className={`h-px w-12 ${inverse ? "bg-cream/55" : "bg-ink/45"}`} aria-hidden="true" />
-        {kicker}
-      </p>
+      <Secao nome={kicker} claro={inverse} />
       <h1 className={`mt-5 max-w-3xl text-balance ${titleFor(question, compact)} ${inverse ? "text-cream" : "text-ink"}`}>{question}</h1>
       <div className={`mt-5 max-w-xl text-sm leading-relaxed md:text-base ${inverse ? "text-cream/80" : "text-ink/75"}`}>{lead}</div>
     </div>
@@ -79,7 +77,7 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
               <div key={layer.label} className="grid min-w-0 grid-cols-[minmax(0,1fr)_4.5rem] items-center gap-3">
                 <div className="h-16 w-full">
                   <div className={`flex h-full items-center justify-center border border-cream/45 ${layer.tone}`} style={{ width: `${Math.min((layer.value ?? 0) * 2, 100)}%` }}>
-                    <span className="font-mono text-xs font-semibold uppercase">{layer.label}</span>
+                    <span className="text-[13px] font-semibold">{layer.label}</span>
                   </div>
                 </div>
                 <span className="font-mono text-xs font-semibold text-cream">{layer.value === null ? "—" : formatPct(layer.value)}</span>
@@ -87,7 +85,7 @@ function FunnelOpening({ snapshot, baseDate, ...text }: OpeningBase & { snapshot
             ))}
             {[["Poder", "a partir de 2027"]].map(([label, date]) => (
               <div key={label} className="grid min-w-0 grid-cols-[minmax(0,1fr)_4.5rem] items-center gap-3">
-                <div className="flex h-16 items-center justify-between border border-dashed border-cream/55 px-4 font-mono text-xs uppercase text-cream/80"><span>{label}</span><span>{date}</span></div>
+                <div className="flex h-16 items-center justify-between border border-dashed border-cream/55 px-4 text-[13px] text-cream/80 font-semibold"><span>{label}</span><span>{date}</span></div>
                 <span aria-hidden="true" />
               </div>
             ))}
@@ -116,7 +114,7 @@ function RaceOpening({ snapshot, ...text }: OpeningBase & { snapshot: PublicSnap
             {entries.length === 0
               ? [0, 1, 2, 3].map((index) => (
                   <div key={index} className="grid min-w-0 grid-cols-[7rem_minmax(0,1fr)_4.5rem] items-center gap-3">
-                    <span className="truncate font-mono text-xs font-semibold uppercase text-cream/70">—</span>
+                    <span className="truncate text-[13px] font-semibold text-cream/70">—</span>
                     <div className="h-4 w-full border border-cream/25 bg-cream/10" />
                     <span className="font-mono text-xs font-semibold text-cream">—</span>
                   </div>
@@ -126,7 +124,7 @@ function RaceOpening({ snapshot, ...text }: OpeningBase & { snapshot: PublicSnap
                   const pct = denominator ? (value / denominator) * 100 : 0;
                   return (
                     <div key={category} className="grid min-w-0 grid-cols-[7rem_minmax(0,1fr)_4.5rem] items-center gap-3">
-                      <span className="truncate font-mono text-xs font-semibold uppercase text-cream/85">{RACE_LABELS[key] ?? category}</span>
+                      <span className="truncate text-[13px] font-semibold text-cream/85">{RACE_LABELS[key] ?? category}</span>
                       <div className="h-4 w-full border border-cream/25 bg-cream/10">
                         <div className="h-full bg-cream" style={{ width: `${pct}%` }} />
                       </div>
@@ -157,7 +155,7 @@ function TimelineOpening({ years, ...text }: OpeningBase & { years: readonly str
               <li key={year} className={`${index % 2 ? "pt-16" : "pb-16"} relative text-center sm:pt-0 ${index % 2 ? "sm:translate-y-12" : "sm:-translate-y-12"}`}>
                 <span className="mx-auto block size-3 rounded-full border border-rule bg-lilac" />
                 <strong className="mt-3 block font-display text-2xl text-ink">{year}</strong>
-                <span className="font-mono text-xs uppercase text-ink/65">eleição geral</span>
+                <span className="text-[13px] text-ink/65 font-semibold">eleição geral</span>
               </li>
             ))}
           </ol>
@@ -221,7 +219,7 @@ function FinancialOpening({ layers, gap, snapshot, ...text }: OpeningBase & { la
           <div className="mt-5 space-y-4">
             {rows.map((row, index) => (
               <div key={row.label} className="grid grid-cols-[7rem_minmax(0,1fr)_3rem] items-center gap-3">
-                <span className="truncate font-mono text-xs uppercase text-cream/85">{row.label}</span>
+                <span className="truncate text-[13px] text-cream/85 font-semibold">{row.label}</span>
                 <div className="h-8 border border-cream/20 bg-cream/5"><div className={`h-full ${index ? "bg-cream/60" : "bg-cream"}`} style={{ width: `${row.value ?? 0}%` }} /></div>
                 <span className="font-mono text-xs text-cream">{row.value === null ? "—" : formatPct(row.value)}</span>
               </div>
@@ -262,7 +260,7 @@ function RepresentationOpening({ labels, gap, seats: real, ...text }: OpeningBas
           <div className="grid grid-cols-12 gap-2 rounded-t-[8rem] border-x border-t border-cream/30 px-7 pb-5 pt-14 sm:px-12">
             {seats.map((seat) => <span key={seat} className="aspect-square rounded-full border border-cream/55 bg-cream/10" />)}
           </div>
-          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs uppercase text-cream/75">
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-cream/75 font-semibold">
             {labels.map((label) => <span key={label} className="flex items-center gap-2"><span className="size-2 rounded-full border border-cream" />{label}</span>)}
           </div>
           <figcaption className="mt-4 border-t border-cream/25 pt-3 font-mono text-xs text-cream/85">{gap}</figcaption>
@@ -278,13 +276,13 @@ function PowerFlowOpening({ levers, ...text }: OpeningBase & { levers: readonly 
       <div className="grid min-h-[31rem] lg:grid-cols-2">
         <div className="px-5 py-12 text-cream md:px-8 lg:flex lg:items-center lg:py-16 lg:pl-[max(2rem,calc((100vw-80rem)/2+2rem))] lg:pr-12"><OpeningText {...text} inverse /></div>
         <figure aria-label="Fluxo das decisões partidárias que controlam o acesso à disputa" className="flex min-w-0 max-w-2xl flex-col justify-center px-5 py-10 md:px-10 lg:pr-[max(2rem,calc((100vw-80rem)/2+2rem))]">
-          <div className="mx-auto bg-cream px-6 py-3 font-mono text-xs uppercase text-plum">Partidos e federações</div>
+          <div className="mx-auto bg-cream px-6 py-3 text-[13px] text-plum font-semibold">Partidos e federações</div>
           <div className="mx-auto h-7 w-px bg-cream/50" />
           <div className="grid gap-2 sm:grid-cols-3">
             {levers.slice(0, 3).map((lever, index) => <div key={lever.label} className={`${index === 1 ? "bg-paper" : "bg-lilac"} min-w-[9rem] text-balance border border-cream/40 px-3 py-4 text-center text-[15px] text-ink`}>{lever.label}<span className="mt-2 block text-[13px] text-ink/65">{lever.ready === "yes" ? "disponível" : lever.ready === "partial" ? "parcial" : "aguardando dado"}</span></div>)}
           </div>
           <div className="mx-auto h-7 w-px bg-cream/50" />
-          <div className="mx-auto border border-cream px-7 py-3 font-mono text-xs uppercase text-cream">Acesso ao poder</div>
+          <div className="mx-auto border border-cream px-7 py-3 text-[13px] text-cream font-semibold">Acesso ao poder</div>
         </figure>
       </div>
     </Frame>
@@ -298,7 +296,7 @@ function MethodOpening({ steps, aside, ...text }: OpeningBase & { steps: readonl
         <OpeningText {...text} />
         <div>
           <ol className="divide-y divide-ink/25 border-y border-ink/25">
-            {steps.map((step) => <li key={step.number} className="grid grid-cols-[3.5rem_7rem_minmax(0,1fr)] items-baseline gap-3 py-3"><strong className="font-display text-3xl text-ink">{step.number}</strong><span className="font-mono text-xs font-semibold uppercase text-ink">{step.label}</span><span className="text-xs text-ink/65">{step.detail}</span></li>)}
+            {steps.map((step) => <li key={step.number} className="grid grid-cols-[3.5rem_7rem_minmax(0,1fr)] items-baseline gap-3 py-3"><strong className="font-display text-3xl text-ink">{step.number}</strong><span className="text-[13px] font-semibold text-ink">{step.label}</span><span className="text-xs text-ink/65">{step.detail}</span></li>)}
           </ol>
           {aside && <div className="mt-6 border-t border-ink/30 pt-4">{aside}</div>}
         </div>
@@ -325,7 +323,7 @@ function DownloadsOpening({ documents, ...text }: OpeningBase & { documents: rea
         <OpeningText {...text} inverse />
         <figure aria-label="Formatos dos materiais disponíveis e em preparação" className="flex min-w-0 flex-col justify-center">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {documents.map((document, index) => <div key={`${document.format}-${document.label}`} className={`relative min-h-48 border border-ink/25 p-4 pt-10 text-ink ${tones[index % tones.length]} [clip-path:polygon(0_0,78%_0,100%_18%,100%_100%,0_100%)]`}><span className="absolute right-0 top-0 size-10 border-b border-l border-ink/20 bg-cream/40" /><strong className="font-display text-2xl">{document.format}</strong><span className="mt-3 block text-xs leading-snug">{document.label}</span><span className="absolute bottom-4 left-4 font-mono text-xs uppercase">{document.available ? "disponível" : "em preparação"}</span></div>)}
+            {documents.map((document, index) => <div key={`${document.format}-${document.label}`} className={`relative min-h-48 border border-ink/25 p-4 pt-10 text-ink ${tones[index % tones.length]} [clip-path:polygon(0_0,78%_0,100%_18%,100%_100%,0_100%)]`}><span className="absolute right-0 top-0 size-10 border-b border-l border-ink/20 bg-cream/40" /><strong className="font-display text-2xl">{document.format}</strong><span className="mt-3 block text-xs leading-snug">{document.label}</span><span className="absolute bottom-4 left-4 text-[13px] font-semibold">{document.available ? "disponível" : "em preparação"}</span></div>)}
           </div>
         </figure>
       </div>

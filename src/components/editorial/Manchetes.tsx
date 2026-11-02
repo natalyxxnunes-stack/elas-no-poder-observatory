@@ -20,7 +20,7 @@ export function ManchetesStrip({
   const aqui = (to: string) => (to.split("#")[0] ?? "").replace(/\/$/, "") === pathname.replace(/\/$/, "");
   return (
     <section aria-label={label} className="mb-10">
-      <p className="font-mono text-xs uppercase tracking-[0.14em] text-plum">{label}</p>
+      <p className="text-[13px] text-plum font-semibold">{label}</p>
       <ul
         className={`mt-3 grid gap-3 ${items.length === 1 ? "md:max-w-2xl" : items.length === 2 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3"}`}
       >
@@ -57,7 +57,7 @@ export function ManchetesStrip({
               <span>
                 {m.fonteCurta ?? m.fonte}
                 {m.parcial && (
-                  <span className="ml-2 border border-muted-foreground/50 px-1.5 py-0.5 font-mono text-[13px] uppercase tracking-wider">
+                  <span className="ml-2 border border-muted-foreground/50 px-1.5 py-0.5 text-[13px] font-semibold">
                     parcial
                   </span>
                 )}
@@ -79,7 +79,7 @@ export function CapaManchetes({ items }: { items: Manchete[] }) {
     <section aria-labelledby="capa-manchetes" className="border-y-2 border-ink py-6">
       <h2
         id="capa-manchetes"
-        className="font-mono text-xs uppercase tracking-[0.14em] text-coral-ink"
+        className="text-[13px] text-coral-ink font-semibold"
       >
         O que os dados de 2026 mostram
       </h2>
@@ -99,7 +99,7 @@ export function CapaManchetes({ items }: { items: Manchete[] }) {
             </div>
             <a
               href={m.to}
-              className="font-mono text-xs uppercase tracking-wider text-plum underline decoration-plum underline-offset-4 sm:whitespace-nowrap"
+              className="text-[13px] text-plum underline decoration-plum underline-offset-4 sm:whitespace-nowrap font-semibold"
             >
               {m.pagina} →
             </a>
@@ -270,7 +270,7 @@ function CardManchete({
         <span>
           {m.fonteCurta ?? m.fonte}
           {m.parcial && (
-            <span className="ml-2 border border-muted-foreground/50 px-1.5 py-0.5 font-mono text-[13px] uppercase tracking-wider">
+            <span className="ml-2 border border-muted-foreground/50 px-1.5 py-0.5 text-[13px] font-semibold">
               parcial
             </span>
           )}
@@ -293,7 +293,7 @@ export function CapaCards({ items, baseLabel }: { items: Manchete[]; baseLabel: 
   return (
     <section aria-labelledby="capa-manchetes" className="relative left-1/2 -ml-[50vw] w-screen bg-cream">
       <div className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
-        <p className="font-mono text-xs uppercase tracking-[0.14em] text-plum">{baseLabel}</p>
+        <p className="text-[13px] text-plum font-semibold">{baseLabel}</p>
         <h2 id="capa-manchetes" className="mt-3 max-w-3xl font-display text-3xl leading-tight text-ink md:text-5xl">
           O que os dados de 2026 mostram
         </h2>

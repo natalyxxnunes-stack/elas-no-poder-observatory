@@ -128,7 +128,7 @@ function DownloadsPage() {
           {MATERIALS.map((m) => (
             <li key={m.id} className="editorial-card flex h-full flex-col p-5">
               <div className="flex items-start justify-between gap-3">
-                <p className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+                <p className="text-[13px] text-muted-foreground font-semibold">
                   {m.kind}
                 </p>
               </div>

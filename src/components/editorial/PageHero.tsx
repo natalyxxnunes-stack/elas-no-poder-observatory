@@ -1,3 +1,4 @@
+import { Secao } from "@/components/editorial/Secao";
 /**
  * PageHero — abertura editorial oficial do projeto.
  *
@@ -50,7 +51,7 @@ export function PageHero({
 
         {/* etiqueta opcional da página, discreta, sobre a imagem */}
         {aside && (
-          <div className="absolute right-4 top-4 rounded-md bg-paper/85 px-3 py-1.5 font-mono text-[13px] uppercase tracking-[0.14em] text-ink md:right-8 md:top-6">
+          <div className="absolute right-4 top-4 rounded-md bg-paper/85 px-3 py-1.5 text-[13px] text-ink md:right-8 md:top-6 font-semibold">
             {aside}
           </div>
         )}
@@ -59,7 +60,7 @@ export function PageHero({
         <div className="absolute inset-x-4 bottom-6 md:inset-x-0 md:bottom-14">
           <div className="mx-auto max-w-7xl md:px-8">
             <div className="max-w-xl rounded-lg border border-rule bg-paper/95 p-5 shadow-[9px_9px_0_0_var(--color-plum)] backdrop-blur-sm md:max-w-2xl md:p-8">
-              <p className="poster-eyebrow border-coral text-coral-ink">{kicker}</p>
+              <Secao nome={kicker} />
               <h1 className="mt-4 font-display text-[clamp(1.6rem,5vw,3.1rem)] leading-[1.03] text-ink">
                 {question}
               </h1>
@@ -90,7 +91,7 @@ export function PageHero({
       className={`grid gap-8 border-b-2 border-ink py-10 md:py-14 ${semFigura ? "" : "lg:grid-cols-[1.35fr_0.65fr] lg:items-end"}`}
     >
       <div>
-        <p className="kicker">{kicker}</p>
+        <Secao nome={kicker} />
         <h1 className={`mt-4 max-w-4xl text-balance font-display text-ink ${titulo}`}>
           {question}
         </h1>

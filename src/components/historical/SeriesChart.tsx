@@ -35,7 +35,7 @@ function UniverseColumn({ series, universe }: { series: Series; universe: Univer
 
   return (
     <div>
-      <h3 className="font-mono text-[13px] uppercase tracking-[0.12em] text-plum">
+      <h3 className="font-sans text-[13px] text-plum font-semibold">
         {UNIVERSE_LABEL[universe]}
       </h3>
 

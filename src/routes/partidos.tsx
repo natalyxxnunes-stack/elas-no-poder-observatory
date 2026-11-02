@@ -313,7 +313,7 @@ function FundoTable() {
       <table className="w-full min-w-[48rem] text-sm">
         <caption className="sr-only">Fundo eleitoral por partido, candidaturas a deputado</caption>
         <thead>
-          <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+          <tr className="text-[13px] text-muted-foreground font-semibold">
             <th className="px-3 pb-2 pt-3 text-left font-normal">Partido</th>
             <th className={th}>Fundo recebido</th>
             <th className={th}>Mulheres · candidaturas</th>
@@ -383,7 +383,7 @@ function VotosTable() {
       <table className="w-full min-w-[56rem] text-sm">
         <caption className="sr-only">Voto de cada bancada nas seis votações</caption>
         <thead>
-          <tr className="font-mono text-[13px] uppercase tracking-wider text-muted-foreground">
+          <tr className="text-[13px] text-muted-foreground font-semibold">
             <th className="px-3 pb-2 pt-3 text-left font-normal">Bancada</th>
             {VOTE_IDS.map((v) => (
               <th key={v} className="px-2 pb-2 pt-3 text-center font-normal">

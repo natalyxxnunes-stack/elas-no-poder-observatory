@@ -55,7 +55,7 @@ export function GlossaryTerm({
         collisionPadding={12}
         className="w-[min(20rem,calc(100vw-2rem))] rounded-md border border-rule bg-paper p-4 text-left"
       >
-        <p className="font-mono text-[13px] uppercase tracking-[0.14em] text-plum">
+        <p className="text-[13px] text-plum font-semibold">
           {entry.title}
         </p>
         <p className="mt-2 text-sm leading-relaxed text-ink">{entry.body}</p>
