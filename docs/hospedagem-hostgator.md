@@ -36,6 +36,15 @@ bun install
 bun run build:hostgator
 ```
 
+Fora do ambiente da Lovable, o `bun.lock` aponta para o cache privado de pacotes
+da Lovable e a instalação falha. Nesse caso, instale pelo registro público sem
+alterar o lockfile e rode o build com npm:
+
+```bash
+npm install --no-package-lock --registry https://registry.npmjs.org
+npm run build:hostgator
+```
+
 A saída fica em `dist/client/`. Suba **todo** o conteúdo dessa pasta (incluindo
 o `.htaccess`, que é um arquivo oculto) para `public_html` no gerenciador de
 arquivos ou por FTP.
@@ -52,7 +61,11 @@ Arquivos gerados:
   autocontido. Se algum binário não puder ser baixado, o build falha e nomeia o
   asset — nenhum substituto é usado;
 - `.htaccess` com HTTPS forçado, resolução das rotas, fallback de SPA,
-  compressão e cache.
+  compressão e cache;
+- `sitemap.xml` gerado a partir das páginas que o pré-render produziu (todas as
+  rotas publicadas, inclusive as fichas de `/eleitas/*`, `/temas/*` e
+  `/pioneiras/*`; `/busca` fica de fora) e `<link rel="canonical">` em cada
+  página, ambos pelo script `scripts/hostgator-seo.mjs`, que roda por último.
 
 ## Quando republicar
 
@@ -73,8 +86,9 @@ liberada no banco.
 - Endereços inexistentes respondem HTTP 200 servindo o HTML da home; ao
   carregar, o próprio site mostra a página 404. É o comportamento padrão de
   site estático em Apache.
-- `/historico` está despublicado no site e o `.htaccess` o redireciona (301)
-  para a home, como acontece hoje.
+- `/historico` voltou a ser publicada (série 2014–2026) e é pré-renderizada como
+  qualquer outra rota. O único redirecionamento fixo do `.htaccess` hoje é
+  `/condicoes` → `/quem-controla` (301).
 - A chave publicável fica visível no pacote JavaScript. É o comportamento
   previsto: a proteção real são as políticas de acesso do banco, que permitem
   apenas leitura para visitantes anônimos.
@@ -92,5 +106,5 @@ de fotografias acontece somente na coleta, com credencial de serviço.
 Nada do build padrão foi removido: `vite.config.ts`, os endpoints de coleta e a
 publicação atual continuam funcionando como antes. A hospedagem estática vive
 em arquivos separados — `vite.config.static.ts`, `public/.htaccess`, o script
-`build:hostgator` e este documento. Apagar esses quatro itens devolve o projeto
-ao estado anterior.
+`build:hostgator` (com `scripts/hostgator-assets.mjs` e `scripts/hostgator-seo.mjs`)
+e este documento. Apagar esses itens devolve o projeto ao estado anterior.

@@ -196,6 +196,20 @@ function MetodoPage() {
                 {formatInt(snapshot.recordCount)} candidaturas nos dois universos
               </p>
             )}
+            {snapshot?.outOfUniverse?.total ? (
+              <p className="mt-1 text-[13px] text-muted-foreground">
+                O arquivo do TSE tem{" "}
+                {formatInt(snapshot.recordCount + snapshot.outOfUniverse.total)} registros:{" "}
+                {formatInt(snapshot.recordCount)} candidaturas a deputado, senador,
+                governador e presidente, mais{" "}
+                {formatInt(snapshot.outOfUniverse.total)} vices e suplentes, que compõem
+                chapas e são contados à parte, por cargo, em{" "}
+                <Link to="/quem-sao-elas" className="underline decoration-plum/40 underline-offset-2">
+                  Quem são elas
+                </Link>
+                .
+              </p>
+            ) : null}
           </div>
         }
       />
