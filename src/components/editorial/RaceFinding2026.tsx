@@ -1,4 +1,5 @@
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
+import { Registro } from "@/components/editorial/Registro";
 import { RESULT_2026_PROPORCIONAL } from "@/data/resultado-2026";
 import {
   RACE_FINDING_CATEGORIES,
@@ -163,10 +164,8 @@ export function RaceFinding2026({ snapshot }: { snapshot: PublicSnapshot | null 
         </ChartFrame>
 
         <div className="grid gap-5 md:grid-cols-3">
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-plum text-plum">Fato</p>
-            <h3 className="mt-3 font-display text-xl text-ink">O que o dado mostra</h3>
-            <div className="mt-3 space-y-3 leading-relaxed text-ink/70">
+          <Registro tipo="fato" titulo="O que o dado mostra">
+            <div className="space-y-3 leading-relaxed text-ink/70">
               <p>
                 No Censo de 2022, entre as mulheres de 18 anos ou mais, pardas e brancas têm quase o
                 mesmo tamanho: {pct(popParda.percent)} e {pct(popBranca.percent)}.
@@ -183,14 +182,10 @@ export function RaceFinding2026({ snapshot }: { snapshot: PublicSnapshot | null 
                 deste parágrafo e as barras acima vêm da mesma fonte: a {sourceLabel}.
               </p>
             </div>
-          </article>
+          </Registro>
 
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-ink text-ink [border-style:dashed]">
-              Interpretação editorial
-            </p>
-            <h3 className="mt-3 font-display text-xl text-ink">Como lemos esse número</h3>
-            <div className="mt-3 space-y-3 leading-relaxed text-ink/70">
+          <Registro tipo="interpretacao" titulo="Como lemos esse número">
+            <div className="space-y-3 leading-relaxed text-ink/70">
               <p>
                 Olhar só o total esconde a questão. Somadas, pretas e pardas são a maioria das
                 mulheres do país, e esse total apaga que os dois grupos aparecem em direções opostas
@@ -201,12 +196,10 @@ export function RaceFinding2026({ snapshot }: { snapshot: PublicSnapshot | null 
                 quando o número da candidatura é colocado ao lado do da população.
               </p>
             </div>
-          </article>
+          </Registro>
 
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-ink text-ink">Hipótese em investigação</p>
-            <h3 className="mt-3 font-display text-xl text-ink">O que ainda precisa ser apurado</h3>
-            <div className="mt-3 space-y-3 leading-relaxed text-ink/70">
+          <Registro tipo="hipotese" titulo="O que ainda precisa ser apurado" registradaEm="15/08/2026" status="aberta">
+            <div className="space-y-3 leading-relaxed text-ink/70">
               <p>
                 Por que a candidatura parda fica abaixo do peso populacional, esta comparação não
                 responde: declaração de cor/raça, seleção partidária e composição de listas são
@@ -236,7 +229,7 @@ export function RaceFinding2026({ snapshot }: { snapshot: PublicSnapshot | null 
                 brancas (série completa no histórico).
               </p>
             </div>
-          </article>
+          </Registro>
         </div>
       </div>
 

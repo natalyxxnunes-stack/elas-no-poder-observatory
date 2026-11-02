@@ -1,4 +1,5 @@
 import { M_BRANCAS } from "@/data/manchetes";
+import { Registro } from "@/components/editorial/Registro";
 import { Senado2027Chart, Senadoras2027 } from "@/components/editorial/Senado2027";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
@@ -494,29 +495,26 @@ function QuemChegaPage() {
           <ElectionRateTable />
         </div>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-plum text-plum">Fato</p>
-            <p className="mt-3 leading-relaxed text-ink/80">
+          <Registro tipo="fato">
+            <p className="leading-relaxed text-ink/80">
               Mulheres brancas eram {pct(r.candidacyRaceFeminine["BRANCA"] ?? 0, r.candidacies.feminine)} das candidatas
               e são {pct(r.electedRaceFeminine["BRANCA"] ?? 0, r.elected.feminine)} das eleitas. Mulheres pardas eram{" "}
               {pct(r.candidacyRaceFeminine["PARDA"] ?? 0, r.candidacies.feminine)} e são{" "}
               {pct(r.electedRaceFeminine["PARDA"] ?? 0, r.elected.feminine)}.
             </p>
-          </article>
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-ink text-ink [border-style:dashed]">Interpretação editorial</p>
-            <p className="mt-3 leading-relaxed text-ink/80">
+          </Registro>
+          <Registro tipo="interpretacao">
+            <p className="leading-relaxed text-ink/80">
               A desigualdade de cor/raça aparece dentro do grupo das mulheres e também entre os homens. Ler só “mulheres
               eleitas” esconde quem, entre elas, chega.
             </p>
-          </article>
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-ink text-ink">Hipótese em investigação</p>
-            <p className="mt-3 leading-relaxed text-ink/80">
+          </Registro>
+          <Registro tipo="hipotese" registradaEm="14/10/2026" status="aberta">
+            <p className="leading-relaxed text-ink/80">
               Quanto da diferença acompanha a distribuição de dinheiro de campanha e de votos entre os grupos. As duas
               camadas ainda não estão cruzadas com o resultado.
             </p>
-          </article>
+          </Registro>
         </div>
         <p className="mt-6 font-mono text-[13px] text-muted-foreground">
           Senado: as {n(RESULT_2026_SENADO.electedFeminine)} senadoras eleitas são{" "}

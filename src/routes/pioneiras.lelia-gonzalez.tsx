@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Registro } from "@/components/editorial/Registro";
 import { PageShell } from "@/components/PageShell";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
@@ -167,22 +168,20 @@ function LeliaPage() {
         </ul>
 
         <div className="mt-8 grid max-w-4xl gap-4 md:grid-cols-2">
-          <article className="border-t-2 border-dashed border-ink pt-4">
-            <p className="text-[13px] font-semibold uppercase tracking-wider text-ink">Interpretação editorial</p>
-            <p className="mt-2 text-[17px] leading-relaxed text-ink">
+          <Registro tipo="interpretacao">
+            <p className="text-[17px] leading-relaxed text-ink">
               No sistema proporcional, a vaga depende de onde a candidata disputa. Numa lista forte,
               com muitos nomes bem votados, uma votação alta pode render só a suplência; numa lista que
               elege pouca gente, quem lidera leva a cadeira com bem menos votos.
             </p>
-          </article>
-          <article className="border-t-2 border-ink pt-4">
-            <p className="text-[13px] font-semibold uppercase tracking-wider text-ink">Hipótese em investigação</p>
-            <p className="mt-2 text-[17px] leading-relaxed text-ink">
+          </Registro>
+          <Registro tipo="hipotese" registradaEm="30/10/2026" status="aberta">
+            <p className="text-[17px] leading-relaxed text-ink">
               A posição de uma mulher negra dentro da lista do partido pode pesar tanto quanto o total
               de votos que ela recebe. Para testar, falta comparar a posição de candidatas e
               candidatos negros nas listas das grandes legendas em 2026, que já registram cor/raça.
             </p>
-          </article>
+          </Registro>
         </div>
       </SectionBlock>
 

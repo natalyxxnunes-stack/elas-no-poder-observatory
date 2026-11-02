@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Registro } from "@/components/editorial/Registro";
 import { PageShell } from "@/components/PageShell";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
@@ -148,21 +149,19 @@ function PaguPage() {
         </ul>
 
         <div className="mt-8 grid max-w-4xl gap-4 md:grid-cols-2">
-          <article className="border-t-2 border-dashed border-ink pt-4">
-            <p className="text-[13px] font-semibold uppercase tracking-wider text-ink">Interpretação editorial</p>
-            <p className="mt-2 text-[17px] leading-relaxed text-ink">
+          <Registro tipo="interpretacao">
+            <p className="text-[17px] leading-relaxed text-ink">
               Notoriedade e sacrifício político não viraram voto. A candidata conhecida dos jornais e
               com cinco anos de cadeia teve a votação típica de um partido pequeno.
             </p>
-          </article>
-          <article className="border-t-2 border-ink pt-4">
-            <p className="text-[13px] font-semibold uppercase tracking-wider text-ink">Hipótese em investigação</p>
-            <p className="mt-2 text-[17px] leading-relaxed text-ink">
+          </Registro>
+          <Registro tipo="hipotese" registradaEm="29/10/2026" status="aberta">
+            <p className="text-[17px] leading-relaxed text-ink">
               A votação baixa pode ter mais a ver com o tamanho do PSB em São Paulo do que com o fato
               de ela ser mulher: {n(d.psb.homensAbaixoDe200)} dos {n(d.psb.homens)} homens da lista
               também ficaram abaixo de 200 votos. Falta comparar com outras eleições e partidos.
             </p>
-          </article>
+          </Registro>
         </div>
       </SectionBlock>
 

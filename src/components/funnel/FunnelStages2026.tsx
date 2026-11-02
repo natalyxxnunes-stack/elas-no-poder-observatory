@@ -14,6 +14,7 @@
  */
 
 import { GapNote } from "@/components/GapNote";
+import { Registro } from "@/components/editorial/Registro";
 import { BLACK_AGGREGATION_NOTE } from "@/lib/tse/historical-compute";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
 import type { UniverseId } from "@/lib/tse/compute";
@@ -383,27 +384,17 @@ export function FunnelStages2026({
 
       {propShare !== null && majShare !== null && (
         <div className="mt-6 grid gap-5 md:grid-cols-3">
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-plum text-plum">Fato</p>
-            <h3 className="mt-3 font-display text-xl text-ink">
-              O que o dado mostra
-            </h3>
-            <p className="mt-3 leading-relaxed text-ink/70">
+          <Registro tipo="fato" titulo="O que o dado mostra">
+            <p className="leading-relaxed text-ink/70">
               Nas candidaturas proporcionais, mulheres são {pct(propShare)} de{" "}
               {n(prop.total)} registros. Nas majoritárias, {pct(majShare)} de{" "}
               {n(maj.total)}. Os dois percentuais saem da mesma fotografia, e
               cada etapa guarda o próprio denominador.
             </p>
-          </article>
+          </Registro>
 
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-ink text-ink [border-style:dashed]">
-              Interpretação editorial
-            </p>
-            <h3 className="mt-3 font-display text-xl text-ink">
-              Como lemos esse contraste
-            </h3>
-            <p className="mt-3 leading-relaxed text-ink/70">
+          <Registro tipo="interpretacao" titulo="Como lemos esse contraste">
+            <p className="leading-relaxed text-ink/70">
               A porta de entrada muda de tamanho de um universo para o outro:
               nas proporcionais, a regra de candidaturas de cada gênero incide
               sobre a lista inteira do partido; nas majoritárias, cada partido
@@ -411,16 +402,10 @@ export function FunnelStages2026({
               percentuais é um contraste descritivo entre contextos, não uma
               perda de pontos de uma etapa para a outra.
             </p>
-          </article>
+          </Registro>
 
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-ink text-ink">
-              Hipótese em investigação
-            </p>
-            <h3 className="mt-3 font-display text-xl text-ink">
-              O que ainda precisa ser apurado
-            </h3>
-            <p className="mt-3 leading-relaxed text-ink/70">
+          <Registro tipo="hipotese" titulo="O que ainda precisa ser apurado" registradaEm="14/10/2026" status="aberta">
+            <p className="leading-relaxed text-ink/70">
               Por que a fatia de mulheres cai de {pct(propShare)} nas
               candidaturas proporcionais para{" "}
               {pct((RESULT_2026_PROPORCIONAL.elected.feminine / RESULT_2026_PROPORCIONAL.seats) * 100)}{" "}
@@ -428,7 +413,7 @@ export function FunnelStages2026({
               (ver a página Votos); quociente partidário e dinheiro de
               campanha são as próximas camadas a cruzar com o resultado.
             </p>
-          </article>
+          </Registro>
         </div>
       )}
     </>

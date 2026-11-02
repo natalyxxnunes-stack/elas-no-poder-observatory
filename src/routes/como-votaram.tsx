@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Registro } from "@/components/editorial/Registro";
 import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
@@ -938,9 +939,8 @@ function ComoVotaramPage() {
           <MoneyReelectionChart />
         </div>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-plum text-plum">Fato</p>
-            <p className="mt-3 leading-relaxed text-ink/80">
+          <Registro tipo="fato">
+            <p className="leading-relaxed text-ink/80">
               Pelo voto, a reeleição das deputadas variou entre {formatPct(range.min)} e{" "}
               {formatPct(range.max)}. Pela receita, variou de{" "}
               {show(
@@ -954,25 +954,21 @@ function ComoVotaramPage() {
               )}{" "}
               no de maior.
             </p>
-          </article>
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-ink text-ink [border-style:dashed]">
-              Interpretação editorial
-            </p>
-            <p className="mt-3 leading-relaxed text-ink/80">
+          </Registro>
+          <Registro tipo="interpretacao">
+            <p className="leading-relaxed text-ink/80">
               Para quem tentou voltar à Câmara, o dinheiro de campanha acompanha a reeleição muito
               mais de perto que o voto nessas seis pautas. A diferença é maior entre as mulheres do
               que entre os homens.
             </p>
-          </article>
-          <article className="poster-frame-accent p-5">
-            <p className="record-label border-ink text-ink">Hipótese em investigação</p>
-            <p className="mt-3 leading-relaxed text-ink/80">
+          </Registro>
+          <Registro tipo="hipotese" registradaEm="27/10/2026" status="aberta">
+            <p className="leading-relaxed text-ink/80">
               Parte da relação corre ao contrário: quem já tinha base e chance de vencer atrai mais
               dinheiro do partido e de doadores. Separar as duas coisas exige saber quanto veio do
               partido e em que momento, o que entra com a prestação final.
             </p>
-          </article>
+          </Registro>
         </div>
       </SectionBlock>
 

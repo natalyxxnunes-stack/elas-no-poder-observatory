@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Registro } from "@/components/editorial/Registro";
 import { buildSnapshotCsv } from "@/lib/tse/snapshot-csv";
 import { WhatChanged } from "@/components/home/WhatChanged";
 import { formatDateBR, formatInt } from "@/lib/format-br";
@@ -645,48 +646,44 @@ function MetodoPage() {
           </p>
         }
       >
-        <dl className="grid gap-4 md:grid-cols-3">
-          <div className="poster-frame-accent p-5">
-            <dt className="record-label border-plum text-plum">Fato</dt>
-            <dd className="mt-3 text-sm leading-relaxed text-ink/70">
+        <div className="grid gap-x-8 gap-y-6 md:grid-cols-3">
+          <Registro tipo="fato">
+            <p className="text-sm">
               Contagem que sai direto da base, com numerador, denominador e data.
-              É verificável: recalcule e confira.
-            </dd>
-          </div>
-          <div className="poster-frame-accent p-5">
-            <dt className="record-label border-ink text-ink [border-style:dashed]">
-              Interpretação editorial
-            </dt>
-            <dd className="mt-3 text-sm leading-relaxed text-ink/70">
+              É verificável: recalcule e confira. É o padrão do site: a fonte e a
+              data ficam na ficha do gráfico.
+            </p>
+          </Registro>
+          <Registro tipo="interpretacao">
+            <p className="text-sm">
               Nossa leitura do fato: qual comparação importa, o que um total
-              esconde, por que um recorte fica separado. Assinada, discutível e
-              nunca apresentada como resultado do cálculo.
-            </dd>
-          </div>
-          <div className="poster-frame-accent p-5">
-            <dt className="record-label border-ink text-ink">
-              Hipótese em investigação
-            </dt>
-            <dd className="mt-3 text-sm leading-relaxed text-ink/70">
-              Explicação possível que os dados atuais não testam. Fica marcada
-              como pergunta aberta; nenhuma delas é publicada como causa.
-            </dd>
-          </div>
-        </dl>
+              esconde, por que um recorte fica separado. Diz em que se apoia,
+              é discutível e nunca aparece como resultado do cálculo.
+            </p>
+          </Registro>
+          <Registro tipo="hipotese">
+            <p className="text-sm">
+              Explicação possível que os dados atuais ainda não testam. Leva a
+              data em que foi registrada e, quando testada, o desfecho:
+              confirmada, não confirmada ou inconclusiva. Nenhuma é publicada
+              como causa.
+            </p>
+          </Registro>
+        </div>
         <div className="mt-6 editorial-card p-5">
-          <p className="kicker">Regra do site (desde 27/10/2026)</p>
+          <p className="kicker">Regra do site (desde 27/10/2026, revista em 02/11/2026)</p>
           <p className="mt-2 font-display text-lg leading-snug text-ink">
-            Todo gráfico tem ficha. Toda conclusão tem os três cartões.
+            Todo gráfico tem ficha. Toda leitura que passa do dado vem marcada.
           </p>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             Cada gráfico de dados das páginas traz, logo abaixo, a “Ficha do
             gráfico”: o que estou vendo, quem é contado, denominador, data,
-            fonte e limitação. Os três cartões (fato, interpretação editorial e
-            hipótese em investigação) aparecem onde a página tira uma
-            conclusão: achados, recortes de cor/raça e investigações
-            assinadas. As aberturas de página e a home usam gráficos de
-            abertura, com legenda própria, e remetem ao gráfico completo com
-            ficha.
+            fonte e limitação. Os cartões de interpretação e hipótese aparecem
+            onde a página tira uma conclusão: recortes de cor/raça, comparações
+            entre etapas e investigações assinadas. Os achados são fato por
+            padrão; ganham interpretação ou hipótese quando o texto propõe uma
+            leitura. Opinião fica fora das páginas de dados, em texto assinado
+            na seção de reportagens.
           </p>
         </div>
       </SectionBlock>

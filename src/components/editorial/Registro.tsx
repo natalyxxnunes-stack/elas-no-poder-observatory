@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
  *
  * Visual aprovado em 02/11/2026:
  *  - fato: borda roxa cheia
- *  - interpretação: borda laranja cheia
+ *  - interpretação: borda tinta cheia (laranja fica reservado ao dado de 2026)
  *  - hipótese: borda tracejada
  *
  * Regras editoriais (ver /metodo#como-ler):
@@ -24,13 +24,13 @@ const ROTULO: Record<TipoRegistro, string> = {
 
 const BORDA: Record<TipoRegistro, string> = {
   fato: "border-l-4 border-solid border-plum",
-  interpretacao: "border-l-4 border-solid border-coral",
+  interpretacao: "border-l-4 border-solid border-ink",
   hipotese: "border-l-4 border-dashed border-ink/60",
 };
 
 const COR_ROTULO: Record<TipoRegistro, string> = {
   fato: "text-plum",
-  interpretacao: "text-coral-ink",
+  interpretacao: "text-ink",
   hipotese: "text-ink/75",
 };
 
