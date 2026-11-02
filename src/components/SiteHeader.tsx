@@ -47,6 +47,8 @@ const SECOES: Secao[] = [
   { label: "Direitos", to: "/direitos" },
 ];
 const CANTO: Item[] = [
+  { label: "Buscar", to: "/busca" },
+  { label: "Temas", to: "/temas" },
   { label: "Método", to: "/metodo" },
   { label: "Sobre", to: "/sobre" },
 ];

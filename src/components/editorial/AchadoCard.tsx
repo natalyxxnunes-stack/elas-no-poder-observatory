@@ -11,7 +11,8 @@ export function AchadoCard({ achado, grande = false }: { achado: Achado; grande?
   const max = achado.escala ?? 100;
   return (
     <article
-      className={`group relative flex h-full flex-col bg-paper outline-offset-4 outline-plum focus-within:outline-2 ${grande ? "p-6 pt-8 md:p-9 md:pl-11" : "border-t-4 border-plum p-5 md:p-7"}`}
+      id={`achado-${achado.id}`}
+      className={`group relative flex h-full scroll-mt-24 flex-col bg-paper outline-offset-4 outline-plum focus-within:outline-2 ${grande ? "p-6 pt-8 md:p-9 md:pl-11" : "border-t-4 border-plum p-5 md:p-7"}`}
     >
       {grande && (
         <span aria-hidden="true" className="absolute inset-x-0 top-0 h-2 bg-coral md:inset-y-0 md:left-0 md:h-auto md:w-2" />

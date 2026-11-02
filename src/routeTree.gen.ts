@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AchadosRouteImport } from './routes/achados'
 import { Route as BarreirasRouteImport } from './routes/barreiras'
+import { Route as BuscaRouteImport } from './routes/busca'
 import { Route as ComoVotaramRouteImport } from './routes/como-votaram'
 import { Route as CondicoesRouteImport } from './routes/condicoes'
 import { Route as DinheiroRouteImport } from './routes/dinheiro'
@@ -33,6 +34,8 @@ import { Route as VotosRouteImport } from './routes/votos'
 import { Route as PioneirasIndexRouteImport } from './routes/pioneiras.index'
 import { Route as PioneirasLeliaGonzalezRouteImport } from './routes/pioneiras.lelia-gonzalez'
 import { Route as PioneirasPaguRouteImport } from './routes/pioneiras.pagu'
+import { Route as TemasIndexRouteImport } from './routes/temas.index'
+import { Route as TemasSlugRouteImport } from './routes/temas.$slug'
 import { Route as ApiPublicTseIngestRouteImport } from './routes/api/public/tse/ingest'
 import { Route as ApiPublicTseIngestHistoryRouteImport } from './routes/api/public/tse/ingest-history'
 
@@ -49,6 +52,11 @@ const AchadosRoute = AchadosRouteImport.update({
 const BarreirasRoute = BarreirasRouteImport.update({
   id: '/barreiras',
   path: '/barreiras',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuscaRoute = BuscaRouteImport.update({
+  id: '/busca',
+  path: '/busca',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ComoVotaramRoute = ComoVotaramRouteImport.update({
@@ -156,6 +164,16 @@ const PioneirasPaguRoute = PioneirasPaguRouteImport.update({
   path: '/pioneiras/pagu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TemasIndexRoute = TemasIndexRouteImport.update({
+  id: '/temas/',
+  path: '/temas/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TemasSlugRoute = TemasSlugRouteImport.update({
+  id: '/temas/$slug',
+  path: '/temas/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicTseIngestRoute = ApiPublicTseIngestRouteImport.update({
   id: '/api/public/tse/ingest',
   path: '/api/public/tse/ingest',
@@ -172,6 +190,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/achados': typeof AchadosRoute
   '/barreiras': typeof BarreirasRoute
+  '/busca': typeof BuscaRoute
   '/como-votaram': typeof ComoVotaramRoute
   '/condicoes': typeof CondicoesRoute
   '/dinheiro': typeof DinheiroRoute
@@ -192,7 +211,9 @@ export interface FileRoutesByFullPath {
   '/votos': typeof VotosRoute
   '/pioneiras/lelia-gonzalez': typeof PioneirasLeliaGonzalezRoute
   '/pioneiras/pagu': typeof PioneirasPaguRoute
+  '/temas/$slug': typeof TemasSlugRoute
   '/pioneiras/': typeof PioneirasIndexRoute
+  '/temas/': typeof TemasIndexRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
   '/api/public/tse/ingest-history': typeof ApiPublicTseIngestHistoryRoute
 }
@@ -200,6 +221,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/achados': typeof AchadosRoute
   '/barreiras': typeof BarreirasRoute
+  '/busca': typeof BuscaRoute
   '/como-votaram': typeof ComoVotaramRoute
   '/condicoes': typeof CondicoesRoute
   '/dinheiro': typeof DinheiroRoute
@@ -220,7 +242,9 @@ export interface FileRoutesByTo {
   '/votos': typeof VotosRoute
   '/pioneiras/lelia-gonzalez': typeof PioneirasLeliaGonzalezRoute
   '/pioneiras/pagu': typeof PioneirasPaguRoute
+  '/temas/$slug': typeof TemasSlugRoute
   '/pioneiras': typeof PioneirasIndexRoute
+  '/temas': typeof TemasIndexRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
   '/api/public/tse/ingest-history': typeof ApiPublicTseIngestHistoryRoute
 }
@@ -229,6 +253,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/achados': typeof AchadosRoute
   '/barreiras': typeof BarreirasRoute
+  '/busca': typeof BuscaRoute
   '/como-votaram': typeof ComoVotaramRoute
   '/condicoes': typeof CondicoesRoute
   '/dinheiro': typeof DinheiroRoute
@@ -249,7 +274,9 @@ export interface FileRoutesById {
   '/votos': typeof VotosRoute
   '/pioneiras/lelia-gonzalez': typeof PioneirasLeliaGonzalezRoute
   '/pioneiras/pagu': typeof PioneirasPaguRoute
+  '/temas/$slug': typeof TemasSlugRoute
   '/pioneiras/': typeof PioneirasIndexRoute
+  '/temas/': typeof TemasIndexRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
   '/api/public/tse/ingest-history': typeof ApiPublicTseIngestHistoryRoute
 }
@@ -259,6 +286,7 @@ export interface FileRouteTypes {
     | '/'
     | '/achados'
     | '/barreiras'
+    | '/busca'
     | '/como-votaram'
     | '/condicoes'
     | '/dinheiro'
@@ -279,7 +307,9 @@ export interface FileRouteTypes {
     | '/votos'
     | '/pioneiras/lelia-gonzalez'
     | '/pioneiras/pagu'
+    | '/temas/$slug'
     | '/pioneiras/'
+    | '/temas/'
     | '/api/public/tse/ingest'
     | '/api/public/tse/ingest-history'
   fileRoutesByTo: FileRoutesByTo
@@ -287,6 +317,7 @@ export interface FileRouteTypes {
     | '/'
     | '/achados'
     | '/barreiras'
+    | '/busca'
     | '/como-votaram'
     | '/condicoes'
     | '/dinheiro'
@@ -307,7 +338,9 @@ export interface FileRouteTypes {
     | '/votos'
     | '/pioneiras/lelia-gonzalez'
     | '/pioneiras/pagu'
+    | '/temas/$slug'
     | '/pioneiras'
+    | '/temas'
     | '/api/public/tse/ingest'
     | '/api/public/tse/ingest-history'
   id:
@@ -315,6 +348,7 @@ export interface FileRouteTypes {
     | '/'
     | '/achados'
     | '/barreiras'
+    | '/busca'
     | '/como-votaram'
     | '/condicoes'
     | '/dinheiro'
@@ -335,7 +369,9 @@ export interface FileRouteTypes {
     | '/votos'
     | '/pioneiras/lelia-gonzalez'
     | '/pioneiras/pagu'
+    | '/temas/$slug'
     | '/pioneiras/'
+    | '/temas/'
     | '/api/public/tse/ingest'
     | '/api/public/tse/ingest-history'
   fileRoutesById: FileRoutesById
@@ -344,6 +380,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AchadosRoute: typeof AchadosRoute
   BarreirasRoute: typeof BarreirasRoute
+  BuscaRoute: typeof BuscaRoute
   ComoVotaramRoute: typeof ComoVotaramRoute
   CondicoesRoute: typeof CondicoesRoute
   DinheiroRoute: typeof DinheiroRoute
@@ -364,7 +401,9 @@ export interface RootRouteChildren {
   VotosRoute: typeof VotosRoute
   PioneirasLeliaGonzalezRoute: typeof PioneirasLeliaGonzalezRoute
   PioneirasPaguRoute: typeof PioneirasPaguRoute
+  TemasSlugRoute: typeof TemasSlugRoute
   PioneirasIndexRoute: typeof PioneirasIndexRoute
+  TemasIndexRoute: typeof TemasIndexRoute
   ApiPublicTseIngestRoute: typeof ApiPublicTseIngestRoute
   ApiPublicTseIngestHistoryRoute: typeof ApiPublicTseIngestHistoryRoute
 }
@@ -390,6 +429,13 @@ declare module '@tanstack/react-router' {
       path: '/barreiras'
       fullPath: '/barreiras'
       preLoaderRoute: typeof BarreirasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/busca': {
+      id: '/busca'
+      path: '/busca'
+      fullPath: '/busca'
+      preLoaderRoute: typeof BuscaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/como-votaram': {
@@ -539,6 +585,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PioneirasPaguRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/temas/': {
+      id: '/temas/'
+      path: '/temas'
+      fullPath: '/temas/'
+      preLoaderRoute: typeof TemasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/temas/$slug': {
+      id: '/temas/$slug'
+      path: '/temas/$slug'
+      fullPath: '/temas/$slug'
+      preLoaderRoute: typeof TemasSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/tse/ingest': {
       id: '/api/public/tse/ingest'
       path: '/api/public/tse/ingest'
@@ -560,6 +620,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AchadosRoute: AchadosRoute,
   BarreirasRoute: BarreirasRoute,
+  BuscaRoute: BuscaRoute,
   ComoVotaramRoute: ComoVotaramRoute,
   CondicoesRoute: CondicoesRoute,
   DinheiroRoute: DinheiroRoute,
@@ -580,7 +641,9 @@ const rootRouteChildren: RootRouteChildren = {
   VotosRoute: VotosRoute,
   PioneirasLeliaGonzalezRoute: PioneirasLeliaGonzalezRoute,
   PioneirasPaguRoute: PioneirasPaguRoute,
+  TemasSlugRoute: TemasSlugRoute,
   PioneirasIndexRoute: PioneirasIndexRoute,
+  TemasIndexRoute: TemasIndexRoute,
   ApiPublicTseIngestRoute: ApiPublicTseIngestRoute,
   ApiPublicTseIngestHistoryRoute: ApiPublicTseIngestHistoryRoute,
 }
