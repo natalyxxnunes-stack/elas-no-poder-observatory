@@ -300,7 +300,8 @@ export function axis(id: string): Axis {
 }
 
 /**
- * Navegação principal — cinco entradas; Dados 2026 abre uma segunda camada.
+ * Navegação do rodapé, na ordem dos eixos do menu (P1 da auditoria 360°,
+ * novembro/2026): histórias, atuação no poder, direitos, investigação e método.
  *
  * Os demais eixos permanecem descritos em `AXES` e seus arquivos de rota
  * seguem preservados no projeto, mas estão despublicados: fora do menu, do
@@ -312,14 +313,15 @@ const navItem = (id: string) => {
 };
 
 export const NAV_ITEMS = [
-  navItem("dados-2026"),
-  { to: "/achados", label: "Achados", question: "O que encontramos?" },
-  navItem("funil"),
-  navItem("quem-sao-elas"),
-  navItem("quem-controla"),
-  navItem("direitos"),
   { to: "/reportagens", label: "Reportagens", question: "O que apuramos?" },
+  { to: "/na-voz-delas", label: "Na voz delas", question: "O que elas disseram?" },
   { to: "/pioneiras", label: "Pioneiras", question: "Quem abriu o caminho?" },
+  { to: "/achados", label: "Achados", question: "O que encontramos?" },
+  { to: "/como-votaram", label: "No plenário", question: "Como votaram as deputadas?" },
+  navItem("quem-controla"),
+  navItem("funil"),
+  navItem("direitos"),
+  { to: "/em-disputa", label: "Em disputa", question: "Quais regras valem e o que pode mudá-las?" },
   {
     to: "/investigacoes",
     label: "Investigação",
@@ -339,6 +341,7 @@ export const DATA_2026_NAV_ITEMS = [
   { label: "Cargos", to: "/quem-sao-elas", hash: "cargos" },
   { label: "Raça", to: "/quem-sao-elas", hash: "raca" },
   { label: "Na urna", to: "/votos", hash: undefined },
+  { label: "Quem entrou", to: "/eleitas", hash: undefined },
   { label: "Eleitas", to: "/quem-chega", hash: undefined },
   { label: "Dinheiro", to: "/dinheiro", hash: undefined },
   { label: "Histórico", to: "/historico", hash: undefined },

@@ -11,9 +11,11 @@ import {
   UF_NOME,
   falasDe,
   mandatoAnterior,
+  porUF,
   receitaMajoritaria,
 } from "@/data/eleitas-cruzamentos";
 import { VOTACOES } from "@/data/votacoes-camara";
+import { TRAJETORIA_ELEITAS, TRAJETORIA_META, type Trajetoria2022 } from "@/data/eleitas-trajetoria-2026";
 import { formatInt as n } from "@/lib/format-br";
 
 const achar = (slug: string) => ELEITAS_2026.find((e) => e.slug === slug);
@@ -27,7 +29,7 @@ export const Route = createFileRoute("/eleitas/$slug")({
     const e = achar(params.slug);
     const title = e ? `${e.nome}, ${CARGO_ROTULO[e.cargo]} (${e.partido}-${e.uf}) | Quem são elas?` : "Eleita | Quem são elas?";
     const desc = e
-      ? `${e.nome} (${e.partido}) foi eleita ${CARGO_ROTULO[e.cargo]} por ${UF_NOME[e.uf] ?? e.uf} em 2026. Ficha com o registro no TSE.`
+      ? `${e.nome} (${e.partido}) foi eleita ${CARGO_ROTULO[e.cargo]} ${porUF(e.uf)} em 2026. Ficha com o registro no TSE.`
       : "";
     return {
       meta: [
@@ -43,6 +45,26 @@ export const Route = createFileRoute("/eleitas/$slug")({
 
 const COR: Record<string, string> = { BRANCA: "branca", PARDA: "parda", PRETA: "preta", "INDÍGENA": "indígena", AMARELA: "amarela" };
 const dataBR = (iso: string) => iso.split("-").reverse().join("/");
+const SITE_URL = "https://quemsaoelas.com.br";
+
+function local(uf: string): string {
+  if (uf === "Brasil") return "";
+  return ` ${porUF(uf)}`;
+}
+
+/** frase sobre 2022, no registro do TSE; partido atual entra quando mudou */
+function frase2022(t: Trajetoria2022 | null, partidoAtual: string, exerceuNaCamara: boolean): string {
+  if (!t) return "Não disputou a eleição geral de 2022.";
+  const onde = `${t.cargo}${local(t.uf)} (${t.partido})`;
+  const mudou = t.partido !== partidoAtual ? ` Em 2026, concorreu pelo ${partidoAtual}.` : "";
+  if (t.resultado === "eleita") return `Eleita ${onde} em 2022.${mudou}`;
+  if (t.resultado === "suplente" && exerceuNaCamara && t.cargo === "deputada federal")
+    return `Candidata a ${onde} em 2022; ficou como suplente e assumiu a cadeira durante o mandato, segundo a Câmara.${mudou}`;
+  if (t.resultado === "suplente") return `Candidata a ${onde} em 2022; ficou como suplente.${mudou}`;
+  if (t.resultado === "não eleita") return `Candidata a ${onde} em 2022; não se elegeu.${mudou}`;
+  return `Registrou candidatura a ${onde} em 2022, sem votação válida (registro indeferido, cancelado ou com renúncia).${mudou}`;
+}
+
 const brl = (v: number) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
 
 function EleitaPage() {
@@ -52,7 +74,8 @@ function EleitaPage() {
   const falas = falasDe(e);
   const receita = receitaMajoritaria(e);
   const naOutraPonta = ELEITAS_2026.filter((x) => x.uf === e.uf && x.cargo === e.cargo && x.slug !== e.slug);
-  const lugar = e.uf === "DF" ? "pelo Distrito Federal" : `por ${UF_NOME[e.uf] ?? e.uf}`;
+  const lugar = porUF(e.uf);
+  const traj = TRAJETORIA_ELEITAS[e.slug];
 
   return (
     <PageShell breadcrumb={[{ label: "Quem entrou", to: "/eleitas" }, { label: e.nome }]}>
@@ -90,6 +113,28 @@ function EleitaPage() {
           {receita !== null ? " · receita: prestação de contas até 27/10/2026, contas em andamento" : ""}
         </p>
       </section>
+
+      {traj ? (
+        <section className="py-8">
+          <Secao nome="Trajetória" tipo="no registro do TSE" />
+          <dl className="mt-4 grid max-w-3xl gap-x-8 sm:grid-cols-2">
+            {[
+              ["Ocupação declarada", traj.ocupacao ?? "não informada"],
+              ["Escolaridade declarada", traj.instrucao ?? "não informada"],
+            ].map(([k, v]) => (
+              <div key={k} className="border-b border-rule py-3">
+                <dt className="text-[13px] font-semibold text-ink/65">{k}</dt>
+                <dd className="mt-0.5 text-[17px] text-ink">{v}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-5 max-w-2xl font-display text-xl leading-snug text-ink">{frase2022(traj.em2022, e.partido, anterior !== null && anterior !== undefined)}</p>
+          <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-ink/65">
+            Ocupação e escolaridade como ela declarou ao TSE em 2026. A eleição de 2022 é a geral (deputados, Senado,
+            governos e Presidência); mandatos municipais não entram nesta base.
+          </p>
+        </section>
+      ) : null}
 
       {anterior ? (
         <section className="py-8">
@@ -151,9 +196,40 @@ function EleitaPage() {
 
       <section className="py-8">
         <GapNote label="Em apuração">
-          Trajetória, atuação no mandato, comissões e votações a partir de 2027 entram nesta ficha depois da posse, cada
-          informação com fonte. Correções e acréscimos: contato@quemsaoelas.com.br.
+          Atuação no mandato, comissões, relatorias e votações a partir de 2027 entram nesta ficha depois da posse, cada
+          informação com fonte e data.
         </GapNote>
+      </section>
+
+      <section className="border-t border-rule py-8">
+        <Secao nome="Sobre esta ficha" pequeno />
+        <dl className="mt-3 grid max-w-3xl gap-x-8 gap-y-3 text-[14px] leading-relaxed text-ink/80 sm:grid-cols-[10rem_1fr]">
+          <dt className="font-semibold text-ink">Endereço permanente</dt>
+          <dd className="break-all font-mono text-[13px]">{SITE_URL}/eleitas/{e.slug}</dd>
+          <dt className="font-semibold text-ink">Atualizada com</dt>
+          <dd>
+            TSE, Candidatos 2026, base de {ELEITAS_META.baseGeneratedAt}; TSE, Candidatos 2022, base de{" "}
+            {TRAJETORIA_META.base2022}
+            {anterior ? "; Câmara dos Deputados, Dados Abertos, coleta de 27/10/2026" : ""}
+            {receita !== null ? "; TSE, prestação de contas até 27/10/2026" : ""}.
+          </dd>
+          <dt className="font-semibold text-ink">Como foi feita</dt>
+          <dd>
+            Dados públicos de registro, recontados pelo observatório a partir dos arquivos oficiais. A trajetória de 2022
+            liga os dois anos pelo CPF, que não é publicado.{" "}
+            <a href="/metodo#fichas" className="text-plum underline underline-offset-2">
+              Método das fichas
+            </a>
+          </dd>
+          <dt className="font-semibold text-ink">Correções</dt>
+          <dd>
+            Erro ou informação faltando: contato@quemsaoelas.com.br. Cada correção fica registrada no{" "}
+            <a href="/metodo#correcoes" className="text-plum underline underline-offset-2">
+              Método
+            </a>
+            .
+          </dd>
+        </dl>
       </section>
 
       {naOutraPonta.length ? (

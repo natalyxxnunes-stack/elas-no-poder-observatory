@@ -150,15 +150,15 @@ export function CapaChamadas() {
           </p>
         </article>
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-1">
-          <article className="bg-lilac p-5">
-            <Secao nome="Dinheiro" pequeno />
-            <h3 className="mt-2 font-display text-xl font-semibold leading-snug text-ink">
+          <article className="bg-ink p-5 text-cream">
+            <Secao nome="Dinheiro" pequeno claro />
+            <h3 className="mt-2 font-display text-xl font-semibold leading-snug text-cream">
               <Link to="/dinheiro" className="hover:underline hover:underline-offset-4">
                 Mediana da candidata a deputada: branca, R$ 144 mil; parda, R$ 98 mil; preta, R$ 79
                 mil
               </Link>
             </h3>
-            <p className="mt-2 text-[14px] leading-relaxed text-ink/75">
+            <p className="mt-2 text-[14px] leading-relaxed text-cream/80">
               Nos 12 partidos com mais receita. Receitas declaradas até 27/10.
             </p>
           </article>

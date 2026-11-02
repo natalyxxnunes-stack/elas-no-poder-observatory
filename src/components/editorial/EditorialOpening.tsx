@@ -145,7 +145,7 @@ function RaceOpening({ snapshot, ...text }: OpeningBase & { snapshot: PublicSnap
 
 function TimelineOpening({ years, ...text }: OpeningBase & { years: readonly string[] }) {
   return (
-    <Frame className="bg-lilac">
+    <Frame className="bg-cream">
       <div className="mx-auto grid min-h-[30rem] max-w-7xl gap-12 px-5 py-12 md:px-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
         <OpeningText {...text} compact />
         <figure aria-label={`Linha histórica: ${years.join(", ")}`} className="relative min-w-0 py-12">
@@ -167,7 +167,7 @@ function TimelineOpening({ years, ...text }: OpeningBase & { years: readonly str
 
 function MilestonesOpening({ milestones, ...text }: OpeningBase & { milestones: readonly { year: string; title: string }[] }) {
   return (
-    <Frame className="bg-lilac">
+    <Frame className="bg-cream">
       <div className="mx-auto grid min-h-[31rem] max-w-7xl gap-10 px-5 py-12 md:px-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
         <OpeningText {...text} />
         <ol className="relative border-l-2 border-coral pl-7">
@@ -291,7 +291,7 @@ function PowerFlowOpening({ levers, ...text }: OpeningBase & { levers: readonly 
 
 function MethodOpening({ steps, aside, ...text }: OpeningBase & { steps: readonly { number: string; label: string; detail: string }[]; aside?: ReactNode }) {
   return (
-    <Frame className="bg-lilac">
+    <Frame className="bg-cream">
       <div className="mx-auto grid min-h-[31rem] max-w-7xl gap-10 px-5 py-10 md:px-8 lg:grid-cols-[1fr_1fr] lg:items-center">
         <OpeningText {...text} />
         <div>

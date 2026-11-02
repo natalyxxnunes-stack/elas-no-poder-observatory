@@ -4,6 +4,7 @@ import { buildSnapshotCsv } from "@/lib/tse/snapshot-csv";
 import { WhatChanged } from "@/components/home/WhatChanged";
 import { formatDateBR, formatInt } from "@/lib/format-br";
 import { INSPECTED_AT } from "@/lib/tse/data-dictionary";
+import { CORRECOES, DICIONARIO, METODO_ATUACAO, METODO_FICHAS } from "@/data/metodo-publico";
 
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
@@ -1140,6 +1141,125 @@ function MetodoPage() {
       </SectionBlock>
 
 
+      {/* Fichas das eleitas */}
+      <SectionBlock
+        id="fichas"
+        kicker="Quem entrou"
+        question="Como as fichas das eleitas são feitas"
+        lead={<p>Uma página por eleita, com endereço permanente e a data de cada base usada.</p>}
+      >
+        <ol className="max-w-3xl list-decimal space-y-3 pl-5 text-[15px] leading-relaxed text-ink/85">
+          {METODO_FICHAS.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ol>
+      </SectionBlock>
+
+      {/* Atuação parlamentar */}
+      <SectionBlock
+        id="atuacao"
+        kicker="Atuação no poder"
+        question="Como lemos votos, projetos e falas"
+        lead={<p>{METODO_ATUACAO.principio}</p>}
+      >
+        <dl className="max-w-3xl divide-y divide-rule border-y border-rule">
+          {METODO_ATUACAO.oQueConta.map((item) => (
+            <div key={item.tipo} className="grid gap-1 py-4 sm:grid-cols-[12rem_1fr] sm:gap-6">
+              <dt className="font-display text-lg leading-snug text-ink">{item.tipo}</dt>
+              <dd className="text-[15px] leading-relaxed text-ink/80">{item.regra}</dd>
+            </div>
+          ))}
+        </dl>
+        <div className="mt-6 grid max-w-4xl gap-5 md:grid-cols-2">
+          {[
+            ["Que votações entram", METODO_ATUACAO.selecao],
+            ["Sem rótulo resumido", METODO_ATUACAO.rotulos],
+            ["Direito de resposta", METODO_ATUACAO.respostas],
+            ["O que o voto não mostra", METODO_ATUACAO.limites],
+          ].map(([titulo, texto]) => (
+            <div key={titulo} className="border-t-[3px] border-plum pt-3">
+              <h3 className="font-display text-lg text-ink">{titulo}</h3>
+              <p className="mt-1 text-[15px] leading-relaxed text-ink/80">{texto}</p>
+            </div>
+          ))}
+        </div>
+      </SectionBlock>
+
+      {/* Dicionário */}
+      <SectionBlock
+        id="dicionario"
+        kicker="Dicionário"
+        question="Os campos de cada base, e o que fazemos com eles"
+        lead={
+          <p>
+            Só os campos que entram nos números publicados hoje, conferidos nos scripts de recontagem. Os que aparecem
+            como “não publicado” servem para contar ou ligar bases, e o valor não sai do processamento.
+          </p>
+        }
+        collapsible="Abrir o dicionário"
+      >
+        <div tabIndex={0} className="overflow-x-auto border-y border-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
+          <table className="w-full min-w-[46rem] border-collapse text-left text-[14px] leading-relaxed">
+            <caption className="sr-only">Dicionário dos campos usados pelo observatório</caption>
+            <thead className="border-b border-ink bg-ink text-cream">
+              <tr className="text-[13px] font-semibold">
+                <th scope="col" className="px-3 py-3">Campo</th>
+                <th scope="col" className="px-3 py-3">Base</th>
+                <th scope="col" className="px-3 py-3">O que é</th>
+                <th scope="col" className="px-3 py-3">Como usamos</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-rule">
+              {DICIONARIO.map((c) => (
+                <tr key={c.campo} className="align-top">
+                  <th scope="row" className="px-3 py-3 font-mono text-[13px] font-medium text-ink">
+                    {c.campo}
+                    {!c.publicado && <span className="mt-1 block font-sans text-[13px] font-normal text-coral-ink">não publicado</span>}
+                  </th>
+                  <td className="px-3 py-3 text-ink/75">{c.arquivo}</td>
+                  <td className="px-3 py-3 text-ink/85">{c.oQueE}</td>
+                  <td className="px-3 py-3 text-ink/85">{c.comoUsamos}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </SectionBlock>
+
+      {/* Correções */}
+      <SectionBlock
+        id="correcoes"
+        kicker="Correções"
+        question="Tudo o que já corrigimos"
+        lead={
+          <p>
+            Cada correção fica anotada no ponto em que o erro apareceu e também aqui, com data. Atualização de base não é
+            correção: ela aparece pela data da fotografia. Para avisar de um erro, veja{" "}
+            <Link to="/sobre" hash="correcoes" className="text-plum underline underline-offset-4">
+              como comunicar
+            </Link>
+            .
+          </p>
+        }
+      >
+        <ol className="max-w-4xl divide-y divide-rule border-y border-rule">
+          {CORRECOES.map((c) => (
+            <li key={`${c.data}-${c.pagina}`} className="grid gap-2 py-4 sm:grid-cols-[8rem_1fr] sm:gap-6">
+              <p className="font-mono text-[13px] text-ink/70">
+                {c.data}
+                <span className="mt-1 block font-sans text-[13px] text-ink/60">{c.tipo}</span>
+              </p>
+              <div>
+                <a href={c.to} className="font-display text-lg leading-snug text-plum underline-offset-4 hover:underline">
+                  {c.pagina}
+                </a>
+                <p className="mt-1 text-[15px] leading-relaxed text-ink/85">{c.oQueMudou}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </SectionBlock>
+
       {/* Limitações */}
       <SectionBlock id="limitacoes"
         kicker="Limitações"
@@ -1148,8 +1268,9 @@ function MetodoPage() {
         <div className="space-y-3">
           <GapNote label="Dois princípios que valem pro site inteiro">
             Onde não há fonte, não há número, nunca uma estimativa no lugar.
-            Hoje é o caso de despesa de campanha, doador originário, votos,
-            eleitas, posições de poder e barreiras à permanência. E contraste
+            Hoje é o caso das posições de poder (mesas, comissões e lideranças,
+            que só existem depois da posse, em 2027) e das barreiras à
+            permanência no mandato. E contraste
             não é causa: diferenças entre universos, partidos, territórios ou
             grupos são descritivas, este método não isola o efeito de nenhuma
             regra sobre a presença de mulheres.

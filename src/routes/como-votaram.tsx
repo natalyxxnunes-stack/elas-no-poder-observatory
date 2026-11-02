@@ -1023,6 +1023,10 @@ function ComoVotaramPage() {
         <Link to="/quem-chega" className="text-plum underline underline-offset-4">
           Quem chega
         </Link>
+        ; como lemos votos, projetos e falas em{" "}
+        <Link to="/metodo" hash="atuacao" className="text-plum underline underline-offset-4">
+          Método
+        </Link>
         .
       </p>
 

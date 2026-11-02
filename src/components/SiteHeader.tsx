@@ -6,45 +6,53 @@ import { BrandWordmark } from "./BrandWordmark";
 import { SITE } from "@/data/election-2026";
 
 /**
- * SiteHeader — menu de revista em cinco seções (30/10/2026, avaliação de
- * UX): Dados 2026, Investigações e Histórias abrem um submenu; Achados e
- * Direitos vão direto. Método e Sobre ficam no canto.
+ * SiteHeader — menu de revista organizado pelos eixos editoriais da
+ * auditoria 360° de novembro/2026 (P1): histórias, quem chegou ao poder (com
+ * as fichas individuais das eleitas), o que fazem no poder, direitos em
+ * disputa e dinheiro. Busca, Temas, Método e Sobre ficam no canto.
  */
 type Item = { label: string; to: string; nota?: string };
 type Secao = { label: string; to?: string; itens?: Item[] };
 
 const SECOES: Secao[] = [
   {
-    label: "Dados 2026",
-    itens: [
-      { label: "Quem chega", to: "/quem-chega", nota: "As eleitas, casa por casa" },
-      { label: "Quem são elas?", to: "/quem-sao-elas", nota: "As candidatas, por cor/raça e cargo" },
-      { label: "Partido por partido", to: "/partidos", nota: "Eleitas, fundo e votações por sigla" },
-      { label: "Na urna", to: "/votos", nota: "Candidatura, voto e cadeira" },
-      { label: "Dinheiro", to: "/dinheiro", nota: "Quem recebe o dinheiro da campanha" },
-      { label: "Histórico", to: "/historico", nota: "De 2014 a 2026" },
-    ],
-  },
-  {
-    label: "Investigações",
-    itens: [
-      { label: "O funil", to: "/funil", nota: "Da candidatura ao poder" },
-      { label: "Quem controla?", to: "/quem-controla", nota: "As decisões dos partidos" },
-      { label: "Barreiras", to: "/barreiras", nota: "Violência política e contra mulheres" },
-      { label: "No plenário", to: "/como-votaram", nota: "Como votaram as deputadas" },
-      { label: "Todas as investigações", to: "/investigacoes" },
-    ],
-  },
-  {
     label: "Histórias",
     itens: [
       { label: "Reportagens", to: "/reportagens", nota: "Textos assinados" },
       { label: "Na voz delas", to: "/na-voz-delas", nota: "O que disseram, com o dado ao lado" },
       { label: "Pioneiras", to: "/pioneiras", nota: "Quem abriu o caminho" },
+      { label: "Achados", to: "/achados", nota: "O que os dados mostram, um por um" },
+      { label: "Todas as investigações", to: "/investigacoes" },
     ],
   },
-  { label: "Achados", to: "/achados" },
-  { label: "Direitos", to: "/direitos" },
+  {
+    label: "Eleições 2026",
+    itens: [
+      { label: "Quem entrou", to: "/eleitas", nota: "Ficha de cada eleita de 2026" },
+      { label: "Quem chega", to: "/quem-chega", nota: "As eleitas, casa por casa" },
+      { label: "Quem são elas?", to: "/quem-sao-elas", nota: "As candidatas, por cor/raça e cargo" },
+      { label: "Partido por partido", to: "/partidos", nota: "Eleitas, fundo e votações por sigla" },
+      { label: "Na urna", to: "/votos", nota: "Candidatura, voto e cadeira" },
+      { label: "Histórico", to: "/historico", nota: "De 2014 a 2026" },
+    ],
+  },
+  {
+    label: "No poder",
+    itens: [
+      { label: "No plenário", to: "/como-votaram", nota: "Como votaram as deputadas" },
+      { label: "Quem controla?", to: "/quem-controla", nota: "As decisões dos partidos" },
+      { label: "O funil", to: "/funil", nota: "Da candidatura ao poder" },
+    ],
+  },
+  {
+    label: "Direitos",
+    itens: [
+      { label: "Direitos", to: "/direitos", nota: "Os marcos, de 1932 a 2026" },
+      { label: "Em disputa", to: "/em-disputa", nota: "As regras que valem e o que pode mudá-las" },
+      { label: "Barreiras", to: "/barreiras", nota: "Violência política e contra mulheres" },
+    ],
+  },
+  { label: "Dinheiro", to: "/dinheiro" },
 ];
 const CANTO: Item[] = [
   { label: "Buscar", to: "/busca" },

@@ -154,7 +154,7 @@ function SobrePage() {
 
 
       {/* O acervo em números (30/10/2026): respiro visual no meio de texto institucional */}
-      <section aria-label="O acervo em números" className="relative left-1/2 -ml-[50vw] w-screen bg-lilac">
+      <section aria-label="O acervo em números" className="relative left-1/2 -ml-[50vw] w-screen bg-muted">
         <dl className="mx-auto grid max-w-7xl gap-8 px-5 py-12 sm:grid-cols-2 md:px-8 md:py-16 lg:grid-cols-4">
           {[
             [formatInt(CHANGE_TO.proporcional.total + CHANGE_TO.majoritario.total), "candidaturas titulares de 2026 recontadas a partir do arquivo do TSE"],

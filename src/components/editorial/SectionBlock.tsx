@@ -4,8 +4,12 @@ import { Secao } from "@/components/editorial/Secao";
  * dado → visualização → contexto → fonte. O componente cuida da moldura;
  * o conteúdo entra como children.
  *
- * `tone` dá fundo em largura total (como na home), alternando papel, lavanda,
- * tinta e roxo. Só muda tratamento de fundo, nunca conteúdo.
+ * `tone` dá fundo em largura total (como na home). Sistema da direção B
+ * (02/11/2026): fundos claros próximos alternados (papel, creme e o cinza-lilás
+ * quase neutro) e blocos fortes em roxo ou tinta. Manteiga e lavanda saturadas
+ * ficam só em detalhes, nunca em área de seção: os tons "lilac" e "butter"
+ * continuam aceitos por compatibilidade e caem nos claros próximos.
+ * Só muda tratamento de fundo, nunca conteúdo.
  */
 type Tone = "paper" | "plum" | "ink" | "lilac" | "butter";
 
@@ -13,8 +17,8 @@ const TONE_WRAP: Record<Tone, string> = {
   paper: "",
   plum: "bg-plum text-cream",
   ink: "ink-panel",
-  lilac: "bg-lilac text-ink",
-  butter: "bg-butter text-ink",
+  lilac: "bg-muted text-ink",
+  butter: "bg-cream text-ink",
 };
 
 const TONE_KICKER: Record<Tone, string> = {

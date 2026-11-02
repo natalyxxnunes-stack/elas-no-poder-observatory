@@ -2,8 +2,9 @@
  * Cruzamentos das fichas das eleitas com o que o site já publicou: votos na
  * Câmara (votacoes-camara.ts), falas conferidas (falas.ts) e receita das
  * candidatas majoritárias. Junção por nome normalizado + UF; quando o nome de
- * urna não bate com o nome usado pela Câmara, a ficha simplesmente não mostra o
- * bloco (nunca chuta a correspondência).
+ * urna ou o estado não batem com os da Câmara, a ficha não mostra o bloco
+ * (nunca chuta a correspondência), salvo nos pares de MESMA_PESSOA_CAMARA,
+ * conferidos um a um pelo CPF.
  */
 import { CANDIDATAS_MAJORITARIAS_2026 } from "@/data/candidatas-majoritarias-2026";
 import { ELEITAS_2026, type CargoEleita, type Eleita } from "@/data/eleitas-2026";
@@ -48,11 +49,36 @@ export const UF_NOME: Record<string, string> = {
   SC: "Santa Catarina", SP: "São Paulo", SE: "Sergipe", TO: "Tocantins",
 };
 
+/** "por São Paulo", "pelo Paraná", "pela Bahia", "pelo Distrito Federal" */
+const ARTIGO_UF: Record<string, "o" | "a"> = {
+  AC: "o", AP: "o", AM: "o", BA: "a", CE: "o", DF: "o", ES: "o", MA: "o", MT: "o", MS: "o",
+  PA: "o", PB: "a", PR: "o", PI: "o", RJ: "o", RN: "o", RS: "o", TO: "o",
+};
+export function porUF(uf: string): string {
+  const nome = UF_NOME[uf] ?? uf;
+  const artigo = ARTIGO_UF[uf];
+  return artigo === "o" ? `pelo ${nome}` : artigo === "a" ? `pela ${nome}` : `por ${nome}`;
+}
+
 const chave = (nome: string, uf: string) => `${norm(nome)}|${uf}`;
 const DEP = new Map(DEPUTADAS.map((d) => [chave(d.nome, d.uf), d]));
 const MAJ = new Map(CANDIDATAS_MAJORITARIAS_2026.map((c) => [chave(c[0], c[2]), c]));
 
+/**
+ * Eleitas cujo nome de urna ou estado mudou entre o mandato na Câmara e 2026:
+ * slug da ficha → nome e UF na base da Câmara. Cada par foi conferido em
+ * 02/11/2026 pelo CPF (API da Câmara, /deputados/{id}, contra o TSE 2026),
+ * só em memória; o CPF não é gravado.
+ */
+const MESMA_PESSOA_CAMARA: Record<string, readonly [nome: string, uf: string]> = {
+  "carol-de-toni-sc": ["Caroline de Toni", "SC"],
+  "luizianne-ce": ["Luizianne Lins", "CE"],
+  "rosangela-moro-pr": ["Rosangela Moro", "SP"],
+};
+
 export function mandatoAnterior(e: Eleita) {
+  const alias = MESMA_PESSOA_CAMARA[e.slug];
+  if (alias) return DEP.get(chave(alias[0], alias[1])) ?? null;
   return DEP.get(chave(e.nome, e.uf)) ?? null;
 }
 export function receitaMajoritaria(e: Eleita) {
