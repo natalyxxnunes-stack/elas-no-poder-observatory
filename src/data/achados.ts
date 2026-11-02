@@ -129,7 +129,7 @@ export const ACHADOS: Achado[] = [
     numero: "05",
     data: "2026-09-25",
     titulo: "Candidatar-se não é eleger-se",
-    texto: "Em 2026, 1 em cada 21 candidatas a deputada se elegeu. Entre os homens, 1 em cada 10. Em 2022, eram 1 em 34 e 1 em 14. As duas taxas subiram porque houve menos candidaturas para as mesmas 1.572 cadeiras, e a distância entre mulheres e homens continua: eles se elegem duas vezes mais.",
+    texto: "Em 2026, 1 em cada 21 candidatas a deputada se elegeu. Entre os homens, 1 em cada 10. Em 2022, eram 1 em 34 e 1 em 14. As duas taxas subiram, em parte porque houve menos candidaturas para as mesmas 1.572 cadeiras. A distância entre mulheres e homens continua: eles se elegem duas vezes mais.",
     barras: [
       { rotulo: "Candidatas 2022", valor: 2.9 },
       { rotulo: "Candidatos 2022", valor: 7.0 },
@@ -248,7 +248,7 @@ export const ACHADOS: Achado[] = [
     data: "2026-10-28",
     titulo: "Entre as deputadas que tentaram voltar, as de maior receita voltaram mais",
     texto:
-      "No terço de maior receita de campanha, 33 de 39 deputadas se reelegeram. No terço de menor receita, 4 de 17. Entre os homens, a diferença é menor: 76,5% e 47,9%. O voto em seis pautas da Câmara separou bem menos: a reeleição das deputadas variou entre 52,7% e 72,2%.",
+      "No terço de maior receita de campanha, 33 de 39 deputadas se reelegeram. No terço de menor receita, 4 de 17. Entre os homens, a diferença é menor: 76,5% e 47,9%. O voto em seis pautas da Câmara separou bem menos: a reeleição das deputadas variou entre 52,7% e 72,2%. A relação pode correr nos dois sentidos: quem já tinha chance de vencer também atrai mais dinheiro.",
     barras: [
       { rotulo: "Mulheres · mais receita", valor: 84.6 },
       { rotulo: "Mulheres · menos receita", valor: 23.5 },
