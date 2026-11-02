@@ -457,7 +457,19 @@ function QuemChegaPage() {
         />
       </div>
 
-      <SectionBlock id="cargos" kicker="Camada 1 · resultado" question="Quantas se elegeram, em cada cargo" align="wide">
+      <a
+        href="/eleitas"
+        className="group mt-6 flex items-center justify-between gap-4 border-t-[5px] border-plum bg-cream px-5 py-4 md:px-6"
+      >
+        <span>
+          <span className="block font-display text-xl font-semibold text-plum group-hover:underline group-hover:underline-offset-4">
+            Quem entrou: as eleitas, uma a uma
+          </span>
+          <span className="block text-[14px] text-ink/75">Uma ficha para cada deputada, senadora e governadora eleita em 2026</span>
+        </span>
+        <span aria-hidden="true" className="text-2xl text-plum">→</span>
+      </a>
+      <SectionBlock id="cargos" kicker="Resultado" question="Quantas se elegeram, em cada cargo" align="wide">
         <OfficeBars />
       </SectionBlock>
 

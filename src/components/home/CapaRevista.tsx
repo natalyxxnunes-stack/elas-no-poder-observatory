@@ -311,6 +311,7 @@ export function CapaPioneiras() {
 }
 
 const EXPLORE = [
+  { to: "/eleitas" as const, label: "Quem entrou: as eleitas, uma a uma" },
   { to: "/funil" as const, label: "O funil, da candidatura ao poder" },
   { to: "/quem-sao-elas" as const, hash: "estados", label: "E no seu estado?" },
   { to: "/partidos" as const, label: "Partido por partido" },

@@ -31,6 +31,8 @@ import { Route as QuemSaoElasRouteImport } from './routes/quem-sao-elas'
 import { Route as ReportagensRouteImport } from './routes/reportagens'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as VotosRouteImport } from './routes/votos'
+import { Route as EleitasIndexRouteImport } from './routes/eleitas.index'
+import { Route as EleitasSlugRouteImport } from './routes/eleitas.$slug'
 import { Route as PioneirasIndexRouteImport } from './routes/pioneiras.index'
 import { Route as PioneirasLeliaGonzalezRouteImport } from './routes/pioneiras.lelia-gonzalez'
 import { Route as PioneirasPaguRouteImport } from './routes/pioneiras.pagu'
@@ -149,6 +151,16 @@ const VotosRoute = VotosRouteImport.update({
   path: '/votos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EleitasIndexRoute = EleitasIndexRouteImport.update({
+  id: '/eleitas/',
+  path: '/eleitas/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EleitasSlugRoute = EleitasSlugRouteImport.update({
+  id: '/eleitas/$slug',
+  path: '/eleitas/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PioneirasIndexRoute = PioneirasIndexRouteImport.update({
   id: '/pioneiras/',
   path: '/pioneiras/',
@@ -209,9 +221,11 @@ export interface FileRoutesByFullPath {
   '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
+  '/eleitas/$slug': typeof EleitasSlugRoute
   '/pioneiras/lelia-gonzalez': typeof PioneirasLeliaGonzalezRoute
   '/pioneiras/pagu': typeof PioneirasPaguRoute
   '/temas/$slug': typeof TemasSlugRoute
+  '/eleitas/': typeof EleitasIndexRoute
   '/pioneiras/': typeof PioneirasIndexRoute
   '/temas/': typeof TemasIndexRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
@@ -240,9 +254,11 @@ export interface FileRoutesByTo {
   '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
+  '/eleitas/$slug': typeof EleitasSlugRoute
   '/pioneiras/lelia-gonzalez': typeof PioneirasLeliaGonzalezRoute
   '/pioneiras/pagu': typeof PioneirasPaguRoute
   '/temas/$slug': typeof TemasSlugRoute
+  '/eleitas': typeof EleitasIndexRoute
   '/pioneiras': typeof PioneirasIndexRoute
   '/temas': typeof TemasIndexRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
@@ -272,9 +288,11 @@ export interface FileRoutesById {
   '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
+  '/eleitas/$slug': typeof EleitasSlugRoute
   '/pioneiras/lelia-gonzalez': typeof PioneirasLeliaGonzalezRoute
   '/pioneiras/pagu': typeof PioneirasPaguRoute
   '/temas/$slug': typeof TemasSlugRoute
+  '/eleitas/': typeof EleitasIndexRoute
   '/pioneiras/': typeof PioneirasIndexRoute
   '/temas/': typeof TemasIndexRoute
   '/api/public/tse/ingest': typeof ApiPublicTseIngestRoute
@@ -305,9 +323,11 @@ export interface FileRouteTypes {
     | '/reportagens'
     | '/sobre'
     | '/votos'
+    | '/eleitas/$slug'
     | '/pioneiras/lelia-gonzalez'
     | '/pioneiras/pagu'
     | '/temas/$slug'
+    | '/eleitas/'
     | '/pioneiras/'
     | '/temas/'
     | '/api/public/tse/ingest'
@@ -336,9 +356,11 @@ export interface FileRouteTypes {
     | '/reportagens'
     | '/sobre'
     | '/votos'
+    | '/eleitas/$slug'
     | '/pioneiras/lelia-gonzalez'
     | '/pioneiras/pagu'
     | '/temas/$slug'
+    | '/eleitas'
     | '/pioneiras'
     | '/temas'
     | '/api/public/tse/ingest'
@@ -367,9 +389,11 @@ export interface FileRouteTypes {
     | '/reportagens'
     | '/sobre'
     | '/votos'
+    | '/eleitas/$slug'
     | '/pioneiras/lelia-gonzalez'
     | '/pioneiras/pagu'
     | '/temas/$slug'
+    | '/eleitas/'
     | '/pioneiras/'
     | '/temas/'
     | '/api/public/tse/ingest'
@@ -399,9 +423,11 @@ export interface RootRouteChildren {
   ReportagensRoute: typeof ReportagensRoute
   SobreRoute: typeof SobreRoute
   VotosRoute: typeof VotosRoute
+  EleitasSlugRoute: typeof EleitasSlugRoute
   PioneirasLeliaGonzalezRoute: typeof PioneirasLeliaGonzalezRoute
   PioneirasPaguRoute: typeof PioneirasPaguRoute
   TemasSlugRoute: typeof TemasSlugRoute
+  EleitasIndexRoute: typeof EleitasIndexRoute
   PioneirasIndexRoute: typeof PioneirasIndexRoute
   TemasIndexRoute: typeof TemasIndexRoute
   ApiPublicTseIngestRoute: typeof ApiPublicTseIngestRoute
@@ -564,6 +590,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VotosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/eleitas/': {
+      id: '/eleitas/'
+      path: '/eleitas'
+      fullPath: '/eleitas/'
+      preLoaderRoute: typeof EleitasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/eleitas/$slug': {
+      id: '/eleitas/$slug'
+      path: '/eleitas/$slug'
+      fullPath: '/eleitas/$slug'
+      preLoaderRoute: typeof EleitasSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pioneiras/': {
       id: '/pioneiras/'
       path: '/pioneiras'
@@ -639,9 +679,11 @@ const rootRouteChildren: RootRouteChildren = {
   ReportagensRoute: ReportagensRoute,
   SobreRoute: SobreRoute,
   VotosRoute: VotosRoute,
+  EleitasSlugRoute: EleitasSlugRoute,
   PioneirasLeliaGonzalezRoute: PioneirasLeliaGonzalezRoute,
   PioneirasPaguRoute: PioneirasPaguRoute,
   TemasSlugRoute: TemasSlugRoute,
+  EleitasIndexRoute: EleitasIndexRoute,
   PioneirasIndexRoute: PioneirasIndexRoute,
   TemasIndexRoute: TemasIndexRoute,
   ApiPublicTseIngestRoute: ApiPublicTseIngestRoute,

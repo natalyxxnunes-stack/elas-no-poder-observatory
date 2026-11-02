@@ -10,6 +10,8 @@ import { REPORTAGENS } from "@/data/reportagens";
 import { RESULT_2026_PARTIDOS } from "@/data/resultado-2026";
 import { TEMAS } from "@/data/temas";
 import { DEPUTADAS, VOTACOES } from "@/data/votacoes-camara";
+import { ELEITAS_2026 } from "@/data/eleitas-2026";
+import { CARGO_ROTULO, ELEITA_POR_CHAVE, chaveEleita } from "@/data/eleitas-cruzamentos";
 
 export type TipoResultado = "Página" | "Tema" | "Reportagem" | "Achado" | "Fala" | "Votação" | "Pessoa" | "Partido" | "Estado";
 
@@ -80,7 +82,14 @@ export const INDICE_BUSCA: readonly ItemBusca[] = [
     to: "/como-votaram",
     extra: v.bloco,
   })),
-  ...DEPUTADAS.map((d) => {
+  ...ELEITAS_2026.map((e) => ({
+    tipo: "Pessoa" as const,
+    titulo: e.nome,
+    sub: `Eleita ${CARGO_ROTULO[e.cargo]} em 2026 · ${e.partido}-${e.uf}`,
+    to: `/eleitas/${e.slug}`,
+    extra: `${UF[e.uf] ?? ""} ${e.partido} eleita`,
+  })),
+  ...DEPUTADAS.filter((d) => !ELEITA_POR_CHAVE.has(chaveEleita(d.nome, d.uf))).map((d) => {
     const partido = Object.values(d.votos).at(-1)?.partido ?? "";
     return {
       tipo: "Pessoa" as const,
@@ -91,7 +100,7 @@ export const INDICE_BUSCA: readonly ItemBusca[] = [
       extra: `${UF[d.uf] ?? ""} ${partido}`,
     };
   }),
-  ...CANDIDATAS_MAJORITARIAS_2026.map(([nome, cargo, uf, partido]) => ({
+  ...CANDIDATAS_MAJORITARIAS_2026.filter(([nome, , uf]) => !ELEITA_POR_CHAVE.has(chaveEleita(nome, uf))).map(([nome, cargo, uf, partido]) => ({
     tipo: "Pessoa" as const,
     titulo: nome,
     sub: `Candidata em 2026 · ${CARGO[cargo] ?? cargo}${uf !== "BR" ? ` · ${uf}` : ""} · ${partido}`,
