@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { MatrizVotos } from "@/components/editorial/MatrizVotos";
 import { Registro } from "@/components/editorial/Registro";
 import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
@@ -123,7 +124,7 @@ const SHORT: Record<string, string> = {
 };
 const VOTO_CLASS: Record<string, string> = {
   Sim: "bg-plum text-cream",
-  Não: "bg-coral text-ink",
+  Não: "border-2 border-ink bg-paper text-ink",
   Ausente: "bg-secondary text-muted-foreground",
   Abstenção: "bg-lilac text-ink",
   Obstrução: "bg-lilac text-ink",
@@ -979,7 +980,10 @@ function ComoVotaramPage() {
         question={`As ${n(DEPUTADAS.length)} deputadas que estavam no mandato em alguma das seis datas`}
         align="wide"
       >
-        <DeputadasTable />
+        <MatrizVotos />
+        <div className="mt-10">
+          <DeputadasTable />
+        </div>
       </SectionBlock>
 
       <div className="pb-6">
