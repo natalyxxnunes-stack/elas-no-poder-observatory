@@ -92,7 +92,7 @@ export function HistoryByUf() {
   return (
     <ChartFrame
       eyebrow="Câmara dos Deputados · deputadas eleitas por estado"
-      title="Quantas deputadas federais cada estado elegeu, de 2014 a 2026"
+      title={`Em 2026, ${ufs[0]} foi o estado que mais elegeu deputadas federais: ${HISTORICO_CARGO_UF["2026"]?.deputadoFederalByUf[ufs[0] ?? ""]?.eleitas ?? 0}`}
       note="Número de deputadas eleitas sobre as cadeiras do estado, que são as mesmas nas quatro eleições. Ordem: mais deputadas em 2026 primeiro. Em laranja, 2026."
       source="Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026 (base de 27/10/2026). Recontagem independente."
       ficha={{

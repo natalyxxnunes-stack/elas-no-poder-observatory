@@ -225,7 +225,7 @@ function UfVotes() {
         limitacao: "Voto de legenda fica fora. Cada estado é uma disputa própria e não se compara como ranking de mérito.",
       }}
       eyebrow="Câmara dos Deputados · votos nominais válidos por estado"
-      title="Fatia dos votos para deputado federal que foi para candidatas, em cada estado"
+      title={`As candidatas tiveram de ${pct(rows.at(-1)!.f, rows.at(-1)!.t)} dos votos para deputado federal, em ${rows.at(-1)!.uf}, a ${pct(rows[0]!.f, rows[0]!.t)}, em ${rows[0]!.uf}`}
       legend={<LegendSwatch className="bg-coral">votos em candidatas, 2026</LegendSwatch>}
       note="Cada estado é uma disputa própria: o denominador é o total de votos nominais válidos para deputado federal naquele estado."
       source={`Fonte: TSE, Votação nominal por município e zona 2026, base de ${VOTOS_2026_META.baseGeneratedAt.slice(0, 10)}.`}

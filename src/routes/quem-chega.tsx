@@ -114,7 +114,7 @@ function OfficeBars() {
         limitacao: "No Senado entram só as 54 vagas de 2026; o terço eleito em 2022 fica fora. Governos e Presidência aparecem em número absoluto.",
       }}
       eyebrow="Eleitas por cargo · resultado final de 2026"
-      title="Em cada casa, a fatia de cadeiras que ficou com mulheres"
+      title={`Mulheres ficaram com ${pct(rows[0]!.f, rows[0]!.t)} das cadeiras da Câmara, ${pct(rows[1]!.f, rows[1]!.t)} das assembleias e ${n(rows[3]!.f)} das ${n(rows[3]!.t)} vagas do Senado em disputa`}
       legend={<LegendSwatch className="bg-coral">mulheres eleitas, 2026</LegendSwatch>}
       note="Cada barra é lida dentro da própria casa: o denominador é o número de cadeiras daquele cargo. Câmaras diferentes não se somam."
       source={`Fonte: TSE, Candidatos 2026, base de ${RESULT_2026_META.baseGeneratedAt}, com o resultado do 1º e do 2º turno. Recontagem independente.`}
@@ -181,7 +181,7 @@ function RaceComposition() {
         limitacao: "Cor/raça autodeclarada. Indígenas e amarelas têm base pequena: leia pelo número absoluto.",
       }}
       eyebrow="Mulheres · deputadas federais, estaduais e distritais"
-      title="Quem eram as candidatas e quem são as eleitas, por cor/raça"
+      title={`Brancas eram ${pct(candF["BRANCA"] ?? 0, totalCand)} das candidatas a deputada e são ${pct(eleF["BRANCA"] ?? 0, totalEle)} das eleitas`}
       legend={
         <>
           <LegendSwatch className="bg-plum/40">entre as candidatas</LegendSwatch>
@@ -255,7 +255,12 @@ function ElectionRateTable() {
         limitacao: "Descreve o grupo, não a chance de uma pessoa. Grupos com menos de 20 candidaturas aparecem só em número absoluto.",
       }}
       eyebrow="Taxa de eleição do grupo · deputadas e deputados"
-      title="De cada 100 candidaturas de um grupo, quantas se elegeram"
+      title={(() => {
+        const c = RESULT_2026_PROPORCIONAL.candidacyRaceFeminine as Record<string, number>;
+        const e = RESULT_2026_PROPORCIONAL.electedRaceFeminine as Record<string, number>;
+        const t = (k: string) => pct(e[k] ?? 0, c[k] ?? 0);
+        return `Se elegeram ${t("BRANCA")} das candidatas brancas, ${t("PARDA")} das pardas e ${t("PRETA")} das pretas`;
+      })()}
       note="Taxa de eleição do grupo = pessoas eleitas do grupo ÷ candidaturas do mesmo grupo. Descreve o resultado do grupo como um todo; não é a chance de uma candidata específica e não explica, sozinha, por que os grupos diferem. Votos, dinheiro de campanha e partido são as próximas camadas a cruzar."
       source={`Fonte: TSE, Candidatos 2026, base de ${RESULT_2026_META.baseGeneratedAt}. Homens = total do grupo menos mulheres do grupo.`}
     >
@@ -305,7 +310,12 @@ function UfGrid() {
         limitacao: "Estados com menos de 20 cadeiras aparecem só em número absoluto: uma eleita a mais muda muito o percentual.",
       }}
       eyebrow="Câmara dos Deputados · deputadas eleitas por estado"
-      title="Quantas das cadeiras de cada estado ficaram com mulheres"
+      title={(() => {
+        const top = rows[0]!;
+        const zero = rows.filter((x) => x.f === 0).length;
+        const lider = `A maior fatia de deputadas federais é de ${top.uf}: ${n(top.f)} de ${n(top.t)} cadeiras`;
+        return zero > 0 ? `${lider}. Em ${n(zero)} ${zero === 1 ? "estado" : "estados"}, nenhuma mulher se elegeu` : lider;
+      })()}
       legend={<LegendSwatch className="bg-coral">deputada eleita</LegendSwatch>}
       note="Cada ponto é uma cadeira do estado na Câmara. Estados com menos de 20 cadeiras aparecem só em número absoluto, porque um percentual sobre base tão pequena oscila demais com uma única eleita. Ordem: da maior para a menor fatia de mulheres."
       source={`Fonte: TSE, Candidatos 2026, base de ${RESULT_2026_META.baseGeneratedAt}. Recontagem independente.`}
@@ -348,7 +358,12 @@ function PartyTable() {
         limitacao: "Quem concorreu por federação aparece pelo próprio partido. Partidos com menos de 20 eleitos só em número absoluto.",
       }}
       eyebrow="Deputadas e deputados eleitos por partido · 2026"
-      title="Dentro de cada partido, quantas das cadeiras conquistadas são de mulheres"
+      title={(() => {
+        const top5 = rows.slice(0, 5).map(([party, seats]) => ({ party, s: (fem[party] ?? 0) / seats, f: fem[party] ?? 0, seats }));
+        const lo = top5.reduce((a, b) => (b.s < a.s ? b : a));
+        const hi = top5.reduce((a, b) => (b.s > a.s ? b : a));
+        return `Nos cinco partidos com mais cadeiras, a fatia de mulheres vai de ${pct(lo.f, lo.seats)} no ${lo.party} a ${pct(hi.f, hi.seats)} no ${hi.party}`;
+      })()}
       legend={<LegendSwatch className="bg-coral">mulheres eleitas</LegendSwatch>}
       note={`Denominador: as cadeiras que o próprio partido conquistou somando Câmara, assembleias e CLDF, não o total nacional. Partidos com menos de 20 eleitos aparecem só em número absoluto. ${p.note}`}
       source={`Fonte: TSE, Candidatos 2026, base de ${p.baseGeneratedAt}. Partido do registro (SG_PARTIDO); quem concorreu por federação aparece pelo próprio partido.`}

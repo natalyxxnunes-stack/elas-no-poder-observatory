@@ -206,7 +206,7 @@ export function FinanceByUf({ snapshot }: { snapshot: TseFinanceSnapshot }) {
         limitacao: "Contas em andamento: os valores mudam até a prestação final. Mede receita declarada, não despesa.",
       }}
       eyebrow="Receita das mulheres por estado · proporcional"
-      title="Fatia das candidatas no dinheiro declarado em cada UF"
+      title={rows.length ? `A fatia das candidatas a deputada no dinheiro declarado vai de ${formatPct(rows.at(-1)!.pct)}, em ${rows.at(-1)!.uf}, a ${formatPct(rows[0]!.pct)}, em ${rows[0]!.uf}` : "Fatia das candidatas no dinheiro declarado em cada UF"}
       note="Da maior para a menor fatia. Régua de 0 a 50%. Embaixo de cada UF, a receita das mulheres e o total declarado no estado."
       source={SOURCE}
     >
