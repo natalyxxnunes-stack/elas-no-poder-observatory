@@ -252,7 +252,7 @@ function QuemSaoElasPage() {
 
           <div>
             <p className="poster-eyebrow mb-4 text-ink">Titular e vice, de 2014 a 2026</p>
-            <div className="overflow-x-auto">
+            <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
               <table className="w-full min-w-[980px] border-collapse text-left text-sm">
                 <caption className="sr-only">Participação de mulheres entre candidaturas titulares, vices e suplentes de 2014 a 2026</caption>
                 <thead>

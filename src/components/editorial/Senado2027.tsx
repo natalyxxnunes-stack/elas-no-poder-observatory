@@ -70,7 +70,7 @@ export function Senadoras2027() {
     (a, b) => a.partido.localeCompare(b.partido) || a.nome.localeCompare(b.nome),
   );
   return (
-    <div className="overflow-x-auto border border-rule bg-card">
+    <div tabIndex={0} className="overflow-x-auto border border-rule bg-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
       <table className="w-full min-w-[34rem] text-sm">
         <caption className="sr-only">Senadoras previstas para 2027</caption>
         <thead>

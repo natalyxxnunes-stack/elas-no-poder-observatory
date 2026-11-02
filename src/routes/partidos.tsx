@@ -309,7 +309,7 @@ function FundoTable() {
   return (
     <>
     <p className="mb-2 text-[13px] text-muted-foreground md:hidden">Deslize a tabela para ver todas as colunas →</p>
-    <div className="overflow-x-auto border border-rule bg-card">
+    <div tabIndex={0} className="overflow-x-auto border border-rule bg-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
       <table className="w-full min-w-[48rem] text-sm">
         <caption className="sr-only">Fundo eleitoral por partido, candidaturas a deputado</caption>
         <thead>
@@ -379,7 +379,7 @@ function VotosTable() {
   return (
     <>
     <p className="mb-2 text-[13px] text-muted-foreground md:hidden">Deslize a tabela para ver todas as colunas →</p>
-    <div className="overflow-x-auto border border-rule bg-card">
+    <div tabIndex={0} className="overflow-x-auto border border-rule bg-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
       <table className="w-full min-w-[56rem] text-sm">
         <caption className="sr-only">Voto de cada bancada nas seis votações</caption>
         <thead>

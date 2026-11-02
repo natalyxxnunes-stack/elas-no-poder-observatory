@@ -49,7 +49,7 @@ export function OfficeTable({ snapshot }: { snapshot: PublicSnapshot | null }) {
     : "—";
 
   return (
-    <div className="overflow-x-auto border-y border-ink">
+    <div tabIndex={0} className="overflow-x-auto border-y border-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
       <table className="w-full min-w-[34rem] border-collapse text-left">
         <caption className="sr-only">Candidaturas totais e de mulheres por cargo em {baseDate}</caption>
         <thead className="border-b border-ink bg-ink text-cream">

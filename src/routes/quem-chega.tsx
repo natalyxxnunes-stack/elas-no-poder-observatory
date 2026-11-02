@@ -259,7 +259,7 @@ function ElectionRateTable() {
       note="Taxa de eleição do grupo = pessoas eleitas do grupo ÷ candidaturas do mesmo grupo. Descreve o resultado do grupo como um todo; não é a chance de uma candidata específica e não explica, sozinha, por que os grupos diferem. Votos, dinheiro de campanha e partido são as próximas camadas a cruzar."
       source={`Fonte: TSE, Candidatos 2026, base de ${RESULT_2026_META.baseGeneratedAt}. Homens = total do grupo menos mulheres do grupo.`}
     >
-      <div className="overflow-x-auto">
+      <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[22rem] text-sm">
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
@@ -320,7 +320,7 @@ function UfGrid() {
                 {t >= SMALL ? ` · ${pct(f, t)}` : ""}
               </span>
             </div>
-            <div className="mt-1 flex flex-wrap gap-[3px]" aria-label={`${uf}: ${f} de ${t} cadeiras`}>
+            <div role="img" className="mt-1 flex flex-wrap gap-[3px]" aria-label={`${uf}: ${f} de ${t} cadeiras`}>
               {Array.from({ length: t }, (_, i) => (
                 <span key={i} className={`size-2 rounded-full ${i < f ? "bg-coral" : "bg-muted"}`} />
               ))}
@@ -353,7 +353,7 @@ function PartyTable() {
       note={`Denominador: as cadeiras que o próprio partido conquistou somando Câmara, assembleias e CLDF, não o total nacional. Partidos com menos de 20 eleitos aparecem só em número absoluto. ${p.note}`}
       source={`Fonte: TSE, Candidatos 2026, base de ${p.baseGeneratedAt}. Partido do registro (SG_PARTIDO); quem concorreu por federação aparece pelo próprio partido.`}
     >
-      <div className="overflow-x-auto">
+      <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[30rem] text-sm">
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">

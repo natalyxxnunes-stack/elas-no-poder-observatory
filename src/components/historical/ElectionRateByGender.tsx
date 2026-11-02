@@ -75,7 +75,7 @@ function Cell({
 export function ElectionRateByGender() {
   return (
     <div className="space-y-4">
-      <div className="overflow-x-auto">
+      <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[520px] border-collapse text-left">
           <caption className="sr-only">
             Taxa de eleição nas eleições proporcionais de 1º turno, por gênero e

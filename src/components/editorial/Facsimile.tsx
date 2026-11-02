@@ -23,7 +23,7 @@ export function Facsimile({ f }: { f: FacsimileLei }) {
         </p>
         <p className="mt-3 font-display text-[15px] font-semibold text-ink">{f.dispositivo}</p>
         {f.antes && (
-          <p className="mt-2 font-display text-[15px] leading-relaxed text-ink/55 line-through decoration-ink/50">
+          <p className="mt-2 font-display text-[15px] leading-relaxed text-ink/75 line-through decoration-ink/50">
             {f.antes.prefixo}
             <span className="font-semibold">{f.antes.troca}</span>
             {f.antes.sufixo}

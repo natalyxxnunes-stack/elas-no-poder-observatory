@@ -36,7 +36,7 @@ export function HistoryByOffice() {
           "Em 2018, uma cadeira de Mato Grosso no Senado vem sem resultado no arquivo oficial. Eleições suplementares que vêm no mesmo arquivo ficam fora.",
       }}
     >
-      <div className="overflow-x-auto">
+      <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[36rem] text-sm">
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
@@ -105,7 +105,7 @@ export function HistoryByUf() {
           "Estados com 8 cadeiras mudam muito com uma única eleita: leia pelo número absoluto.",
       }}
     >
-      <div className="overflow-x-auto">
+      <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[30rem] text-sm">
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">

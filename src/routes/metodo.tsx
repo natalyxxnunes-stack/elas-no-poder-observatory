@@ -567,7 +567,7 @@ function MetodoPage() {
 
       >
         {history.length > 0 ? (
-          <div className="overflow-x-auto">
+          <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
             <table className="w-full min-w-[560px] border-collapse text-left">
                 <caption className="sr-only">
                   Fotografias da base do TSE já processadas, com data de coleta,

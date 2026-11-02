@@ -192,7 +192,7 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
               ))}
             </div>
 
-            <div className="mt-4 overflow-x-auto">
+            <div tabIndex={0} className="mt-4 overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
               <table className="w-full min-w-[640px] border-collapse text-left">
                 <caption className="sr-only">
                   Vagas em disputa, candidaturas registradas e candidaturas por

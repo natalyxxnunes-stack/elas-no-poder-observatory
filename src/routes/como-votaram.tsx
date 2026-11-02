@@ -321,7 +321,7 @@ function RaceVoteTable() {
           "Cor/raça é a autodeclaração ao TSE na eleição de 2022. Nenhuma deputada se declarou amarela; a linha fica visível para manter as cinco categorias.",
       }}
     >
-      <div className="overflow-x-auto">
+      <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[36rem] text-sm">
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
@@ -529,7 +529,7 @@ function DeputadasTable() {
       >
         {n(rows.length)} de {n(DEPUTADAS.length)} deputadas
       </p>
-      <div className="overflow-x-auto border border-rule bg-card">
+      <div tabIndex={0} className="overflow-x-auto border border-rule bg-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[56rem] text-sm">
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">

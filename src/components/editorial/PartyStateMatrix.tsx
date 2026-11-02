@@ -99,7 +99,7 @@ export function PartyStateMatrix({ snapshot }: { snapshot: PublicSnapshot | null
           "Os 30% são referência visual. A cota legal se aplica por partido ou federação e por cargo (federal e estadual separados), sobre a lista apresentada; esta célula soma os cargos e conta cada partido da federação em separado. Por isso uma célula abaixo de 30% não prova descumprimento da lei.",
       }}
     >
-      <div className="overflow-x-auto">
+      <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[60rem] border-separate border-spacing-0.5 text-[13px]">
           <thead>
             <tr className="text-muted-foreground font-semibold">

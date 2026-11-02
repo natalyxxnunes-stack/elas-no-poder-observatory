@@ -174,7 +174,7 @@ function RaceGenderTable({ cargo }: { cargo: keyof typeof VOTOS_2026 }) {
       note={`Cada coluna soma 100%: ${n(s.cand.t)} candidaturas, ${n(s.votes.t)} votos nominais válidos e ${n(s.seats.t)} cadeiras. Indígenas e amarelas e amarelos têm base pequena: leia pelo número absoluto.`}
       source={`Fonte: TSE, Candidatos e Votação nominal 2026, bases de ${VOTOS_2026_META.baseGeneratedAt.slice(0, 10)}. Categorias originais de cor/raça, sem agregação. Os 27 estados.`}
     >
-      <div className="overflow-x-auto">
+      <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[30rem] text-sm">
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
