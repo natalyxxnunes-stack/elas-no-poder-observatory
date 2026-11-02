@@ -1,4 +1,5 @@
 import { RACE_CATEGORY_RULE } from "@/data/architecture";
+import { Desdobra } from "@/components/editorial/Desdobra";
 import { GapNote } from "@/components/GapNote";
 import { snapshotRaceCounts } from "@/lib/tse/indicators";
 import type { PublicSnapshot } from "@/lib/tse/snapshot.functions";
@@ -26,31 +27,34 @@ const UNIVERSE_NOTE: Record<UniverseId, string> = {
     "Presidência, governos estaduais e do Distrito Federal e Senado. Universo pequeno: leia em contagens absolutas.",
 };
 
-function Table({
-  snapshot,
-  universe,
-}: {
-  snapshot: PublicSnapshot | null;
-  universe: UniverseId;
-}) {
+function Table({ snapshot, universe }: { snapshot: PublicSnapshot | null; universe: UniverseId }) {
   const counts = snapshotRaceCounts(snapshot, universe);
-  const denominator = counts
-    ? Object.values(counts).reduce((a, b) => a + b, 0)
-    : null;
+  const denominator = counts ? Object.values(counts).reduce((a, b) => a + b, 0) : null;
 
   return (
     <ChartFrame
       ficha={{
         vendo: "A composição por cor/raça das candidatas, dentro do universo do gráfico.",
-        contados: universe === "proporcional" ? "Candidaturas de mulheres a deputada federal, estadual e distrital." : "Candidaturas de mulheres à Presidência, aos governos e ao Senado, só titulares.",
+        contados:
+          universe === "proporcional"
+            ? "Candidaturas de mulheres a deputada federal, estadual e distrital."
+            : "Candidaturas de mulheres à Presidência, aos governos e ao Senado, só titulares.",
         denominador: "Candidaturas de mulheres no mesmo universo.",
         data: "Fotografia vigente do TSE (data no topo da página)",
         fonte: "TSE, Candidaturas 2026",
-        limitacao: "Cor/raça autodeclarada. Mulheres trans e travestis aparecem registradas como feminino e não são distinguíveis na base.",
+        limitacao:
+          "Cor/raça autodeclarada. Mulheres trans e travestis aparecem registradas como feminino e não são distinguíveis na base.",
       }}
       eyebrow={`Candidatas por cor/raça · ${universe === "proporcional" ? "proporcional" : "majoritário"}`}
       title={UNIVERSE_TITLE[universe]}
-      note={<>{UNIVERSE_NOTE[universe]}{denominator ? ` Denominador: ${formatInt(denominator)} candidaturas de mulheres. Régua de 0 a 100%.` : ""}</>}
+      note={
+        <>
+          {UNIVERSE_NOTE[universe]}
+          {denominator
+            ? ` Denominador: ${formatInt(denominator)} candidaturas de mulheres. Régua de 0 a 100%.`
+            : ""}
+        </>
+      }
       source="Fonte: TSE, Candidaturas 2026"
     >
       {counts && denominator ? (
@@ -78,8 +82,8 @@ function Table({
         </>
       ) : (
         <GapNote label="Lacuna declarada">
-          A fotografia atual do TSE ainda não trouxe a distribuição por
-          categoria de cor/raça para este universo.
+          A fotografia atual do TSE ainda não trouxe a distribuição por categoria de cor/raça para
+          este universo.
         </GapNote>
       )}
     </ChartFrame>
@@ -93,15 +97,18 @@ export function RaceBreakdown({ snapshot }: { snapshot: PublicSnapshot | null })
         <Table snapshot={snapshot} universe="proporcional" />
         <Table snapshot={snapshot} universe="majoritario" />
       </div>
-      <ContextBox variant="calculamos">
-        <p>
-          Contagem de candidaturas de mulheres por categoria original de cor/raça
-          declarada no registro, dividida pelo total de candidaturas de mulheres
-          no mesmo universo. Os universos proporcional e majoritário nunca são
-          somados.
-        </p>
-      </ContextBox>
-      <GapNote label="Categorias de cor/raça">{RACE_CATEGORY_RULE}</GapNote>
+      <Desdobra rotulo="Como calculamos e as categorias de cor/raça">
+        <div className="space-y-6">
+          <ContextBox variant="calculamos">
+            <p>
+              Contagem de candidaturas de mulheres por categoria original de cor/raça declarada no
+              registro, dividida pelo total de candidaturas de mulheres no mesmo universo. Os
+              universos proporcional e majoritário nunca são somados.
+            </p>
+          </ContextBox>
+          <GapNote label="Categorias de cor/raça">{RACE_CATEGORY_RULE}</GapNote>
+        </div>
+      </Desdobra>
     </div>
   );
 }

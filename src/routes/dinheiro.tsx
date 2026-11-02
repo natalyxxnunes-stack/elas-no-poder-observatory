@@ -1,4 +1,5 @@
 import { M_FUNDO_BRANCAS } from "@/data/manchetes";
+import { Desdobra, ExploreDivisa } from "@/components/editorial/Desdobra";
 import { FundoNoGasto, TiposDeGasto, Vaquinhas } from "@/components/editorial/DespesasCharts";
 import { FefcPartidos } from "@/components/editorial/FefcPartidos";
 import { createFileRoute } from "@tanstack/react-router";
@@ -15,7 +16,13 @@ import {
   FINANCE_BASE_LABEL,
   financeSnapshot,
 } from "@/data/tse-finance-snapshot";
-import { FinanceByOffice, FinanceByUf, FinanceCoverage, FinanceParties, FinanceRace } from "@/components/editorial/FinanceOverview";
+import {
+  FinanceByOffice,
+  FinanceByUf,
+  FinanceCoverage,
+  FinanceParties,
+  FinanceRace,
+} from "@/components/editorial/FinanceOverview";
 import { formatInt } from "@/lib/format-br";
 
 /**
@@ -54,8 +61,7 @@ const MONEY_LAYERS = [
     id: "genero-raca",
     label: "Gênero × cor/raça × recursos",
     question: "O dinheiro chega às mesmas mulheres que aparecem nas listas?",
-    needs:
-      "Receita agregada por candidatura, com gênero e cor/raça do próprio arquivo de receitas",
+    needs: "Receita agregada por candidatura, com gênero e cor/raça do próprio arquivo de receitas",
     ready: "partial",
   },
   {
@@ -90,63 +96,125 @@ const MONEY_LAYERS = [
     id: "competitividade",
     label: "Recursos e reeleição",
     question: "Quem tinha mais dinheiro voltou mais à Câmara?",
-    needs: "Publicado em Como votaram, para quem tentou a reeleição. Sem índice de competitividade, por decisão editorial.",
+    needs:
+      "Publicado em Como votaram, para quem tentou a reeleição. Sem índice de competitividade, por decisão editorial.",
     ready: true,
   },
 ] as const;
 
 function DinheiroPage() {
   return (
-    <PageShell breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Dinheiro" }]}>
+    <PageShell
+      breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Dinheiro" }]}
+    >
       <EditorialOpening
         variant="financial"
         kicker="Dinheiro"
         question={M_FUNDO_BRANCAS.texto}
-        lead={<p>Nas disputas para deputada, mulheres são 35,9% das candidaturas com receita declarada e ficam com 33,2% do dinheiro, um pouco abaixo da presença delas. A diferença maior aparece dentro do grupo. Nos 12 partidos com mais receita declarada, que concentram 88,1% do dinheiro, a mediana das candidatas brancas é R$ 144 mil; a das pardas, R$ 98 mil; a das pretas, R$ 79 mil. Nas disputas por governo, Senado e Presidência, os valores também variam por cor/raça e pelos partidos que lançam as candidatas.</p>}
+        lead={
+          <p>
+            Nas disputas para deputada, mulheres são 35,9% das candidaturas com receita declarada e
+            ficam com 33,2% do dinheiro, um pouco abaixo da presença delas. A diferença maior
+            aparece dentro do grupo. Nos 12 partidos com mais receita declarada, que concentram
+            88,1% do dinheiro, a mediana das candidatas brancas é R$ 144 mil; a das pardas, R$ 98
+            mil; a das pretas, R$ 79 mil. Nas disputas por governo, Senado e Presidência, os valores
+            também variam por cor/raça e pelos partidos que lançam as candidatas.
+          </p>
+        }
         layers={MONEY_LAYERS.map((layer) => layer.label)}
         gap="Prestação de contas em andamento · receita, não despesa · valores sujeitos a atualização"
         snapshot={financeSnapshot}
       />
 
-
       <div className="pb-4">
         <InBrief
           found={
             <>
-              Nas listas para deputada, a fatia das mulheres no dinheiro (33,2%) fica abaixo da presença delas entre as candidaturas com receita (35,9%). Na base de 25/09, as duas fatias estavam quase empatadas (34,9% e 36,0%). Nas disputas majoritárias, elas ficam com 15,0% do dinheiro e são 20,5% das candidaturas com receita.
+              Nas listas para deputada, a fatia das mulheres no dinheiro (33,2%) fica abaixo da
+              presença delas entre as candidaturas com receita (35,9%). Na base de 25/09, as duas
+              fatias estavam quase empatadas (34,9% e 36,0%). Nas disputas majoritárias, elas ficam
+              com 15,0% do dinheiro e são 20,5% das candidaturas com receita.
             </>
           }
           matters={
             <>
-              Contar mulheres em bloco esconde onde o dinheiro se concentra. Nas listas para deputada, as candidatas brancas recebem uma fatia maior do que o peso delas entre as candidatas com receita, também dentro dos maiores partidos.
+              Contar mulheres em bloco esconde onde o dinheiro se concentra. Nas listas para
+              deputada, as candidatas brancas recebem uma fatia maior do que o peso delas entre as
+              candidatas com receita, também dentro dos maiores partidos.
             </>
           }
           unknown={
             <>
-              Por que o dinheiro privado chega mais aos homens brancos. As contas seguem abertas e os valores mudam até a prestação final do 1º turno, em 3/11.
+              Por que o dinheiro privado chega mais aos homens brancos. As contas seguem abertas e
+              os valores mudam até a prestação final do 1º turno, em 3/11.
             </>
           }
         />
       </div>
 
-      <SectionBlock id="fotografia" kicker="Fotografia da receita" question="Quanto foi declarado como receita, e por quantas candidaturas" align="wide" lead={<p>Quantas candidaturas já declararam receita e quanto elas somam, em cada universo.</p>} source={<>Fonte: TSE · Prestação de Contas Eleitorais 2026 · base gerada em {FINANCE_BASE_LABEL} · {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita</>}>
+      <SectionBlock
+        id="fotografia"
+        kicker="Fotografia da receita"
+        question="Quanto foi declarado como receita, e por quantas candidaturas"
+        align="wide"
+        lead={
+          <p>Quantas candidaturas já declararam receita e quanto elas somam, em cada universo.</p>
+        }
+        source={
+          <>
+            Fonte: TSE · Prestação de Contas Eleitorais 2026 · base gerada em {FINANCE_BASE_LABEL} ·{" "}
+            {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita
+          </>
+        }
+      >
         <FinanceCoverage snapshot={financeSnapshot} />
       </SectionBlock>
 
-      <SectionBlock id="cargo" kicker="Por cargo" question="Presença e receita, cargo a cargo" align="wide" tone="lilac" lead={<p>Em duas disputas as mulheres recebem mais do que a presença delas: Senado (25,7% da receita, 22,3% das candidaturas com receita) e, por pouco, assembleias legislativas (35,5% e 35,2%). Nas outras, recebem menos: Câmara dos Deputados (32,0% e 37,1%), Câmara Legislativa do DF (29,1% e 35,7%) e governos estaduais (12,2% e 17,9%). Na Presidência, as mulheres são 2 das 13 candidaturas com receita; com base tão pequena, a fatia delas no dinheiro não vira percentual aqui.</p>}>
+      <SectionBlock
+        id="cargo"
+        kicker="Por cargo"
+        question="Presença e receita, cargo a cargo"
+        align="wide"
+        tone="lilac"
+        lead={
+          <p>
+            Em duas disputas as mulheres recebem mais do que a presença delas: Senado (25,7% da
+            receita, 22,3% das candidaturas com receita) e, por pouco, assembleias legislativas
+            (35,5% e 35,2%). Nas outras, recebem menos: Câmara dos Deputados (32,0% e 37,1%), Câmara
+            Legislativa do DF (29,1% e 35,7%) e governos estaduais (12,2% e 17,9%). Na Presidência,
+            as mulheres são 2 das 13 candidaturas com receita; com base tão pequena, a fatia delas
+            no dinheiro não vira percentual aqui.
+          </p>
+        }
+      >
         <FinanceByOffice snapshot={financeSnapshot} />
       </SectionBlock>
 
-      <SectionBlock id="cor-raca" tone="butter" kicker="Gênero × cor/raça × receita" question="Entre as mulheres, para quais categorias declaradas o dinheiro chegou?" align="wide" lead={<p>Os valores mostram a distribuição da receita declarada por candidaturas de mulheres. Cor/raça permanece nas categorias originais do TSE, sem agregar preta e parda.</p>}>
+      <SectionBlock
+        id="cor-raca"
+        tone="butter"
+        kicker="Gênero × cor/raça × receita"
+        question="Entre as mulheres, para quais categorias declaradas o dinheiro chegou?"
+        align="wide"
+        lead={
+          <p>
+            Os valores mostram a distribuição da receita declarada por candidaturas de mulheres.
+            Cor/raça permanece nas categorias originais do TSE, sem agregar preta e parda.
+          </p>
+        }
+      >
         <FinanceRace snapshot={financeSnapshot} />
         <div className="mt-5 max-w-3xl space-y-2 text-sm leading-relaxed text-ink/80">
-          <p>Mediana é o valor do meio: metade das candidatas declarou mais, metade declarou menos. Ela resiste melhor do que a soma a poucas campanhas muito grandes.</p>
-          <p className="font-mono text-xs">Maiores partidos = os 12 com mais receita declarada para deputada e deputado (MDB, PDT, PL, PODE, PP, PSB, PSD, PSDB, PSOL, PT, Republicanos e União), que somam 88,1% dessa receita.</p>
+          <p>
+            Mediana é o valor do meio: metade das candidatas declarou mais, metade declarou menos.
+            Ela resiste melhor do que a soma a poucas campanhas muito grandes.
+          </p>
+          <p className="font-mono text-xs">
+            Maiores partidos = os 12 com mais receita declarada para deputada e deputado (MDB, PDT,
+            PL, PODE, PP, PSB, PSD, PSDB, PSOL, PT, Republicanos e União), que somam 88,1% dessa
+            receita.
+          </p>
         </div>
-      </SectionBlock>
-
-      <SectionBlock id="partidos" kicker="Partidos" question="Os cinco partidos com maior receita no universo proporcional" align="wide" lead={<p>O recorte ordena os partidos pelo total de receita declarada e mostra, dentro de cada um, quanto foi declarado por candidaturas de mulheres. Não é ranking de equidade.</p>}>
-        <FinanceParties snapshot={financeSnapshot} />
       </SectionBlock>
 
       <SectionBlock
@@ -157,42 +225,48 @@ function DinheiroPage() {
         align="wide"
         lead={
           <>
-          <p>
-            A Constituição reserva pelo menos 30% do fundo eleitoral de cada partido para candidaturas de mulheres, na
-            proporção das candidatas (EC 117/2022), e 30% para candidaturas de pessoas pretas e pardas (EC 133/2024).
-            Nas candidaturas a deputada e deputado, o fundo acompanhou a presença das mulheres: elas são 35,6% das
-            candidaturas e receberam 37,4% do dinheiro. Com pessoas pretas e pardas, a distância é grande: candidaturas de
-            pessoas pardas são 35,1% e receberam 28,4%; de pessoas pretas, 13,7% e 9,5%. Candidaturas de pessoas brancas
-            são 49,8% e receberam 60,7%.
-          </p>
-          <p className="mt-3">
-            Dois partidos ficam abaixo de 30% para candidaturas pretas e pardas nas duas contas que fizemos, só deputados
-            e todos os cargos: PL (26,6% e 22,2%) e NOVO (26,1% e 26,9%). Somando governo, Senado e Presidência, a fatia das
-            mulheres no fundo cai para 33,3%, porque elas são poucas entre os titulares dessas chapas. Os números são da
-            prestação de contas ainda aberta, contados por candidatura; a conta oficial é feita pelo TSE no julgamento das
-            contas de cada partido.
-          </p>
+            <p>
+              A Constituição reserva pelo menos 30% do fundo eleitoral de cada partido para
+              candidaturas de mulheres, na proporção das candidatas (EC 117/2022), e 30% para
+              candidaturas de pessoas pretas e pardas (EC 133/2024). Nas candidaturas a deputada e
+              deputado, o fundo acompanhou a presença das mulheres: elas são 35,6% das candidaturas
+              e receberam 37,4% do dinheiro. Com pessoas pretas e pardas, a distância é grande:
+              candidaturas de pessoas pardas são 35,1% e receberam 28,4%; de pessoas pretas, 13,7% e
+              9,5%. Candidaturas de pessoas brancas são 49,8% e receberam 60,7%.
+            </p>
+            <p className="mt-3">
+              Dois partidos ficam abaixo de 30% para candidaturas pretas e pardas nas duas contas
+              que fizemos, só deputados e todos os cargos: PL (26,6% e 22,2%) e NOVO (26,1% e
+              26,9%). Somando governo, Senado e Presidência, a fatia das mulheres no fundo cai para
+              33,3%, porque elas são poucas entre os titulares dessas chapas. Os números são da
+              prestação de contas ainda aberta, contados por candidatura; a conta oficial é feita
+              pelo TSE no julgamento das contas de cada partido.
+            </p>
           </>
         }
       >
-        <FefcPartidos />
+        <Desdobra rotulo="Ver o fundo partido por partido">
+          <FefcPartidos />
+        </Desdobra>
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-          Números parciais: as contas de campanha ainda estão abertas, e esta tabela será refeita com a prestação final do
-          1º turno, que vence em 3/11/2026.
+          Números parciais: as contas de campanha ainda estão abertas, e esta tabela será refeita
+          com a prestação final do 1º turno, que vence em 3/11/2026.
         </p>
       </SectionBlock>
 
       <SectionBlock
         id="despesas"
-        kicker="Fase 2 · gasto e vaquinhas"
+        collapsible="Ver os gráficos de gasto e vaquinhas"
+        kicker="Gasto e vaquinhas"
         question="De onde saiu o dinheiro que as campanhas gastaram, e em quê"
         align="wide"
         lead={
           <p>
-            As campanhas de candidatas a deputada dependem mais do fundo público que as de homens: 86,1% do que elas
-            pagaram saiu do fundo eleitoral, contra 73,5% entre os homens. A dependência é maior entre as pretas (91,6%) e
-            as pardas (87,4%) do que entre as brancas (84,1%). Os homens brancos são o grupo com mais dinheiro de outras
-            fontes: só 70,9% do que pagaram veio do fundo. Dinheiro privado chega mais a eles.
+            As campanhas de candidatas a deputada dependem mais do fundo público que as de homens:
+            86,1% do que elas pagaram saiu do fundo eleitoral, contra 73,5% entre os homens. A
+            dependência é maior entre as pretas (91,6%) e as pardas (87,4%) do que entre as brancas
+            (84,1%). Os homens brancos são o grupo com mais dinheiro de outras fontes: só 70,9% do
+            que pagaram veio do fundo. Dinheiro privado chega mais a eles.
           </p>
         }
       >
@@ -202,14 +276,11 @@ function DinheiroPage() {
           <Vaquinhas />
         </div>
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-          Vaquinhas: candidatas brancas usaram mais (9,1% delas) do que pardas (3,8%) e pretas (7,9%). Somadas, as
-          vaquinhas das candidatas a deputada arrecadaram R$ 3,1 milhões, 24% do total arrecadado assim para deputado,
-          com as mulheres sendo 35,6% das candidaturas. Na mediana, quem usou vaquinha recebeu de 17 ou 18 pessoas.
+          Vaquinhas: candidatas brancas usaram mais (9,1% delas) do que pardas (3,8%) e pretas
+          (7,9%). Somadas, as vaquinhas das candidatas a deputada arrecadaram R$ 3,1 milhões, 24% do
+          total arrecadado assim para deputado, com as mulheres sendo 35,6% das candidaturas. Na
+          mediana, quem usou vaquinha recebeu de 17 ou 18 pessoas.
         </p>
-      </SectionBlock>
-
-      <SectionBlock id="territorio" tone="lilac" kicker="Território" question="A receita declarada por UF" align="wide" lead={<p>Valores do universo proporcional, com total de receita declarada, parcela de mulheres e a fatia correspondente em cada unidade da Federação.</p>}>
-        <FinanceByUf snapshot={financeSnapshot} />
       </SectionBlock>
 
       <SectionBlock
@@ -228,12 +299,60 @@ function DinheiroPage() {
           </ContextBox>
         </div>
       </SectionBlock>
+      <ExploreDivisa lead="Os cinco partidos com mais receita e a receita declarada em cada estado." />
+
+      <SectionBlock
+        id="partidos"
+        kicker="Partidos"
+        question="Os cinco partidos com maior receita no universo proporcional"
+        align="wide"
+        lead={
+          <p>
+            O recorte ordena os partidos pelo total de receita declarada e mostra, dentro de cada
+            um, quanto foi declarado por candidaturas de mulheres. Não é ranking de equidade.
+          </p>
+        }
+      >
+        <FinanceParties snapshot={financeSnapshot} />
+      </SectionBlock>
+
+      <SectionBlock
+        id="territorio"
+        collapsible="Ver estado por estado"
+        tone="lilac"
+        kicker="Território"
+        question="A receita declarada por UF"
+        align="wide"
+        lead={
+          <p>
+            Valores do universo proporcional, com total de receita declarada, parcela de mulheres e
+            a fatia correspondente em cada unidade da Federação.
+          </p>
+        }
+      >
+        <FinanceByUf snapshot={financeSnapshot} />
+      </SectionBlock>
 
       <ComoSabemos
-        fonte={<>TSE, Prestação de Contas Eleitorais 2026 · {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita.</>}
+        fonte={
+          <>
+            TSE, Prestação de Contas Eleitorais 2026 ·{" "}
+            {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita.
+          </>
+        }
         universo="Candidaturas de 2026 que já declararam receita, com proporcional e majoritário separados. A unidade de análise é a candidatura: todas as linhas de receita de cada uma são somadas."
         base={FINANCE_BASE_LABEL}
-        calculo={<>Receita é o dinheiro informado como recebido. O arquivo do TSE traz, para cada candidatura, uma única entrega: a prestação parcial, o relatório financeiro mais recente ou a prestação final. Conferimos que nenhuma candidatura aparece em mais de um tipo, então somar as linhas não conta a mesma receita duas vezes. Linhas idênticas em todas as colunas entram uma única vez ({DUPLICATE_ROWS_REMOVED} removidas nesta base); linhas que dividem um mesmo recibo em partes são somadas. Gênero e cor/raça do arquivo de receitas foram conferidos, candidatura por candidatura, contra o registro de candidaturas.</>}
+        calculo={
+          <>
+            Receita é o dinheiro informado como recebido. O arquivo do TSE traz, para cada
+            candidatura, uma única entrega: a prestação parcial, o relatório financeiro mais recente
+            ou a prestação final. Conferimos que nenhuma candidatura aparece em mais de um tipo,
+            então somar as linhas não conta a mesma receita duas vezes. Linhas idênticas em todas as
+            colunas entram uma única vez ({DUPLICATE_ROWS_REMOVED} removidas nesta base); linhas que
+            dividem um mesmo recibo em partes são somadas. Gênero e cor/raça do arquivo de receitas
+            foram conferidos, candidatura por candidatura, contra o registro de candidaturas.
+          </>
+        }
         limites={[
           "Despesas contratadas e pagas e o doador originário do financiamento coletivo entram desde 28/10, na seção sobre gasto e vaquinhas.",
           "A data de corte varia por candidatura: 8.309 ainda estão na prestação parcial (movimentação até 08/09/2026), 7.892 no relatório financeiro mais recente e 3.069 já entregaram a prestação final.",
