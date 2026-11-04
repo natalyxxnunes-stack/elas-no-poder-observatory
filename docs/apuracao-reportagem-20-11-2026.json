@@ -510,6 +510,32 @@
    }
   }
  },
+ "fundoBaixaVotacaoRelativo": {
+  "0.02": {
+   "homens brancos": 2.8,
+   "homens pardos": 6.9,
+   "homens pretos": 10.8,
+   "mulheres brancas": 8.9,
+   "mulheres pardas": 18.3,
+   "mulheres pretas": 17.4
+  },
+  "0.05": {
+   "homens brancos": 5.8,
+   "homens pardos": 13.4,
+   "homens pretos": 21.1,
+   "mulheres brancas": 18.7,
+   "mulheres pardas": 35.9,
+   "mulheres pretas": 28.9
+  },
+  "0.1": {
+   "homens brancos": 10.3,
+   "homens pardos": 21.0,
+   "homens pretos": 30.5,
+   "mulheres brancas": 27.5,
+   "mulheres pardas": 48.7,
+   "mulheres pretas": 38.8
+  }
+ },
  "fundoBaixaVotacaoPorPartido": {
   "AVANTE": {
    "fundoMulheresNegras": 11882444,
@@ -706,6 +732,53 @@
    "candidaturasAbaixo500": 31,
    "pct": 23.8,
    "pctHomensBrancos": 2.6
+  }
+ },
+ "gastoDoFundo": {
+  "negras abaixo de 500 votos": {
+   "candidaturas": 1412,
+   "fundoRecebido": 93282523,
+   "fundoPago": 78367850,
+   "porOrigem": {
+    "Publicidade por materiais impressos": 18.4,
+    "Atividades de militância e mobilização de rua": 17.0,
+    "Despesas com pessoal": 16.9,
+    "Serviços prestados por terceiros": 12.5,
+    "Serviços advocatícios": 5.4,
+    "Cessão ou locação de veículos": 5.2,
+    "Diversas a especificar": 4.1,
+    "Serviços contábeis": 3.6
+   }
+  },
+  "negras com 500 votos ou mais": {
+   "candidaturas": 1401,
+   "fundoRecebido": 543637887,
+   "fundoPago": 504519142,
+   "porOrigem": {
+    "Publicidade por materiais impressos": 21.4,
+    "Atividades de militância e mobilização de rua": 17.0,
+    "Serviços prestados por terceiros": 12.7,
+    "Despesas com pessoal": 12.5,
+    "Despesa com Impulsionamento de Conteúdos": 6.1,
+    "Publicidade por adesivos": 4.7,
+    "Serviços advocatícios": 4.5,
+    "Cessão ou locação de veículos": 4.1
+   }
+  },
+  "homens brancos": {
+   "candidaturas": 4591,
+   "fundoRecebido": 1604130309,
+   "fundoPago": 1516542142,
+   "porOrigem": {
+    "Publicidade por materiais impressos": 20.1,
+    "Atividades de militância e mobilização de rua": 15.6,
+    "Despesas com pessoal": 13.9,
+    "Despesa com Impulsionamento de Conteúdos": 11.1,
+    "Serviços prestados por terceiros": 9.3,
+    "Publicidade por adesivos": 5.8,
+    "Cessão ou locação de veículos": 3.3,
+    "Serviços advocatícios": 3.3
+   }
   }
  }
 }

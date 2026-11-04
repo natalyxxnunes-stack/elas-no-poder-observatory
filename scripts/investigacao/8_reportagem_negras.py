@@ -11,10 +11,15 @@ Mesmas regras de teste_dinheiro_2026.py e teste_lista_2026.py (linhas
 idênticas de receita contadas uma vez; votos nominais válidos; pretas e
 pardas separadas). Só contagens; nenhum dado individual sai daqui.
 
+Checagens da leitura de editora (04/11): o mesmo recorte com limite relativo
+à disputa (2%, 5% e 10% da menor votação eleita) e o perfil de gasto do fundo
+(despesas pagas com fonte FEFC, por origem) das candidaturas de baixa votação.
+
 Uso:
     python3 -I scripts/investigacao/8_reportagem_negras.py receitas_candidatos_2026_BRASIL.csv \
-        consulta_cand_2026_BRASIL.csv votacao_candidato_munzona_2026.zip
+        consulta_cand_2026_BRASIL.csv votacao_candidato_munzona_2026.zip [despesas_pagas_candidatos_2026_BRASIL.csv]
 """
+import csv
 import json
 import os
 import statistics
@@ -22,7 +27,7 @@ import sys
 from collections import Counter, defaultdict
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "recontagem"))
-from teste_dinheiro_2026 import PROP, candidaturas, receitas, votos_zip  # noqa: E402
+from teste_dinheiro_2026 import PROP, candidaturas, money, receitas, votos_zip  # noqa: E402
 
 GRUPOS = {
     ("MASCULINO", "BRANCA"): "homens brancos",
@@ -34,7 +39,7 @@ GRUPOS = {
 }
 
 
-def main(rec_path, cand_path, vot_path):
+def main(rec_path, cand_path, vot_path, desp_path=None):
     c = candidaturas(cand_path, PROP)
     v, gerado = votos_zip(vot_path, set(c))
     rec, fefc = receitas(rec_path)
@@ -115,8 +120,54 @@ def main(rec_path, cand_path, vot_path):
         }
         for p, x in por_partido.items()
     }
-    print(json.dumps({"baseVotos": gerado, "grupos": out, "partidos": partidos, "fundoBaixaVotacao": baixo, "fundoBaixaVotacaoPorPartido": fundo_partidos}, ensure_ascii=False, indent=1))
+    relativo = {}
+    for frac in (0.02, 0.05, 0.10):
+        relativo[frac] = {}
+        for nome in GRUPOS.values():
+            sqs = [sq for sq, r in c.items() if GRUPOS.get((r["DS_GENERO"], r["DS_COR_RACA"])) == nome]
+            tot = sum(fefc.get(sq, 0.0) for sq in sqs)
+            low = sum(fefc.get(sq, 0.0) for sq in sqs if v[sq] < frac * piso.get((c[sq]["SG_UF"], c[sq]["DS_CARGO"]), 0))
+            relativo[frac][nome] = round(100 * low / tot, 1) if tot else None
+    gasto = None
+    if desp_path:
+        negra = lambda r: r["DS_GENERO"] == "FEMININO" and r["DS_COR_RACA"] in ("PRETA", "PARDA")
+        grupos_g = {
+            "negras abaixo de 500 votos": {sq for sq, r in c.items() if negra(r) and v[sq] < 500 and fefc.get(sq, 0)},
+            "negras com 500 votos ou mais": {sq for sq, r in c.items() if negra(r) and v[sq] >= 500 and fefc.get(sq, 0)},
+            "homens brancos": {sq for sq, r in c.items() if r["DS_GENERO"] == "MASCULINO" and r["DS_COR_RACA"] == "BRANCA" and fefc.get(sq, 0)},
+        }
+        pmap = {}
+        with open(rec_path, encoding="latin1", newline="") as f:
+            for r in csv.DictReader(f, delimiter=";"):
+                pmap[r["SQ_PRESTADOR_CONTAS"]] = r["SQ_CANDIDATO"]
+        soma = {g: Counter() for g in grupos_g}
+        vistos = set()
+        with open(desp_path, encoding="latin1", newline="") as f:
+            rd = csv.reader(f, delimiter=";")
+            cab = next(rd)
+            ix = {k: i for i, k in enumerate(cab)}
+            for row in rd:
+                t = tuple(row)
+                if t in vistos or len(row) != len(cab):
+                    continue
+                vistos.add(t)
+                if "ESPECIAL" not in row[ix["DS_FONTE_DESPESA"]].upper():
+                    continue
+                sq = pmap.get(row[ix["SQ_PRESTADOR_CONTAS"]])
+                for g, sqs in grupos_g.items():
+                    if sq in sqs:
+                        soma[g][row[ix["DS_ORIGEM_DESPESA"]]] += money(row[ix["VR_PAGTO_DESPESA"]])
+        gasto = {}
+        for g, sqs in grupos_g.items():
+            tot = sum(soma[g].values())
+            gasto[g] = {
+                "candidaturas": len(sqs),
+                "fundoRecebido": round(sum(fefc[sq] for sq in sqs)),
+                "fundoPago": round(tot),
+                "porOrigem": {k: round(100 * val / tot, 1) for k, val in soma[g].most_common(8)},
+            }
+    print(json.dumps({"baseVotos": gerado, "grupos": out, "partidos": partidos, "fundoBaixaVotacao": baixo, "fundoBaixaVotacaoRelativo": relativo, "fundoBaixaVotacaoPorPartido": fundo_partidos, "gastoDoFundo": gasto}, ensure_ascii=False, indent=1))
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:4])
+    main(*sys.argv[1:5])
