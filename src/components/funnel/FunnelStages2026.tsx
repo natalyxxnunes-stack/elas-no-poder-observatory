@@ -404,14 +404,16 @@ export function FunnelStages2026({
             </p>
           </Registro>
 
-          <Registro tipo="hipotese" titulo="O que ainda precisa ser apurado" registradaEm="14/10/2026" status="aberta">
+          <Registro tipo="hipotese" titulo="Por que a fatia cai" registradaEm="14/10/2026" status="inconclusiva">
             <p className="leading-relaxed text-ink/70">
-              Por que a fatia de mulheres cai de {pct(propShare)} nas
-              candidaturas proporcionais para{" "}
-              {pct((RESULT_2026_PROPORCIONAL.elected.feminine / RESULT_2026_PROPORCIONAL.seats) * 100)}{" "}
-              nas cadeiras. A votação já mostra uma etapa no meio do caminho
-              (ver a página Votos); quociente partidário e dinheiro de
-              campanha são as próximas camadas a cruzar com o resultado.
+              A fatia de mulheres cai de {pct(propShare)} nas candidaturas proporcionais para{" "}
+              {pct((RESULT_2026_PROPORCIONAL.elected.feminine / RESULT_2026_PROPORCIONAL.seats) * 100)} nas cadeiras, passando
+              pelo voto, pelo quociente partidário e pelo dinheiro.
+            </p>
+            <p className="mt-2 leading-relaxed text-ink/70">
+              <strong>Testada em 04/11/2026: inconclusiva.</strong> A maior queda é a do voto (mulheres tiveram 32,9% da
+              receita e 24,8% dos votos), e o dinheiro já cai antes dele. Mas cada mil reais rendeu 29 votos às candidatas e 44
+              aos candidatos, então o dinheiro sozinho não explica a queda. <a href="/metodo#hipoteses" className="underline decoration-plum underline-offset-4">A regra e os números</a>.
             </p>
           </Registro>
         </div>

@@ -963,11 +963,16 @@ function ComoVotaramPage() {
               que entre os homens.
             </p>
           </Registro>
-          <Registro tipo="hipotese" registradaEm="27/10/2026" status="aberta">
+          <Registro tipo="hipotese" registradaEm="27/10/2026" status="nao-confirmada">
             <p className="leading-relaxed text-ink/80">
               Parte da relação corre ao contrário: quem já tinha base e chance de vencer atrai mais
-              dinheiro do partido e de doadores. Separar as duas coisas exige saber quanto veio do
-              partido e em que momento, o que entra com a prestação final.
+              dinheiro do partido e de doadores.
+            </p>
+            <p className="mt-2 leading-relaxed text-ink/80">
+              <strong>Testada em 04/11/2026, com regra fixada antes: não confirmada.</strong> Entre as 410 pessoas eleitas
+              deputadas e deputados federais em 2022 que tentaram voltar, o fundo de 2026 quase não acompanhou a votação de 2022.
+              A diferença de reeleição entre quem teve mais e menos receita fica igual entre pessoas de força eleitoral
+              parecida, e é maior entre quem tinha a votação mais apertada. <a href="/metodo#hipoteses" className="underline decoration-plum underline-offset-4">A regra e os números</a>.
             </p>
           </Registro>
         </div>

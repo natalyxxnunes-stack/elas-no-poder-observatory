@@ -186,6 +186,14 @@ export type Correcao = {
 export const CORRECOES: readonly Correcao[] = [
   {
     data: "04/11/2026",
+    pagina: "Quem chega, O funil e No plenário",
+    to: "/metodo#hipoteses",
+    tipo: "apuração",
+    oQueMudou:
+      "Três hipóteses testadas com a prestação final, com regras fixadas e publicadas no repositório antes de rodar. Dinheiro e votos acompanham a diferença entre candidatas e eleitas por cor/raça: confirmada. A queda das mulheres no funil passa pelo voto, pelo quociente e pelo dinheiro: inconclusiva (o dinheiro cai antes do voto, mas não explica sozinho a queda). Quem tinha chance atraiu mais dinheiro: não confirmada.",
+  },
+  {
+    data: "04/11/2026",
     pagina: "Pioneiras: Lélia Gonzalez e Quem assina junto",
     to: "/metodo#hipoteses",
     tipo: "apuração",

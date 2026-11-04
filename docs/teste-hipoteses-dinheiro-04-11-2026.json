@@ -1,0 +1,78 @@
+{
+ "regraFixadaEm": "04/11/2026",
+ "bases": {
+  "receitas": "8695ae1e66a5d4f60bb26ecac5cee70ff4c2a892f19b7292026c13cc6c378e27",
+  "cand2026": "032bdea15c0dfd5f029674faeb7e9314198dba4a4302d0a44e09acb9d5a85f10",
+  "votos2026": {
+   "sha256": "2296815937c16f8f688f6a8d4a516802cc311e24f9052b9d54c6754081dbe2d4",
+   "gerado": "04/11/2026 12:31:52"
+  },
+  "cand2022": "be9d9657dd85b42620f00587051bef244f01801ac94686fc5dbdf5e04358e4c9",
+  "votos2022": {
+   "sha256": "9a3258bcdf0bd6eeb7c01cc5b910d96a188af1a4d398f2b3acd3ddfb69ece4f6",
+   "gerado": "04/11/2026 03:16:32"
+  }
+ },
+ "quemChega": {
+  "fatiasEntreMulheres": {
+   "BRANCA": {
+    "candidaturas": 46.74,
+    "receita": 56.1,
+    "votos": 64.97,
+    "eleitas": 65.44,
+    "acompanha": true
+   },
+   "PARDA": {
+    "candidaturas": 34.12,
+    "receita": 27.72,
+    "votos": 17.03,
+    "eleitas": 20.49,
+    "acompanha": true
+   },
+   "PRETA": {
+    "candidaturas": 17.35,
+    "receita": 14.23,
+    "votos": 16.01,
+    "eleitas": 12.54,
+    "acompanha": true
+   }
+  },
+  "desfecho": "confirmada"
+ },
+ "funil": {
+  "fatiasMulheres": {
+   "candidaturas": 35.73,
+   "receita": 32.89,
+   "votos": 24.76,
+   "cadeiras": 20.8
+  },
+  "votosPorMilReais": {
+   "mulheres": 29.41,
+   "homens": 43.8,
+   "razao": 0.671
+  },
+  "condicoes": {
+   "maiorQuedaNoVoto": true,
+   "dinheiroCaiAntes": true,
+   "conversaoParecida": false
+  },
+  "desfecho": "inconclusiva"
+ },
+ "reeleicao": {
+  "pessoas": 410,
+  "mulheres": 70,
+  "spearmanForcaFundo": 0.046,
+  "gapBrutoPontos": 17.2,
+  "gapDentroDaForcaPontos": 16.1,
+  "gapPorTercoDeForca": [
+   41.6,
+   1.2,
+   5.7
+  ],
+  "condicoes": {
+   "chanceAtraiDinheiro": false,
+   "gapEncolhe": false
+  },
+  "desfecho": "nao-confirmada"
+ }
+}

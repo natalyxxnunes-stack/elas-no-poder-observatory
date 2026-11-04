@@ -536,10 +536,14 @@ function QuemChegaPage() {
               eleitas” esconde quem, entre elas, chega.
             </p>
           </Registro>
-          <Registro tipo="hipotese" registradaEm="14/10/2026" status="aberta">
+          <Registro tipo="hipotese" registradaEm="14/10/2026" status="confirmada">
             <p className="leading-relaxed text-ink/80">
-              Quanto da diferença acompanha a distribuição de dinheiro de campanha e de votos entre os grupos. As duas
-              camadas ainda não estão cruzadas com o resultado.
+              Parte da diferença acompanha a distribuição de dinheiro de campanha e de votos entre os grupos.
+            </p>
+            <p className="mt-2 leading-relaxed text-ink/80">
+              <strong>Testada em 04/11/2026, com regra fixada antes: confirmada.</strong> Brancas eram 46,7% das candidatas e
+              ficaram com 56,1% da receita, 65,0% dos votos e 65,4% das vagas. Pardas e pretas perderam fatia nas três etapas.
+              Dinheiro e voto andam junto com o resultado; o teste não diz qual causa qual. <a href="/metodo#hipoteses" className="underline decoration-plum underline-offset-4">A regra e os números</a>.
             </p>
           </Registro>
         </div>

@@ -41,31 +41,37 @@ export const HIPOTESES: readonly Hipotese[] = [
   {
     id: "dinheiro-votos-diferenca",
     registradaEm: "14/10/2026",
-    status: "aberta",
+    status: "confirmada",
     texto: "Parte da diferença entre candidatas e eleitas acompanha a distribuição de dinheiro de campanha e de votos entre os grupos.",
-    teste: "Cruzar receita, voto e resultado por candidatura, por gênero e cor/raça.",
-    testavel: "Testável com a prestação final do 1º turno, entregue em 03/11/2026.",
+    teste:
+      "Regra fixada em 04/11/2026, antes de rodar, e publicada no repositório (scripts/recontagem/teste_dinheiro_2026.py). Entre as candidatas a deputada, comparar a fatia de brancas, pardas e pretas nas candidaturas, na receita, nos votos e entre as eleitas. Confirma se, nos três grupos, receita e votos se afastam das candidaturas no mesmo sentido que as eleitas.",
     onde: { pagina: "Quem chega", to: "/quem-chega#raca" },
+    desfecho:
+      "Testada em 04/11/2026: confirmada. Brancas eram 46,7% das candidatas, ficaram com 56,1% da receita, 65,0% dos votos e 65,4% das vagas. Pardas: 34,1% das candidatas, 27,7% da receita, 17,0% dos votos e 20,5% das vagas. Pretas: 17,4% das candidatas, 14,2% da receita, 16,0% dos votos e 12,5% das vagas. Nos três grupos, dinheiro e voto andam no mesmo sentido do resultado. O teste mostra que andam juntos, não que um causa o outro.",
   },
   {
     id: "funil-proporcional",
     registradaEm: "14/10/2026",
-    status: "aberta",
+    status: "inconclusiva",
     texto:
       "A queda da fatia de mulheres entre as candidaturas e as cadeiras passa pelo voto, pelo quociente partidário e pelo dinheiro de campanha.",
-    teste: "Separar o peso de cada etapa: voto recebido, posição na lista do partido e receita.",
-    testavel: "Testável com a prestação final do 1º turno.",
+    teste:
+      "Regra fixada em 04/11/2026, antes de rodar, e publicada no repositório (scripts/recontagem/teste_dinheiro_2026.py). Três condições: a maior queda é a do voto; o dinheiro já cai antes do voto; e mulheres convertem dinheiro em voto como homens (razão entre 0,85 e 1,15).",
     onde: { pagina: "O funil", to: "/funil#etapas" },
+    desfecho:
+      "Testada em 04/11/2026: inconclusiva. Duas condições se cumprem: mulheres foram 35,7% das candidaturas, 32,9% da receita, 24,8% dos votos e 20,8% das cadeiras, então a maior queda é a do voto e o dinheiro já cai antes dele. A terceira não: cada mil reais de receita rendeu 29 votos às candidatas e 44 aos candidatos (razão de 0,67). O dinheiro sozinho não explica a queda no voto; falta saber o que pesa no resto. A conta é agregada e puxada pelas campanhas grandes.",
   },
   {
     id: "dinheiro-reeleicao-causa",
     registradaEm: "27/10/2026",
-    status: "aberta",
+    status: "nao-confirmada",
     texto:
       "Parte da relação entre receita e reeleição corre ao contrário: quem já tinha base e chance de vencer atrai mais dinheiro do partido e de doadores.",
-    teste: "Saber quanto veio do partido e em que momento da campanha, antes ou depois das pesquisas.",
-    testavel: "Testável com a prestação final do 1º turno, que traz a data de cada receita.",
+    teste:
+      "Regra fixada em 04/11/2026, antes de rodar, e publicada no repositório (scripts/recontagem/teste_dinheiro_2026.py). Universo: as 410 pessoas eleitas deputadas e deputados federais em 2022 que tentaram voltar em 2026. Força prévia = votos de 2022 sobre a menor votação de eleito no estado. Confirma se a força prévia acompanhar o fundo recebido (correlação de 0,30 ou mais) e se a diferença de reeleição entre os terços de maior e menor receita encolher um terço ou mais quando comparada só entre pessoas de força prévia parecida.",
     onde: { pagina: "No plenário", to: "/como-votaram#quem-voltou" },
+    desfecho:
+      "Testada em 04/11/2026: não confirmada. O fundo que os partidos deram em 2026 quase não acompanhou a votação de 2022 (correlação de 0,05). A diferença de reeleição entre o terço de maior e o de menor receita foi de 17,2 pontos, e continua em 16,1 pontos entre pessoas de força prévia parecida. Ela se concentra em quem tinha a votação mais apertada em 2022 (41,6 pontos). Os dados não mostram que a chance atraiu o dinheiro; também não provam que o dinheiro causou a reeleição.",
   },
   {
     id: "pagu-psb",
