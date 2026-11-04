@@ -1,0 +1,711 @@
+{
+ "baseVotos": "04/11/2026 12:31:52",
+ "grupos": {
+  "homens pretos": {
+   "candidaturas": 1374,
+   "receita": 215527005,
+   "fundo": 158234129,
+   "medianaReceita": 30000,
+   "votos": 7914180,
+   "votosPorMilReais": 36.7,
+   "chegaramAVotosDeEleita": 63,
+   "pctChegaram": 4.6,
+   "eleitas": 49,
+   "taxaEleicao": 3.6
+  },
+  "homens brancos": {
+   "candidaturas": 6220,
+   "receita": 2476357129,
+   "fundo": 1604130309,
+   "medianaReceita": 109142,
+   "votos": 117107817,
+   "votosPorMilReais": 47.3,
+   "chegaramAVotosDeEleita": 1199,
+   "pctChegaram": 19.3,
+   "eleitas": 879,
+   "taxaEleicao": 14.1
+  },
+  "mulheres pardas": {
+   "candidaturas": 2266,
+   "receita": 503285394,
+   "fundo": 415518468,
+   "medianaReceita": 54623,
+   "votos": 9093075,
+   "votosPorMilReais": 18.1,
+   "chegaramAVotosDeEleita": 95,
+   "pctChegaram": 4.2,
+   "eleitas": 67,
+   "taxaEleicao": 3.0
+  },
+  "homens pardos": {
+   "candidaturas": 4204,
+   "receita": 981827922,
+   "fundo": 708865815,
+   "medianaReceita": 41575,
+   "votos": 35649113,
+   "votosPorMilReais": 36.3,
+   "chegaramAVotosDeEleita": 418,
+   "pctChegaram": 9.9,
+   "eleitas": 310,
+   "taxaEleicao": 7.4
+  },
+  "mulheres brancas": {
+   "candidaturas": 3104,
+   "receita": 1018634800,
+   "fundo": 816385650,
+   "medianaReceita": 91610,
+   "votos": 34696773,
+   "votosPorMilReais": 34.1,
+   "chegaramAVotosDeEleita": 272,
+   "pctChegaram": 8.8,
+   "eleitas": 214,
+   "taxaEleicao": 6.9
+  },
+  "mulheres pretas": {
+   "candidaturas": 1152,
+   "receita": 258310811,
+   "fundo": 221401942,
+   "medianaReceita": 56809,
+   "votos": 8548776,
+   "votosPorMilReais": 33.1,
+   "chegaramAVotosDeEleita": 47,
+   "pctChegaram": 4.1,
+   "eleitas": 41,
+   "taxaEleicao": 3.6
+  }
+ },
+ "partidos": {
+  "AVANTE": {
+   "mulheres pretas": {
+    "candidaturas": 62,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 128,
+    "eleitas": 0
+   },
+   "homens brancos": {
+    "candidaturas": 255,
+    "eleitas": 6
+   }
+  },
+  "DEMOCRATA": {
+   "mulheres pretas": {
+    "candidaturas": 28,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 37,
+    "eleitas": 0
+   },
+   "homens brancos": {
+    "candidaturas": 105,
+    "eleitas": 1
+   }
+  },
+  "PSDB": {
+   "mulheres pretas": {
+    "candidaturas": 53,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 139,
+    "eleitas": 0
+   },
+   "homens brancos": {
+    "candidaturas": 357,
+    "eleitas": 23
+   }
+  },
+  "PODE": {
+   "mulheres pretas": {
+    "candidaturas": 59,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 143,
+    "eleitas": 3
+   },
+   "homens brancos": {
+    "candidaturas": 411,
+    "eleitas": 46
+   }
+  },
+  "UNIÃO": {
+   "mulheres pretas": {
+    "candidaturas": 40,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 128,
+    "eleitas": 12
+   },
+   "homens brancos": {
+    "candidaturas": 256,
+    "eleitas": 60
+   }
+  },
+  "SOLIDARIEDADE": {
+   "mulheres pretas": {
+    "candidaturas": 25,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 73,
+    "eleitas": 0
+   },
+   "homens brancos": {
+    "candidaturas": 119,
+    "eleitas": 4
+   }
+  },
+  "MOBILIZA": {
+   "mulheres pretas": {
+    "candidaturas": 38,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 77,
+    "eleitas": 0
+   },
+   "homens brancos": {
+    "candidaturas": 135,
+    "eleitas": 3
+   }
+  },
+  "PSB": {
+   "mulheres pretas": {
+    "candidaturas": 74,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 100,
+    "eleitas": 5
+   },
+   "homens brancos": {
+    "candidaturas": 300,
+    "eleitas": 33
+   }
+  },
+  "PSOL": {
+   "mulheres pretas": {
+    "candidaturas": 98,
+    "eleitas": 14
+   },
+   "mulheres pardas": {
+    "candidaturas": 67,
+    "eleitas": 0
+   },
+   "homens brancos": {
+    "candidaturas": 161,
+    "eleitas": 7
+   }
+  },
+  "PSD": {
+   "mulheres pretas": {
+    "candidaturas": 47,
+    "eleitas": 1
+   },
+   "mulheres pardas": {
+    "candidaturas": 118,
+    "eleitas": 6
+   },
+   "homens brancos": {
+    "candidaturas": 383,
+    "eleitas": 88
+   }
+  },
+  "MISSÃO": {
+   "mulheres pretas": {
+    "candidaturas": 11,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 42,
+    "eleitas": 0
+   },
+   "homens brancos": {
+    "candidaturas": 183,
+    "eleitas": 0
+   }
+  },
+  "REPUBLICANOS": {
+   "mulheres pretas": {
+    "candidaturas": 52,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 154,
+    "eleitas": 5
+   },
+   "homens brancos": {
+    "candidaturas": 418,
+    "eleitas": 58
+   }
+  },
+  "DC": {
+   "mulheres pretas": {
+    "candidaturas": 26,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 71,
+    "eleitas": 0
+   },
+   "homens brancos": {
+    "candidaturas": 213,
+    "eleitas": 1
+   }
+  },
+  "AGIR": {
+   "mulheres pretas": {
+    "candidaturas": 25,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 60,
+    "eleitas": 2
+   },
+   "homens brancos": {
+    "candidaturas": 115,
+    "eleitas": 1
+   }
+  },
+  "PDT": {
+   "mulheres pretas": {
+    "candidaturas": 89,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 125,
+    "eleitas": 1
+   },
+   "homens brancos": {
+    "candidaturas": 296,
+    "eleitas": 15
+   }
+  },
+  "PL": {
+   "mulheres pretas": {
+    "candidaturas": 42,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 161,
+    "eleitas": 6
+   },
+   "homens brancos": {
+    "candidaturas": 623,
+    "eleitas": 209
+   }
+  },
+  "PP": {
+   "mulheres pretas": {
+    "candidaturas": 25,
+    "eleitas": 1
+   },
+   "mulheres pardas": {
+    "candidaturas": 80,
+    "eleitas": 3
+   },
+   "homens brancos": {
+    "candidaturas": 260,
+    "eleitas": 78
+   }
+  },
+  "NOVO": {
+   "mulheres pretas": {
+    "candidaturas": 41,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 126,
+    "eleitas": 0
+   },
+   "homens brancos": {
+    "candidaturas": 442,
+    "eleitas": 19
+   }
+  },
+  "PT": {
+   "mulheres pretas": {
+    "candidaturas": 124,
+    "eleitas": 21
+   },
+   "mulheres pardas": {
+    "candidaturas": 87,
+    "eleitas": 14
+   },
+   "homens brancos": {
+    "candidaturas": 321,
+    "eleitas": 98
+   }
+  },
+  "PCDOB": {
+   "mulheres pretas": {
+    "candidaturas": 26,
+    "eleitas": 4
+   },
+   "mulheres pardas": {
+    "candidaturas": 14,
+    "eleitas": 2
+   },
+   "homens brancos": {
+    "candidaturas": 37,
+    "eleitas": 5
+   }
+  },
+  "MDB": {
+   "mulheres pretas": {
+    "candidaturas": 71,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 149,
+    "eleitas": 6
+   },
+   "homens brancos": {
+    "candidaturas": 481,
+    "eleitas": 99
+   }
+  },
+  "REDE": {
+   "mulheres pretas": {
+    "candidaturas": 31,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 42,
+    "eleitas": 0
+   },
+   "homens brancos": {
+    "candidaturas": 67,
+    "eleitas": 4
+   }
+  },
+  "PRD": {
+   "mulheres pretas": {
+    "candidaturas": 21,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 66,
+    "eleitas": 0
+   },
+   "homens brancos": {
+    "candidaturas": 142,
+    "eleitas": 10
+   }
+  },
+  "PV": {
+   "mulheres pretas": {
+    "candidaturas": 13,
+    "eleitas": 0
+   },
+   "mulheres pardas": {
+    "candidaturas": 35,
+    "eleitas": 2
+   },
+   "homens brancos": {
+    "candidaturas": 62,
+    "eleitas": 11
+   }
+  }
+ },
+ "fundoBaixaVotacao": {
+  "100": {
+   "homens brancos": {
+    "fundo": 1604130309,
+    "fundoAbaixo": 11475927,
+    "pct": 0.7
+   },
+   "homens pardos": {
+    "fundo": 708865815,
+    "fundoAbaixo": 9306897,
+    "pct": 1.3
+   },
+   "homens pretos": {
+    "fundo": 158234129,
+    "fundoAbaixo": 3987650,
+    "pct": 2.5
+   },
+   "mulheres brancas": {
+    "fundo": 816385650,
+    "fundoAbaixo": 7407564,
+    "pct": 0.9
+   },
+   "mulheres pardas": {
+    "fundo": 415518468,
+    "fundoAbaixo": 10320025,
+    "pct": 2.5
+   },
+   "mulheres pretas": {
+    "fundo": 221401942,
+    "fundoAbaixo": 4591873,
+    "pct": 2.1
+   }
+  },
+  "500": {
+   "homens brancos": {
+    "fundo": 1604130309,
+    "fundoAbaixo": 31916681,
+    "pct": 2.0
+   },
+   "homens pardos": {
+    "fundo": 708865815,
+    "fundoAbaixo": 39901842,
+    "pct": 5.6
+   },
+   "homens pretos": {
+    "fundo": 158234129,
+    "fundoAbaixo": 13482918,
+    "pct": 8.5
+   },
+   "mulheres brancas": {
+    "fundo": 816385650,
+    "fundoAbaixo": 51954169,
+    "pct": 6.4
+   },
+   "mulheres pardas": {
+    "fundo": 415518468,
+    "fundoAbaixo": 63351079,
+    "pct": 15.2
+   },
+   "mulheres pretas": {
+    "fundo": 221401942,
+    "fundoAbaixo": 29931444,
+    "pct": 13.5
+   }
+  },
+  "1000": {
+   "homens brancos": {
+    "fundo": 1604130309,
+    "fundoAbaixo": 58113967,
+    "pct": 3.6
+   },
+   "homens pardos": {
+    "fundo": 708865815,
+    "fundoAbaixo": 67127899,
+    "pct": 9.5
+   },
+   "homens pretos": {
+    "fundo": 158234129,
+    "fundoAbaixo": 21391295,
+    "pct": 13.5
+   },
+   "mulheres brancas": {
+    "fundo": 816385650,
+    "fundoAbaixo": 96866648,
+    "pct": 11.9
+   },
+   "mulheres pardas": {
+    "fundo": 415518468,
+    "fundoAbaixo": 102801697,
+    "pct": 24.7
+   },
+   "mulheres pretas": {
+    "fundo": 221401942,
+    "fundoAbaixo": 48545908,
+    "pct": 21.9
+   }
+  }
+ },
+ "fundoBaixaVotacaoPorPartido": {
+  "AVANTE": {
+   "fundoMulheresNegras": 11882444,
+   "abaixo500": 3521690,
+   "candidaturasAbaixo500": 88,
+   "pct": 29.6,
+   "pctHomensBrancos": 6.1
+  },
+  "PSDB": {
+   "fundoMulheresNegras": 22001405,
+   "abaixo500": 3975746,
+   "candidaturasAbaixo500": 111,
+   "pct": 18.1,
+   "pctHomensBrancos": 3.6
+  },
+  "REPUBLICANOS": {
+   "fundoMulheresNegras": 45442405,
+   "abaixo500": 7041702,
+   "candidaturasAbaixo500": 84,
+   "pct": 15.5,
+   "pctHomensBrancos": 3.1
+  },
+  "UNIÃO": {
+   "fundoMulheresNegras": 108376802,
+   "abaixo500": 16485306,
+   "candidaturasAbaixo500": 57,
+   "pct": 15.2,
+   "pctHomensBrancos": 0.8
+  },
+  "PSOL": {
+   "fundoMulheresNegras": 31015365,
+   "abaixo500": 2705326,
+   "candidaturasAbaixo500": 75,
+   "pct": 8.7,
+   "pctHomensBrancos": 6.9
+  },
+  "MISSÃO": {
+   "fundoMulheresNegras": 372186,
+   "abaixo500": 195911,
+   "candidaturasAbaixo500": 28,
+   "pct": 52.6,
+   "pctHomensBrancos": 47.4
+  },
+  "PODE": {
+   "fundoMulheresNegras": 32887983,
+   "abaixo500": 5345015,
+   "candidaturasAbaixo500": 90,
+   "pct": 16.3,
+   "pctHomensBrancos": 1.4
+  },
+  "MDB": {
+   "fundoMulheresNegras": 41297377,
+   "abaixo500": 10811160,
+   "candidaturasAbaixo500": 106,
+   "pct": 26.2,
+   "pctHomensBrancos": 1.8
+  },
+  "PSB": {
+   "fundoMulheresNegras": 19772559,
+   "abaixo500": 1948872,
+   "candidaturasAbaixo500": 78,
+   "pct": 9.9,
+   "pctHomensBrancos": 2.1
+  },
+  "SOLIDARIEDADE": {
+   "fundoMulheresNegras": 9079015,
+   "abaixo500": 3954675,
+   "candidaturasAbaixo500": 53,
+   "pct": 43.6,
+   "pctHomensBrancos": 8.7
+  },
+  "PSD": {
+   "fundoMulheresNegras": 41271371,
+   "abaixo500": 4890015,
+   "candidaturasAbaixo500": 45,
+   "pct": 11.8,
+   "pctHomensBrancos": 1.3
+  },
+  "NOVO": {
+   "fundoMulheresNegras": 2644696,
+   "abaixo500": 807523,
+   "candidaturasAbaixo500": 72,
+   "pct": 30.5,
+   "pctHomensBrancos": 4.5
+  },
+  "PCO": {
+   "fundoMulheresNegras": 35470,
+   "abaixo500": 35470,
+   "candidaturasAbaixo500": 11,
+   "pct": 100.0,
+   "pctHomensBrancos": 100.0
+  },
+  "DC": {
+   "fundoMulheresNegras": 370064,
+   "abaixo500": 368933,
+   "candidaturasAbaixo500": 24,
+   "pct": 99.7,
+   "pctHomensBrancos": 62.4
+  },
+  "PDT": {
+   "fundoMulheresNegras": 19471211,
+   "abaixo500": 5103756,
+   "candidaturasAbaixo500": 100,
+   "pct": 26.2,
+   "pctHomensBrancos": 6.2
+  },
+  "PL": {
+   "fundoMulheresNegras": 48636654,
+   "abaixo500": 5531241,
+   "candidaturasAbaixo500": 62,
+   "pct": 11.4,
+   "pctHomensBrancos": 0.7
+  },
+  "PP": {
+   "fundoMulheresNegras": 50275128,
+   "abaixo500": 7545740,
+   "candidaturasAbaixo500": 36,
+   "pct": 15.0,
+   "pctHomensBrancos": 1.1
+  },
+  "UP": {
+   "fundoMulheresNegras": 202724,
+   "abaixo500": 68546,
+   "candidaturasAbaixo500": 5,
+   "pct": 33.8,
+   "pctHomensBrancos": 58.1
+  },
+  "MOBILIZA": {
+   "fundoMulheresNegras": 758258,
+   "abaixo500": 590258,
+   "candidaturasAbaixo500": 55,
+   "pct": 77.8,
+   "pctHomensBrancos": 15.6
+  },
+  "PT": {
+   "fundoMulheresNegras": 104835523,
+   "abaixo500": 2310922,
+   "candidaturasAbaixo500": 32,
+   "pct": 2.2,
+   "pctHomensBrancos": 0.7
+  },
+  "PCDOB": {
+   "fundoMulheresNegras": 16752356,
+   "abaixo500": 570226,
+   "candidaturasAbaixo500": 11,
+   "pct": 3.4,
+   "pctHomensBrancos": 0.8
+  },
+  "REDE": {
+   "fundoMulheresNegras": 6062093,
+   "abaixo500": 1816351,
+   "candidaturasAbaixo500": 54,
+   "pct": 30.0,
+   "pctHomensBrancos": 6.2
+  },
+  "CIDADANIA": {
+   "fundoMulheresNegras": 5749611,
+   "abaixo500": 3256439,
+   "candidaturasAbaixo500": 22,
+   "pct": 56.6,
+   "pctHomensBrancos": 2.7
+  },
+  "PRD": {
+   "fundoMulheresNegras": 9257451,
+   "abaixo500": 2260444,
+   "candidaturasAbaixo500": 44,
+   "pct": 24.4,
+   "pctHomensBrancos": 5.3
+  },
+  "PSTU": {
+   "fundoMulheresNegras": 202191,
+   "abaixo500": 38958,
+   "candidaturasAbaixo500": 4,
+   "pct": 19.3,
+   "pctHomensBrancos": 44.2
+  },
+  "DEMOCRATA": {
+   "fundoMulheresNegras": 3000,
+   "abaixo500": 3000,
+   "candidaturasAbaixo500": 1,
+   "pct": 100.0,
+   "pctHomensBrancos": 0.0
+  },
+  "AGIR": {
+   "fundoMulheresNegras": 455502,
+   "abaixo500": 244002,
+   "candidaturasAbaixo500": 33,
+   "pct": 53.6,
+   "pctHomensBrancos": 12.6
+  },
+  "PV": {
+   "fundoMulheresNegras": 7809563,
+   "abaixo500": 1855296,
+   "candidaturasAbaixo500": 31,
+   "pct": 23.8,
+   "pctHomensBrancos": 2.6
+  }
+ }
+}
