@@ -76,7 +76,7 @@ export function FefcPartidos() {
             : ""}
         </>
       }
-      source={`Fonte: TSE, Prestação de Contas Eleitorais 2026 (base de ${FEFC_META.baseGeneratedAt}, contas em andamento) e Candidatos 2026. Recontagem independente.`}
+      source={`Fonte: TSE, Prestação de Contas Eleitorais 2026 (base de ${FEFC_META.baseGeneratedAt}, prestação final do 1º turno) e Candidatos 2026. Recontagem independente.`}
       ficha={{
         vendo:
           "Para cada partido, se o fundo eleitoral que chegou às candidaturas acompanhou a presença de mulheres e de cada grupo de cor/raça entre elas.",

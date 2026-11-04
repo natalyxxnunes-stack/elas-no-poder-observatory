@@ -26,17 +26,41 @@ export type Achado = {
 export type TemaAchado = "poder" | "dinheiro" | "cor-raca" | "vices" | "serie";
 
 export const TEMAS_ACHADOS: { id: TemaAchado; titulo: string; linha: string }[] = [
-  { id: "poder", titulo: "Quem manda a partir de 2027", linha: "Senado, governos e as cadeiras que viraram poder." },
-  { id: "dinheiro", titulo: "O dinheiro da campanha", linha: "Para quem foi o fundo eleitoral e o que ele comprou." },
-  { id: "cor-raca", titulo: "Cor e raça", linha: "Quais mulheres chegam, e quais ficam pelo caminho." },
-  { id: "vices", titulo: "Vice e suplência", linha: "Onde as mulheres aparecem quando não encabeçam a chapa." },
-  { id: "serie", titulo: "A série desde 2014", linha: "O que mudou em relação às eleições anteriores." },
+  {
+    id: "poder",
+    titulo: "Quem manda a partir de 2027",
+    linha: "Senado, governos e as cadeiras que viraram poder.",
+  },
+  {
+    id: "dinheiro",
+    titulo: "O dinheiro da campanha",
+    linha: "Para quem foi o fundo eleitoral e o que ele comprou.",
+  },
+  {
+    id: "cor-raca",
+    titulo: "Cor e raça",
+    linha: "Quais mulheres chegam, e quais ficam pelo caminho.",
+  },
+  {
+    id: "vices",
+    titulo: "Vice e suplência",
+    linha: "Onde as mulheres aparecem quando não encabeçam a chapa.",
+  },
+  {
+    id: "serie",
+    titulo: "A série desde 2014",
+    linha: "O que mudou em relação às eleições anteriores.",
+  },
 ];
 
 export const ACHADOS: Achado[] = [
   {
     id: "quanto-mais-alto-mais-brancas",
-    ancora: { valor: "60,7%", rotulo: "das candidatas a presidente, governadora e senadora são brancas; entre as candidatas a deputada, 46,8%" },
+    ancora: {
+      valor: "60,7%",
+      rotulo:
+        "das candidatas a presidente, governadora e senadora são brancas; entre as candidatas a deputada, 46,8%",
+    },
     tema: "cor-raca",
     foco: "Majoritárias",
     numero: "01",
@@ -56,31 +80,38 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "dinheiro-brancas-peso",
-    ancora: { valor: "56,2%", rotulo: "do dinheiro das candidatas a deputada foi para as brancas, que eram 46,9% delas" },
+    ancora: {
+      valor: "56,2%",
+      rotulo: "do dinheiro das candidatas a deputada foi para as brancas, que eram 46,9% delas",
+    },
     tema: "dinheiro",
     foco: "Brancas · receita",
     numero: "02",
     data: "2026-09-25",
     titulo: "No dinheiro, as candidatas brancas ficam com mais do que o seu peso",
     texto:
-      "Nas listas para deputada, brancas são 46,9% das candidatas com receita declarada e ficam com 56,2% do dinheiro das mulheres. Pardas são 34,0% e ficam com 27,6%; pretas, 17,3% e 14,2%. Em 25/09, eram 47,0% e 55,7%: a distância cresceu na reta final da campanha.",
+      "Nas listas para deputada, brancas são 46,9% das candidatas com receita declarada e ficam com 56,1% do dinheiro das mulheres. Pardas são 34,1% e ficam com 27,7%; pretas, 17,3% e 14,2%. Em 25/09, eram 47,0% e 55,7%: a distância cresceu na reta final da campanha e se manteve na prestação final.",
     barras: [
       { rotulo: "Brancas · candidatas", valor: 46.9 },
-      { rotulo: "Brancas · receita", valor: 56.2 },
-      { rotulo: "Pardas · candidatas", valor: 34.0 },
-      { rotulo: "Pardas · receita", valor: 27.6 },
+      { rotulo: "Brancas · receita", valor: 56.1 },
+      { rotulo: "Pardas · candidatas", valor: 34.1 },
+      { rotulo: "Pardas · receita", valor: 27.7 },
       { rotulo: "Pretas · candidatas", valor: 17.3 },
       { rotulo: "Pretas · receita", valor: 14.2 },
     ],
     legenda: "Candidatas a deputada com receita declarada",
-    fonte: "TSE, Candidaturas e Prestação de Contas 2026 · base de 27/10/2026, contas em andamento",
-    atualizadoEm: "2026-10-28",
+    fonte:
+      "TSE, Candidaturas e Prestação de Contas 2026 · prestação final do 1º turno, base de 04/11/2026",
+    atualizadoEm: "2026-11-04",
     to: "/dinheiro",
     linkLabel: "Ver em Dinheiro",
   },
   {
     id: "vice-desde-2014",
-    ancora: { valor: "41,7%", rotulo: "das candidaturas a vice-governadora são de mulheres; a governadora, 17,4%" },
+    ancora: {
+      valor: "41,7%",
+      rotulo: "das candidaturas a vice-governadora são de mulheres; a governadora, 17,4%",
+    },
     tema: "vices",
     foco: "Vice 2026",
     numero: "03",
@@ -102,7 +133,10 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "vice-nao-titular",
-    ancora: { valor: "6 de 14", rotulo: "candidaturas a vice-presidente eram de mulheres; a presidente, 2 de 14" },
+    ancora: {
+      valor: "6 de 14",
+      rotulo: "candidaturas a vice-presidente eram de mulheres; a presidente, 2 de 14",
+    },
     tema: "vices",
     foco: "Vice-governadora",
     numero: "04",
@@ -122,14 +156,18 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "candidatar-se-nao-e-eleger-se",
-    ancora: { valor: "1 em 21", rotulo: "candidatas a deputada se elegeu em 2026; entre os homens, 1 em 10" },
+    ancora: {
+      valor: "1 em 21",
+      rotulo: "candidatas a deputada se elegeu em 2026; entre os homens, 1 em 10",
+    },
     tema: "serie",
     foco: "Candidatas 2026",
     escala: 12,
     numero: "05",
     data: "2026-09-25",
     titulo: "Candidatar-se não é eleger-se",
-    texto: "Em 2026, 1 em cada 21 candidatas a deputada se elegeu. Entre os homens, 1 em cada 10. Em 2022, eram 1 em 34 e 1 em 14. As duas taxas subiram, em parte porque houve menos candidaturas para as mesmas 1.572 cadeiras. A distância entre mulheres e homens continua: eles se elegem duas vezes mais.",
+    texto:
+      "Em 2026, 1 em cada 21 candidatas a deputada se elegeu. Entre os homens, 1 em cada 10. Em 2022, eram 1 em 34 e 1 em 14. As duas taxas subiram, em parte porque houve menos candidaturas para as mesmas 1.572 cadeiras. A distância entre mulheres e homens continua: eles se elegem duas vezes mais.",
     barras: [
       { rotulo: "Candidatas 2022", valor: 2.9 },
       { rotulo: "Candidatos 2022", valor: 7.0 },
@@ -166,7 +204,10 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "vice-de-quem",
-    ancora: { valor: "30,4%", rotulo: "das primeiras suplências ao Senado são de mulheres; a senadora, 22,4%" },
+    ancora: {
+      valor: "30,4%",
+      rotulo: "das primeiras suplências ao Senado são de mulheres; a senadora, 22,4%",
+    },
     tema: "vices",
     foco: "Vice-governadora",
     numero: "07",
@@ -187,7 +228,11 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "pretas-sozinhas",
-    ancora: { valor: "0", rotulo: "eleitas entre as 17 mulheres pretas candidatas a presidente, governadora ou senadora" },
+    ancora: {
+      valor: "0",
+      rotulo:
+        "eleitas entre as 17 mulheres pretas candidatas a presidente, governadora ou senadora",
+    },
     tema: "cor-raca",
     numero: "08",
     data: "2026-09-25",
@@ -203,7 +248,10 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "governadoras-brancas",
-    ancora: { valor: "3 de 27", rotulo: "estados terão governadora a partir de 2027, e as três são brancas" },
+    ancora: {
+      valor: "3 de 27",
+      rotulo: "estados terão governadora a partir de 2027, e as três são brancas",
+    },
     tema: "poder",
     numero: "09",
     data: "2026-10-28",
@@ -218,57 +266,71 @@ export const ACHADOS: Achado[] = [
   },
   {
     id: "fundo-eleitoral-cor",
-    ancora: { valor: "65,4%", rotulo: "do fundo eleitoral foi para candidaturas brancas, que eram 50,1% das titulares" },
+    ancora: {
+      valor: "65,4%",
+      rotulo: "do fundo eleitoral foi para candidaturas brancas, que eram 50,1% das titulares",
+    },
     tema: "dinheiro",
     foco: "Brancas · fundo",
     numero: "10",
     data: "2026-10-28",
     titulo: "O fundo eleitoral foi mais para candidaturas brancas",
     texto:
-      "Candidaturas brancas são 50,1% das candidaturas titulares de 2026 e ficaram com 65,4% do fundo eleitoral que chegou às campanhas. Pardas são 34,9% e ficaram com 25,3%; pretas, 13,6% e 8,1%. Para as mulheres, o fundo ficou perto da presença: 35,2% das candidaturas, 33,3% do dinheiro.",
+      "Candidaturas brancas são 50,1% das candidaturas titulares de 2026 e ficaram com 65,4% do fundo eleitoral que chegou às campanhas. Pardas são 34,9% e ficaram com 25,2%; pretas, 13,6% e 8,2%. Para as mulheres, o fundo ficou perto da presença: 35,2% das candidaturas, 33,2% do dinheiro.",
     barras: [
       { rotulo: "Brancas · candidaturas", valor: 50.1 },
       { rotulo: "Brancas · fundo", valor: 65.4 },
       { rotulo: "Pardas · candidaturas", valor: 34.9 },
-      { rotulo: "Pardas · fundo", valor: 25.3 },
+      { rotulo: "Pardas · fundo", valor: 25.2 },
       { rotulo: "Pretas · candidaturas", valor: 13.6 },
-      { rotulo: "Pretas · fundo", valor: 8.1 },
+      { rotulo: "Pretas · fundo", valor: 8.2 },
     ],
-    legenda: "Todas as candidaturas titulares, de deputado à Presidência, e o Fundo Especial que chegou a elas. Só deputado, a fatia branca é 60,7% (ver Dinheiro)",
-    fonte: "TSE, Candidaturas e Prestação de Contas 2026 · base de 27/10/2026, contas em andamento",
+    legenda:
+      "Todas as candidaturas titulares, de deputado à Presidência, e o Fundo Especial que chegou a elas. Só deputado, a fatia branca é 60,8% (ver Dinheiro)",
+    fonte:
+      "TSE, Candidaturas e Prestação de Contas 2026 · prestação final do 1º turno, base de 04/11/2026",
     to: "/dinheiro",
     linkLabel: "Ver em Dinheiro",
   },
   {
     id: "dinheiro-reeleicao",
-    ancora: { valor: "33 de 39", rotulo: "deputadas do terço de maior receita se reelegeram; no terço de menor receita, 4 de 17" },
+    ancora: {
+      valor: "31 de 37",
+      rotulo:
+        "deputadas do terço de maior receita se reelegeram; no terço de menor receita, 4 de 17",
+    },
     tema: "dinheiro",
     foco: "Mulheres · mais receita",
     numero: "11",
     data: "2026-10-28",
     titulo: "Entre as deputadas que tentaram voltar, as de maior receita voltaram mais",
     texto:
-      "No terço de maior receita de campanha, 33 de 39 deputadas se reelegeram. No terço de menor receita, 4 de 17. Entre os homens, a diferença é menor: 76,5% e 47,9%. O voto em seis pautas da Câmara separou bem menos: a reeleição das deputadas variou entre 52,7% e 72,2%. A relação pode correr nos dois sentidos: quem já tinha chance de vencer também atrai mais dinheiro.",
+      "No terço de maior receita de campanha, 31 de 37 deputadas se reelegeram. No terço de menor receita, 4 de 17. Entre os homens, a diferença é menor: 76,9% e 50,0%. O voto em seis pautas da Câmara separou bem menos: a reeleição das deputadas variou entre 52,7% e 72,2%. A relação pode correr nos dois sentidos: quem já tinha chance de vencer também atrai mais dinheiro.",
     barras: [
-      { rotulo: "Mulheres · mais receita", valor: 84.6 },
+      { rotulo: "Mulheres · mais receita", valor: 83.8 },
       { rotulo: "Mulheres · menos receita", valor: 23.5 },
-      { rotulo: "Homens · mais receita", valor: 76.5 },
-      { rotulo: "Homens · menos receita", valor: 47.9 },
+      { rotulo: "Homens · mais receita", valor: 76.9 },
+      { rotulo: "Homens · menos receita", valor: 50.0 },
     ],
     legenda: "Reeleição à Câmara por terço de receita, 2026",
-    fonte: "Câmara dos Deputados; TSE, Candidatos e Prestação de Contas 2026 · base de 27/10/2026",
+    fonte:
+      "Câmara dos Deputados; TSE, Candidatos e Prestação de Contas 2026 · prestação final do 1º turno, base de 04/11/2026",
     to: "/como-votaram",
     linkLabel: "Ver em Como votaram",
   },
   {
     id: "senado-pl-um-terco",
-    ancora: { valor: "27 de 81", rotulo: "cadeiras do Senado serão do PL a partir de 2027, contra 15 hoje" },
+    ancora: {
+      valor: "27 de 81",
+      rotulo: "cadeiras do Senado serão do PL a partir de 2027, contra 15 hoje",
+    },
     tema: "poder",
     foco: "PL 2027",
     numero: "12",
     data: "2026-10-28",
     titulo: "O PL terá um terço do Senado a partir de 2027",
-    texto: "O PL ganhou 19 das 54 vagas do Senado em 2026. Com as 8 cadeiras que já tem até 2031, deve começar 2027 com 27 das 81, contra 15 hoje: o número de assinaturas que a Constituição exige para criar uma CPI ou apresentar uma emenda constitucional no Senado. As senadoras passam de 15 para 19; 3 delas são do PL.",
+    texto:
+      "O PL ganhou 19 das 54 vagas do Senado em 2026. Com as 8 cadeiras que já tem até 2031, deve começar 2027 com 27 das 81, contra 15 hoje: o número de assinaturas que a Constituição exige para criar uma CPI ou apresentar uma emenda constitucional no Senado. As senadoras passam de 15 para 19; 3 delas são do PL.",
     barras: [
       { rotulo: "PL hoje", valor: 18.5 },
       { rotulo: "PL 2027", valor: 33.3 },
@@ -276,7 +338,8 @@ export const ACHADOS: Achado[] = [
       { rotulo: "Mulheres 2027", valor: 23.5 },
     ],
     legenda: "Fatia das 81 cadeiras do Senado",
-    fonte: "TSE, Candidatos 2026 · base de 27/10/2026; Senado Federal, Dados Abertos, consulta de 28/10/2026",
+    fonte:
+      "TSE, Candidatos 2026 · base de 27/10/2026; Senado Federal, Dados Abertos, consulta de 28/10/2026",
     to: "/quem-chega",
     linkLabel: "Ver em Quem chega",
   },

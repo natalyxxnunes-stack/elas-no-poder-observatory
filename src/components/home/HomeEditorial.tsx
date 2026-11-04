@@ -316,7 +316,7 @@ export function HomeFunnelFeature({ snapshot }: { snapshot: PublicSnapshot | nul
 const INVESTIGATIONS = [
   { id: "como-votaram", title: "Seis votações na Câmara, deputada por deputada, cruzadas com o resultado de 2026", support: "Da igualdade salarial à norma do Conanda, com a posição da bancada e o dinheiro de campanha.", to: "/como-votaram", link: "Ver no plenário" },
   { id: "direitos", title: "Treze marcos, de 1932 a 2026", support: "Cada lei, decisão e emenda que mudou o acesso das mulheres às urnas e ao dinheiro de campanha, com o texto oficial.", to: "/direitos", link: "Ver a linha do tempo" },
-  { id: "dinheiro", title: "Mediana da candidata a deputada nos 12 partidos com mais receita: branca, R$ 144 mil; parda, R$ 98 mil; preta, R$ 79 mil", support: "Receitas declaradas até 27/10, por gênero, cor/raça, cargo, partido e estado.", to: "/dinheiro", link: "Ver quem recebe" },
+  { id: "dinheiro", title: "Mediana da candidata a deputada nos 12 partidos com mais receita: branca, R$ 151 mil; parda, R$ 100 mil; preta, R$ 81 mil", support: "Prestação final do 1º turno (04/11), por gênero, cor/raça, cargo, partido e estado.", to: "/dinheiro", link: "Ver quem recebe" },
 ] as const;
 
 export function HomeInvestigationGrid({ snapshot: _snapshot }: { snapshot: PublicSnapshot | null }) {

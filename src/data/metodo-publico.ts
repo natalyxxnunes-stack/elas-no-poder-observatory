@@ -134,7 +134,7 @@ export const DICIONARIO: readonly CampoDicionario[] = [
     oQueE:
       "Valor, fonte (fundo eleitoral, fundo partidário, outros recursos) e origem de cada receita declarada.",
     comoUsamos:
-      "Receita por candidatura, fundo eleitoral por partido e por cor/raça. Prestação de contas em andamento até a entrega final.",
+      "Receita por candidatura, fundo eleitoral por partido e por cor/raça. Prestação final do 1º turno (base de 04/11/2026); o 2º turno entrega contas depois.",
     publicado: true,
   },
   {
@@ -184,6 +184,14 @@ export type Correcao = {
  * apareceu. Toda nova correção entra aqui e no lugar do erro, no mesmo commit.
  */
 export const CORRECOES: readonly Correcao[] = [
+  {
+    data: "04/11/2026",
+    pagina: "Dinheiro, Partido por partido, No plenário e Achados",
+    to: "/dinheiro",
+    tipo: "dado",
+    oQueMudou:
+      "Atualização com a prestação final do 1º turno (base do TSE de 04/11/2026). Mudaram, entre outros: mulheres a deputado com 32,9% da receita (antes 33,2%); mediana das candidatas brancas, pardas e pretas nos 12 maiores partidos de R$ 151 mil, R$ 100 mil e R$ 81 mil (antes R$ 144 mil, R$ 98 mil e R$ 79 mil); PL e NOVO seguem abaixo de 30% do fundo para candidaturas pretas e pardas a deputado (26,7% e 25,8%); na conta com todos os cargos, MDB, Cidadania e PSD também ficam abaixo; reeleição das deputadas no terço de maior receita passou de 33 de 39 para 31 de 37.",
+  },
   {
     data: "28/10/2026",
     pagina: "No plenário",

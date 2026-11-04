@@ -94,7 +94,7 @@ export function CapaManchetes({ items }: { items: Manchete[] }) {
               <p className="font-display text-xl leading-snug text-ink md:text-2xl">{m.texto}.</p>
               <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
                 {m.fonte}
-                {m.parcial ? ". Prestação de contas em andamento; o número pode mudar." : "."}
+                {m.parcial ? ". Prestação final do 1º turno; o 2º turno ainda entrega contas." : "."}
               </p>
             </div>
             <a

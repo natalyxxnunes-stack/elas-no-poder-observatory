@@ -149,7 +149,7 @@ export const M_PISO: Manchete = {
   texto: `No PL, candidaturas pardas eram ${formatPct(plPardas.cand)} das candidaturas a deputado e ficaram com ${formatPct(plPardas.fundo)} do fundo eleitoral; pretas, ${formatPct(plPretasF.cand)} e ${formatPct(plPretasF.fundo)}`,
   to: "/partidos",
   pagina: "Partido por partido",
-  fonte: `TSE, Prestação de Contas 2026, base de ${FEFC_META.baseGeneratedAt}. Só candidaturas a deputado; contas em andamento`,
+  fonte: `TSE, Prestação de Contas 2026, base de ${FEFC_META.baseGeneratedAt}. Só candidaturas a deputado; prestação final do 1º turno`,
   parcial: true,
 };
 
