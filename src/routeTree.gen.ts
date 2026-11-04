@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AchadosRouteImport } from './routes/achados'
 import { Route as BarreirasRouteImport } from './routes/barreiras'
 import { Route as BuscaRouteImport } from './routes/busca'
+import { Route as CalendarioRouteImport } from './routes/calendario'
+import { Route as CoautoriaRouteImport } from './routes/coautoria'
 import { Route as ComoVotaramRouteImport } from './routes/como-votaram'
 import { Route as CompararRouteImport } from './routes/comparar'
 import { Route as CondicoesRouteImport } from './routes/condicoes'
@@ -30,6 +32,7 @@ import { Route as PartidosRouteImport } from './routes/partidos'
 import { Route as QuemChegaRouteImport } from './routes/quem-chega'
 import { Route as QuemControlaRouteImport } from './routes/quem-controla'
 import { Route as QuemSaoElasRouteImport } from './routes/quem-sao-elas'
+import { Route as Relatorio2026RouteImport } from './routes/relatorio-2026'
 import { Route as ReportagensRouteImport } from './routes/reportagens'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as VotosRouteImport } from './routes/votos'
@@ -61,6 +64,16 @@ const BarreirasRoute = BarreirasRouteImport.update({
 const BuscaRoute = BuscaRouteImport.update({
   id: '/busca',
   path: '/busca',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalendarioRoute = CalendarioRouteImport.update({
+  id: '/calendario',
+  path: '/calendario',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoautoriaRoute = CoautoriaRouteImport.update({
+  id: '/coautoria',
+  path: '/coautoria',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ComoVotaramRoute = ComoVotaramRouteImport.update({
@@ -148,6 +161,11 @@ const QuemSaoElasRoute = QuemSaoElasRouteImport.update({
   path: '/quem-sao-elas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Relatorio2026Route = Relatorio2026RouteImport.update({
+  id: '/relatorio-2026',
+  path: '/relatorio-2026',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReportagensRoute = ReportagensRouteImport.update({
   id: '/reportagens',
   path: '/reportagens',
@@ -215,6 +233,8 @@ export interface FileRoutesByFullPath {
   '/achados': typeof AchadosRoute
   '/barreiras': typeof BarreirasRoute
   '/busca': typeof BuscaRoute
+  '/calendario': typeof CalendarioRoute
+  '/coautoria': typeof CoautoriaRoute
   '/como-votaram': typeof ComoVotaramRoute
   '/comparar': typeof CompararRoute
   '/condicoes': typeof CondicoesRoute
@@ -232,6 +252,7 @@ export interface FileRoutesByFullPath {
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
   '/quem-sao-elas': typeof QuemSaoElasRoute
+  '/relatorio-2026': typeof Relatorio2026Route
   '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
@@ -250,6 +271,8 @@ export interface FileRoutesByTo {
   '/achados': typeof AchadosRoute
   '/barreiras': typeof BarreirasRoute
   '/busca': typeof BuscaRoute
+  '/calendario': typeof CalendarioRoute
+  '/coautoria': typeof CoautoriaRoute
   '/como-votaram': typeof ComoVotaramRoute
   '/comparar': typeof CompararRoute
   '/condicoes': typeof CondicoesRoute
@@ -267,6 +290,7 @@ export interface FileRoutesByTo {
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
   '/quem-sao-elas': typeof QuemSaoElasRoute
+  '/relatorio-2026': typeof Relatorio2026Route
   '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
@@ -286,6 +310,8 @@ export interface FileRoutesById {
   '/achados': typeof AchadosRoute
   '/barreiras': typeof BarreirasRoute
   '/busca': typeof BuscaRoute
+  '/calendario': typeof CalendarioRoute
+  '/coautoria': typeof CoautoriaRoute
   '/como-votaram': typeof ComoVotaramRoute
   '/comparar': typeof CompararRoute
   '/condicoes': typeof CondicoesRoute
@@ -303,6 +329,7 @@ export interface FileRoutesById {
   '/quem-chega': typeof QuemChegaRoute
   '/quem-controla': typeof QuemControlaRoute
   '/quem-sao-elas': typeof QuemSaoElasRoute
+  '/relatorio-2026': typeof Relatorio2026Route
   '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
@@ -323,6 +350,8 @@ export interface FileRouteTypes {
     | '/achados'
     | '/barreiras'
     | '/busca'
+    | '/calendario'
+    | '/coautoria'
     | '/como-votaram'
     | '/comparar'
     | '/condicoes'
@@ -340,6 +369,7 @@ export interface FileRouteTypes {
     | '/quem-chega'
     | '/quem-controla'
     | '/quem-sao-elas'
+    | '/relatorio-2026'
     | '/reportagens'
     | '/sobre'
     | '/votos'
@@ -358,6 +388,8 @@ export interface FileRouteTypes {
     | '/achados'
     | '/barreiras'
     | '/busca'
+    | '/calendario'
+    | '/coautoria'
     | '/como-votaram'
     | '/comparar'
     | '/condicoes'
@@ -375,6 +407,7 @@ export interface FileRouteTypes {
     | '/quem-chega'
     | '/quem-controla'
     | '/quem-sao-elas'
+    | '/relatorio-2026'
     | '/reportagens'
     | '/sobre'
     | '/votos'
@@ -393,6 +426,8 @@ export interface FileRouteTypes {
     | '/achados'
     | '/barreiras'
     | '/busca'
+    | '/calendario'
+    | '/coautoria'
     | '/como-votaram'
     | '/comparar'
     | '/condicoes'
@@ -410,6 +445,7 @@ export interface FileRouteTypes {
     | '/quem-chega'
     | '/quem-controla'
     | '/quem-sao-elas'
+    | '/relatorio-2026'
     | '/reportagens'
     | '/sobre'
     | '/votos'
@@ -429,6 +465,8 @@ export interface RootRouteChildren {
   AchadosRoute: typeof AchadosRoute
   BarreirasRoute: typeof BarreirasRoute
   BuscaRoute: typeof BuscaRoute
+  CalendarioRoute: typeof CalendarioRoute
+  CoautoriaRoute: typeof CoautoriaRoute
   ComoVotaramRoute: typeof ComoVotaramRoute
   CompararRoute: typeof CompararRoute
   CondicoesRoute: typeof CondicoesRoute
@@ -446,6 +484,7 @@ export interface RootRouteChildren {
   QuemChegaRoute: typeof QuemChegaRoute
   QuemControlaRoute: typeof QuemControlaRoute
   QuemSaoElasRoute: typeof QuemSaoElasRoute
+  Relatorio2026Route: typeof Relatorio2026Route
   ReportagensRoute: typeof ReportagensRoute
   SobreRoute: typeof SobreRoute
   VotosRoute: typeof VotosRoute
@@ -488,6 +527,20 @@ declare module '@tanstack/react-router' {
       path: '/busca'
       fullPath: '/busca'
       preLoaderRoute: typeof BuscaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendario': {
+      id: '/calendario'
+      path: '/calendario'
+      fullPath: '/calendario'
+      preLoaderRoute: typeof CalendarioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/coautoria': {
+      id: '/coautoria'
+      path: '/coautoria'
+      fullPath: '/coautoria'
+      preLoaderRoute: typeof CoautoriaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/como-votaram': {
@@ -609,6 +662,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuemSaoElasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/relatorio-2026': {
+      id: '/relatorio-2026'
+      path: '/relatorio-2026'
+      fullPath: '/relatorio-2026'
+      preLoaderRoute: typeof Relatorio2026RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reportagens': {
       id: '/reportagens'
       path: '/reportagens'
@@ -701,6 +761,8 @@ const rootRouteChildren: RootRouteChildren = {
   AchadosRoute: AchadosRoute,
   BarreirasRoute: BarreirasRoute,
   BuscaRoute: BuscaRoute,
+  CalendarioRoute: CalendarioRoute,
+  CoautoriaRoute: CoautoriaRoute,
   ComoVotaramRoute: ComoVotaramRoute,
   CompararRoute: CompararRoute,
   CondicoesRoute: CondicoesRoute,
@@ -718,6 +780,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuemChegaRoute: QuemChegaRoute,
   QuemControlaRoute: QuemControlaRoute,
   QuemSaoElasRoute: QuemSaoElasRoute,
+  Relatorio2026Route: Relatorio2026Route,
   ReportagensRoute: ReportagensRoute,
   SobreRoute: SobreRoute,
   VotosRoute: VotosRoute,

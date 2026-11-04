@@ -6,13 +6,9 @@ import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { MONITOR_CAMARA, MONITOR_META, type LinhaMonitor } from "@/data/monitor-camara";
 import { UF_NOME } from "@/data/eleitas-cruzamentos";
 import { formatInt as n, formatPct } from "@/lib/format-br";
+import { MIN_VOTACOES, PRESENCA_DEPUTADAS } from "@/lib/monitor";
 
-const MIN_VOTACOES = 20;
 const presenca = (l: LinhaMonitor) => (l.votacoesEmExercicio ? l.votosRegistrados / l.votacoesEmExercicio : null);
-const comBase = MONITOR_CAMARA.filter((l) => l.votacoesEmExercicio >= MIN_VOTACOES);
-const somaEm = comBase.reduce((a, l) => a + l.votacoesEmExercicio, 0);
-const somaVoto = comBase.reduce((a, l) => a + l.votosRegistrados, 0);
-const PRESENCA_DEPUTADAS = somaEm ? (100 * somaVoto) / somaEm : 0;
 const data = (iso: string) => iso.split("-").reverse().join("/");
 
 const titulo = `As deputadas registraram voto em ${formatPct(PRESENCA_DEPUTADAS)} das votações nominais de 2026 em que estavam em exercício; a Câmara inteira, em ${formatPct(MONITOR_META.casaPresencaPct ?? 0)}`;

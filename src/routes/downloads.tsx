@@ -4,6 +4,8 @@ import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
+import { BASE_PUBLICA, BASE_PUBLICA_GERADA_EM } from "@/data/base-publica";
+import { formatInt } from "@/lib/format-br";
 
 /**
  * ROTA PUBLICADA. Catálogo completo desde 28/10/2026; fontes dos materiais em scripts/materiais.
@@ -170,6 +172,54 @@ function DownloadsPage() {
             </li>
           ))}
         </ul>
+      </SectionBlock>
+
+      <SectionBlock
+        id="dados"
+        kicker="Base aberta"
+        question="Os dados do observatório, em planilha"
+        align="wide"
+        lead={
+          <p>
+            Os mesmos números que o site publica, em CSV que abre no Excel ou no Google Planilhas. Cada arquivo traz fonte,
+            data e uma impressão digital (SHA-256): se o código do seu arquivo bater com o daqui, é o mesmo arquivo, byte a
+            byte. O código prova a procedência; a conta está nos scripts do repositório e no Método.
+          </p>
+        }
+      >
+        <ul className="divide-y divide-rule border-y border-rule">
+          {BASE_PUBLICA.map((b) => (
+            <li key={b.arquivo} className="grid gap-3 py-5 md:grid-cols-[1fr_auto] md:gap-8">
+              <div>
+                <h3 className="font-display text-xl leading-snug text-ink">{b.titulo}</h3>
+                <p className="mt-1 max-w-3xl text-[15px] leading-relaxed text-ink/80">{b.descricao}</p>
+                <p className="mt-2 text-[13px] leading-relaxed text-ink/70">
+                  {formatInt(b.linhas)} linhas · Fonte: {b.fonte}
+                </p>
+                <details className="mt-2 text-[13px] text-ink/75">
+                  <summary className="min-h-11 cursor-pointer py-2 font-semibold text-ink">Colunas e SHA-256</summary>
+                  <p className="font-mono">{b.colunas.join(", ")}</p>
+                  <p className="mt-1 break-all font-mono">SHA-256 {b.sha256}</p>
+                </details>
+              </div>
+              <a
+                href={`/dados/${b.arquivo}`}
+                download
+                className="inline-flex h-11 items-center self-start bg-plum px-4 text-sm font-semibold text-primary-foreground hover:bg-plum-soft"
+              >
+                Baixar CSV<span className="sr-only">: {b.titulo}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-3 text-[13px] text-muted-foreground">
+          Arquivos gerados em {BASE_PUBLICA_GERADA_EM} por scripts/base-publica/gerar.ts. Sem CPF, e-mail, data de nascimento ou
+          foto. Cor/raça sempre nas cinco categorias do TSE. O significado de cada campo está no{" "}
+          <Link to="/metodo" hash="dicionario" className="text-plum underline underline-offset-4">
+            dicionário do Método
+          </Link>
+          . Uso livre, com crédito ao Quem são elas? e à data da base.
+        </p>
       </SectionBlock>
 
       <SectionBlock kicker="Uso" question="Como usar e como creditar">

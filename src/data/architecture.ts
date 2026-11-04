@@ -314,11 +314,14 @@ const navItem = (id: string) => {
 
 export const NAV_ITEMS = [
   { to: "/reportagens", label: "Reportagens", question: "O que apuramos?" },
+  { to: "/relatorio-2026", label: "Relatório 2026", question: "O que o ano mostrou?" },
+  { to: "/calendario", label: "Calendário", question: "O que vem por aí?" },
   { to: "/na-voz-delas", label: "Na voz delas", question: "O que elas disseram?" },
   { to: "/pioneiras", label: "Pioneiras", question: "Quem abriu o caminho?" },
   { to: "/achados", label: "Achados", question: "O que encontramos?" },
   { to: "/como-votaram", label: "No plenário", question: "Como votaram as deputadas?" },
   { to: "/monitor", label: "Monitor de mandato", question: "O que cada deputada registrou na Câmara?" },
+  { to: "/coautoria", label: "Quem assina junto", question: "Com quem as deputadas assinam projetos?" },
   navItem("quem-controla"),
   navItem("funil"),
   navItem("direitos"),
@@ -340,6 +343,7 @@ export const DATA_2026_NAV_ITEMS = [
   { label: "Estados", to: "/quem-sao-elas", hash: "estados" },
   { label: "Partidos", to: "/partidos", hash: undefined },
   { label: "Comparador", to: "/comparar", hash: undefined },
+  { label: "Baixar os dados", to: "/downloads", hash: "dados" },
   { label: "Cargos", to: "/quem-sao-elas", hash: "cargos" },
   { label: "Raça", to: "/quem-sao-elas", hash: "raca" },
   { label: "Na urna", to: "/votos", hash: undefined },

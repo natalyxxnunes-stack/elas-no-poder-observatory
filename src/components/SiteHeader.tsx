@@ -19,6 +19,8 @@ const SECOES: Secao[] = [
     label: "Histórias",
     itens: [
       { label: "Reportagens", to: "/reportagens", nota: "Textos assinados" },
+      { label: "Relatório 2026", to: "/relatorio-2026", nota: "O ano em dados, numa página" },
+      { label: "Calendário", to: "/calendario", nota: "Da urna à posse: datas e pautas" },
       { label: "Na voz delas", to: "/na-voz-delas", nota: "O que disseram, com o dado ao lado" },
       { label: "Pioneiras", to: "/pioneiras", nota: "Quem abriu o caminho" },
       { label: "Achados", to: "/achados", nota: "O que os dados mostram, um por um" },
@@ -42,6 +44,7 @@ const SECOES: Secao[] = [
     itens: [
       { label: "No plenário", to: "/como-votaram", nota: "Como votaram as deputadas" },
       { label: "Monitor de mandato", to: "/monitor", nota: "O que cada deputada registrou na Câmara" },
+      { label: "Quem assina junto", to: "/coautoria", nota: "A rede de coautoria das deputadas" },
       { label: "Quem controla?", to: "/quem-controla", nota: "As decisões dos partidos" },
       { label: "O funil", to: "/funil", nota: "Da candidatura ao poder" },
     ],

@@ -38,6 +38,9 @@ const PAGINAS: ItemBusca[] = [
   ["/quem-sao-elas", "Quem são elas?", "As candidatas por cor/raça e cargo", "candidatas cor raça vice suplente"],
   ["/partidos", "Partido por partido", "Eleitas, fundo e votações por sigla", "partidos siglas"],
   ["/comparar", "Comparador", "Partidos ou estados, lado a lado", "comparar comparação partido estado taxa de eleição"],
+  ["/relatorio-2026", "Relatório 2026", "O ano em dados, numa página", "relatório anual 2026 resumo achados"],
+  ["/calendario", "Calendário", "Da urna à posse: datas e pautas", "calendário datas posse diplomação prestação de contas"],
+  ["/coautoria", "Quem assina junto", "A rede de coautoria das deputadas", "coautoria rede projetos autoria partidos"],
   ["/monitor", "Monitor de mandato", "O que cada deputada registrou na Câmara", "mandato presença votações proposições discursos monitor"],
   ["/votos", "Na urna", "Candidatura, voto e cadeira", "votos votação nominal"],
   ["/dinheiro", "Dinheiro", "Receita, fundo eleitoral, gasto e vaquinhas", "fundo eleitoral fefc receita financiamento"],
@@ -52,7 +55,7 @@ const PAGINAS: ItemBusca[] = [
   ["/direitos", "Direitos", "Os marcos de 1932 a 2026", "lei voto cota emenda"],
   ["/em-disputa", "Em disputa", "Regras e projetos em tramitação", "projetos de lei"],
   ["/metodo", "Método", "Fontes, fórmulas, versões e correções", "metodologia fontes correções sha-256"],
-  ["/downloads", "Downloads", "Bases e materiais para baixar", "csv dados abertos"],
+  ["/downloads", "Downloads", "Base aberta em CSV e materiais para baixar", "csv dados abertos planilha base pública sha-256"],
   ["/sobre", "Sobre", "Quem faz o observatório", "contato"],
 ].map(([to, titulo, sub, extra]) => ({ tipo: "Página" as const, to: to!, titulo: titulo!, sub: sub!, extra: extra ?? "" }));
 
