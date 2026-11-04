@@ -214,8 +214,8 @@ export const CORRECOES: readonly Correcao[] = [
 export const METODO_FICHAS = [
   "Quem entra: as mulheres eleitas em 2026 para deputada federal, estadual e distrital, senadora e governadora, segundo o resultado do TSE. Vices e suplentes ficam fora, porque não foram eleitas para o cargo titular.",
   "O registro: cargo, estado, partido, cor/raça e situação vêm do arquivo de candidaturas do TSE, recontado pelo observatório (scripts/recontagem/eleitas_2026.py).",
-  "A trajetória: ocupação e escolaridade são as declaradas no registro de 2026. O resultado de 2022 vem do arquivo de candidaturas de 2022, ligado pelo CPF em memória; quando a mesma pessoa tem dois registros no mesmo turno, vale o de resultado válido. Eleições municipais não entram (scripts/recontagem/eleitas_trajetoria_2026.py).",
-  "O mandato anterior: votos nas seis votações de No plenário, para quem foi deputada federal. A ligação é por nome e estado; quando o nome de urna ou o estado mudaram, a correspondência foi conferida pelo CPF e registrada no código.",
+  "A trajetória: ocupação e escolaridade são as declaradas no registro de 2026. O resultado de 2022 vem do arquivo de candidaturas de 2022, ligado pelo CPF, que é usado só durante o processamento e não é publicado nem guardado; quando a mesma pessoa tem dois registros no mesmo turno, vale o de resultado válido. Eleições municipais não entram (scripts/recontagem/eleitas_trajetoria_2026.py).",
+  "O mandato anterior: votos nas seis votações de No plenário (/como-votaram), para quem foi deputada federal. A ligação é por nome e estado; quando o nome de urna ou o estado mudaram, a correspondência foi conferida pelo CPF, caso a caso.",
   "As falas: só as conferidas na fonte primária (áudio, vídeo ou Diário da Câmara), com data e link.",
   "Cada ficha tem endereço permanente (quemsaoelas.com.br/eleitas/nome-uf) e informa a data de cada base usada. Atuação no mandato, comissões e votações a partir de 2027 entram depois da posse.",
 ] as const;
@@ -228,7 +228,7 @@ export const METODO_ATUACAO = {
     {
       tipo: "Voto nominal",
       regra:
-        "Sim, Não, abstenção, obstrução ou ausente, como registrado pela Câmara ou pelo Senado. Ausente é quem estava em exercício e não votou; conta à parte, sem ser lido como posição.",
+        "Sim, Não, abstenção, obstrução ou ausente, como registrado pela Câmara ou pelo Senado. Ausente é quem estava em exercício e não votou; conta à parte, sem ser lido como posição. O dado da votação não diz se a ausência foi justificada (licença, missão oficial), por isso a palavra usada é sempre “não votou”, nunca “faltou”.",
     },
     {
       tipo: "Autoria e coautoria",
@@ -247,7 +247,7 @@ export const METODO_ATUACAO = {
     {
       tipo: "Alinhamento com a bancada",
       regra:
-        "Comparado com a maioria do partido naquela votação (a orientação oficial vem por bloco e a API não guarda a composição histórica). É medida de disciplina, não de convicção.",
+        "Comparado com o voto da maioria do partido naquela votação. A orientação oficial é dada por bloco, e os dados abertos da Câmara não guardam quem estava em cada bloco na data, por isso a régua é a maioria. Mede disciplina partidária; convicção a medida não alcança.",
     },
   ],
   selecao:
@@ -255,7 +255,7 @@ export const METODO_ATUACAO = {
   rotulos:
     "Nenhum rótulo resumido (“feminista”, “antifeminista”, “progressista”, “conservadora”) é atribuído a uma pessoa pelo observatório. Quando a própria parlamentar se define em público (“eu não sou feminista”), a frase é publicada como fala dela, com a fonte.",
   respostas:
-    "Quando uma reportagem atribui conduta ou faz crítica factual a uma parlamentar, ela é procurada antes da publicação, com prazo, e a resposta, ou a falta dela, é publicada.",
+    "Toda pessoa citada pelo nome recebe pedido de posicionamento, por escrito e com prazo. Nas reportagens, o pedido sai antes da publicação. Nas fichas e em Na voz delas, que publicam registro público (voto, assinatura, fala oficial), a página mostra o estado do pedido: em preparação, enviado em [data] ou respondido em [data]. A resposta, ou a falta dela, entra com data.",
   limites:
-    "Voto e assinatura mostram o que a pessoa fez, não por que fez nem o efeito da decisão. Efeito exige outra apuração, com outra fonte.",
+    "Voto e assinatura mostram o que a pessoa fez. O motivo só entra quando ela mesma o explica em público, e o efeito da decisão exige outra apuração, com outra fonte.",
 } as const;

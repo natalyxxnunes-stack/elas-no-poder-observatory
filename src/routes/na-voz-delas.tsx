@@ -29,7 +29,7 @@ function FalaCard({ f, i }: { f: Fala; i: number }) {
     ? `${f.posicionamento.texto} (${f.posicionamento.data})`
     : FALAS_PEDIDO_ENVIADO_EM
       ? `Pedido enviado em ${FALAS_PEDIDO_ENVIADO_EM}; sem resposta até a última atualização`
-      : "Aguardando resposta";
+      : "Pedido de posicionamento em preparação; a resposta entra aqui, com data";
   return (
     <article id={f.id} className={`scroll-mt-20 relative left-1/2 -ml-[50vw] w-screen ${i % 2 === 0 ? "bg-cream" : "bg-muted"}`}>
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-12">

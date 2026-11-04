@@ -31,3 +31,6 @@ dist-ssr
 *.sln
 *.sw?
 .hostgator-assets/
+
+# pacotes da HostGator ficam fora do repositório (gerados por build:hostgator)
+*.zip
