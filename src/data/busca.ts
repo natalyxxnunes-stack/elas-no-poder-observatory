@@ -37,6 +37,8 @@ const PAGINAS: ItemBusca[] = [
   ["/quem-chega", "Quem chega", "As eleitas, casa por casa", "eleitas cadeiras resultado senado camara governadoras"],
   ["/quem-sao-elas", "Quem são elas?", "As candidatas por cor/raça e cargo", "candidatas cor raça vice suplente"],
   ["/partidos", "Partido por partido", "Eleitas, fundo e votações por sigla", "partidos siglas"],
+  ["/comparar", "Comparador", "Partidos ou estados, lado a lado", "comparar comparação partido estado taxa de eleição"],
+  ["/monitor", "Monitor de mandato", "O que cada deputada registrou na Câmara", "mandato presença votações proposições discursos monitor"],
   ["/votos", "Na urna", "Candidatura, voto e cadeira", "votos votação nominal"],
   ["/dinheiro", "Dinheiro", "Receita, fundo eleitoral, gasto e vaquinhas", "fundo eleitoral fefc receita financiamento"],
   ["/historico", "Histórico", "A série desde 2014", "série histórica 2014 2018 2022"],

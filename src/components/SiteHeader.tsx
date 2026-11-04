@@ -32,6 +32,7 @@ const SECOES: Secao[] = [
       { label: "Quem chega", to: "/quem-chega", nota: "As eleitas, casa por casa" },
       { label: "Quem são elas?", to: "/quem-sao-elas", nota: "As candidatas, por cor/raça e cargo" },
       { label: "Partido por partido", to: "/partidos", nota: "Eleitas, fundo e votações por sigla" },
+      { label: "Comparador", to: "/comparar", nota: "Partidos ou estados, lado a lado" },
       { label: "Na urna", to: "/votos", nota: "Candidatura, voto e cadeira" },
       { label: "Histórico", to: "/historico", nota: "De 2014 a 2026" },
     ],
@@ -40,6 +41,7 @@ const SECOES: Secao[] = [
     label: "No poder",
     itens: [
       { label: "No plenário", to: "/como-votaram", nota: "Como votaram as deputadas" },
+      { label: "Monitor de mandato", to: "/monitor", nota: "O que cada deputada registrou na Câmara" },
       { label: "Quem controla?", to: "/quem-controla", nota: "As decisões dos partidos" },
       { label: "O funil", to: "/funil", nota: "Da candidatura ao poder" },
     ],

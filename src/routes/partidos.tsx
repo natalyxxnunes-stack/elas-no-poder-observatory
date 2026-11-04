@@ -4,6 +4,7 @@ import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { GapNote } from "@/components/GapNote";
+import { LancaElege } from "@/components/editorial/LancaElege";
 import { M_PL_PRETAS } from "@/data/manchetes";
 import { FEFC_META, FEFC_PARTIDOS } from "@/data/fefc-partidos-2026";
 import { RESULT_2026_GOVERNO, RESULT_2026_META, RESULT_2026_PARTIDOS } from "@/data/resultado-2026";
@@ -489,6 +490,15 @@ function PartidosPage() {
         align="wide"
       >
         <EleitasTable />
+      </SectionBlock>
+
+      <SectionBlock
+        id="lanca-elege"
+        kicker="Quem o partido lança e quem ele elege"
+        question="Dentro do mesmo partido, quem se elege: a taxa por gênero e cor/raça"
+        align="wide"
+      >
+        <LancaElege />
       </SectionBlock>
 
       <SectionBlock

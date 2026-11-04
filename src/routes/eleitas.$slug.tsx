@@ -16,7 +16,8 @@ import {
 } from "@/data/eleitas-cruzamentos";
 import { VOTACOES } from "@/data/votacoes-camara";
 import { TRAJETORIA_ELEITAS, TRAJETORIA_META, type Trajetoria2022 } from "@/data/eleitas-trajetoria-2026";
-import { formatInt as n } from "@/lib/format-br";
+import { MONITOR_CAMARA, MONITOR_META } from "@/data/monitor-camara";
+import { formatInt as n, formatPct } from "@/lib/format-br";
 
 const achar = (slug: string) => ELEITAS_2026.find((e) => e.slug === slug);
 
@@ -71,6 +72,7 @@ function EleitaPage() {
   const { slug } = Route.useLoaderData();
   const e = achar(slug)!;
   const anterior = mandatoAnterior(e);
+  const monitor = MONITOR_CAMARA.find((m) => m.ficha === e.slug) ?? null;
   const falas = falasDe(e);
   const receita = receitaMajoritaria(e);
   const naOutraPonta = ELEITAS_2026.filter((x) => x.uf === e.uf && x.cargo === e.cargo && x.slug !== e.slug);
@@ -166,6 +168,41 @@ function EleitaPage() {
           </ul>
           <a href="/como-votaram" className="mt-3 inline-flex min-h-11 items-center text-[15px] font-semibold text-plum">
             Ver a matriz de votação →
+          </a>
+        </section>
+      ) : null}
+
+      {monitor ? (
+        <section className="py-8">
+          <Secao nome="Na Câmara em 2026" tipo="monitor de mandato" />
+          <dl className="mt-4 grid max-w-3xl gap-4 sm:grid-cols-3">
+            <div className="border-t-[3px] border-plum pt-2">
+              <dt className="text-[14px] text-ink/75">Votos registrados</dt>
+              <dd className="font-display text-2xl text-ink">
+                {n(monitor.votosRegistrados)} de {n(monitor.votacoesEmExercicio)}
+                {monitor.votacoesEmExercicio >= 20 && (
+                  <span className="ml-2 text-base text-ink/70">
+                    {formatPct((100 * monitor.votosRegistrados) / monitor.votacoesEmExercicio)}
+                  </span>
+                )}
+              </dd>
+            </div>
+            <div className="border-t-[3px] border-plum pt-2">
+              <dt className="text-[14px] text-ink/75">Proposições assinadas</dt>
+              <dd className="font-display text-2xl text-ink">{n(monitor.proposicoes)}</dd>
+            </div>
+            <div className="border-t-[3px] border-plum pt-2">
+              <dt className="text-[14px] text-ink/75">Discursos</dt>
+              <dd className="font-display text-2xl text-ink">{n(monitor.discursos)}</dd>
+            </div>
+          </dl>
+          <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-ink/65">
+            Votações nominais do plenário em que estava em exercício; proposições como autora ou coautora; de{" "}
+            {MONITOR_META.periodo[0].split("-").reverse().join("/")} a {MONITOR_META.periodo[1].split("-").reverse().join("/")}. A
+            Câmara inteira registrou voto em {formatPct(MONITOR_META.casaPresencaPct ?? 0)} das votações em que estava em exercício.
+          </p>
+          <a href="/monitor" className="mt-2 inline-flex min-h-11 items-center text-[15px] font-semibold text-plum">
+            Ver todas as deputadas no monitor →
           </a>
         </section>
       ) : null}

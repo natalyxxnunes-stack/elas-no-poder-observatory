@@ -14,6 +14,7 @@ import { Route as AchadosRouteImport } from './routes/achados'
 import { Route as BarreirasRouteImport } from './routes/barreiras'
 import { Route as BuscaRouteImport } from './routes/busca'
 import { Route as ComoVotaramRouteImport } from './routes/como-votaram'
+import { Route as CompararRouteImport } from './routes/comparar'
 import { Route as CondicoesRouteImport } from './routes/condicoes'
 import { Route as DinheiroRouteImport } from './routes/dinheiro'
 import { Route as DireitosRouteImport } from './routes/direitos'
@@ -23,6 +24,7 @@ import { Route as FunilRouteImport } from './routes/funil'
 import { Route as HistoricoRouteImport } from './routes/historico'
 import { Route as InvestigacoesRouteImport } from './routes/investigacoes'
 import { Route as MetodoRouteImport } from './routes/metodo'
+import { Route as MonitorRouteImport } from './routes/monitor'
 import { Route as NaVozDelasRouteImport } from './routes/na-voz-delas'
 import { Route as PartidosRouteImport } from './routes/partidos'
 import { Route as QuemChegaRouteImport } from './routes/quem-chega'
@@ -64,6 +66,11 @@ const BuscaRoute = BuscaRouteImport.update({
 const ComoVotaramRoute = ComoVotaramRouteImport.update({
   id: '/como-votaram',
   path: '/como-votaram',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompararRoute = CompararRouteImport.update({
+  id: '/comparar',
+  path: '/comparar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CondicoesRoute = CondicoesRouteImport.update({
@@ -109,6 +116,11 @@ const InvestigacoesRoute = InvestigacoesRouteImport.update({
 const MetodoRoute = MetodoRouteImport.update({
   id: '/metodo',
   path: '/metodo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MonitorRoute = MonitorRouteImport.update({
+  id: '/monitor',
+  path: '/monitor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NaVozDelasRoute = NaVozDelasRouteImport.update({
@@ -204,6 +216,7 @@ export interface FileRoutesByFullPath {
   '/barreiras': typeof BarreirasRoute
   '/busca': typeof BuscaRoute
   '/como-votaram': typeof ComoVotaramRoute
+  '/comparar': typeof CompararRoute
   '/condicoes': typeof CondicoesRoute
   '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
@@ -213,6 +226,7 @@ export interface FileRoutesByFullPath {
   '/historico': typeof HistoricoRoute
   '/investigacoes': typeof InvestigacoesRoute
   '/metodo': typeof MetodoRoute
+  '/monitor': typeof MonitorRoute
   '/na-voz-delas': typeof NaVozDelasRoute
   '/partidos': typeof PartidosRoute
   '/quem-chega': typeof QuemChegaRoute
@@ -237,6 +251,7 @@ export interface FileRoutesByTo {
   '/barreiras': typeof BarreirasRoute
   '/busca': typeof BuscaRoute
   '/como-votaram': typeof ComoVotaramRoute
+  '/comparar': typeof CompararRoute
   '/condicoes': typeof CondicoesRoute
   '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
@@ -246,6 +261,7 @@ export interface FileRoutesByTo {
   '/historico': typeof HistoricoRoute
   '/investigacoes': typeof InvestigacoesRoute
   '/metodo': typeof MetodoRoute
+  '/monitor': typeof MonitorRoute
   '/na-voz-delas': typeof NaVozDelasRoute
   '/partidos': typeof PartidosRoute
   '/quem-chega': typeof QuemChegaRoute
@@ -271,6 +287,7 @@ export interface FileRoutesById {
   '/barreiras': typeof BarreirasRoute
   '/busca': typeof BuscaRoute
   '/como-votaram': typeof ComoVotaramRoute
+  '/comparar': typeof CompararRoute
   '/condicoes': typeof CondicoesRoute
   '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
@@ -280,6 +297,7 @@ export interface FileRoutesById {
   '/historico': typeof HistoricoRoute
   '/investigacoes': typeof InvestigacoesRoute
   '/metodo': typeof MetodoRoute
+  '/monitor': typeof MonitorRoute
   '/na-voz-delas': typeof NaVozDelasRoute
   '/partidos': typeof PartidosRoute
   '/quem-chega': typeof QuemChegaRoute
@@ -306,6 +324,7 @@ export interface FileRouteTypes {
     | '/barreiras'
     | '/busca'
     | '/como-votaram'
+    | '/comparar'
     | '/condicoes'
     | '/dinheiro'
     | '/direitos'
@@ -315,6 +334,7 @@ export interface FileRouteTypes {
     | '/historico'
     | '/investigacoes'
     | '/metodo'
+    | '/monitor'
     | '/na-voz-delas'
     | '/partidos'
     | '/quem-chega'
@@ -339,6 +359,7 @@ export interface FileRouteTypes {
     | '/barreiras'
     | '/busca'
     | '/como-votaram'
+    | '/comparar'
     | '/condicoes'
     | '/dinheiro'
     | '/direitos'
@@ -348,6 +369,7 @@ export interface FileRouteTypes {
     | '/historico'
     | '/investigacoes'
     | '/metodo'
+    | '/monitor'
     | '/na-voz-delas'
     | '/partidos'
     | '/quem-chega'
@@ -372,6 +394,7 @@ export interface FileRouteTypes {
     | '/barreiras'
     | '/busca'
     | '/como-votaram'
+    | '/comparar'
     | '/condicoes'
     | '/dinheiro'
     | '/direitos'
@@ -381,6 +404,7 @@ export interface FileRouteTypes {
     | '/historico'
     | '/investigacoes'
     | '/metodo'
+    | '/monitor'
     | '/na-voz-delas'
     | '/partidos'
     | '/quem-chega'
@@ -406,6 +430,7 @@ export interface RootRouteChildren {
   BarreirasRoute: typeof BarreirasRoute
   BuscaRoute: typeof BuscaRoute
   ComoVotaramRoute: typeof ComoVotaramRoute
+  CompararRoute: typeof CompararRoute
   CondicoesRoute: typeof CondicoesRoute
   DinheiroRoute: typeof DinheiroRoute
   DireitosRoute: typeof DireitosRoute
@@ -415,6 +440,7 @@ export interface RootRouteChildren {
   HistoricoRoute: typeof HistoricoRoute
   InvestigacoesRoute: typeof InvestigacoesRoute
   MetodoRoute: typeof MetodoRoute
+  MonitorRoute: typeof MonitorRoute
   NaVozDelasRoute: typeof NaVozDelasRoute
   PartidosRoute: typeof PartidosRoute
   QuemChegaRoute: typeof QuemChegaRoute
@@ -469,6 +495,13 @@ declare module '@tanstack/react-router' {
       path: '/como-votaram'
       fullPath: '/como-votaram'
       preLoaderRoute: typeof ComoVotaramRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comparar': {
+      id: '/comparar'
+      path: '/comparar'
+      fullPath: '/comparar'
+      preLoaderRoute: typeof CompararRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/condicoes': {
@@ -532,6 +565,13 @@ declare module '@tanstack/react-router' {
       path: '/metodo'
       fullPath: '/metodo'
       preLoaderRoute: typeof MetodoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/monitor': {
+      id: '/monitor'
+      path: '/monitor'
+      fullPath: '/monitor'
+      preLoaderRoute: typeof MonitorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/na-voz-delas': {
@@ -662,6 +702,7 @@ const rootRouteChildren: RootRouteChildren = {
   BarreirasRoute: BarreirasRoute,
   BuscaRoute: BuscaRoute,
   ComoVotaramRoute: ComoVotaramRoute,
+  CompararRoute: CompararRoute,
   CondicoesRoute: CondicoesRoute,
   DinheiroRoute: DinheiroRoute,
   DireitosRoute: DireitosRoute,
@@ -671,6 +712,7 @@ const rootRouteChildren: RootRouteChildren = {
   HistoricoRoute: HistoricoRoute,
   InvestigacoesRoute: InvestigacoesRoute,
   MetodoRoute: MetodoRoute,
+  MonitorRoute: MonitorRoute,
   NaVozDelasRoute: NaVozDelasRoute,
   PartidosRoute: PartidosRoute,
   QuemChegaRoute: QuemChegaRoute,
