@@ -432,7 +432,7 @@ function MoneyReelectionChart() {
         fonte:
           "Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2026 e Prestação de Contas 2026",
         limitacao:
-          "Contas em andamento: parte das candidaturas só entregou a prestação parcial (receita até 08/09). Sem elas, o padrão se mantém. Mostra associação: quem já era forte pode ter atraído mais dinheiro.",
+          "Prestação final do 1º turno (base de 04/11/2026): das 472 pessoas, 467 entregaram a prestação final. Mostra associação: quem já era forte pode ter atraído mais dinheiro.",
       }}
     >
       <div className="space-y-6">
@@ -1009,7 +1009,7 @@ function ComoVotaramPage() {
         limites={[
           "A seleção das votações é escolha editorial; o critério está publicado acima e foi fixado antes do cruzamento com 2026.",
           "O cruzamento com a reeleição descreve. Não mede efeito do voto nem do dinheiro sobre a eleição.",
-          "Receita da prestação de contas em andamento (27/10/2026); a prestação final do 1º turno vence em 3/11.",
+          "Receita da prestação final do 1º turno (base de 04/11/2026); a fotografia anterior, de 27/10, está no histórico do repositório.",
           "Orientação oficial de bloco fica fora: a composição histórica dos blocos não está disponível na API.",
         ]}
       />

@@ -63,7 +63,7 @@ export const UNIVERSE_SHORT: Record<UniverseId, string> = {
 export const FINANCE_AVAILABILITY = {
   checkedAt: "2026-10-28",
   verdict:
-    "A prestação de contas eleitorais de 2026 já existe, em base ainda em andamento (27/10/2026). Receita por candidatura está publicada em /dinheiro desde 24/09 e foi atualizada em 27/10, por gênero, cor/raça, cargo, partido e UF. Despesas contratadas, despesas pagas e doador originário estão publicados em /dinheiro desde 28/10.",
+    "A prestação de contas eleitorais de 2026 já tem a prestação final do 1º turno (base de 04/11/2026). Receita por candidatura está publicada em /dinheiro desde 24/09 e foi atualizada em 27/10 e em 04/11, por gênero, cor/raça, cargo, partido e UF. Despesas contratadas, despesas pagas e doador originário estão publicados em /dinheiro desde 28/10.",
   checked: [
     {
       id: "contas-eleitorais-2026",

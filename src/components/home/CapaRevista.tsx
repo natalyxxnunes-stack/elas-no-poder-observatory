@@ -154,12 +154,12 @@ export function CapaChamadas() {
             <Secao nome="Dinheiro" pequeno claro />
             <h3 className="mt-2 font-display text-xl font-semibold leading-snug text-cream">
               <Link to="/dinheiro" className="hover:underline hover:underline-offset-4">
-                Mediana da candidata a deputada: branca, R$ 144 mil; parda, R$ 98 mil; preta, R$ 79
+                Mediana da candidata a deputada: branca, R$ 151 mil; parda, R$ 100 mil; preta, R$ 81
                 mil
               </Link>
             </h3>
             <p className="mt-2 text-[14px] leading-relaxed text-cream/80">
-              Nos 12 partidos com mais receita. Receitas declaradas até 27/10.
+              Nos 12 partidos com mais receita. Prestação final do 1º turno, base de 04/11.
             </p>
           </article>
           <article className="bg-cream p-5">

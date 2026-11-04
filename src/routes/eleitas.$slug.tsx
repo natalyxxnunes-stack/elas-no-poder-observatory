@@ -110,7 +110,7 @@ function EleitaPage() {
         </dl>
         <p className="mt-3 font-mono text-[13px] text-muted-foreground">
           TSE, Candidatos 2026, base de {ELEITAS_META.baseGeneratedAt}
-          {receita !== null ? " · receita: prestação de contas até 27/10/2026, contas em andamento" : ""}
+          {receita !== null ? " · receita: prestação final do 1º turno, base de 04/11/2026" : ""}
         </p>
       </section>
 

@@ -143,7 +143,7 @@ export const AXES: readonly Axis[] = [
     publication: "published",
     status: "publicado",
     statusNote:
-      "Receitas declaradas na prestação de contas em andamento, base de 27/10/2026; os valores ainda mudam até a prestação final, que vence em 3/11.",
+      "Receitas declaradas na prestação final do 1º turno, base de 04/11/2026; a prestação do 2º turno entra depois.",
     group: "investigacao",
   },
   {
