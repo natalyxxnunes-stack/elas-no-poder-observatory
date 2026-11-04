@@ -34,3 +34,7 @@ dist-ssr
 
 # pacotes da HostGator ficam fora do repositório (gerados por build:hostgator)
 *.zip
+
+# cache do Python
+__pycache__/
+*.pyc
