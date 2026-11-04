@@ -186,6 +186,14 @@ export type Correcao = {
 export const CORRECOES: readonly Correcao[] = [
   {
     data: "04/11/2026",
+    pagina: "Pioneiras: Lélia Gonzalez e Quem assina junto",
+    to: "/metodo#hipoteses",
+    tipo: "apuração",
+    oQueMudou:
+      "Duas hipóteses testadas. A da posição na lista (registrada em 30/10) não se confirmou em 2026, com regra fixada antes de rodar e publicada no repositório. A da autoria solo em ano eleitoral (registrada em 04/11) ficou inconclusiva: a comparação com 2023 vai na direção prevista, mas não separa ano eleitoral de fim de legislatura.",
+  },
+  {
+    data: "04/11/2026",
     pagina: "Dinheiro, Partido por partido, No plenário e Achados",
     to: "/dinheiro",
     tipo: "dado",

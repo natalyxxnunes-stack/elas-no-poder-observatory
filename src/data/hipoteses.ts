@@ -78,19 +78,22 @@ export const HIPOTESES: readonly Hipotese[] = [
   {
     id: "lelia-lista",
     registradaEm: "30/10/2026",
-    status: "aberta",
+    status: "nao-confirmada",
     texto: "A posição de uma mulher negra dentro da lista do partido pode pesar tanto quanto o total de votos que ela recebe.",
-    teste: "Comparar a posição de candidatas e candidatos negros nas listas das grandes legendas em 2026.",
-    testavel: "Já testável: o arquivo de 2026 registra cor/raça e votação de cada candidatura.",
+    teste:
+      "Regra fixada em 04/11/2026, antes de rodar: entre as candidaturas a deputado de 2026 com votos iguais ou acima da eleita menos votada da mesma disputa, comparar quantas ficaram de fora em cada grupo. Confirmaria se pretas e pardas ficassem de fora 5 pontos ou mais acima dos homens brancos.",
     onde: { pagina: "Pioneiras: Lélia Gonzalez", to: "/pioneiras/lelia-gonzalez" },
+    desfecho:
+      "Testada em 04/11/2026: não confirmada. Com votos de eleita, ficaram de fora 26,7% dos homens brancos (320 de 1.199), 29,5% das mulheres pardas (28 de 95) e 12,8% das pretas (6 de 47). A diferença das pardas fica abaixo de 5 pontos, e as pretas ficaram de fora menos que os homens brancos. Em 2026, a barreira apareceu antes, no voto: chegaram a votos de eleita 4,1% das candidatas pretas (47 de 1.152) e 4,2% das pardas (95 de 2.266), contra 19,3% dos homens brancos (1.199 de 6.220), contando só candidaturas com votação válida.",
   },
   {
     id: "coautoria-ano-eleitoral",
     registradaEm: "04/11/2026",
-    status: "aberta",
+    status: "inconclusiva",
     texto: "Em ano eleitoral, assinar projeto sozinha rende mais visibilidade individual do que dividir a autoria.",
-    teste: "Comparar com 2023, ano sem eleição, com a mesma regra de contagem.",
-    testavel: "Já testável: os dados abertos da Câmara cobrem 2023.",
+    teste: "Comparar com 2023, ano sem eleição, com a mesma regra de contagem e a mesma janela (1º/01 a 03/11).",
     onde: { pagina: "Quem assina junto", to: "/coautoria" },
+    desfecho:
+      "Testada em 04/11/2026: inconclusiva. A autoria solo subiu de 75,0% dos projetos com deputada autora em 2023 (802 de 1.070) para 83,7% em 2026 (917 de 1.095), na direção da hipótese. Mas 2023 foi o primeiro ano da legislatura e 2026 é o último, então a comparação não separa ano eleitoral de fim de mandato, e não mede visibilidade. Próximo teste: 2022 (eleição, fim da legislatura anterior) contra 2019 a 2021.",
   },
 ];

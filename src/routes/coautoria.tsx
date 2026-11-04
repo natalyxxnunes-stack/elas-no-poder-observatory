@@ -180,9 +180,17 @@ function CoautoriaPage() {
           que, na hora de assinar projeto, as deputadas trabalharam sobretudo sozinhas em 2026; ele não mede a articulação que
           acontece por outros caminhos.
         </Registro>
-        <Registro tipo="hipotese" registradaEm="04/11/2026" status="aberta">
-          Em ano eleitoral, assinar sozinha rende mais visibilidade individual do que dividir autoria. Para testar: comparar com
-          2023, ano sem eleição, com a mesma regra.
+        <Registro tipo="hipotese" registradaEm="04/11/2026" status="inconclusiva">
+          <p>Em ano eleitoral, assinar sozinha rende mais visibilidade individual do que dividir autoria.</p>
+          <p className="mt-2 text-[15px] text-ink/85">
+            <strong>Testada em 04/11/2026, com a mesma regra em 2023: inconclusiva.</strong> A autoria solo foi de 75,0% dos
+            projetos em 2023 para 83,7% em 2026, na direção da hipótese. Mas 2023 abriu a legislatura e 2026 a fecha, então a
+            conta não separa ano eleitoral de fim de mandato.{" "}
+            <a href="/metodo#hipoteses" className="underline decoration-plum underline-offset-4">
+              O próximo teste
+            </a>
+            .
+          </p>
         </Registro>
       </section>
 

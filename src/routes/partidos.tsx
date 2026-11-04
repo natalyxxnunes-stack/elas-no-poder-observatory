@@ -525,7 +525,7 @@ function PartidosPage() {
         <GapNote label="Lacuna declarada">
           Partidos mudam de nome, se fundem e trocam de membros entre 2023 e 2026: o voto vale com a
           sigla da data, e as eleitas, com a sigla do registro em 2026. A comparação entre tabelas é
-          por sigla, não por pessoa. O fundo ainda vai mudar com a prestação final do 1º turno.
+          por sigla, não por pessoa. O fundo usa a prestação final do 1º turno; algumas candidaturas ainda não entregaram a conta final.
         </GapNote>
       </div>
 
@@ -541,7 +541,7 @@ function PartidosPage() {
           </>
         }
         limites={[
-          "A prestação de contas do 1º turno ainda está aberta; a tabela do fundo será refeita com a prestação final.",
+          "O fundo usa a prestação final do 1º turno (base do TSE de 04/11/2026); 343 candidaturas ainda tinham só a prestação parcial e entram com o valor declarado até então.",
           "O voto em plenário usa a sigla da data do voto; as eleitas, a sigla do registro em 2026.",
           "Cor/raça é autodeclarada ao TSE; o arquivo não registra identidade trans ou travesti.",
         ]}

@@ -77,16 +77,18 @@ def main(zip_path, cand_path):
             k = (uf, cargo)
             piso[k] = min(piso.get(k, 10**12), votos[sq])
 
+    total_grupo = Counter()
     com_voto = defaultdict(lambda: [0, 0])  # grupo -> [com votos de eleita, ficaram de fora]
     for sq, (uf, cargo, genero, raca, eleito) in cand.items():
         g = grupo(genero, raca)
         if not g or (uf, cargo) not in piso:
             continue
+        total_grupo[g] += 1  # descritivo: candidaturas do grupo no universo do teste
         if votos[sq] >= piso[(uf, cargo)]:
             com_voto[g][0] += 1
             com_voto[g][1] += not eleito
 
-    res = {g: {"comVotosDeEleita": a, "deFora": b, "pctDeFora": round(100 * b / a, 1) if a else None} for g, (a, b) in sorted(com_voto.items())}
+    res = {g: {"candidaturas": total_grupo[g], "comVotosDeEleita": a, "deFora": b, "pctDeFora": round(100 * b / a, 1) if a else None} for g, (a, b) in sorted(com_voto.items())}
     hb = res.get("homens brancos", {}).get("pctDeFora")
     pr, pa = res.get("mulheres pretas", {}), res.get("mulheres pardas", {})
     if min(pr.get("comVotosDeEleita", 0), pa.get("comVotosDeEleita", 0), res.get("homens brancos", {}).get("comVotosDeEleita", 0)) < MIN_N:

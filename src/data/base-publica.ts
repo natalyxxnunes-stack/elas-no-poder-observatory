@@ -167,15 +167,15 @@ export const BASE_PUBLICA: readonly ArquivoBase[] = [
   "arquivo": "fundo-eleitoral-deputado-por-partido.csv",
   "titulo": "Fundo eleitoral a deputado, por partido",
   "descricao": "Fundo Especial de Financiamento de Campanha que chegou às candidaturas a deputado de cada partido, por gênero e cor/raça, em reais.",
-  "fonte": "TSE, Prestação de Contas 2026, base de 27/10/2026 (SHA-256 4f149814d233df23e76aab22025778bbf233119f1912e4e13ceca9345bbfa588)",
-  "linhas": 324,
+  "fonte": "TSE, Prestação de Contas 2026, base de 04/11/2026 (SHA-256 8695ae1e66a5d4f60bb26ecac5cee70ff4c2a892f19b7292026c13cc6c378e27)",
+  "linhas": 336,
   "colunas": [
    "partido",
    "grupo",
    "candidaturas",
    "fefc_reais"
   ],
-  "bytes": 11087,
-  "sha256": "694a9b258300d4423f6e56325825697c7cce58f232f298900dcbc7f9a19435f3"
+  "bytes": 11451,
+  "sha256": "656233808526e1dab1b72f0b791a6fdcc498d0ce900d377e22ac3710caade098"
  }
 ];

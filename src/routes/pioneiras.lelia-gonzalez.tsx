@@ -260,11 +260,19 @@ function LeliaPage() {
               elege pouca gente, quem lidera leva a cadeira com bem menos votos.
             </p>
           </Registro>
-          <Registro tipo="hipotese" registradaEm="30/10/2026" status="aberta">
+          <Registro tipo="hipotese" registradaEm="30/10/2026" status="nao-confirmada">
             <p className="text-[17px] leading-relaxed text-ink">
               A posição de uma mulher negra dentro da lista do partido pode pesar tanto quanto o total
-              de votos que ela recebe. Para testar, falta comparar a posição de candidatas e
-              candidatos negros nas listas das grandes legendas em 2026, que já registram cor/raça.
+              de votos que ela recebe.
+            </p>
+            <p className="mt-3 text-[15px] leading-relaxed text-ink/85">
+              <strong>Testada em 04/11/2026, com regra fixada antes: não confirmada para 2026.</strong> Entre as
+              candidaturas a deputado com votos de eleita, ficaram de fora 26,7% dos homens brancos, 29,5% das
+              mulheres pardas e 12,8% das pretas. A barreira apareceu antes, no voto: só 4,1% das candidatas pretas e 4,2% das pardas chegaram a votos de eleita, contra 19,3% dos homens brancos.{" "}
+              <a href="/metodo#hipoteses" className="underline decoration-plum underline-offset-4">
+                A regra e os números
+              </a>
+              .
             </p>
           </Registro>
         </div>

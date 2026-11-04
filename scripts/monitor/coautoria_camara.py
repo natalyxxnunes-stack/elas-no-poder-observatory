@@ -5,7 +5,7 @@ proposição junto com quem. Cada ligação é um documento público (a lista de
 autores da proposição na Câmara). Gera src/data/coautoria-camara.ts.
 
 Uso:
-    python3 -I scripts/monitor/coautoria_camara.py AAAA-MM-DD AAAA-MM-DD pasta_cache
+    python3 -I scripts/monitor/coautoria_camara.py AAAA-MM-DD AAAA-MM-DD pasta_cache [arquivo_saida]
 
 Regras:
 - universo de proposições: PL, PLP, PEC e PDL apresentados no período com ao
@@ -70,7 +70,7 @@ def pag(cache, path, params):
         p += 1
 
 
-def main(ini, fim, cache):
+def main(ini, fim, cache, out="src/data/coautoria-camara.ts"):
     fem = {x["id"]: x for x in pag(cache, "deputados", {"siglaSexo": "F", "dataInicio": ini, "dataFim": fim})}
     hoje = {x["id"]: x for x in pag(cache, "deputados", {"siglaSexo": "F"})}
     props = {}
@@ -152,7 +152,7 @@ def main(ini, fim, cache):
         "ligacoesAte20EntrePartidos": sum(1 for e in arestas if e["pesoAte20"] and e["entrePartidos"]),
         "deputadas": len(nos),
     }
-    with open("src/data/coautoria-camara.ts", "w", encoding="utf8") as f:
+    with open(out, "w", encoding="utf8") as f:
         f.write(
             "/**\n * coautoria-camara — quem assina proposição junto com quem, entre as\n"
             " * deputadas federais, pelos dados abertos da Câmara. GERADO por\n"
@@ -169,4 +169,4 @@ def main(ini, fim, cache):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3])
+    main(*sys.argv[1:5])
