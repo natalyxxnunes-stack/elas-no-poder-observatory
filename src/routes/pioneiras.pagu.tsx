@@ -10,6 +10,8 @@ import {
   FichaVotacao,
   PerfilHero,
   PerfilNav,
+  PerfilSumario,
+  Lide,
 } from "@/components/editorial/Pioneiras";
 import { ANCORAS_PIONEIRAS, SP_1950 } from "@/data/perfis-pioneiras";
 import { formatInt, formatPct } from "@/lib/format-br";
@@ -74,6 +76,98 @@ function PaguPage() {
         quemFoi="Escritora, jornalista e militante, foi presa pela primeira vez aos 21 anos, num comício em Santos. Vinte anos depois, tentou uma vaga na Assembleia de São Paulo."
         ancora={ANCORAS_PIONEIRAS["pagu"]!}
       />
+
+      <PerfilSumario
+        itens={[
+          { id: "quem-foi", rotulo: "Quem foi" },
+          { id: "eleicao-1950", rotulo: "A eleição de 1950" },
+          { id: "reputacao", rotulo: "O que o documento mostra" },
+        ]}
+      />
+
+      <SectionBlock id="quem-foi" kicker="Quem foi" question="Da antropofagia à Assembleia">
+        <Lide>
+          Patrícia Rehder Galvão nasceu em 9 de junho de 1910, em São João da Boa Vista (SP), e morreu
+          em 12 de dezembro de 1962, em Santos, de câncer, aos 52 anos. Começou a escrever em jornais
+          ainda adolescente. Em 1928, Raul Bopp a apresentou a Tarsila do Amaral e a Oswald de Andrade,
+          e foi ele quem lhe deu o apelido. Publicou desenhos na <em>Revista de Antropofagia</em>. Em
+          1930, casou-se com Oswald, com quem teve o filho Rudá.
+        </Lide>
+        <LinhaDoTempo
+          itens={[
+            {
+              ano: "1931",
+              titulo: "O partido e o jornal",
+              texto: (
+                <>
+                  Entrou para o Partido Comunista entre 1930 e 1931 (as fontes divergem sobre o ano).
+                  Com Oswald, editou <em>O Homem do Povo</em>, que durou oito números, e assinou nele a
+                  coluna “A Mulher do Povo”, em que criticava os modelos de mulher da sociedade em que
+                  vivia.
+                </>
+              ),
+            },
+            {
+              ano: "1931",
+              titulo: "A primeira prisão",
+              texto:
+                "Em 23 de agosto, a polícia ocupou o centro de Santos para impedir um comício em memória de Sacco e Vanzetti, convocado pelo Socorro Vermelho e pela federação sindical da cidade, em meio às greves dos estivadores. Na Praça da República, o ensacador de café Herculano de Souza, militante comunista e negro, foi baleado pela polícia e morreu. Pagu, que tentava socorrê-lo, foi presa, junto com a militante Guiomar Gonçalves. Ficou detida na cadeia da Praça dos Andradas, onde hoje funciona um centro cultural com o nome dela.",
+            },
+            {
+              ano: "1933",
+              titulo: "O livro",
+              texto: (
+                <>
+                  Publicou <em>Parque Industrial</em>, em edição própria e com o pseudônimo de Mara
+                  Lobo. O romance acompanha operárias do Brás, em São Paulo, e costuma ser apontado como
+                  o primeiro romance proletário brasileiro.
+                </>
+              ),
+            },
+            {
+              ano: "1934",
+              titulo: "A viagem e a volta",
+              texto:
+                "Entre 1933 e 1934, viajou por Estados Unidos, Japão, China, Manchúria e União Soviética, e depois pela Europa. Em Paris, foi presa como comunista estrangeira e mandada de volta ao Brasil.",
+            },
+            {
+              ano: "1935",
+              titulo: "Cinco anos de prisão",
+              texto:
+                "Na repressão que se seguiu ao levante comunista de novembro de 1935, foi presa de novo e torturada pela polícia de Getúlio Vargas. Saiu em 1940, com 44 quilos.",
+            },
+            {
+              ano: "1940",
+              titulo: "A ruptura",
+              texto: (
+                <>
+                  Rompeu com o Partido Comunista e se aproximou do trotskismo. Casou-se com o jornalista
+                  Geraldo Ferraz e passou a escrever na <em>Vanguarda Socialista</em>, jornal de Mário
+                  Pedrosa. Em 1945, publicou com Ferraz o romance <em>A Famosa Revista</em>.
+                </>
+              ),
+            },
+            {
+              ano: "1950",
+              titulo: "A candidatura",
+              texto: `Disputou uma vaga na Assembleia de São Paulo pelo PSB e teve ${n(d.pagu.votos)} votos. A votação está na seção seguinte, A eleição de 1950.`,
+            },
+            {
+              ano: "1956",
+              titulo: "Jornal e teatro em Santos",
+              texto: (
+                <>
+                  Nos últimos anos, viveu entre São Vicente e Santos. Escreveu no jornal{" "}
+                  <em>A Tribuna</em>, onde assinou com o pseudônimo Gim uma das primeiras colunas de
+                  televisão do país. Coordenou o Teatro Universitário Santista a partir de 1956 e dirigiu{" "}
+                  <em>Fando e Lis</em>, de Arrabal. Ajudou a fundar a associação de jornalistas e a união
+                  do teatro amador da cidade.
+                </>
+              ),
+            },
+          ]}
+        />
+      </SectionBlock>
 
       <SectionBlock
         id="eleicao-1950"
@@ -163,90 +257,6 @@ function PaguPage() {
             </p>
           </Registro>
         </div>
-      </SectionBlock>
-
-      <SectionBlock id="quem-foi" kicker="Quem foi" question="Da antropofagia à Assembleia">
-        <p className="mb-10 max-w-3xl text-lg leading-relaxed text-ink">
-          Patrícia Rehder Galvão nasceu em 9 de junho de 1910, em São João da Boa Vista (SP), e morreu
-          em 12 de dezembro de 1962, em Santos, de câncer, aos 52 anos. Começou a escrever em jornais
-          ainda adolescente. Em 1928, Raul Bopp a apresentou a Tarsila do Amaral e a Oswald de Andrade,
-          e foi ele quem lhe deu o apelido. Publicou desenhos na <em>Revista de Antropofagia</em>. Em
-          1930, casou-se com Oswald, com quem teve o filho Rudá.
-        </p>
-        <LinhaDoTempo
-          itens={[
-            {
-              ano: "1931",
-              titulo: "O partido e o jornal",
-              texto: (
-                <>
-                  Entrou para o Partido Comunista entre 1930 e 1931 (as fontes divergem sobre o ano).
-                  Com Oswald, editou <em>O Homem do Povo</em>, que durou oito números, e assinou nele a
-                  coluna “A Mulher do Povo”, em que criticava os modelos de mulher da sociedade em que
-                  vivia.
-                </>
-              ),
-            },
-            {
-              ano: "1931",
-              titulo: "A primeira prisão",
-              texto:
-                "Em 23 de agosto, a polícia ocupou o centro de Santos para impedir um comício em memória de Sacco e Vanzetti, convocado pelo Socorro Vermelho e pela federação sindical da cidade, em meio às greves dos estivadores. Na Praça da República, o ensacador de café Herculano de Souza, militante comunista e negro, foi baleado pela polícia e morreu. Pagu, que tentava socorrê-lo, foi presa, junto com a militante Guiomar Gonçalves. Ficou detida na cadeia da Praça dos Andradas, onde hoje funciona um centro cultural com o nome dela.",
-            },
-            {
-              ano: "1933",
-              titulo: "O livro",
-              texto: (
-                <>
-                  Publicou <em>Parque Industrial</em>, em edição própria e com o pseudônimo de Mara
-                  Lobo. O romance acompanha operárias do Brás, em São Paulo, e costuma ser apontado como
-                  o primeiro romance proletário brasileiro.
-                </>
-              ),
-            },
-            {
-              ano: "1934",
-              titulo: "A viagem e a volta",
-              texto:
-                "Entre 1933 e 1934, viajou por Estados Unidos, Japão, China, Manchúria e União Soviética, e depois pela Europa. Em Paris, foi presa como comunista estrangeira e mandada de volta ao Brasil.",
-            },
-            {
-              ano: "1935",
-              titulo: "Cinco anos de prisão",
-              texto:
-                "Na repressão que se seguiu ao levante comunista de novembro de 1935, foi presa de novo e torturada pela polícia de Getúlio Vargas. Saiu em 1940, com 44 quilos.",
-            },
-            {
-              ano: "1940",
-              titulo: "A ruptura",
-              texto: (
-                <>
-                  Rompeu com o Partido Comunista e se aproximou do trotskismo. Casou-se com o jornalista
-                  Geraldo Ferraz e passou a escrever na <em>Vanguarda Socialista</em>, jornal de Mário
-                  Pedrosa. Em 1945, publicou com Ferraz o romance <em>A Famosa Revista</em>.
-                </>
-              ),
-            },
-            {
-              ano: "1950",
-              titulo: "A candidatura",
-              texto: `Disputou uma vaga na Assembleia de São Paulo pelo PSB e teve ${n(d.pagu.votos)} votos. Os números estão no topo desta página.`,
-            },
-            {
-              ano: "1956",
-              titulo: "Jornal e teatro em Santos",
-              texto: (
-                <>
-                  Nos últimos anos, viveu entre São Vicente e Santos. Escreveu no jornal{" "}
-                  <em>A Tribuna</em>, onde assinou com o pseudônimo Gim uma das primeiras colunas de
-                  televisão do país. Coordenou o Teatro Universitário Santista a partir de 1956 e dirigiu{" "}
-                  <em>Fando e Lis</em>, de Arrabal. Ajudou a fundar a associação de jornalistas e a união
-                  do teatro amador da cidade.
-                </>
-              ),
-            },
-          ]}
-        />
       </SectionBlock>
 
       <SectionBlock

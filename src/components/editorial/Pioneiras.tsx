@@ -254,3 +254,36 @@ export function FichaVotacao({
     </figure>
   );
 }
+
+
+/**
+ * Molde de perfil (Pioneiras), em ordem de revista: 1) abre pela pessoa
+ * (PerfilHero + Lide), 2) a trajetória, 3) o dado eleitoral, 4) o que é
+ * reputação e o que o documento mostra, 5) fontes. PerfilSumario mostra essa
+ * ordem logo abaixo da abertura.
+ */
+export function PerfilSumario({ itens }: { itens: { id: string; rotulo: string }[] }) {
+  return (
+    <nav aria-label="Neste perfil" className="border-b border-rule py-4">
+      <ol className="flex flex-wrap gap-x-6 gap-y-1 text-[15px]">
+        {itens.map((i, k) => (
+          <li key={i.id}>
+            <a href={`#${i.id}`} className="inline-flex min-h-11 items-center gap-2 text-ink hover:text-plum">
+              <span className="font-display text-lg italic text-plum">{String(k + 1).padStart(2, "0")}</span>
+              {i.rotulo}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
+
+/** primeiro parágrafo do perfil, com capitular, como abertura de matéria de revista */
+export function Lide({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="mb-10 max-w-3xl text-xl leading-relaxed text-ink first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:font-display first-letter:text-7xl first-letter:leading-[0.8] first-letter:text-plum">
+      {children}
+    </p>
+  );
+}

@@ -4,7 +4,7 @@ import { PageShell } from "@/components/PageShell";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { FichaGrafico } from "@/components/editorial/ChartFrame";
-import { Conferencia, FichaVotacao, LinhaDoTempo, PerfilHero, PerfilNav } from "@/components/editorial/Pioneiras";
+import { Conferencia, FichaVotacao, Lide, LinhaDoTempo, PerfilHero, PerfilNav, PerfilSumario } from "@/components/editorial/Pioneiras";
 import { ANCORAS_PIONEIRAS, RJ_1982, RJ_1986 } from "@/data/perfis-pioneiras";
 import { formatInt } from "@/lib/format-br";
 
@@ -84,6 +84,91 @@ function LeliaPage() {
         quemFoi="Filósofa, antropóloga e uma das fundadoras do Movimento Negro Unificado. Disputou duas eleições no Rio de Janeiro e ficou suplente nas duas."
         ancora={ANCORAS_PIONEIRAS["lelia-gonzalez"]!}
       />
+
+      <PerfilSumario
+        itens={[
+          { id: "quem-foi", rotulo: "Quem foi" },
+          { id: "eleicoes", rotulo: "As eleições" },
+          { id: "reputacao", rotulo: "O que o documento mostra" },
+        ]}
+      />
+
+      <SectionBlock id="quem-foi" kicker="Quem foi" question="De Belo Horizonte à Constituinte">
+        <Lide>
+          Lélia de Almeida nasceu em Belo Horizonte, em 1935, penúltima de 18 irmãos. O pai, Accacio,
+          era ferroviário e negro; a mãe, Orcinda, empregada doméstica de origem indígena. A família se
+          mudou para o Rio em 1942. Lélia trabalhou como babá ainda menina e estudou no Colégio Pedro
+          II. Formou-se em História e Geografia e depois em Filosofia na Universidade do Estado da
+          Guanabara, hoje Uerj, e fez mestrado em Comunicação e doutorado em Antropologia. Em 1964,
+          casou-se com o colega de faculdade Luiz Carlos Gonzalez, de quem ficou com o sobrenome.
+        </Lide>
+        <LinhaDoTempo
+          itens={[
+            {
+              ano: "1976",
+              titulo: "Cultura negra como objeto de estudo",
+              texto:
+                "Ajudou a criar o Instituto de Pesquisas das Culturas Negras (IPCN), no Rio, e deu no Parque Lage um dos primeiros cursos de cultura negra do país.",
+            },
+            {
+              ano: "1978",
+              titulo: "MNU e PUC-Rio",
+              texto:
+                "Esteve na fundação do Movimento Negro Unificado. No mesmo ano começou a dar aulas na PUC-Rio, onde ensinou Antropologia e Cultura Popular Brasileira até morrer e chefiou o departamento de Sociologia e Política.",
+            },
+            {
+              ano: "1980",
+              titulo: "Racismo e sexismo",
+              texto:
+                "Em outubro, apresentou num encontro da Anpocs o texto “Racismo e sexismo na cultura brasileira”, em que mostra como raça e gênero se combinam na vida das mulheres negras.",
+            },
+            {
+              ano: "1982",
+              titulo: "Lugar de negro e a primeira candidatura",
+              texto: (
+                <>
+                  Publicou com o sociólogo Carlos Hasenbalg o livro <em>Lugar de negro</em>. Disputou
+                  uma vaga de deputada federal pelo PT e teve {n(a.lelia.votos)} votos.
+                </>
+              ),
+            },
+            {
+              ano: "1983",
+              titulo: "Nzinga",
+              texto: "Fundou o Nzinga, Coletivo de Mulheres Negras.",
+            },
+            {
+              ano: "1985",
+              titulo: "O Estado",
+              texto:
+                "Integrou o primeiro Conselho Nacional dos Direitos da Mulher e trabalhou com o movimento de mulheres junto à Assembleia Constituinte de 1987 e 1988.",
+            },
+            {
+              ano: "1986",
+              titulo: "A segunda candidatura",
+              texto: `Disputou uma vaga de deputada estadual pelo PDT e teve ${n(b.lelia.votos)} votos. As duas votações estão na seção seguinte, As eleições.`,
+            },
+            {
+              ano: "1988",
+              titulo: "Amefricanidade",
+              texto:
+                "Formulou a categoria de amefricanidade, para nomear a experiência comum dos povos negros e indígenas nas Américas.",
+            },
+            {
+              ano: "1994",
+              titulo: "Morte e obra reunida",
+              texto: (
+                <>
+                  Morreu no Rio de Janeiro em 10 de julho, aos 59 anos, de problemas
+                  cardiorrespiratórios. Seus textos foram reunidos depois, e o livro{" "}
+                  <em>Por um feminismo afro-latino-americano</em>, de 2020, levou sua obra a um público
+                  novo.
+                </>
+              ),
+            },
+          ]}
+        />
+      </SectionBlock>
 
       <SectionBlock
         id="eleicoes"
@@ -183,83 +268,6 @@ function LeliaPage() {
             </p>
           </Registro>
         </div>
-      </SectionBlock>
-
-      <SectionBlock id="quem-foi" kicker="Quem foi" question="De Belo Horizonte à Constituinte">
-        <p className="mb-10 max-w-3xl text-lg leading-relaxed text-ink">
-          Lélia de Almeida nasceu em Belo Horizonte, em 1935, penúltima de 18 irmãos. O pai, Accacio,
-          era ferroviário e negro; a mãe, Orcinda, empregada doméstica de origem indígena. A família se
-          mudou para o Rio em 1942. Lélia trabalhou como babá ainda menina e estudou no Colégio Pedro
-          II. Formou-se em História e Geografia e depois em Filosofia na Universidade do Estado da
-          Guanabara, hoje Uerj, e fez mestrado em Comunicação e doutorado em Antropologia. Em 1964,
-          casou-se com o colega de faculdade Luiz Carlos Gonzalez, de quem ficou com o sobrenome.
-        </p>
-        <LinhaDoTempo
-          itens={[
-            {
-              ano: "1976",
-              titulo: "Cultura negra como objeto de estudo",
-              texto:
-                "Ajudou a criar o Instituto de Pesquisas das Culturas Negras (IPCN), no Rio, e deu no Parque Lage um dos primeiros cursos de cultura negra do país.",
-            },
-            {
-              ano: "1978",
-              titulo: "MNU e PUC-Rio",
-              texto:
-                "Esteve na fundação do Movimento Negro Unificado. No mesmo ano começou a dar aulas na PUC-Rio, onde ensinou Antropologia e Cultura Popular Brasileira até morrer e chefiou o departamento de Sociologia e Política.",
-            },
-            {
-              ano: "1980",
-              titulo: "Racismo e sexismo",
-              texto:
-                "Em outubro, apresentou num encontro da Anpocs o texto “Racismo e sexismo na cultura brasileira”, em que mostra como raça e gênero se combinam na vida das mulheres negras.",
-            },
-            {
-              ano: "1982",
-              titulo: "Lugar de negro e a primeira candidatura",
-              texto: (
-                <>
-                  Publicou com o sociólogo Carlos Hasenbalg o livro <em>Lugar de negro</em>. Disputou
-                  uma vaga de deputada federal pelo PT e teve {n(a.lelia.votos)} votos.
-                </>
-              ),
-            },
-            {
-              ano: "1983",
-              titulo: "Nzinga",
-              texto: "Fundou o Nzinga, Coletivo de Mulheres Negras.",
-            },
-            {
-              ano: "1985",
-              titulo: "O Estado",
-              texto:
-                "Integrou o primeiro Conselho Nacional dos Direitos da Mulher e trabalhou com o movimento de mulheres junto à Assembleia Constituinte de 1987 e 1988.",
-            },
-            {
-              ano: "1986",
-              titulo: "A segunda candidatura",
-              texto: `Disputou uma vaga de deputada estadual pelo PDT e teve ${n(b.lelia.votos)} votos. Os números estão no topo desta página.`,
-            },
-            {
-              ano: "1988",
-              titulo: "Amefricanidade",
-              texto:
-                "Formulou a categoria de amefricanidade, para nomear a experiência comum dos povos negros e indígenas nas Américas.",
-            },
-            {
-              ano: "1994",
-              titulo: "Morte e obra reunida",
-              texto: (
-                <>
-                  Morreu no Rio de Janeiro em 10 de julho, aos 59 anos, de problemas
-                  cardiorrespiratórios. Seus textos foram reunidos depois, e o livro{" "}
-                  <em>Por um feminismo afro-latino-americano</em>, de 2020, levou sua obra a um público
-                  novo.
-                </>
-              ),
-            },
-          ]}
-        />
       </SectionBlock>
 
       <SectionBlock

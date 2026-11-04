@@ -1,3 +1,4 @@
+import { HIPOTESES } from "@/data/hipoteses";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Registro } from "@/components/editorial/Registro";
 import { buildSnapshotCsv } from "@/lib/tse/snapshot-csv";
@@ -132,6 +133,13 @@ const PLAIN_STEPS: { step: string; body: React.ReactNode }[] = [
     body: "Onde falta dado, aparece a lacuna, com o motivo e a fonte que ainda falta, sem número provisório.",
   },
 ];
+
+const STATUS_HIPOTESE: Record<string, string> = {
+  aberta: "ainda não testada",
+  confirmada: "confirmada",
+  "nao-confirmada": "não confirmada",
+  inconclusiva: "inconclusiva",
+};
 
 function MetodoPage() {
   const { snapshot, history } = Route.useLoaderData() as {
@@ -1183,6 +1191,41 @@ function MetodoPage() {
             </div>
           ))}
         </div>
+      </SectionBlock>
+
+      {/* Hipóteses */}
+      <SectionBlock
+        id="hipoteses"
+        kicker="Hipóteses"
+        question="O que ainda não sabemos, com data"
+        lead={
+          <p>
+            Toda hipótese do site, num lugar só. Cada uma aparece também na página onde nasceu. Quando for testada, o status
+            muda aqui e lá, com o desfecho e a data, e a mudança entra no registro de correções.
+          </p>
+        }
+      >
+        <ol className="max-w-4xl divide-y divide-rule border-y border-rule">
+          {HIPOTESES.map((h) => (
+            <li key={h.id} id={`h-${h.id}`} className="grid gap-2 py-4 sm:grid-cols-[9rem_1fr] sm:gap-6">
+              <p className="text-[13px] leading-snug text-ink/70">
+                <span className="block font-semibold text-ink">registrada em {h.registradaEm}</span>
+                {STATUS_HIPOTESE[h.status]}
+              </p>
+              <div>
+                <p className="font-display text-lg leading-snug text-ink">{h.texto}</p>
+                <p className="mt-1 text-[14px] leading-relaxed text-ink/80">
+                  <span className="font-semibold text-ink">Para testar:</span> {h.teste}
+                  {h.testavel ? ` ${h.testavel}` : ""}
+                </p>
+                {h.desfecho && <p className="mt-1 text-[14px] text-ink">Desfecho: {h.desfecho}</p>}
+                <a href={h.onde.to} className="mt-1 inline-flex min-h-11 items-center text-[14px] font-semibold text-plum underline underline-offset-4">
+                  Na página {h.onde.pagina}
+                </a>
+              </div>
+            </li>
+          ))}
+        </ol>
       </SectionBlock>
 
       {/* Dicionário */}
