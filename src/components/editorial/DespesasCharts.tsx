@@ -29,7 +29,7 @@ const fefcShare = (o: Record<string, number>) => {
   const t = sum(o);
   return t > 0 ? ((o[DESPESAS_META.fefcLabel] ?? 0) / t) * 100 : 0;
 };
-const FONTE = `Fonte: TSE, Prestação de Contas Eleitorais 2026 (despesas pagas, despesas contratadas e doador originário) e Candidatos 2026, base de ${DESPESAS_META.baseGeneratedAt}, contas em andamento. Recontagem independente.`;
+const FONTE = `Fonte: TSE, Prestação de Contas Eleitorais 2026 (despesas pagas, despesas contratadas e doador originário) e Candidatos 2026, base de ${DESPESAS_META.baseGeneratedAt}, prestação final do 1º turno. Recontagem independente.`;
 
 /** Quanto do que cada grupo pagou saiu do fundo eleitoral público. */
 export function FundoNoGasto() {
