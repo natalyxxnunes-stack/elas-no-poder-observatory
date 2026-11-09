@@ -9,17 +9,25 @@
  *  - só entram falas com `publicar: true` em falas.ts;
  *  - a foto só aparece quando estiver registrada em fotos.ts (licença e crédito);
  *  - números saem das mesmas variáveis das páginas de origem.
+ *
+ * 09/11/2026: a reportagem "Na voz delas" saiu da capa até chegarem as
+ * respostas aos pedidos de posicionamento (FALAS_PEDIDO_ENVIADO_EM, em
+ * falas.ts, ainda está vazio). A página /na-voz-delas segue no ar. Para
+ * voltar com ela, restaurar secao, titulo, linhaFina, to e falas
+ * ["zanatta-2023-03-07", "kicis-2025-07-08"] a partir do histórico do git.
+ * Sem falas, o bloco de citação da capa não aparece.
  */
+import { M_VOTOS } from "@/data/manchetes";
+
 export const CAPA_MANCHETE = {
-  secao: "Na voz delas",
-  tipo: "reportagem",
-  titulo:
-    "Elas separaram a bancada feminina do feminismo no plenário. As duas seguem no Congresso em 2027.",
+  secao: "Na urna",
+  tipo: "achados",
+  titulo: `${M_VOTOS.texto}.`,
   linhaFina:
-    "O que deputadas e eleitas disseram em público sobre feminismo, direitos e violência contra mulheres, com data, fonte primária e o dado oficial ao lado.",
-  to: "/na-voz-delas" as const,
+    "Da candidatura à cadeira, a fatia de mulheres na disputa pela Câmara encolhe a cada etapa. A conta sai dos arquivos do TSE de 2026, recontados candidatura por candidatura.",
+  to: "/votos" as const,
   /** foto documental registrada em fotos.ts; sem registro, a capa abre sem imagem */
   fotoId: "capa-manchete",
   /** a primeira fala é a citação grande; as demais entram menores */
-  falas: ["zanatta-2023-03-07", "kicis-2025-07-08"],
+  falas: [] as string[],
 };
