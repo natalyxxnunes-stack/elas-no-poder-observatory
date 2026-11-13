@@ -94,3 +94,31 @@ Totais: A 7, B 32, C 43, D 20. 82 discursos com recorte de gênero, de 27 deputa
 
 ### Títulos em discussão
 Ver resposta à editora em 13/11/2026.
+
+---
+
+## Rodada 3 (13/11/2026): como cada uma usa a palavra
+
+Régua fixada antes da leitura em `docs/regua-usos-violencia-politica-13-11-2026.md`. Leitura manual dos 166 discursos pós-lei (04/08/2021 a 13/11/2026), trecho de cerca de 700 caracteres em torno da expressão. Uma leitora só (Claude); falta a segunda leitura da editora numa amostra, para medir concordância. A planilha com a classificação por discurso fica fora do repositório público: rótulo de uso colado a nome é interpretação sobre pessoa nomeada e, pela regra de 13/11, pede posicionamento antes de publicar.
+
+Resultado: 160 discursos com recorte de gênero, de 48 deputadas; 6 sem recorte.
+
+| Partido na data | Discursos | Testemunho | Solidariedade | Institucional | Geral | Acusa adversário identificado | Acusada é mulher | Responde a crítica (inversão) |
+|---|---|---|---|---|---|---|---|---|
+| PT | 75 | 11 | 23 | 24 | 17 | 9 | 0 | 1 |
+| PSOL | 19 | 5 | 7 | 4 | 3 | 6 | 0 | 0 |
+| PCdoB | 9 | 0 | 4 | 4 | 1 | 0 | 0 | 0 |
+| PL | 20 | 5 | 3 | 10 | 2 | 7 | 3 | 3 |
+| Outros 10 partidos | 37 | 8 | 3 | 13 | 13 | 4 | 0 | 0 |
+
+Leituras (bases pequenas: contar, não percentualizar):
+- O PL tem dois usos que quase não se tocam. Soraya Santos, como procuradora da mulher, responde por 11 dos 20 discursos, todos institucionais ou gerais. Nos outros 9, de 7 deputadas, 7 acusam um adversário identificado.
+- Acusar adversário com a expressão é prática de vários partidos: PSOL 6 de 19, PT 9 de 75. Os alvos nesses partidos são homens, o governo Bolsonaro, a CPI do MST, milícias.
+- Dois usos aparecem só em discursos de deputadas do PL: apontar outra mulher como autora da violência (3 discursos, 2 deputadas, alvos Gleisi Hoffmann, ministras presentes numa audiência e Erika Hilton) e usar a expressão para responder a uma crítica feita contra a própria oradora (3 discursos). Fora do PL, um caso de resposta a crítica: deputada do PT que pede desculpas por um gesto e, no mesmo discurso, fala da violência que enfrenta.
+- Antes da lei (82 discursos com recorte de gênero), 4 acusam adversário identificado, todos de deputadas de PSOL e PT, e nenhum aponta mulher como autora nem usa a expressão para responder a crítica.
+- Hipótese de trabalho para a reportagem: a lei deu nome à violência e, com o nome, criou um recurso de disputa. Uma parte das deputadas passou a usar o nome também para se defender de críticas e para acusar outras mulheres. Precisa da segunda leitura, do discurso inteiro (não só do trecho) e de comparação com falas fora do plenário antes de virar achado.
+
+Cuidados de publicação:
+- Nenhuma deputada é rotulada pelo uso; a contagem é por discurso e agregada.
+- Falas citadas entram literais, com data e link para a taquigrafia.
+- O discurso de 12/06/2024 que ataca a identidade de Erika Hilton não é reproduzido.
