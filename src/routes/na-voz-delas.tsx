@@ -26,10 +26,10 @@ export const Route = createFileRoute("/na-voz-delas")({
 
 function FalaCard({ f, i }: { f: Fala; i: number }) {
   const posicionamento = f.posicionamento
-    ? `${f.posicionamento.texto} (${f.posicionamento.data})`
+    ? `Resposta de ${f.pessoa}: ${f.posicionamento.texto} (${f.posicionamento.data})`
     : FALAS_PEDIDO_ENVIADO_EM
       ? `Pedido enviado em ${FALAS_PEDIDO_ENVIADO_EM}; sem resposta até a última atualização`
-      : "Pedido de posicionamento em preparação; a resposta entra aqui, com data";
+      : "Registro público, publicado com data e link. Correção ou resposta: contato@quemsaoelas.com.br; entra aqui, com data";
   return (
     <article id={f.id} className={`scroll-mt-20 relative left-1/2 -ml-[50vw] w-screen ${i % 2 === 0 ? "bg-cream" : "bg-muted"}`}>
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-12">
@@ -68,7 +68,7 @@ function FalaCard({ f, i }: { f: Fala; i: number }) {
             </p>
           )}
           <p className="inline-block border border-ink/40 px-2 py-1 text-[13px] text-ink/80">
-            Posicionamento: {posicionamento}
+            {posicionamento}
           </p>
           <a
             href={f.fonteUrl}
@@ -115,7 +115,13 @@ function NaVozDelasPage() {
           , buscando nas transcrições oficiais de todos os discursos delas em plenário, de 2023 a
           2026, os termos feminismo, ideologia de gênero e igualdade salarial. Só entra fala com
           fonte primária localizada. Nenhuma das dez se declarou antifeminista em plenário; por isso
-          o site não usa esse rótulo para elas.
+          o site não usa esse rótulo para elas. Cada fala aparece como foi dita, sem rótulo para a
+          pessoa: é registro público, com data e link, e por isso sai sem pedido prévio de
+          posicionamento (
+          <Link to="/metodo" className="underline decoration-plum underline-offset-4">
+            regra de 13/11/2026
+          </Link>
+          ). Quem é citada pode pedir correção ou resposta pelo contato@quemsaoelas.com.br.
         </GapNote>
       </div>
 

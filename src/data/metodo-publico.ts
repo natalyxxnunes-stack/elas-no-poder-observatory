@@ -185,6 +185,22 @@ export type Correcao = {
  */
 export const CORRECOES: readonly Correcao[] = [
   {
+    data: "13/11/2026",
+    pagina: "Quem chega, Achado 12 e capa",
+    to: "/quem-chega#senado",
+    tipo: "dado",
+    oQueMudou:
+      "O PL deve começar 2027 com 28 das 81 cadeiras do Senado, e não 27. A primeira versão manteve Cleitinho (Republicanos) na vaga de MG, embora ele tenha sido eleito governador no 1º turno; quem assume é o suplente Alex Diniz (PL). O Republicanos passa de 6 para 5. A projeção da Agência Senado fala em 29 para o PL: a diferença está no partido do suplente de Sergio Moro (PR), que os dados abertos do Senado não informam.",
+  },
+  {
+    data: "13/11/2026",
+    pagina: "Método e Na voz delas",
+    to: "/metodo",
+    tipo: "método",
+    oQueMudou:
+      "Regra de posicionamento reescrita. Antes: toda reportagem com nome pedia posicionamento antes de publicar. Agora: registro público descrito ao pé da letra (voto, assinatura, discurso em plenário, dado do TSE), com data e link, sai sem pedido prévio; texto que interpreta a conduta ou a intenção de uma pessoa nomeada pede posicionamento antes. Toda pessoa citada pode pedir correção ou resposta, que entra com data. Na voz delas publica só falas literais com data e link, por isso segue no ar pela regra nova.",
+  },
+  {
     data: "04/11/2026",
     pagina: "Quem chega, O funil e No plenário",
     to: "/metodo#hipoteses",
@@ -279,7 +295,7 @@ export const METODO_ATUACAO = {
   rotulos:
     "Nenhum rótulo resumido (“feminista”, “antifeminista”, “progressista”, “conservadora”) é atribuído a uma pessoa pelo observatório. Quando a própria parlamentar se define em público (“eu não sou feminista”), a frase é publicada como fala dela, com a fonte.",
   respostas:
-    "Toda pessoa citada pelo nome recebe pedido de posicionamento, por escrito e com prazo. Nas reportagens, o pedido sai antes da publicação. Nas fichas e em Na voz delas, que publicam registro público (voto, assinatura, fala oficial), a página mostra o estado do pedido: em preparação, enviado em [data] ou respondido em [data]. A resposta, ou a falta dela, entra com data.",
+    "Registro público descrito ao pé da letra, com data e link para a fonte, é publicado sem pedido prévio, em qualquer página: voto nominal, assinatura de projeto, discurso em plenário, dado do TSE. Quando o texto vai além do registro e interpreta a conduta, a intenção ou a posição de uma pessoa nomeada, ela recebe pedido de posicionamento por escrito, com prazo, antes da publicação. Dado agregado por partido ou por grupo não pede posicionamento; ouvir os partidos é escolha de apuração. Em qualquer caso, quem é citado pode pedir correção ou resposta pelo contato@quemsaoelas.com.br; a resposta entra com data, no lugar onde a pessoa aparece. Regra reescrita em 13/11/2026 (antes: pedido antes de toda reportagem com nome).",
   limites:
     "Voto e assinatura mostram o que a pessoa fez. O motivo só entra quando ela mesma o explica em público, e o efeito da decisão exige outra apuração, com outra fonte.",
 } as const;

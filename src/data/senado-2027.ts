@@ -6,9 +6,19 @@
  * 27/10/2026), pelo partido do registro.
  * 27 cadeiras: mandatos de 2023 a 2031, pela lista de quem está em exercício
  * (API de Dados Abertos do Senado, /senador/lista/atual, consulta de
- * 28/10/2026), com o partido atual. Dois desses senadores foram eleitos
- * governadores em 2026 (Omar Aziz, AM, e Sergio Moro, PR); no lugar deles entra
- * o 1º suplente. A API não informa o partido do 1º suplente de Sergio Moro.
+ * 28/10/2026), com o partido atual. Três desses senadores foram eleitos
+ * governadores em 2026 (Omar Aziz, AM, Sergio Moro, PR, e Cleitinho, MG); no
+ * lugar deles entra o 1º suplente. A API não informa o partido do 1º suplente
+ * de Sergio Moro.
+ *
+ * Correção de 13/11/2026: a primeira versão manteve Cleitinho (Republicanos)
+ * na cadeira de MG, embora ele tenha sido eleito governador no 1º turno
+ * (TSE, base de 12/11/2026). Entra o 1º suplente, Alex Diniz (PL). O PL passa
+ * de 27 para 28 cadeiras e o Republicanos de 6 para 5. A projeção da Agência
+ * Senado reproduzida pela imprensa depois do 2º turno fala em 29 para o PL; a
+ * diferença está no partido de Luis Felipe Cunha (PR), sem partido informado
+ * nos dados abertos do Senado e descrito como União Brasil por parte da
+ * imprensa. Fica sem partido informado até confirmação em fonte primária.
  *
  * Previsão: a composição muda com trocas de partido, licenças e retorno de
  * titulares (Ana Paula Lobato e Jussara Lima exercem hoje o mandato como
@@ -504,11 +514,11 @@ export const SENADO_2027: CadeiraSenado[] = [
   "raca": null
  },
  {
-  "nome": "Cleitinho",
-  "partido": "REPUBLICANOS",
+  "nome": "Alex Diniz",
+  "partido": "PL",
   "uf": "MG",
   "genero": "M",
-  "origem": "mandato até 2031",
+  "origem": "mandato até 2031 (1º suplente de Cleitinho, eleito governador de MG)",
   "raca": null
  },
  {

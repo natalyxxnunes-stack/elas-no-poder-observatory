@@ -477,16 +477,19 @@ function QuemChegaPage() {
         id="senado"
         tone="lilac"
         kicker="Senado"
-        question="O Senado de 2027: o PL vira um terço da Casa"
+        question="O Senado de 2027: o PL passa de um terço da Casa"
         align="wide"
         lead={
           <>
             <p>
               Das 54 vagas do Senado em disputa em 2026, o PL ganhou 19, quase o triplo do segundo colocado, o MDB, com
-              7. Somadas às 8 cadeiras do partido com mandato até 2031, o PL deve começar 2027 com 27 das 81 cadeiras,
-              contra 15 hoje. Um terço do Senado é exatamente o número de assinaturas que a Constituição exige para criar
-              uma CPI e para apresentar uma proposta de emenda constitucional na Casa (arts. 58 e 60): o PL passa a poder
-              fazer as duas coisas sozinho.
+              7. Somadas às 9 cadeiras que o partido terá com mandato até 2031 (contando Alex Diniz, suplente que assume a
+              vaga de Cleitinho, eleito governador de MG), o PL deve começar 2027 com 28 das 81 cadeiras, contra 15 hoje.
+              Um terço do Senado (27) é o número de assinaturas que a Constituição exige para criar uma CPI e para
+              apresentar uma proposta de emenda constitucional na Casa (arts. 58 e 60): o PL passa a poder fazer as duas
+              coisas sozinho. Correção em 13/11/2026: a primeira versão dizia 27, porque manteve Cleitinho na conta. A
+              projeção da Agência Senado fala em 29; a diferença está no partido do suplente de Sergio Moro, que os dados
+              abertos do Senado não informam.
             </p>
             <p className="mt-3">
               As mulheres passam de 15 para 19 senadoras. Três delas são do PL: Michelle Bolsonaro, Bia Kicis e Carol de

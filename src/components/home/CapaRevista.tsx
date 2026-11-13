@@ -256,11 +256,12 @@ export function CapaTemas() {
 }
 
 /**
- * Reportagens na capa. "Na voz delas" fica fora da capa até chegarem as
- * respostas aos pedidos de posicionamento (decisão de 09/11/2026, ver capa.ts);
- * a página segue no ar e aparece nos temas.
+ * Reportagens na capa. "Na voz delas" saiu da capa em 09/11/2026 à espera dos
+ * pedidos de posicionamento e voltou em 13/11/2026: pela regra reescrita no
+ * Método, fala literal com data e link é registro público e sai sem pedido
+ * prévio. Fica aqui o mecanismo para tirar uma reportagem da capa.
  */
-const FORA_DA_CAPA = new Set<string>(["/na-voz-delas"]);
+const FORA_DA_CAPA = new Set<string>([]);
 
 export function CapaReportagens() {
   const [principal, ...outras] = REPORTAGENS.filter((r) => !FORA_DA_CAPA.has(r.to));
