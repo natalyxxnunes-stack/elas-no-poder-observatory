@@ -457,17 +457,17 @@ export const ACHADOS: Achado[] = [
     id: "violencia-politica-processos",
     ancora: {
       valor: "224",
-      rotulo: "processos de violência política de gênero autuados na Justiça Eleitoral em 2026, até 23/10",
+      rotulo:
+        "processos de violência política de gênero autuados na Justiça Eleitoral em 2026, até 23/10; na eleição geral de 2022, foram 15",
     },
     tema: "violencia",
     foco: "2026",
     numero: "16",
     data: "2026-11-13",
-    titulo: "Os processos de violência política de gênero quase dobraram em 2026",
+    titulo: "De uma eleição geral para a outra, os processos de violência política de gênero foram de 15 para 224",
     texto:
-      "A violência política de gênero virou crime eleitoral em 2021 (Lei 14.192). Os processos autuados na Justiça Eleitoral foram 15 em 2022, 23 em 2023, 78 em 2024, 118 em 2025 e 224 em 2026, até a extração de 23/10. O painel registra 2 em 2019 e não mostra 2020 nem 2021. Processo é diferente de caso: um mesmo episódio pode gerar inquérito, representação e ação penal. O crescimento pode vir de mais violência, de mais denúncia ou das duas coisas; o painel não separa.",
+      "A violência política de gênero virou crime eleitoral em agosto de 2021 (Lei 14.192). Por isso não há o que comparar com 2018: na eleição geral anterior à lei, o crime não existia. A comparação justa é entre as duas eleições gerais seguintes: 15 processos autuados na Justiça Eleitoral em 2022 e 224 em 2026, até a extração de 23/10. No meio, 78 em 2024, ano de eleição municipal. O painel do TSE e do MPF registra ainda 2 processos em 2019, sem explicar a origem, e não mostra 2020 nem 2021. Processo é diferente de caso: um mesmo episódio pode gerar inquérito, representação e ação penal. O crescimento pode vir de mais violência, de mais denúncia ou das duas coisas, e o painel não separa.",
     barras: [
-      { rotulo: "2019", valor: 2 },
       { rotulo: "2022", valor: 15 },
       { rotulo: "2023", valor: 23 },
       { rotulo: "2024", valor: 78 },
@@ -476,7 +476,8 @@ export const ACHADOS: Achado[] = [
     ],
     contagem: true,
     escala: 250,
-    legenda: "Processos autuados por ano (2020 e 2021 não aparecem no painel)",
+    legenda:
+      "Processos autuados por ano, desde a primeira eleição com a lei em vigor (o painel registra ainda 2 em 2019 e não mostra 2020 e 2021)",
     fonte:
       "TSE e MPF, painel Violência Política de Gênero, aba Justiça Eleitoral, todas as instâncias · dados extraídos em 23/10/2026, lidos em 28/10/2026",
     to: "/barreiras",

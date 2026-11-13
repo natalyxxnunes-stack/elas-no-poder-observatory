@@ -195,25 +195,28 @@ function poder(): Objeto {
 }
 
 function violencia(): Objeto {
-  const anos = ["2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"].map((ano) => ({
+  // 2018 entra para responder "e a eleição de 2018?": o crime só passou a
+  // existir em agosto de 2021 (Lei 14.192), então não há processo a contar.
+  const anos = ["2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"].map((ano) => ({
     ano,
     processos: VPG.porAno.find((p) => p.ano === ano)?.processos ?? null,
+    vazio: ano === "2018" ? "não era crime" : "sem dado",
   }));
   const max = Math.max(...VPG.porAno.map((p) => p.processos));
   const ultimo = VPG.porAno[VPG.porAno.length - 1]!;
   return {
-    frase: `${n(ultimo.processos)} processos de violência política de gênero foram abertos na Justiça Eleitoral em ${ultimo.ano}. Em 2019, foram ${n(VPG.porAno[0]!.processos)}.`,
+    frase: `${n(ultimo.processos)} processos de violência política de gênero foram abertos na Justiça Eleitoral em ${ultimo.ano}. Na eleição geral anterior, em 2022, foram ${n(VPG.porAno.find((p) => p.ano === "2022")!.processos)}. Em 2018, a violência política de gênero ainda não era crime.`,
     figura: (
       <div
         role="img"
-        aria-label={`Processos por ano de autuação: ${VPG.porAno.map((p) => `${p.ano}, ${p.processos}`).join("; ")}. 2020 e 2021 não aparecem no painel.`}
+        aria-label={`Processos por ano de autuação: ${VPG.porAno.map((p) => `${p.ano}, ${p.processos}`).join("; ")}. Em 2018 a violência política de gênero não era crime; 2020 e 2021 não aparecem no painel.`}
       >
         <div className="flex h-64 items-end gap-2 md:h-80 md:gap-4">
           {anos.map((a) => (
             <div key={a.ano} className="flex h-full flex-1 flex-col items-center justify-end">
               {a.processos === null ? (
                 <span className="mb-2 text-center text-[13px] leading-tight text-cream/70">
-                  sem dado
+                  {a.vazio}
                 </span>
               ) : (
                 <>
@@ -242,7 +245,7 @@ function violencia(): Objeto {
       </div>
     ),
     comoLer:
-      "Cada pilha junta os processos autuados no ano, como uma pilha de folhas. 2020 e 2021 não aparecem no painel do TSE e do MPF; o desenho deixa o buraco à mostra.",
+      "Cada pilha junta os processos autuados no ano, como uma pilha de folhas. A violência política de gênero virou crime em agosto de 2021 (Lei 14.192): em 2018, ano da eleição geral anterior, não havia o que processar com esse nome. O painel registra 2 processos em 2019 sem explicar a origem, e não mostra 2020 nem 2021; o desenho deixa os buracos à mostra. A comparação justa é entre eleições gerais: 15 em 2022, 224 em 2026.",
     fonte: `${VPG_META.fonte}. Extraído em ${VPG_META.extraidoEm}.`,
     link: { to: "/barreiras", label: "Violência política, os dados completos" },
   };

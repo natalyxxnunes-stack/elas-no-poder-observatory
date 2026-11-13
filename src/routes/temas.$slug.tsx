@@ -93,13 +93,16 @@ function TemaPage() {
 
       <section className="py-14 md:py-20">
         <Secao nome="A tese" tipo="o que o observatório encontrou neste tema" />
-        <p className="mt-6 max-w-[34ch] font-display text-[1.9rem] leading-[1.15] text-ink md:max-w-[38ch] md:text-[2.6rem]">
-          {tema.tese}
-        </p>
-        <p className="mt-8 max-w-[62ch] text-[17px] leading-relaxed text-ink/80">
-          {tema.linha} Cor/raça atravessa todos os temas: pretas, pardas, brancas, indígenas e
-          amarelas aparecem sempre separadas, e qualquer soma vem declarada.
-        </p>
+        {/* Duas colunas no desktop para a tese não deixar meia tela vazia (13/11/2026). */}
+        <div className="mt-6 grid gap-8 md:grid-cols-12 md:gap-10">
+          <p className="font-display text-[1.9rem] leading-[1.15] text-ink md:col-span-8 md:text-[2.5rem]">
+            {tema.tese}
+          </p>
+          <p className="border-t-4 border-plum pt-4 text-[17px] leading-relaxed text-ink/80 md:col-span-4 md:self-end">
+            {tema.linha} Cor/raça atravessa todos os temas: pretas, pardas, brancas, indígenas e
+            amarelas aparecem sempre separadas, e qualquer soma vem declarada.
+          </p>
+        </div>
       </section>
 
       {achados.length ? (
@@ -202,11 +205,11 @@ function TemaPage() {
         </Faixa>
       ) : null}
 
-      <section className="py-12 md:py-16">
+      <section className="-mx-5 bg-cream px-5 py-12 md:-mx-8 md:px-8 md:py-16">
         <Secao nome="O que ainda não sabemos" tipo="lacunas declaradas" />
-        <ul className="mt-6 max-w-[62ch] space-y-4">
+        <ul className="mt-6 grid gap-6 md:grid-cols-2 md:gap-10">
           {tema.naoSabemos.map((x) => (
-            <li key={x} className="border-l-4 border-lilac pl-5 text-[17px] leading-relaxed text-ink/85">
+            <li key={x} className="border-t-2 border-plum pt-4 text-[17px] leading-relaxed text-ink/85">
               {x}
             </li>
           ))}
