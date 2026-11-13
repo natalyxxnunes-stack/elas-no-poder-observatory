@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { trackPageview } from "../lib/analytics";
 import { PageShell } from "@/components/PageShell";
 
 function NotFoundComponent() {
@@ -133,6 +134,7 @@ function RootComponent() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    trackPageview(pathname);
   }, [pathname]);
 
   return (
