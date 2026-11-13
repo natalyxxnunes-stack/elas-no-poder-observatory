@@ -23,23 +23,23 @@ export const ANTIGENERO_VOTOS: { id: string; contra: VotoTipo; rotulo: string; p
     {
       id: "2351179-51",
       contra: "Não",
-      rotulo: "votou contra a igualdade salarial",
+      rotulo: "votou Não à lei de igualdade salarial (04/05/2023)",
       porque:
         "O voto Não rejeitava a lei que obriga salário igual para mulheres e homens na mesma função.",
     },
     {
       id: "2482078-57",
       contra: "Sim",
-      rotulo: "votou para derrubar a norma do Conanda",
+      rotulo: "votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)",
       porque:
         "O voto Sim sustava a resolução que regulamentava o atendimento a crianças e adolescentes vítimas de violência sexual, inclusive o acesso ao aborto nos casos previstos em lei.",
     },
   ];
 
 export const ANTIGENERO_CRITERIO = {
-  fato: "Entram as deputadas federais que, em pelo menos uma das duas votações nominais abaixo, votaram no sentido contrário ao direito em jogo. Os votos são os registrados pela Câmara dos Deputados.",
+  fato: "Entram as deputadas federais que votaram Não ao texto da lei de igualdade salarial (PL 1.085/2023, 04/05/2023) ou Sim ao PDL 3/2025 (05/11/2025), que sustou a Resolução 258/2024 do Conanda sobre o atendimento a crianças e adolescentes vítimas de violência sexual. Os votos são os registrados pela Câmara dos Deputados. O aborto nos casos previstos em lei continua no Código Penal; o PDL derrubou a regulamentação do atendimento.",
   interpretacao:
-    "Chamamos de agenda antigênero o conjunto de propostas que restringe direitos ligados a gênero, como igualdade de salário e o atendimento a vítimas de violência sexual. O nome descreve a agenda; nenhuma deputada é rotulada por ele.",
+    "Para o observatório, as duas votações fazem parte da agenda antigênero: propostas que restringem direitos ligados a gênero. Essa é uma leitura editorial nossa. O nome descreve a agenda; nenhuma deputada é rotulada por ele, e cada uma aparece com o voto que deu.",
   fora: "A PEC que anistiou partidos por descumprir as cotas (EC 133/2024) ficou fora: o mesmo texto criou um piso de recursos para candidaturas pretas e pardas, e o voto não tem um sentido único.",
 };
 
@@ -94,6 +94,14 @@ export const ANTIGENERO_DINHEIRO = {
   eleitasDeputadaPct: 85.8,
   eleitosDeputadoPct: 75.9,
   semFefc: 2,
+  /**
+   * Conferência independente (12/11/2026): os números acima conferem. Recorte
+   * mais justo para a comparação: só as 34 que concorreram a deputada federal,
+   * 86,8% de fundo (R$ 97,28 mi de receita). A base de 12/11 está sem a
+   * totalização dos deputados do Amapá; com as 3 eleitas do AP, as mulheres
+   * eleitas vão a 85,9%.
+   */
+  deputadaFederal: { candidatas: 34, pct: 86.8 },
 };
 
 /**
@@ -108,6 +116,16 @@ export const ANTIGENERO_FALAS = {
   discursos: 30,
   deputadas: 8,
   seDeclararamAntifeministas: 0,
-  disseramNaoSerFeministas: 2,
+  /**
+   * Só Carla Zambelli se declarou não feminista em primeira pessoa
+   * ("Eu não sou feminista", 05/03/2024). Clarissa Tércio falou da filha
+   * adolescente ("feminina, não feminista", 01/07/2025) e não entra na conta
+   * (conferência independente de 12/11/2026). O nome da filha não vai ao site.
+   */
+  disseramNaoSerFeministas: 1,
 };
+/** data de envio dos pedidos de posicionamento (lista com nomes e trechos dependem dela) */
 export const ANTIGENERO_PEDIDO_ENVIADO_EM: string | null = null;
+/** prazo de resposta; a lista com nomes só aparece depois dele */
+export const ANTIGENERO_PRAZO_RESPOSTA: string | null = null;
+export const ANTIGENERO_LISTA_LIBERADA = false;

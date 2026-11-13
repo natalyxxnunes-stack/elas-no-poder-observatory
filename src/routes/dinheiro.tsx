@@ -1,12 +1,12 @@
 import { M_FUNDO_BRANCAS } from "@/data/manchetes";
 import { Desdobra, ExploreDivisa } from "@/components/editorial/Desdobra";
+import { AchadosDaPagina } from "@/components/editorial/AchadosDaPagina";
 import { FundoNoGasto, TiposDeGasto, Vaquinhas } from "@/components/editorial/DespesasCharts";
 import { FefcPartidos } from "@/components/editorial/FefcPartidos";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
-import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
@@ -126,35 +126,11 @@ function DinheiroPage() {
         snapshot={financeSnapshot}
       />
 
-      <div className="pb-4">
-        <InBrief
-          found={
-            <>
-              Nas listas para deputada, a fatia das mulheres no dinheiro (32,9%) fica abaixo da
-              presença delas entre as candidaturas com receita (35,8%), com a prestação final do 1º
-              turno. Na base de 25/09, as duas fatias estavam quase empatadas (34,9% e 36,0%); na de
-              27/10, eram 33,2% e 35,9%. Nas disputas majoritárias, elas ficam com 14,9% do dinheiro
-              e são 20,4% das candidaturas com receita.
-            </>
-          }
-          matters={
-            <>
-              Contar mulheres em bloco esconde onde o dinheiro se concentra. Nas listas para
-              deputada, as candidatas brancas recebem uma fatia maior do que o peso delas entre as
-              candidatas com receita, também dentro dos maiores partidos.
-            </>
-          }
-          unknown={
-            <>
-              Por que o dinheiro privado chega mais aos homens brancos. A prestação do 2º turno, que
-              entra depois, completa as contas de governo.
-            </>
-          }
-        />
-      </div>
+      <AchadosDaPagina temas={["dinheiro"]} />
 
       <SectionBlock
         id="fotografia"
+        collapsible="Ver a fotografia da receita"
         kicker="Fotografia da receita"
         question="Quanto foi declarado como receita, e por quantas candidaturas"
         align="wide"
@@ -173,6 +149,7 @@ function DinheiroPage() {
 
       <SectionBlock
         id="cargo"
+        collapsible="Ver cargo a cargo"
         kicker="Por cargo"
         question="Presença e receita, cargo a cargo"
         align="wide"
@@ -220,6 +197,7 @@ function DinheiroPage() {
 
       <SectionBlock
         id="fundo-eleitoral"
+        collapsible="Ver o fundo eleitoral partido por partido"
         tone="butter"
         kicker="Fundo eleitoral por partido"
         question="O fundo público acompanhou a presença de mulheres e de pessoas negras nas candidaturas de cada partido?"
@@ -304,38 +282,39 @@ function DinheiroPage() {
         </div>
       </SectionBlock>
       <ExploreDivisa lead="Os cinco partidos com mais receita e a receita declarada em cada estado." />
+      <Desdobra rotulo="Abrir as ferramentas de consulta" className="pb-10">
+        <SectionBlock
+          id="partidos"
+          kicker="Partidos"
+          question="Os cinco partidos com maior receita no universo proporcional"
+          align="wide"
+          lead={
+            <p>
+              O recorte ordena os partidos pelo total de receita declarada e mostra, dentro de cada
+              um, quanto foi declarado por candidaturas de mulheres. Não é ranking de equidade.
+            </p>
+          }
+        >
+          <FinanceParties snapshot={financeSnapshot} />
+        </SectionBlock>
 
-      <SectionBlock
-        id="partidos"
-        kicker="Partidos"
-        question="Os cinco partidos com maior receita no universo proporcional"
-        align="wide"
-        lead={
-          <p>
-            O recorte ordena os partidos pelo total de receita declarada e mostra, dentro de cada
-            um, quanto foi declarado por candidaturas de mulheres. Não é ranking de equidade.
-          </p>
-        }
-      >
-        <FinanceParties snapshot={financeSnapshot} />
-      </SectionBlock>
-
-      <SectionBlock
-        id="territorio"
-        collapsible="Ver estado por estado"
-        tone="lilac"
-        kicker="Território"
-        question="A receita declarada por UF"
-        align="wide"
-        lead={
-          <p>
-            Valores do universo proporcional, com total de receita declarada, parcela de mulheres e
-            a fatia correspondente em cada unidade da Federação.
-          </p>
-        }
-      >
-        <FinanceByUf snapshot={financeSnapshot} />
-      </SectionBlock>
+        <SectionBlock
+          id="territorio"
+          collapsible="Ver estado por estado"
+          tone="lilac"
+          kicker="Território"
+          question="A receita declarada por UF"
+          align="wide"
+          lead={
+            <p>
+              Valores do universo proporcional, com total de receita declarada, parcela de mulheres
+              e a fatia correspondente em cada unidade da Federação.
+            </p>
+          }
+        >
+          <FinanceByUf snapshot={financeSnapshot} />
+        </SectionBlock>
+      </Desdobra>
 
       <ComoSabemos
         fonte={

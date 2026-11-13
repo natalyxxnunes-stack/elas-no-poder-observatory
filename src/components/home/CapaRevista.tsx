@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { FotoDocumental } from "@/components/editorial/FotoDocumental";
 import { Faixa } from "@/components/editorial/Faixa";
 import { ObjetoFigura, OBJETOS } from "@/components/editorial/ObjetoTema";
+import { Recorte } from "@/components/editorial/Recorte";
 import { PROXIMAS, REPORTAGENS } from "@/data/reportagens";
 import { ANTIGENERO_DEPUTADAS } from "@/data/colecoes";
 import { TEMAS } from "@/data/temas";
@@ -129,13 +130,13 @@ export function CapaColecao() {
         className="group grid gap-8 py-12 md:grid-cols-[1.3fr_1fr] md:items-end md:gap-14 md:py-16"
       >
         <span>
-          <Secao nome="Coleção" tipo="votos, falas, reeleição e dinheiro" claro />
+          <Secao nome="Coleção" tipo="votos, mandatos e falas" claro />
           <span className="mt-4 block font-display text-4xl font-semibold leading-none md:text-6xl">
-            Antigênero no poder
+            A agenda antigênero no poder
           </span>
           <span className="mt-5 block max-w-xl text-[17px] leading-relaxed text-paper/85">
-            {total} deputadas votaram contra a igualdade salarial ou para derrubar a norma do
-            Conanda. {voltaram} foram eleitas de novo em 2026.
+            {total} deputadas votaram contra a lei de igualdade salarial ou a favor de sustar a
+            norma do Conanda. {voltaram} terão mandato em 2027.
           </span>
           <span className="mt-5 inline-flex min-h-11 items-center text-[15px] font-semibold underline decoration-coral decoration-2 underline-offset-4">
             Abrir a coleção →
@@ -229,18 +230,21 @@ export function CapaTemas() {
               <Link
                 to="/temas/$slug"
                 params={{ slug: t.slug }}
-                className="group flex h-full flex-col p-6 hover:bg-cream md:p-8"
+                className="group flex h-full flex-col hover:bg-cream"
               >
-                <span className="font-mono text-[14px] text-ink/60">{t.ordem}</span>
-                <span className="mt-2 font-display text-3xl font-semibold leading-tight text-ink group-hover:text-plum">
-                  {t.nome}
-                </span>
-                <span className="font-display text-xl italic text-plum">{t.pergunta}</span>
-                <span className="mt-5 border-t-[3px] border-coral pt-3 text-[16px] leading-relaxed text-ink/85">
-                  {OBJETOS[t.slug]().frase}
-                </span>
-                <span className="mt-auto pt-5 text-[14px] font-semibold text-plum">
-                  Abrir o tema →
+                <Recorte slug={t.slug} className="aspect-[2/1] group-hover:opacity-90" />
+                <span className="flex flex-1 flex-col p-6 md:p-8">
+                  <span className="font-mono text-[14px] text-ink/60">{t.ordem}</span>
+                  <span className="mt-2 font-display text-3xl font-semibold leading-tight text-ink group-hover:text-plum">
+                    {t.nome}
+                  </span>
+                  <span className="font-display text-xl italic text-plum">{t.pergunta}</span>
+                  <span className="mt-5 border-t-[3px] border-coral pt-3 text-[16px] leading-relaxed text-ink/85">
+                    {OBJETOS[t.slug]().frase}
+                  </span>
+                  <span className="mt-auto pt-5 text-[14px] font-semibold text-plum">
+                    Abrir o tema →
+                  </span>
                 </span>
               </Link>
             </li>

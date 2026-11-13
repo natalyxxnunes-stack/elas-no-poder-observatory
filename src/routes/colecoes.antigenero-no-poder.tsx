@@ -6,19 +6,21 @@ import {
   ANTIGENERO_DEPUTADAS,
   ANTIGENERO_DINHEIRO,
   ANTIGENERO_FALAS,
+  ANTIGENERO_LISTA_LIBERADA,
+  ANTIGENERO_PEDIDO_ENVIADO_EM,
   ANTIGENERO_VOTACOES,
 } from "@/data/colecoes";
 import { VOTACOES_META } from "@/data/votacoes-camara";
 import { formatInt as n, formatPct } from "@/lib/format-br";
 
 /**
- * Coleção "Antigênero no poder" (versão curta, 12/11/2026): uma frase, um
+ * Coleção "A agenda antigênero no poder" (versão curta, 12/11/2026): uma frase, um
  * objeto, quatro números com uma linha cada. Nomes e critério ficam abertos
  * sob demanda.
  */
-const titulo = "Antigênero no poder";
+const titulo = "A agenda antigênero no poder";
 const description =
-  "42 deputadas votaram contra a igualdade salarial ou para derrubar a norma do Conanda. 29 voltaram ao poder em 2026.";
+  "42 deputadas votaram contra a lei de igualdade salarial ou a favor de sustar a norma do Conanda. 29 terão mandato em 2027.";
 
 export const Route = createFileRoute("/colecoes/antigenero-no-poder")({
   head: () => ({
@@ -66,26 +68,29 @@ function ColecaoPage() {
   const D = ANTIGENERO_DINHEIRO;
   const F = ANTIGENERO_FALAS;
 
+  const ambas = ANTIGENERO_DEPUTADAS.filter((d) => d.votos.length === 2).length;
   const numeros = [
     {
-      valor: n(total),
-      rotulo: "deputadas votaram contra direitos das mulheres",
-      linha: `${n(nIg)} contra a igualdade salarial (2023); ${n(nCo)} para derrubar a norma do Conanda sobre vítimas de violência sexual (2025).`,
+      valor: n(nIg),
+      rotulo: "votaram Não à lei de igualdade salarial",
+      linha:
+        "PL 1.085/2023, em 04/05/2023: a lei que obriga salário igual para mulheres e homens na mesma função.",
+    },
+    {
+      valor: n(nCo),
+      rotulo: "votaram Sim ao PDL 3/2025",
+      linha:
+        "Em 05/11/2025: sustou a norma do Conanda sobre o atendimento a crianças e adolescentes vítimas de violência sexual.",
     },
     {
       valor: n(voltaram),
-      rotulo: "voltaram ao poder em 2026",
-      linha: `${n(reeleitas)} de volta à Câmara, ${n(outroCargo)} em outro cargo.`,
+      rotulo: "das 42 terão mandato em 2027",
+      linha: `${n(reeleitas)} reeleitas à Câmara, ${n(outroCargo)} eleitas para outro cargo. ${n(ambas)} votaram assim nas duas votações.`,
     },
     {
-      valor: formatPct(D.pct),
-      rotulo: "da receita de campanha veio do fundo eleitoral",
-      linha: `A mesma fatia das deputadas eleitas em geral (${formatPct(D.eleitasDeputadaPct)}). Entre os homens eleitos, ${formatPct(D.eleitosDeputadoPct)}.`,
-    },
-    {
-      valor: n(F.seDeclararamAntifeministas),
-      rotulo: "se declararam antifeministas em plenário",
-      linha: `${n(F.deputadas)} falaram de feminismo em ${n(F.discursos)} discursos; ${n(F.disseramNaoSerFeministas)} disseram não ser feministas.`,
+      valor: n(F.deputadas),
+      rotulo: "das 42 falaram de feminismo em plenário",
+      linha: `Em ${n(F.discursos)} discursos, de 2023 a 2026, quase sempre para criticar. Nenhuma usou a palavra antifeminista; ${n(F.disseramNaoSerFeministas)} se declarou não feminista.`,
     },
   ];
 
@@ -99,8 +104,8 @@ function ColecaoPage() {
               {titulo}
             </h1>
             <p className="mt-8 border-t-[5px] border-coral pt-5 font-display text-[1.6rem] leading-tight md:text-[2rem]">
-              {n(total)} deputadas votaram contra direitos das mulheres. {n(voltaram)} voltaram ao
-              poder.
+              {n(total)} deputadas votaram contra a lei de igualdade salarial ou a favor de sustar a
+              norma do Conanda. {n(voltaram)} terão mandato em 2027.
             </p>
           </div>
           <figure>
@@ -123,8 +128,8 @@ function ColecaoPage() {
               ))}
             </div>
             <figcaption className="mt-3 text-[14px] text-cream/85">
-              Cada quadrado é uma deputada. Laranja: de volta à Câmara. Branco: outro cargo. Vazio:
-              fora.
+              Cada quadrado é uma deputada. Laranja: reeleita à Câmara. Branco: eleita para outro
+              cargo. Vazio: sem mandato em 2027.
             </figcaption>
           </figure>
         </div>
@@ -141,35 +146,47 @@ function ColecaoPage() {
       </section>
 
       <section className="space-y-3 py-10">
-        <details className="group border-b border-rule">
-          <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between font-display text-2xl text-ink">
-            Quem são as {n(total)}
-            <span className="text-plum transition-transform group-open:rotate-45">+</span>
-          </summary>
-          <div className="grid gap-8 pb-8 md:grid-cols-3">
-            {ONDE.map((g) => {
-              const lista = ANTIGENERO_DEPUTADAS.filter(g.filtro);
-              return (
-                <div key={g.chave}>
-                  <p className="font-display text-lg italic text-plum">
-                    {g.rotulo} · {n(lista.length)}
-                  </p>
-                  <ul className="mt-2 space-y-1.5 text-[15px] text-ink">
-                    {lista.map((d) => (
-                      <li key={d.nome}>
-                        {d.nome}{" "}
-                        <span className="text-ink/60">
-                          ({d.partido}-{d.uf})
-                          {g.chave === "outro" ? `, ${cargoBR(d.cargo2026)}` : ""}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
+        {ANTIGENERO_LISTA_LIBERADA ? (
+          <details className="group border-b border-rule">
+            <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between font-display text-2xl text-ink">
+              Quem são as {n(total)}
+              <span className="text-plum transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <p className="pb-4 text-[14px] text-ink/70">Partido na data da votação mais recente.</p>
+            <div className="grid gap-8 pb-8 md:grid-cols-3">
+              {ONDE.map((g) => {
+                const lista = ANTIGENERO_DEPUTADAS.filter(g.filtro);
+                return (
+                  <div key={g.chave}>
+                    <p className="font-display text-lg italic text-plum">
+                      {g.rotulo} · {n(lista.length)}
+                    </p>
+                    <ul className="mt-2 space-y-1.5 text-[15px] text-ink">
+                      {lista.map((d) => (
+                        <li key={d.nome}>
+                          {d.nome}{" "}
+                          <span className="text-ink/60">
+                            ({d.partido}-{d.uf})
+                            {g.chave === "outro" ? `, ${cargoBR(d.cargo2026)}` : ""}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+          </details>
+        ) : (
+          <div className="border-b border-rule py-5">
+            <p className="font-display text-2xl text-ink">Quem são as {n(total)}</p>
+            <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-ink/75">
+              {ANTIGENERO_PEDIDO_ENVIADO_EM
+                ? `Pedidos de posicionamento enviados em ${ANTIGENERO_PEDIDO_ENVIADO_EM}. A lista, com o voto de cada deputada, entra quando o prazo de resposta vencer, com as respostas.`
+                : "A lista, com o voto de cada deputada, entra depois dos pedidos de posicionamento e do prazo de resposta. Os votos individuais já estão em Como votaram."}
+            </p>
           </div>
-        </details>
+        )}
         <details className="group border-b border-rule">
           <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between font-display text-2xl text-ink">
             Como escolhemos
@@ -187,14 +204,18 @@ function ColecaoPage() {
               <strong className="text-ink">Fora.</strong> {ANTIGENERO_CRITERIO.fora}
             </p>
             <p>
-              <strong className="text-ink">Dinheiro.</strong> TSE, prestação de contas final do 1º
-              turno, base de {D.base}. Fundo eleitoral é o Fundo Especial de Financiamento de
-              Campanha. {n(D.concorreram)} das {n(total)} concorreram em 2026; {n(D.semFefc)} não
-              declararam receita do fundo.
+              <strong className="text-ink">Dinheiro.</strong> Das {n(total)}, {n(D.concorreram)}{" "}
+              concorreram em 2026. Entre as {n(D.deputadaFederal.candidatas)} que disputaram vaga de
+              deputada federal, {formatPct(D.deputadaFederal.pct)} da receita veio do fundo
+              eleitoral; entre todas as eleitas a deputada federal,{" "}
+              {formatPct(D.eleitasDeputadaPct)}. É a mesma ordem de grandeza: o fundo financia quase
+              toda campanha de mulher eleita. TSE, prestação de contas final do 1º turno, base de{" "}
+              {D.base}, que ainda não traz a totalização dos deputados do Amapá.
             </p>
             <p>
               <strong className="text-ink">Falas.</strong> Discursos em plenário de {F.periodo}, nas
-              notas taquigráficas da Câmara. Os trechos, com nome, entram depois dos pedidos de
+              notas taquigráficas da Câmara, com as palavras feminismo, feminista e antifeminista. A
+              busca cobre só o plenário. Os trechos, com nome, entram depois dos pedidos de
               posicionamento.
             </p>
             <p className="text-[13px] text-ink/65">
@@ -204,7 +225,15 @@ function ColecaoPage() {
         </details>
       </section>
 
-      <section className="flex flex-wrap gap-x-10 gap-y-2 pb-16">
+      <p className="max-w-3xl text-[14px] leading-relaxed text-ink/70">
+        Correções e pedidos de resposta:{" "}
+        <a href="mailto:contato@quemsaoelas.com.br" className="text-plum underline">
+          contato@quemsaoelas.com.br
+        </a>
+        . Toda resposta recebida entra nesta página, com data.
+      </p>
+
+      <section className="flex flex-wrap gap-x-10 gap-y-2 pb-16 pt-6">
         <Link
           to="/como-votaram"
           className="inline-flex min-h-11 items-center text-[15px] font-semibold text-plum"

@@ -72,11 +72,11 @@ function ReportagensPage() {
           <Secao nome="Coleção" pequeno />
           <Link to="/colecoes/antigenero-no-poder" className="group mt-3 block">
             <span className="block font-display text-3xl font-semibold leading-tight text-ink group-hover:text-plum">
-              Antigênero no poder
+              A agenda antigênero no poder
             </span>
             <span className="mt-2 block text-[15px] leading-relaxed text-ink/75">
-              Quem votou contra direitos das mulheres, se voltou ao poder em 2026, o que disse e com
-              que dinheiro.
+              Deputadas que votaram contra a lei de igualdade salarial ou a favor de sustar a norma do
+              Conanda, e quem terá mandato em 2027.
             </span>
           </Link>
         </div>

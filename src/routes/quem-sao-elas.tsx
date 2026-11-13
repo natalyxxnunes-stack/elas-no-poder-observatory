@@ -1,5 +1,6 @@
 import { PartyStateMatrix } from "@/components/editorial/PartyStateMatrix";
 import { Desdobra, ExploreDivisa } from "@/components/editorial/Desdobra";
+import { AchadosDaPagina } from "@/components/editorial/AchadosDaPagina";
 import { Registro } from "@/components/editorial/Registro";
 import { SituacaoChart } from "@/components/editorial/SituacaoChart";
 import { SITUACAO_2026 } from "@/data/situacao-candidaturas-2026";
@@ -8,7 +9,6 @@ import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { CandidatasMajoritarias } from "@/components/editorial/CandidatasMajoritarias";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
-import { InBrief } from "@/components/editorial/InBrief";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
 import { RaceExplorer } from "@/components/editorial/RaceExplorer";
@@ -164,31 +164,7 @@ function QuemSaoElasPage() {
         snapshot={snapshot}
       />
 
-      <div className="pb-4">
-        <InBrief
-          found={
-            <>
-              As candidaturas de mulheres registradas em 2026 se distribuem de forma desigual entre
-              as categorias de cor/raça declaradas ao TSE. Essa distribuição também muda entre o
-              universo <GlossaryTerm term="proporcional">proporcional</GlossaryTerm> e o{" "}
-              <GlossaryTerm term="majoritaria">majoritário</GlossaryTerm>.
-            </>
-          }
-          matters={
-            <>
-              Contar mulheres em bloco esconde quem, entre elas, chega a cada nível. Gênero e
-              cor/raça juntos mostram um caminho diferente do que cada dimensão isolada revela.
-            </>
-          }
-          unknown={
-            <>
-              Em aberto: as posições de poder a partir de 2027 (mesas, comissões, lideranças) por
-              cor/raça. Identidade trans ou travesti e deficiência ficam fora da leitura, porque a
-              base não as registra de modo comparável.
-            </>
-          }
-        />
-      </div>
+      <AchadosDaPagina temas={["cor-raca", "vices"]} />
 
       <SectionBlock
         id="raca"
@@ -217,6 +193,7 @@ function QuemSaoElasPage() {
 
       <SectionBlock
         id="censo"
+        collapsible="Ver a comparação com o Censo"
         tone="butter"
         kicker="Censo 2022 × candidaturas 2026"
         question="Pardas e brancas são quase do mesmo tamanho no país. Nas candidaturas, não são."
@@ -233,6 +210,7 @@ function QuemSaoElasPage() {
 
       <SectionBlock
         id="cargos"
+        collapsible="Ver os números de cada cargo"
         kicker="Cargos"
         question="Nos mesmos páreos, mulheres aparecem mais entre vices e suplentes"
         align="wide"
@@ -412,107 +390,110 @@ function QuemSaoElasPage() {
       </SectionBlock>
 
       <ExploreDivisa lead="Os pedidos de registro, as 107 candidatas a Presidência, governos e Senado, o explorador por cargo, estado e partido, e o recorte do seu estado." />
-      <SectionBlock
-        collapsible="Ver os pedidos por grupo"
-        id="situacao"
-        kicker="Pedidos de registro"
-        question="Quantos pedidos ficaram de pé até a eleição"
-        align="wide"
-        lead={
-          <p>
-            Pedir registro é o primeiro passo; ser julgada apta é o segundo. Entre as mulheres, a
-            saída da disputa por indeferimento, cancelamento ou renúncia fica parecida em todos os
-            grupos de cor/raça. Entre os homens, pardos e pretos saem mais que brancos.
+      <Desdobra rotulo="Abrir as ferramentas de consulta" className="pb-10">
+        <SectionBlock
+          collapsible="Ver os pedidos por grupo"
+          id="situacao"
+          kicker="Pedidos de registro"
+          question="Quantos pedidos ficaram de pé até a eleição"
+          align="wide"
+          lead={
+            <p>
+              Pedir registro é o primeiro passo; ser julgada apta é o segundo. Entre as mulheres, a
+              saída da disputa por indeferimento, cancelamento ou renúncia fica parecida em todos os
+              grupos de cor/raça. Entre os homens, pardos e pretos saem mais que brancos.
+            </p>
+          }
+        >
+          <SituacaoChart />
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+            Na Presidência, nos governos e no Senado,{" "}
+            {formatInt(SITUACAO_2026.majoritario.FEMININO["indeferida ou cancelada"] ?? 0)} das{" "}
+            {formatInt(SITUACAO_2026.majoritario.FEMININO.total)} candidaturas de mulheres foram
+            indeferidas e{" "}
+            {formatInt(SITUACAO_2026.majoritario.FEMININO["indeferida com recurso"] ?? 0)} seguem
+            indeferidas com recurso. Entre as candidatas pardas,{" "}
+            {formatInt(
+              SITUACAO_2026.majoritario.FEMININO_raca["PARDA"]?.["indeferida ou cancelada"] ?? 0,
+            )}{" "}
+            de {formatInt(SITUACAO_2026.majoritario.FEMININO_raca["PARDA"]?.total ?? 0)} foram
+            indeferidas; entre as brancas,{" "}
+            {formatInt(
+              SITUACAO_2026.majoritario.FEMININO_raca["BRANCA"]?.["indeferida ou cancelada"] ?? 0,
+            )}{" "}
+            de {formatInt(SITUACAO_2026.majoritario.FEMININO_raca["BRANCA"]?.total ?? 0)}. Base
+            pequena: só números absolutos. A situação de cada uma está na lista abaixo.
           </p>
-        }
-      >
-        <SituacaoChart />
-        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-          Na Presidência, nos governos e no Senado,{" "}
-          {formatInt(SITUACAO_2026.majoritario.FEMININO["indeferida ou cancelada"] ?? 0)} das{" "}
-          {formatInt(SITUACAO_2026.majoritario.FEMININO.total)} candidaturas de mulheres foram
-          indeferidas e{" "}
-          {formatInt(SITUACAO_2026.majoritario.FEMININO["indeferida com recurso"] ?? 0)} seguem
-          indeferidas com recurso. Entre as candidatas pardas,{" "}
-          {formatInt(
-            SITUACAO_2026.majoritario.FEMININO_raca["PARDA"]?.["indeferida ou cancelada"] ?? 0,
-          )}{" "}
-          de {formatInt(SITUACAO_2026.majoritario.FEMININO_raca["PARDA"]?.total ?? 0)} foram
-          indeferidas; entre as brancas,{" "}
-          {formatInt(
-            SITUACAO_2026.majoritario.FEMININO_raca["BRANCA"]?.["indeferida ou cancelada"] ?? 0,
-          )}{" "}
-          de {formatInt(SITUACAO_2026.majoritario.FEMININO_raca["BRANCA"]?.total ?? 0)}. Base
-          pequena: só números absolutos. A situação de cada uma está na lista abaixo.
-        </p>
-      </SectionBlock>
+        </SectionBlock>
 
-      <SectionBlock
-        collapsible="Ver as 107 candidatas"
-        id="elas"
-        kicker="Elas, cargo a cargo"
-        question="Quem são as 107 mulheres que disputam a Presidência, os governos e o Senado"
-        align="wide"
-        lead={
-          <p>
-            Todas as candidaturas de mulheres aos cargos majoritários, com os dados públicos do
-            registro: nome de urna, partido, estado, cor/raça declarada, quem está na chapa e quanto
-            já declararam de receita. A lista segue a ordem de cargo e estado.
-          </p>
-        }
-      >
-        <CandidatasMajoritarias />
-      </SectionBlock>
+        <SectionBlock
+          collapsible="Ver as 107 candidatas"
+          id="elas"
+          kicker="Elas, cargo a cargo"
+          question="Quem são as 107 mulheres que disputam a Presidência, os governos e o Senado"
+          align="wide"
+          lead={
+            <p>
+              Todas as candidaturas de mulheres aos cargos majoritários, com os dados públicos do
+              registro: nome de urna, partido, estado, cor/raça declarada, quem está na chapa e
+              quanto já declararam de receita. A lista segue a ordem de cargo e estado.
+            </p>
+          }
+        >
+          <CandidatasMajoritarias />
+        </SectionBlock>
 
-      <SectionBlock
-        collapsible="Abrir o explorador"
-        id="partidos"
-        kicker="Explorador"
-        question="Escolha o cargo, o estado e o partido e veja quem são elas ali"
-        align="wide"
-        tone="lilac"
-        lead={
-          <p>
-            Cada combinação recalcula a distribuição por cor/raça daquela fatia, com a base à vista.
-          </p>
-        }
-        source={
-          <>
-            Fonte: TSE · Candidaturas 2026
-            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""}
-          </>
-        }
-      >
-        <RaceExplorer snapshot={snapshot} />
-        <div className="mt-8">
-          <PartyStateMatrix snapshot={snapshot} />
-        </div>
-      </SectionBlock>
+        <SectionBlock
+          collapsible="Abrir o explorador"
+          id="partidos"
+          kicker="Explorador"
+          question="Escolha o cargo, o estado e o partido e veja quem são elas ali"
+          align="wide"
+          tone="lilac"
+          lead={
+            <p>
+              Cada combinação recalcula a distribuição por cor/raça daquela fatia, com a base à
+              vista.
+            </p>
+          }
+          source={
+            <>
+              Fonte: TSE · Candidaturas 2026
+              {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""}
+            </>
+          }
+        >
+          <RaceExplorer snapshot={snapshot} />
+          <div className="mt-8">
+            <PartyStateMatrix snapshot={snapshot} />
+          </div>
+        </SectionBlock>
 
-      <SectionBlock
-        collapsible="Escolher um estado"
-        id="estados"
-        kicker="Por estado"
-        question="E no seu estado?"
-        align="wide"
-        tone="lilac"
-        lead={
-          <p>
-            Escolha um estado e leia a realidade daquela região: quantas candidaturas foram
-            registradas, quantas são de mulheres, como isso se compara com o Brasil no mesmo
-            universo, quais mulheres estão ali e quais partidos as registraram. Dá para voltar ao
-            Brasil ou trocar de estado a qualquer momento.
-          </p>
-        }
-        source={
-          <>
-            Fonte: TSE · Candidaturas 2026
-            {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""}
-          </>
-        }
-      >
-        <StateExplorer snapshot={snapshot} />
-      </SectionBlock>
+        <SectionBlock
+          collapsible="Escolher um estado"
+          id="estados"
+          kicker="Por estado"
+          question="E no seu estado?"
+          align="wide"
+          tone="lilac"
+          lead={
+            <p>
+              Escolha um estado e leia a realidade daquela região: quantas candidaturas foram
+              registradas, quantas são de mulheres, como isso se compara com o Brasil no mesmo
+              universo, quais mulheres estão ali e quais partidos as registraram. Dá para voltar ao
+              Brasil ou trocar de estado a qualquer momento.
+            </p>
+          }
+          source={
+            <>
+              Fonte: TSE · Candidaturas 2026
+              {baseStamp ? ` · fotografia da base de ${baseStamp}` : ""}
+            </>
+          }
+        >
+          <StateExplorer snapshot={snapshot} />
+        </SectionBlock>
+      </Desdobra>
 
       <ComoSabemos
         fonte="TSE, Candidaturas 2026; IBGE, Censo Demográfico 2022 (SIDRA, tabela 9606, mulheres de 18 anos ou mais)."

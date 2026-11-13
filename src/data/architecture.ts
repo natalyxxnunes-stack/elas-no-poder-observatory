@@ -11,8 +11,12 @@
 export const CENTRAL_THESIS =
   "Como gênero e raça marcam o caminho entre candidatura, competição eleitoral e poder, e quem controla cada etapa desse caminho?";
 
-/** Pergunta de capa. */
-export const COVER_QUESTION = "Entre se candidatar e chegar ao poder, onde elas desaparecem?";
+/**
+ * Frase de assinatura (rodapé). 12/11/2026: sai "onde elas desaparecem?",
+ * enquadramento que a editora aposentou; entra a frase dos seis temas, com a
+ * linha de denúncia (o que fazem com o poder).
+ */
+export const COVER_QUESTION = "Quem chega ao poder, com que dinheiro, e o que faz com ele.";
 
 export const CENTRAL_PRINCIPLE =
   "Gênero e raça estruturam a investigação. Território, partido, cargo, recursos, votos, resultado e poder são os recortes.";

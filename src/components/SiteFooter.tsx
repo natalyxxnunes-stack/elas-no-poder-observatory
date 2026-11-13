@@ -33,14 +33,32 @@ export function SiteFooter({ flush = false }: { flush?: boolean }) {
             <BrandWordmark tone="cream" className="font-display text-xl font-semibold" />
           </div>
           <p className="mt-5 max-w-md font-display text-xl leading-snug text-cream/90">
-            “{COVER_QUESTION}”
+            {COVER_QUESTION}
           </p>
-          <p className="mt-4 max-w-md text-sm leading-relaxed text-cream/75">{CENTRAL_THESIS}</p>
+          <p className="mt-4 hidden max-w-md text-sm leading-relaxed text-cream/75 sm:block">
+            {CENTRAL_THESIS}
+          </p>
         </div>
 
         <nav aria-label="Rodapé" className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+          <div className="flex flex-wrap gap-x-6 gap-y-3 sm:hidden">
+            {[
+              { label: "Temas", to: "/temas" },
+              { label: "Reportagens", to: "/reportagens" },
+              { label: "Achados", to: "/achados" },
+              { label: "Baixar os dados", to: "/downloads" },
+            ].map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className="font-display text-lg text-cream underline-offset-4 hover:underline"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
           {MENU.filter((sec) => sec.itens).map((sec) => (
-            <div key={sec.label}>
+            <div key={sec.label} className="hidden sm:block">
               <h2 className="font-display text-lg italic text-cream">{sec.label}</h2>
               <ul className="mt-4 space-y-2">
                 {sec.itens!.map((item) => (
