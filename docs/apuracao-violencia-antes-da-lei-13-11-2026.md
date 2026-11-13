@@ -109,7 +109,7 @@ Resultado: 160 discursos com recorte de gênero, de 48 deputadas; 6 sem recorte.
 | PSOL | 19 | 5 | 7 | 4 | 3 | 6 | 0 | 0 |
 | PCdoB | 9 | 0 | 4 | 4 | 1 | 0 | 0 | 0 |
 | PL | 20 | 5 | 3 | 10 | 2 | 7 | 3 | 3 |
-| Outros 10 partidos | 37 | 8 | 3 | 13 | 13 | 4 | 0 | 0 |
+| Outros 11 partidos | 37 | 8 | 3 | 13 | 13 | 4 | 0 | 0 |
 
 Leituras (bases pequenas: contar, não percentualizar):
 - O PL tem dois usos que quase não se tocam. Soraya Santos, como procuradora da mulher, responde por 11 dos 20 discursos, todos institucionais ou gerais. Nos outros 9, de 7 deputadas, 7 acusam um adversário identificado.

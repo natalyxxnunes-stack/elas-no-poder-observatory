@@ -15,3 +15,7 @@ Marcadores (podem somar-se a qualquer função):
 +X o trecho contém ataque a identidade de outra pessoa (gênero, raça, aparência). Não se reproduz.
 
 Leitura: a hipótese "uso como ataque" se mede por +A, +M e +R, comparados entre partidos e períodos. Nenhum rótulo vai para a pessoa; vai para o discurso, com data e link.
+
+## Contexto (acrescentado em 13/11/2026, a pedido da editora)
+Cada discurso classificado ganha um campo de CONTEXTO IMEDIATO: o fato público, com data e fonte, que aconteceu nos dias anteriores e a que o discurso responde. Exemplo: o discurso de 21/03/2023 que acusa uma deputada de chamar a oradora de "nazista" vem quatro dias depois de a oradora publicar foto com arma e camiseta com uma mão de quatro dedos alvejada (17/03/2023), que motivou a crítica.
+Regra: o contexto entra quando explica o próprio discurso analisado. Histórico de outros episódios da mesma pessoa, sem ligação com o discurso, fica fora. O contexto explica e não justifica; o texto descreve o fato com data e fonte, sem adjetivo.
