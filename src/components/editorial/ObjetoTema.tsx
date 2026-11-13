@@ -141,7 +141,7 @@ function agenda(): Objeto {
   const sim = F.votos["Sim"] ?? 0;
   const outros = F.total - nao - sim;
   return {
-    frase: `${n(nao)} deputadas votaram contra a lei de igualdade salarial entre mulheres e homens.`,
+    frase: `Em ${v.data.slice(0, 4)}, ${n(nao)} deputadas votaram contra a lei de igualdade salarial entre mulheres e homens.`,
     figura: (
       <div>
         <Quadrados

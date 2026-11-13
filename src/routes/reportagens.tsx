@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { REPORTAGENS, REPORTAGENS_REGRA } from "@/data/reportagens";
+import { PROXIMAS, REPORTAGENS, REPORTAGENS_REGRA } from "@/data/reportagens";
+import { PERFIS_PIONEIRAS } from "@/data/perfis-pioneiras";
+import { Secao } from "@/components/editorial/Secao";
 import { formatDateBR } from "@/lib/format-br";
 
 export const Route = createFileRoute("/reportagens")({
@@ -64,6 +66,47 @@ function ReportagensPage() {
             </li>
           ))}
       </ol>
+
+      <section className="grid gap-12 border-t border-rule py-12 md:grid-cols-3">
+        <div>
+          <Secao nome="Coleção" pequeno />
+          <Link to="/colecoes/antigenero-no-poder" className="group mt-3 block">
+            <span className="block font-display text-3xl font-semibold leading-tight text-ink group-hover:text-plum">
+              Antigênero no poder
+            </span>
+            <span className="mt-2 block text-[15px] leading-relaxed text-ink/75">
+              Quem votou contra direitos das mulheres, se voltou ao poder em 2026, o que disse e com
+              que dinheiro.
+            </span>
+          </Link>
+        </div>
+        <div>
+          <Secao nome="Perfis" tipo="Pioneiras" pequeno />
+          <ul className="mt-3">
+            {PERFIS_PIONEIRAS.filter((p) => p.to).map((p) => (
+              <li key={p.id} className="border-b border-rule py-3">
+                <Link to={p.to!} className="font-display text-xl text-ink hover:text-plum">
+                  {p.name}
+                </Link>
+                <span className="block font-mono text-[13px] text-ink/65">{p.years}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <Secao nome="Na próxima edição" pequeno />
+          <ul className="mt-3">
+            {PROXIMAS.map((p) => (
+              <li key={p.data} className="border-b border-rule py-3">
+                <span className="block font-mono text-[13px] text-ink/65">
+                  {formatDateBR(p.data)} · {p.nota}
+                </span>
+                <span className="font-display text-xl text-ink">{p.titulo}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </PageShell>
   );
 }

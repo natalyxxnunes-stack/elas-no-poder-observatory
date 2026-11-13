@@ -13,6 +13,12 @@ export type Reportagem = {
   data: string;
   autora: string;
   tema: string;
+  /**
+   * true = abre a capa no lugar da manchete de dados (12/11/2026). Só uma
+   * reportagem por vez; a mais recente marcada vence. A manchete de dados
+   * desce para a faixa "Na urna", logo abaixo.
+   */
+  manchete?: boolean;
 };
 
 export const REPORTAGENS: readonly Reportagem[] = [
@@ -33,6 +39,19 @@ export const REPORTAGENS: readonly Reportagem[] = [
     data: "2026-10-27",
     autora: "Nataly Nunes Pinto",
     tema: "Câmara dos Deputados",
+  },
+];
+
+/**
+ * Na próxima edição — reportagens com data marcada, anunciadas na capa sem
+ * número nem nome (nada do conteúdo antes das respostas). Sai daqui quando
+ * a reportagem entra em REPORTAGENS.
+ */
+export const PROXIMAS: readonly { data: string; titulo: string; nota: string }[] = [
+  {
+    data: "2026-11-20",
+    titulo: "Fundo eleitoral, voto e as candidatas pretas e pardas a deputada em 2026",
+    nota: "Dia da Consciência Negra",
   },
 ];
 

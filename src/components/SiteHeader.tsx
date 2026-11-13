@@ -31,6 +31,11 @@ export const MENU: Secao[] = [
     label: "Reportagens",
     itens: [
       { label: "Reportagens", to: "/reportagens", nota: "Textos assinados" },
+      {
+        label: "Antigênero no poder",
+        to: "/colecoes/antigenero-no-poder",
+        nota: "Coleção: votos, reeleição, falas e dinheiro",
+      },
       { label: "Pioneiras", to: "/pioneiras", nota: "Perfis de quem abriu o caminho" },
       { label: "Relatório 2026", to: "/relatorio-2026", nota: "O ano em dados, numa página" },
       { label: "Investigações", to: "/investigacoes", nota: "O que está em apuração" },

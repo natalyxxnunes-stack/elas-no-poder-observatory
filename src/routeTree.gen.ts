@@ -37,6 +37,7 @@ import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as VotosRouteImport } from './routes/votos'
 import { Route as AchadosIndexRouteImport } from './routes/achados.index'
 import { Route as AchadosIdRouteImport } from './routes/achados.$id'
+import { Route as ColecoesAntigeneroNoPoderRouteImport } from './routes/colecoes.antigenero-no-poder'
 import { Route as EleitasIndexRouteImport } from './routes/eleitas.index'
 import { Route as EleitasSlugRouteImport } from './routes/eleitas.$slug'
 import { Route as PioneirasIndexRouteImport } from './routes/pioneiras.index'
@@ -187,6 +188,12 @@ const AchadosIdRoute = AchadosIdRouteImport.update({
   path: '/achados/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ColecoesAntigeneroNoPoderRoute =
+  ColecoesAntigeneroNoPoderRouteImport.update({
+    id: '/colecoes/antigenero-no-poder',
+    path: '/colecoes/antigenero-no-poder',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EleitasIndexRoute = EleitasIndexRouteImport.update({
   id: '/eleitas/',
   path: '/eleitas/',
@@ -262,6 +269,7 @@ export interface FileRoutesByFullPath {
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
   '/achados/$id': typeof AchadosIdRoute
+  '/colecoes/antigenero-no-poder': typeof ColecoesAntigeneroNoPoderRoute
   '/eleitas/$slug': typeof EleitasSlugRoute
   '/pioneiras/lelia-gonzalez': typeof PioneirasLeliaGonzalezRoute
   '/pioneiras/pagu': typeof PioneirasPaguRoute
@@ -301,6 +309,7 @@ export interface FileRoutesByTo {
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
   '/achados/$id': typeof AchadosIdRoute
+  '/colecoes/antigenero-no-poder': typeof ColecoesAntigeneroNoPoderRoute
   '/eleitas/$slug': typeof EleitasSlugRoute
   '/pioneiras/lelia-gonzalez': typeof PioneirasLeliaGonzalezRoute
   '/pioneiras/pagu': typeof PioneirasPaguRoute
@@ -341,6 +350,7 @@ export interface FileRoutesById {
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
   '/achados/$id': typeof AchadosIdRoute
+  '/colecoes/antigenero-no-poder': typeof ColecoesAntigeneroNoPoderRoute
   '/eleitas/$slug': typeof EleitasSlugRoute
   '/pioneiras/lelia-gonzalez': typeof PioneirasLeliaGonzalezRoute
   '/pioneiras/pagu': typeof PioneirasPaguRoute
@@ -382,6 +392,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/votos'
     | '/achados/$id'
+    | '/colecoes/antigenero-no-poder'
     | '/eleitas/$slug'
     | '/pioneiras/lelia-gonzalez'
     | '/pioneiras/pagu'
@@ -421,6 +432,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/votos'
     | '/achados/$id'
+    | '/colecoes/antigenero-no-poder'
     | '/eleitas/$slug'
     | '/pioneiras/lelia-gonzalez'
     | '/pioneiras/pagu'
@@ -460,6 +472,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/votos'
     | '/achados/$id'
+    | '/colecoes/antigenero-no-poder'
     | '/eleitas/$slug'
     | '/pioneiras/lelia-gonzalez'
     | '/pioneiras/pagu'
@@ -500,6 +513,7 @@ export interface RootRouteChildren {
   SobreRoute: typeof SobreRoute
   VotosRoute: typeof VotosRoute
   AchadosIdRoute: typeof AchadosIdRoute
+  ColecoesAntigeneroNoPoderRoute: typeof ColecoesAntigeneroNoPoderRoute
   EleitasSlugRoute: typeof EleitasSlugRoute
   PioneirasLeliaGonzalezRoute: typeof PioneirasLeliaGonzalezRoute
   PioneirasPaguRoute: typeof PioneirasPaguRoute
@@ -710,6 +724,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AchadosIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/colecoes/antigenero-no-poder': {
+      id: '/colecoes/antigenero-no-poder'
+      path: '/colecoes/antigenero-no-poder'
+      fullPath: '/colecoes/antigenero-no-poder'
+      preLoaderRoute: typeof ColecoesAntigeneroNoPoderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/eleitas/': {
       id: '/eleitas/'
       path: '/eleitas'
@@ -804,6 +825,7 @@ const rootRouteChildren: RootRouteChildren = {
   SobreRoute: SobreRoute,
   VotosRoute: VotosRoute,
   AchadosIdRoute: AchadosIdRoute,
+  ColecoesAntigeneroNoPoderRoute: ColecoesAntigeneroNoPoderRoute,
   EleitasSlugRoute: EleitasSlugRoute,
   PioneirasLeliaGonzalezRoute: PioneirasLeliaGonzalezRoute,
   PioneirasPaguRoute: PioneirasPaguRoute,

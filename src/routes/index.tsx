@@ -2,9 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import {
   CapaCitacao,
+  CapaColecao,
   CapaExplore,
   CapaManchete,
   CapaPioneiras,
+  CapaProxima,
   CapaReportagens,
   CapaTemas,
 } from "@/components/home/CapaRevista";
@@ -36,8 +38,10 @@ function CapaPage() {
   return (
     <PageShell home>
       <CapaManchete />
+      <CapaProxima />
       <CapaCitacao />
       <CapaTemas />
+      <CapaColecao />
       <CapaReportagens />
       <CapaPioneiras />
       <CapaExplore />

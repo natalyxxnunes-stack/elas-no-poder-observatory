@@ -3,7 +3,8 @@ import { Link } from "@tanstack/react-router";
 import { FotoDocumental } from "@/components/editorial/FotoDocumental";
 import { Faixa } from "@/components/editorial/Faixa";
 import { ObjetoFigura, OBJETOS } from "@/components/editorial/ObjetoTema";
-import { REPORTAGENS } from "@/data/reportagens";
+import { PROXIMAS, REPORTAGENS } from "@/data/reportagens";
+import { ANTIGENERO_DEPUTADAS } from "@/data/colecoes";
 import { TEMAS } from "@/data/temas";
 import { ACHADOS } from "@/data/achados";
 import { CAPA_MANCHETE } from "@/data/capa";
@@ -21,22 +22,30 @@ import { ANCORAS_PIONEIRAS, PERFIS_PIONEIRAS } from "@/data/perfis-pioneiras";
 
 const achado = (id: string) => ACHADOS.find((a) => a.id === id);
 
-export function CapaManchete() {
+const dataBRc = (iso: string) => iso.split("-").reverse().join("/");
+
+/** a reportagem marcada como manchete, se houver (a mais recente vence) */
+const REPORTAGEM_MANCHETE = [...REPORTAGENS]
+  .filter((r) => r.manchete)
+  .sort((a, b) => b.data.localeCompare(a.data))[0];
+
+function MancheteDados({ comoManchete }: { comoManchete: boolean }) {
   const m = CAPA_MANCHETE;
   const temFoto = Boolean(FOTOS[m.fotoId]);
+  const Titulo = comoManchete ? "h1" : "h2";
   return (
-    <Faixa fundo="bg-plum-deep text-paper">
+    <Faixa fundo={comoManchete ? "bg-plum-deep text-paper" : "bg-ink text-paper"}>
       <div className="grid gap-10 py-12 md:grid-cols-[1fr_1.1fr] md:items-center md:gap-16 md:py-20">
         <div>
           <Secao nome={m.secao} tipo={m.tipo} claro />
-          <h1 className="mt-5 font-display text-[2.3rem] font-semibold leading-[1.05] tracking-[-0.01em] md:text-[3.4rem]">
+          <Titulo className="mt-5 font-display text-[2.3rem] font-semibold leading-[1.05] tracking-[-0.01em] md:text-[3.4rem]">
             <Link
               to={m.to}
               className="hover:underline hover:decoration-coral hover:underline-offset-4"
             >
               {m.titulo}
             </Link>
-          </h1>
+          </Titulo>
           <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-paper/85 md:text-lg">
             {m.linhaFina}
           </p>
@@ -49,6 +58,98 @@ export function CapaManchete() {
         </div>
         <div>{temFoto ? <FotoDocumental id={m.fotoId} /> : <ObjetoFigura slug="presenca" />}</div>
       </div>
+    </Faixa>
+  );
+}
+
+/**
+ * Manchete da capa (12/11/2026): quando há reportagem marcada como manchete em
+ * reportagens.ts, ela abre a capa; a manchete de dados desce logo abaixo.
+ * Sem reportagem marcada, abre a manchete de dados.
+ */
+export function CapaManchete() {
+  const r = REPORTAGEM_MANCHETE;
+  if (!r) return <MancheteDados comoManchete />;
+  return (
+    <>
+      <Faixa fundo="bg-plum-deep text-paper">
+        <div className="max-w-5xl py-14 md:py-24">
+          <Secao nome="Reportagem" tipo={r.tema} claro />
+          <h1 className="mt-5 font-display text-[2.4rem] font-semibold leading-[1.03] tracking-[-0.01em] md:text-[4.2rem]">
+            <Link
+              to={r.to}
+              className="hover:underline hover:decoration-coral hover:underline-offset-4"
+            >
+              {r.titulo}
+            </Link>
+          </h1>
+          <p className="mt-6 max-w-2xl text-[18px] leading-relaxed text-paper/85 md:text-xl">
+            {r.linhaFina}
+          </p>
+          <p className="mt-6 font-mono text-[14px] text-lilac">
+            {r.autora} · {dataBRc(r.data)}
+          </p>
+        </div>
+      </Faixa>
+      <MancheteDados comoManchete={false} />
+    </>
+  );
+}
+
+/** Na próxima edição: reportagens com data marcada, sem adiantar conteúdo. */
+export function CapaProxima() {
+  if (!PROXIMAS.length) return null;
+  return (
+    <Faixa fundo="bg-cream">
+      <ul className="divide-y divide-rule py-2">
+        {PROXIMAS.map((p) => (
+          <li key={p.data} className="flex flex-wrap items-baseline gap-x-5 gap-y-1 py-4">
+            <span className="font-display text-lg italic text-plum">Na próxima edição</span>
+            <span className="font-mono text-[14px] text-ink/75">
+              {dataBRc(p.data)} · {p.nota}
+            </span>
+            <span className="font-display text-xl text-ink">{p.titulo}</span>
+          </li>
+        ))}
+      </ul>
+    </Faixa>
+  );
+}
+
+/** Coleção Antigênero no poder: número agregado na capa, sem nomes. */
+export function CapaColecao() {
+  const total = ANTIGENERO_DEPUTADAS.length;
+  const voltaram = ANTIGENERO_DEPUTADAS.filter(
+    (d) => d.desfecho === "reeleita" || d.desfecho === "eleita para outro cargo",
+  ).length;
+  return (
+    <Faixa fundo="bg-ink text-paper">
+      <Link
+        to="/colecoes/antigenero-no-poder"
+        className="group grid gap-8 py-12 md:grid-cols-[1.3fr_1fr] md:items-end md:gap-14 md:py-16"
+      >
+        <span>
+          <Secao nome="Coleção" tipo="votos, falas, reeleição e dinheiro" claro />
+          <span className="mt-4 block font-display text-4xl font-semibold leading-none md:text-6xl">
+            Antigênero no poder
+          </span>
+          <span className="mt-5 block max-w-xl text-[17px] leading-relaxed text-paper/85">
+            {total} deputadas votaram contra a igualdade salarial ou para derrubar a norma do
+            Conanda. {voltaram} foram eleitas de novo em 2026.
+          </span>
+          <span className="mt-5 inline-flex min-h-11 items-center text-[15px] font-semibold underline decoration-coral decoration-2 underline-offset-4">
+            Abrir a coleção →
+          </span>
+        </span>
+        <span aria-hidden="true" className="grid max-w-md grid-cols-7 gap-1.5 sm:grid-cols-14">
+          {Array.from({ length: total }, (_, i) => (
+            <span
+              key={i}
+              className={`aspect-square ${i < voltaram ? "bg-coral" : "border border-cream/50"}`}
+            />
+          ))}
+        </span>
+      </Link>
     </Faixa>
   );
 }
