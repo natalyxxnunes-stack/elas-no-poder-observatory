@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { Achado } from "@/data/achados";
-import { formatDateBR, formatPct } from "@/lib/format-br";
+import { formatDateBR, formatInt, formatPct } from "@/lib/format-br";
 
 /**
  * Ficha de achado (redesenho de 30/10/2026): número-âncora, rótulo, gráfico,
@@ -59,14 +59,14 @@ export function AchadoCard({
                       style={{ width: `${Math.min(Math.max(barra.valor / max, 0), 1) * 100}%` }}
                     />
                   </span>
-                  <span className="text-right font-mono text-[13px] tabular-nums text-ink">{formatPct(barra.valor)}</span>
+                  <span className="text-right font-mono text-[13px] tabular-nums text-ink">{achado.contagem ? formatInt(barra.valor) : formatPct(barra.valor)}</span>
                 </div>
               );
             })}
           </div>
           <figcaption className="mt-2 text-[13px] leading-snug text-muted-foreground">
             {achado.legenda}
-            {achado.escala ? ` · escala de 0 a ${achado.escala}%` : ""}
+            {achado.escala ? ` · escala de 0 a ${achado.escala}${achado.contagem ? "" : "%"}` : ""}
           </figcaption>
         </figure>
       )}

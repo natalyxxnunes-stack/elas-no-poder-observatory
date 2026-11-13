@@ -96,7 +96,7 @@ export const TEMAS: readonly Tema[] = [
     pergunta: "O que fazem com o mandato?",
     linha:
       "Como as deputadas votaram, o que assinaram juntas e o que disseram em público sobre os direitos das mulheres, deputada por deputada.",
-    achados: [],
+    achados: ["agenda"],
     votacoes: ["Mulheres", "Povos indígenas", "Democracia"],
     falas: [
       "zanatta-2023-03-07",
@@ -152,7 +152,7 @@ export const TEMAS: readonly Tema[] = [
     pergunta: "O que barra o caminho?",
     linha:
       "Processos de violência política de gênero na Justiça Eleitoral, feminicídio e o que as eleitas disseram sobre o assunto.",
-    achados: [],
+    achados: ["violencia"],
     votacoes: [],
     falas: ["zanatta-2026-03-10", "kicis-2023-12-21"],
     leituras: [{ to: "/na-voz-delas", label: "Na voz delas", nota: "Reportagem" }],
@@ -167,7 +167,7 @@ export const TEMAS: readonly Tema[] = [
     pergunta: "Quem abriu o caminho?",
     linha:
       "As leis e decisões que mudaram o acesso das mulheres às urnas, de 1932 a 2026, e os perfis das pioneiras, sempre com o documento ao lado.",
-    achados: [],
+    achados: ["memoria"],
     votacoes: [],
     falas: [],
     leituras: [

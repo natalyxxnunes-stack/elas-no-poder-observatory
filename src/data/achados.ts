@@ -12,7 +12,14 @@ export type Achado = {
   barras: AchadoBarra[];
   legenda: string;
   fonte: string;
-  to: "/quem-sao-elas" | "/dinheiro" | "/historico" | "/quem-chega" | "/como-votaram";
+  to:
+    | "/quem-sao-elas"
+    | "/dinheiro"
+    | "/historico"
+    | "/quem-chega"
+    | "/como-votaram"
+    | "/barreiras"
+    | "/direitos";
   linkLabel: string;
   /** número em destaque e o que ele conta (30/10/2026, redesenho de Achados) */
   ancora?: { valor: string; rotulo: string };
@@ -20,10 +27,20 @@ export type Achado = {
   foco?: string;
   /** fim da escala das barras, em %, quando 0–100 esmaga a diferença */
   escala?: number;
+  /** barras em número absoluto (contagem), e não em % (13/11/2026) */
+  contagem?: boolean;
   tema?: TemaAchado;
 };
 
-export type TemaAchado = "poder" | "dinheiro" | "cor-raca" | "vices" | "serie";
+export type TemaAchado =
+  | "poder"
+  | "dinheiro"
+  | "cor-raca"
+  | "vices"
+  | "serie"
+  | "agenda"
+  | "violencia"
+  | "memoria";
 
 export const TEMAS_ACHADOS: { id: TemaAchado; titulo: string; linha: string }[] = [
   {
@@ -50,6 +67,21 @@ export const TEMAS_ACHADOS: { id: TemaAchado; titulo: string; linha: string }[] 
     id: "serie",
     titulo: "A série desde 2014",
     linha: "O que mudou em relação às eleições anteriores.",
+  },
+  {
+    id: "agenda",
+    titulo: "O que fazem com o mandato",
+    linha: "Como as deputadas votaram, e com quem.",
+  },
+  {
+    id: "violencia",
+    titulo: "Violência política",
+    linha: "O que barra o caminho, nos processos da Justiça Eleitoral.",
+  },
+  {
+    id: "memoria",
+    titulo: "Memória",
+    linha: "Quanto tempo cada direito levou para chegar.",
   },
 ];
 
@@ -341,6 +373,163 @@ export const ACHADOS: Achado[] = [
     legenda: "Fatia das 81 cadeiras do Senado",
     fonte:
       "TSE, Candidatos 2026 · base de 27/10/2026 (governadores: base de 12/11/2026); Senado Federal, Dados Abertos, consulta de 28/10/2026",
+    to: "/quem-chega",
+    linkLabel: "Ver em Quem chega",
+  },
+  {
+    id: "pretas-eleitas-tres-partidos",
+    ancora: {
+      valor: "39 de 41",
+      rotulo: "deputadas pretas eleitas em 2026 são do PT, do PSOL ou do PCdoB",
+    },
+    tema: "cor-raca",
+    numero: "13",
+    data: "2026-11-13",
+    titulo: "As deputadas pretas eleitas vêm de três partidos",
+    texto:
+      "Em 2026, 41 mulheres pretas foram eleitas deputadas federais, estaduais ou distritais: 21 pelo PT, 14 pelo PSOL e 4 pelo PCdoB. As outras 2 são do PP e do PSD. O PL, segundo partido que mais elegeu deputadas (65, atrás das 70 do PT), não elegeu nenhuma preta: são 58 brancas, 6 pardas e 1 indígena. Quem monta a lista e divide o fundo de cada campanha é a direção de cada partido; o dado mostra em quais legendas a candidatura preta virou cadeira.",
+    barras: [
+      { rotulo: "PT", valor: 21 },
+      { rotulo: "PSOL", valor: 14 },
+      { rotulo: "PCdoB", valor: 4 },
+      { rotulo: "Outros partidos", valor: 2 },
+    ],
+    contagem: true,
+    escala: 25,
+    legenda: "Deputadas pretas eleitas por partido, 2026",
+    fonte:
+      "TSE, Candidatos 2026 · base de 27/10/2026, resultado das 1.572 cadeiras de deputado federal, estadual e distrital",
+    to: "/quem-chega",
+    linkLabel: "Ver em Quem chega",
+  },
+  {
+    id: "anistia-cotas-deputadas",
+    ancora: {
+      valor: "55 de 91",
+      rotulo:
+        "deputadas votaram a favor da PEC que livrou de punição os partidos que não cumpriram a cota de recursos",
+    },
+    tema: "agenda",
+    foco: "Mulheres",
+    numero: "14",
+    data: "2026-11-13",
+    titulo: "A maioria das deputadas votou pelo perdão aos partidos que descumpriram a cota",
+    texto:
+      "Em 11/07/2024, a Câmara votou em 1º turno a PEC 9/2023. O texto livrou de punição os partidos que não destinaram o mínimo de recursos a candidaturas de mulheres e de pessoas negras em eleições passadas e, junto, criou um piso de 30% do fundo para candidaturas pretas e pardas. Das 91 deputadas em exercício, 55 votaram Sim, 23 Não, 12 não votaram e 1 se absteve. Entre quem votou Sim ou Não, 70,5% das deputadas e 81,4% dos deputados disseram Sim. Foi a votação, entre as seis acompanhadas, em que mais deputadas contrariaram a maioria do próprio partido: 16. O texto virou a Emenda Constitucional 133/2024.",
+    barras: [
+      { rotulo: "Mulheres", valor: 70.5 },
+      { rotulo: "Homens", valor: 81.4 },
+    ],
+    legenda: "Votos Sim na PEC 9/2023, entre quem votou Sim ou Não",
+    fonte: "Câmara dos Deputados, Dados Abertos, votação 2352476-149 · coleta de 27/10/2026",
+    to: "/como-votaram",
+    linkLabel: "Ver em No plenário",
+  },
+  {
+    id: "deputadas-votam-com-o-partido",
+    ancora: {
+      valor: "4 de 73",
+      rotulo: "deputadas votaram contra a maioria do próprio partido na derrubada da norma do Conanda",
+    },
+    tema: "agenda",
+    foco: "Conanda (2025)",
+    numero: "15",
+    data: "2026-11-13",
+    titulo: "As deputadas votam diferente dos homens, e igual aos seus partidos",
+    texto:
+      "Nas seis votações acompanhadas pelo observatório, a fatia de Sim entre as deputadas foi sempre menor que entre os deputados. Na votação que sustou a norma do Conanda sobre o atendimento a crianças e adolescentes vítimas de violência sexual (05/11/2025), foram 53,4% contra 78,3%. A diferença vem de onde elas estão: das 73 deputadas que votaram, só 4 contrariaram a maioria do próprio partido. Nas seis votações, esse número ficou entre 4 e 16. Mais mulheres eleitas muda o plenário na medida em que muda a composição dos partidos.",
+    barras: [
+      { rotulo: "Igualdade salarial (2023)", valor: 12.9 },
+      { rotulo: "Anistia às cotas (2024)", valor: 20.5 },
+      { rotulo: "Marco temporal (2023)", valor: 5.2 },
+      { rotulo: "Penas do 8 de janeiro (2025)", valor: 9.1 },
+      { rotulo: "PEC das prerrogativas (2025)", valor: 14.1 },
+      { rotulo: "Conanda (2025)", valor: 5.5 },
+    ],
+    escala: 25,
+    legenda:
+      "Deputadas que votaram contra a maioria do próprio partido, entre as que votaram e tinham maioria definida na bancada",
+    fonte: "Câmara dos Deputados, Dados Abertos, seis votações nominais de mérito · coleta de 27 e 28/10/2026",
+    to: "/como-votaram",
+    linkLabel: "Ver em No plenário",
+  },
+  {
+    id: "violencia-politica-processos",
+    ancora: {
+      valor: "224",
+      rotulo: "processos de violência política de gênero autuados na Justiça Eleitoral em 2026, até 23/10",
+    },
+    tema: "violencia",
+    foco: "2026",
+    numero: "16",
+    data: "2026-11-13",
+    titulo: "Os processos de violência política de gênero quase dobraram em 2026",
+    texto:
+      "A violência política de gênero virou crime eleitoral em 2021 (Lei 14.192). Os processos autuados na Justiça Eleitoral foram 15 em 2022, 23 em 2023, 78 em 2024, 118 em 2025 e 224 em 2026, até a extração de 23/10. O painel registra 2 em 2019 e não mostra 2020 nem 2021. Processo é diferente de caso: um mesmo episódio pode gerar inquérito, representação e ação penal. O crescimento pode vir de mais violência, de mais denúncia ou das duas coisas; o painel não separa.",
+    barras: [
+      { rotulo: "2019", valor: 2 },
+      { rotulo: "2022", valor: 15 },
+      { rotulo: "2023", valor: 23 },
+      { rotulo: "2024", valor: 78 },
+      { rotulo: "2025", valor: 118 },
+      { rotulo: "2026", valor: 224 },
+    ],
+    contagem: true,
+    escala: 250,
+    legenda: "Processos autuados por ano (2020 e 2021 não aparecem no painel)",
+    fonte:
+      "TSE e MPF, painel Violência Política de Gênero, aba Justiça Eleitoral, todas as instâncias · dados extraídos em 23/10/2026, lidos em 28/10/2026",
+    to: "/barreiras",
+    linkLabel: "Ver em Barreiras",
+  },
+  {
+    id: "memoria-49-anos",
+    ancora: {
+      valor: "49 anos",
+      rotulo: "sem nenhum marco nos direitos políticos das mulheres, de 1946 a 1995",
+    },
+    tema: "memoria",
+    foco: "1946 a 1995",
+    numero: "17",
+    data: "2026-11-13",
+    titulo: "Entre o voto obrigatório e a primeira cota, 49 anos",
+    texto:
+      "A linha do tempo do observatório tem 13 marcos dos direitos políticos das mulheres desde 1932. A Constituição de 1946 igualou a obrigação de votar entre homens e mulheres alfabetizados. O marco seguinte só veio em 1995, com a primeira cota de candidaturas de mulheres (Lei 9.100, para as eleições municipais de 1996). Depois de 1995, o intervalo mais longo foi de 12 anos (1997 a 2009); desde 2018, houve marco quase todo ano.",
+    barras: [
+      { rotulo: "1932 a 1934", valor: 2 },
+      { rotulo: "1934 a 1946", valor: 12 },
+      { rotulo: "1946 a 1995", valor: 49 },
+      { rotulo: "1995 a 1997", valor: 2 },
+      { rotulo: "1997 a 2009", valor: 12 },
+      { rotulo: "2009 a 2018", valor: 9 },
+    ],
+    contagem: true,
+    escala: 50,
+    legenda: "Anos entre um marco e o seguinte",
+    fonte: "Quem são elas?, linha do tempo de direitos (leis e decisões, com o documento de cada uma)",
+    to: "/direitos",
+    linkLabel: "Ver a linha do tempo",
+  },
+  {
+    id: "df-senado-so-mulheres",
+    ancora: {
+      valor: "3 de 3",
+      rotulo: "cadeiras do Distrito Federal no Senado serão de mulheres a partir de 2027",
+    },
+    tema: "poder",
+    foco: "Mulheres 2027",
+    numero: "18",
+    data: "2026-11-13",
+    titulo: "O Distrito Federal terá só senadoras",
+    texto:
+      "A partir de 2027, as três cadeiras do DF no Senado serão de mulheres: Damares Alves (Republicanos), com mandato até 2031, e Michelle Bolsonaro e Bia Kicis (PL), eleitas em 2026. Nenhuma outra unidade da Federação terá bancada só de mulheres. No Senado inteiro, as senadoras passam de 15 para 19 das 81 cadeiras; 3 das 19 são do PL, partido que terá 28 cadeiras.",
+    barras: [
+      { rotulo: "Mulheres hoje", valor: 18.5 },
+      { rotulo: "Mulheres 2027", valor: 23.5 },
+    ],
+    legenda: "Fatia das 81 cadeiras do Senado ocupada por mulheres",
+    fonte:
+      "TSE, Candidatos 2026 · base de 27/10/2026; Senado Federal, Dados Abertos, consulta de 28/10/2026",
     to: "/quem-chega",
     linkLabel: "Ver em Quem chega",
   },
