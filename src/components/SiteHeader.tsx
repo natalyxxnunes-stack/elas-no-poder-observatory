@@ -45,11 +45,17 @@ export const MENU: Secao[] = [
   {
     label: "Dados",
     itens: [
+      { label: "Todos os dados", to: "/dados", nota: "As ferramentas de consulta, por tema" },
       { label: "Achados", to: "/achados", nota: "Um dado por vez, com endereço próprio" },
       {
-        label: "Explorar candidatas",
+        label: "Consultar candidatas",
         to: "/quem-sao-elas",
         nota: "Por cor/raça, cargo, partido e estado",
+      },
+      {
+        label: "Consultar o dinheiro",
+        to: "/dinheiro",
+        nota: "Receita, fundo eleitoral e gasto, por cor/raça e partido",
       },
       { label: "Comparador", to: "/comparar", nota: "Partidos ou estados, lado a lado" },
       { label: "A série desde 2014", to: "/historico", nota: "Histórico por cargo e estado" },

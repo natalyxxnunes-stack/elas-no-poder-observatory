@@ -1,6 +1,7 @@
 import { M_FUNDO_BRANCAS } from "@/data/manchetes";
 import { Desdobra, ExploreDivisa } from "@/components/editorial/Desdobra";
 import { AchadosDaPagina } from "@/components/editorial/AchadosDaPagina";
+import { LeituraDoTema } from "@/components/editorial/LeituraDoTema";
 import { Recorte } from "@/components/editorial/Recorte";
 import { FundoNoGasto, TiposDeGasto, Vaquinhas } from "@/components/editorial/DespesasCharts";
 import { FefcPartidos } from "@/components/editorial/FefcPartidos";
@@ -106,7 +107,7 @@ const MONEY_LAYERS = [
 function DinheiroPage() {
   return (
     <PageShell
-      breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Dinheiro" }]}
+      breadcrumb={[{ label: "Dados", to: "/dados" }, { label: "Consultar o dinheiro" }]}
     >
       <EditorialOpening
         variant="financial"
@@ -126,6 +127,8 @@ function DinheiroPage() {
         gap="Prestação final do 1º turno (base de 04/11) · receita, não despesa · 343 candidaturas ainda com prestação parcial"
         snapshot={financeSnapshot}
       />
+
+      <LeituraDoTema slug="dinheiro" />
 
       <AchadosDaPagina temas={["dinheiro"]} max={3} />
 

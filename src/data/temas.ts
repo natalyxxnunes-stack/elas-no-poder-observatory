@@ -25,6 +25,12 @@ export type Tema = {
   /** a pergunta que o tema responde, em linguagem comum */
   pergunta: string;
   linha: string;
+  /** a tese do tema em uma ou duas frases, com número (13/11/2026) */
+  tese: string;
+  /** atores e relações: quem decide o que o tema mede */
+  quemDecide: { ator: string; decide: string }[];
+  /** lacunas declaradas */
+  naoSabemos: string[];
   achados: TemaAchado[];
   /** blocos de votacoes-camara.ts */
   votacoes: string[];
@@ -44,6 +50,17 @@ export const TEMAS: readonly Tema[] = [
     pergunta: "Quem chega?",
     linha:
       "Da candidatura à cadeira: quantas mulheres disputam, quantas são eleitas e quais mulheres são, por cor/raça, cargo, partido e estado.",
+    tese:
+      "Mulheres chegam às listas pela cota e encolhem a cada etapa: são 36,8% das candidaturas à Câmara, 24,0% dos votos e 21,2% das cadeiras. E quanto mais alto o cargo, mais brancas elas são.",
+    quemDecide: [
+      { ator: "A direção de cada partido", decide: "quem entra na lista e quem recebe estrutura de campanha" },
+      { ator: "A lei eleitoral e o TSE", decide: "o mínimo de 30% de candidaturas de cada gênero por partido e a punição quando ele é fraudado" },
+      { ator: "O voto e o quociente eleitoral", decide: "quem, dentro de cada lista, vira cadeira" },
+    ],
+    naoSabemos: [
+      "Quantas candidaturas de mulheres existiram só para cumprir a cota: isso depende de julgamento caso a caso na Justiça Eleitoral.",
+      "Como cada partido montou a lista por dentro: critérios e atas internas não são públicos.",
+    ],
     achados: ["cor-raca", "vices", "serie"],
     votacoes: [],
     falas: [],
@@ -51,7 +68,7 @@ export const TEMAS: readonly Tema[] = [
     paginas: [
       { to: "/votos", label: "Na urna", nota: "Candidatura, voto e cadeira" },
       { to: "/quem-chega", label: "Quem chega", nota: "As eleitas, casa por casa" },
-      { to: "/quem-sao-elas", label: "Quem são elas?", nota: "As candidatas por cor/raça e cargo" },
+      { to: "/quem-sao-elas", label: "Consultar candidatas", nota: "As candidatas por cor/raça, cargo e estado" },
       { to: "/funil", label: "O funil", nota: "Da candidatura ao poder" },
       { to: "/partidos", label: "Partido por partido", nota: "Candidatas e eleitas por sigla" },
       {
@@ -68,6 +85,17 @@ export const TEMAS: readonly Tema[] = [
     pergunta: "Com que dinheiro?",
     linha:
       "Quem recebe o fundo eleitoral e a receita de campanha dentro do universo de mulheres, e o que isso tem a ver com quem volta ao mandato.",
+    tese:
+      "O dinheiro chega às mulheres e se concentra nas brancas e em quem já tem mandato: nas listas para deputada, brancas são 46,9% das candidatas com receita e ficam com 56,1% do dinheiro das mulheres.",
+    quemDecide: [
+      { ator: "A direção nacional de cada partido", decide: "como o fundo eleitoral é dividido entre as candidaturas" },
+      { ator: "A Constituição e o TSE", decide: "os pisos de 30% do fundo para mulheres e de 30% para candidaturas pretas e pardas" },
+      { ator: "A Justiça Eleitoral", decide: "o julgamento das contas e as sanções, depois da eleição" },
+    ],
+    naoSabemos: [
+      "Por que cada partido dividiu o fundo como dividiu: os critérios internos não são públicos.",
+      "Se o dinheiro elege ou se quem já ia ganhar atrai o dinheiro: o teste do observatório (04/11) não confirmou a segunda hipótese, e a pergunta segue aberta.",
+    ],
     achados: ["dinheiro"],
     votacoes: [],
     falas: [],
@@ -79,7 +107,7 @@ export const TEMAS: readonly Tema[] = [
       },
     ],
     paginas: [
-      { to: "/dinheiro", label: "Dinheiro", nota: "Receita, fundo eleitoral, gasto e vaquinhas" },
+      { to: "/dinheiro", label: "Consultar o dinheiro", nota: "Receita, fundo eleitoral, gasto e vaquinhas" },
       {
         to: "/dinheiro",
         hash: "cor-raca",
@@ -96,6 +124,17 @@ export const TEMAS: readonly Tema[] = [
     pergunta: "O que fazem com o mandato?",
     linha:
       "Como as deputadas votaram, o que assinaram juntas e o que disseram em público sobre os direitos das mulheres, deputada por deputada.",
+    tese:
+      "As deputadas votam diferente dos deputados e igual aos seus partidos: em seis votações, a fatia de Sim entre elas foi sempre menor, e no máximo 16 contrariaram a própria bancada. Mais mulheres mudam o plenário na medida em que mudam os partidos.",
+    quemDecide: [
+      { ator: "A Presidência da Câmara e o Colégio de Líderes", decide: "o que entra na pauta do plenário e quando" },
+      { ator: "Os líderes de cada bancada", decide: "a orientação de voto do partido" },
+      { ator: "A bancada feminina", decide: "tem assento no Colégio de Líderes para propor pauta" },
+    ],
+    naoSabemos: [
+      "Por que cada deputada votou como votou: o motivo só entra quando ela mesma explica em público.",
+      "O que acontece nas comissões: o observatório acompanha as votações nominais do plenário.",
+    ],
     achados: ["agenda"],
     votacoes: ["Mulheres", "Povos indígenas", "Democracia"],
     falas: [
@@ -130,6 +169,17 @@ export const TEMAS: readonly Tema[] = [
     pergunta: "Quem decide?",
     linha:
       "Ser eleita é diferente de controlar a pauta: governos, Senado, vice e suplência, e as decisões dos partidos. Mesas, comissões e lideranças entram depois da posse, em 2027.",
+    tese:
+      "Chegar é diferente de mandar: as senadoras passam de 15 para 19 das 81 cadeiras em 2027, num Senado em que o PL sozinho terá 28, mais do que todas as senadoras juntas.",
+    quemDecide: [
+      { ator: "A Mesa Diretora de cada Casa", decide: "a pauta do plenário e a administração" },
+      { ator: "Os partidos, pelo tamanho da bancada", decide: "a divisão das presidências e das vagas nas comissões" },
+      { ator: "Governos estaduais e Presidência", decide: "o primeiro escalão: quem vira secretária ou ministra" },
+    ],
+    naoSabemos: [
+      "Quem vai presidir mesas, comissões e lideranças em 2027: a escolha começa em 01/02/2027, junto com o monitor do observatório.",
+      "Quantas ministras terá o novo governo: os nomes saem a partir da segunda quinzena de novembro.",
+    ],
     achados: ["poder"],
     votacoes: [],
     falas: [],
@@ -152,6 +202,17 @@ export const TEMAS: readonly Tema[] = [
     pergunta: "O que barra o caminho?",
     linha:
       "Processos de violência política de gênero na Justiça Eleitoral, feminicídio e o que as eleitas disseram sobre o assunto.",
+    tese:
+      "O preço de participar subiu: os processos de violência política de gênero na Justiça Eleitoral foram de 15 em 2022 para 224 em 2026, até 23/10.",
+    quemDecide: [
+      { ator: "O Ministério Público Eleitoral", decide: "a denúncia pelo crime de violência política de gênero" },
+      { ator: "A Polícia Federal", decide: "os inquéritos de crime eleitoral" },
+      { ator: "A Justiça Eleitoral", decide: "o julgamento de cada processo" },
+    ],
+    naoSabemos: [
+      "Quantos casos e quantas vítimas: o painel conta processos, e um mesmo episódio pode gerar vários.",
+      "Como terminou cada processo: o painel não traz o desfecho.",
+    ],
     achados: ["violencia"],
     votacoes: [],
     falas: ["zanatta-2026-03-10", "kicis-2023-12-21"],
@@ -167,6 +228,16 @@ export const TEMAS: readonly Tema[] = [
     pergunta: "Quem abriu o caminho?",
     linha:
       "As leis e decisões que mudaram o acesso das mulheres às urnas, de 1932 a 2026, e os perfis das pioneiras, sempre com o documento ao lado.",
+    tese:
+      "Nenhum direito político das mulheres veio de uma vez: do voto, em 1932, à primeira cota, em 1995, passaram 63 anos, 49 deles sem nenhum marco.",
+    quemDecide: [
+      { ator: "O Congresso Nacional", decide: "as leis: voto, cotas, punição da violência política" },
+      { ator: "O TSE e o STF", decide: "a interpretação das regras, como a punição por fraude à cota" },
+      { ator: "Os movimentos de mulheres", decide: "a pressão por cada marco, contada nos perfis de Pioneiras" },
+    ],
+    naoSabemos: [
+      "A série do observatório com dados do TSE começa em 2014; antes disso, a contagem depende de outras fontes.",
+    ],
     achados: ["memoria"],
     votacoes: [],
     falas: [],

@@ -1,6 +1,7 @@
 import { PartyStateMatrix } from "@/components/editorial/PartyStateMatrix";
 import { Desdobra, ExploreDivisa } from "@/components/editorial/Desdobra";
 import { AchadosDaPagina } from "@/components/editorial/AchadosDaPagina";
+import { LeituraDoTema } from "@/components/editorial/LeituraDoTema";
 import { Recorte } from "@/components/editorial/Recorte";
 import { Registro } from "@/components/editorial/Registro";
 import { SituacaoChart } from "@/components/editorial/SituacaoChart";
@@ -145,7 +146,7 @@ function QuemSaoElasPage() {
       : "—";
 
   return (
-    <PageShell breadcrumb={[{ label: "Dados 2026", to: "/" }, { label: "Quem são elas?" }]}>
+    <PageShell breadcrumb={[{ label: "Dados", to: "/dados" }, { label: "Consultar candidatas" }]}>
       <EditorialOpening
         variant="race"
         kicker="Quem são elas?"
@@ -164,6 +165,8 @@ function QuemSaoElasPage() {
         }
         snapshot={snapshot}
       />
+
+      <LeituraDoTema slug="presenca" />
 
       <AchadosDaPagina temas={["cor-raca", "vices"]} max={3} />
 

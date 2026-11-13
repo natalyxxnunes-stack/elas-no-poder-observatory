@@ -14,11 +14,13 @@ import { formatInt as n } from "@/lib/format-br";
 /**
  * Página de tema (12/11/2026). Ordem fixa, de revista:
  *  1. abertura em roxo-tinta com o número-objeto do tema;
- *  2. achados (a unidade do site: um dado, um gráfico, o que significa);
- *  3. no plenário e na voz delas, quando o tema tem;
- *  4. para ler: reportagens e perfis que aprofundam;
- *  5. para consultar: as páginas de dados;
- *  6. o próximo tema.
+ *  2. a tese, em uma ou duas frases com número (13/11/2026);
+ *  3. achados, como provas da tese (um dado, um gráfico, o que significa);
+ *  4. quem decide: atores e relações por trás dos números (13/11/2026);
+ *  5. no plenário e na voz delas, quando o tema tem;
+ *  6. o que ainda não sabemos (13/11/2026);
+ *  7. para ler e para consultar: reportagens e ferramentas de dados;
+ *  8. o próximo tema.
  */
 export const Route = createFileRoute("/temas/$slug")({
   loader: ({ params }) => {
@@ -89,13 +91,14 @@ function TemaPage() {
         </div>
       </Faixa>
 
-      <section className="py-12 md:py-16">
-        <p className="max-w-3xl font-display text-2xl leading-snug text-ink md:text-[1.75rem]">
-          {tema.linha}
+      <section className="py-14 md:py-20">
+        <Secao nome="A tese" tipo="o que o observatório encontrou neste tema" />
+        <p className="mt-6 max-w-[34ch] font-display text-[1.9rem] leading-[1.15] text-ink md:max-w-[38ch] md:text-[2.6rem]">
+          {tema.tese}
         </p>
-        <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-ink/75">
-          Cor/raça atravessa todos os temas: pretas, pardas, brancas, indígenas e amarelas aparecem
-          sempre separadas, e qualquer soma vem declarada.
+        <p className="mt-8 max-w-[62ch] text-[17px] leading-relaxed text-ink/80">
+          {tema.linha} Cor/raça atravessa todos os temas: pretas, pardas, brancas, indígenas e
+          amarelas aparecem sempre separadas, e qualquer soma vem declarada.
         </p>
       </section>
 
@@ -103,8 +106,8 @@ function TemaPage() {
         <Faixa fundo="bg-cream">
           <div className="py-12 md:py-16">
             <Secao
-              nome="Achados"
-              tipo={`${n(achados.length)} neste tema · cada um tem endereço próprio`}
+              nome="As provas"
+              tipo={`${n(achados.length)} achados · cada um tem endereço próprio`}
             />
             <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {achados.map((a) => (
@@ -114,6 +117,19 @@ function TemaPage() {
           </div>
         </Faixa>
       ) : null}
+
+      <section className="py-14 md:py-20">
+        <Secao nome="Quem decide" tipo="os atores e as relações por trás dos números" />
+        <ol className="mt-8 grid gap-px bg-rule md:grid-cols-3">
+          {tema.quemDecide.map((q, k) => (
+            <li key={q.ator} className="bg-paper p-6 md:p-8">
+              <span className="font-mono text-[13px] text-coral-ink">{String(k + 1).padStart(2, "0")}</span>
+              <p className="mt-3 font-display text-2xl leading-snug text-ink">{q.ator}</p>
+              <p className="mt-2 text-[16px] leading-relaxed text-ink/80">decide {q.decide}.</p>
+            </li>
+          ))}
+        </ol>
+      </section>
 
       {votacoes.length ? (
         <section className="py-12">
@@ -186,6 +202,17 @@ function TemaPage() {
         </Faixa>
       ) : null}
 
+      <section className="py-12 md:py-16">
+        <Secao nome="O que ainda não sabemos" tipo="lacunas declaradas" />
+        <ul className="mt-6 max-w-[62ch] space-y-4">
+          {tema.naoSabemos.map((x) => (
+            <li key={x} className="border-l-4 border-lilac pl-5 text-[17px] leading-relaxed text-ink/85">
+              {x}
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section className="grid gap-12 py-12 md:grid-cols-2 md:py-16">
         {tema.leituras.length ? (
           <div>
@@ -205,7 +232,7 @@ function TemaPage() {
           </div>
         ) : null}
         <div>
-          <Secao nome="Para consultar" tipo="os dados completos" />
+          <Secao nome="Para consultar" tipo="as ferramentas de dados deste tema" />
           <ul className="mt-4">
             {tema.paginas.map((p) => (
               <li key={`${p.to}${p.hash ?? ""}`}>

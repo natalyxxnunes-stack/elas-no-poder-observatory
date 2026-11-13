@@ -17,6 +17,7 @@ import { Route as CoautoriaRouteImport } from './routes/coautoria'
 import { Route as ComoVotaramRouteImport } from './routes/como-votaram'
 import { Route as CompararRouteImport } from './routes/comparar'
 import { Route as CondicoesRouteImport } from './routes/condicoes'
+import { Route as DadosRouteImport } from './routes/dados'
 import { Route as DinheiroRouteImport } from './routes/dinheiro'
 import { Route as DireitosRouteImport } from './routes/direitos'
 import { Route as DownloadsRouteImport } from './routes/downloads'
@@ -86,6 +87,11 @@ const CompararRoute = CompararRouteImport.update({
 const CondicoesRoute = CondicoesRouteImport.update({
   id: '/condicoes',
   path: '/condicoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DadosRoute = DadosRouteImport.update({
+  id: '/dados',
+  path: '/dados',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DinheiroRoute = DinheiroRouteImport.update({
@@ -250,6 +256,7 @@ export interface FileRoutesByFullPath {
   '/como-votaram': typeof ComoVotaramRoute
   '/comparar': typeof CompararRoute
   '/condicoes': typeof CondicoesRoute
+  '/dados': typeof DadosRoute
   '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
   '/downloads': typeof DownloadsRoute
@@ -290,6 +297,7 @@ export interface FileRoutesByTo {
   '/como-votaram': typeof ComoVotaramRoute
   '/comparar': typeof CompararRoute
   '/condicoes': typeof CondicoesRoute
+  '/dados': typeof DadosRoute
   '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
   '/downloads': typeof DownloadsRoute
@@ -331,6 +339,7 @@ export interface FileRoutesById {
   '/como-votaram': typeof ComoVotaramRoute
   '/comparar': typeof CompararRoute
   '/condicoes': typeof CondicoesRoute
+  '/dados': typeof DadosRoute
   '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
   '/downloads': typeof DownloadsRoute
@@ -373,6 +382,7 @@ export interface FileRouteTypes {
     | '/como-votaram'
     | '/comparar'
     | '/condicoes'
+    | '/dados'
     | '/dinheiro'
     | '/direitos'
     | '/downloads'
@@ -413,6 +423,7 @@ export interface FileRouteTypes {
     | '/como-votaram'
     | '/comparar'
     | '/condicoes'
+    | '/dados'
     | '/dinheiro'
     | '/direitos'
     | '/downloads'
@@ -453,6 +464,7 @@ export interface FileRouteTypes {
     | '/como-votaram'
     | '/comparar'
     | '/condicoes'
+    | '/dados'
     | '/dinheiro'
     | '/direitos'
     | '/downloads'
@@ -494,6 +506,7 @@ export interface RootRouteChildren {
   ComoVotaramRoute: typeof ComoVotaramRoute
   CompararRoute: typeof CompararRoute
   CondicoesRoute: typeof CondicoesRoute
+  DadosRoute: typeof DadosRoute
   DinheiroRoute: typeof DinheiroRoute
   DireitosRoute: typeof DireitosRoute
   DownloadsRoute: typeof DownloadsRoute
@@ -582,6 +595,13 @@ declare module '@tanstack/react-router' {
       path: '/condicoes'
       fullPath: '/condicoes'
       preLoaderRoute: typeof CondicoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dados': {
+      id: '/dados'
+      path: '/dados'
+      fullPath: '/dados'
+      preLoaderRoute: typeof DadosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dinheiro': {
@@ -806,6 +826,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComoVotaramRoute: ComoVotaramRoute,
   CompararRoute: CompararRoute,
   CondicoesRoute: CondicoesRoute,
+  DadosRoute: DadosRoute,
   DinheiroRoute: DinheiroRoute,
   DireitosRoute: DireitosRoute,
   DownloadsRoute: DownloadsRoute,
