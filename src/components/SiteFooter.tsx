@@ -3,7 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { BrandLogo } from "./BrandLogo";
 import { BrandWordmark } from "./BrandWordmark";
 import { SITE } from "@/data/election-2026";
-import { CENTRAL_THESIS, COVER_QUESTION, DATA_2026_NAV_ITEMS, NAV_ITEMS, UTILITY_NAV_ITEMS } from "@/data/architecture";
+import { CENTRAL_THESIS, COVER_QUESTION } from "@/data/architecture";
+import { MENU } from "./SiteHeader";
 import { getSnapshotStamp } from "@/lib/tse/snapshot.functions";
 
 function br(iso: string | null | undefined): string | null {
@@ -12,7 +13,6 @@ function br(iso: string | null | undefined): string | null {
   if (Number.isNaN(d.getTime())) return null;
   return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
 }
-
 
 export function SiteFooter({ flush = false }: { flush?: boolean }) {
   const { data: stamp } = useQuery({
@@ -26,8 +26,7 @@ export function SiteFooter({ flush = false }: { flush?: boolean }) {
 
   return (
     <footer className={`ink-panel ${flush ? "border-t border-cream/15" : "mt-24"}`}>
-
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-[1.5fr_1fr_1fr] md:px-8">
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-[1.2fr_2fr] md:px-8">
         <div>
           <div className="flex items-center gap-3">
             <BrandLogo className="h-11 w-11" />
@@ -36,45 +35,44 @@ export function SiteFooter({ flush = false }: { flush?: boolean }) {
           <p className="mt-5 max-w-md font-display text-xl leading-snug text-cream/90">
             “{COVER_QUESTION}”
           </p>
-          <p className="mt-4 max-w-md text-sm leading-relaxed text-cream/75">
-            {CENTRAL_THESIS}
-          </p>
+          <p className="mt-4 max-w-md text-sm leading-relaxed text-cream/75">{CENTRAL_THESIS}</p>
         </div>
 
-        <div>
-          <h2 className="font-display text-lg italic text-cream">
-            Navegue
-          </h2>
-          <ul className="mt-4 space-y-2">
-            {[...NAV_ITEMS, ...UTILITY_NAV_ITEMS].map((item) => (
-              <li key={item.to}>
-                <Link
-                  to={item.to}
-                  className="text-sm text-cream/75 underline-offset-4 hover:text-cream hover:underline"
-                >
-                  {item.label}
-                </Link>
-              </li>
+        <nav aria-label="Rodapé" className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+          {MENU.filter((sec) => sec.itens).map((sec) => (
+            <div key={sec.label}>
+              <h2 className="font-display text-lg italic text-cream">{sec.label}</h2>
+              <ul className="mt-4 space-y-2">
+                {sec.itens!.map((item) => (
+                  <li key={item.to}>
+                    <Link
+                      to={item.to}
+                      className="text-sm text-cream/75 underline-offset-4 hover:text-cream hover:underline"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          <div className="flex flex-col gap-2 sm:col-span-2 md:col-span-3 md:flex-row md:gap-8">
+            {[
+              { label: "Quem entrou", to: "/eleitas" },
+              { label: "Método", to: "/metodo" },
+              { label: "Buscar", to: "/busca" },
+              { label: "Sobre", to: "/sobre" },
+            ].map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className="font-display text-lg text-cream underline-offset-4 hover:underline"
+              >
+                {item.label}
+              </Link>
             ))}
-          </ul>
-        </div>
-        <div>
-          <h2 className="font-display text-lg italic text-cream">
-            Dados 2026
-          </h2>
-          <ul className="mt-4 grid grid-cols-2 gap-x-5 gap-y-2">
-            {DATA_2026_NAV_ITEMS.map((item) => {
-              const hashProps = item.hash ? { hash: item.hash } : {};
-              return (
-                <li key={item.label}>
-                  <Link to={item.to} {...hashProps} className="text-sm text-cream/75 underline-offset-4 hover:text-cream hover:underline">
-                    {item.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+          </div>
+        </nav>
       </div>
       <div className="border-t border-cream/15">
         <div className="mx-auto max-w-7xl px-5 py-5 text-sm leading-relaxed text-cream/70 md:px-8">
@@ -85,12 +83,11 @@ export function SiteFooter({ flush = false }: { flush?: boolean }) {
             </p>
           )}
           <p className={generated ? "mt-1" : undefined}>
-            Indicadores de candidatura calculados a partir de TSE / Dados Abertos
-            / Candidatos 2026. A data da base usada aparece junto de cada número.
+            Indicadores de candidatura calculados a partir de TSE / Dados Abertos / Candidatos 2026.
+            A data da base usada aparece junto de cada número.
           </p>
         </div>
       </div>
-
     </footer>
   );
 }

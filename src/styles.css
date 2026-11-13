@@ -9,6 +9,11 @@
  * Paleta editorial derivada da logo original (lente roxa):
  *   roxo #5b2a86 · tinta #1a1420 · creme #f5f1e8 · amarelo #f2c230 · coral #e8552b
  * Nenhuma cor deve ser escrita direto nos componentes: use os tokens.
+ *
+ * 12/11/2026: o creme saiu. O token --cream continua com o mesmo nome (está em
+ * dezenas de componentes), mas agora é um cinza-lilás frio, o tom que alterna
+ * com o branco-papel ao longo das páginas. --butter também esfriou. Aberturas
+ * de tema usam --plum-deep, um roxo quase tinta.
  */
 
 @theme inline {
@@ -46,6 +51,7 @@
   --color-plum: var(--plum);
   --color-plum-soft: var(--plum-soft);
   --color-plum-bright: var(--plum-bright);
+  --color-plum-deep: var(--plum-deep);
   --color-coral-ink: var(--coral-ink);
   --color-solar: var(--solar);
   --color-coral: var(--coral);
@@ -78,8 +84,9 @@
   --radius: 0.25rem;
 
   --ink: oklch(0.19 0.035 310);
-  --cream: oklch(0.965 0.014 85);
-  --paper: oklch(0.985 0.004 305);
+  --cream: oklch(0.955 0.012 300);
+  --paper: oklch(0.992 0.002 300);
+  --plum-deep: oklch(0.25 0.09 305);
   --plum: oklch(0.39 0.16 305);
   --plum-soft: oklch(0.52 0.13 305);
   /* Variantes tonais para texto: mesma família de cor, contraste AA. */
@@ -89,8 +96,8 @@
   /* laranja = o dado de agora (2026) nos gráficos; nunca categoria */
   --coral: oklch(0.63 0.2 34);
   --lilac: oklch(0.915 0.05 305);
-  /* amarelo manteiga: fundo quente para achados; texto sempre em tinta */
-  --butter: oklch(0.93 0.085 90);
+  /* antes amarelo manteiga; desde 12/11/2026, lilás bem claro */
+  --butter: oklch(0.94 0.03 305);
   /* paleta de cor/raça (gráficos em fundo claro) */
   --race-branca: oklch(0.64 0.02 305);
   --race-parda: oklch(0.64 0.09 78);
@@ -255,4 +262,14 @@
 html,
 body {
   overflow-x: clip;
+}
+
+/* Número-objeto (12/11/2026): pilha de folhas, uma linha por folha. */
+@utility folhas {
+  background-color: var(--color-paper);
+  background-image: repeating-linear-gradient(to top, transparent 0 2px, color-mix(in oklab, var(--color-plum) 35%, transparent) 2px 3px);
+}
+@utility folhas-coral {
+  background-color: var(--color-coral);
+  background-image: repeating-linear-gradient(to top, transparent 0 2px, color-mix(in oklab, var(--color-ink) 30%, transparent) 2px 3px);
 }

@@ -5,64 +5,58 @@ import { BrandLogo } from "./BrandLogo";
 import { BrandWordmark } from "./BrandWordmark";
 import { SITE } from "@/data/election-2026";
 
+import { TEMAS } from "@/data/temas";
+
 /**
- * SiteHeader — menu de revista organizado pelos eixos editoriais da
- * auditoria 360° de novembro/2026 (P1): histórias, quem chegou ao poder (com
- * as fichas individuais das eleitas), o que fazem no poder, direitos em
- * disputa e dinheiro. Busca, Temas, Método e Sobre ficam no canto.
+ * SiteHeader — menu de revista (12/11/2026): os seis temas, as reportagens,
+ * a ficha de cada eleita, os dados para consulta e o método. Busca e Sobre
+ * ficam no canto. O rodapé usa a mesma estrutura (MENU, exportado aqui).
  */
 type Item = { label: string; to: string; nota?: string };
 type Secao = { label: string; to?: string; itens?: Item[] };
 
-const SECOES: Secao[] = [
+export const MENU: Secao[] = [
   {
-    label: "Histórias",
+    label: "Temas",
+    itens: [
+      ...TEMAS.map((t) => ({
+        label: `${t.ordem} · ${t.nome}`,
+        to: `/temas/${t.slug}`,
+        nota: t.pergunta,
+      })),
+      { label: "Todos os temas", to: "/temas" },
+    ],
+  },
+  {
+    label: "Reportagens",
     itens: [
       { label: "Reportagens", to: "/reportagens", nota: "Textos assinados" },
+      { label: "Pioneiras", to: "/pioneiras", nota: "Perfis de quem abriu o caminho" },
       { label: "Relatório 2026", to: "/relatorio-2026", nota: "O ano em dados, numa página" },
-      { label: "Calendário", to: "/calendario", nota: "Da urna à posse: datas e pautas" },
-      { label: "Na voz delas", to: "/na-voz-delas", nota: "O que disseram, com o dado ao lado" },
-      { label: "Pioneiras", to: "/pioneiras", nota: "Quem abriu o caminho" },
-      { label: "Achados", to: "/achados", nota: "O que os dados mostram, um por um" },
-      { label: "Todas as investigações", to: "/investigacoes" },
+      { label: "Investigações", to: "/investigacoes", nota: "O que está em apuração" },
     ],
   },
+  { label: "Quem entrou", to: "/eleitas" },
   {
-    label: "Eleições 2026",
+    label: "Dados",
     itens: [
-      { label: "Quem entrou", to: "/eleitas", nota: "Ficha de cada eleita de 2026" },
-      { label: "Quem chega", to: "/quem-chega", nota: "As eleitas, casa por casa" },
-      { label: "Quem são elas?", to: "/quem-sao-elas", nota: "As candidatas, por cor/raça e cargo" },
-      { label: "Partido por partido", to: "/partidos", nota: "Eleitas, fundo e votações por sigla" },
+      { label: "Achados", to: "/achados", nota: "Um dado por vez, com endereço próprio" },
+      {
+        label: "Explorar candidatas",
+        to: "/quem-sao-elas",
+        nota: "Por cor/raça, cargo, partido e estado",
+      },
       { label: "Comparador", to: "/comparar", nota: "Partidos ou estados, lado a lado" },
-      { label: "Na urna", to: "/votos", nota: "Candidatura, voto e cadeira" },
-      { label: "Histórico", to: "/historico", nota: "De 2014 a 2026" },
+      { label: "A série desde 2014", to: "/historico", nota: "Histórico por cargo e estado" },
+      { label: "Calendário", to: "/calendario", nota: "Da urna à posse" },
+      { label: "Baixar os dados", to: "/downloads", nota: "Planilhas e arquivos conferidos" },
     ],
   },
-  {
-    label: "No poder",
-    itens: [
-      { label: "No plenário", to: "/como-votaram", nota: "Como votaram as deputadas" },
-      { label: "Monitor de mandato", to: "/monitor", nota: "O que cada deputada registrou na Câmara" },
-      { label: "Quem assina junto", to: "/coautoria", nota: "A rede de coautoria das deputadas" },
-      { label: "Quem controla?", to: "/quem-controla", nota: "As decisões dos partidos" },
-      { label: "O funil", to: "/funil", nota: "Da candidatura ao poder" },
-    ],
-  },
-  {
-    label: "Direitos",
-    itens: [
-      { label: "Direitos", to: "/direitos", nota: "Os marcos, de 1932 a 2026" },
-      { label: "Em disputa", to: "/em-disputa", nota: "As regras que valem e o que pode mudá-las" },
-      { label: "Barreiras", to: "/barreiras", nota: "Violência política e contra mulheres" },
-    ],
-  },
-  { label: "Dinheiro", to: "/dinheiro" },
+  { label: "Método", to: "/metodo" },
 ];
+const SECOES = MENU;
 const CANTO: Item[] = [
   { label: "Buscar", to: "/busca" },
-  { label: "Temas", to: "/temas" },
-  { label: "Método", to: "/metodo" },
   { label: "Sobre", to: "/sobre" },
 ];
 
@@ -83,11 +77,15 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
 
   return (
     <header className="sticky top-0 z-40 border-b border-rule bg-paper/95 backdrop-blur">
-      <div className={`mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-5 md:px-8 ${home ? "max-w-7xl py-3" : "max-w-7xl py-2.5"}`}>
+      <div
+        className={`mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-5 md:px-8 ${home ? "max-w-7xl py-3" : "max-w-7xl py-2.5"}`}
+      >
         <Link to="/" className="flex shrink-0 items-center gap-3" onClick={close}>
           <BrandLogo className={`${home ? "h-12 w-12" : "h-11 w-11"} shrink-0`} />
           <span className="whitespace-nowrap leading-tight">
-            <BrandWordmark className={`block font-display font-semibold text-ink ${home ? "text-[1.4rem]" : "text-xl"}`} />
+            <BrandWordmark
+              className={`block font-display font-semibold text-ink ${home ? "text-[1.4rem]" : "text-xl"}`}
+            />
             <span className="hidden text-[13px] uppercase tracking-[0.12em] text-muted-foreground 2lg:block">
               {SITE.tagline}
             </span>
@@ -126,8 +124,14 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
                           onClick={close}
                           className="block px-3 py-2.5 hover:bg-cream"
                         >
-                          <span className="block font-display text-lg leading-tight text-ink">{it.label}</span>
-                          {it.nota && <span className="block text-[13px] text-muted-foreground">{it.nota}</span>}
+                          <span className="block font-display text-lg leading-tight text-ink">
+                            {it.label}
+                          </span>
+                          {it.nota && (
+                            <span className="block text-[13px] text-muted-foreground">
+                              {it.nota}
+                            </span>
+                          )}
                         </Link>
                       ))}
                     </div>
@@ -162,7 +166,11 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
           aria-controls="menu-movel"
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? <X className="size-5" aria-hidden="true" /> : <Menu className="size-5" aria-hidden="true" />}
+          {open ? (
+            <X className="size-5" aria-hidden="true" />
+          ) : (
+            <Menu className="size-5" aria-hidden="true" />
+          )}
         </button>
       </div>
 
@@ -177,13 +185,18 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
               <details key={sec.label} className="group border-b border-rule">
                 <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between font-display text-2xl text-ink">
                   {sec.label}
-                  <ChevronDown className="size-5 transition-transform group-open:rotate-180" aria-hidden="true" />
+                  <ChevronDown
+                    className="size-5 transition-transform group-open:rotate-180"
+                    aria-hidden="true"
+                  />
                 </summary>
                 <div className="pb-3">
                   {sec.itens.map((it) => (
                     <Link key={it.to} to={it.to} onClick={close} className="block py-2.5 pl-3">
                       <span className="block text-[17px] text-ink">{it.label}</span>
-                      {it.nota && <span className="block text-[13px] text-muted-foreground">{it.nota}</span>}
+                      {it.nota && (
+                        <span className="block text-[13px] text-muted-foreground">{it.nota}</span>
+                      )}
                     </Link>
                   ))}
                 </div>
@@ -201,7 +214,12 @@ export function SiteHeader({ home = false }: { home?: boolean }) {
           )}
           <div className="mt-5 flex gap-6 text-[13px] font-semibold">
             {CANTO.map((it) => (
-              <Link key={it.to} to={it.to} onClick={close} className="inline-flex min-h-11 items-center text-plum">
+              <Link
+                key={it.to}
+                to={it.to}
+                onClick={close}
+                className="inline-flex min-h-11 items-center text-plum"
+              >
                 {it.label}
               </Link>
             ))}

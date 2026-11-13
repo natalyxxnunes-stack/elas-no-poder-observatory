@@ -5,9 +5,19 @@ import { formatDateBR, formatPct } from "@/lib/format-br";
 /**
  * Ficha de achado (redesenho de 30/10/2026): número-âncora, rótulo, gráfico,
  * título como frase de tensão, texto e uma linha de rodapé. O card inteiro é
- * clicável. Laranja só na barra marcada em `foco`; o resto em roxo.
+ * clicável e leva à página do achado (/achados/$id, desde 12/11/2026), que é a
+ * unidade citável do site. Laranja só na barra marcada em `foco`; o resto em roxo.
  */
-export function AchadoCard({ achado, grande = false }: { achado: Achado; grande?: boolean }) {
+export function AchadoCard({
+  achado,
+  grande = false,
+  pagina = false,
+}: {
+  achado: Achado;
+  grande?: boolean;
+  /** na página do próprio achado: o título leva à página de dados de origem */
+  pagina?: boolean;
+}) {
   const max = achado.escala ?? 100;
   return (
     <article
@@ -62,7 +72,7 @@ export function AchadoCard({ achado, grande = false }: { achado: Achado; grande?
       )}
       <h3 className={`mt-5 font-display leading-snug text-ink ${grande ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"}`}>
         <Link
-          to={achado.to}
+          {...(pagina ? { to: achado.to } : { to: "/achados/$id", params: { id: achado.id } })}
           className="after:absolute after:inset-0 focus-visible:outline-none group-hover:underline group-hover:decoration-plum group-hover:underline-offset-4"
         >
           {achado.titulo}
@@ -73,7 +83,7 @@ export function AchadoCard({ achado, grande = false }: { achado: Achado; grande?
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-rule pt-2 text-[13px] text-muted-foreground">
         <span className="max-w-[40ch]">{achado.fonte}</span>
         <span aria-hidden="true" className="inline-flex min-h-11 items-center font-medium text-plum">
-          {achado.linkLabel}
+          {pagina ? achado.linkLabel : "Ver o achado"}
           <span className="ml-1.5 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none">→</span>
         </span>
       </div>

@@ -8,7 +8,7 @@ import { formatDateBR } from "@/lib/format-br";
 const description =
   "Achados do observatório Quem são elas?: notas curtas e datadas sobre mulheres, eleições e poder em 2026, cada uma com número, fonte e caminho para os dados.";
 
-export const Route = createFileRoute("/achados")({
+export const Route = createFileRoute("/achados/")({
   head: () => ({
     meta: [
       { title: "O que encontramos | Quem são elas?" },

@@ -158,6 +158,14 @@ const vf = VOTOS_2026.federal;
 const candF = sum(vf.candidacies["FEMININO"]);
 const candAll = candF + sum(vf.candidacies["MASCULINO"]);
 const votF = sum(vf.votes["FEMININO"]);
+/** funil da Câmara em números (mesmas contas da manchete), para o objeto da capa */
+export const CAMARA_FUNIL = {
+  candidaturas: candAll > 0 ? (candF / candAll) * 100 : 0,
+  votos: vf.votesTotal > 0 ? (votF / vf.votesTotal) * 100 : 0,
+  cadeiras: R.byCargo.federal.seats > 0 ? (R.byCargo.federal.feminine / R.byCargo.federal.seats) * 100 : 0,
+  eleitas: R.byCargo.federal.feminine,
+  vagas: R.byCargo.federal.seats,
+};
 export const M_VOTOS: Manchete = {
   id: "votos",
   texto: `Na Câmara, mulheres foram ${pct(candF, candAll)} das candidaturas, ${pct(votF, vf.votesTotal)} dos votos e ${pct(R.byCargo.federal.feminine, R.byCargo.federal.seats)} das cadeiras`,

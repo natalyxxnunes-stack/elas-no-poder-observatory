@@ -1,7 +1,10 @@
-import type { ReactNode } from "react";
 import { Secao } from "@/components/editorial/Secao";
 import { Link } from "@tanstack/react-router";
 import { FotoDocumental } from "@/components/editorial/FotoDocumental";
+import { Faixa } from "@/components/editorial/Faixa";
+import { ObjetoFigura, OBJETOS } from "@/components/editorial/ObjetoTema";
+import { REPORTAGENS } from "@/data/reportagens";
+import { TEMAS } from "@/data/temas";
 import { ACHADOS } from "@/data/achados";
 import { CAPA_MANCHETE } from "@/data/capa";
 import { FALAS } from "@/data/falas";
@@ -10,26 +13,11 @@ import { M_BRANCAS, M_CADEIRAS, M_PL_PRETAS } from "@/data/manchetes";
 import { ANCORAS_PIONEIRAS, PERFIS_PIONEIRAS } from "@/data/perfis-pioneiras";
 
 /**
- * Capa da página inicial, direção B (02/11/2026): fundos claros alternados
- * (papel e creme) com blocos de roxo para a citação e para explorar os dados.
- * Laranja só marca o dado de 2026. Pastel fica em detalhes.
+ * Capa da página inicial (12/11/2026): manchete com número-objeto em roxo-tinta,
+ * os seis temas como seis perguntas, reportagens, Pioneiras e o caminho para
+ * os dados. Fundos alternam branco-papel e cinza-lilás frio; laranja só marca
+ * o dado de agora.
  */
-
-function Faixa({
-  fundo,
-  children,
-  className = "",
-}: {
-  fundo: string;
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <section className={`relative left-1/2 -ml-[50vw] w-screen ${fundo} ${className}`}>
-      <div className="mx-auto max-w-7xl px-5 md:px-8">{children}</div>
-    </section>
-  );
-}
 
 const achado = (id: string) => ACHADOS.find((a) => a.id === id);
 
@@ -37,22 +25,29 @@ export function CapaManchete() {
   const m = CAPA_MANCHETE;
   const temFoto = Boolean(FOTOS[m.fotoId]);
   return (
-    <Faixa fundo="bg-cream">
-      <div
-        className={`grid gap-8 py-10 md:items-end md:gap-12 md:py-16 ${temFoto ? "md:grid-cols-[1.15fr_1fr]" : ""}`}
-      >
-        <div className={temFoto ? "" : "max-w-5xl"}>
-          <Secao nome={m.secao} tipo={m.tipo} />
-          <h1 className="mt-4 font-display text-[2.4rem] font-semibold leading-[1.05] tracking-[-0.01em] text-plum md:text-6xl">
-            <Link to={m.to} className="hover:underline hover:underline-offset-4">
+    <Faixa fundo="bg-plum-deep text-paper">
+      <div className="grid gap-10 py-12 md:grid-cols-[1fr_1.1fr] md:items-center md:gap-16 md:py-20">
+        <div>
+          <Secao nome={m.secao} tipo={m.tipo} claro />
+          <h1 className="mt-5 font-display text-[2.3rem] font-semibold leading-[1.05] tracking-[-0.01em] md:text-[3.4rem]">
+            <Link
+              to={m.to}
+              className="hover:underline hover:decoration-coral hover:underline-offset-4"
+            >
               {m.titulo}
             </Link>
           </h1>
-          <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink/80 md:text-lg">
+          <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-paper/85 md:text-lg">
             {m.linhaFina}
           </p>
+          <Link
+            to={m.to}
+            className="mt-6 inline-flex min-h-11 items-center text-[15px] font-semibold text-paper underline decoration-coral decoration-2 underline-offset-4"
+          >
+            Candidatura, voto e cadeira →
+          </Link>
         </div>
-        <FotoDocumental id={m.fotoId} />
+        <div>{temFoto ? <FotoDocumental id={m.fotoId} /> : <ObjetoFigura slug="presenca" />}</div>
       </div>
     </Faixa>
   );
@@ -122,58 +117,99 @@ export function CapaCitacao() {
   );
 }
 
-export function CapaChamadas() {
-  const reeleicao = achado("dinheiro-reeleicao");
+export function CapaTemas() {
   return (
     <Faixa fundo="bg-paper">
-      <div className="grid gap-8 py-10 md:grid-cols-[1.4fr_1fr] md:gap-12 md:py-14">
-        <article className="border-b border-rule pb-8 md:border-b-0 md:border-r md:pb-0 md:pr-12">
-          <Secao nome="No plenário" tipo="reportagem" />
-          <h2 className="mt-3 font-display text-[1.7rem] font-semibold leading-tight text-ink md:text-4xl">
-            <Link to="/como-votaram" className="hover:underline hover:underline-offset-4">
-              Entre as deputadas que tentaram voltar, as de maior receita voltaram mais
+      <div className="py-12 md:py-16">
+        <Secao nome="Seis perguntas" tipo="os temas do observatório" />
+        <ol className="mt-8 grid gap-px bg-rule md:grid-cols-2 xl:grid-cols-3">
+          {TEMAS.map((t) => (
+            <li key={t.slug} className="bg-paper">
+              <Link
+                to="/temas/$slug"
+                params={{ slug: t.slug }}
+                className="group flex h-full flex-col p-6 hover:bg-cream md:p-8"
+              >
+                <span className="font-mono text-[14px] text-ink/60">{t.ordem}</span>
+                <span className="mt-2 font-display text-3xl font-semibold leading-tight text-ink group-hover:text-plum">
+                  {t.nome}
+                </span>
+                <span className="font-display text-xl italic text-plum">{t.pergunta}</span>
+                <span className="mt-5 border-t-[3px] border-coral pt-3 text-[16px] leading-relaxed text-ink/85">
+                  {OBJETOS[t.slug]().frase}
+                </span>
+                <span className="mt-auto pt-5 text-[14px] font-semibold text-plum">
+                  Abrir o tema →
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </Faixa>
+  );
+}
+
+/**
+ * Reportagens na capa. "Na voz delas" fica fora da capa até chegarem as
+ * respostas aos pedidos de posicionamento (decisão de 09/11/2026, ver capa.ts);
+ * a página segue no ar e aparece nos temas.
+ */
+const FORA_DA_CAPA = new Set<string>(["/na-voz-delas"]);
+
+export function CapaReportagens() {
+  const [principal, ...outras] = REPORTAGENS.filter((r) => !FORA_DA_CAPA.has(r.to));
+  if (!principal) return null;
+  const dataBR = (iso: string) => iso.split("-").reverse().join("/");
+  return (
+    <Faixa fundo="bg-cream">
+      <div className="grid gap-10 py-12 md:grid-cols-[1.4fr_1fr] md:gap-14 md:py-16">
+        <article>
+          <Secao nome="Reportagem" tipo={principal.tema} />
+          <h2 className="mt-4 font-display text-[2rem] font-semibold leading-tight text-ink md:text-5xl">
+            <Link to={principal.to} className="hover:underline hover:underline-offset-4">
+              {principal.titulo}
             </Link>
           </h2>
-          {reeleicao?.ancora ? (
-            <div className="mt-5 flex flex-wrap items-end gap-x-6 gap-y-2">
-              <span className="font-display text-5xl font-semibold leading-none text-plum">
-                {reeleicao.ancora.valor}
-              </span>
-              <span className="max-w-xs text-[15px] leading-snug text-ink/70">
-                {reeleicao.ancora.rotulo}
-              </span>
-            </div>
-          ) : null}
-          <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-ink/80">
-            Seis votações na Câmara, deputada por deputada, cruzadas com o resultado de 2026 e o
-            dinheiro de campanha.
+          <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-ink/80">
+            {principal.linhaFina}
+          </p>
+          <p className="mt-4 font-mono text-[13px] text-ink/70">
+            {principal.autora} · {dataBR(principal.data)}
           </p>
         </article>
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-1">
-          <article className="bg-ink p-5 text-cream">
-            <Secao nome="Dinheiro" pequeno claro />
-            <h3 className="mt-2 font-display text-xl font-semibold leading-snug text-cream">
-              <Link to="/dinheiro" className="hover:underline hover:underline-offset-4">
-                Mediana da candidata a deputada: branca, R$ 151 mil; parda, R$ 100 mil; preta, R$ 81
-                mil
+        <div>
+          {outras.map((r) => (
+            <article key={r.to} className="border-t-[3px] border-plum pt-4">
+              <p className="text-[13px] font-semibold text-coral-ink">{r.tema}</p>
+              <h3 className="mt-1 font-display text-2xl font-semibold leading-snug text-ink">
+                <Link to={r.to} className="hover:underline hover:underline-offset-4">
+                  {r.titulo}
+                </Link>
+              </h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-ink/75">{r.linhaFina}</p>
+            </article>
+          ))}
+          {outras.length === 0 ? (
+            <div className="border-t-[3px] border-plum pt-4">
+              <p className="text-[13px] font-semibold text-coral-ink">Em apuração</p>
+              <p className="mt-1 font-display text-2xl leading-snug text-ink">
+                As investigações abertas, com o que já se sabe e o que falta confirmar.
+              </p>
+              <Link
+                to="/investigacoes"
+                className="mt-2 inline-flex min-h-11 items-center text-[15px] font-semibold text-plum"
+              >
+                Ver as investigações →
               </Link>
-            </h3>
-            <p className="mt-2 text-[14px] leading-relaxed text-cream/80">
-              Nos 12 partidos com mais receita. Prestação final do 1º turno, base de 04/11.
-            </p>
-          </article>
-          <article className="bg-cream p-5">
-            <Secao nome="Direitos" pequeno />
-            <h3 className="mt-2 font-display text-xl font-semibold leading-snug text-ink">
-              <Link to="/direitos" className="hover:underline hover:underline-offset-4">
-                Treze marcos, de 1932 a 2026
-              </Link>
-            </h3>
-            <p className="mt-2 text-[14px] leading-relaxed text-ink/75">
-              Cada lei, decisão e emenda que mudou o acesso das mulheres às urnas e ao dinheiro de
-              campanha.
-            </p>
-          </article>
+            </div>
+          ) : null}
+          <Link
+            to="/reportagens"
+            className="mt-5 inline-flex min-h-11 items-center text-[15px] font-semibold text-plum"
+          >
+            Todas as reportagens →
+          </Link>
         </div>
       </div>
     </Faixa>
@@ -241,7 +277,7 @@ export function CapaPioneiras() {
   const ancora = ANCORAS_PIONEIRAS[destaque.id];
 
   return (
-    <Faixa fundo="bg-cream">
+    <Faixa fundo="bg-paper">
       <div className="py-10 md:py-14">
         <Secao nome="Pioneiras" tipo="perfis" />
         <h2 className="mt-3 font-display text-3xl font-semibold leading-tight text-ink md:text-4xl">
@@ -284,7 +320,7 @@ export function CapaPioneiras() {
                 p.to ? (
                   <div
                     key={p.id}
-                    className={`border-t border-[#DCD3C3] pt-5 ${FOTOS[destaque.id] ? "mt-6" : "md:border-t-0 md:pt-0"}`}
+                    className={`border-t border-rule pt-5 ${FOTOS[destaque.id] ? "mt-6" : "md:border-t-0 md:pt-0"}`}
                   >
                     <p className="font-mono text-[13px] text-ink/70">{p.years}</p>
                     <h3 className="mt-1 font-display text-2xl font-semibold text-ink">
@@ -312,10 +348,10 @@ export function CapaPioneiras() {
 
 const EXPLORE = [
   { to: "/eleitas" as const, label: "Quem entrou: as eleitas, uma a uma" },
-  { to: "/funil" as const, label: "O funil, da candidatura ao poder" },
-  { to: "/quem-sao-elas" as const, hash: "estados", label: "E no seu estado?" },
-  { to: "/partidos" as const, label: "Partido por partido" },
-  { to: "/historico" as const, label: "A série desde 2014" },
+  { to: "/achados" as const, label: "Achados: um dado por vez" },
+  { to: "/quem-sao-elas" as const, label: "Explorar candidatas por cor/raça e cargo" },
+  { to: "/comparar" as const, label: "Comparar partidos ou estados" },
+  { to: "/downloads" as const, label: "Baixar os dados" },
   { to: "/metodo" as const, label: "Como sabemos: o método" },
 ];
 
@@ -329,7 +365,6 @@ export function CapaExplore() {
             <li key={e.label} className="border-b border-plum-soft">
               <Link
                 to={e.to}
-                {...(e.hash ? { hash: e.hash } : {})}
                 className="flex min-h-14 items-center justify-between gap-4 font-display text-[1.3rem] text-paper hover:underline hover:underline-offset-4"
               >
                 {e.label} <span aria-hidden="true">→</span>
