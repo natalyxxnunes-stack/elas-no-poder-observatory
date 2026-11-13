@@ -74,14 +74,40 @@ export const ANTIGENERO_VOTACOES = ANTIGENERO_VOTOS.map((v) => ({
   votacao: VOTACOES.find((x) => x.id === v.id)!,
 }));
 
-/** peças da coleção que dependem de apuração ou de resposta */
-export const ANTIGENERO_EM_APURACAO = [
-  {
-    titulo: "O dinheiro dessas campanhas",
-    nota: "Quanto do fundo eleitoral financiou as campanhas de 2026 das deputadas da coleção. Levantamento feito; entra depois da recontagem e dos pedidos de posicionamento.",
-  },
-  {
-    titulo: "Quem se declara antifeminista",
-    nota: "Falas datadas, com fonte primária, de eleitas que se declaram antifeministas. Cada fala só entra depois de ouvida na gravação original e com pedido de posicionamento enviado.",
-  },
-];
+/**
+ * Dinheiro (recontagem de 12/11/2026). TSE, prestação de contas final do 1º
+ * turno, receitas_candidatos_2026_BRASIL.csv do pacote gerado em 12/11/2026
+ * (zip SHA-256 01c1225e…, CSV SHA-256 b7865338…); candidaturas pelo
+ * consulta_cand_2026_BRASIL.csv (SHA-256 f129bbf0…). Junção por CPF (Câmara,
+ * /deputados/{id}). Linhas idênticas contadas uma vez. Fundo eleitoral =
+ * fonte "FUNDO ESPECIAL". Script: scripts/investigacao/9_antigenero_dinheiro.py.
+ * Conferência da editora pendente antes de ir para a main.
+ */
+export const ANTIGENERO_DINHEIRO = {
+  base: "12/11/2026",
+  concorreram: 39,
+  naoConcorreram: 3,
+  receita: 114283228.61,
+  fefc: 97963671.65,
+  pct: 85.7,
+  /** comparação: todas as candidaturas eleitas a deputado federal na mesma base */
+  eleitasDeputadaPct: 85.8,
+  eleitosDeputadoPct: 75.9,
+  semFefc: 2,
+};
+
+/**
+ * Falas em plenário (levantamento de 12/11/2026): discursos das 42 deputadas
+ * de fev/2023 a 12/11/2026 na API de Dados Abertos da Câmara, com a palavra
+ * feminismo, feminista ou antifeminista. Fonte primária: notas taquigráficas.
+ * Os trechos com nome só entram depois dos pedidos de posicionamento
+ * (ANTIGENERO_PEDIDO_ENVIADO_EM); até lá, a página mostra a contagem.
+ */
+export const ANTIGENERO_FALAS = {
+  periodo: "fevereiro de 2023 a 12/11/2026",
+  discursos: 30,
+  deputadas: 8,
+  seDeclararamAntifeministas: 0,
+  disseramNaoSerFeministas: 2,
+};
+export const ANTIGENERO_PEDIDO_ENVIADO_EM: string | null = null;

@@ -1,24 +1,24 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { Faixa } from "@/components/editorial/Faixa";
-import { Secao } from "@/components/editorial/Secao";
 import {
   ANTIGENERO_CRITERIO,
   ANTIGENERO_DEPUTADAS,
-  ANTIGENERO_EM_APURACAO,
+  ANTIGENERO_DINHEIRO,
+  ANTIGENERO_FALAS,
   ANTIGENERO_VOTACOES,
 } from "@/data/colecoes";
 import { VOTACOES_META } from "@/data/votacoes-camara";
-import { formatInt as n } from "@/lib/format-br";
+import { formatInt as n, formatPct } from "@/lib/format-br";
 
 /**
- * Coleção "Antigênero no poder" (12/11/2026). Ordem: abertura com objeto,
- * critério antes dos resultados, as votações, quem são e onde estão em 2026,
- * o que disseram, o que está em apuração.
+ * Coleção "Antigênero no poder" (versão curta, 12/11/2026): uma frase, um
+ * objeto, quatro números com uma linha cada. Nomes e critério ficam abertos
+ * sob demanda.
  */
 const titulo = "Antigênero no poder";
 const description =
-  "Coleção do Quem são elas?: as deputadas que votaram contra a igualdade salarial ou para derrubar a norma do Conanda, e onde estão depois de 2026.";
+  "42 deputadas votaram contra a igualdade salarial ou para derrubar a norma do Conanda. 29 voltaram ao poder em 2026.";
 
 export const Route = createFileRoute("/colecoes/antigenero-no-poder")({
   head: () => ({
@@ -32,60 +32,86 @@ export const Route = createFileRoute("/colecoes/antigenero-no-poder")({
   component: ColecaoPage,
 });
 
-const VOLTARAM = new Set(["reeleita", "eleita para outro cargo"]);
-const ROTULO_DESFECHO: Record<string, string> = {
-  reeleita: "reeleita deputada federal",
-  "eleita para outro cargo": "eleita para outro cargo",
-  suplente: "suplente",
-  "não eleita": "não eleita",
-  "não concorreu": "não concorreu",
-};
+type Dep = (typeof ANTIGENERO_DEPUTADAS)[number];
+const ONDE: { chave: string; rotulo: string; filtro: (d: Dep) => boolean }[] = [
+  { chave: "camara", rotulo: "De volta à Câmara", filtro: (d) => d.desfecho === "reeleita" },
+  {
+    chave: "outro",
+    rotulo: "Em outro cargo",
+    filtro: (d) => d.desfecho === "eleita para outro cargo",
+  },
+  {
+    chave: "fora",
+    rotulo: "Fora do mandato em 2027",
+    filtro: (d) => d.desfecho !== "reeleita" && d.desfecho !== "eleita para outro cargo",
+  },
+];
 const cargoBR = (c: string | null) =>
   c ? c.toLowerCase().replace("senador", "senadora").replace("deputado", "deputada") : "";
-const dataBR = (iso: string) => iso.split("-").reverse().join("/");
 
 function ColecaoPage() {
   const total = ANTIGENERO_DEPUTADAS.length;
-  const voltaram = ANTIGENERO_DEPUTADAS.filter((d) => VOLTARAM.has(d.desfecho));
   const reeleitas = ANTIGENERO_DEPUTADAS.filter((d) => d.desfecho === "reeleita").length;
-  const outroCargo = voltaram.length - reeleitas;
+  const outroCargo = ANTIGENERO_DEPUTADAS.filter(
+    (d) => d.desfecho === "eleita para outro cargo",
+  ).length;
+  const voltaram = reeleitas + outroCargo;
   const ordem = ["reeleita", "eleita para outro cargo", "suplente", "não eleita", "não concorreu"];
-  const ordenadas = [...ANTIGENERO_DEPUTADAS].sort((a, b) => ordem.indexOf(a.desfecho) - ordem.indexOf(b.desfecho));
+  const ordenadas = [...ANTIGENERO_DEPUTADAS].sort(
+    (a, b) => ordem.indexOf(a.desfecho) - ordem.indexOf(b.desfecho),
+  );
+  const [ig, co] = ANTIGENERO_VOTACOES;
+  const nIg = ig ? (ig.votacao.porSexo.F.votos[ig.contra] ?? 0) : 0;
+  const nCo = co ? (co.votacao.porSexo.F.votos[co.contra] ?? 0) : 0;
+  const D = ANTIGENERO_DINHEIRO;
+  const F = ANTIGENERO_FALAS;
+
+  const numeros = [
+    {
+      valor: n(total),
+      rotulo: "deputadas votaram contra direitos das mulheres",
+      linha: `${n(nIg)} contra a igualdade salarial (2023); ${n(nCo)} para derrubar a norma do Conanda sobre vítimas de violência sexual (2025).`,
+    },
+    {
+      valor: n(voltaram),
+      rotulo: "voltaram ao poder em 2026",
+      linha: `${n(reeleitas)} de volta à Câmara, ${n(outroCargo)} em outro cargo.`,
+    },
+    {
+      valor: formatPct(D.pct),
+      rotulo: "da receita de campanha veio do fundo eleitoral",
+      linha: `A mesma fatia das deputadas eleitas em geral (${formatPct(D.eleitasDeputadaPct)}). Entre os homens eleitos, ${formatPct(D.eleitosDeputadoPct)}.`,
+    },
+    {
+      valor: n(F.seDeclararamAntifeministas),
+      rotulo: "se declararam antifeministas em plenário",
+      linha: `${n(F.deputadas)} falaram de feminismo em ${n(F.discursos)} discursos; ${n(F.disseramNaoSerFeministas)} disseram não ser feministas.`,
+    },
+  ];
 
   return (
-    <PageShell
-      breadcrumb={[
-        { label: "Reportagens", to: "/reportagens" },
-        { label: "Coleção" },
-        { label: titulo },
-      ]}
-    >
+    <PageShell breadcrumb={[{ label: "Reportagens", to: "/reportagens" }, { label: titulo }]}>
       <Faixa fundo="bg-plum-deep text-paper">
-        <div className="grid gap-10 py-12 md:grid-cols-[1fr_1.1fr] md:gap-16 md:py-20">
+        <div className="grid gap-10 py-12 md:grid-cols-2 md:items-center md:gap-16 md:py-16">
           <div>
-            <p className="font-mono text-[14px] text-lilac">Coleção · atualizada em 12/11/2026</p>
+            <p className="font-mono text-[14px] text-lilac">Coleção</p>
             <h1 className="mt-3 font-display text-5xl font-semibold leading-none md:text-7xl">
               {titulo}
             </h1>
-            <p className="mt-4 max-w-xl text-lg leading-relaxed text-paper/85">
-              A agenda contra direitos das mulheres no plenário, e quem a votou: o que decidiram, se
-              voltaram ao poder em 2026, o que disseram e com que dinheiro.
-            </p>
-            <p className="mt-10 border-t-[5px] border-coral pt-5 font-display text-[1.7rem] leading-tight md:text-[2.2rem]">
-              {n(total)} deputadas votaram contra a igualdade salarial ou para derrubar a norma do
-              Conanda. {n(voltaram.length)} foram eleitas de novo em 2026.
+            <p className="mt-8 border-t-[5px] border-coral pt-5 font-display text-[1.6rem] leading-tight md:text-[2rem]">
+              {n(total)} deputadas votaram contra direitos das mulheres. {n(voltaram)} voltaram ao
+              poder.
             </p>
           </div>
-          <figure className="md:pt-6">
+          <figure>
             <div
               role="img"
-              aria-label={`${n(total)} deputadas: ${n(reeleitas)} reeleitas, ${n(outroCargo)} eleitas para outro cargo, ${n(total - voltaram.length)} fora`}
+              aria-label={`${n(total)} deputadas: ${n(reeleitas)} reeleitas, ${n(outroCargo)} em outro cargo, ${n(total - voltaram)} fora do mandato`}
               className="grid max-w-xl grid-cols-7 gap-1.5 sm:grid-cols-14"
             >
               {ordenadas.map((d) => (
                 <span
                   key={d.nome}
-                  title={d.nome}
                   className={`aspect-square ${
                     d.desfecho === "reeleita"
                       ? "bg-coral"
@@ -96,146 +122,101 @@ function ColecaoPage() {
                 />
               ))}
             </div>
-            <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-[14px] text-cream/90">
-              <li className="flex items-center gap-2">
-                <span aria-hidden="true" className="size-3.5 bg-coral" /> reeleitas à Câmara:{" "}
-                {n(reeleitas)}
-              </li>
-              <li className="flex items-center gap-2">
-                <span aria-hidden="true" className="size-3.5 bg-paper" /> eleitas para outro cargo:{" "}
-                {n(outroCargo)}
-              </li>
-              <li className="flex items-center gap-2">
-                <span aria-hidden="true" className="size-3.5 border border-cream/50" /> suplentes,
-                não eleitas ou fora da disputa: {n(total - voltaram.length)}
-              </li>
-            </ul>
-            <figcaption className="mt-4 text-[14px] leading-relaxed text-cream/85">
-              Cada quadrado é uma deputada federal que votou no sentido contrário ao direito em jogo
-              em pelo menos uma das duas votações.
-              <span className="mt-2 block text-[13px] text-cream/70">
-                {VOTACOES_META.fonte}. Coleta em {VOTACOES_META.coletaEm}.
-              </span>
+            <figcaption className="mt-3 text-[14px] text-cream/85">
+              Cada quadrado é uma deputada. Laranja: de volta à Câmara. Branco: outro cargo. Vazio:
+              fora.
             </figcaption>
           </figure>
         </div>
       </Faixa>
 
-      <section className="grid gap-8 py-12 md:grid-cols-3 md:py-16">
-        <div>
-          <Secao nome="Critério" tipo="fato" pequeno />
-          <p className="mt-3 text-[16px] leading-relaxed text-ink/85">{ANTIGENERO_CRITERIO.fato}</p>
-        </div>
-        <div>
-          <Secao nome="O nome da coleção" tipo="interpretação" pequeno />
-          <p className="mt-3 text-[16px] leading-relaxed text-ink/85">
-            {ANTIGENERO_CRITERIO.interpretacao}
-          </p>
-        </div>
-        <div>
-          <Secao nome="O que ficou fora" pequeno />
-          <p className="mt-3 text-[16px] leading-relaxed text-ink/85">{ANTIGENERO_CRITERIO.fora}</p>
-        </div>
+      <section className="grid gap-px border-b border-rule bg-rule md:grid-cols-2 xl:grid-cols-4">
+        {numeros.map((x) => (
+          <div key={x.rotulo} className="bg-paper py-8 md:p-8">
+            <p className="poster-figure text-6xl text-plum">{x.valor}</p>
+            <p className="mt-2 font-display text-xl leading-snug text-ink">{x.rotulo}</p>
+            <p className="mt-3 text-[15px] leading-relaxed text-ink/75">{x.linha}</p>
+          </div>
+        ))}
       </section>
 
-      <Faixa fundo="bg-cream">
-        <div className="py-12 md:py-16">
-          <Secao nome="As duas votações" />
-          <div className="mt-8 grid gap-8 md:grid-cols-2">
-            {ANTIGENERO_VOTACOES.map(({ votacao: v, contra, porque }) => {
-              const F = v.porSexo.F;
-              const nContra = F.votos[contra] ?? 0;
+      <section className="space-y-3 py-10">
+        <details className="group border-b border-rule">
+          <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between font-display text-2xl text-ink">
+            Quem são as {n(total)}
+            <span className="text-plum transition-transform group-open:rotate-45">+</span>
+          </summary>
+          <div className="grid gap-8 pb-8 md:grid-cols-3">
+            {ONDE.map((g) => {
+              const lista = ANTIGENERO_DEPUTADAS.filter(g.filtro);
               return (
-                <article key={v.id} className="border-t-[5px] border-plum bg-paper p-6 md:p-8">
-                  <p className="font-mono text-[13px] text-ink/70">
-                    {v.proposicao} · {dataBR(v.data)}
+                <div key={g.chave}>
+                  <p className="font-display text-lg italic text-plum">
+                    {g.rotulo} · {n(lista.length)}
                   </p>
-                  <h2 className="mt-2 font-display text-2xl font-semibold leading-snug text-ink md:text-3xl">
-                    {v.titulo}
-                  </h2>
-                  <p className="poster-figure mt-5 text-6xl text-plum">{n(nContra)}</p>
-                  <p className="mt-2 text-[15px] leading-snug text-ink">
-                    das {n(F.total)} deputadas em exercício votaram {contra}
-                  </p>
-                  <p className="mt-4 text-[15px] leading-relaxed text-ink/75">{porque}</p>
-                </article>
+                  <ul className="mt-2 space-y-1.5 text-[15px] text-ink">
+                    {lista.map((d) => (
+                      <li key={d.nome}>
+                        {d.nome}{" "}
+                        <span className="text-ink/60">
+                          ({d.partido}-{d.uf})
+                          {g.chave === "outro" ? `, ${cargoBR(d.cargo2026)}` : ""}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               );
             })}
           </div>
-        </div>
-      </Faixa>
-
-      <section className="py-12 md:py-16">
-        <Secao nome="Quem são e onde estão" tipo={`${n(total)} deputadas, em ordem alfabética`} />
-        <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-ink/75">
-          Partido na data da votação mais recente. Onde estão: resultado da eleição de 2026, pelo
-          TSE.
-        </p>
-        <ul className="mt-6 grid gap-x-10 md:grid-cols-2">
-          {ANTIGENERO_DEPUTADAS.map((d) => (
-            <li
-              key={d.nome}
-              className="grid grid-cols-[1fr_auto] gap-x-4 border-b border-rule py-3"
-            >
-              <span>
-                <span className="block font-display text-lg text-ink">
-                  {d.nome}{" "}
-                  <span className="text-[14px] text-ink/65">
-                    ({d.partido}-{d.uf})
-                  </span>
-                </span>
-                <span className="block text-[14px] text-ink/75">{d.votos.join("; ")}</span>
-              </span>
-              <span
-                className={`self-center text-right text-[14px] ${VOLTARAM.has(d.desfecho) ? "font-semibold text-coral-ink" : "text-ink/65"}`}
-              >
-                {d.desfecho === "eleita para outro cargo"
-                  ? `eleita ${cargoBR(d.cargo2026)}`
-                  : ROTULO_DESFECHO[d.desfecho]}
-              </span>
-            </li>
-          ))}
-        </ul>
-        <Link
-          to="/como-votaram"
-          className="mt-6 inline-flex min-h-11 items-center text-[15px] font-semibold text-plum"
-        >
-          Todas as votações, deputada por deputada →
-        </Link>
+        </details>
+        <details className="group border-b border-rule">
+          <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between font-display text-2xl text-ink">
+            Como escolhemos
+            <span className="text-plum transition-transform group-open:rotate-45">+</span>
+          </summary>
+          <div className="max-w-3xl space-y-3 pb-8 text-[15px] leading-relaxed text-ink/80">
+            <p>
+              <strong className="text-ink">Fato.</strong> {ANTIGENERO_CRITERIO.fato}
+            </p>
+            <p>
+              <strong className="text-ink">Interpretação.</strong>{" "}
+              {ANTIGENERO_CRITERIO.interpretacao}
+            </p>
+            <p>
+              <strong className="text-ink">Fora.</strong> {ANTIGENERO_CRITERIO.fora}
+            </p>
+            <p>
+              <strong className="text-ink">Dinheiro.</strong> TSE, prestação de contas final do 1º
+              turno, base de {D.base}. Fundo eleitoral é o Fundo Especial de Financiamento de
+              Campanha. {n(D.concorreram)} das {n(total)} concorreram em 2026; {n(D.semFefc)} não
+              declararam receita do fundo.
+            </p>
+            <p>
+              <strong className="text-ink">Falas.</strong> Discursos em plenário de {F.periodo}, nas
+              notas taquigráficas da Câmara. Os trechos, com nome, entram depois dos pedidos de
+              posicionamento.
+            </p>
+            <p className="text-[13px] text-ink/65">
+              {VOTACOES_META.fonte}. Votos coletados em {VOTACOES_META.coletaEm}.
+            </p>
+          </div>
+        </details>
       </section>
 
-      <Faixa fundo="bg-plum text-paper">
+      <section className="flex flex-wrap gap-x-10 gap-y-2 pb-16">
+        <Link
+          to="/como-votaram"
+          className="inline-flex min-h-11 items-center text-[15px] font-semibold text-plum"
+        >
+          As votações, deputada por deputada →
+        </Link>
         <Link
           to="/na-voz-delas"
-          className="group grid gap-4 py-12 md:grid-cols-[1fr_auto] md:items-end md:py-14"
+          className="inline-flex min-h-11 items-center text-[15px] font-semibold text-plum"
         >
-          <span>
-            <Secao nome="O que disseram" tipo="reportagem" claro />
-            <span className="mt-4 block max-w-3xl font-display text-3xl leading-tight group-hover:underline group-hover:underline-offset-4 md:text-4xl">
-              Na voz delas: falas públicas de deputadas e eleitas, com data, fonte primária e o dado
-              oficial ao lado
-            </span>
-          </span>
-          <span aria-hidden="true" className="font-display text-3xl">
-            →
-          </span>
+          Na voz delas: falas com o dado ao lado →
         </Link>
-      </Faixa>
-
-      <section className="py-12 md:py-16">
-        <Secao nome="Em apuração" tipo="o que entra nesta coleção" />
-        <ul className="mt-6 grid gap-6 md:grid-cols-2">
-          {ANTIGENERO_EM_APURACAO.map((p) => (
-            <li key={p.titulo} className="border border-dashed border-plum/50 p-6">
-              <p className="font-display text-2xl text-ink">{p.titulo}</p>
-              <p className="mt-2 text-[15px] leading-relaxed text-ink/75">{p.nota}</p>
-            </li>
-          ))}
-        </ul>
-        <p className="mt-8 max-w-3xl text-[14px] leading-relaxed text-ink/70">
-          Toda deputada citada recebe pedido de posicionamento antes de cada nova peça da coleção.
-          As respostas entram na página, com data.
-        </p>
       </section>
     </PageShell>
   );
