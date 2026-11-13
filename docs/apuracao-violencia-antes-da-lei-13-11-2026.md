@@ -46,3 +46,51 @@ Total: 102 discursos de 31 deputadas.
 3. Mesma regra para 2021 a 2026, para comparar antes e depois da lei.
 4. Pedido de dados (com crédito) à Justiça Global e à Terra de Direitos sobre casos com vítimas mulheres em 2018.
 5. Pauta possível: "Antes de ter nome", para a série Memória ou para 25/11 de 2027.
+
+---
+
+## Rodada 2 (13/11/2026, madrugada)
+
+### 1. Leitura cerrada dos 102 discursos de 2015 a 03/08/2021
+Regra de categorias fixada antes da leitura (A sofrida pela própria; B contra outra mulher identificada; C mulheres em geral, projeto, dado; D sem recorte de gênero).
+
+| Ano | Discursos de deputadas | Com recorte de gênero (A+B+C) | Dos quais A | Por mil discursos |
+|---|---|---|---|---|
+| 2015 | 2.158 | 0 | 0 | 0,0 |
+| 2016 | 2.330 | 0 | 0 | 0,0 |
+| 2017 | 3.196 | 1 | 0 | 0,3 |
+| 2018 | 1.904 | 2 | 0 | 1,1 |
+| 2019 | 3.098 | 3 | 0 | 1,0 |
+| 2020 | 3.414 | 54 | 2 | 15,8 |
+| 2021 (até 03/08) | 2.978 | 22 | 5 | 7,4 |
+
+Totais: A 7, B 32, C 43, D 20. 82 discursos com recorte de gênero, de 27 deputadas.
+- De 2015 a 2019: 6 discursos com recorte de gênero em 12.686. Nenhuma deputada usou a expressão para a violência que ela mesma sofreu antes de dezembro de 2020.
+- 2018: Cristiane Brasil anuncia projeto para tornar crime a violência política contra mulheres (06/03/2018, oito dias antes do assassinato de Marielle Franco); Professora Dorinha chama o assassinato de Marielle de "feminicídio e violência política contra a mulher" (15/03/2018).
+- Ceci Cunha (deputada federal assassinada em 1998) só aparece como vítima de violência política nos discursos de deputadas a partir de dezembro de 2019 (dado coletado desde 2015).
+- Casos citados em B: Marielle Franco, Ceci Cunha, Manuela d'Ávila, Dilma Rousseff, Isa Penna, Talíria Petrone, Duda Salabert, Luisa Canziani, Eliana Gonzaga, Ana Lúcia Martins, Regina Duarte (Iracema Portella, 11/02/2020).
+- Frase-chave (Jandira Feghali, 13/04/2021 e 23/06/2021): a violência política de gênero "com este nome, é um conceito novo, mas essas violências são antigas".
+- Partido na data (discursos): PT 22, PCdoB 19, PSOL 13, PP 8, DEM 6, PSB 4, outros 10. Cor/raça (TSE, candidatura da legislatura): 21 brancas, 3 pretas, 2 pardas, 1 indígena.
+
+### 2. Mesma regra de 04/08/2021 a 13/11/2026
+167 deputadas (legislaturas 56 e 57), 15.794 discursos únicos (arquivo bruto: 6ed3d7f129fd214a). 166 com a expressão. Classificação AUTOMÁTICA de gênero (termos de gênero a até 300 caracteres da expressão), validada contra a leitura manual da rodada 1: pegou todos os 82 de gênero, mas classificou como gênero 12 dos 20 sem recorte (precisão de 87%). Leitura manual dos 166 pendente.
+
+| Ano | Discursos | Com gênero (automático) | Por mil |
+|---|---|---|---|
+| 2021 (desde 04/08) | 2.025 | 5 | 2,5 |
+| 2022 | 3.274 | 31 | 9,5 |
+| 2023 | 3.165 | 39 | 12,3 |
+| 2024 | 2.584 | 33 | 12,8 |
+| 2025 | 3.159 | 31 | 9,8 |
+| 2026 (até 13/11) | 1.587 | 20 | 12,6 |
+
+- 159 discursos de 49 deputadas. Partido na data: PT 75, PL 20, PSOL 18, PCdoB 8, Republicanos 6, PSD 6, União 5, outros 21. Cor/raça: 30 brancas, 10 pretas, 6 pardas, 3 indígenas.
+- Achado provável (a confirmar na leitura): depois da lei, a expressão deixa de ser só da esquerda. Deputadas do PL passam a usá-la para nomear ataques que dizem ter sofrido (Carla Zambelli, 12/04/2023; Caroline de Toni, 04/10/2023; Julia Zanatta, 21/03/2023 e 12/06/2024; Silvia Waiãpi, 11/04/2023), inclusive contra outra deputada mulher (Zanatta sobre Erika Hilton). Soraya Santos (PL), à frente da Procuradoria da Mulher, usa o termo de forma institucional em pelo menos 10 discursos. Cuidado: falas com nome entram só literais, com data e link; o trecho de Zanatta sobre Erika Hilton tem conteúdo transfóbico e não deve ser reproduzido como manchete.
+
+### 3. Dados da Justiça Global e Terra de Direitos sem pedir
+- Os relatórios são públicos (1ª, 2ª e 3ª edições), com números agregados e anexo de "casos ilustrativos". A base completa de casos não está publicada: nenhum link, anexo de dados ou menção a "disponível mediante solicitação" (2ª edição, metodologia, pp. 13 a 15).
+- O que dá para usar sem pedir, com crédito: agregados publicados. 1ª edição (2016 a 2020), via infográfico oficial da Câmara: 9 mulheres assassinadas ou vítimas de atentado; mulheres sofreram 31% das ameaças. 2ª edição: mulheres cisgênero em 35% dos casos com 16% das cadeiras disputadas (pp. 74 e 75). Por ano e gênero para 2018, só com a base, que não é pública.
+- A 1ª edição em PDF não abriu deste ambiente; conferir a página dela antes de citar número dela diretamente.
+
+### Títulos em discussão
+Ver resposta à editora em 13/11/2026.
