@@ -245,7 +245,7 @@ function violencia(): Objeto {
       </div>
     ),
     comoLer:
-      "Cada pilha junta os processos autuados no ano, como uma pilha de folhas. A violência política de gênero virou crime em agosto de 2021 (Lei 14.192): em 2018, ano da eleição geral anterior, não havia o que processar com esse nome. O painel registra 2 processos em 2019 sem explicar a origem, e não mostra 2020 nem 2021; o desenho deixa os buracos à mostra. A comparação justa é entre eleições gerais: 15 em 2022, 224 em 2026.",
+      "Cada pilha junta os processos autuados no ano, como uma pilha de folhas. A violência política de gênero virou crime em agosto de 2021 (Lei 14.192): em 2018, ano da eleição geral anterior, a violência existia, mas não havia crime com esse nome para processar. Quem contou os casos antes da lei foram organizações como a Justiça Global e a Terra de Direitos, com método próprio. O painel registra 2 processos em 2019 sem explicar a origem, e não mostra 2020 nem 2021; o desenho deixa os buracos à mostra. A comparação justa é entre eleições gerais: 15 em 2022, 224 em 2026.",
     fonte: `${VPG_META.fonte}. Extraído em ${VPG_META.extraidoEm}.`,
     link: { to: "/barreiras", label: "Violência política, os dados completos" },
   };
