@@ -1,6 +1,7 @@
 import { PartyStateMatrix } from "@/components/editorial/PartyStateMatrix";
 import { Desdobra, ExploreDivisa } from "@/components/editorial/Desdobra";
 import { AchadosDaPagina } from "@/components/editorial/AchadosDaPagina";
+import { Recorte } from "@/components/editorial/Recorte";
 import { Registro } from "@/components/editorial/Registro";
 import { SituacaoChart } from "@/components/editorial/SituacaoChart";
 import { SITUACAO_2026 } from "@/data/situacao-candidaturas-2026";
@@ -164,7 +165,7 @@ function QuemSaoElasPage() {
         snapshot={snapshot}
       />
 
-      <AchadosDaPagina temas={["cor-raca", "vices"]} />
+      <AchadosDaPagina temas={["cor-raca", "vices"]} max={3} />
 
       <SectionBlock
         id="raca"
@@ -389,6 +390,7 @@ function QuemSaoElasPage() {
         </div>
       </SectionBlock>
 
+      <Recorte slug="presenca" className="mt-10 aspect-[3/1] md:aspect-[5/1]" />
       <ExploreDivisa lead="Os pedidos de registro, as 107 candidatas a Presidência, governos e Senado, o explorador por cargo, estado e partido, e o recorte do seu estado." />
       <Desdobra rotulo="Abrir as ferramentas de consulta" className="pb-10">
         <SectionBlock

@@ -1,3 +1,4 @@
+import { Abas } from "@/components/editorial/Abas";
 import {
   FINANCE_BASE_LABEL,
   type FinanceUniverseSnapshot,
@@ -18,25 +19,58 @@ function share(part: number, total: number) {
 
 function CoverageCard({ universe, data }: { universe: UniverseId; data: FinanceUniverseSnapshot }) {
   const totalCoverage = share(data.candidaciesWithRevenue, data.registeredCandidacies);
-  const feminineCoverage = share(data.feminineCandidaciesWithRevenue, data.registeredFeminineCandidacies);
+  const feminineCoverage = share(
+    data.feminineCandidaciesWithRevenue,
+    data.registeredFeminineCandidacies,
+  );
   return (
     <article className="poster-frame p-5">
       <p className="poster-eyebrow text-plum">{UNIVERSE_LABEL[universe]}</p>
       <p className="mt-4 font-display text-3xl text-ink">{formatBRLCompact(data.totalRevenue)}</p>
       <p className="mt-1 text-sm text-muted-foreground">receita declarada no universo</p>
       <dl className="mt-5 divide-y divide-rule border-y border-rule text-sm">
-        <div className="flex justify-between gap-4 py-3"><dt>Receita de mulheres</dt><dd className="text-right font-mono">{formatBRLCompact(data.feminineRevenue)} · {formatPct(share(data.feminineRevenue, data.totalRevenue))}</dd></div>
-        <div className="flex justify-between gap-4 py-3"><dt>Cobertura total</dt><dd className="text-right font-mono">{formatInt(data.candidaciesWithRevenue)} de {formatInt(data.registeredCandidacies)} · {formatPct(totalCoverage)}</dd></div>
-        <div className="flex justify-between gap-4 py-3"><dt>Cobertura entre mulheres</dt><dd className="text-right font-mono">{formatInt(data.feminineCandidaciesWithRevenue)} de {formatInt(data.registeredFeminineCandidacies)} · {formatPct(feminineCoverage)}</dd></div>
-        <div className="flex justify-between gap-4 py-3"><dt>Mediana · mulheres</dt><dd className="text-right font-mono">{formatBRLCompact(data.feminineMedian)}</dd></div>
-        <div className="flex justify-between gap-4 py-3"><dt>Mediana · homens</dt><dd className="text-right font-mono">{formatBRLCompact(data.masculineMedian)}</dd></div>
+        <div className="flex justify-between gap-4 py-3">
+          <dt>Receita de mulheres</dt>
+          <dd className="text-right font-mono">
+            {formatBRLCompact(data.feminineRevenue)} ·{" "}
+            {formatPct(share(data.feminineRevenue, data.totalRevenue))}
+          </dd>
+        </div>
+        <div className="flex justify-between gap-4 py-3">
+          <dt>Cobertura total</dt>
+          <dd className="text-right font-mono">
+            {formatInt(data.candidaciesWithRevenue)} de {formatInt(data.registeredCandidacies)} ·{" "}
+            {formatPct(totalCoverage)}
+          </dd>
+        </div>
+        <div className="flex justify-between gap-4 py-3">
+          <dt>Cobertura entre mulheres</dt>
+          <dd className="text-right font-mono">
+            {formatInt(data.feminineCandidaciesWithRevenue)} de{" "}
+            {formatInt(data.registeredFeminineCandidacies)} · {formatPct(feminineCoverage)}
+          </dd>
+        </div>
+        <div className="flex justify-between gap-4 py-3">
+          <dt>Mediana · mulheres</dt>
+          <dd className="text-right font-mono">{formatBRLCompact(data.feminineMedian)}</dd>
+        </div>
+        <div className="flex justify-between gap-4 py-3">
+          <dt>Mediana · homens</dt>
+          <dd className="text-right font-mono">{formatBRLCompact(data.masculineMedian)}</dd>
+        </div>
       </dl>
     </article>
   );
 }
 
 export function FinanceCoverage({ snapshot }: { snapshot: TseFinanceSnapshot }) {
-  return <div className="grid gap-5 md:grid-cols-2">{(["proporcional", "majoritario"] as const).map((universe) => <CoverageCard key={universe} universe={universe} data={snapshot.universes[universe]} />)}</div>;
+  return (
+    <div className="grid gap-5 md:grid-cols-2">
+      {(["proporcional", "majoritario"] as const).map((universe) => (
+        <CoverageCard key={universe} universe={universe} data={snapshot.universes[universe]} />
+      ))}
+    </div>
+  );
 }
 
 const SOURCE = `Fonte: TSE, Prestação de Contas Eleitorais 2026 · base de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`;
@@ -46,11 +80,18 @@ export const RACE_BAR: Record<string, string> = {
   BRANCA: "bg-[var(--race-branca)]",
   PARDA: "bg-[var(--race-parda)]",
   PRETA: "bg-plum",
-  "INDÍGENA": "bg-forest",
+  INDÍGENA: "bg-forest",
   AMARELA: "bg-[var(--race-amarela)]",
 };
 
-const OFFICE_LABELS: Record<string, string> = { PRESIDENTE: "Presidente", GOVERNADOR: "Governador", SENADOR: "Senador", "DEPUTADO FEDERAL": "Deputado federal", "DEPUTADO DISTRITAL": "Deputado distrital", "DEPUTADO ESTADUAL": "Deputado estadual" };
+const OFFICE_LABELS: Record<string, string> = {
+  PRESIDENTE: "Presidente",
+  GOVERNADOR: "Governador",
+  SENADOR: "Senador",
+  "DEPUTADO FEDERAL": "Deputado federal",
+  "DEPUTADO DISTRITAL": "Deputado distrital",
+  "DEPUTADO ESTADUAL": "Deputado estadual",
+};
 
 export function FinanceByOffice({ snapshot }: { snapshot: TseFinanceSnapshot }) {
   const rows = (["majoritario", "proporcional"] as const).flatMap((universe) =>
@@ -64,33 +105,67 @@ export function FinanceByOffice({ snapshot }: { snapshot: TseFinanceSnapshot }) 
   return (
     <ChartFrame
       ficha={{
-        vendo: "Para cada cargo, a fatia de mulheres entre as candidaturas com receita e a fatia delas no dinheiro declarado.",
+        vendo:
+          "Para cada cargo, a fatia de mulheres entre as candidaturas com receita e a fatia delas no dinheiro declarado.",
         contados: "Candidaturas que já declararam alguma receita na prestação de contas.",
-        denominador: "Presença: candidaturas com receita no cargo. Receita: total declarado no cargo.",
+        denominador:
+          "Presença: candidaturas com receita no cargo. Receita: total declarado no cargo.",
         data: `Prestação de contas de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
-        limitacao: "Prestação final do 1º turno; 343 candidaturas ainda constam com prestação parcial. Mede receita declarada, não despesa.",
+        limitacao:
+          "Prestação final do 1º turno; 343 candidaturas ainda constam com prestação parcial. Mede receita declarada, não despesa.",
       }}
       eyebrow="Presença × receita, por cargo · 2026"
       title="Fatia das mulheres entre as candidaturas e no dinheiro de cada cargo"
-      legend={<><LegendSwatch className="bg-plum">Presença</LegendSwatch><LegendSwatch className="bg-plum-soft">Receita</LegendSwatch></>}
+      legend={
+        <>
+          <LegendSwatch className="bg-plum">Presença</LegendSwatch>
+          <LegendSwatch className="bg-plum-soft">Receita</LegendSwatch>
+        </>
+      }
       note="Presença: mulheres entre as candidaturas que já declararam receita. Receita: fatia do dinheiro declarado no cargo. Régua de 0 a 50%. Receita, não despesa."
       source={SOURCE}
       ariaLabel="Presença das mulheres e participação na receita declarada, por cargo"
     >
       <div className="divide-y divide-rule">
-        {rows.map((row) => row.candidacies < MIN_BASE ? (
-          <div key={row.office} className="py-4 first:pt-0">
-            <p className="font-display text-lg text-ink">{OFFICE_LABELS[row.office] ?? row.office}</p>
-            <p className="mt-1 font-mono text-xs text-muted-foreground">{formatInt(row.feminineCandidacies)} de {formatInt(row.candidacies)} candidaturas com receita · {formatBRLCompact(row.feminine)} de {formatBRLCompact(row.total)}. Menos de 20 candidaturas: só números absolutos.</p>
-          </div>
-        ) : (
-          <div key={row.office} className="space-y-2 py-4 first:pt-0">
-            <p className="font-display text-lg text-ink">{OFFICE_LABELS[row.office] ?? row.office}</p>
-            <ChartBar label="Presença" base={`${formatInt(row.feminineCandidacies)} de ${formatInt(row.candidacies)}`} value={row.presenceShare} scaleMax={50} display={formatPct(row.presenceShare)} barClass="bg-plum" valueClass="text-plum" />
-            <ChartBar label="Receita" base={`${formatBRLCompact(row.feminine)} de ${formatBRLCompact(row.total)}`} value={row.revenueShare} scaleMax={50} display={formatPct(row.revenueShare)} barClass="bg-plum-soft" valueClass="text-plum-soft" />
-          </div>
-        ))}
+        {rows.map((row) =>
+          row.candidacies < MIN_BASE ? (
+            <div key={row.office} className="py-4 first:pt-0">
+              <p className="font-display text-lg text-ink">
+                {OFFICE_LABELS[row.office] ?? row.office}
+              </p>
+              <p className="mt-1 font-mono text-xs text-muted-foreground">
+                {formatInt(row.feminineCandidacies)} de {formatInt(row.candidacies)} candidaturas
+                com receita · {formatBRLCompact(row.feminine)} de {formatBRLCompact(row.total)}.
+                Menos de 20 candidaturas: só números absolutos.
+              </p>
+            </div>
+          ) : (
+            <div key={row.office} className="space-y-2 py-4 first:pt-0">
+              <p className="font-display text-lg text-ink">
+                {OFFICE_LABELS[row.office] ?? row.office}
+              </p>
+              <ChartBar
+                label="Presença"
+                base={`${formatInt(row.feminineCandidacies)} de ${formatInt(row.candidacies)}`}
+                value={row.presenceShare}
+                scaleMax={50}
+                display={formatPct(row.presenceShare)}
+                barClass="bg-plum"
+                valueClass="text-plum"
+              />
+              <ChartBar
+                label="Receita"
+                base={`${formatBRLCompact(row.feminine)} de ${formatBRLCompact(row.total)}`}
+                value={row.revenueShare}
+                scaleMax={50}
+                display={formatPct(row.revenueShare)}
+                barClass="bg-plum-soft"
+                valueClass="text-plum-soft"
+              />
+            </div>
+          ),
+        )}
       </div>
       <ChartScale max={50} />
     </ChartFrame>
@@ -100,57 +175,74 @@ export function FinanceByOffice({ snapshot }: { snapshot: TseFinanceSnapshot }) 
 export function FinanceRace({ snapshot }: { snapshot: TseFinanceSnapshot }) {
   const raceOrder = ["BRANCA", "PARDA", "PRETA", "INDÍGENA", "AMARELA"];
   return (
-    <div className="grid gap-5 lg:grid-cols-2">
-      {(["proporcional", "majoritario"] as const).map((universe) => {
+    <Abas
+      abas={(["proporcional", "majoritario"] as const).map((universe) => {
         const data = snapshot.universes[universe];
-        return (
-          <ChartFrame
-            key={universe}
-            ficha={{
-        vendo: "Como o dinheiro declarado por candidatas se divide entre os grupos de cor/raça.",
-        contados: universe === "proporcional" ? "Candidatas a deputada com receita declarada." : "Candidatas à Presidência, aos governos e ao Senado com receita declarada.",
-        denominador: "Receita total declarada pelas candidatas do mesmo universo.",
-        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`,
-        fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
-        limitacao: "Prestação final do 1º turno; 343 candidaturas ainda constam com prestação parcial. Mede receita declarada, não despesa.",
-      }}
-      eyebrow={`Receita de mulheres por cor/raça · ${UNIVERSE_LABEL[universe].toLocaleLowerCase("pt-BR")}`}
-            title={universe === "proporcional" ? "Candidatas a deputada" : "Presidência, governos e Senado"}
-            note={
-              <>
-                Fatia de {formatBRLCompact(data.feminineRevenue)} declarados por candidaturas de mulheres, na régua de 0 a 100%.{" "}
-                {universe === "proporcional"
-                  ? "Nos 12 partidos com mais receita: mediana de R$ 151.020 para brancas (2.113 candidatas), R$ 100.000 para pardas (1.490) e R$ 80.804 para pretas (795)."
-                  : "Aqui a distribuição da receita também varia conforme o partido que lança a candidata: nos 12 partidos com mais receita estão 36 das 65 candidatas brancas, 6 das 24 pardas e 2 das 17 pretas."}
-              </>
-            }
-            source={SOURCE}
-          >
-            <div className="space-y-3">
-              {raceOrder.flatMap((race) => {
-                const datum = data.feminineRevenueByRace[race];
-                if (!datum) return [];
-                const label = race.charAt(0) + race.slice(1).toLocaleLowerCase("pt-BR");
-                const median = universe === "proporcional" ? ` · mediana ${formatBRLCompact(data.feminineMedianByRace[race] ?? 0)}` : "";
-                const pct = share(datum.value, data.feminineRevenue);
-                return [
-                  <ChartBar
-                    key={race}
-                    label={label}
-                    base={`${formatInt(datum.candidacies)} ${datum.candidacies === 1 ? "candidatura" : "candidaturas"}${median}`}
-                    value={pct}
-                    scaleMax={100}
-                    display={formatPct(pct)}
-                    barClass={RACE_BAR[race] ?? "bg-plum"}
-                  />,
-                ];
-              })}
-            </div>
-            <ChartScale max={100} />
-          </ChartFrame>
-        );
+        return {
+          rotulo: universe === "proporcional" ? "Deputada" : "Governo, Senado e Presidência",
+          conteudo: (
+            <ChartFrame
+              key={universe}
+              ficha={{
+                vendo:
+                  "Como o dinheiro declarado por candidatas se divide entre os grupos de cor/raça.",
+                contados:
+                  universe === "proporcional"
+                    ? "Candidatas a deputada com receita declarada."
+                    : "Candidatas à Presidência, aos governos e ao Senado com receita declarada.",
+                denominador: "Receita total declarada pelas candidatas do mesmo universo.",
+                data: `Prestação de contas de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`,
+                fonte:
+                  "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
+                limitacao:
+                  "Prestação final do 1º turno; 343 candidaturas ainda constam com prestação parcial. Mede receita declarada, não despesa.",
+              }}
+              eyebrow={`Receita de mulheres por cor/raça · ${UNIVERSE_LABEL[universe].toLocaleLowerCase("pt-BR")}`}
+              title={
+                universe === "proporcional"
+                  ? "Candidatas a deputada"
+                  : "Presidência, governos e Senado"
+              }
+              note={
+                <>
+                  Fatia de {formatBRLCompact(data.feminineRevenue)} declarados por candidaturas de
+                  mulheres, na régua de 0 a 100%.{" "}
+                  {universe === "proporcional"
+                    ? "Nos 12 partidos com mais receita: mediana de R$ 151.020 para brancas (2.113 candidatas), R$ 100.000 para pardas (1.490) e R$ 80.804 para pretas (795)."
+                    : "Aqui a distribuição da receita também varia conforme o partido que lança a candidata: nos 12 partidos com mais receita estão 36 das 65 candidatas brancas, 6 das 24 pardas e 2 das 17 pretas."}
+                </>
+              }
+              source={SOURCE}
+            >
+              <div className="space-y-3">
+                {raceOrder.flatMap((race) => {
+                  const datum = data.feminineRevenueByRace[race];
+                  if (!datum) return [];
+                  const label = race.charAt(0) + race.slice(1).toLocaleLowerCase("pt-BR");
+                  const median =
+                    universe === "proporcional"
+                      ? ` · mediana ${formatBRLCompact(data.feminineMedianByRace[race] ?? 0)}`
+                      : "";
+                  const pct = share(datum.value, data.feminineRevenue);
+                  return [
+                    <ChartBar
+                      key={race}
+                      label={label}
+                      base={`${formatInt(datum.candidacies)} ${datum.candidacies === 1 ? "candidatura" : "candidaturas"}${median}`}
+                      value={pct}
+                      scaleMax={100}
+                      display={formatPct(pct)}
+                      barClass={RACE_BAR[race] ?? "bg-plum"}
+                    />,
+                  ];
+                })}
+              </div>
+              <ChartScale max={100} />
+            </ChartFrame>
+          ),
+        };
       })}
-    </div>
+    />
   );
 }
 
@@ -159,12 +251,15 @@ export function FinanceParties({ snapshot }: { snapshot: TseFinanceSnapshot }) {
   return (
     <ChartFrame
       ficha={{
-        vendo: "Nos cinco partidos com mais receita, a fatia do dinheiro do partido que foi para candidatas.",
-        contados: "Candidaturas a deputada e deputado com receita declarada, pelo partido do registro.",
+        vendo:
+          "Nos cinco partidos com mais receita, a fatia do dinheiro do partido que foi para candidatas.",
+        contados:
+          "Candidaturas a deputada e deputado com receita declarada, pelo partido do registro.",
         denominador: "Receita total declarada pelas candidaturas do próprio partido.",
         data: `Prestação de contas de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
-        limitacao: "Receita registrada na candidatura, de qualquer origem, além do repasse do partido. Prestação final do 1º turno.",
+        limitacao:
+          "Receita registrada na candidatura, de qualquer origem, além do repasse do partido. Prestação final do 1º turno.",
       }}
       eyebrow="Cinco partidos com mais receita · proporcional"
       title="Quanto do dinheiro de cada partido foi para candidatas"
@@ -203,10 +298,15 @@ export function FinanceByUf({ snapshot }: { snapshot: TseFinanceSnapshot }) {
         denominador: "Receita total declarada pelas candidaturas do estado.",
         data: `Prestação de contas de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
-        limitacao: "Prestação final do 1º turno; 343 candidaturas ainda constam com prestação parcial. Mede receita declarada, não despesa.",
+        limitacao:
+          "Prestação final do 1º turno; 343 candidaturas ainda constam com prestação parcial. Mede receita declarada, não despesa.",
       }}
       eyebrow="Receita das mulheres por estado · proporcional"
-      title={rows.length ? `A fatia das candidatas a deputada no dinheiro declarado vai de ${formatPct(rows.at(-1)!.pct)}, em ${rows.at(-1)!.uf}, a ${formatPct(rows[0]!.pct)}, em ${rows[0]!.uf}` : "Fatia das candidatas no dinheiro declarado em cada UF"}
+      title={
+        rows.length
+          ? `A fatia das candidatas a deputada no dinheiro declarado vai de ${formatPct(rows.at(-1)!.pct)}, em ${rows.at(-1)!.uf}, a ${formatPct(rows[0]!.pct)}, em ${rows[0]!.uf}`
+          : "Fatia das candidatas no dinheiro declarado em cada UF"
+      }
       note="Da maior para a menor fatia. Régua de 0 a 50%. Embaixo de cada UF, a receita das mulheres e o total declarado no estado."
       source={SOURCE}
     >

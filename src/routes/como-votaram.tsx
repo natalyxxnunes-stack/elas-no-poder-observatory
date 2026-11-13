@@ -12,13 +12,8 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { ChartBar, ChartFrame, ChartScale, LegendSwatch } from "@/components/editorial/ChartFrame";
 import { GapNote } from "@/components/GapNote";
 import { axis } from "@/data/architecture";
-import {
-  DEPUTADAS,
-  DINHEIRO_REELEICAO,
-  VOTACOES,
-  VOTACOES_META,
-  type Votacao,
-} from "@/data/votacoes-camara";
+import { DINHEIRO_REELEICAO, VOTACOES, VOTACOES_META, type Votacao } from "@/data/votacoes-camara";
+import { DEPUTADAS } from "@/data/votacoes-deputadas";
 import { formatBRLCompact, formatDateBR, formatInt, formatPct } from "@/lib/format-br";
 
 /**
@@ -33,19 +28,36 @@ import { formatBRLCompact, formatDateBR, formatInt, formatPct } from "@/lib/form
  *  - bases abaixo de 20 aparecem como "X de Y".
  */
 
-
 /** Placar das deputadas nas seis votações: uma barra por votação, Sim, Não e ausência. */
 function PlacarDeputadas() {
   return (
-    <section aria-labelledby="placar-deputadas" className="relative left-1/2 -ml-[50vw] mb-10 w-screen bg-cream">
+    <section
+      aria-labelledby="placar-deputadas"
+      className="relative left-1/2 -ml-[50vw] mb-10 w-screen bg-cream"
+    >
       <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
-        <h2 id="placar-deputadas" className="font-display text-2xl leading-tight text-ink md:text-3xl">
+        <h2
+          id="placar-deputadas"
+          className="font-display text-2xl leading-tight text-ink md:text-3xl"
+        >
           Como as deputadas votaram, votação por votação
         </h2>
-        <ul aria-hidden="true" className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[13px] text-ink/80">
-          <li className="inline-flex items-center gap-1.5"><span className="size-3 bg-plum" />Sim</li>
-          <li className="inline-flex items-center gap-1.5"><span className="size-3 border-2 border-ink bg-paper" />Não</li>
-          <li className="inline-flex items-center gap-1.5"><span className="size-3 bg-[var(--race-na)]" />Ausente ou abstenção</li>
+        <ul
+          aria-hidden="true"
+          className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[13px] text-ink/80"
+        >
+          <li className="inline-flex items-center gap-1.5">
+            <span className="size-3 bg-plum" />
+            Sim
+          </li>
+          <li className="inline-flex items-center gap-1.5">
+            <span className="size-3 border-2 border-ink bg-paper" />
+            Não
+          </li>
+          <li className="inline-flex items-center gap-1.5">
+            <span className="size-3 bg-[var(--race-na)]" />
+            Ausente ou abstenção
+          </li>
         </ul>
         <ol className="mt-6 grid gap-x-10 gap-y-6 md:grid-cols-2">
           {VOTACOES.map((v) => {
@@ -63,15 +75,17 @@ function PlacarDeputadas() {
                   <span className="h-full bg-[var(--race-na)]" style={{ width: w(outros) }} />
                 </div>
                 <p className="mt-1 text-[13px] text-ink/80">
-                  <span className="font-semibold text-ink">{n(sim)} Sim</span> · {n(nao)} Não · {n(outros)} ausentes
-                  ou abstenção, de {n(f.total)} deputadas em exercício · {formatDateBR(v.data)}
+                  <span className="font-semibold text-ink">{n(sim)} Sim</span> · {n(nao)} Não ·{" "}
+                  {n(outros)} ausentes ou abstenção, de {n(f.total)} deputadas em exercício ·{" "}
+                  {formatDateBR(v.data)}
                 </p>
               </li>
             );
           })}
         </ol>
         <p className="mt-5 text-[13px] text-muted-foreground">
-          Fonte: Câmara dos Deputados, Dados Abertos, votos nominais; placar recontado igual ao oficial.
+          Fonte: Câmara dos Deputados, Dados Abertos, votos nominais; placar recontado igual ao
+          oficial.
         </p>
       </div>
     </section>
@@ -321,7 +335,10 @@ function RaceVoteTable() {
           "Cor/raça é a autodeclaração ao TSE na eleição de 2022. Nenhuma deputada se declarou amarela; a linha fica visível para manter as cinco categorias.",
       }}
     >
-      <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
+      <div
+        tabIndex={0}
+        className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum"
+      >
         <table className="w-full min-w-[36rem] text-sm">
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
@@ -523,13 +540,13 @@ function DeputadasTable() {
           só quem votou contra o próprio partido ao menos uma vez
         </label>
       </div>
-      <p
-        className="mb-2 text-[13px] text-muted-foreground font-semibold"
-        aria-live="polite"
-      >
+      <p className="mb-2 text-[13px] text-muted-foreground font-semibold" aria-live="polite">
         {n(rows.length)} de {n(DEPUTADAS.length)} deputadas
       </p>
-      <div tabIndex={0} className="overflow-x-auto border border-rule bg-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
+      <div
+        tabIndex={0}
+        className="overflow-x-auto border border-rule bg-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum"
+      >
         <table className="w-full min-w-[56rem] text-sm">
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
@@ -765,7 +782,8 @@ function ComoVotaramPage() {
       <PlacarDeputadas />
 
       <div className="pb-4">
-        <InBrief aberto
+        <InBrief
+          aberto
           found={
             <>
               Entre as deputadas que votaram, a taxa de reeleição em 2026 ficou entre{" "}
@@ -804,7 +822,6 @@ function ComoVotaramPage() {
       <div className="pb-8">
         <AnistiaCotas />
       </div>
-
 
       <div className="pb-4">
         <GapNote label="Correção em 28/10/2026">
@@ -897,9 +914,7 @@ function ComoVotaramPage() {
         <ul className="grid gap-4 md:grid-cols-2">
           {VOTACOES.map((v) => (
             <li key={v.id} className="editorial-card p-5">
-              <p className="text-[13px] text-muted-foreground font-semibold">
-                {SHORT[v.id]}
-              </p>
+              <p className="text-[13px] text-muted-foreground font-semibold">{SHORT[v.id]}</p>
               <p className="mt-1 font-display text-2xl text-ink">
                 {n(v.deputadasContraBancada.length)} deputadas
               </p>
@@ -969,10 +984,15 @@ function ComoVotaramPage() {
               dinheiro do partido e de doadores.
             </p>
             <p className="mt-2 leading-relaxed text-ink/80">
-              <strong>Testada em 04/11/2026, com regra fixada antes: não confirmada.</strong> Entre as 410 pessoas eleitas
-              deputadas e deputados federais em 2022 que tentaram voltar, o fundo de 2026 quase não acompanhou a votação de 2022.
-              A diferença de reeleição entre quem teve mais e menos receita fica igual entre pessoas de força eleitoral
-              parecida, e é maior entre quem tinha a votação mais apertada. <a href="/metodo#hipoteses" className="underline decoration-plum underline-offset-4">A regra e os números</a>.
+              <strong>Testada em 04/11/2026, com regra fixada antes: não confirmada.</strong> Entre
+              as 410 pessoas eleitas deputadas e deputados federais em 2022 que tentaram voltar, o
+              fundo de 2026 quase não acompanhou a votação de 2022. A diferença de reeleição entre
+              quem teve mais e menos receita fica igual entre pessoas de força eleitoral parecida, e
+              é maior entre quem tinha a votação mais apertada.{" "}
+              <a href="/metodo#hipoteses" className="underline decoration-plum underline-offset-4">
+                A regra e os números
+              </a>
+              .
             </p>
           </Registro>
         </div>

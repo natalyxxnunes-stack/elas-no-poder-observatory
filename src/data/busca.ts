@@ -9,11 +9,21 @@ import { PERFIS_PIONEIRAS } from "@/data/perfis-pioneiras";
 import { REPORTAGENS } from "@/data/reportagens";
 import { RESULT_2026_PARTIDOS } from "@/data/resultado-2026";
 import { TEMAS } from "@/data/temas";
-import { DEPUTADAS, VOTACOES } from "@/data/votacoes-camara";
+import { VOTACOES } from "@/data/votacoes-camara";
+import { DEPUTADAS } from "@/data/votacoes-deputadas";
 import { ELEITAS_2026 } from "@/data/eleitas-2026";
 import { CARGO_ROTULO, ELEITA_POR_CHAVE, chaveEleita } from "@/data/eleitas-cruzamentos";
 
-export type TipoResultado = "Página" | "Tema" | "Reportagem" | "Achado" | "Fala" | "Votação" | "Pessoa" | "Partido" | "Estado";
+export type TipoResultado =
+  | "Página"
+  | "Tema"
+  | "Reportagem"
+  | "Achado"
+  | "Fala"
+  | "Votação"
+  | "Pessoa"
+  | "Partido"
+  | "Estado";
 
 export type ItemBusca = {
   tipo: TipoResultado;
@@ -26,45 +36,153 @@ export type ItemBusca = {
 };
 
 const UF: Record<string, string> = {
-  AC: "Acre", AL: "Alagoas", AP: "Amapá", AM: "Amazonas", BA: "Bahia", CE: "Ceará", DF: "Distrito Federal",
-  ES: "Espírito Santo", GO: "Goiás", MA: "Maranhão", MT: "Mato Grosso", MS: "Mato Grosso do Sul",
-  MG: "Minas Gerais", PA: "Pará", PB: "Paraíba", PR: "Paraná", PE: "Pernambuco", PI: "Piauí",
-  RJ: "Rio de Janeiro", RN: "Rio Grande do Norte", RS: "Rio Grande do Sul", RO: "Rondônia", RR: "Roraima",
-  SC: "Santa Catarina", SP: "São Paulo", SE: "Sergipe", TO: "Tocantins",
+  AC: "Acre",
+  AL: "Alagoas",
+  AP: "Amapá",
+  AM: "Amazonas",
+  BA: "Bahia",
+  CE: "Ceará",
+  DF: "Distrito Federal",
+  ES: "Espírito Santo",
+  GO: "Goiás",
+  MA: "Maranhão",
+  MT: "Mato Grosso",
+  MS: "Mato Grosso do Sul",
+  MG: "Minas Gerais",
+  PA: "Pará",
+  PB: "Paraíba",
+  PR: "Paraná",
+  PE: "Pernambuco",
+  PI: "Piauí",
+  RJ: "Rio de Janeiro",
+  RN: "Rio Grande do Norte",
+  RS: "Rio Grande do Sul",
+  RO: "Rondônia",
+  RR: "Roraima",
+  SC: "Santa Catarina",
+  SP: "São Paulo",
+  SE: "Sergipe",
+  TO: "Tocantins",
 };
 
 const PAGINAS: ItemBusca[] = [
-  ["/quem-chega", "Quem chega", "As eleitas, casa por casa", "eleitas cadeiras resultado senado camara governadoras"],
-  ["/quem-sao-elas", "Quem são elas?", "As candidatas por cor/raça e cargo", "candidatas cor raça vice suplente"],
+  [
+    "/quem-chega",
+    "Quem chega",
+    "As eleitas, casa por casa",
+    "eleitas cadeiras resultado senado camara governadoras",
+  ],
+  [
+    "/quem-sao-elas",
+    "Quem são elas?",
+    "As candidatas por cor/raça e cargo",
+    "candidatas cor raça vice suplente",
+  ],
   ["/partidos", "Partido por partido", "Eleitas, fundo e votações por sigla", "partidos siglas"],
-  ["/comparar", "Comparador", "Partidos ou estados, lado a lado", "comparar comparação partido estado taxa de eleição"],
-  ["/relatorio-2026", "Relatório 2026", "O ano em dados, numa página", "relatório anual 2026 resumo achados"],
-  ["/calendario", "Calendário", "Da urna à posse: datas e pautas", "calendário datas posse diplomação prestação de contas"],
-  ["/coautoria", "Quem assina junto", "A rede de coautoria das deputadas", "coautoria rede projetos autoria partidos"],
-  ["/monitor", "Monitor de mandato", "O que cada deputada registrou na Câmara", "mandato presença votações proposições discursos monitor"],
+  [
+    "/comparar",
+    "Comparador",
+    "Partidos ou estados, lado a lado",
+    "comparar comparação partido estado taxa de eleição",
+  ],
+  [
+    "/relatorio-2026",
+    "Relatório 2026",
+    "O ano em dados, numa página",
+    "relatório anual 2026 resumo achados",
+  ],
+  [
+    "/calendario",
+    "Calendário",
+    "Da urna à posse: datas e pautas",
+    "calendário datas posse diplomação prestação de contas",
+  ],
+  [
+    "/coautoria",
+    "Quem assina junto",
+    "A rede de coautoria das deputadas",
+    "coautoria rede projetos autoria partidos",
+  ],
+  [
+    "/monitor",
+    "Monitor de mandato",
+    "O que cada deputada registrou na Câmara",
+    "mandato presença votações proposições discursos monitor",
+  ],
   ["/votos", "Na urna", "Candidatura, voto e cadeira", "votos votação nominal"],
-  ["/dinheiro", "Dinheiro", "Receita, fundo eleitoral, gasto e vaquinhas", "fundo eleitoral fefc receita financiamento"],
+  [
+    "/dinheiro",
+    "Dinheiro",
+    "Receita, fundo eleitoral, gasto e vaquinhas",
+    "fundo eleitoral fefc receita financiamento",
+  ],
   ["/historico", "Histórico", "A série desde 2014", "série histórica 2014 2018 2022"],
   ["/funil", "O funil", "Da candidatura ao poder", "etapas"],
   ["/quem-controla", "Quem controla?", "As decisões dos partidos", "partidos listas"],
-  ["/barreiras", "Barreiras", "Violência política e contra mulheres", "violência política gênero processos"],
-  ["/como-votaram", "Como votaram", "Seis votações, deputada por deputada", "votações plenário câmara matriz"],
-  ["/na-voz-delas", "Na voz delas", "O que disseram, com o dado ao lado", "falas discursos feminismo antifeminista"],
+  [
+    "/barreiras",
+    "Barreiras",
+    "Violência política e contra mulheres",
+    "violência política gênero processos",
+  ],
+  [
+    "/como-votaram",
+    "Como votaram",
+    "Seis votações, deputada por deputada",
+    "votações plenário câmara matriz",
+  ],
+  [
+    "/na-voz-delas",
+    "Na voz delas",
+    "O que disseram, com o dado ao lado",
+    "falas discursos feminismo antifeminista",
+  ],
   ["/pioneiras", "Pioneiras", "Quem abriu o caminho", "perfis história"],
   ["/achados", "Achados", "Notas curtas e datadas", ""],
   ["/direitos", "Direitos", "Os marcos de 1932 a 2026", "lei voto cota emenda"],
   ["/em-disputa", "Em disputa", "Regras e projetos em tramitação", "projetos de lei"],
-  ["/metodo", "Método", "Fontes, fórmulas, versões e correções", "metodologia fontes correções sha-256"],
-  ["/downloads", "Downloads", "Base aberta em CSV e materiais para baixar", "csv dados abertos planilha base pública sha-256"],
+  [
+    "/metodo",
+    "Método",
+    "Fontes, fórmulas, versões e correções",
+    "metodologia fontes correções sha-256",
+  ],
+  [
+    "/downloads",
+    "Downloads",
+    "Base aberta em CSV e materiais para baixar",
+    "csv dados abertos planilha base pública sha-256",
+  ],
   ["/sobre", "Sobre", "Quem faz o observatório", "contato"],
-].map(([to, titulo, sub, extra]) => ({ tipo: "Página" as const, to: to!, titulo: titulo!, sub: sub!, extra: extra ?? "" }));
+].map(([to, titulo, sub, extra]) => ({
+  tipo: "Página" as const,
+  to: to!,
+  titulo: titulo!,
+  sub: sub!,
+  extra: extra ?? "",
+}));
 
-const CARGO: Record<string, string> = { presidencia: "Presidência", governo: "governo estadual", senado: "Senado" };
+const CARGO: Record<string, string> = {
+  presidencia: "Presidência",
+  governo: "governo estadual",
+  senado: "Senado",
+};
 
 export const INDICE_BUSCA: readonly ItemBusca[] = [
   ...PAGINAS,
-  ...TEMAS.map((t) => ({ tipo: "Tema" as const, titulo: t.nome, sub: t.linha, to: `/temas/${t.slug}` })),
-  ...REPORTAGENS.map((r) => ({ tipo: "Reportagem" as const, titulo: r.titulo, sub: r.linhaFina, to: r.to, extra: r.tema })),
+  ...TEMAS.map((t) => ({
+    tipo: "Tema" as const,
+    titulo: t.nome,
+    sub: t.linha,
+    to: `/temas/${t.slug}`,
+  })),
+  ...REPORTAGENS.map((r) => ({
+    tipo: "Reportagem" as const,
+    titulo: r.titulo,
+    sub: r.linhaFina,
+    to: r.to,
+    extra: r.tema,
+  })),
   ...ACHADOS.map((a) => ({
     tipo: "Achado" as const,
     titulo: a.titulo,
@@ -105,7 +223,9 @@ export const INDICE_BUSCA: readonly ItemBusca[] = [
       extra: `${UF[d.uf] ?? ""} ${partido}`,
     };
   }),
-  ...CANDIDATAS_MAJORITARIAS_2026.filter(([nome, , uf]) => !ELEITA_POR_CHAVE.has(chaveEleita(nome, uf))).map(([nome, cargo, uf, partido]) => ({
+  ...CANDIDATAS_MAJORITARIAS_2026.filter(
+    ([nome, , uf]) => !ELEITA_POR_CHAVE.has(chaveEleita(nome, uf)),
+  ).map(([nome, cargo, uf, partido]) => ({
     tipo: "Pessoa" as const,
     titulo: nome,
     sub: `Candidata em 2026 · ${CARGO[cargo] ?? cargo}${uf !== "BR" ? ` · ${uf}` : ""} · ${partido}`,
@@ -135,14 +255,12 @@ export const INDICE_BUSCA: readonly ItemBusca[] = [
   })),
 ];
 
-export const normaliza = (s: string) =>
-  s
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase();
+export const normaliza = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
 export function busca(q: string, limite = 60): ItemBusca[] {
-  const termos = normaliza(q).split(/\s+/).filter((t) => t.length > 1);
+  const termos = normaliza(q)
+    .split(/\s+/)
+    .filter((t) => t.length > 1);
   if (!termos.length) return [];
   const pontos = (it: ItemBusca) => {
     const titulo = normaliza(it.titulo);

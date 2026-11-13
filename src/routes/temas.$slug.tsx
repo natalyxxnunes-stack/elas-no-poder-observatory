@@ -3,6 +3,7 @@ import { PageShell } from "@/components/PageShell";
 import { AchadoCard } from "@/components/editorial/AchadoCard";
 import { Faixa } from "@/components/editorial/Faixa";
 import { ObjetoFigura, OBJETOS } from "@/components/editorial/ObjetoTema";
+import { Recorte } from "@/components/editorial/Recorte";
 import { Secao } from "@/components/editorial/Secao";
 import { ACHADOS } from "@/data/achados";
 import { FALAS } from "@/data/falas";
@@ -224,6 +225,10 @@ function TemaPage() {
         </div>
       </section>
 
+      <Recorte
+        slug={proximo.slug}
+        className="relative left-1/2 -ml-[50vw] aspect-[4/1] w-screen md:aspect-[8/1]"
+      />
       <Faixa fundo="bg-cream">
         <a
           href={`/temas/${proximo.slug}`}

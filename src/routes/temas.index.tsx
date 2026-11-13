@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { OBJETOS } from "@/components/editorial/ObjetoTema";
+import { Recorte } from "@/components/editorial/Recorte";
 import { TEMAS } from "@/data/temas";
 
 const description =
@@ -36,9 +37,12 @@ function TemasPage() {
           <li key={t.slug} className="border-b border-rule">
             <a
               href={`/temas/${t.slug}`}
-              className="group grid gap-3 py-7 md:grid-cols-[4rem_1fr_1.2fr] md:gap-8"
+              className="group grid gap-3 py-7 md:grid-cols-[12rem_1fr_1.2fr] md:gap-8"
             >
-              <span className="font-mono text-[15px] text-ink/60">{t.ordem}</span>
+              <span className="block">
+                <Recorte slug={t.slug} className="aspect-[2/1]" />
+                <span className="mt-2 block font-mono text-[15px] text-ink/60">{t.ordem}</span>
+              </span>
               <span>
                 <span className="block font-display text-3xl font-semibold leading-tight text-ink group-hover:text-plum md:text-4xl">
                   {t.nome}

@@ -1,6 +1,7 @@
 import { M_FUNDO_BRANCAS } from "@/data/manchetes";
 import { Desdobra, ExploreDivisa } from "@/components/editorial/Desdobra";
 import { AchadosDaPagina } from "@/components/editorial/AchadosDaPagina";
+import { Recorte } from "@/components/editorial/Recorte";
 import { FundoNoGasto, TiposDeGasto, Vaquinhas } from "@/components/editorial/DespesasCharts";
 import { FefcPartidos } from "@/components/editorial/FefcPartidos";
 import { createFileRoute } from "@tanstack/react-router";
@@ -126,7 +127,7 @@ function DinheiroPage() {
         snapshot={financeSnapshot}
       />
 
-      <AchadosDaPagina temas={["dinheiro"]} />
+      <AchadosDaPagina temas={["dinheiro"]} max={3} />
 
       <SectionBlock
         id="fotografia"
@@ -281,6 +282,7 @@ function DinheiroPage() {
           </ContextBox>
         </div>
       </SectionBlock>
+      <Recorte slug="dinheiro" className="mt-10 aspect-[3/1] md:aspect-[5/1]" />
       <ExploreDivisa lead="Os cinco partidos com mais receita e a receita declarada em cada estado." />
       <Desdobra rotulo="Abrir as ferramentas de consulta" className="pb-10">
         <SectionBlock

@@ -1,4 +1,4 @@
-import { DEPUTADAS, VOTACOES, type Deputada, type VotoTipo } from "@/data/votacoes-camara";
+import { VOTACOES, type Deputada, type VotoTipo } from "@/data/votacoes-camara";
 
 /**
  * colecoes — séries editoriais que cruzam temas (12/11/2026).
@@ -52,22 +52,371 @@ export type DeputadaColecao = {
   cargo2026: string | null;
 };
 
-/** as deputadas que entram pelo critério, lidas de votacoes-camara.ts */
-export const ANTIGENERO_DEPUTADAS: DeputadaColecao[] = DEPUTADAS.filter((d) =>
-  ANTIGENERO_VOTOS.some((v) => d.votos[v.id]?.voto === v.contra),
-)
-  .map((d) => {
-    const ultimo = [...ANTIGENERO_VOTOS].reverse().find((v) => d.votos[v.id]);
-    return {
-      nome: d.nome,
-      uf: d.uf,
-      partido: ultimo ? d.votos[ultimo.id]!.partido : "",
-      votos: ANTIGENERO_VOTOS.filter((v) => d.votos[v.id]?.voto === v.contra).map((v) => v.rotulo),
-      desfecho: d.desfecho2026,
-      cargo2026: d.cargo2026,
-    };
-  })
-  .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
+/**
+ * as deputadas que entram pelo critério. Lista gerada de votacoes-deputadas.ts
+ * em 12/11/2026 (mesmo critério de ANTIGENERO_VOTOS) e gravada aqui sem a
+ * cor/raça individual, para a capa e a coleção não carregarem esse campo.
+ * Se os votos ou os desfechos mudarem, gerar de novo.
+ */
+export const ANTIGENERO_DEPUTADAS: DeputadaColecao[] = [
+  {
+    nome: "Adriana Ventura",
+    uf: "SP",
+    partido: "NOVO",
+    votos: [
+      "votou Não à lei de igualdade salarial (04/05/2023)",
+      "votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)",
+    ],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Ana Paula Leão",
+    uf: "MG",
+    partido: "PP",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "suplente",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Antônia Lúcia",
+    uf: "AC",
+    partido: "REPUBLICANOS",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "não eleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Any Ortiz",
+    uf: "RS",
+    partido: "CIDADANIA",
+    votos: [
+      "votou Não à lei de igualdade salarial (04/05/2023)",
+      "votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)",
+    ],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Bia Kicis",
+    uf: "DF",
+    partido: "PL",
+    votos: [
+      "votou Não à lei de igualdade salarial (04/05/2023)",
+      "votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)",
+    ],
+    desfecho: "eleita para outro cargo",
+    cargo2026: "SENADOR",
+  },
+  {
+    nome: "Carla Dickson",
+    uf: "RN",
+    partido: "UNIÃO",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "suplente",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Carla Zambelli",
+    uf: "SP",
+    partido: "PL",
+    votos: ["votou Não à lei de igualdade salarial (04/05/2023)"],
+    desfecho: "não concorreu",
+    cargo2026: null,
+  },
+  {
+    nome: "Caroline de Toni",
+    uf: "SC",
+    partido: "PL",
+    votos: [
+      "votou Não à lei de igualdade salarial (04/05/2023)",
+      "votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)",
+    ],
+    desfecho: "eleita para outro cargo",
+    cargo2026: "SENADOR",
+  },
+  {
+    nome: "Chris Tonietto",
+    uf: "RJ",
+    partido: "PL",
+    votos: [
+      "votou Não à lei de igualdade salarial (04/05/2023)",
+      "votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)",
+    ],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Clarissa Tércio",
+    uf: "PE",
+    partido: "PP",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Cristiane Lopes",
+    uf: "RO",
+    partido: "UNIÃO",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Dani Cunha",
+    uf: "RJ",
+    partido: "UNIÃO",
+    votos: [
+      "votou Não à lei de igualdade salarial (04/05/2023)",
+      "votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)",
+    ],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Dayany Bittencourt",
+    uf: "CE",
+    partido: "UNIÃO",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "suplente",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Delegada Ione",
+    uf: "MG",
+    partido: "AVANTE",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Delegada Katarina",
+    uf: "SE",
+    partido: "PSD",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Dra. Alessandra Haber",
+    uf: "PA",
+    partido: "MDB",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Ely Santos",
+    uf: "SP",
+    partido: "REPUBLICANOS",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "eleita para outro cargo",
+    cargo2026: "DEPUTADO ESTADUAL",
+  },
+  {
+    nome: "Fatima Pelaes",
+    uf: "AP",
+    partido: "REPUBLICANOS",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "suplente",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Fernanda Pessoa",
+    uf: "CE",
+    partido: "UNIÃO",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Franciane Bayer",
+    uf: "RS",
+    partido: "REPUBLICANOS",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "suplente",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Geovania de Sá",
+    uf: "SC",
+    partido: "PSDB",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Greyce Elias",
+    uf: "MG",
+    partido: "AVANTE",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Helena Lima",
+    uf: "RR",
+    partido: "MDB",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "não eleita",
+    cargo2026: "SENADOR",
+  },
+  {
+    nome: "Iza Arruda",
+    uf: "PE",
+    partido: "MDB",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Julia Zanatta",
+    uf: "SC",
+    partido: "PL",
+    votos: [
+      "votou Não à lei de igualdade salarial (04/05/2023)",
+      "votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)",
+    ],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Luisa Canziani",
+    uf: "PR",
+    partido: "PSD",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "suplente",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Magda Mofatto",
+    uf: "GO",
+    partido: "PRD",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Maria Rosas",
+    uf: "SP",
+    partido: "REPUBLICANOS",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Marussa Boldrin",
+    uf: "GO",
+    partido: "MDB",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Nely Aquino",
+    uf: "MG",
+    partido: "PODE",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Renata Abreu",
+    uf: "SP",
+    partido: "PODE",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Roberta Roma",
+    uf: "BA",
+    partido: "PL",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Rogéria Santos",
+    uf: "BA",
+    partido: "REPUBLICANOS",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "suplente",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Rosana Valle",
+    uf: "SP",
+    partido: "PL",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Rosangela Moro",
+    uf: "SP",
+    partido: "UNIÃO",
+    votos: ["votou Não à lei de igualdade salarial (04/05/2023)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Rosângela Reis",
+    uf: "MG",
+    partido: "PL",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Silvia Cristina",
+    uf: "RO",
+    partido: "PP",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "não eleita",
+    cargo2026: "SENADOR",
+  },
+  {
+    nome: "Silvia Waiãpi",
+    uf: "AP",
+    partido: "PL",
+    votos: ["votou Não à lei de igualdade salarial (04/05/2023)"],
+    desfecho: "não concorreu",
+    cargo2026: null,
+  },
+  {
+    nome: "Silvye Alves",
+    uf: "GO",
+    partido: "UNIÃO",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Simone Marquetto",
+    uf: "SP",
+    partido: "MDB",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "não concorreu",
+    cargo2026: null,
+  },
+  {
+    nome: "Soraya Santos",
+    uf: "RJ",
+    partido: "PL",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+  {
+    nome: "Yandra Moura",
+    uf: "SE",
+    partido: "UNIÃO",
+    votos: ["votou Sim ao PDL 3/2025, que sustou a norma do Conanda (05/11/2025)"],
+    desfecho: "reeleita",
+    cargo2026: "DEPUTADO FEDERAL",
+  },
+];
 
 export const ANTIGENERO_VOTACOES = ANTIGENERO_VOTOS.map((v) => ({
   ...v,
