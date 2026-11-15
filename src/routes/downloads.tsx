@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { EditorialOpening } from "@/components/editorial/EditorialOpening";
+import { Faixa } from "@/components/editorial/Faixa";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
@@ -136,25 +136,47 @@ function MiniaturaMaterial({ material }: { material: Material }) {
 function DownloadsPage() {
   return (
     <PageShell breadcrumb={[{ label: "Projeto" }, { label: "Downloads" }]}>
-      <EditorialOpening
-        variant="downloads"
-        kicker="Downloads"
-        question="O que posso levar daqui?"
-        lead={
-          <p>
-            Materiais para circular fora do site: cartilhas, infográficos, roteiros de oficina e
-            tabelas com dicionário de variáveis. Tudo com fonte e data da base impressas na própria
-            peça.
-          </p>
-        }
-        documents={MATERIALS.map((material) => ({
-          format: material.format.split(/[ ,]/)[0] ?? material.format,
-          label: material.kind,
-          available: material.file !== null,
-        }))}
-      />
+      <Faixa fundo="bg-plum-deep text-paper">
+        <header className="grid items-center gap-8 py-12 md:grid-cols-[1.1fr_.9fr] md:gap-14 md:py-16">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-lilac">
+              Biblioteca do observatório
+            </p>
+            <h1 className="mt-4 max-w-xl font-display text-[2.5rem] font-semibold leading-[1.08] md:text-[3.5rem]">
+              Materiais para consultar e compartilhar
+            </h1>
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-paper/85">
+              Cartilhas, infográficos, oficinas e bases de dados para usar em pesquisas,
+              aulas e reportagens. Os materiais identificam as fontes e o período analisado.
+            </p>
+            <a href="#catalogo"
+              className="mt-6 inline-flex min-h-11 items-center font-semibold text-paper underline decoration-lilac decoration-2 underline-offset-4">
+              Explorar os materiais <span aria-hidden="true" className="ml-2">↘</span>
+            </a>
+          </div>
+          <div className="grid grid-cols-2 gap-3" aria-label="Prévia de publicações reais do observatório">
+            <figure>
+              <div className="flex aspect-[3/4] items-center justify-center overflow-hidden bg-paper/10">
+                <img src="/materiais/cartilha-cota-miniatura.png"
+                  alt="Capa original da cartilha sobre cotas de gênero"
+                  loading="eager" className="h-full w-full object-contain" />
+              </div>
+              <figcaption className="mt-2 text-xs text-paper/75">Cartilha · PDF</figcaption>
+            </figure>
+            <figure>
+              <div className="flex aspect-[3/4] items-center justify-center overflow-hidden bg-paper/10">
+                <img src="/materiais/oficina-funil-miniatura.png"
+                  alt="Primeira página original do material de oficina sobre o funil eleitoral"
+                  loading="eager" className="h-full w-full object-contain" />
+              </div>
+              <figcaption className="mt-2 text-xs text-paper/75">Oficina · PDF</figcaption>
+            </figure>
+          </div>
+        </header>
+      </Faixa>
 
       <SectionBlock
+        id="catalogo"
         kicker="Catálogo"
         question="Materiais para baixar e circular"
         align="wide"
