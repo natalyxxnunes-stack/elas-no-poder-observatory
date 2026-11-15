@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PROXIMAS, REPORTAGENS, REPORTAGENS_REGRA } from "@/data/reportagens";
 import { PERFIS_PIONEIRAS } from "@/data/perfis-pioneiras";
-import { FOTOS } from "@/data/fotos";
+import { VOTACOES, VOTACOES_META } from "@/data/votacoes-camara";
 import { FALAS } from "@/data/falas";
 import { formatDateBR } from "@/lib/format-br";
 
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/reportagens")({
 
 const DESTAQUE = REPORTAGENS.find((r) => r.to === "/como-votaram");
 const FALAS_REPORTAGEM = REPORTAGENS.find((r) => r.to === "/na-voz-delas");
-const FOTO_PLENARIO = FOTOS["plenario-igualdade-salarial-2023"]!;
+
 
 /**
  * As referências são metadados reais de falas com publicação autorizada no
@@ -42,6 +42,82 @@ const FONTES_DOCUMENTAIS = FALAS
     return iso(b.data).localeCompare(iso(a.data));
   })
   .slice(0, 3);
+
+/** 
+ * Recorte gráfico da reportagem: os votos de deputadas que estavam em exercício
+ * nas seis votações nominais selecionadas (2023–2025).
+ * "Sim" e "Não" referem-se ao texto submetido em cada votação: não são
+ * classificados como voto favorável/contrário a direitos das mulheres.
+ */
+function PlacarSeisVotacoes() {
+  const totalVotacoes = VOTACOES.length;
+  return (
+    <figure
+      aria-label="Visualização documental dos votos de deputadas nas seis votações"
+      className="min-w-0 bg-ink p-5 text-paper md:p-7 lg:p-9"
+    >
+      <figcaption className="flex flex-wrap items-end justify-between gap-5 border-b border-paper/25 pb-5">
+        <div>
+          <p className="text-[13px] font-semibold text-[var(--art-gold)]">
+            Câmara dos Deputados · Dados oficiais
+          </p>
+          <h3 className="mt-2 max-w-lg font-display text-2xl leading-tight md:text-3xl">
+            O voto das deputadas, em seis decisões
+          </h3>
+        </div>
+        <span className="font-display text-[clamp(3.5rem,6vw,5rem)] leading-none tabular-nums text-[var(--art-gold)]" aria-label={`${totalVotacoes} votações`}>
+          {totalVotacoes.toString().padStart(2, "0")}
+        </span>
+      </figcaption>
+      <div aria-label="Legenda da visualização" className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-[13px]">
+        <span className="inline-flex items-center gap-2"><span className="h-3 w-3 bg-[var(--art-violet)]" />Sim</span>
+        <span className="inline-flex items-center gap-2"><span className="h-3 w-3 bg-[var(--art-coral)]" />Não</span>
+        <span className="inline-flex items-center gap-2"><span className="h-3 w-3 bg-paper/35" />Ausências e outros registros</span>
+      </div>
+      <ol className="mt-5 divide-y divide-paper/20 border-y border-paper/20">
+        {VOTACOES.map((v) => {
+          const base = v.porSexo.F.total;
+          const sim = v.porSexo.F.votos["Sim"] ?? 0;
+          const nao = v.porSexo.F.votos["Não"] ?? 0;
+          const demais = base - sim - nao;
+          const largura = (n: number) => `${(n / base) * 100}%`;
+          return (
+            <li key={v.id} className="py-3.5">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <span className="max-w-[30ch] text-[14px] font-semibold leading-snug">
+                  {v.titulo}
+                </span>
+                <span className="shrink-0 font-mono text-[12px] tabular-nums text-paper/70">
+                  {formatDateBR(v.data)}
+                </span>
+              </div>
+              <div
+                role="img"
+                aria-label={`${v.titulo}, ${formatDateBR(v.data)}: ${sim} votos Sim, ${nao} votos Não, ${demais} ausências e outros registros, de ${base} deputadas em exercício`}
+                className="mt-2.5 flex h-3 w-full overflow-hidden bg-paper/20"
+              >
+                <span className="h-full bg-[var(--art-violet)]" style={{ width: largura(sim) }} />
+                <span className="h-full bg-[var(--art-coral)]" style={{ width: largura(nao) }} />
+                <span className="h-full bg-paper/35" style={{ width: largura(demais) }} />
+              </div>
+              <p className="mt-1.5 font-mono text-[11px] leading-relaxed text-paper/80">
+                {sim} Sim · {nao} Não · {demais} outros/ausentes · {base} em exercício
+              </p>
+            </li>
+          );
+        })}
+      </ol>
+      <p className="mt-4 text-[12px] leading-relaxed text-paper/70">
+        Fonte: Câmara dos Deputados, Dados Abertos, votação nominal e
+        deputadas em exercício. Coleta em {VOTACOES_META.coletaEm}.
+        Contagens reprocessadas pela investigação. A categoria residual
+        inclui ausências, abstenções e outros registros. “Sim” e “Não”
+        referem-se ao texto votado e não indicam, isoladamente, posição
+        favorável ou contrária aos direitos das mulheres.
+      </p>
+    </figure>
+  );
+}
 
 function ReportagensPage() {
   return (
@@ -61,48 +137,38 @@ function ReportagensPage() {
         aria-labelledby="reportagem-destaque"
         className="relative left-1/2 -ml-[50vw] w-screen bg-plum-deep text-paper"
       >
-        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-9 md:px-8 md:py-11 lg:grid-cols-[1.06fr_.94fr] lg:gap-11 lg:py-14">
-          <figure className="min-w-0">
-            <img
-              src={FOTO_PLENARIO.src}
-              alt={FOTO_PLENARIO.alt}
-              className="aspect-[5/3] w-full object-cover"
-              loading="eager"
-            />
-            <figcaption className="mt-3 max-w-3xl text-[13px] leading-relaxed text-paper/80">
-              Plenário da Câmara, maio de 2023, durante a tramitação do PL 1.085/2023.
-              Foto de arquivo:{" "}
-              <a
-                href="https://www.camara.leg.br/noticias/957955-camara-pode-votar-nesta-quarta-feira-projeto-que-equipara-salario-entre-homens-e-mulheres/"
-                target="_blank"
-                rel="noreferrer"
-                className="text-paper underline underline-offset-4"
-              >
-                {FOTO_PLENARIO.credito}
-              </a>.
-              A imagem não registra as seis votações investigadas.
-            </figcaption>
-          </figure>
-          <article className="flex flex-col justify-center">
-            <p className="text-[13px] font-semibold text-[var(--art-gold)]">Manchete · Câmara dos Deputados</p>
-            <h2 id="reportagem-destaque" className="mt-4 max-w-lg font-display text-[clamp(2.1rem,3.7vw,3.55rem)] leading-[1.07]">
+        <div className="mx-auto grid max-w-7xl gap-9 px-5 py-10 md:px-8 md:py-14 lg:grid-cols-[.85fr_1.15fr] lg:items-start lg:gap-12 lg:py-16">
+          <article className="lg:sticky lg:top-24">
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">
+              Reportagem em destaque · Câmara dos Deputados
+            </p>
+            <h2
+              id="reportagem-destaque"
+              className="mt-5 max-w-xl font-display text-[clamp(2.3rem,4.15vw,4.1rem)] leading-[1.05]"
+            >
               {DESTAQUE?.titulo ?? "Como votaram as deputadas, e quem voltou"}
             </h2>
-            <p className="mt-4 max-w-lg text-base leading-relaxed text-paper/90">
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-paper/90">
               {DESTAQUE?.linhaFina}
             </p>
             <Link
               to="/como-votaram"
-              className="mt-6 inline-flex min-h-11 items-center self-start font-semibold text-paper underline underline-offset-4"
+              className="mt-7 inline-flex min-h-11 items-center self-start border-b-2 border-[var(--art-gold)] text-sm font-semibold text-paper"
             >
-              Ler a investigação ↗
+              Ler a investigação completa <span className="ml-3" aria-hidden="true">↗</span>
             </Link>
             {DESTAQUE && (
-              <p className="mt-6 text-[13px] text-paper/75">
+              <p className="mt-7 text-[13px] text-paper/70">
                 {DESTAQUE.autora} · {formatDateBR(DESTAQUE.data)}
               </p>
             )}
+            <p className="mt-7 max-w-lg border-t border-paper/25 pt-5 text-[13px] leading-relaxed text-paper/75">
+              Esta abertura apresenta uma síntese calculada a partir dos
+              registros oficiais. A fotografia de arquivo da Câmara permanece
+              na reportagem e na capa da revista, com seu crédito e contexto.
+            </p>
           </article>
+          <PlacarSeisVotacoes />
         </div>
       </section>
 
