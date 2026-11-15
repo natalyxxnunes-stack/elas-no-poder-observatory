@@ -153,6 +153,21 @@ function SobrePage() {
       </section>
 
 
+      <nav
+        aria-label="Conferir as fontes e o trabalho editorial"
+        className="flex flex-wrap gap-x-8 gap-y-3 border-y border-rule py-5 text-sm font-semibold text-plum"
+      >
+        <a href="/metodo#dicionario" className="min-h-11 content-center underline underline-offset-4">
+          Consultar os campos e as fontes
+        </a>
+        <a href="/metodo#correcoes" className="min-h-11 content-center underline underline-offset-4">
+          Ver o histórico de correções
+        </a>
+        <a href="/downloads" className="min-h-11 content-center underline underline-offset-4">
+          Acessar arquivos e materiais
+        </a>
+      </nav>
+
       {/* O acervo em números (30/10/2026): respiro visual no meio de texto institucional */}
       <section aria-label="O acervo em números" className="relative left-1/2 -ml-[50vw] w-screen bg-muted">
         <dl className="mx-auto grid max-w-7xl gap-8 px-5 py-12 sm:grid-cols-2 md:px-8 md:py-16 lg:grid-cols-4">
@@ -304,21 +319,18 @@ function SobrePage() {
         question="Os princípios editoriais que valem para toda página"
         align="wide"
       >
-        <ul className="grid gap-5 md:grid-cols-2">
-          {COMMITMENTS.map((c, i) => (
-            <li key={c} className="poster-frame p-5">
-              <span
-                aria-hidden
-                className="poster-figure block text-3xl text-coral-ink md:text-4xl"
-              >
+        <ol className="grid gap-x-10 border-t border-rule md:grid-cols-2">
+          {COMMITMENTS.map((compromisso, i) => (
+            <li key={compromisso} className="flex gap-5 border-b border-rule py-6">
+              <span aria-hidden="true" className="shrink-0 font-mono text-[13px] text-coral-ink">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <p className="mt-2 font-display text-lg leading-snug text-ink">
-                {c}
+              <p className="max-w-[42ch] font-display text-xl leading-snug text-ink">
+                {compromisso}
               </p>
             </li>
           ))}
-        </ul>
+        </ol>
       </SectionBlock>
 
       <SectionBlock id="correcoes"
