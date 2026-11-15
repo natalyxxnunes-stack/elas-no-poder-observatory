@@ -218,15 +218,18 @@ function DinheiroPage() {
               9,5%. Candidaturas de pessoas brancas são 49,8% e receberam 60,8%.
             </p>
             <p className="mt-3">
-              Dois partidos ficam abaixo de 30% para candidaturas pretas e pardas nas duas contas
-              que fizemos, só deputados e todos os cargos: PL (26,7% e 22,3%) e NOVO (25,6% e
-              26,4%). Na conta com todos os cargos, outros três também ficam abaixo: MDB (28,2%),
-              Cidadania (29,4%) e PSD (29,4%); essa conta depende de como se atribui o dinheiro das
-              chapas de governo e Senado. Somando governo, Senado e Presidência, a fatia das
-              mulheres no fundo cai para 33,2%, porque elas são poucas entre os titulares dessas
-              chapas. Os números vêm da extração de 15/11/2026, posterior ao prazo final do 2º turno, contados por
-              candidatura; a conta oficial é feita pelo TSE no julgamento das contas de cada
-              partido.
+              Na conta restrita a deputadas e deputados, três partidos ficaram abaixo de 30%
+              do FEFC declarado recebido por candidaturas pretas e pardas: PL (26,7%), NOVO (25,6%)
+              e PCO (24,7%). Incluindo os titulares dos seis cargos, são seis: PL (22,3%),
+              NOVO (26,4%), MDB (28,2%), Cidadania (29,4%), PSD (29,4%) e PRTB (14,1%).
+              O PRTB tem somente seis candidaturas titulares neste recorte, quatro com FEFC;
+              percentuais de universos tão pequenos exigem cautela. A conta com todos os cargos
+              depende ainda de como se atribui o dinheiro das chapas de governo e Senado.
+              Somando governo, Senado e Presidência, a fatia das mulheres no fundo fica em
+              33,2%. Os valores vêm da extração de 15/11/2026, após o prazo final do segundo
+              turno, e medem o FEFC recebido pelas candidaturas, não o cumprimento legal das cotas.
+              Para essa verificação, o TSE usa o universo e os percentuais oficiais de distribuição
+              dos partidos e examina as contas correspondentes.
             </p>
           </>
         }
