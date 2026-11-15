@@ -10,7 +10,7 @@ import { formatPct } from "@/lib/format-br";
  * Os módulos de documentação técnica e suas âncoras continuam na rota.
  */
 const TSE_DATASET = "https://dadosabertos.tse.jus.br/dataset/candidatos-2026";
-const FOTO_BANCADA = FOTOS["bancada-feminina-camara-marco-2026"];
+const FOTO_BANCADA = FOTOS["bancada-feminina-camara-marco-2026"]!;
 const REAIS = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 
 export function MetodoCapaRevista({
