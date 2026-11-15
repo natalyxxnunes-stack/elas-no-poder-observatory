@@ -65,7 +65,7 @@ export function PerfilHero({
         <div className="grid items-start gap-8 lg:grid-cols-[1fr_.9fr] lg:gap-12">
           <div>
             <p className={`text-xs font-semibold uppercase tracking-wide ${pagu ? "text-lilac" : "text-plum"}`}>Série Pioneiras · {years}</p>
-            <h1 className="mt-4 max-w-2xl font-display text-[clamp(2.7rem,5vw,4.7rem)] font-semibold leading-[1.03] ${pagu ? "text-paper" : "text-ink"}`}>
+            <h1 className={`mt-4 max-w-2xl font-display text-[clamp(2.7rem,5vw,4.7rem)] font-semibold leading-[1.03] ${pagu ? "text-paper" : "text-ink"}`}>
               {nome}
             </h1>
             <p className={`mt-6 max-w-xl text-lg leading-relaxed ${pagu ? "text-paper/90" : "text-ink/85"}`}>{quemFoi}</p>
