@@ -76,7 +76,7 @@ export function FefcPartidos() {
             : ""}
         </>
       }
-      source={`Fonte: TSE, Prestação de Contas Eleitorais 2026 (base de ${FEFC_META.baseGeneratedAt}, prestação final do 1º turno) e Candidatos 2026. Recontagem independente.`}
+      source={`Fonte: TSE, Prestação de Contas Eleitorais 2026 (base de ${FEFC_META.baseGeneratedAt}, declarações disponíveis até a geração da base) e Candidatos 2026. Recontagem independente.`}
       ficha={{
         vendo:
           "Para cada partido, se o fundo eleitoral que chegou às candidaturas acompanhou a presença de mulheres e de cada grupo de cor/raça entre elas.",
@@ -87,7 +87,7 @@ export function FefcPartidos() {
         fonte:
           "TSE, Prestação de Contas Eleitorais 2026 (receitas, fonte Fundo Especial) e Candidatos 2026",
         limitacao:
-          "O piso de 30% vale para o total que cada partido distribui, somando todos os cargos; esta tabela mostra só as candidaturas a deputado, onde não há vice nem suplente. Nas chapas de governo e Senado, partidos e procuradorias eleitorais divergem sobre contar o dinheiro de chapas com vice ou suplente mulher. Mede o fundo que chegou às candidaturas, na prestação final do 1º turno (343 candidaturas ainda com prestação parcial). Por isso a tabela descreve a distribuição e não verifica cumprimento da lei. A soma pretas e pardos segue o critério legal de candidaturas negras e aparece ao lado das categorias separadas.",
+          "O piso de 30% vale para o total que cada partido distribui, somando todos os cargos; esta tabela mostra só as candidaturas a deputado, onde não há vice nem suplente. Nas chapas de governo e Senado, partidos e procuradorias eleitorais divergem sobre contar o dinheiro de chapas com vice ou suplente mulher. Mede o fundo que chegou às candidaturas, na declarações disponíveis até a geração da base (195 candidaturas com prestação parcial e 102 com relatório financeiro). Por isso a tabela descreve a distribuição e não verifica cumprimento da lei. A soma pretas e pardos segue o critério legal de candidaturas negras e aparece ao lado das categorias separadas.",
       }}
     >
       <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
