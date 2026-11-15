@@ -13,12 +13,15 @@ export function ConsultationPanel({
   question,
   lead,
   children,
+  tinted = false,
 }: {
   id: string;
   kicker: string;
   question: string;
   lead?: ReactNode;
   children: ReactNode;
+  /** pano de fundo lilás para módulos de consulta selecionados, sem alterar os dados */
+  tinted?: boolean;
 }) {
   const detailsRef = useRef<HTMLDetailsElement>(null);
 
@@ -35,7 +38,8 @@ export function ConsultationPanel({
   }, [id]);
 
   return (
-    <section id={id} className="scroll-mt-24 border-t border-rule">
+    <section id={id} className={tinted ? "relative left-1/2 -ml-[50vw] w-screen scroll-mt-24 bg-lilac/55" : "scroll-mt-24 border-t border-rule"}>
+      <div className={tinted ? "mx-auto max-w-7xl px-5 md:px-8" : undefined}>
       <details ref={detailsRef} className="group">
         <summary className="flex min-h-28 cursor-pointer list-none items-center justify-between gap-4 py-5 text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum [&::-webkit-details-marker]:hidden sm:py-6">
           <span className="min-w-0">
@@ -52,6 +56,7 @@ export function ConsultationPanel({
           {children}
         </div>
       </details>
+      </div>
     </section>
   );
 }
