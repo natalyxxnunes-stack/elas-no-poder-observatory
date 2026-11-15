@@ -1,0 +1,27 @@
+{
+  "despesas_contratadas_candidatos_2026_BRASIL.csv": {
+    "sha256": "f1618b02ca9a5a7c62b92419b0ebcbbe11c4a0a92338ea946582be67ff872e77",
+    "bytes": 1096030473,
+    "geracao": "13/11/2026 15:07:32"
+  },
+  "despesas_pagas_candidatos_2026_BRASIL.csv": {
+    "sha256": "02136f7cbf8b2d09aa799998cd1101792189c46c5f0c48c47b4126eededa2d91",
+    "bytes": 711740737,
+    "geracao": "13/11/2026 15:07:32"
+  },
+  "receitas_candidatos_2026_BRASIL.csv": {
+    "sha256": "722c27a3c71ed4ed2c268b4baae189e1231ae95be2f40bb2bd1edc4e2bc7f35b",
+    "bytes": 186451133,
+    "geracao": "13/11/2026 15:07:34"
+  },
+  "receitas_candidatos_doador_originario_2026_BRASIL.csv": {
+    "sha256": "ce8b65ee218c1c665aacd70a67d3f58e160239cad212d2a1a2b9d8041145a7c6",
+    "bytes": 90874237,
+    "geracao": "13/11/2026 15:07:32"
+  },
+  "consulta_cand_2026_BRASIL.csv": {
+    "sha256": "29029414bed2708555af68545a63af6a765eed563e4b1274873ea8145f2a203b",
+    "bytes": 11835225,
+    "geracao": "14/11/2026 16:31:37"
+  }
+}

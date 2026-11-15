@@ -1,0 +1,20 @@
+{
+  "receitas.csv": {
+    "csvsha256": "722c27a3c71ed4ed2c268b4baae189e1231ae95be2f40bb2bd1edc4e2bc7f35b",
+    "zipsha256": "40e6cb23a26090411249274d6b474375acbc0b12f126bf35b49150c7a08da0f5",
+    "zipbytes": 381787972,
+    "csvbytes": 186451133,
+    "geracao": "13/11/2026 15:07:34",
+    "origem": "financeiro.zip",
+    "csv_source": "receitas_candidatos_2026_BRASIL.csv"
+  },
+  "candidaturas.csv": {
+    "csvsha256": "29029414bed2708555af68545a63af6a765eed563e4b1274873ea8145f2a203b",
+    "zipsha256": "0bd0eb37a17023cff711b8d3cf7043d8eb7489730cbada219dffc5a8756c4755",
+    "zipbytes": 3288813,
+    "csvbytes": 11835225,
+    "geracao": "14/11/2026 16:31:37",
+    "origem": "candidaturas.zip",
+    "csv_source": "consulta_cand_2026_BRASIL.csv"
+  }
+}

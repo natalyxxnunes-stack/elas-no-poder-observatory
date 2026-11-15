@@ -1,0 +1,44 @@
+{
+  "baseReceitas": "13/11/2026 15:07:34",
+  "linhasOriginais": 267314,
+  "duplicatasRemovidas": 977,
+  "valorDasDuplicatas": 769441.81,
+  "linhasProcessadas": 266337,
+  "candidaturasComReceita": 19655,
+  "candidaturasSemCorrespondencia": 0,
+  "divergenciasGeneroLinhas": 0,
+  "tiposPrestacao": {
+    "FINAL": 19333,
+    "RELATÓRIO FINANCEIRO": 119,
+    "PARCIAL": 203
+  },
+  "propCandidaturasComReceita": 19129,
+  "propCandidatasComReceita": 6836,
+  "propReceitaTotal": 5535477655.44,
+  "propReceitaFeminina": 1818708171.29,
+  "brancasReceita": 1020354219.41,
+  "brancasPctReceitaMulheres": 56.1032,
+  "racas": {
+    "BRANCA": {
+      "value": 1020354219.41,
+      "candidacies": 3203
+    },
+    "PARDA": {
+      "value": 504365850.01,
+      "candidacies": 2332
+    },
+    "PRETA": {
+      "value": 258486884.2,
+      "candidacies": 1180
+    },
+    "INDÍGENA": {
+      "value": 27557271.15,
+      "candidacies": 81
+    },
+    "AMARELA": {
+      "value": 7943946.52,
+      "candidacies": 40
+    }
+  },
+  "majoritarioReceitaFeminina": 217434517.39
+}
