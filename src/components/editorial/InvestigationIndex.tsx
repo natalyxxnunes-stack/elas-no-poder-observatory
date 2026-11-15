@@ -1,6 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { AXES, type Axis, type AxisStatus } from "@/data/architecture";
+import { FINANCE_BASE_LABEL } from "@/data/tse-finance-snapshot";
 
+/**
+ * Índice editorial: a situação de cada frente está em palavras, com as lacunas
+ * declaradas. A fotografia financeira vem da mesma base que alimenta o site,
+ * para não repetir uma data de extração já substituída.
+ */
 const STATUS_TONE: Record<AxisStatus, string> = {
   publicado: "border-plum text-plum",
   parcial: "border-ink text-ink",
@@ -13,6 +19,16 @@ const GROUP_LABELS: Record<Axis["group"], string> = {
   materiais: "Materiais",
 };
 
+function notaAtual(item: Axis): string {
+  if (item.id === "dinheiro") {
+    return `Receitas declaradas na base do TSE gerada em ${FINANCE_BASE_LABEL}; os valores ainda estão sujeitos a complementações, retificações e julgamento das contas.`;
+  }
+  if (item.id === "sobre") {
+    return "Autoria, princípios e compromissos editoriais.";
+  }
+  return item.statusNote;
+}
+
 export function InvestigationIndex() {
   const groups = (["investigacao", "projeto", "materiais"] as const).map((group) => ({
     group,
@@ -20,26 +36,55 @@ export function InvestigationIndex() {
   }));
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-14">
       {groups.map(({ group, items }) => (
         <section key={group} aria-labelledby={`grupo-${group}`}>
-          <h2 id={`grupo-${group}`} className="font-display text-3xl text-ink">{GROUP_LABELS[group]}</h2>
-          <ul className="mt-5 grid gap-px border border-rule bg-rule md:grid-cols-2">
-            {items.map((item) => (
-              <li key={item.id} className="bg-paper p-5 md:p-6">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <h3 className="font-display text-xl text-ink">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-5 gap-y-2 border-b border-ink pb-4">
+            <h2 id={`grupo-${group}`} className="font-display text-3xl text-ink md:text-4xl">
+              {GROUP_LABELS[group]}
+            </h2>
+            <p className="font-mono text-[13px] text-ink/65">
+              {items.length} {items.length === 1 ? "frente" : "frentes"}
+            </p>
+          </div>
+          <ol>
+            {items.map((item, index) => (
+              <li
+                key={item.id}
+                className="grid gap-x-8 gap-y-3 border-b border-rule py-6 md:grid-cols-[3rem_minmax(0,1fr)_minmax(0,1.25fr)] md:py-8"
+              >
+                <span aria-hidden="true" className="font-mono text-[13px] text-coral-ink">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="font-display text-2xl leading-tight text-ink">
                     {item.publication === "published" ? (
-                      <Link to={item.to} className="underline decoration-rule underline-offset-4 hover:decoration-plum">{item.label}</Link>
+                      <Link
+                        to={item.to}
+                        className="hover:text-plum hover:underline hover:underline-offset-4 focus-visible:outline-2"
+                      >
+                        {item.label}
+                      </Link>
                     ) : item.label}
                   </h3>
-                  <span className={`border px-2 py-1 text-[13px] ${STATUS_TONE[item.status]} font-semibold`}>{item.status}</span>
+                  <p className="mt-3">
+                    <span className={`inline-block border px-2 py-1 text-[13px] font-semibold ${STATUS_TONE[item.status]}`}>
+                      {item.status}
+                    </span>
+                  </p>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.question}</p>
-                <p className="mt-4 border-l-2 border-rule pl-3 text-sm leading-relaxed text-ink/75">{item.statusNote}</p>
+                <div>
+                  <p className="font-display text-lg leading-snug text-ink">{item.question}</p>
+                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink/75">{notaAtual(item)}</p>
+                  {item.publication !== "published" && item.unpublishedReason && (
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      Motivo da indisponibilidade: {item.unpublishedReason}
+                    </p>
+                  )}
+                </div>
               </li>
             ))}
-          </ul>
+          </ol>
         </section>
       ))}
     </div>
