@@ -1,0 +1,47 @@
+name: Incorporar captura documental TSE na prévia Método
+on:
+  push:
+    branches:
+      - pilotos-revista-visual-15nov2026
+    paths:
+      - ".github/workflows/incorporar-documento-metodo.yml"
+permissions:
+  contents: write
+  actions: read
+jobs:
+  documento-oficial:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Recuperar captura original verificada do TSE
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/qse-documentacao public/documentos
+          gh run download 43765673395 --repo "${{ github.repository }}" -n "materiais-documentais-para-previa" -D /tmp/qse-documentacao
+          test -s /tmp/qse-documentacao/pagina-oficial-tse-2026.png
+          file /tmp/qse-documentacao/pagina-oficial-tse-2026.png
+          cp /tmp/qse-documentacao/pagina-oficial-tse-2026.png public/documentos/tse-candidatos-2026-portal.png
+          cat > public/documentos/tse-candidatos-2026-portal-fonte.txt <<'EOF'
+          Captura de tela documental: portal oficial de Dados Abertos do TSE.
+          Recurso: Candidatos - 2026.
+          Endereco: https://dadosabertos.tse.jus.br/dataset/candidatos-2026
+          Origem do PNG: arquivo pagina-oficial-tse-2026.png, guardado no artefato
+          materiais-documentais-para-previa da execucao GitHub Actions 43765673395.
+          Captura verificada em 15 de novembro de 2026.
+          Documento reproduzido: pagina do portal, nao arquivo CSV nem ficha individual.
+          Nao aplicar a licenca do dataset automaticamente ao design da pagina.
+          Fonte e data devem permanecer visiveis na legenda da interface.
+          EOF
+      - name: Versionar documento somente nesta branch de rascunho
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/documentos/tse-candidatos-2026-portal.png public/documentos/tse-candidatos-2026-portal-fonte.txt
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "docs(visuais): guardar captura verdadeira do portal TSE para o Método"
+          git push origin HEAD:pilotos-revista-visual-15nov2026
