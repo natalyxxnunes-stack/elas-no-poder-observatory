@@ -840,10 +840,23 @@ function ComoVotaramPage() {
         <AnistiaCotas />
       </div>
 
-      <div className="pb-4">
-        <GapNote label="Correção em 28/10/2026">
-          {VOTACOES_META.correcao} {VOTACOES_META.pdl3Senado}
-        </GapNote>
+      <div className="pb-5">
+        <details className="group border-y border-rule">
+          <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 text-sm text-ink focus-visible:outline-2 focus-visible:outline-plum [&::-webkit-details-marker]:hidden">
+            <span>
+              <strong>Correção em 28/10/2026:</strong> uma sexta votação foi incorporada à análise.
+            </span>
+            <span className="shrink-0 font-semibold text-plum">
+              <span className="group-open:hidden">Detalhes +</span>
+              <span className="hidden group-open:inline">Recolher −</span>
+            </span>
+          </summary>
+          <div className="pb-5">
+            <GapNote label="Histórico da correção e atualização dos dados">
+              {VOTACOES_META.correcao} {VOTACOES_META.pdl3Senado}
+            </GapNote>
+          </div>
+        </details>
       </div>
 
       <ConsultationPanel
