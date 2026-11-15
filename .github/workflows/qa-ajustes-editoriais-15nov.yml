@@ -103,6 +103,8 @@ jobs:
                   assert page.get_by_role('heading',name='Os votos, a eleição e os discursos').count()==1
                 if url in shots:
                   key=url.strip('/').replace('/','-') or 'home'
+                  page.evaluate('window.scrollTo(0, 0)')
+                  page.wait_for_timeout(260)
                   page.screenshot(path=f'qa-editorial/{name}-{key}.jpg',type='jpeg',quality=77)
                 result.append({'dispositivo':name,'pagina':url,'h1':d['h1'][0],'javascript':len(errors),'overflow':d['sw']-d['ww'],'sections':d['sections']})
                 page.close()
