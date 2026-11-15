@@ -112,6 +112,7 @@ jobs:
 
                 if route=='/eleitas/':
                   assert '342' in info['body'],(route,device,'total')
+                  assert page.locator('section[aria-label="Filtros"] a[href="#lista-eleitas"]').count()==1,(route,device,'direct access to name index')
                   assert '109 / 513' in info['body'],(route,device,'federal')
                   assert 'Quantas vagas foram conquistadas por mulheres?' in info['body']
                   assert page.locator('section[aria-labelledby="eleitas-cadeiras-titulo"] ol > li').count()==5,(route,device,'five office denominators')
