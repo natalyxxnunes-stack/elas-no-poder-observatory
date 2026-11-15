@@ -48,14 +48,11 @@ export function InvestigationIndex() {
             </p>
           </div>
           <ol>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <li
                 key={item.id}
-                className="grid gap-x-8 gap-y-3 border-b border-rule py-6 md:grid-cols-[3rem_minmax(0,1fr)_minmax(0,1.25fr)] md:py-8"
+                className="grid gap-x-10 gap-y-4 border-b border-rule py-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] md:py-8"
               >
-                <span aria-hidden="true" className="font-mono text-[13px] text-coral-ink">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
                 <div>
                   <h3 className="font-display text-2xl leading-tight text-ink">
                     {item.publication === "published" ? (
