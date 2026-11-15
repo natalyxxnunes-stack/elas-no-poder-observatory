@@ -84,7 +84,7 @@ export function AchadoCard({
             {achado.titulo}
           </Link>
         </h3>
-      )
+      )}
       <p className="mt-3 max-w-[62ch] text-[15px] leading-relaxed text-ink/80">{achado.texto}</p>
       <div className="mt-auto pt-5" />
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-rule pt-2 text-[13px] text-muted-foreground">
@@ -97,7 +97,7 @@ export function AchadoCard({
           <span aria-hidden="true" className="inline-flex min-h-11 items-center font-medium text-plum">
             Ver o achado <span className="ml-1.5 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none">→</span>
           </span>
-        )
+        )}
       </div>
     </article>
   );
