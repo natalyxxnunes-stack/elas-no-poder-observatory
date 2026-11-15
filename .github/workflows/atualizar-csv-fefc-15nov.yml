@@ -2,7 +2,7 @@ name: Alinhar base CSV de FEFC ao corte de 15 novembro
 on:
   push:
     branches: [redesign-editorial-v3-teste]
-    paths: [.github/workflows/atualizar-csv-fefc-15nov.yml]
+    paths: [.github/workflows/atualizar-csv-fefc-15nov.yml, scripts/base-publica/gerar.ts]
 permissions:
   contents: write
 jobs:
