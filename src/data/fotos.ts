@@ -24,6 +24,17 @@ export type Foto = {
 };
 
 export const FOTOS: Record<string, Foto> = {
+  "pagu": {
+    src: "/fotos/pagu-patricia-galvao-anos-1920.jpg",
+    alt: "Retrato histórico de Patrícia Galvão, Pagu, olhando para a esquerda, com cabelo escuro e casaco de pele.",
+    credito: "Autor não identificado / Wikimedia Commons",
+    acervo: "Reproduzido em Depois da Cena, A Tribuna, março de 2008 (origem declarada no Commons)",
+    licenca: "dominio-publico",
+    licencaUrl: "https://commons.wikimedia.org/wiki/File:Patricia_Galvao.jpg",
+    data: "Data atribuída ao fim da década de 1920; não confirmada",
+    proporcao: "4/5",
+    fornecidaPor: "acervo-verificado",
+  },
   "bancada-feminina-camara-marco-2026": {
     src: "/fotos/bancada-feminina-camara-marco-2026.jpg",
     alt: "Integrantes da bancada feminina da Câmara posam em frente ao Congresso Nacional em março de 2026.",
