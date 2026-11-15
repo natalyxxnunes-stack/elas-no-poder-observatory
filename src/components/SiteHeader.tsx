@@ -41,6 +41,7 @@ export const MENU: Secao[] = [
       { label: "Investigações", to: "/investigacoes", nota: "O que está em apuração" },
     ],
   },
+  { label: "Biblioteca", to: "/downloads" },
   { label: "Quem entrou", to: "/eleitas" },
   {
     label: "Dados",

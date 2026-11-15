@@ -12,6 +12,7 @@ export function InBrief({
   mattersLabel = "Por que importa",
   unknownLabel = "O que ainda não sabemos",
   aberto = false,
+  inverse = false,
 }: {
   found: React.ReactNode;
   matters: React.ReactNode;
@@ -21,6 +22,8 @@ export function InBrief({
   unknownLabel?: string;
   /** reportagens longas mantêm o resumo aberto; páginas de dado, recolhido */
   aberto?: boolean;
+  /** versão clara do texto sobre fundo roxo, sem afetar outros usos */
+  inverse?: boolean;
 }) {
   const rows = [
     { label: foundLabel, body: found },
@@ -28,19 +31,19 @@ export function InBrief({
     { label: unknownLabel, body: unknown },
   ];
   const lista = (
-    <dl className="divide-y divide-rule">
+    <dl className={`divide-y ${inverse ? "divide-paper/30" : "divide-rule"}`}>
       {rows.map((r) => (
         <div key={r.label} className="py-3 sm:flex sm:gap-6">
-          <dt className="shrink-0 text-[13px] font-semibold text-ink sm:w-48">{r.label}</dt>
-          <dd className="mt-1 text-[15px] leading-relaxed text-ink/85 sm:mt-0">{r.body}</dd>
+          <dt className={`shrink-0 text-[13px] font-semibold sm:w-48 ${inverse ? "text-lilac" : "text-ink"}`}>{r.label}</dt>
+          <dd className={`mt-1 text-[15px] leading-relaxed sm:mt-0 ${inverse ? "text-paper/95" : "text-ink/85"}`}>{r.body}</dd>
         </div>
       ))}
     </dl>
   );
   if (aberto) {
     return (
-      <section aria-label="Em poucas linhas" className="border-y-2 border-ink py-2">
-        <h2 className="pt-2 font-sans text-[13px] text-plum font-semibold">Em poucas linhas</h2>
+      <section aria-label="Em poucas linhas" className={inverse ? "py-2 text-paper" : "border-y-2 border-ink py-2"}>
+        <h2 className={`pt-2 font-sans text-[13px] font-semibold ${inverse ? "text-lilac" : "text-plum"}`}>Em poucas linhas</h2>
         {lista}
       </section>
     );

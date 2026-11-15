@@ -1,0 +1,115 @@
+name: QA editorial e visual antes da publicacao - 15 nov 2026
+on:
+  push:
+    branches: [redesign-editorial-v3-teste]
+    paths: [.github/workflows/qa-editorial-financas-15nov.yml]
+permissions:
+  contents: write
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Dependencias, auditoria financeira, TypeScript e build
+        shell: bash
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          node scripts/recontagem/validar_snapshot_financeiro.mjs
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Instalar Playwright para inspecionar o HTML renderizado
+        shell: bash
+        run: python3 -m pip install --quiet --break-system-packages playwright pillow
+      - name: Capturar evidencias e verificar interface real
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p docs/auditorias/qa-paginas-15nov
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-http.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json, os, re
+          from pathlib import Path
+          from PIL import Image
+          from playwright.sync_api import sync_playwright
+          base='http://127.0.0.1:4173'
+          dest=Path('docs/auditorias/qa-paginas-15nov')
+          urls=['/','/dinheiro/','/achados/','/temas/dinheiro/','/dados/','/como-votaram/','/colecoes/antigenero-no-poder/','/metodo/','/downloads/']
+          results=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for width,height,device in [(1366,900,'desktop'),(390,844,'mobile')]:
+              ctx=browser.new_context(viewport={'width':width,'height':height},device_scale_factor=1)
+              for url in urls:
+                page=ctx.new_page()
+                errors=[]
+                page.on('pageerror',lambda e,errors=errors:errors.append(str(e)[:180]))
+                response=page.goto(base+url,wait_until='domcontentloaded',timeout=30000)
+                page.wait_for_timeout(1500)
+                info=page.evaluate('''() => ({
+                  title:document.title,
+                  h1:Array.from(document.querySelectorAll('h1')).map(x=>x.innerText.trim()).slice(0,3),
+                  main:document.querySelectorAll('main').length,
+                  width:document.documentElement.scrollWidth,
+                  viewport:innerWidth,
+                  bodyHeight:document.documentElement.scrollHeight,
+                  pictures:Array.from(document.querySelectorAll('img')).map(x=>({src:x.getAttribute('src'),alt:x.getAttribute('alt'),loaded:x.complete&&x.naturalWidth>0})).filter(x=>!x.loaded).slice(0,12),
+                  linksEmpty:Array.from(document.querySelectorAll('a')).filter(x=>!x.innerText.trim()&&!x.getAttribute('aria-label')&&!x.querySelector('img[alt]')).slice(0,10).map(x=>x.getAttribute('href')),
+                  headings:Array.from(document.querySelectorAll('h2,h3')).slice(0,20).map(x=>x.innerText.trim().slice(0,70)),
+                  tables:Array.from(document.querySelectorAll('table')).map(x=>({width:Math.round(x.getBoundingClientRect().width),parentWidth:Math.round(x.parentElement.getBoundingClientRect().width),containerScroll:x.closest('.overflow-x-auto')?.scrollWidth||0})),
+                  visibleText:document.body.innerText.slice(0,25000)
+                })''')
+                info.update({'path':url,'device':device,'status':response.status if response else None,'errors':errors})
+                for needle in ['13/11/2026','15/11/2026','04/11/2026','343 candidaturas','56,1%']:
+                  info['count_'+needle]=info['visibleText'].count(needle)
+                del info['visibleText']
+                results.append(info)
+                if url in ['/','/dinheiro/','/achados/','/temas/dinheiro/']:
+                  target=(url.strip('/').replace('/','-') or 'home')
+                  page.screenshot(path=str(dest/f'{target}-{device}-top.jpg'),type='jpeg',quality=76)
+                  if url=='/dinheiro/':
+                    for key,sel in [('raca','#cor-raca'),('fefc','#fundo-eleitoral'),('despesas','#despesas')]:
+                      el=page.locator(sel).first
+                      if el.count():
+                        el.scroll_into_view_if_needed(timeout=5000)
+                        page.wait_for_timeout(450)
+                        page.screenshot(path=str(dest/f'dinheiro-{device}-{key}.jpg'),type='jpeg',quality=76)
+                page.close()
+              ctx.close()
+            browser.close()
+          (dest/'auditoria-dom.json').write_text(json.dumps(results,ensure_ascii=False,indent=2)+'\n')
+          for x in results:
+            print(x['device'],x['path'],'HTTP',x['status'],'h1=',repr(x['h1']), 'overflow=',x['width']-x['viewport'],'JSerr=',len(x['errors']),'brokenImg=',len(x['pictures']))
+          failures=[x for x in results if x['status']!=200 or x['errors'] or x['pictures'] or (x['width']>x['viewport']+3)]
+          (dest/'resumo-qa.md').write_text('# QA visual automatizado — 15/11/2026\n\n'+
+           'Páginas testadas em 1366 × 900 e 390 × 844: '+', '.join(urls)+'.\n\n'+
+           'Total de verificações: '+str(len(results))+'. Alertas: '+str(len(failures))+'.\n\n'+
+           '| Dispositivo | Página | HTTP | H1 | Overflow horizontal | Erros JS | Imagens sem carga |\n| --- | --- | --- | --- | ---: | ---: | ---: |\n'+
+           ''.join('| '+x['device']+' | '+x['path']+' | '+(''+str(x['status']))+' | '+(' / '.join(x['h1']).replace('|','/'))+' | '+str(x['width']-x['viewport'])+' | '+str(len(x['errors']))+' | '+str(len(x['pictures']))+' |\n' for x in results)+
+           '\n**Limitação:** verificações automatizadas não substituem revisão humana da composição e da hierarquia visual; capturas são evidências da branch de teste, não do site publicado.\n')
+          PY
+      - name: Arquivar os resultados na branch de teste, sem publicar
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/auditorias/qa-paginas-15nov
+          git diff --cached --quiet && exit 0
+          git commit -m 'qa: registrar screenshots e verificacoes de Dinheiro desktop/mobile'
+          git push origin HEAD:redesign-editorial-v3-teste
+      - name: Guardar evidencias tambem como artefato
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-qa-visual-financas-15nov
+          path: docs/auditorias/qa-paginas-15nov/
+          if-no-files-found: warn
+          retention-days: 14

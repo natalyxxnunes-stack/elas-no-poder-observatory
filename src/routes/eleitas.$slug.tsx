@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { GapNote } from "@/components/GapNote";
 import { FotoDocumental } from "@/components/editorial/FotoDocumental";
+import { FOTOS } from "@/data/fotos";
 import { Secao } from "@/components/editorial/Secao";
 import { ELEITAS_2026, ELEITAS_META } from "@/data/eleitas-2026";
 import {
@@ -81,16 +82,49 @@ function EleitaPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Quem entrou", to: "/eleitas" }, { label: e.nome }]}>
-      <header className="grid gap-8 py-10 md:grid-cols-[1.4fr_1fr] md:items-end md:py-14">
-        <div>
-          <Secao nome="Quem entrou" tipo={CARGO_ROTULO[e.cargo]} />
-          <h1 className="mt-4 font-display text-[2.6rem] font-semibold leading-[1.02] text-plum md:text-7xl">{e.nome}</h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink/85">
-            Eleita {CARGO_ROTULO[e.cargo]} {lugar} em 2026
-            {e.cargo === "governadora" ? (e.turno === 2 ? ", no 2º turno" : ", no 1º turno") : ""} ({e.partido}).
-          </p>
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-cream">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-11 md:px-8 md:py-16 lg:grid-cols-[1.15fr_.85fr] lg:items-center lg:gap-12">
+          <div className="min-w-0">
+            <p className="text-xs font-semibold uppercase tracking-wide text-plum">
+              Quem entrou · Ficha eleitoral · {CARGO_ROTULO[e.cargo]}
+            </p>
+            <h1 className="mt-4 max-w-2xl break-words font-display text-[clamp(2.4rem,4.5vw,4.5rem)] font-semibold leading-[1.04] text-ink">
+              {e.nome}
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/85">
+              Eleita {CARGO_ROTULO[e.cargo]} {lugar} em 2026
+              {e.cargo === "governadora" ? (e.turno === 2 ? ", no 2º turno" : ", no 1º turno") : ""} ({e.partido}).
+            </p>
+            <p className="mt-5 text-xs text-ink/65">
+              Ficha baseada no resultado eleitoral de 2026. Exercício do mandato é registrado separadamente,
+              quando houver confirmação da posse.
+            </p>
+          </div>
+          <div className="min-w-0">
+            {FOTOS[`eleita-${e.slug}`] ? (
+              <FotoDocumental id={`eleita-${e.slug}`} />
+            ) : (
+              <aside className="border border-rule bg-paper p-6 md:p-8" aria-label="Identificação do registro eleitoral">
+                <p className="text-xs font-semibold uppercase tracking-wide text-plum">Registro público · TSE · 2026</p>
+                <p className="mt-6 font-display text-2xl font-semibold leading-snug text-ink">{CARGO_ROTULO[e.cargo]}</p>
+                <dl className="mt-5 grid grid-cols-2 gap-4 border-t border-rule pt-5">
+                  <div>
+                    <dt className="text-xs text-ink/65">Unidade federativa</dt>
+                    <dd className="mt-1 text-lg font-semibold text-plum">{e.uf}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-ink/65">Partido</dt>
+                    <dd className="mt-1 text-lg font-semibold text-plum">{e.partido}</dd>
+                  </div>
+                </dl>
+                <p className="mt-6 text-xs leading-relaxed text-ink/70">
+                  Identificação recomposta a partir da base eleitoral.
+                  Fotografia individual ainda não disponível com direitos verificados.
+                </p>
+              </aside>
+            )}
+          </div>
         </div>
-        <FotoDocumental id={`eleita-${e.slug}`} />
       </header>
 
       <section className="py-6">

@@ -113,7 +113,7 @@ export const ACHADOS: Achado[] = [
   {
     id: "dinheiro-brancas-peso",
     ancora: {
-      valor: "56,2%",
+      valor: "56,1%",
       rotulo: "do dinheiro das candidatas a deputada foi para as brancas, que eram 46,9% delas",
     },
     tema: "dinheiro",
@@ -122,7 +122,7 @@ export const ACHADOS: Achado[] = [
     data: "2026-09-25",
     titulo: "No dinheiro, as candidatas brancas ficam com mais do que o seu peso",
     texto:
-      "Nas listas para deputada, brancas são 46,9% das candidatas com receita declarada e ficam com 56,1% do dinheiro das mulheres. Pardas são 34,1% e ficam com 27,7%; pretas, 17,3% e 14,2%. Em 25/09, eram 47,0% e 55,7%: a distância cresceu na reta final da campanha e se manteve na prestação final.",
+      "Nas listas para deputada, brancas são 46,9% das candidatas com receita declarada e ficam com 56,1% do dinheiro das mulheres. Pardas são 34,1% e ficam com 27,7%; pretas, 17,3% e 14,2%. Em 25/09, eram 47,0% e 55,7%. A distância persiste na base de 15/11, que ainda inclui prestações parciais e relatórios financeiros.",
     barras: [
       { rotulo: "Brancas · candidatas", valor: 46.9 },
       { rotulo: "Brancas · receita", valor: 56.1 },
@@ -133,8 +133,8 @@ export const ACHADOS: Achado[] = [
     ],
     legenda: "Candidatas a deputada com receita declarada",
     fonte:
-      "TSE, Candidaturas e Prestação de Contas 2026 · prestação final do 1º turno, base de 04/11/2026",
-    atualizadoEm: "2026-11-04",
+      "TSE, receitas declaradas até 15/11/2026 (04h05), cruzadas com Candidaturas de 15/11/2026; 982 duplicatas removidas, ainda com contas não finais",
+    atualizadoEm: "2026-11-15",
     to: "/dinheiro",
     linkLabel: "Ver em Dinheiro",
   },

@@ -1,0 +1,105 @@
+name: QA de interacoes, tabelas e imagens - Dinheiro 15 nov
+on:
+  push:
+    branches: [redesign-editorial-v3-teste]
+    paths: [.github/workflows/qa-interacoes-financas-15nov.yml]
+permissions:
+  contents: write
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: latest }
+      - name: Build e ambiente
+        run: |
+          bun install --frozen-lockfile
+          node scripts/recontagem/validar_snapshot_financeiro.mjs
+          bunx tsc --noEmit
+          bun run build:hostgator
+          python3 -m pip install --quiet --break-system-packages playwright pillow
+      - name: Abrir tabelas, testar imagens lazy e capturar desktop e celular
+        shell: bash
+        run: |
+          set -euo pipefail
+          folder=docs/auditorias/qa-paginas-15nov
+          mkdir -p "$folder"
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-test.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          result={}
+          dest=Path('docs/auditorias/qa-paginas-15nov')
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for device,w,h in [('desktop',1366,900),('mobile',390,844)]:
+              ctx=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=1)
+              page=ctx.new_page()
+              page.goto('http://127.0.0.1:4173/',wait_until='networkidle')
+              images=[]
+              for img in page.locator('main img').all():
+                img.scroll_into_view_if_needed()
+                page.wait_for_timeout(400)
+                images.append(img.evaluate('''x=>({src:x.getAttribute('src'),loading:x.loading,complete:x.complete,width:x.naturalWidth})'''))
+              result[device+'_home_images']=images
+              page.goto('http://127.0.0.1:4173/dinheiro/',wait_until='networkidle')
+              sec=page.locator('#fundo-eleitoral')
+              sec.locator('details > summary').first.click()
+              page.wait_for_timeout(350)
+              nested=sec.locator('details details > summary').first
+              if nested.count():
+                nested.click()
+                page.wait_for_timeout(350)
+              table=sec.locator('table').first
+              assert table.count()==1,'Tabela do FEFC indisponivel apos abertura'
+              data=page.evaluate('''() => {
+                let sec=document.getElementById('fundo-eleitoral');
+                let table=sec.querySelector('table');
+                let scrolling=table.closest('.overflow-x-auto');
+                let float=document.querySelector('nav[aria-label="Nesta página"]');
+                const t=sec.innerText;
+                return {tableHeaders:[...table.querySelectorAll('thead th')].map(x=>x.innerText.trim()),
+                  tableRows:table.querySelectorAll('tbody tr').length,
+                  partyColumnPosition:getComputedStyle(table.querySelector('tbody tr th')).position,
+                  hasPCO:t.includes('PCO'),hasPRTB:t.includes('PRTB'),
+                  hasCandidaturasNegras:t.includes('Candidaturas negras (pretas + pardas)'),
+                  tableScrollable:scrolling.scrollWidth>scrolling.clientWidth,
+                  tableScrollWidth:scrolling.scrollWidth,tableVisibleWidth:scrolling.clientWidth,
+                  navFloating:float?{rect:(()=>{const r=float.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height}})(),visible:getComputedStyle(float).opacity}:null,
+                  h1:[...document.querySelectorAll('h1')].map(x=>x.innerText)}
+              }''')
+              table.scroll_into_view_if_needed()
+              page.wait_for_timeout(350)
+              page.screenshot(path=str(dest/f'dinheiro-{device}-tabela-aberta.jpg'),type='jpeg',quality=75)
+              data['tableHVisible']=table.bounding_box()
+              if device=='mobile':
+                assert data['navFloating']['rect']['width']<100, 'Índice flutuante ainda grande demais no celular'
+                assert 'Deslize a tabela para o lado' in sec.inner_text(), 'Instrução de rolagem não aparece'
+                assert data['partyColumnPosition']=='sticky', 'Coluna de partido nao ficou fixa'
+              if data['tableScrollable']:
+                table.evaluate('''x=>{const p=x.closest('.overflow-x-auto');p.scrollLeft=Math.round((p.scrollWidth-p.clientWidth)/2)}''')
+                page.wait_for_timeout(350)
+                data['tableScrollLeft']=table.evaluate("x=>x.closest('.overflow-x-auto').scrollLeft")
+              result[device+'_finance_interaction']=data
+              ctx.close()
+            browser.close()
+          (dest/'interacoes.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+          for f in dinheiro-desktop-tabela-aberta.jpg dinheiro-mobile-tabela-aberta.jpg; do
+            base64 -w0 "$folder/$f" > "$folder/$f.b64.txt"
+          done
+      - name: Arquivar resultados na branch de teste
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/auditorias/qa-paginas-15nov
+          git diff --cached --quiet && exit 0
+          git commit -m 'qa: documentar tabela expandida e verificar miniaturas lazy'
+          git push origin HEAD:redesign-editorial-v3-teste

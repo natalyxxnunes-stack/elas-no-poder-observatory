@@ -1,0 +1,128 @@
+name: Verificação técnica da capa editorial v3
+on:
+  push:
+    branches:
+      - redesign-editorial-v3-teste
+
+permissions:
+  contents: read
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Diagnosticar bytes do PNG antes do build
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('public/materiais/infografico-universos-quadrado.png')
+          d=p.read_bytes()
+          magic=bytes([137,80,78,71,13,10,26,10])
+          print('PNG no repositório:',len(d),'bytes; primeiros:',d[:16].hex())
+          if not d.startswith(magic):
+              raise RuntimeError('Arquivo PNG já está corrompido no checkout do GitHub')
+          PY
+      - name: Instalar Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Instalar dependências travadas
+        run: bun install --frozen-lockfile
+      - name: Conferir coerência do snapshot financeiro e das fontes
+        run: node scripts/recontagem/validar_snapshot_financeiro.mjs
+      - name: Validar TypeScript
+        run: bunx tsc --noEmit
+      - name: Construir site estático Vite
+        run: bunx vite build --config vite.config.static.ts
+      - name: Conferir cópia do PNG feita pelo Vite
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          a=Path('public/materiais/infografico-universos-quadrado.png').read_bytes()
+          b=Path('dist/client/materiais/infografico-universos-quadrado.png').read_bytes()
+          print('Antes dos pós-processadores. Fonte:',len(a),a[:8].hex(),'Saída:',len(b),b[:8].hex(),'iguais:',a==b)
+          PY
+      - name: Pós-processar ativos e SEO da HostGator
+        run: |
+          node scripts/hostgator-assets.mjs
+          node scripts/hostgator-seo.mjs
+      - name: Restaurar e validar binários públicos
+        run: node scripts/hostgator-public-binaries.mjs
+      - name: Verificar arquivos visuais no pacote construído
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in \
+            fotos/bertha-lutz-1927.jpg \
+            materiais/cartilha-cota-miniatura.png \
+            materiais/oficina-funil-miniatura.png \
+            materiais/infografico-universos-quadrado.png; do
+            test -s "dist/client/$file"
+            echo "OK: $file"
+          done
+      - name: Impedir publicação de imagens corrompidas
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import struct
+          folder=Path('dist/client')
+          images=list(folder.rglob('*.png'))+list(folder.rglob('*.jpg'))+list(folder.rglob('*.jpeg'))
+          assert images, 'Nenhuma imagem encontrada no build'
+          for p in images:
+              d=p.read_bytes()
+              if p.suffix == '.png':
+                  assert d[:8] == bytes([137,80,78,71,13,10,26,10]), f'PNG inválido: {p}'
+                  w,h=struct.unpack('>II',d[16:24])
+                  assert w>0 and h>0, f'Dimensões inválidas: {p}'
+              else:
+                  assert d[:2] == bytes([255,216]) and d[-2:] == bytes([255,217]), f'JPEG inválido: {p}'
+          print(f'Arquivos de imagem verificados: {len(images)}')
+          PY
+      - name: Disponibilizar build estático para testes de usabilidade
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-redesign-v3-build
+          path: dist/client/
+          if-no-files-found: error
+          retention-days: 7
+      - name: Capturar páginas inteiras em desktop e celular
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v google-chrome || command -v chromium
+          mkdir -p capturas-v3
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-local.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 3
+          curl -fsS http://127.0.0.1:4173/ >/dev/null
+          chrome="$(command -v google-chrome || command -v chromium)"
+          for route in 'home:/' 'biblioteca:/downloads/' 'reportagem:/como-votaram/'; do
+            name="${route%%:*}"
+            path="${route#*:}"
+            curl -fsS "http://127.0.0.1:4173$path" >/dev/null
+            "$chrome" --headless --no-sandbox --disable-dev-shm-usage \
+              --disable-gpu --hide-scrollbars --virtual-time-budget=4500 \
+              --window-size=1440,6200 --screenshot="$PWD/capturas-v3/$name-desktop-completo.png" \
+              "http://127.0.0.1:4173$path"
+            "$chrome" --headless --no-sandbox --disable-dev-shm-usage \
+              --disable-gpu --hide-scrollbars --virtual-time-budget=4500 \
+              --window-size=390,6700 --screenshot="$PWD/capturas-v3/$name-celular-completo.png" \
+              "http://127.0.0.1:4173$path"
+          done
+          test -s capturas-v3/home-desktop-completo.png
+          test -s capturas-v3/biblioteca-celular-completo.png
+      - name: Disponibilizar capturas para avaliação editorial
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-redesign-v3-capturas
+          path: capturas-v3/
+          if-no-files-found: warn
+          retention-days: 7

@@ -1,0 +1,77 @@
+{
+  "sha256": "29029414bed2708555af68545a63af6a765eed563e4b1274873ea8145f2a203b",
+  "baseGeneratedAt": "14/11/2026 16:31:37",
+  "BASE": {
+    "proporcional": {
+      "total": 19531,
+      "feminine": 6953,
+      "raceCounts": {
+        "PARDA": 2380,
+        "PRETA": 1196,
+        "BRANCA": 3254,
+        "AMARELA": 41,
+        "INDÍGENA": 82
+      },
+      "raceAllCounts": {
+        "PARDA": 6859,
+        "BRANCA": 9726,
+        "PRETA": 2665,
+        "INDÍGENA": 180,
+        "AMARELA": 101
+      },
+      "totalByCargo": {
+        "DEPUTADO FEDERAL": 7803,
+        "DEPUTADO ESTADUAL": 11295,
+        "DEPUTADO DISTRITAL": 433
+      },
+      "feminineByCargo": {
+        "DEPUTADO ESTADUAL": 3930,
+        "DEPUTADO FEDERAL": 2871,
+        "DEPUTADO DISTRITAL": 152
+      }
+    },
+    "majoritario": {
+      "total": 534,
+      "feminine": 107,
+      "raceCounts": {
+        "BRANCA": 65,
+        "PARDA": 24,
+        "PRETA": 17,
+        "AMARELA": 1
+      },
+      "raceAllCounts": {
+        "BRANCA": 321,
+        "PARDA": 144,
+        "PRETA": 57,
+        "INDÍGENA": 7,
+        "AMARELA": 4,
+        "NÃO DIVULGÁVEL": 1
+      },
+      "totalByCargo": {
+        "SENADOR": 319,
+        "GOVERNADOR": 201,
+        "PRESIDENTE": 14
+      },
+      "feminineByCargo": {
+        "GOVERNADOR": 35,
+        "SENADOR": 70,
+        "PRESIDENTE": 2
+      }
+    }
+  },
+  "OUT_OF_UNIVERSE": {
+    "total": 924,
+    "byCargo": {
+      "2º SUPLENTE": 350,
+      "1º SUPLENTE": 349,
+      "VICE-GOVERNADOR": 211,
+      "VICE-PRESIDENTE": 14
+    },
+    "feminineByCargo": {
+      "VICE-GOVERNADOR": 88,
+      "2º SUPLENTE": 107,
+      "1º SUPLENTE": 106,
+      "VICE-PRESIDENTE": 6
+    }
+  }
+}

@@ -1,0 +1,48 @@
+name: Corrigir infográfico quadrado a partir da fonte HTML
+on:
+  push:
+    branches:
+      - redesign-editorial-v3-teste
+    paths:
+      - .github/workflows/regenerar-infografico-v3.yml
+permissions:
+  contents: write
+jobs:
+  recuperar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: redesign-editorial-v3-teste
+      - name: Reproduzir infográfico a partir do HTML original
+        shell: bash
+        run: |
+          set -euo pipefail
+          chrome="$(command -v google-chrome || command -v chromium)"
+          "$chrome" --headless --no-sandbox --disable-dev-shm-usage --disable-gpu \
+            --hide-scrollbars --virtual-time-budget=5000 --window-size=1080,1080 \
+            --screenshot="$PWD/public/materiais/infografico-universos-quadrado.png" \
+            "file://$PWD/scripts/materiais/infografico-universos.html?formato=sq"
+          test "$(file -b --mime-type public/materiais/infografico-universos-quadrado.png)" = "image/png"
+          python3 - <<'PY'
+          from pathlib import Path
+          import struct
+          p=Path('public/materiais/infografico-universos-quadrado.png')
+          d=p.read_bytes()
+          assert d[:8] == b'\x89PNG\r\n\x1a\n'
+          width,height=struct.unpack('>II', d[16:24])
+          assert (width,height)==(1080,1080), (width,height)
+          print('PNG original regenerado:',width,height,'bytes:',len(d))
+          PY
+      - name: Salvar correção isolada na branch de teste
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/materiais/infografico-universos-quadrado.png
+          if ! git diff --cached --quiet; then
+            git commit -m 'fix(biblioteca): regenerar PNG quadrado corrompido a partir da fonte HTML'
+            git push origin HEAD:redesign-editorial-v3-teste
+          fi

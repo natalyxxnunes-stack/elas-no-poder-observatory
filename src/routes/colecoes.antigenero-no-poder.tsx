@@ -96,54 +96,80 @@ function ColecaoPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Reportagens", to: "/reportagens" }, { label: titulo }]}>
-      <Faixa fundo="bg-plum-deep text-paper">
-        <div className="grid gap-10 py-12 md:grid-cols-2 md:items-center md:gap-16 md:py-16">
+      <Faixa fundo="bg-cream">
+        <div className="grid gap-9 py-12 md:grid-cols-[1.1fr_.9fr] md:items-center md:gap-12 md:py-16">
           <div>
-            <p className="font-mono text-[14px] text-lilac">Coleção</p>
-            <h1 className="mt-3 font-display text-5xl font-semibold leading-none md:text-7xl">
+            <p className="text-xs font-semibold uppercase tracking-wide text-plum">Coleção · Investigações e dados</p>
+            <h1 className="mt-4 max-w-2xl font-display text-[clamp(2.6rem,5vw,4.8rem)] font-semibold leading-[1.04] text-ink">
               {titulo}
             </h1>
-            <p className="mt-8 border-t-[5px] border-coral pt-5 font-display text-[1.6rem] leading-tight md:text-[2rem]">
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/85">
               {n(total)} deputadas votaram contra a lei de igualdade salarial ou a favor de sustar a
               norma do Conanda. {n(voltaram)} terão mandato em 2027.
             </p>
+            <a href="#evidencias-colecao"
+              className="mt-5 inline-flex min-h-11 items-center font-semibold text-plum underline underline-offset-4">
+              Consultar as evidências ↘
+            </a>
           </div>
-          <figure>
-            <div
-              role="img"
-              aria-label={`${n(total)} deputadas: ${n(reeleitas)} reeleitas, ${n(outroCargo)} em outro cargo, ${n(total - voltaram)} fora do mandato`}
-              className="grid max-w-xl grid-cols-7 gap-1.5 sm:grid-cols-14"
-            >
-              {ordenadas.map((d) => (
-                <span
-                  key={d.nome}
-                  className={`aspect-square ${
-                    d.desfecho === "reeleita"
-                      ? "bg-coral"
-                      : d.desfecho === "eleita para outro cargo"
-                        ? "bg-paper"
-                        : "border border-cream/50"
-                  }`}
-                />
+          <aside className="bg-ink p-6 text-paper md:p-8" aria-label="Documentos legislativos que definem o recorte">
+            <p className="text-xs font-semibold uppercase tracking-wide text-lilac">Duas votações documentadas</p>
+            <p className="mt-3 text-sm leading-relaxed text-paper/80">
+              O recorte parte de registros nominais da Câmara dos Deputados.
+              A identificação da proposição não substitui o voto individual.
+            </p>
+            <dl className="mt-6 divide-y divide-paper/25 border-y border-paper/25">
+              {ANTIGENERO_VOTACOES.map((x) => (
+                <div key={x.votacao.id} className="py-4">
+                  <dt className="text-xs uppercase tracking-wide text-lilac">{x.votacao.proposicao}</dt>
+                  <dd className="mt-2 font-display text-lg leading-snug text-paper">{x.votacao.titulo}</dd>
+                </div>
               ))}
-            </div>
-            <figcaption className="mt-3 text-[14px] text-cream/85">
-              Cada quadrado é uma deputada. Laranja: reeleita à Câmara. Branco: eleita para outro
-              cargo. Vazio: sem mandato em 2027.
-            </figcaption>
-          </figure>
+            </dl>
+            <Link to="/como-votaram" className="mt-5 inline-flex min-h-11 items-center font-semibold text-paper underline underline-offset-4">
+              Ver votos e contexto ↗
+            </Link>
+          </aside>
         </div>
       </Faixa>
 
-      <section className="grid gap-px border-b border-rule bg-rule md:grid-cols-2 xl:grid-cols-4">
+
+      <section id="evidencias-colecao" className="scroll-mt-24 grid gap-px border-y border-rule bg-rule md:grid-cols-2">
         {numeros.map((x) => (
-          <div key={x.rotulo} className="bg-paper py-8 md:p-8">
-            <p className="poster-figure text-6xl text-plum">{x.valor}</p>
+          <div key={x.rotulo} className="bg-paper px-5 py-7 md:px-8 md:py-8">
+            <p className="font-display text-4xl font-semibold text-plum">{x.valor}</p>
             <p className="mt-2 font-display text-xl leading-snug text-ink">{x.rotulo}</p>
             <p className="mt-3 text-[15px] leading-relaxed text-ink/75">{x.linha}</p>
           </div>
         ))}
       </section>
+
+      <details className="group border-b border-rule">
+        <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-3 py-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum [&::-webkit-details-marker]:hidden">
+          <span className="font-display text-xl font-semibold text-ink">Explorar a distribuição dos mandatos</span>
+          <span className="shrink-0 text-sm font-semibold text-plum">
+            <span className="group-open:hidden">Abrir +</span>
+            <span className="hidden group-open:inline">Recolher −</span>
+          </span>
+        </summary>
+        <figure className="bg-plum-deep p-6 text-paper md:p-8">
+          <div role="img"
+            aria-label={`${n(total)} deputadas: ${n(reeleitas)} reeleitas, ${n(outroCargo)} em outro cargo, ${n(total - voltaram)} fora do mandato`}
+            className="grid max-w-xl grid-cols-7 gap-1.5 sm:grid-cols-14">
+            {ordenadas.map((d) => (
+              <span key={d.nome} className={`aspect-square ${
+                d.desfecho === "reeleita" ? "bg-coral"
+                : d.desfecho === "eleita para outro cargo" ? "bg-paper"
+                : "border border-cream/50"
+              }`} />
+            ))}
+          </div>
+          <figcaption className="mt-4 max-w-xl text-sm leading-relaxed text-paper/85">
+            Cada quadrado é uma deputada. Laranja: reeleita à Câmara.
+            Branco: eleita para outro cargo. Vazio: sem mandato em 2027.
+          </figcaption>
+        </figure>
+      </details>
 
       <section className="space-y-3 py-10">
         {ANTIGENERO_LISTA_LIBERADA ? (

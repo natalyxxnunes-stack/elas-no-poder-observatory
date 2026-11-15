@@ -134,7 +134,7 @@ export const DICIONARIO: readonly CampoDicionario[] = [
     oQueE:
       "Valor, fonte (fundo eleitoral, fundo partidário, outros recursos) e origem de cada receita declarada.",
     comoUsamos:
-      "Receita por candidatura, fundo eleitoral por partido e por cor/raça. Prestação final do 1º turno (base de 04/11/2026); o 2º turno entrega contas depois.",
+      "Receita por candidatura, fundo eleitoral por partido e por cor/raça. Declarações de receita de 15/11/2026, após o prazo de entrega do 2º turno; base sujeita a complementações, retificações e julgamento.",
     publicado: true,
   },
   {

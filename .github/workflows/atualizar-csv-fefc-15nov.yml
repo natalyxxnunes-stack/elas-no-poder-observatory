@@ -1,0 +1,50 @@
+name: Alinhar base CSV de FEFC ao corte de 15 novembro
+on:
+  push:
+    branches: [redesign-editorial-v3-teste]
+    paths: [.github/workflows/atualizar-csv-fefc-15nov.yml, scripts/base-publica/gerar.ts]
+permissions:
+  contents: write
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with: {bun-version: latest}
+      - name: Regenerar CSVs com o script oficial do projeto
+        shell: bash
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bun scripts/base-publica/gerar.ts
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess,csv,decimal
+          changed=set(subprocess.check_output(['git','diff','--name-only'],text=True).splitlines())
+          expected={'public/dados/fundo-eleitoral-deputado-por-partido.csv','src/data/base-publica.ts'}
+          assert changed==expected, f'Fora do escopo: {changed.symmetric_difference(expected)}; mudanças detectadas: {changed}'
+          csv_path=Path('public/dados/fundo-eleitoral-deputado-por-partido.csv')
+          with csv_path.open(encoding='utf-8-sig',newline='') as f:
+            rows=list(csv.DictReader(f))
+          total=sum(decimal.Decimal(r['fefc_reais']) for r in rows if r['grupo']=='todas')
+          cands=sum(int(r['candidaturas']) for r in rows if r['grupo']=='todas')
+          assert total==decimal.Decimal('3988617748.81'),f'Total FEFC inesperado: {total}'
+          assert cands==19525,cands  # 6 candidaturas do PCB, sem FEFC, não constam das linhas por partido
+          assert len(rows)>0
+          manifesto=Path('src/data/base-publica.ts').read_text()
+          assert 'base de 15/11/2026' in manifesto
+          assert '73ec0cd7727edd6ef3f9b69e7158f0e9dbb02a772a47e01e01374d004f4bdd90' in manifesto
+          print('CSV FEFC recalculado: linhas=',len(rows),'candidaturas=',cands,'FEFC=',total)
+          print('Somente FEFC e manifesto alterados; outros 8 CSVs preservados. PCB sem FEFC (6 candidaturas) ausente das linhas por partido.')
+          PY
+      - name: Preservar a atualização na branch de teste, sem publicar
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/dados/fundo-eleitoral-deputado-por-partido.csv src/data/base-publica.ts
+          git commit -m 'dados: reexportar CSV de FEFC 15/11 e manifesto SHA-256'
+          git push origin HEAD:redesign-editorial-v3-teste
