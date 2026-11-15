@@ -275,12 +275,31 @@ function MetodoPage() {
         </div>
       </section>
 
-      <nav aria-label="Percursos do Método" className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-rule py-5 text-sm font-semibold text-plum">
-        <span className="text-ink/70">Nesta página:</span>
-        <a className="min-h-11 content-center underline-offset-4 hover:underline" href="#calculo">Entender a conta</a>
-        <a className="min-h-11 content-center underline-offset-4 hover:underline" href="#ficha">Ver as bases</a>
-        <a className="min-h-11 content-center underline-offset-4 hover:underline" href="#dicionario">Consultar os campos</a>
-        <a className="min-h-11 content-center underline-offset-4 hover:underline" href="#correcoes">Histórico de correções</a>
+      <nav
+        aria-label="Percursos do Método"
+        className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-cream)] text-ink"
+      >
+        <div className="mx-auto grid max-w-7xl gap-4 px-5 py-7 md:grid-cols-[13rem_1fr] md:items-start md:gap-8 md:px-8">
+          <div>
+            <p className="text-[13px] font-semibold text-plum">Guia de leitura</p>
+            <p className="mt-2 font-display text-xl leading-snug">O que você quer conferir?</p>
+          </div>
+          <ul className="grid gap-x-7 gap-y-1 sm:grid-cols-2">
+            {[
+              { href: "#calculo", label: "Entender a conta" },
+              { href: "#ficha", label: "Ver as bases" },
+              { href: "#dicionario", label: "Consultar os campos" },
+              { href: "#correcoes", label: "Histórico de correções" },
+            ].map((item) => (
+              <li key={item.href} className="border-b border-ink/20">
+                <a href={item.href} className="flex min-h-12 items-center justify-between gap-4 text-sm font-semibold text-plum hover:underline hover:underline-offset-4 focus-visible:outline-2">
+                  <span>{item.label}</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </nav>
 
       {/* RESUMO DE ENTRADA — três pontos, no padrão dos blocos "Em poucas linhas" */}
@@ -321,7 +340,7 @@ function MetodoPage() {
       </div>
 
       {/* CAMADA 1 — linguagem simples */}
-      <SectionBlock collapsible="Ver as contas, passo a passo" id="calculo"
+      <SectionBlock semFio collapsible="Ver as contas, passo a passo" id="calculo"
         kicker="Camada 1 · linguagem simples"
         question="Como calculamos?"
         align="wide"
@@ -384,7 +403,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Representação descritiva × substantiva */}
-      <SectionBlock id="medidas" tone="butter"
+      <SectionBlock semFio id="medidas" tone="warm"
         kicker="O que estes números medem"
         question="Presença e poder de decidir são medidas diferentes"
         lead={
@@ -419,7 +438,7 @@ function MetodoPage() {
         </p>
       </SectionBlock>
       {/* CAMADA 2 — ficha técnica */}
-      <SectionBlock collapsible="Ver a ficha técnica" id="ficha" tone="lilac"
+      <SectionBlock semFio collapsible="Ver a ficha técnica" id="ficha"
         kicker="Camada 2 · ficha técnica"
         question="Fonte e processamento"
       >
@@ -607,7 +626,7 @@ function MetodoPage() {
 
       {/* Situação de candidatura */}
       {snapshot && Object.keys(snapshot.situationValues).length > 0 && (
-        <SectionBlock collapsible="Ver os estágios" id="situacao"
+        <SectionBlock semFio collapsible="Ver os estágios" id="situacao"
           kicker="Situação de candidatura"
           question="Que estágios a base contém"
           lead={
@@ -639,7 +658,7 @@ function MetodoPage() {
       <WhatChanged />
 
       {/* Histórico de fotografias */}
-      <SectionBlock collapsible="Ver as fotografias" id="fotografias" tone="lilac"
+      <SectionBlock semFio collapsible="Ver as fotografias" id="fotografias"
         kicker="Histórico"
         question="Fotografias já processadas"
         lead={
@@ -711,7 +730,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Fato, interpretação e hipótese */}
-      <SectionBlock id="como-ler"
+      <SectionBlock semFio id="como-ler"
         kicker="Como ler o site"
         question="Três registros diferentes, sempre marcados"
         lead={
@@ -772,7 +791,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Metadados por indicador */}
-      <SectionBlock collapsible="Ver os metadados" id="metadados" tone="lilac"
+      <SectionBlock semFio collapsible="Ver os metadados" id="metadados"
         kicker="Metadados por indicador"
         question="Cada número, com sua conta aberta"
         align="wide"
@@ -869,7 +888,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Competitividade */}
-      <SectionBlock collapsible="Ler a definição" id="competitividade"
+      <SectionBlock semFio collapsible="Ler a definição" id="competitividade"
         kicker="Competitividade"
         question="O que chamamos de competitividade, e o que fica de fora"
         align="wide"
@@ -951,7 +970,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Nota técnica reproduzível */}
-      <SectionBlock collapsible="Ver o passo a passo" id="nota-tecnica" tone="lilac"
+      <SectionBlock semFio collapsible="Ver o passo a passo" id="nota-tecnica" tone="warm"
         kicker="Nota técnica"
         question="Como refazer estas contas do zero"
         align="wide"
@@ -1159,7 +1178,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Financiamento de campanha */}
-      <SectionBlock collapsible="Ver o que publicamos" id="financiamento"
+      <SectionBlock semFio collapsible="Ver o que publicamos" id="financiamento"
         kicker="Financiamento de campanha"
         question="O que este site já publica sobre dinheiro de campanha"
         align="wide"
@@ -1210,7 +1229,7 @@ function MetodoPage() {
 
 
       {/* Fichas das eleitas */}
-      <SectionBlock
+      <SectionBlock semFio
         id="fichas"
         kicker="Quem entrou"
         question="Como as fichas das eleitas são feitas"
@@ -1224,7 +1243,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Atuação parlamentar */}
-      <SectionBlock
+      <SectionBlock semFio
         id="atuacao"
         kicker="Atuação no poder"
         question="Como lemos votos, projetos e falas"
@@ -1253,8 +1272,35 @@ function MetodoPage() {
         </div>
       </SectionBlock>
 
+      {/* Interlúdio de transparência: conecta a apuração àquilo que ainda falta verificar. */}
+      <aside aria-labelledby="metodo-limites-chamada" className="relative left-1/2 -ml-[50vw] w-screen bg-plum-deep text-paper">
+        <div className="mx-auto grid max-w-7xl items-center gap-x-10 gap-y-5 px-5 py-10 md:grid-cols-[.95fr_1.05fr] md:px-8 md:py-13">
+          <div>
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">Transparência da investigação</p>
+            <h2 id="metodo-limites-chamada" className="mt-3 max-w-lg font-display text-[clamp(1.9rem,3.5vw,3.2rem)] leading-tight">
+              Onde a base termina, começam as perguntas ainda abertas.
+            </h2>
+          </div>
+          <div className="md:border-l-4 md:border-[var(--art-coral)] md:pl-7">
+            <p className="max-w-xl text-base leading-relaxed text-paper/90">
+              A ausência de um campo ou de uma comprovação também precisa aparecer na
+              reportagem. Registramos hipóteses com situação e data e declaramos as
+              limitações dos arquivos antes de propor conclusões.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-x-7 gap-y-2 text-sm font-semibold">
+              <a href="#hipoteses" className="inline-flex min-h-11 items-center text-paper underline underline-offset-4">
+                Consultar hipóteses ↗
+              </a>
+              <a href="#limitacoes" className="inline-flex min-h-11 items-center text-paper underline underline-offset-4">
+                Ler as limitações ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
       {/* Hipóteses */}
-      <SectionBlock
+      <SectionBlock semFio
         id="hipoteses"
         kicker="Hipóteses"
         question="O que ainda não sabemos, com data"
@@ -1289,7 +1335,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Dicionário */}
-      <SectionBlock
+      <SectionBlock semFio
         id="dicionario"
         kicker="Dicionário"
         question="Os campos de cada base, e o que fazemos com eles"
@@ -1330,7 +1376,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Correções */}
-      <SectionBlock
+      <SectionBlock semFio
         id="correcoes"
         kicker="Correções"
         question="Tudo o que já corrigimos"
@@ -1364,7 +1410,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Limitações */}
-      <SectionBlock id="limitacoes"
+      <SectionBlock semFio id="limitacoes" tone="warm"
         kicker="Limitações"
         question="Os limites declarados deste método"
       >
