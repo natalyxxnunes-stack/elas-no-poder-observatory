@@ -1235,9 +1235,9 @@ function MetodoPage() {
         question="Como as fichas das eleitas são feitas"
         lead={<p>Uma página por eleita, com endereço permanente e a data de cada base usada.</p>}
       >
-        <ol className="max-w-3xl list-decimal space-y-3 pl-5 text-[15px] leading-relaxed text-ink/85">
+        <ol className="min-w-0 max-w-3xl list-decimal space-y-3 pl-5 text-[15px] leading-relaxed text-ink/85">
           {METODO_FICHAS.map((item) => (
-            <li key={item}>{item}</li>
+            <li key={item} className="[overflow-wrap:anywhere]">{item}</li>
           ))}
         </ol>
       </SectionBlock>
@@ -1391,18 +1391,18 @@ function MetodoPage() {
           </p>
         }
       >
-        <ol className="max-w-4xl divide-y divide-rule border-y border-rule">
+        <ol className="min-w-0 max-w-4xl divide-y divide-rule border-y border-rule">
           {CORRECOES.map((c) => (
-            <li key={`${c.data}-${c.pagina}`} className="grid gap-2 py-4 sm:grid-cols-[8rem_1fr] sm:gap-6">
+            <li key={`${c.data}-${c.pagina}`} className="grid min-w-0 gap-2 py-4 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-6">
               <p className="font-mono text-[13px] text-ink/70">
                 {c.data}
                 <span className="mt-1 block font-sans text-[13px] text-ink/60">{c.tipo}</span>
               </p>
-              <div>
-                <a href={c.to} className="font-display text-lg leading-snug text-plum underline-offset-4 hover:underline">
+              <div className="min-w-0">
+                <a href={c.to} className="font-display text-lg leading-snug text-plum underline-offset-4 hover:underline [overflow-wrap:anywhere]">
                   {c.pagina}
                 </a>
-                <p className="mt-1 text-[15px] leading-relaxed text-ink/85">{c.oQueMudou}</p>
+                <p className="mt-1 text-[15px] leading-relaxed text-ink/85 [overflow-wrap:anywhere]">{c.oQueMudou}</p>
               </div>
             </li>
           ))}
