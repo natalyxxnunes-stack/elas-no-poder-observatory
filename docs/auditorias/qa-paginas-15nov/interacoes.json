@@ -44,6 +44,7 @@
       "Amarelas e amarelos"
     ],
     "tableRows": 29,
+    "partyColumnPosition": "sticky",
     "hasPCO": true,
     "hasPRTB": true,
     "hasCandidaturasNegras": true,
@@ -114,6 +115,7 @@
       "Amarelas e amarelos"
     ],
     "tableRows": 29,
+    "partyColumnPosition": "sticky",
     "hasPCO": true,
     "hasPRTB": true,
     "hasCandidaturasNegras": true,
