@@ -975,6 +975,7 @@ function ComoVotaramPage() {
       <SectionBlock
         id="quem-voltou"
         tone="plum"
+        semFio
         kicker="Votação × urna"
         question="Quem voltou em 2026: o voto e o dinheiro"
         align="wide"
