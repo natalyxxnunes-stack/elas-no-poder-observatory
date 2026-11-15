@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 /**
  * Abertura de seção em formato de revista (escolhida em 02/11/2026): fio grosso
- * em cima, nome da seção em Fraunces itálico e, opcional, o tipo de matéria.
+ * discreto em cima, nome da seção em Fraunces itálico e, opcional, o tipo de matéria.
  * Substitui as etiquetas em mono caixa-alta. A letra mono fica reservada para
  * fontes e datas.
  */
@@ -26,7 +26,7 @@ export function Secao({
 }) {
   return (
     <p
-      className={`flex flex-wrap items-baseline gap-x-3 gap-y-1 ${semFio ? "" : pequeno ? "border-t-[3px] pt-2" : "border-t-[5px] pt-3"} ${
+      className={`flex flex-wrap items-baseline gap-x-3 gap-y-1 ${semFio ? "" : pequeno ? "border-t pt-2" : "border-t-2 pt-3"} ${
         semFio ? "" : claro ? "border-lilac" : "border-plum"
       } ${className}`}
     >
