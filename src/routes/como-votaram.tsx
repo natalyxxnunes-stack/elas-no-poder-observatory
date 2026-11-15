@@ -662,7 +662,13 @@ function AsDezDaIgualdade() {
         que disputaram a eleição de 2026,{" "}
         {eleitas.length === concorreram.length ? "todas" : n(eleitas.length)} se elegeram.
       </p>
-      <ul className="mt-5 grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-5">
+      <details className="group mt-5 border-y border-rule">
+        <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold text-plum focus-visible:outline-2 focus-visible:outline-plum [&::-webkit-details-marker]:hidden">
+          <span>Consultar as {n(lista.length)} deputadas, partidos e resultado eleitoral</span>
+          <span aria-hidden="true" className="group-open:hidden">+</span>
+          <span aria-hidden="true" className="hidden group-open:inline">−</span>
+        </summary>
+        <ul className="mb-4 grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-5">
         {lista.map((d) => {
           const x = d.votos[vid]!;
           return (
@@ -680,7 +686,8 @@ function AsDezDaIgualdade() {
             </li>
           );
         })}
-      </ul>
+        </ul>
+      </details>
       <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
         Partido na data do voto. Placar oficial: {n(byId(vid).placar.sim)} a{" "}
         {n(byId(vid).placar.nao)}. Fonte: Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2026
@@ -726,14 +733,16 @@ function AnistiaCotas() {
         candidaturas pretas e pardas e um programa de regularização de dívidas dos partidos. Placar
         oficial: {n(v.placar.sim)} a {n(v.placar.nao)}.
       </p>
-      <div className="mt-4">
-        <p className="text-[13px] text-muted-foreground">
-          As {n(lista.length)} deputadas que votaram Sim, por partido
-        </p>
-        <div className="mt-2">
+      <details className="group mt-4 border-y border-rule">
+        <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold text-plum focus-visible:outline-2 focus-visible:outline-plum [&::-webkit-details-marker]:hidden">
+          <span>Consultar as {n(lista.length)} deputadas que votaram Sim, por partido</span>
+          <span aria-hidden="true" className="group-open:hidden">+</span>
+          <span aria-hidden="true" className="hidden group-open:inline">−</span>
+        </summary>
+        <div className="pb-5">
           <PartyNames list={lista} />
         </div>
-      </div>
+      </details>
       <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
         Partido na data do voto. * votou contra a maioria do próprio partido. Fonte: Câmara dos
         Deputados, Dados Abertos, recontagem igual ao placar oficial.
@@ -952,10 +961,15 @@ function ComoVotaramPage() {
         question="Quem voltou em 2026: o voto e o dinheiro"
         align="wide"
       >
-        <ReelectionChart />
-        <div className="mt-6">
-          <MoneyReelectionChart />
-        </div>
+        <MoneyReelectionChart />
+        <details className="group mt-6 border-y border-rule">
+          <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold text-plum focus-visible:outline-2 focus-visible:outline-plum [&::-webkit-details-marker]:hidden">
+            <span>Comparar voto e reeleição nas seis votações</span>
+            <span aria-hidden="true" className="group-open:hidden">+</span>
+            <span aria-hidden="true" className="hidden group-open:inline">−</span>
+          </summary>
+          <div className="pb-6 pt-3"><ReelectionChart /></div>
+        </details>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           <Registro tipo="fato">
             <p className="leading-relaxed text-ink/80">
