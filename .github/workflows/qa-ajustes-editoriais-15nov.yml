@@ -56,6 +56,8 @@ jobs:
           ]
           shots={'/','/eleitas/','/metodo/','/achados/','/colecoes/antigenero-no-poder/','/dinheiro/','/como-votaram/','/dados/','/sobre/','/investigacoes/'}
           result=[]
+          public_result=[]
+          public_pages=['/','/eleitas/','/metodo/','/reportagens/','/sobre/','/investigacoes/','/downloads/']
           with sync_playwright() as p:
             browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
             for name,width,height in [('desktop',1440,900),('celular',390,844)]:
@@ -149,12 +151,35 @@ jobs:
                   page.evaluate('window.scrollTo(0, 0)')
                   page.wait_for_timeout(260)
                   page.screenshot(path=f'qa-editorial/{name}-{key}.jpg',type='jpeg',quality=77)
+                  page.screenshot(path=f'qa-editorial/{name}-{key}-pagina-inteira.jpg',type='jpeg',quality=66,full_page=True)
                 result.append({'dispositivo':name,'pagina':url,'h1':d['h1'][0],'javascript':len(errors),'overflow':d['sw']-d['ww'],'sections':d['sections']})
                 page.close()
+              # A comparação com o publicado é diagnóstica: problemas de rede
+              # não devem fazer o QA da branch falhar nem ser interpretados
+              # como defeitos do site.
+              for url in public_pages:
+                publicada=context.new_page()
+                try:
+                  resposta=publicada.goto('https://quemsaoelas.com.br'+url,wait_until='domcontentloaded',timeout=20000)
+                  publicada.wait_for_timeout(550)
+                  if resposta is None or resposta.status>=400:
+                    raise RuntimeError(f'HTTP {resposta.status if resposta else "sem resposta"}')
+                  titulos=publicada.locator('h1')
+                  if titulos.count()!=1:
+                    raise RuntimeError(f'H1 inesperado: {titulos.count()}')
+                  key=url.strip('/').replace('/','-') or 'home'
+                  publicada.screenshot(path=f'qa-editorial/publicado-{name}-{key}-pagina-inteira.jpg',type='jpeg',quality=66,full_page=True)
+                  public_result.append({'pagina':url,'dispositivo':name,'status':'capturado','h1':titulos.first.inner_text()})
+                except Exception as exc:
+                  public_result.append({'pagina':url,'dispositivo':name,'status':'pendente','motivo':str(exc)})
+                finally:
+                  publicada.close()
               context.close()
             browser.close()
           Path('qa-editorial/resultado.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          Path('qa-editorial/publicado-resultados.json').write_text(json.dumps(public_result,ensure_ascii=False,indent=2)+'\n')
           print('OK:',len(result),'passagens em Chromium; interação das eleitas e fórmulas do Método verificadas')
+          print('Auditoria de primeiras páginas completas:',len(public_result),'tentativas no site publicado')
           PY
       - name: Guardar evidências de validação
         if: always()
