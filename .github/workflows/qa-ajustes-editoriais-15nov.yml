@@ -54,7 +54,7 @@ jobs:
             '/quem-chega/','/quem-sao-elas/','/votos/','/historico/','/partidos/',
             '/temas/','/reportagens/','/pioneiras/','/sobre/','/dados/','/downloads/','/direitos/',
           ]
-          shots={'/','/eleitas/','/metodo/','/achados/','/colecoes/antigenero-no-poder/','/dinheiro/','/como-votaram/'}
+          shots={'/','/eleitas/','/metodo/','/achados/','/colecoes/antigenero-no-poder/','/dinheiro/','/como-votaram/','/dados/'}
           result=[]
           with sync_playwright() as p:
             browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
@@ -100,6 +100,13 @@ jobs:
                     page.get_by_role('button',name='Todos os cargos').click()
                     page.wait_for_timeout(180)
                     assert items.count()==36,(name,'filter reset',items.count())
+                if url=='/dados/':
+                  assert page.locator('h1').inner_text().strip() == 'Dados para consultar'
+                  assert page.locator('section[aria-labelledby="dados-entradas"] a').count()==3,(name,'entradas de consulta')
+                  assert page.locator('section[aria-labelledby="dados-por-tema"] > ol > li').count()==6,(name,'temas')
+                  assert page.locator('section[aria-labelledby="dados-verificar"] a').count()==5,(name,'recursos de apoio')
+                  for destino in ['/quem-sao-elas','/eleitas','/comparar','/downloads','/metodo']:
+                    assert page.locator('a[href="'+destino+'"]').count()>=1,(name,'destino',destino)
                 if url=='/direitos/':
                   marcos=page.locator('li[id^="marco-"]')
                   indices=page.locator('nav[aria-label="Índice dos marcos jurídicos"] a')
