@@ -14,6 +14,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+      - name: Diagnosticar bytes do PNG antes do build
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('public/materiais/infografico-universos-quadrado.png')
+          d=p.read_bytes()
+          magic=bytes([137,80,78,71,13,10,26,10])
+          print('PNG no repositório:',len(d),'bytes; primeiros:',d[:16].hex())
+          if not d.startswith(magic):
+              raise RuntimeError('Arquivo PNG já está corrompido no checkout do GitHub')
+          PY
       - name: Instalar Bun
         uses: oven-sh/setup-bun@v2
         with:
