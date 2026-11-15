@@ -1,0 +1,93 @@
+name: Auditar despesas e universo candidaturas - nov 2026
+on:
+  push:
+    branches: [redesign-editorial-v3-teste]
+    paths:
+      - .github/workflows/recontar-despesas-tse-nov2026.yml
+
+permissions:
+  contents: read
+
+jobs:
+  despesas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+      - name: Obter pacotes oficiais
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/tse-financ-nov resultados-tse-despesas
+          curl -fL --retry 3 --silent --show-error --max-time 450             'https://cdn.tse.jus.br/estatistica/sead/odsele/prestacao_contas/prestacao_de_contas_eleitorais_candidatos_2026.zip'             -o /tmp/tse-financ-nov/financeiro.zip
+          curl -fL --retry 3 --silent --show-error --max-time 180             'https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2026.zip'             -o /tmp/tse-financ-nov/candidatos.zip
+          python3 - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          from hashlib import sha256
+          import shutil, csv, json
+          root=Path('/tmp/tse-financ-nov')
+          target=[
+            ('financeiro.zip','despesas_contratadas_candidatos_2026_BRASIL.csv'),
+            ('financeiro.zip','despesas_pagas_candidatos_2026_BRASIL.csv'),
+            ('financeiro.zip','receitas_candidatos_2026_BRASIL.csv'),
+            ('financeiro.zip','receitas_candidatos_doador_originario_2026_BRASIL.csv'),
+            ('candidatos.zip','consulta_cand_2026_BRASIL.csv'),
+          ]
+          info={}
+          for arc,file in target:
+            with ZipFile(root/arc) as z:
+              a=[n for n in z.namelist() if n.lower().endswith(file.lower())]
+              if len(a)!=1:raise ValueError((file,a,z.namelist()))
+              with z.open(a[0]) as i,(root/file).open('wb') as o:shutil.copyfileobj(i,o)
+            p=root/file
+            h=sha256()
+            with p.open('rb') as f:
+              for b in iter(lambda:f.read(1<<20),b''):h.update(b)
+            with p.open(encoding='latin1',newline='') as f:
+              r=csv.DictReader(f,delimiter=';')
+              first=next(r)
+            info[file]={'sha256':h.hexdigest(),'bytes':p.stat().st_size,
+                        'geracao':first.get('DT_GERACAO','')+' '+first.get('HH_GERACAO','')}
+            print(file,info[file])
+          (Path('resultados-tse-despesas')/'proveniencia.json').write_text(json.dumps(info,ensure_ascii=False,indent=2)+'\n')
+          PY
+      - name: Comparar universo de candidaturas (registro novo)
+        shell: bash
+        run: |
+          python3 -I scripts/recontagem/snapshot_candidaturas_2026.py             /tmp/tse-financ-nov/consulta_cand_2026_BRASIL.csv             > /tmp/tse-financ-nov/registro-detalhado.json
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          x=json.loads(Path('/tmp/tse-financ-nov/registro-detalhado.json').read_text())
+          out={k:x[k] for k in ['sha256','baseGeneratedAt','BASE','OUT_OF_UNIVERSE']}
+          Path('resultados-tse-despesas/registro-agregado.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+          print('Candidaturas em universos:')
+          print(json.dumps(out['BASE'],ensure_ascii=False,indent=2))
+          PY
+      - name: Recontar despesas contratadas, pagas e crowdfunding
+        shell: bash
+        run: |
+          python3 -I scripts/recontagem/despesas_doadores_2026.py             /tmp/tse-financ-nov /tmp/tse-financ-nov/consulta_cand_2026_BRASIL.csv             > resultados-tse-despesas/despesas-agregadas.json
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          x=json.loads(Path('resultados-tse-despesas/despesas-agregadas.json').read_text())
+          o={'auditoria':x['auditoria']}
+          for universe in ['proporcional','majoritario']:
+            o[universe]={}
+            for gender in ['FEMININO','MASCULINO']:
+              a=x[universe][gender]
+              o[universe][gender]={key:a[key] for key in ('candidaturas','contratadoTotal','pagoPorFonte','comVaquinha','vaquinhaTotal','doadoresDistintos')}
+          Path('resultados-tse-despesas/resumo-despesas.json').write_text(json.dumps(o,ensure_ascii=False,indent=2)+'\n')
+          print('RESUMO DESPESAS')
+          print(json.dumps(o,ensure_ascii=False,indent=2))
+          PY
+      - name: Arquivar resultados agregados com proveniência
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-recontagem-despesas-nov2026
+          path: resultados-tse-despesas/
+          if-no-files-found: warn
+          retention-days: 14
