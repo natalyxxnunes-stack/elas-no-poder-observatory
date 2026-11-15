@@ -113,7 +113,7 @@ export function FinanceByOffice({ snapshot }: { snapshot: TseFinanceSnapshot }) 
         data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
         limitacao:
-          "Prestação final do 1º turno; 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Mede receita declarada, não despesa.",
+          "Na base de 15/11, 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Mede receita declarada, não despesa.",
       }}
       eyebrow="Presença × receita, por cargo · 2026"
       title="Fatia das mulheres entre as candidaturas e no dinheiro de cada cargo"
@@ -195,7 +195,7 @@ export function FinanceRace({ snapshot }: { snapshot: TseFinanceSnapshot }) {
                 fonte:
                   "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
                 limitacao:
-                  "Prestação final do 1º turno; 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Mede receita declarada, não despesa.",
+                  "Na base de 15/11, 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Mede receita declarada, não despesa.",
               }}
               eyebrow={`Receita de mulheres por cor/raça · ${UNIVERSE_LABEL[universe].toLocaleLowerCase("pt-BR")}`}
               title={
@@ -299,7 +299,7 @@ export function FinanceByUf({ snapshot }: { snapshot: TseFinanceSnapshot }) {
         data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
         limitacao:
-          "Prestação final do 1º turno; 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Mede receita declarada, não despesa.",
+          "Na base de 15/11, 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Mede receita declarada, não despesa.",
       }}
       eyebrow="Receita das mulheres por estado · proporcional"
       title={
