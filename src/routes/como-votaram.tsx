@@ -651,7 +651,7 @@ function AsDezDaIgualdade() {
         ? `eleita ${(d.cargo2026 ?? "").toLowerCase() === "senador" ? "senadora" : (d.cargo2026 ?? "").toLowerCase()}`
         : d.desfecho2026;
   return (
-    <section aria-labelledby="as-dez" className="border-y-2 border-plum bg-lilac px-5 py-6 sm:px-8">
+    <section aria-labelledby="as-dez" className="border-y border-rule bg-muted px-5 py-6 sm:px-8">
       <p className="kicker">Igualdade salarial · 04/05/2023</p>
       <h2 id="as-dez" className="mt-2 font-display text-2xl leading-tight text-ink sm:text-3xl">
         {n(lista.length)} deputadas votaram contra a lei que obriga empresas a pagar o mesmo salário
@@ -680,7 +680,7 @@ function AsDezDaIgualdade() {
               {x.alinhamento === "contra a bancada" && (
                 <p className="mt-1 text-xs text-ink/70">contra a maioria do partido</p>
               )}
-              <p className="mt-2 inline-block bg-coral px-1.5 py-0.5 font-mono text-[13px] text-ink">
+              <p className="mt-2 inline-block border-l-4 border-coral bg-paper px-2 py-0.5 font-mono text-[13px] text-ink">
                 em 2026: {destino(d)}
               </p>
             </li>
@@ -798,7 +798,7 @@ function ComoVotaramPage() {
 
       <PlacarDeputadas />
 
-      <div className="relative left-1/2 -ml-[50vw] w-screen bg-plum-deep text-paper">
+      <div className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
         <div className="mx-auto max-w-7xl px-5 py-8 md:px-8 md:py-11">
         <InBrief
           aberto
@@ -980,6 +980,15 @@ function ComoVotaramPage() {
         question="Quem voltou em 2026: o voto e o dinheiro"
         align="wide"
       >
+        <div className="mb-5 flex flex-wrap items-center gap-x-4 gap-y-2 bg-paper px-5 py-4 text-ink md:px-6">
+          <span className="inline-flex items-center gap-2 text-sm font-semibold text-coral-ink">
+            <span aria-hidden="true" className="h-4 w-1 bg-coral" />
+            Eleição de 2026
+          </span>
+          <p className="text-sm leading-relaxed text-ink/75">
+            Resultado eleitoral relacionado às votações nominais de 2023 a 2025.
+          </p>
+        </div>
         <MoneyReelectionChart />
         <details className="group mt-6 border-y border-rule bg-paper px-5 text-ink">
           <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold text-plum focus-visible:outline-2 focus-visible:outline-plum [&::-webkit-details-marker]:hidden">
