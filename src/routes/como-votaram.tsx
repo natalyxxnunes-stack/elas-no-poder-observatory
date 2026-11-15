@@ -651,7 +651,7 @@ function AsDezDaIgualdade() {
         ? `eleita ${(d.cargo2026 ?? "").toLowerCase() === "senador" ? "senadora" : (d.cargo2026 ?? "").toLowerCase()}`
         : d.desfecho2026;
   return (
-    <section aria-labelledby="as-dez" className="border-y-2 border-ink bg-card px-5 py-6 sm:px-8">
+    <section aria-labelledby="as-dez" className="border-y-2 border-plum bg-lilac px-5 py-6 sm:px-8">
       <p className="kicker">Igualdade salarial · 04/05/2023</p>
       <h2 id="as-dez" className="mt-2 font-display text-2xl leading-tight text-ink sm:text-3xl">
         {n(lista.length)} deputadas votaram contra a lei que obriga empresas a pagar o mesmo salário
@@ -798,9 +798,11 @@ function ComoVotaramPage() {
 
       <PlacarDeputadas />
 
-      <div className="pb-4">
+      <div className="relative left-1/2 -ml-[50vw] w-screen bg-plum-deep text-paper">
+        <div className="mx-auto max-w-7xl px-5 py-8 md:px-8 md:py-11">
         <InBrief
           aberto
+          inverse
           found={
             <>
               Entre as deputadas que votaram, a taxa de reeleição em 2026 ficou entre{" "}
@@ -830,6 +832,7 @@ function ComoVotaramPage() {
             </>
           }
         />
+        </div>
       </div>
 
       <div className="pb-8">
@@ -906,6 +909,7 @@ function ComoVotaramPage() {
 
       <ConsultationPanel
         id="votos"
+        tinted
         kicker="O voto"
         question="Deputadas e deputados, votação por votação"
       >
@@ -970,12 +974,13 @@ function ComoVotaramPage() {
 
       <SectionBlock
         id="quem-voltou"
+        tone="plum"
         kicker="Votação × urna"
         question="Quem voltou em 2026: o voto e o dinheiro"
         align="wide"
       >
         <MoneyReelectionChart />
-        <details className="group mt-6 border-y border-rule">
+        <details className="group mt-6 border-y border-rule bg-paper px-5 text-ink">
           <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold text-plum focus-visible:outline-2 focus-visible:outline-plum [&::-webkit-details-marker]:hidden">
             <span>Comparar voto e reeleição nas seis votações</span>
             <span aria-hidden="true" className="group-open:hidden">+</span>
@@ -984,7 +989,7 @@ function ComoVotaramPage() {
           <div className="pb-6 pt-3"><ReelectionChart /></div>
         </details>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <Registro tipo="fato">
+          <Registro tipo="fato" className="bg-paper p-5">
             <p className="leading-relaxed text-ink/80">
               Pelo voto, a reeleição das deputadas variou entre {formatPct(range.min)} e{" "}
               {formatPct(range.max)}. Pela receita, variou de{" "}
@@ -1000,14 +1005,14 @@ function ComoVotaramPage() {
               no de maior.
             </p>
           </Registro>
-          <Registro tipo="interpretacao">
+          <Registro tipo="interpretacao" className="bg-paper p-5">
             <p className="leading-relaxed text-ink/80">
               Para quem tentou voltar à Câmara, o dinheiro de campanha acompanha a reeleição muito
               mais de perto que o voto nessas seis pautas. A diferença é maior entre as mulheres do
               que entre os homens.
             </p>
           </Registro>
-          <Registro tipo="hipotese" registradaEm="27/10/2026" status="nao-confirmada">
+          <Registro className="bg-paper p-5" tipo="hipotese" registradaEm="27/10/2026" status="nao-confirmada">
             <p className="leading-relaxed text-ink/80">
               Parte da relação corre ao contrário: quem já tinha base e chance de vencer atrai mais
               dinheiro do partido e de doadores.
@@ -1029,6 +1034,7 @@ function ComoVotaramPage() {
 
       <ConsultationPanel
         id="deputadas"
+        tinted
         kicker="Deputada por deputada"
         question={`As ${n(DEPUTADAS.length)} deputadas que estavam no mandato em alguma das seis datas`}
       >
