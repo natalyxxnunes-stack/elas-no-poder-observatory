@@ -119,13 +119,16 @@ function EleitasPage() {
         de eleitas e quadro de proporções em superfície separada. Não replica
         o hero documental em duas colunas do Método.
       */}
-      <header className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-coral)] text-ink">
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-[#c53f22] text-paper">
+        {/* Tom mais profundo do mesmo coral aprovado, para garantir
+            contraste WCAG AA com o texto claro. O coral original permanece
+            reservado a detalhes e composições menores, sem mudar a paleta. */}
         <div className="mx-auto max-w-7xl px-5 py-11 md:px-8 md:py-14 lg:py-16">
           <p className="text-[13px] font-semibold">Eleições 2026 · Resultado</p>
           <h1 className="mt-4 max-w-5xl font-display text-[clamp(3.7rem,9vw,8.5rem)] font-semibold leading-[.95] tracking-tight">
             Quem entrou?
           </h1>
-          <div className="mt-7 flex flex-wrap items-end gap-x-8 gap-y-3 border-t-2 border-ink/50 pt-7 md:mt-10">
+          <div className="mt-7 flex flex-wrap items-end gap-x-8 gap-y-3 border-t-2 border-paper/65 pt-7 md:mt-10">
             <p className="font-display text-[clamp(6rem,14vw,12rem)] font-semibold leading-[.8] tabular-nums">
               {n(ELEITAS_2026.length)}
             </p>
@@ -140,7 +143,7 @@ function EleitasPage() {
               efetivo do mandato são situações distintas.
             </p>
             <div className="md:text-right">
-              <a href="#filtros-eleitas" className="inline-flex min-h-11 items-center border-b-2 border-ink text-sm font-semibold">
+              <a href="#filtros-eleitas" className="inline-flex min-h-11 items-center border-b-2 border-paper text-sm font-semibold text-paper focus-visible:outline-2 focus-visible:outline-offset-4">
                 Encontrar uma eleita <span aria-hidden="true" className="ml-3">↓</span>
               </a>
               <p className="mt-3 text-[12px] leading-relaxed">
