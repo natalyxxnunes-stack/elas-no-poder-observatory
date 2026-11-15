@@ -47,6 +47,10 @@ const FIELDS = [
 
 const NUMBER_WORDS = ["Zero", "Um", "Dois", "Três", "Quatro", "Cinco", "Seis", "Sete", "Oito", "Nove", "Dez", "Onze", "Doze", "Treze"] as const;
 
+/** Âncoras únicas por marco. Em 2024 há dois acontecimentos distintos. */
+const marcoId = (m: (typeof RIGHTS_TIMELINE)[number]) =>
+  `marco-${m.year}-${m.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+
 function DireitosPage() {
   const timelineCount = NUMBER_WORDS[RIGHTS_TIMELINE.length] ?? String(RIGHTS_TIMELINE.length);
   return (
@@ -93,6 +97,28 @@ function DireitosPage() {
         />
       </div>
 
+      {/* Índice de acesso à cronologia: títulos reais, sem reproduções de documentos fabricadas. */}
+      <nav aria-label="Índice dos marcos jurídicos" className="my-7 border-y border-rule py-6 md:my-9">
+        <h2 className="font-display text-2xl text-ink md:text-3xl">Ir diretamente a um marco</h2>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink/75">
+          São {RIGHTS_TIMELINE.length} acontecimentos, cada um ligado à sua fonte normativa ou decisão.
+          Os dois registros de 2024 permanecem separados.
+        </p>
+        <ol className="mt-5 grid gap-x-7 gap-y-0 sm:grid-cols-2 lg:grid-cols-3">
+          {RIGHTS_TIMELINE.map((m) => (
+            <li key={marcoId(m)} className="border-b border-rule">
+              <a
+                href={`#${marcoId(m)}`}
+                className="flex min-h-14 items-baseline gap-3 py-3 text-ink hover:text-plum focus-visible:outline-2"
+              >
+                <span className="shrink-0 font-mono text-sm font-semibold text-plum">{m.year}</span>
+                <span className="text-sm leading-snug">{m.title}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+
       <SectionBlock id="linha"
         kicker="Linha do tempo"
         question="Cada marco em cinco perguntas"
@@ -108,12 +134,12 @@ function DireitosPage() {
       >
         <ol className="space-y-6 border-l-2 border-plum pl-6">
           {RIGHTS_TIMELINE.map((m) => (
-            <li key={m.year} className="relative">
+            <li key={marcoId(m)} id={marcoId(m)} className="relative scroll-mt-24">
               <span
                 aria-hidden
                 className="absolute -left-[31px] top-2 h-3.5 w-3.5 rounded-full border-2 border-plum bg-paper"
               />
-              <div className="poster-frame p-6">
+              <article className="border-b border-rule pb-8 pt-1 md:pb-10">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
                   <p className="poster-figure text-[2rem] text-plum md:text-[2.6rem]">
                     {m.year}
@@ -178,7 +204,7 @@ function DireitosPage() {
                     {m.sourceLabel}
                   </a>
                 </p>
-              </div>
+              </article>
             </li>
           ))}
         </ol>
