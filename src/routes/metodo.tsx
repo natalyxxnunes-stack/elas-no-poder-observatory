@@ -1,4 +1,5 @@
 import { HIPOTESES } from "@/data/hipoteses";
+import { useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Registro } from "@/components/editorial/Registro";
 import { buildSnapshotCsv } from "@/lib/tse/snapshot-csv";
@@ -154,6 +155,24 @@ function MetodoPage() {
     history: PublicSnapshot[];
   };
   const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
+  const cadernoRef = useRef<HTMLDetailsElement>(null);
+
+  // Um endereço direto para qualquer seção técnica deve abrir seu documento,
+  // sem obrigar o visitante a procurar um botão antes de acessar a informação.
+  useEffect(() => {
+    const abrirSecaoVinculada = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      if (!id) return;
+      const alvo = document.getElementById(id);
+      const caderno = cadernoRef.current;
+      if (!alvo || !caderno || !caderno.contains(alvo)) return;
+      if (!caderno.open) caderno.open = true;
+      window.requestAnimationFrame(() => alvo.scrollIntoView({ block: "start" }));
+    };
+    abrirSecaoVinculada();
+    window.addEventListener("hashchange", abrirSecaoVinculada);
+    return () => window.removeEventListener("hashchange", abrirSecaoVinculada);
+  }, []);
   const receitaBrancas = financeSnapshot.universes.proporcional.feminineRevenueByRace["BRANCA"]?.value;
   if (receitaBrancas === undefined) {
     throw new Error("Base financeira sem a categoria BRANCA: a visualização não pode ser calculada");
@@ -218,8 +237,31 @@ function MetodoPage() {
 
       {/* Segunda camada: documentação completa em caderno de consulta, sem apagar
           a cronologia, os arquivos nem as correções do texto original. */}
-      <section aria-label="Documentação técnica do observatório" className="relative left-1/2 -ml-[50vw] w-screen bg-paper">
-        <div className="mx-auto grid max-w-7xl lg:grid-cols-[15rem_minmax(0,1fr)]">
+      <details
+        id="metodo-arquivo-tecnico"
+        ref={cadernoRef}
+        className="group relative left-1/2 -ml-[50vw] w-screen"
+      >
+        <summary className="cursor-pointer list-none bg-plum-deep text-paper focus-visible:outline-2 [&::-webkit-details-marker]:hidden">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 px-5 py-8 md:px-8 md:py-10">
+            <div>
+              <p className="text-[13px] font-semibold text-[var(--art-gold)]">Camada documental · Consulta detalhada</p>
+              <h2 className="mt-2 font-display text-[clamp(1.65rem,3vw,2.6rem)] leading-tight">
+                Abrir o caderno técnico completo
+              </h2>
+              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-paper/80">
+                Os 16 capítulos originais, com fórmulas, bases, dicionário,
+                histórico de correções e limites da apuração.
+              </p>
+            </div>
+            <span aria-hidden="true" className="shrink-0 border border-paper/50 px-5 py-3 font-semibold text-paper">
+              <span className="group-open:hidden">Abrir +</span>
+              <span className="hidden group-open:inline">Recolher −</span>
+            </span>
+          </div>
+        </summary>
+        <section aria-label="Documentação técnica do observatório" className="w-full bg-paper">
+          <div className="mx-auto grid max-w-7xl lg:grid-cols-[15rem_minmax(0,1fr)]">
           <aside className="min-w-0 bg-plum-deep px-5 py-8 text-paper md:px-8 lg:px-6 lg:py-12">
             <div className="lg:sticky lg:top-24">
               <p className="text-[13px] font-semibold text-[var(--art-gold)]">Arquivo de consulta</p>
@@ -1407,7 +1449,8 @@ function MetodoPage() {
 
           </div>
         </div>
-      </section>
+        </section>
+      </details>
 
       <NextAxes ids={["dados-2026", "sobre", "funil"]} />
     </PageShell>
