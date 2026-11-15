@@ -7,7 +7,7 @@
  * Enquanto uma página não tiver foto registrada, o lugar mostra a peça gráfica
  * da própria página.
  */
-export type Licenca = "CC-BY-4.0" | "CC-BY-SA-4.0" | "CC0" | "dominio-publico" | "cessao-autorizada";
+export type Licenca = "CC-BY" | "CC-BY-4.0" | "CC-BY-SA-4.0" | "CC0" | "dominio-publico" | "cessao-autorizada";
 
 export type Foto = {
   /** caminho em /public, por exemplo "/fotos/lelia-gonzalez-1983.jpg" */
@@ -24,6 +24,17 @@ export type Foto = {
 };
 
 export const FOTOS: Record<string, Foto> = {
+  "plenario-igualdade-salarial-2023": {
+    src: "/fotos/plenario-igualdade-salarial-2023.jpg",
+    alt: "Vista ampla do Plenário da Câmara dos Deputados, com parlamentares reunidos entre as bancadas.",
+    credito: "Bruno Spada/Câmara dos Deputados",
+    acervo: "Agência Câmara de Notícias",
+    licenca: "CC-BY",
+    licencaUrl: "https://www.camara.leg.br/banco-imagens",
+    data: "maio de 2023",
+    proporcao: "3/2",
+    fornecidaPor: "acervo-verificado",
+  },
   "bertha-lutz-1927": {
     src: "/fotos/bertha-lutz-1927.jpg",
     alt: "Bertha Lutz ao lado de um avião usado na campanha pelo voto feminino, em 1927.",
@@ -39,6 +50,7 @@ export const FOTOS: Record<string, Foto> = {
 };
 
 export const LICENCA_ROTULO: Record<Licenca, string> = {
+  "CC-BY": "Creative Commons BY (ver condições da fonte)",
   "CC-BY-4.0": "CC BY 4.0",
   "CC-BY-SA-4.0": "CC BY-SA 4.0",
   CC0: "CC0",
