@@ -4,7 +4,13 @@ import { PageShell } from "@/components/PageShell";
 import { ELEITAS_2026, ELEITAS_META, type CargoEleita } from "@/data/eleitas-2026";
 import { CARGO_PLURAL, CARGO_ROTULO, UF_NOME } from "@/data/eleitas-cruzamentos";
 import { TRAJETORIA_ELEITAS } from "@/data/eleitas-trajetoria-2026";
-import { formatInt as n } from "@/lib/format-br";
+import { formatInt as n, formatPct } from "@/lib/format-br";
+import {
+  RESULT_2026_PROPORCIONAL,
+  RESULT_2026_SENADO,
+  RESULT_2026_GOVERNO,
+  RESULT_2026_META,
+} from "@/data/resultado-2026";
 
 const description = `As ${ELEITAS_2026.length} mulheres eleitas em 2026, uma a uma: cargo, estado, partido e cor/raça declarada, com fonte.`;
 
@@ -21,6 +27,14 @@ export const Route = createFileRoute("/eleitas/")({
 });
 
 const CARGOS = Object.keys(CARGO_PLURAL) as CargoEleita[];
+/** Vagas disputadas em 2026, nunca a composição integral de uma Casa não renovada por inteiro. */
+const VAGAS_2026: Record<CargoEleita, number> = {
+  "deputada-federal": RESULT_2026_PROPORCIONAL.byCargo.federal.seats,
+  "deputada-estadual": RESULT_2026_PROPORCIONAL.byCargo.estadual.seats,
+  "deputada-distrital": RESULT_2026_PROPORCIONAL.byCargo.distrital.seats,
+  senadora: RESULT_2026_SENADO.seats,
+  governadora: RESULT_2026_GOVERNO.totalUfs,
+};
 const COR: Record<string, string> = { BRANCA: "branca", PARDA: "parda", PRETA: "preta", "INDÍGENA": "indígena", AMARELA: "amarela" };
 
 const RACAS = ["BRANCA", "PARDA", "PRETA", "INDÍGENA", "AMARELA"] as const;
@@ -114,30 +128,37 @@ function EleitasPage() {
           <figure className="min-w-0 bg-paper p-5 text-ink md:p-7">
             <figcaption>
               <p className="text-[13px] font-semibold text-plum">Resultado eleitoral de 2026</p>
-              <h2 className="mt-2 font-display text-2xl leading-tight md:text-3xl">Onde elas conquistaram cadeiras</h2>
+              <h2 className="mt-2 font-display text-2xl leading-tight md:text-3xl">Quantas vagas foram conquistadas por mulheres?</h2>
               <p className="mt-2 text-sm leading-relaxed text-ink/75">
-                Distribuição das {n(ELEITAS_2026.length)} mulheres eleitas entre os cinco cargos.
+                Participação das mulheres nas vagas disputadas em cada cargo. Cada comparação tem seu próprio denominador.
               </p>
             </figcaption>
             <ol className="mt-6 space-y-4">
               {CARGOS.map((c) => {
                 const total = ELEITAS_META.porCargo[c] ?? 0;
+                const vagas = VAGAS_2026[c];
+                const percentual = (total / vagas) * 100;
                 return (
                   <li key={c}>
-                    <div className="mb-1 flex items-baseline justify-between gap-3 text-sm">
+                    <div className="mb-1 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 text-sm">
                       <span>{CARGO_PLURAL[c]}</span>
-                      <strong className="font-mono tabular-nums">{n(total)}</strong>
+                      <strong className="font-mono tabular-nums">
+                        {n(total)} de {n(vagas)} · {formatPct(percentual)}
+                      </strong>
                     </div>
                     <div className="h-3 bg-plum/10" aria-hidden="true">
-                      <div className="h-full bg-coral" style={{ width: `${(total / ELEITAS_2026.length) * 100}%` }} />
+                      <div className="h-full bg-coral" style={{ width: `${percentual}%` }} />
                     </div>
                   </li>
                 );
               })}
             </ol>
             <p className="mt-5 text-[13px] leading-relaxed text-ink/70">
-              Cada barra indica a parcela das eleitas em cada cargo, não o percentual de mulheres entre
-              todas as cadeiras desse cargo. Fonte: TSE, candidaturas geradas em {ELEITAS_META.baseGeneratedAt}.
+              Cada barra representa a parcela das vagas de cada cargo conquistada por mulheres em 2026.
+              No Senado, são apenas as 54 vagas renovadas nesta eleição, não as 81 cadeiras da Casa.
+              Fontes: TSE, resultado de {RESULT_2026_META.baseGeneratedAt} (denominadores),
+              e fichas de eleitas com base gerada em {ELEITAS_META.baseGeneratedAt} (numeradores).
+              As duas fotografias devem permanecer identificadas e reconciliadas.
             </p>
             <p className="mt-3 text-[13px] leading-relaxed text-ink/70 md:hidden">
               Eleição, diplomação e exercício do mandato são situações distintas.
