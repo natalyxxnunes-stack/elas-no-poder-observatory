@@ -4,7 +4,7 @@
 
 - Rotas e exemplos examinados: **44**; passagens por dispositivos: **88** (1440 × 900 e 390 × 844).
 - Falhas técnicas observadas (qualquer critério): **0** passagens.
-- Páginas com quantidade de h1 diferente de 1: **4** passagens.
+- Páginas com quantidade de h1 diferente de 1: **0** passagens.
 - Páginas com mais de dez elementos textuais longos em fontes inferiores a 13 px: **0** passagens (sinal para revisão visual, não reprovação automática).
 - Páginas com possíveis links internos sem arquivo correspondente: **0**. Conferir redirecionamentos e rotas dinâmicas antes de classificar como quebrados.
 
@@ -52,8 +52,8 @@
 | /eleitas/abigail-cunha-ma/ | Abigail Cunha | 1 | 1986 | 5 | 0 | 0 | 0 |
 | /eleitas/acucena-es/ | Açucena | 1 | 1823 | 5 | 0 | 0 | 0 |
 | /eleitas/adri-cherini-rs/ | Adri Cherini | 1 | 2056 | 5 | 0 | 0 | 0 |
-| /achados/anistia-cotas-deputadas/ |  | 0 | 2635 | 1 | 0 | 0 | 0 |
-| /achados/candidatar-se-nao-e-eleger-se/ |  | 0 | 1853 | 1 | 0 | 0 | 0 |
+| /achados/anistia-cotas-deputadas/ | A maioria das deputadas votou pelo perdão aos pa | 1 | 2635 | 1 | 0 | 0 | 0 |
+| /achados/candidatar-se-nao-e-eleger-se/ | Candidatar-se não é eleger-se | 1 | 1853 | 1 | 0 | 0 | 0 |
 
 ## Alertas técnicos observados
 

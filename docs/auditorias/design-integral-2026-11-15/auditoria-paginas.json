@@ -3426,9 +3426,11 @@
   {
     "title": "A maioria das deputadas votou pelo perdão aos partidos que descumpriram a cota | Achados | Quem são elas?",
     "description": "55 de 91 deputadas votaram a favor da PEC que livrou de punição os partidos que não cumpriram a cota de recursos. Em 11/07/2024, a Câmara votou em 1º turno a PEC 9/2023. O texto livrou de punição os partidos que não destinaram o mínimo de recursos a candidaturas de mulheres e de pessoas negras em eleições passadas e, junto, criou um piso de 30% do fundo para candidaturas pretas e pardas. Das 91 deputadas em exercício, 55 votaram Sim, 23 Não, 12 não votaram e 1 se absteve. Entre quem votou Sim ou Não, 70,5% das deputadas e 81,4% dos deputados disseram Sim. Foi a votação, entre as seis acompanhadas, em que mais deputadas contrariaram a maioria do próprio partido: 16. O texto virou a Emenda Constitucional 133/2024.",
-    "h1": [],
+    "h1": [
+      "A maioria das deputadas votou pelo perdão aos partidos que descumpriram a cota"
+    ],
     "h2": 3,
-    "h3": 2,
+    "h3": 1,
     "bodyTextLength": 2635,
     "width": 1440,
     "viewport": 1440,
@@ -3449,7 +3451,6 @@
       "/sobre",
       "/achados",
       "/temas/agenda",
-      "/como-votaram",
       "/temas/agenda",
       "/como-votaram",
       "/metodo",
@@ -3496,9 +3497,11 @@
   {
     "title": "Candidatar-se não é eleger-se | Achados | Quem são elas?",
     "description": "1 em 21 candidatas a deputada se elegeu em 2026; entre os homens, 1 em 10. Em 2026, 1 em cada 21 candidatas a deputada se elegeu. Entre os homens, 1 em cada 10. Em 2022, eram 1 em 34 e 1 em 14. As duas taxas subiram, em parte porque houve menos candidaturas para as mesmas 1.572 cadeiras. A distância entre mulheres e homens continua: eles se elegem duas vezes mais.",
-    "h1": [],
+    "h1": [
+      "Candidatar-se não é eleger-se"
+    ],
     "h2": 3,
-    "h3": 2,
+    "h3": 1,
     "bodyTextLength": 1853,
     "width": 1440,
     "viewport": 1440,
@@ -3519,7 +3522,6 @@
       "/sobre",
       "/achados",
       "/temas/presenca",
-      "/historico",
       "/temas/presenca",
       "/historico",
       "/metodo",
@@ -6990,9 +6992,11 @@
   {
     "title": "A maioria das deputadas votou pelo perdão aos partidos que descumpriram a cota | Achados | Quem são elas?",
     "description": "55 de 91 deputadas votaram a favor da PEC que livrou de punição os partidos que não cumpriram a cota de recursos. Em 11/07/2024, a Câmara votou em 1º turno a PEC 9/2023. O texto livrou de punição os partidos que não destinaram o mínimo de recursos a candidaturas de mulheres e de pessoas negras em eleições passadas e, junto, criou um piso de 30% do fundo para candidaturas pretas e pardas. Das 91 deputadas em exercício, 55 votaram Sim, 23 Não, 12 não votaram e 1 se absteve. Entre quem votou Sim ou Não, 70,5% das deputadas e 81,4% dos deputados disseram Sim. Foi a votação, entre as seis acompanhadas, em que mais deputadas contrariaram a maioria do próprio partido: 16. O texto virou a Emenda Constitucional 133/2024.",
-    "h1": [],
+    "h1": [
+      "A maioria das deputadas votou pelo perdão aos partidos que descumpriram a cota"
+    ],
     "h2": 3,
-    "h3": 2,
+    "h3": 1,
     "bodyTextLength": 2635,
     "width": 390,
     "viewport": 390,
@@ -7013,7 +7017,6 @@
       "/sobre",
       "/achados",
       "/temas/agenda",
-      "/como-votaram",
       "/temas/agenda",
       "/como-votaram",
       "/metodo",
@@ -7060,9 +7063,11 @@
   {
     "title": "Candidatar-se não é eleger-se | Achados | Quem são elas?",
     "description": "1 em 21 candidatas a deputada se elegeu em 2026; entre os homens, 1 em 10. Em 2026, 1 em cada 21 candidatas a deputada se elegeu. Entre os homens, 1 em cada 10. Em 2022, eram 1 em 34 e 1 em 14. As duas taxas subiram, em parte porque houve menos candidaturas para as mesmas 1.572 cadeiras. A distância entre mulheres e homens continua: eles se elegem duas vezes mais.",
-    "h1": [],
+    "h1": [
+      "Candidatar-se não é eleger-se"
+    ],
     "h2": 3,
-    "h3": 2,
+    "h3": 1,
     "bodyTextLength": 1853,
     "width": 390,
     "viewport": 390,
@@ -7083,7 +7088,6 @@
       "/sobre",
       "/achados",
       "/temas/presenca",
-      "/historico",
       "/temas/presenca",
       "/historico",
       "/metodo",
