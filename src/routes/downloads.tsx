@@ -34,7 +34,7 @@ export const Route = createFileRoute("/downloads")({
   component: DownloadsPage,
 });
 
-/* Conteúdo publicado como catálogo de materiais em preparação. */
+/* Catálogo de materiais existentes; miniaturas usam os próprios arquivos, sem inventar capas. */
 
 /**
  * Catálogo de materiais. Estrutura preparada para gestão futura por CMS:
@@ -94,6 +94,41 @@ const MATERIALS: readonly Material[] = [
   },
 ];
 
+/** Prévia fiel, quando o navegador conseguir renderizar o arquivo original.
+ * Nenhuma capa fictícia é apresentada como se fosse o PDF.
+ */
+function MiniaturaMaterial({ material }: { material: Material }) {
+  if (!material.file || material.file === "/metodo") {
+    return (
+      <div className="flex aspect-[5/3] items-center justify-center bg-cream p-5 text-center text-sm text-ink/70">
+        Base de consulta · arquivo e metodologia disponíveis no Método
+      </div>
+    );
+  }
+  if (material.file.endsWith(".png")) {
+    return (
+      <div className="flex aspect-[5/3] items-center justify-center overflow-hidden bg-cream">
+        <img src={material.file} loading="lazy" className="h-full w-full object-contain"
+          alt="Prévia do infográfico original, sem alterações editoriais" />
+      </div>
+    );
+  }
+  if (material.file.endsWith(".pdf")) {
+    return (
+      <div className="relative aspect-[5/3] overflow-hidden border border-rule bg-cream">
+        <object data={material.file + "#page=1&toolbar=0&navpanes=0"} type="application/pdf"
+          aria-label={"Prévia da primeira página do PDF: " + material.title}
+          className="pointer-events-none h-full w-full">
+          <span className="flex h-full w-full items-center justify-center p-4 text-center text-sm text-ink/70">
+            PDF original disponível para abrir; prévia indisponível neste navegador
+          </span>
+        </object>
+      </div>
+    );
+  }
+  return null;
+}
+
 function DownloadsPage() {
   return (
     <PageShell breadcrumb={[{ label: "Projeto" }, { label: "Downloads" }]}>
@@ -134,6 +169,7 @@ function DownloadsPage() {
                   {m.kind}
                 </p>
               </div>
+              <div className="mb-4"><MiniaturaMaterial material={m} /></div>
               <h3 className="mt-2 font-display text-xl leading-snug text-ink">{m.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{m.description}</p>
               <dl className="mt-4 space-y-1 font-mono text-[13px] text-muted-foreground">
