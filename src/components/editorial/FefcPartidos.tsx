@@ -90,7 +90,10 @@ export function FefcPartidos() {
           "O piso de 30% vale para o total que cada partido distribui, somando todos os cargos; esta tabela mostra só as candidaturas a deputado, onde não há vice nem suplente. Nas chapas de governo e Senado, partidos e procuradorias eleitorais divergem sobre contar o dinheiro de chapas com vice ou suplente mulher. Mede o fundo que chegou às candidaturas, na declarações disponíveis até a geração da base (195 candidaturas com prestação parcial e 102 com relatório financeiro). Por isso a tabela descreve a distribuição e não verifica cumprimento da lei. A soma pretas e pardos segue o critério legal de candidaturas negras e aparece ao lado das categorias separadas.",
       }}
     >
-      <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
+      <p className="mb-3 text-[13px] leading-relaxed text-muted-foreground md:hidden">
+        Deslize a tabela para o lado para comparar as colunas. O título de cada coluna indica o grupo.
+      </p>
+      <div tabIndex={0} role="region" aria-label="Tabela do fundo eleitoral por partido, rolável na horizontal" className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[64rem] text-sm">
           <thead>
             <tr className="align-bottom text-[13px] text-muted-foreground font-semibold">
