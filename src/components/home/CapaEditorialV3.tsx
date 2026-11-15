@@ -18,43 +18,31 @@ const NUM = RESULT_2026_PROPORCIONAL.byCargo.federal;
 const PERCENTUAL = (NUM.feminine / NUM.seats) * 100;
 const FOTO_BERTHA = FOTOS["bertha-lutz-1927"]!; // ativo local registrado e verificado
 
+/** Imagem documental publicada pela Agência Câmara durante a tramitação do PL 1.085/2023.
+ * A legenda explicita que esta fotografia NÃO representa o conjunto das seis votações.
+ */
 function ArteVotacoes() {
+  const foto = FOTOS["plenario-igualdade-salarial-2023"]!;
   return (
-    <figure className="relative flex h-full min-h-[310px] flex-col justify-between overflow-hidden bg-plum md:min-h-[440px]">
-      <svg viewBox="0 0 640 455" className="h-full w-full" role="img"
-        aria-labelledby="arte-votacoes-titulo arte-votacoes-desc">
-        <title id="arte-votacoes-titulo">Composição editorial sobre seis decisões legislativas</title>
-        <desc id="arte-votacoes-desc">Seis campos documentais abstratos e uma tribuna. Ilustração autoral construída com formas geométricas; não representa uma sessão, documento ou resultado de votação real.</desc>
-        <rect width="640" height="455" fill="var(--plum-deep)" />
-        <rect x="34" y="36" width="179" height="173" fill="var(--plum-soft)" />
-        <rect x="231" y="36" width="179" height="173" fill="var(--lilac)" />
-        <rect x="428" y="36" width="178" height="173" fill="var(--plum)" />
-        <rect x="34" y="227" width="179" height="174" fill="var(--lilac)" />
-        <rect x="231" y="227" width="179" height="174" fill="var(--plum)" />
-        <rect x="428" y="227" width="178" height="174" fill="var(--plum-soft)" />
-        <g fill="var(--plum-deep)">
-          <rect x="55" y="62" width="110" height="5" /><rect x="55" y="79" width="137" height="5" />
-          <rect x="251" y="62" width="115" height="5" /><rect x="251" y="79" width="134" height="5" />
-          <rect x="55" y="251" width="116" height="5" /><rect x="55" y="268" width="135" height="5" />
-        </g>
-        <g fill="var(--paper)">
-          <rect x="449" y="62" width="105" height="5" /><rect x="449" y="79" width="134" height="5" />
-          <rect x="251" y="251" width="107" height="5" /><rect x="251" y="268" width="130" height="5" />
-          <rect x="449" y="251" width="112" height="5" /><rect x="449" y="268" width="136" height="5" />
-        </g>
-        <g fill="none" strokeWidth="4" stroke="var(--plum-deep)">
-          <circle cx="123" cy="143" r="33" /><path d="M100 144h45M123 122v43"/>
-          <rect x="284" y="116" width="72" height="54" /><path d="M297 132h46M297 147h34"/>
-          <path d="M70 347h106M91 326h62M123 296v32" />
-        </g>
-        <g fill="none" strokeWidth="4" stroke="var(--paper)">
-          <path d="M464 143h102M474 159h82M491 125h47"/>
-          <path d="M278 342h84M294 325h53M312 309h16" />
-          <rect x="466" y="305" width="100" height="66"/><path d="M480 324h70M480 339h51M480 354h59"/>
-        </g>
-      </svg>
-      <figcaption className="absolute bottom-0 left-0 right-0 bg-ink/90 px-4 py-2 text-xs text-paper">
-        Arte editorial original · seis votações analisadas, sem representação de seus resultados
+    <figure className="flex h-full flex-col overflow-hidden bg-plum">
+      <img
+        src={foto.src}
+        alt={foto.alt}
+        loading="eager"
+        fetchPriority="high"
+        className="block h-[270px] w-full object-cover object-center sm:h-[360px] lg:h-[435px]"
+      />
+      <figcaption className="bg-ink px-4 py-3 text-xs leading-relaxed text-paper/85">
+        Plenário da Câmara, maio de 2023. Foto de arquivo publicada durante a tramitação do PL 1.085/2023.
+        Não representa as seis votações analisadas.{" "}
+        <a
+          href="https://www.camara.leg.br/noticias/957955-camara-pode-votar-nesta-quarta-feira-projeto-que-equipara-salario-entre-homens-e-mulheres/"
+          target="_blank"
+          rel="noreferrer"
+          className="font-semibold text-paper underline underline-offset-2"
+        >
+          {foto.credito}
+        </a>
       </figcaption>
     </figure>
   );
