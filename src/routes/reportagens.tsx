@@ -74,7 +74,7 @@ function PlacarSeisVotacoes() {
         <span className="inline-flex items-center gap-2"><span className="h-3 w-3 bg-[var(--art-coral)]" />Não</span>
         <span className="inline-flex items-center gap-2"><span className="h-3 w-3 bg-paper/35" />Ausências e outros registros</span>
       </div>
-      <ol className="mt-5 divide-y divide-paper/20 border-y border-paper/20">
+      <ol className="mt-5 grid gap-x-9 border-t border-paper/20 md:grid-cols-2">
         {VOTACOES.map((v) => {
           const base = v.porSexo.F.total;
           const sim = v.porSexo.F.votos["Sim"] ?? 0;
@@ -82,7 +82,7 @@ function PlacarSeisVotacoes() {
           const demais = base - sim - nao;
           const largura = (n: number) => `${(n / base) * 100}%`;
           return (
-            <li key={v.id} className="py-3.5">
+            <li key={v.id} className="min-w-0 border-b border-paper/20 py-4">
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                 <span className="max-w-[30ch] text-[14px] font-semibold leading-snug">
                   {v.titulo}
@@ -137,42 +137,53 @@ function ReportagensPage() {
         </div>
       </header>
 
+      {/*
+        Alternativa editorial em avaliação: em vez de duas colunas gêmeas
+        (manchete/gráfico), a reportagem entra como manchete transversal,
+        seguida de uma figura documental de largura total.
+      */}
       <section
         aria-labelledby="reportagem-destaque"
-        className="relative left-1/2 -ml-[50vw] w-screen bg-plum-deep text-paper"
+        className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-plum)] text-paper"
       >
-        <div className="mx-auto grid max-w-7xl gap-9 px-5 py-10 md:px-8 md:py-14 lg:grid-cols-[.85fr_1.15fr] lg:items-start lg:gap-12 lg:py-16">
-          <article className="lg:sticky lg:top-24">
+        <article className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14 lg:py-16">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
             <p className="text-[13px] font-semibold text-[var(--art-gold)]">
               Reportagem em destaque · Câmara dos Deputados
             </p>
-            <h2
-              id="reportagem-destaque"
-              className="mt-5 max-w-xl font-display text-[clamp(2.3rem,4.15vw,4.1rem)] leading-[1.05]"
-            >
-              {DESTAQUE?.titulo ?? "Como votaram as deputadas, e quem voltou"}
-            </h2>
-            <p className="mt-5 max-w-lg text-base leading-relaxed text-paper/90">
+            <p className="font-mono text-[13px] text-paper/80">
+              Dados de seis votações nominais
+            </p>
+          </div>
+          <h2
+            id="reportagem-destaque"
+            className="mt-5 max-w-6xl font-display text-[clamp(2.8rem,6.1vw,6rem)] leading-[1.04]"
+          >
+            {DESTAQUE?.titulo ?? "Como votaram as deputadas, e quem voltou"}
+          </h2>
+          <div className="mt-6 grid items-end gap-x-12 gap-y-5 border-t border-paper/35 pt-6 md:grid-cols-[1.4fr_.6fr]">
+            <p className="max-w-2xl text-[16px] leading-relaxed text-paper/90">
               {DESTAQUE?.linhaFina}
             </p>
-            <Link
-              to="/como-votaram"
-              className="mt-7 inline-flex min-h-11 items-center self-start border-b-2 border-[var(--art-gold)] text-sm font-semibold text-paper"
-            >
-              Ler a investigação completa <span className="ml-3" aria-hidden="true">↗</span>
-            </Link>
-            {DESTAQUE && (
-              <p className="mt-7 text-[13px] text-paper/70">
-                {DESTAQUE.autora} · {formatDateBR(DESTAQUE.data)}
-              </p>
-            )}
-            <p className="mt-7 max-w-lg border-t border-paper/25 pt-5 text-[13px] leading-relaxed text-paper/75">
-              Esta abertura apresenta uma síntese calculada a partir dos
-              registros oficiais. A fotografia de arquivo da Câmara permanece
-              na reportagem e na capa da revista, com seu crédito e contexto.
-            </p>
-          </article>
-          <PlacarSeisVotacoes />
+            <div className="md:text-right">
+              <Link
+                to="/como-votaram"
+                className="inline-flex min-h-11 items-center border-b-2 border-[var(--art-gold)] text-sm font-semibold text-paper"
+              >
+                Ler a investigação completa <span className="ml-3" aria-hidden="true">↗</span>
+              </Link>
+              {DESTAQUE && (
+                <p className="mt-4 text-[13px] text-paper/75">
+                  {DESTAQUE.autora} · {formatDateBR(DESTAQUE.data)}
+                </p>
+              )}
+            </div>
+          </div>
+        </article>
+        <div className="bg-ink">
+          <div className="mx-auto max-w-7xl px-5 pb-10 md:px-8 md:pb-14">
+            <PlacarSeisVotacoes />
+          </div>
         </div>
       </section>
 
