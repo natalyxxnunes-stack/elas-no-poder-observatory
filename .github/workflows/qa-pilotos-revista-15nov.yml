@@ -78,7 +78,23 @@ jobs:
                     tag: e.tagName.toLowerCase(),
                     name: String(e.className).slice(0,130)
                   })).filter(e=>e.right>innerWidth+4 || e.left < -4).sort((a,b)=>b.right-a.right).slice(0,10)''')
-                  print('DIAGNOSTICO LARGURA METODO CELULAR:',json.dumps({'bodyWidth':page.evaluate('document.body.scrollWidth'),'windowWidth':width,'elements':rightmost},ensure_ascii=False))
+                  more=page.evaluate('''() => ({
+                    widths: [...document.querySelectorAll('html,body,main,section,aside,table,nav')].map(e=>({
+                      t:e.tagName.toLowerCase(),c:String(e.className).slice(0,100),
+                      cw:e.clientWidth,sw:e.scrollWidth,
+                      r:Math.round(e.getBoundingClientRect().right),
+                      o:getComputedStyle(e).overflowX
+                    })).filter(x=>x.sw>x.cw+10).slice(0,30),
+                    nonClipped:[...document.querySelectorAll('main *')].filter(e=>{
+                      const rect=e.getBoundingClientRect();
+                      if(rect.right<=innerWidth+3 || rect.width<=0)return false;
+                      for(let p=e.parentElement;p;p=p.parentElement){
+                        if(['auto','scroll','hidden','clip'].includes(getComputedStyle(p).overflowX))return false;
+                      }
+                      return true;
+                    }).map(e=>({t:e.tagName,c:String(e.className).slice(0,100),r:Math.round(e.getBoundingClientRect().right)})).slice(0,15)
+                  })''')
+                  print('DIAGNOSTICO LARGURA METODO CELULAR:',json.dumps({'bodyWidth':page.evaluate('document.body.scrollWidth'),'windowWidth':width,'elements':rightmost,'root':more},ensure_ascii=False))
 
                 if route=='/eleitas/':
                   assert '342' in info['body'],(route,device,'total')
