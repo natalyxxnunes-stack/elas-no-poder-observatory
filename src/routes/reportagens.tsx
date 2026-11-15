@@ -71,7 +71,15 @@ function ReportagensPage() {
             />
             <figcaption className="mt-3 max-w-3xl text-[13px] leading-relaxed text-paper/80">
               Plenário da Câmara, maio de 2023, durante a tramitação do PL 1.085/2023.
-              Foto de arquivo: {FOTO_PLENARIO.credito}.
+              Foto de arquivo:{" "}
+              <a
+                href="https://www.camara.leg.br/noticias/957955-camara-pode-votar-nesta-quarta-feira-projeto-que-equipara-salario-entre-homens-e-mulheres/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-paper underline underline-offset-4"
+              >
+                {FOTO_PLENARIO.credito}
+              </a>.
               A imagem não registra as seis votações investigadas.
             </figcaption>
           </figure>
