@@ -150,7 +150,7 @@ function ColecaoPage() {
                 className={`min-w-0 px-5 py-7 md:px-8 md:py-9 ${i === 0 ? "bg-plum text-cream md:col-span-7" : i === 1 ? "bg-ink text-cream md:col-span-5" : i === 2 ? "bg-cream text-ink md:col-span-5" : "border border-rule bg-paper text-ink md:col-span-7"}`}
               >
                 <p className={`text-[13px] font-semibold ${escuro ? "text-cream/80" : "text-plum"}`}>
-                  {i < 2 ? "Como votaram" : "O que ocorreu depois"}
+                  {i < 2 ? "Votação documentada" : i === 2 ? "Projeção de mandato em 2027" : "Falas em plenário"}
                 </p>
                 <p className={`mt-3 font-display font-semibold leading-none ${i < 2 ? "text-5xl md:text-6xl" : "text-4xl md:text-5xl"} ${escuro ? "text-cream" : "text-plum"}`}>
                   {x.valor}
