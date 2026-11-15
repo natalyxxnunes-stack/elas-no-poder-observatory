@@ -11,6 +11,14 @@ Data de conferência: 14/11/2026. Esta branch é teste isolado, sem publicação
 - Crédito da ficha: Domínio público / Acervo Arquivo Nacional.
 - Estado: fotografia original obtida e salva em public/fotos/bertha-lutz-1927.jpg; SHA-1 verificado com a ficha do Commons (34fae1c264d484e377f7a21a584579ce736a4a92). Registrada em src/data/fotos.ts e exibida na chamada Memória.
 
+### Plenário da Câmara durante tramitação da igualdade salarial, maio de 2023
+- Página oficial de contexto: https://www.camara.leg.br/noticias/957955-camara-pode-votar-nesta-quarta-feira-projeto-que-equipara-salario-entre-homens-e-mulheres/
+- Arquivo disponibilizado na Agência Câmara: https://www.camara.leg.br/midias/image/2023/05/img20230502202050592-768x512.jpg
+- Crédito da fotografia: Bruno Spada/Câmara dos Deputados.
+- Banco da Câmara indica licença CC BY para seu acervo; a aplicabilidade à fotografia publicada na notícia requer conferência individual antes do uso definitivo.
+- Cópia obtida e validada como JPEG: public/fotos/plenario-igualdade-salarial-2023.jpg.
+- Aplicação: fotografia da abertura editorial; legenda identifica o uso como imagem de arquivo associada a UMA das pautas investigadas. Não apresenta a foto como registro das seis votações.
+
 ### Célia Xakriabá, Câmara, 04/03/2026
 - Galeria: https://www.camara.leg.br/banco-imagens/eventos/8327BCE3-BAAC-4C71-B8B4-2A1550A2A73A
 - Prévia do item: https://www.camara.leg.br/internet/bancoimagem/banco/2026/03/img20260304112235745PEQ.jpg
@@ -30,22 +38,24 @@ Data de conferência: 14/11/2026. Esta branch é teste isolado, sem publicação
 - public/materiais/infografico-universos-quadrado.png
 - public/materiais/cartilha-cota.pdf
 - public/materiais/oficina-funil.pdf
-- Estado: os três arquivos já constam do projeto. O infográfico é mostrado com a imagem original. Miniaturas fiéis da primeira página dos PDFs foram geradas por pdftoppm no GitHub Actions e salvas como cartilha-cota-miniatura.png e oficina-funil-miniatura.png, sem capas fictícias.
+- Estado: três materiais reais disponíveis. Os PDFs têm miniaturas fiéis da primeira página, geradas pelo pdftoppm.
+- Em auditoria visual foi detectada corrupção do infográfico quadrado. O PNG foi regenerado a partir de scripts/materiais/infografico-universos.html; a exportação Vite alterava seus bytes mesmo com a fonte íntegra.
+- A rotina scripts/hostgator-public-binaries.mjs agora restaura e compara byte a byte os recursos binários de public/ e dist/client/ no build:hostgator. O CI também valida assinaturas PNG/JPEG.
 
 ## Como funciona a implementação de teste
 1. A rota inicial chama CapaEditorialV3 somente na branch redesign-editorial-v3-teste.
-2. A abertura trabalha com reportagem publicada no índice e com arte SVG geométrica escrita no código, rotulada como composição editorial não documental.
+2. A abertura trabalha com reportagem publicada no índice e com fotografia original da Agência Câmara, contextualizada e creditada, em substituição ao painel SVG genérico.
 3. O destaque Memória usa fotografia documental de domínio público do Arquivo Nacional com crédito. Os outros dois usam composições gráficas originais, identificadas como tais.
 4. Os seis temas ocupam grade consistente, sem micrográficos nem blocos inclinados.
 5. Um único módulo de dados mostra a participação de mulheres nas cadeiras da Câmara, calculada diretamente de resultado-2026.ts, com numerador, denominador e corte.
-6. A Biblioteca usa um infográfico realmente existente e PDFs do próprio acervo. Não repete títulos dentro de capas inventadas.
+6. A Biblioteca apresenta miniaturas genuínas, com abertura compacta e capas de materiais reais, sem quatro ícones decorativos de arquivos.
 7. Não há imagens geradas por IA, URLs remotas de fotografia ou citação documental construída como se fosse literal.
 
 ## Pendências antes de aprovar merge
 - Obter a fotografia selecionada de Célia Xakriabá em resolução editorial, conferir o arquivo individual, os termos de utilização e registrar em src/data/fotos.ts se aprovada.
-- Miniaturas reais da primeira página dos PDFs geradas e utilizadas. Conferir qualidade visual no celular.
+- Miniaturas reais geradas e utilizadas; checagem visual em navegador automatizado realizada para a Biblioteca e a homepage. Recomenda-se ainda teste manual em dispositivos físicos.
 - Verificar os números contraditórios do financiamento em suas bases de origem (56,1% e 56,2%) antes de destacá-los.
-- TypeScript e build HostGator passaram no GitHub Actions após a primeira implementação; repetir após as mudanças de imagem. Lint e renderização visual desktop/celular continuam pendentes.
+- TypeScript e build HostGator executados na branch; validação adicional de binários está em revisão final. Lint, teclado, contraste e teste físico não estão encerrados.
 - Revisar com a editora a aparência das composições, títulos e condições de uso das fotografias.
 - Manter main e hospedagem pública sem alterações até aprovação.
 
