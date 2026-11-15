@@ -70,8 +70,8 @@ export function PerfilHero({
             </h1>
             <p className={`mt-6 max-w-xl text-lg leading-relaxed ${pagu ? "text-paper/90" : "text-ink/85"}`}>{quemFoi}</p>
             <p className={`mt-6 max-w-lg text-xs leading-relaxed ${pagu ? "text-paper/70" : "text-ink/65"}`}>
-              Perfil documental: imagem histórica apenas com procedência e direitos identificados.
-              Os resultados eleitorais são registrados na ficha do TSE.
+              Perfil documental: a origem das fotografias e a situação da verificação de direitos
+              são declaradas junto às imagens. Os resultados eleitorais vêm da ficha do TSE.
             </p>
           </div>
           <div className="min-w-0">
@@ -84,7 +84,7 @@ export function PerfilHero({
                   Pagu, retrato atribuído ao fim dos anos 1920. Autoria não identificada.{" "}
                   <a href={FOTOS[fotoId]!.licencaUrl} target="_blank" rel="noreferrer"
                     className="font-semibold underline underline-offset-2">
-                    Wikimedia Commons (domínio público indicado na ficha)
+                    Wikimedia Commons (domínio público indicado; verificação independente pendente)
                   </a>.
                 </figcaption>
               </figure>
