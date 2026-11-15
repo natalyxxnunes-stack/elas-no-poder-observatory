@@ -72,9 +72,11 @@ export function PageIndex() {
         type="button"
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
-        className="inline-flex min-h-11 items-center gap-3 bg-plum px-4 py-2 text-[13px] text-cream font-semibold"
+        aria-label={open ? "Fechar índice das seções" : "Abrir índice das seções"}
+        className="inline-flex min-h-11 items-center gap-2 bg-plum px-2 py-2 text-[13px] text-cream font-semibold sm:gap-3 sm:px-4"
       >
-        Nesta página
+        <span aria-hidden="true" className="sm:hidden">☷</span>
+        <span className="hidden sm:inline">Nesta página</span>
         <span className="text-cream/85">{currentIndex >= 0 ? `${currentIndex + 1}/${entries.length}` : `${entries.length} partes`}</span>
       </button>
     </nav>
