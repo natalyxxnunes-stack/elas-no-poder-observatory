@@ -140,7 +140,7 @@ jobs:
                   # Depois dos testes de expansão, fotografar o estado inicial
                   # da página — não as 27 UFs e as 36 fichas abertas pelo QA.
                   page.goto('http://127.0.0.1:4173/eleitas/',wait_until='domcontentloaded',timeout=45000)
-                  page.wait_for_function("document.querySelectorAll('section[aria-labelledby=\\\"lista-eleitas\\\"] li').length === 18")
+                  page.wait_for_function("document.querySelectorAll('[aria-labelledby=lista-eleitas] li').length === 18")
                   assert atlas.locator('ol button').count()==8,(route,device,'atlas inicial de oito UFs')
                   assert page.locator('section[aria-labelledby="lista-eleitas"] li').count()==18,(route,device,'arquivo inicial de 18 fichas')
                 if route=='/metodo/':
