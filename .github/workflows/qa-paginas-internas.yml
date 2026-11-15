@@ -1,0 +1,87 @@
+name: QA de direção de arte das páginas internas
+on:
+  push:
+    branches:
+      - redesign-editorial-v3-teste
+    paths:
+      - .github/workflows/qa-paginas-internas.yml
+      - src/components/editorial/TemaOpening.tsx
+      - src/components/editorial/Pioneiras.tsx
+      - src/routes/na-voz-delas.tsx
+      - src/routes/temas.\$slug.tsx
+      - src/routes/reportagens.tsx
+      - src/routes/eleitas.index.tsx
+      - src/routes/eleitas.\$slug.tsx
+      - src/routes/colecoes.antigenero-no-poder.tsx
+permissions:
+  contents: read
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Instalar dependências
+        run: bun install --frozen-lockfile
+      - name: Verificar TypeScript
+        run: bunx tsc --noEmit
+      - name: Construir páginas estáticas reais
+        run: bun run build:hostgator
+      - name: Conferir e capturar páginas em dois formatos
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p capturas-internas
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-internas.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 3
+          chrome="$(command -v google-chrome || command -v chromium)"
+          for item in \
+            'reportagens:/reportagens/' \
+            'na-voz-delas:/na-voz-delas/' \
+            'como-votaram:/como-votaram/' \
+            'colecao:/colecoes/antigenero-no-poder/' \
+            'temas:/temas/' \
+            'tema-presenca:/temas/presenca/' \
+            'tema-dinheiro:/temas/dinheiro/' \
+            'tema-agenda:/temas/agenda/' \
+            'tema-poder:/temas/poder/' \
+            'tema-violencia:/temas/violencia/' \
+            'tema-memoria:/temas/memoria/' \
+            'pioneiras:/pioneiras/' \
+            'perfil-pagu:/pioneiras/pagu/' \
+            'perfil-lelia:/pioneiras/lelia-gonzalez/' \
+            'eleitas:/eleitas/' \
+            'ficha-eleita:/eleitas/perpetua-almeida-ac/'
+          do
+            nome="${item%%:*}"
+            rota="${item#*:}"
+            curl -fsS "http://127.0.0.1:4173$rota" >/dev/null
+            "$chrome" --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --hide-scrollbars \
+              --virtual-time-budget=2700 --window-size=1440,4400 \
+              --screenshot="$PWD/capturas-internas/$nome-desktop.png" "http://127.0.0.1:4173$rota"
+            "$chrome" --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --hide-scrollbars \
+              --virtual-time-budget=2700 --window-size=390,4900 \
+              --screenshot="$PWD/capturas-internas/$nome-celular.png" "http://127.0.0.1:4173$rota"
+            test -s "capturas-internas/$nome-desktop.png"
+            test -s "capturas-internas/$nome-celular.png"
+          done
+      - name: Disponibilizar o site e as capturas para avaliação
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-etapa1-capturas
+          path: capturas-internas/
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Disponibilizar pacote estático verificado
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-etapa1-site
+          path: dist/client/
+          retention-days: 7
