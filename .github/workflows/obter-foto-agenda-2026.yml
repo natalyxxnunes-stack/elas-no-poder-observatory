@@ -1,0 +1,45 @@
+name: Obter foto de sessão legislativa de junho de 2026 (uso único)
+on:
+  push:
+    branches:
+      - redesign-editorial-v3-teste
+    paths:
+      - .github/workflows/obter-foto-agenda-2026.yml
+permissions:
+  contents: write
+jobs:
+  foto:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: redesign-editorial-v3-teste
+      - name: Baixar JPEG da Agência Câmara
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/fotos
+          curl -fL --retry 3 --retry-delay 2 --silent --show-error \
+            'https://www.camara.leg.br/midias/image/2026/06/img20260630172318081-768x473.jpg' \
+            -o public/fotos/plenario-camara-junho-2026.jpg
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib
+          p=Path('public/fotos/plenario-camara-junho-2026.jpg')
+          b=p.read_bytes()
+          assert b[:2] == bytes([255,216]) and b[-2:] == bytes([255,217])
+          assert len(b)>25000, len(b)
+          print('SHA-256 e bytes:',hashlib.sha256(b).hexdigest(),len(b))
+          PY
+      - name: Salvar exclusivamente o arquivo de origem
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/fotos/plenario-camara-junho-2026.jpg
+          if ! git diff --cached --quiet; then
+            git commit -m 'assets(agenda): plenário de junho 2026, Thiago Cristino/Câmara'
+            git push origin HEAD:redesign-editorial-v3-teste
+          fi
