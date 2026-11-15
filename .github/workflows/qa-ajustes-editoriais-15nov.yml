@@ -1,0 +1,117 @@
+name: QA editorial integral sem alteração da identidade — 15nov
+on:
+  push:
+    branches: [ajustes-editoriais-identidade-aprovada-15nov]
+    paths:
+      - "src/**"
+      - ".github/workflows/qa-ajustes-editoriais-15nov.yml"
+      - "docs/**"
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Dependências, cálculo financeiro, TypeScript e site estático
+        shell: bash
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          node scripts/recontagem/validar_snapshot_financeiro.mjs
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Assegurar que logotipo, paleta e números não foram alterados
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin main
+          test -z "$(git diff --name-only origin/main...HEAD -- src/data public/dados src/styles.css src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
+          echo "Identidade visual, fotografia financeira e fichas eleitorais preservadas."
+      - name: Navegador de testes
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Conferir páginas e interações com Chromium
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p qa-editorial
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-ci.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          core=[
+            '/','/eleitas/','/metodo/','/achados/','/achados/candidatar-se-nao-e-eleger-se/',
+            '/colecoes/antigenero-no-poder/','/como-votaram/','/dinheiro/',
+            '/quem-chega/','/quem-sao-elas/','/votos/','/historico/','/partidos/',
+            '/temas/','/reportagens/','/pioneiras/','/sobre/','/dados/','/downloads/','/direitos/',
+          ]
+          shots={'/','/eleitas/','/metodo/','/achados/','/colecoes/antigenero-no-poder/','/dinheiro/','/como-votaram/'}
+          result=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for name,width,height in [('desktop',1440,900),('celular',390,844)]:
+              context=browser.new_context(viewport={'width':width,'height':height},device_scale_factor=1)
+              for url in core:
+                page=context.new_page()
+                errors=[]
+                page.on('pageerror',lambda e,errors=errors:errors.append(str(e)))
+                response=page.goto('http://127.0.0.1:4173'+url,wait_until='domcontentloaded',timeout=30000)
+                page.wait_for_timeout(350)
+                d=page.evaluate('''() => ({
+                  h1:[...document.querySelectorAll('h1')].map(x=>x.innerText.trim()),
+                  sw:document.documentElement.scrollWidth,ww:innerWidth,
+                  body:document.body.innerText.slice(0,35000),
+                  sections:document.querySelectorAll('section').length
+                })''')
+                assert response is not None and response.status==200,(name,url,'HTTP',response.status if response else None)
+                assert not errors,(name,url,'JS',errors)
+                assert d['sw']<=d['ww']+3,(name,url,'overflow',d['sw']-d['ww'])
+                assert len(d['h1'])==1,(name,url,'h1',d['h1'])
+                if url=='/metodo/':
+                  assert 'Um número, uma conta verificável' in d['body']
+                  assert '56,1%' in d['body']
+                  assert '15/11/2026' in d['body']
+                  assert 'Histórico de correções' in d['body']
+                if url=='/eleitas/':
+                  assert '342 mulheres eleitas' in d['body']
+                  assert 'Onde elas conquistaram cadeiras' in d['body']
+                  assert 'Nomes e fichas' in d['body']
+                  items=page.locator('section[aria-labelledby="lista-eleitas"] li')
+                  assert items.count()==36,(name,'initial cards',items.count())
+                  page.get_by_role('button',name='Mostrar mais fichas').click()
+                  page.wait_for_timeout(250)
+                  assert items.count()==72,(name,'loadmore',items.count())
+                  if name=='celular':
+                    page.get_by_role('button',name='Todos os cargos').click()
+                    page.wait_for_timeout(180)
+                    assert items.count()==36,(name,'filter reset',items.count())
+                if url=='/achados/candidatar-se-nao-e-eleger-se/':
+                  assert page.locator('h1').count()==1
+                if url=='/colecoes/antigenero-no-poder/':
+                  assert page.get_by_role('heading',name='Os votos, a eleição e os discursos').count()==1
+                if url in shots:
+                  key=url.strip('/').replace('/','-') or 'home'
+                  page.screenshot(path=f'qa-editorial/{name}-{key}.jpg',type='jpeg',quality=77)
+                result.append({'dispositivo':name,'pagina':url,'h1':d['h1'][0],'javascript':len(errors),'overflow':d['sw']-d['ww'],'sections':d['sections']})
+                page.close()
+              context.close()
+            browser.close()
+          Path('qa-editorial/resultado.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          print('OK:',len(result),'passagens em Chromium; interação das eleitas e fórmulas do Método verificadas')
+          PY
+      - name: Guardar evidências de validação
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-redesign-preservado-primeira-rodada
+          path: qa-editorial/
+          if-no-files-found: warn
+          retention-days: 14
