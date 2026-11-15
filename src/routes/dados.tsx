@@ -166,15 +166,19 @@ function DadosPage() {
                   <p className="max-w-3xl text-sm leading-relaxed text-ink/75">
                     {tema.linha}
                   </p>
-                  <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-1">
+                  <ul className="mt-5 grid gap-x-7 gap-y-4 sm:grid-cols-2">
                     {tema.paginas.map((pagina) => (
-                      <li key={`${pagina.to}${pagina.hash ?? ""}`}>
+                      <li key={`${pagina.to}${pagina.hash ?? ""}`} className="min-w-0">
                         <a
                           href={`${pagina.to}${pagina.hash ? `#${pagina.hash}` : ""}`}
-                          title={pagina.nota}
-                          className="inline-flex min-h-10 items-center gap-1 text-[15px] font-semibold text-plum underline-offset-4 hover:underline"
+                          className="group block min-h-14 focus-visible:outline-2"
                         >
-                          {pagina.label} <span aria-hidden="true">↗</span>
+                          <span className="text-[15px] font-semibold text-plum group-hover:underline group-hover:underline-offset-4">
+                            {pagina.label} <span aria-hidden="true">↗</span>
+                          </span>
+                          <span className="mt-1 block text-sm leading-snug text-ink/70">
+                            {pagina.nota}
+                          </span>
                         </a>
                       </li>
                     ))}
