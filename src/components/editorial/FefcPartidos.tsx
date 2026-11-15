@@ -19,7 +19,7 @@ const GRUPOS: { key: string; label: string; get: (p: FefcPartido) => FefcGrupo }
   { key: "BRANCA", label: "Brancas e brancos", get: (p) => p.raca["BRANCA"] ?? ZERO },
   { key: "PARDA", label: "Pardas e pardos", get: (p) => p.raca["PARDA"] ?? ZERO },
   { key: "PRETA", label: "Pretas e pretos", get: (p) => p.raca["PRETA"] ?? ZERO },
-  { key: "soma", label: "Pretas e pardos (soma)", get: (p) => p.pretasPardasSoma },
+  { key: "soma", label: "Candidaturas negras (pretas + pardas)", get: (p) => p.pretasPardasSoma },
   { key: "INDÍGENA", label: "Indígenas", get: (p) => p.raca["INDÍGENA"] ?? ZERO },
   { key: "AMARELA", label: "Amarelas e amarelos", get: (p) => p.raca["AMARELA"] ?? ZERO },
 ];
