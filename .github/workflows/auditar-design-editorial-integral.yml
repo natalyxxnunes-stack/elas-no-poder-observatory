@@ -2,7 +2,7 @@ name: Auditoria integral do produto editorial — novembro 2026
 on:
   push:
     branches: [auditoria-editorial-integral-2026-11-15]
-    paths: [.github/workflows/auditar-design-editorial-integral.yml]
+    paths: [.github/workflows/auditar-design-editorial-integral.yml, src/components/editorial/AchadoCard.tsx]
 permissions:
   contents: write
 jobs:
@@ -149,6 +149,8 @@ jobs:
           ]
           (dest/'RELATORIO-ROTAS.md').write_text('\n'.join(report)+'\n')
           print('ROTAS',len(core),'VISITAS',len(results),'ALERTAS',len(fail),'LINKS SUSPEITOS',len(page_links))
+          assert not fail, 'Falhas tecnicas detectadas na navegacao'
+          assert not missing_h1, 'Faltam títulos principais h1: '+str([(x['device'],x['url']) for x in missing_h1])
           PY
       - name: Salvar a auditoria na branch de trabalho, sem alterar o site
         shell: bash
