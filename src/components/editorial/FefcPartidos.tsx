@@ -97,7 +97,7 @@ export function FefcPartidos() {
         <table className="w-full min-w-[64rem] text-sm">
           <thead>
             <tr className="align-bottom text-[13px] text-muted-foreground font-semibold">
-              <th className="pb-2 pr-3 text-left font-normal">Partido</th>
+              <th className="sticky left-0 z-10 bg-paper pb-2 pr-3 text-left font-normal">Partido</th>
               <th className="pb-2 pr-3 text-right font-normal">FEFC</th>
               {GRUPOS.map((g) => (
                 <th key={g.key} className="pb-2 pr-3 text-left font-normal">
@@ -108,7 +108,7 @@ export function FefcPartidos() {
           </thead>
           <tbody>
             <tr className="border-t-2 border-ink align-top">
-              <th scope="row" className="py-2 pr-3 text-left font-display text-base text-ink">
+              <th scope="row" className="sticky left-0 z-10 bg-paper py-2 pr-3 text-left font-display text-base text-ink">
                 Todos
               </th>
               <td className="py-2 pr-3 text-right font-mono text-xs text-ink">
@@ -124,7 +124,7 @@ export function FefcPartidos() {
               <tr key={party} className="border-t border-rule align-top">
                 <th
                   scope="row"
-                  className="py-2 pr-3 text-left font-mono text-xs font-semibold text-ink"
+                  className="sticky left-0 z-10 bg-paper py-2 pr-3 text-left font-mono text-xs font-semibold text-ink"
                 >
                   {party}
                   <span className="block font-normal text-muted-foreground">
