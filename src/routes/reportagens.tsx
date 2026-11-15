@@ -2,9 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PROXIMAS, REPORTAGENS, REPORTAGENS_REGRA } from "@/data/reportagens";
 import { PERFIS_PIONEIRAS } from "@/data/perfis-pioneiras";
-import { Secao } from "@/components/editorial/Secao";
 import { FOTOS } from "@/data/fotos";
-import { ComposicaoEditorial } from "@/components/editorial/ComposicaoEditorial";
+import { FALAS } from "@/data/falas";
 import { formatDateBR } from "@/lib/format-br";
 
 export const Route = createFileRoute("/reportagens")({
@@ -19,8 +18,7 @@ export const Route = createFileRoute("/reportagens")({
       { property: "og:title", content: "Reportagens · Quem são elas?" },
       {
         property: "og:description",
-        content:
-          "Apuração assinada sobre mulheres, eleições e poder, com critério e fonte declarados.",
+        content: "Apuração assinada sobre mulheres, eleições e poder, com critério e fonte declarados.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -29,103 +27,186 @@ export const Route = createFileRoute("/reportagens")({
   component: ReportagensPage,
 });
 
+const DESTAQUE = REPORTAGENS.find((r) => r.to === "/como-votaram");
+const FALAS_REPORTAGEM = REPORTAGENS.find((r) => r.to === "/na-voz-delas");
+const FOTO_PLENARIO = FOTOS["plenario-igualdade-salarial-2023"]!;
+
+/**
+ * As referências são metadados reais de falas com publicação autorizada no
+ * próprio projeto. Não são imagens do Diário e não imitam fac-símiles.
+ */
+const FONTES_DOCUMENTAIS = FALAS
+  .filter((fala) => fala.publicar && fala.fonteRotulo.startsWith("Diário da Câmara"))
+  .sort((a, b) => {
+    const iso = (valor: string) => valor.split("/").reverse().join("-");
+    return iso(b.data).localeCompare(iso(a.data));
+  })
+  .slice(0, 3);
+
 function ReportagensPage() {
   return (
     <PageShell breadcrumb={[{ label: "Reportagens" }]}>
-      <header className="relative left-1/2 -ml-[50vw] w-screen bg-cream">
-        <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
-          <p className="text-xs font-semibold uppercase tracking-wide text-plum">Reportagens · Jornalismo de dados</p>
-          <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.7rem,4.7vw,4.5rem)] font-semibold leading-[1.04] text-ink">
-            Apuração assinada, com a conta aberta
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink/85">
-            As páginas de dados mostram o que as bases oficiais dizem. Aqui ficam as reportagens:
-            textos com escolha de pauta, cruzamento de fontes e leitura editorial, assinados.
-          </p>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-ink/70">
-            {REPORTAGENS_REGRA}
-          </p>
-        </div>
+      <header className="pb-9 pt-11 md:pb-12 md:pt-14">
+        <p className="text-[13px] font-semibold text-plum">Jornalismo de dados · Reportagens assinadas</p>
+        <h1 className="mt-4 max-w-5xl font-display text-[clamp(2.6rem,5.2vw,5rem)] leading-[1.04] text-ink">
+          Apuração assinada, com a conta aberta
+        </h1>
+        <p className="mt-5 max-w-3xl text-base leading-relaxed text-ink/80">
+          Reportagens, documentos e histórias que atravessam a eleição e chegam ao
+          exercício do poder. Cada texto reúne apuração, critérios e fontes declaradas.
+        </p>
       </header>
 
-      <section className="py-12 md:py-16" aria-labelledby="reportagens-publicadas">
-        <h2 id="reportagens-publicadas" className="font-display text-3xl font-semibold text-ink">
-          Reportagens publicadas
-        </h2>
-        <ol className="mt-7 grid gap-8 md:grid-cols-2">
-          {[...REPORTAGENS].sort((a, b) => b.data.localeCompare(a.data)).map((r) => {
-            const comFoto = r.to === "/como-votaram";
-            const foto = comFoto ? FOTOS["plenario-igualdade-salarial-2023"]! : null;
-            return (
-              <li key={r.to} className="group min-w-0">
-                <Link to={r.to} className="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-plum">
-                  <figure className="aspect-[5/3] overflow-hidden bg-plum-deep">
-                    {foto ? (
-                      <img src={foto.src} alt={foto.alt} loading="lazy" className="h-full w-full object-cover" />
-                    ) : (
-                      <ComposicaoEditorial tipo="voz" />
-                    )}
-                  </figure>
-                  <p className="mt-2 text-xs text-ink/65">
-                    {foto ? `${foto.credito} · foto de arquivo de maio de 2023, relacionada ao PL 1.085/2023` : "Arte editorial original · não documental"}
-                  </p>
-                  <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-plum">
-                    {r.tema} · {formatDateBR(r.data)} · {r.autora}
-                  </p>
-                  <h3 className="mt-2 font-display text-2xl font-semibold leading-tight text-ink group-hover:text-plum md:text-3xl">
-                    {r.titulo}
-                  </h3>
-                </Link>
-                <p className="mt-3 max-w-xl text-base leading-relaxed text-ink/80">{r.linhaFina}</p>
-                <Link to={r.to} className="mt-4 inline-flex min-h-11 items-center font-semibold text-plum underline underline-offset-4">
-                  Ler a reportagem ↗
-                </Link>
-              </li>
-            );
-          })}
-        </ol>
+      <section
+        aria-labelledby="reportagem-destaque"
+        className="relative left-1/2 -ml-[50vw] w-screen bg-plum-deep text-paper"
+      >
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-9 md:px-8 md:py-11 lg:grid-cols-[1.06fr_.94fr] lg:gap-11 lg:py-14">
+          <figure className="min-w-0">
+            <img
+              src={FOTO_PLENARIO.src}
+              alt={FOTO_PLENARIO.alt}
+              className="aspect-[5/3] w-full object-cover"
+              loading="eager"
+            />
+            <figcaption className="mt-3 max-w-3xl text-[13px] leading-relaxed text-paper/80">
+              Plenário da Câmara, maio de 2023, durante a tramitação do PL 1.085/2023.
+              Foto de arquivo: {FOTO_PLENARIO.credito}.
+              A imagem não registra as seis votações investigadas.
+            </figcaption>
+          </figure>
+          <article className="flex flex-col justify-center">
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">Manchete · Câmara dos Deputados</p>
+            <h2 id="reportagem-destaque" className="mt-4 max-w-lg font-display text-[clamp(2.1rem,3.7vw,3.55rem)] leading-[1.07]">
+              {DESTAQUE?.titulo ?? "Como votaram as deputadas, e quem voltou"}
+            </h2>
+            <p className="mt-4 max-w-lg text-base leading-relaxed text-paper/90">
+              {DESTAQUE?.linhaFina}
+            </p>
+            <Link
+              to="/como-votaram"
+              className="mt-6 inline-flex min-h-11 items-center self-start font-semibold text-paper underline underline-offset-4"
+            >
+              Ler a investigação ↗
+            </Link>
+            {DESTAQUE && (
+              <p className="mt-6 text-[13px] text-paper/75">
+                {DESTAQUE.autora} · {formatDateBR(DESTAQUE.data)}
+              </p>
+            )}
+          </article>
+        </div>
       </section>
 
-      <section className="grid gap-12 border-t border-rule py-12 md:grid-cols-3">
-        <div>
-          <Secao nome="Coleção" pequeno />
-          <Link to="/colecoes/antigenero-no-poder" className="group mt-3 block">
-            <span className="block font-display text-3xl font-semibold leading-tight text-ink group-hover:text-plum">
-              A agenda antigênero no poder
-            </span>
-            <span className="mt-2 block text-[15px] leading-relaxed text-ink/75">
-              Deputadas que votaram contra a lei de igualdade salarial ou a favor de sustar a norma do
-              Conanda, e quem terá mandato em 2027.
-            </span>
-          </Link>
+      <section
+        aria-labelledby="reportagem-falas"
+        className="relative left-1/2 -ml-[50vw] w-screen"
+      >
+        <div className="grid lg:grid-cols-2">
+          <article className="bg-[var(--art-cream)] px-5 py-10 text-ink md:px-8 md:py-12 lg:pl-[max(2rem,calc((100vw-80rem)/2))] lg:pr-12">
+            <p className="text-[13px] font-semibold text-plum">Falas públicas · Apuração</p>
+            <h2 id="reportagem-falas" className="mt-4 font-display text-[clamp(2.3rem,4vw,4rem)] leading-tight text-plum-deep">
+              {FALAS_REPORTAGEM?.titulo ?? "Na voz delas"}
+            </h2>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-ink/85">
+              {FALAS_REPORTAGEM?.linhaFina}
+            </p>
+            <Link
+              to="/na-voz-delas"
+              className="mt-6 inline-flex min-h-11 items-center font-semibold text-plum underline underline-offset-4"
+            >
+              Ler a reportagem ↗
+            </Link>
+            {FALAS_REPORTAGEM && (
+              <p className="mt-5 text-[13px] text-ink/70">
+                {FALAS_REPORTAGEM.autora} · {formatDateBR(FALAS_REPORTAGEM.data)}
+              </p>
+            )}
+          </article>
+          <aside className="bg-paper px-5 py-10 text-ink md:px-8 md:py-12 lg:pl-10 lg:pr-[max(2rem,calc((100vw-80rem)/2))]">
+            <p className="text-[13px] font-semibold text-plum">Fontes documentais</p>
+            <h3 className="mt-3 font-display text-2xl leading-tight md:text-3xl">
+              Registros da Câmara
+            </h3>
+            <p className="mt-2 max-w-lg text-sm leading-relaxed text-ink/75">
+              Referências oficiais citadas na apuração. Esta relação é textual,
+              não uma reprodução dos documentos originais.
+            </p>
+            <ol className="mt-5 divide-y divide-rule border-y border-rule">
+              {FONTES_DOCUMENTAIS.map((fala) => (
+                <li key={fala.id} className="py-4">
+                  <p className="text-sm font-semibold text-ink">{fala.pessoa} · {fala.data}</p>
+                  <a
+                    href={fala.fonteUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-1 inline-flex min-h-9 items-center text-[13px] leading-snug text-plum underline underline-offset-4"
+                  >
+                    {fala.fonteRotulo} ↗
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </aside>
         </div>
+      </section>
+
+      <section
+        aria-labelledby="reportagem-colecao"
+        className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-plum)] text-paper"
+      >
+        <div className="mx-auto grid gap-6 px-5 py-10 md:px-8 md:py-12 lg:max-w-7xl lg:grid-cols-[.8fr_1.2fr] lg:items-center">
+          <div>
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">Coleção · Investigação continuada</p>
+            <h2 id="reportagem-colecao" className="mt-3 font-display text-3xl leading-tight md:text-4xl">
+              A agenda antigênero no poder
+            </h2>
+          </div>
+          <div>
+            <p className="max-w-2xl text-base leading-relaxed text-paper/90">
+              Votos, mandatos e declarações públicas reunidos numa coleção com
+              documentação, contextos e fontes primárias.
+            </p>
+            <Link
+              to="/colecoes/antigenero-no-poder"
+              className="mt-5 inline-flex min-h-11 items-center font-semibold text-paper underline underline-offset-4"
+            >
+              Explorar a coleção ↗
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="grid gap-10 py-11 md:grid-cols-[1fr_1fr] md:gap-16 md:py-14">
         <div>
-          <Secao nome="Perfis" tipo="Pioneiras" pequeno />
-          <ul className="mt-3">
+          <h2 className="font-display text-3xl leading-tight text-ink">Perfis · Pioneiras</h2>
+          <ul className="mt-5 divide-y divide-rule border-y border-rule">
             {PERFIS_PIONEIRAS.filter((p) => p.to).map((p) => (
-              <li key={p.id} className="border-b border-rule py-3">
-                <Link to={p.to!} className="font-display text-xl text-ink hover:text-plum">
+              <li key={p.id} className="py-4">
+                <Link to={p.to!} className="font-display text-xl text-plum hover:underline hover:underline-offset-4">
                   {p.name}
                 </Link>
-                <span className="block font-mono text-[13px] text-ink/65">{p.years}</span>
+                <p className="mt-1 font-mono text-[13px] text-ink/70">{p.years}</p>
               </li>
             ))}
           </ul>
         </div>
         <div>
-          <Secao nome="Na próxima edição" pequeno />
-          <ul className="mt-3">
+          <h2 className="font-display text-3xl leading-tight text-ink">Na próxima edição</h2>
+          <ul className="mt-5 divide-y divide-rule border-y border-rule">
             {PROXIMAS.map((p) => (
-              <li key={p.data} className="border-b border-rule py-3">
-                <span className="block font-mono text-[13px] text-ink/65">
-                  {formatDateBR(p.data)} · {p.nota}
-                </span>
-                <span className="font-display text-xl text-ink">{p.titulo}</span>
+              <li key={p.data} className="py-4">
+                <p className="font-mono text-[13px] text-ink/70">{formatDateBR(p.data)} · {p.nota}</p>
+                <p className="mt-2 font-display text-xl leading-snug text-ink">{p.titulo}</p>
               </li>
             ))}
           </ul>
         </div>
       </section>
+
+      <p className="border-t border-rule pb-9 pt-5 text-[13px] leading-relaxed text-ink/75">
+        {REPORTAGENS_REGRA}
+      </p>
     </PageShell>
   );
 }
