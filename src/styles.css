@@ -87,6 +87,16 @@
   --cream: oklch(0.955 0.012 300);
   --paper: oklch(0.992 0.002 300);
   --plum-deep: oklch(0.25 0.09 305);
+  /* Prancha cívica (15/11/2026): cores de COMPOSIÇÕES editoriais autorais.
+   * Amostras aproximadas da imagem de referência aprovada. Isoladas em SVGs:
+   * nunca usadas para codificar resultados eleitorais, raça, partido ou status.
+   * O fundo da leitura continua seguindo --paper, --cream e --muted. */
+  --art-ink: #341738;
+  --art-plum: #602f6a;
+  --art-violet: #915fa5;
+  --art-cream: #f7e5d8;
+  --art-coral: #eb5d39;
+  --art-gold: #f2ac37;
   --plum: oklch(0.39 0.16 305);
   --plum-soft: oklch(0.52 0.13 305);
   /* Variantes tonais para texto: mesma família de cor, contraste AA. */
