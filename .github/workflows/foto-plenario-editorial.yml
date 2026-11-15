@@ -1,6 +1,10 @@
 name: Incorporar foto documental do plenário
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - redesign-editorial-v3-teste
+    paths:
+      - .github/workflows/foto-plenario-editorial.yml
 
 permissions:
   contents: write
