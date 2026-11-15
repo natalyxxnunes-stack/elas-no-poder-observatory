@@ -31,13 +31,13 @@ jobs:
           total=sum(decimal.Decimal(r['fefc_reais']) for r in rows if r['grupo']=='todas')
           cands=sum(int(r['candidaturas']) for r in rows if r['grupo']=='todas')
           assert total==decimal.Decimal('3988617748.81'),f'Total FEFC inesperado: {total}'
-          assert cands==19531,cands
+          assert cands==19525,cands  # 6 candidaturas do PCB, sem FEFC, não constam das linhas por partido
           assert len(rows)>0
           manifesto=Path('src/data/base-publica.ts').read_text()
           assert 'base de 15/11/2026' in manifesto
           assert '73ec0cd7727edd6ef3f9b69e7158f0e9dbb02a772a47e01e01374d004f4bdd90' in manifesto
           print('CSV FEFC recalculado: linhas=',len(rows),'candidaturas=',cands,'FEFC=',total)
-          print('Somente FEFC e manifesto alterados; outros 8 CSVs preservados.')
+          print('Somente FEFC e manifesto alterados; outros 8 CSVs preservados. PCB sem FEFC (6 candidaturas) ausente das linhas por partido.')
           PY
       - name: Preservar a atualização na branch de teste, sem publicar
         shell: bash
