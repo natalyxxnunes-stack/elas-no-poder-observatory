@@ -134,14 +134,37 @@ function ColecaoPage() {
       </Faixa>
 
 
-      <section id="evidencias-colecao" className="scroll-mt-24 grid gap-px border-y border-rule bg-rule md:grid-cols-2">
-        {numeros.map((x) => (
-          <div key={x.rotulo} className="bg-paper px-5 py-7 md:px-8 md:py-8">
-            <p className="font-display text-4xl font-semibold text-plum">{x.valor}</p>
-            <p className="mt-2 font-display text-xl leading-snug text-ink">{x.rotulo}</p>
-            <p className="mt-3 text-[15px] leading-relaxed text-ink/75">{x.linha}</p>
-          </div>
-        ))}
+      <section id="evidencias-colecao" aria-labelledby="h-evidencias-colecao" className="scroll-mt-24 py-10 md:py-14">
+        <div className="mb-6 max-w-3xl">
+          <p className="text-[13px] font-semibold text-plum">Registros públicos · duas votações e seus desdobramentos</p>
+          <h2 id="h-evidencias-colecao" className="mt-2 font-display text-3xl text-ink md:text-4xl">
+            Os votos, a eleição e os discursos
+          </h2>
+        </div>
+        <div className="grid gap-3 md:grid-cols-12">
+          {numeros.map((x, i) => {
+            const escuro = i < 2;
+            return (
+              <article
+                key={x.rotulo}
+                className={`min-w-0 px-5 py-7 md:px-8 md:py-9 ${i === 0 ? "bg-plum text-cream md:col-span-7" : i === 1 ? "bg-ink text-cream md:col-span-5" : i === 2 ? "bg-cream text-ink md:col-span-5" : "border border-rule bg-paper text-ink md:col-span-7"}`}
+              >
+                <p className={`text-[13px] font-semibold ${escuro ? "text-cream/80" : "text-plum"}`}>
+                  {i < 2 ? "Como votaram" : "O que ocorreu depois"}
+                </p>
+                <p className={`mt-3 font-display font-semibold leading-none ${i < 2 ? "text-5xl md:text-6xl" : "text-4xl md:text-5xl"} ${escuro ? "text-cream" : "text-plum"}`}>
+                  {x.valor}
+                </p>
+                <h3 className={`mt-3 max-w-[30ch] font-display text-xl leading-snug ${escuro ? "text-cream" : "text-ink"}`}>
+                  {x.rotulo}
+                </h3>
+                <p className={`mt-4 max-w-[55ch] text-[15px] leading-relaxed ${escuro ? "text-cream/85" : "text-ink/75"}`}>
+                  {x.linha}
+                </p>
+              </article>
+            );
+          })}
+        </div>
       </section>
 
       <details className="group border-b border-rule">
