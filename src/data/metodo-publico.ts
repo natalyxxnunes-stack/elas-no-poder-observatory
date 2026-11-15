@@ -185,6 +185,22 @@ export type Correcao = {
  */
 export const CORRECOES: readonly Correcao[] = [
   {
+    data: "15/11/2026",
+    pagina: "Quem chega, Achado 12, Poder e capa",
+    to: "/quem-chega#senado",
+    tipo: "dado",
+    oQueMudou:
+      "A projeção de cadeiras do PL no Senado em 2027 passa de 28 para 29. O primeiro suplente de Sergio Moro no Paraná, Luis Felipe Cunha, deixou o União Brasil e se filiou ao PL em 08/10/2026. A Agência Senado, em 25/10/2026, confirma a filiação e projeta 29 das 81 cadeiras para o PL, incluindo os suplentes que substituirão senadores eleitos governadores. É uma projeção, não uma composição já empossada. Fonte: https://www12.senado.leg.br/noticias/materias/2026/10/25/fim-da-eleicao-define-composicao-do-senado-em-2027-com-13-partidos",
+  },
+  {
+    data: "15/11/2026",
+    pagina: "Dinheiro, Achados e base pública de FEFC",
+    to: "/dinheiro",
+    tipo: "dado",
+    oQueMudou:
+      "Atualização dos indicadores de receitas, FEFC e despesas com base financeira do TSE de 15/11/2026 (04h05), cruzada com cadastro gerado em 15/11 (05h30). A participação das brancas na receita das candidatas proporcionais permanece em 56,1%; no FEFC recebido pelas mulheres, é 54,9%. Entre 19.660 candidaturas com receita, 195 ainda constam com prestação parcial e 102 com relatório financeiro. A base segue sujeita a retificações e julgamento; recontagens históricas de outras reportagens preservam seus próprios cortes.",
+  },
+  {
     data: "13/11/2026",
     pagina: "Quem chega, Achado 12 e capa",
     to: "/quem-chega#senado",
