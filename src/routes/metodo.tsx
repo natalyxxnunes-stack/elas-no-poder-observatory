@@ -9,7 +9,13 @@ import { INSPECTED_AT } from "@/lib/tse/data-dictionary";
 import { CORRECOES, DICIONARIO, METODO_ATUACAO, METODO_FICHAS } from "@/data/metodo-publico";
 
 import { PageShell } from "@/components/PageShell";
-import { EditorialOpening } from "@/components/editorial/EditorialOpening";
+import {
+  MetodoCapaRevista,
+  MetodoIntroducaoRevista,
+  MetodoFluxoEditorial,
+  MetodoFotoContextualizada,
+  MetodoContaRevista,
+} from "@/components/editorial/MetodoRevista";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
@@ -177,107 +183,15 @@ function MetodoPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Projeto" }, { label: "Método" }]}>
-      <header className="relative left-1/2 -ml-[50vw] w-screen">
-        <div className="grid lg:grid-cols-[.55fr_.45fr]">
-          <div className="bg-[var(--art-cream)] px-5 py-11 text-ink md:px-8 md:py-14 lg:py-16 lg:pl-[max(2rem,calc((100vw-80rem)/2))] lg:pr-12">
-            <p className="text-[13px] font-semibold text-plum">Transparência · Como sabemos</p>
-            <h1 className="mt-5 font-display text-[clamp(3.5rem,7vw,6rem)] font-semibold leading-[1.02] text-plum-deep">Método.</h1>
-            <p className="mt-4 max-w-lg font-display text-[clamp(1.55rem,3vw,2.5rem)] leading-[1.13] text-ink">
-              Um número, uma conta verificável.
-            </p>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-ink/85">
-              Esta página tem duas camadas: uma explicação de como calculamos e uma
-              ficha técnica auditável. Cada resultado informa fonte, universo,
-              denominador, data de geração e limites.
-            </p>
-            <p className="mt-5 max-w-lg text-[13px] leading-relaxed text-ink/75">
-              Distinguimos fatos, interpretações e hipóteses. Uma fotografia da base
-              preserva a situação registrada naquele momento, mesmo quando o TSE
-              publica arquivos posteriores.
-            </p>
-            <a href="#metodo-exemplo" className="mt-6 inline-flex min-h-11 items-center font-semibold text-plum underline underline-offset-4">
-              Examinar uma conta real ↓
-            </a>
-          </div>
-          <div className="bg-plum px-5 py-10 text-paper md:px-8 md:py-12 lg:py-16 lg:pl-12 lg:pr-[max(2rem,calc((100vw-80rem)/2))]">
-            <p className="text-[13px] font-semibold text-paper/80">Fontes primárias · Documentação</p>
-            <h2 className="mt-4 max-w-md font-display text-[clamp(1.7rem,3vw,2.5rem)] leading-tight">
-              Uma base não é um número sem história.
-            </h2>
-            <dl className="mt-7 space-y-3">
-              <div className="border-l-4 border-[var(--art-gold)] bg-ink px-5 py-4">
-                <dt className="text-[13px] text-paper/75">TSE · Candidatos 2026</dt>
-                <dd className="mt-1 font-display text-xl">Registro de candidaturas</dd>
-                <dd className="mt-2 text-[13px] leading-relaxed text-paper/80">
-                  Arquivo gerado em {br(snapshot?.baseGeneratedAt ?? TSE_SOURCE.baseGeneratedAt)}.
-                  Candidaturas proporcionais e majoritárias separadas; cor/raça autodeclarada.
-                </dd>
-              </div>
-              <div className="border-l-4 border-[var(--art-gold)] bg-ink px-5 py-4">
-                <dt className="text-[13px] text-paper/75">TSE · Prestação de contas 2026</dt>
-                <dd className="mt-1 font-display text-xl">Receitas declaradas</dd>
-                <dd className="mt-2 text-[13px] leading-relaxed text-paper/80">
-                  Base gerada em {FINANCE_BASE_LABEL}. Retificações e julgamento das
-                  contas ainda podem alterar os valores registrados.
-                </dd>
-              </div>
-            </dl>
-            <p className="mt-5 max-w-lg text-[13px] leading-relaxed text-paper/75">
-              Estas são referências textuais às bases oficiais, não fac-símiles dos
-              documentos originais. Cada extração possui data e tratamento próprios.
-            </p>
-          </div>
-        </div>
-      </header>
-      {/* Exemplo real: percentuais calculados da mesma base financeira documentada. */}
-      <section id="metodo-exemplo" aria-labelledby="metodo-exemplo-titulo" className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
-        <div className="mx-auto max-w-7xl px-5 py-11 md:px-8 md:py-14">
-          <p className="text-[13px] font-semibold text-paper/75">Exemplo real · Financiamento</p>
-          <h2 id="metodo-exemplo-titulo" className="mt-2 max-w-2xl font-display text-3xl leading-tight md:text-4xl">
-            Um percentual, uma conta aberta.
-          </h2>
-          <figure className="mt-7 grid gap-7 lg:grid-cols-[.8fr_1.2fr] lg:gap-10">
-            <div className="border-l-[6px] border-[var(--art-coral)] bg-[var(--art-plum)] p-6 md:p-8">
-              <p className="font-display text-[clamp(4rem,7vw,6.5rem)] font-semibold leading-none text-[var(--art-gold)]">
-                {formatPct((receitaBrancas / financeSnapshot.universes.proporcional.feminineRevenue) * 100)}
-              </p>
-              <p className="mt-3 max-w-sm text-[15px] leading-relaxed text-paper/90">
-                da receita declarada por candidatas proporcionais foi recebida por
-                mulheres autodeclaradas brancas.
-              </p>
-            </div>
-            <div className="min-w-0 self-center">
-              <dl className="divide-y divide-paper/25 border-y border-paper/25">
-                <div className="grid gap-2 py-4 md:grid-cols-[1fr_auto] md:gap-6">
-                  <dt className="text-sm text-paper/80">Numerador · candidatas brancas</dt>
-                  <dd className="break-all font-mono text-[clamp(.87rem,1.6vw,1.05rem)] tabular-nums">
-                    {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(receitaBrancas)}
-                  </dd>
-                </div>
-                <div className="grid gap-2 py-4 md:grid-cols-[1fr_auto] md:gap-6">
-                  <dt className="text-sm text-paper/80">Denominador · todas as candidatas proporcionais</dt>
-                  <dd className="break-all font-mono text-[clamp(.87rem,1.6vw,1.05rem)] tabular-nums">
-                    {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(financeSnapshot.universes.proporcional.feminineRevenue)}
-                  </dd>
-                </div>
-              </dl>
-              <figcaption className="mt-5 max-w-3xl text-[13px] leading-relaxed text-paper/75">
-                Cálculo: numerador ÷ denominador × 100, arredondado a uma casa decimal.
-                Fonte: TSE, receitas geradas em {FINANCE_BASE_LABEL}, cruzadas com
-                candidaturas titulares proporcionais. A base pode ser retificada;
-                o percentual não representa todo o financiamento eleitoral.
-              </figcaption>
-              <a href="#financiamento" className="mt-5 inline-flex min-h-11 items-center font-semibold text-paper underline underline-offset-4">
-                Ver os critérios do financiamento ↓
-              </a>
-            </div>
-          </figure>
-        </div>
-      </section>
+      <MetodoCapaRevista candidaturaGeradaEm={br(snapshot?.baseGeneratedAt ?? TSE_SOURCE.baseGeneratedAt)} />
+      <MetodoIntroducaoRevista />
+      <MetodoFluxoEditorial />
+      <MetodoFotoContextualizada />
+      <MetodoContaRevista receitaBrancas={receitaBrancas} />
 
       <nav
         aria-label="Percursos do Método"
-        className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-cream)] text-ink"
+        className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-gold)] text-ink"
       >
         <div className="mx-auto grid max-w-7xl gap-4 px-5 py-7 md:grid-cols-[13rem_1fr] md:items-start md:gap-8 md:px-8">
           <div>
@@ -302,6 +216,42 @@ function MetodoPage() {
         </div>
       </nav>
 
+      {/* Segunda camada: documentação completa em caderno de consulta, sem apagar
+          a cronologia, os arquivos nem as correções do texto original. */}
+      <section aria-label="Documentação técnica do observatório" className="relative left-1/2 -ml-[50vw] w-screen bg-paper">
+        <div className="mx-auto grid max-w-7xl lg:grid-cols-[15rem_minmax(0,1fr)]">
+          <aside className="min-w-0 bg-plum-deep px-5 py-8 text-paper md:px-8 lg:px-6 lg:py-12">
+            <div className="lg:sticky lg:top-24">
+              <p className="text-[13px] font-semibold text-[var(--art-gold)]">Arquivo de consulta</p>
+              <h2 className="mt-3 max-w-xs font-display text-2xl leading-tight lg:text-3xl">
+                O método completo, à disposição.
+              </h2>
+              <p className="mt-4 max-w-sm text-sm leading-relaxed text-paper/80">
+                Procedimentos de recontagem, dicionário dos dados, histórico de alterações
+                e limites da apuração, com os registros disponíveis para conferência.
+              </p>
+              <nav aria-label="Índice do arquivo técnico" className="mt-6">
+                <ul className="grid grid-cols-2 gap-x-5 gap-y-1 sm:grid-cols-3 lg:grid-cols-1">
+                  {[
+                    { to: "#calculo", label: "Contas e fórmulas" },
+                    { to: "#ficha", label: "Fontes e filtros" },
+                    { to: "#fotografias", label: "Histórico das bases" },
+                    { to: "#nota-tecnica", label: "Como reproduzir" },
+                    { to: "#dicionario", label: "Dicionário de campos" },
+                    { to: "#correcoes", label: "Correções" },
+                    { to: "#limitacoes", label: "Limitações" },
+                  ].map((item) => (
+                    <li key={item.to} className="border-b border-paper/25">
+                      <a href={item.to} className="inline-flex min-h-11 items-center text-sm font-semibold text-paper hover:underline hover:underline-offset-4">
+                        {item.label} <span className="ml-1" aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </aside>
+          <div className="min-w-0 px-5 py-3 md:px-8 lg:pl-10 lg:pr-8">
       {/* RESUMO DE ENTRADA — três pontos, no padrão dos blocos "Em poucas linhas" */}
       <div className="pb-4">
         <section
@@ -403,7 +353,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Representação descritiva × substantiva */}
-      <SectionBlock semFio id="medidas" tone="warm"
+      <SectionBlock semFio id="medidas"
         kicker="O que estes números medem"
         question="Presença e poder de decidir são medidas diferentes"
         lead={
@@ -970,7 +920,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Nota técnica reproduzível */}
-      <SectionBlock semFio collapsible="Ver o passo a passo" id="nota-tecnica" tone="warm"
+      <SectionBlock semFio collapsible="Ver o passo a passo" id="nota-tecnica"
         kicker="Nota técnica"
         question="Como refazer estas contas do zero"
         align="wide"
@@ -1272,33 +1222,6 @@ function MetodoPage() {
         </div>
       </SectionBlock>
 
-      {/* Interlúdio de transparência: conecta a apuração àquilo que ainda falta verificar. */}
-      <aside aria-labelledby="metodo-limites-chamada" className="relative left-1/2 -ml-[50vw] w-screen bg-plum-deep text-paper">
-        <div className="mx-auto grid max-w-7xl items-center gap-x-10 gap-y-5 px-5 py-10 md:grid-cols-[.95fr_1.05fr] md:px-8 md:py-13">
-          <div>
-            <p className="text-[13px] font-semibold text-[var(--art-gold)]">Transparência da investigação</p>
-            <h2 id="metodo-limites-chamada" className="mt-3 max-w-lg font-display text-[clamp(1.9rem,3.5vw,3.2rem)] leading-tight">
-              Onde a base termina, começam as perguntas ainda abertas.
-            </h2>
-          </div>
-          <div className="md:border-l-4 md:border-[var(--art-coral)] md:pl-7">
-            <p className="max-w-xl text-base leading-relaxed text-paper/90">
-              A ausência de um campo ou de uma comprovação também precisa aparecer na
-              reportagem. Registramos hipóteses com situação e data e declaramos as
-              limitações dos arquivos antes de propor conclusões.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-x-7 gap-y-2 text-sm font-semibold">
-              <a href="#hipoteses" className="inline-flex min-h-11 items-center text-paper underline underline-offset-4">
-                Consultar hipóteses ↗
-              </a>
-              <a href="#limitacoes" className="inline-flex min-h-11 items-center text-paper underline underline-offset-4">
-                Ler as limitações ↗
-              </a>
-            </div>
-          </div>
-        </div>
-      </aside>
-
       {/* Hipóteses */}
       <SectionBlock semFio
         id="hipoteses"
@@ -1410,7 +1333,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Limitações */}
-      <SectionBlock semFio id="limitacoes" tone="warm"
+      <SectionBlock semFio id="limitacoes"
         kicker="Limitações"
         question="Os limites declarados deste método"
       >
@@ -1481,6 +1404,10 @@ function MetodoPage() {
           </Link>
         </p>
       </SectionBlock>
+
+          </div>
+        </div>
+      </section>
 
       <NextAxes ids={["dados-2026", "sobre", "funil"]} />
     </PageShell>
