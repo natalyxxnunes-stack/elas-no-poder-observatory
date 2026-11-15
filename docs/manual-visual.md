@@ -206,3 +206,16 @@ O arquivo editável permanente `Quem_sao_elas_Manual_Identidade_Editorial_Contin
 
 
 **Verificação técnica das alternativas (15/11/2026):** [GitHub Actions #43774175278](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43774175278) concluído com sucesso no commit `42a550e906388d8df94cb068fce7768d6020f8da`. Foram verificados build, TypeScript, cálculos financeiros, cinco proporções por cargo, seis votações, acesso direto às fichas e capturas reais de desktop 1440 px/celular 390 px (primeira dobra e página completa). O arquivo editável de continuidade registra esta mesma evidência. **Permanece pendente o aceite editorial das duas propostas; teste técnico não valida automaticamente proporção cromática, legibilidade ou identidade.**
+
+
+### 15/11/2026 — Legibilidade do texto na abertura coral de *Quem entrou?*
+
+**Decisão aprovada pela editora:** manter o **coral** como linguagem expressiva de `/eleitas/`, mas substituir o texto escuro/preto da abertura por **texto claro**. A combinação anterior cansava a leitura. Esta decisão fixa o **princípio de legibilidade**, mas não constitui aprovação integral do layout de `Quem entrou?`.
+
+**Aplicação em prévia:** na branch `pilotos-revista-visual-15nov2026` (PR #8), a abertura passou de `--art-coral: #eb5d39` com texto em tinta para uma **variante tonal coral mais profunda `#c53f22` com texto `--paper`**, inclusive na manchete, no número, na legenda e no CTA. O token `--art-coral` **não foi alterado**, não surgiu uma cor estrutural nova nem se modificou a semântica cromática dos gráficos.
+
+**Razão técnica:** texto branco sobre o coral original tem contraste aproximado de **3,4:1**, insuficiente para corpo de texto WCAG AA (4,5:1); `#c53f22` com papel claro permite contraste superior a 4,5:1. A verificação automatizada do navegador usa amostragem sRGB para suportar valores CSS em `oklch` e exige contraste de **4,5:1** para títulos, textos e links da abertura em computador e celular. Confirmar a execução final no GitHub Actions.
+
+**Decisão pendente:** aceitar ou ajustar a **escala da área coral** na composição geral depois de conferir as capturas de página inteira, sem voltar a texto preto nessa abertura.
+
+**Registro complementar:** arquivo editável único `Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md`, seção 14.6. Toda nova decisão deve atualizar este mesmo arquivo e o manual da `main`, sem criar documentos concorrentes.
