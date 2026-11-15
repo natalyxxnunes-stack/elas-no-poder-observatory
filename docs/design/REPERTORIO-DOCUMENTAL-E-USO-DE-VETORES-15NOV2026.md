@@ -54,3 +54,11 @@ Esses endereços são caminhos de pesquisa, não fontes de imagens autorizadas p
 ## Validação / limites
 
 Alterações no PR #6 preservam a capa e os dados; adicionar verificação do índice documental no teste automatizado. Conferir apresentação em navegador desktop/celular e acessibilidade antes de merge. A atualização da branch **não** publica na HostGator nem altera a `main`.
+
+## Segunda rodada — Direitos e Pioneiras (prévia no PR #6)
+
+- **Direitos**: 13 marcos permanecem íntegros. A linha do tempo foi transformada de uma sequência uniforme de cartões em uma cronologia tipográfica, com índice de saltos e links para as fontes primárias já cadastradas. Os **dois marcos de 2024** ganharam identificadores independentes; o uso de `key={m.year}` era duplicado e foi corrigido. Sem imagens fabricadas de leis ou decisões.
+- **Pioneiras**: inventário recolhível com os três arquivos TSE usados nas recontagens de Pagu e Lélia Gonzalez: São Paulo 1950, Rio de Janeiro 1982 e 1986. Nomes dos arquivos e seus SHA-256 vêm exclusivamente de `src/data/perfis-pioneiras.ts`. São metadados de arquivos oficiais, não fac-símiles. Não se adicionaram fotografias sem direitos autorizados.
+- **Dados**: a rota foi examinada, mas sua grade de consultas **não foi redesenhada** nesta rodada; qualquer mudança substancial de composição precisa ser comparada à identidade aprovada.
+- **Validação prevista:** verificar em navegador a unicidade das 13 âncoras, os dois registros de 2024 e a abertura do inventário documental. Os testes constam do workflow da branch, mas sua execução ainda depende de confirmação.
+- Todas as mudanças seguem isoladas na branch de revisão. Homepage, fotos e paleta continuam protegidas, sem merge ou publicação.
