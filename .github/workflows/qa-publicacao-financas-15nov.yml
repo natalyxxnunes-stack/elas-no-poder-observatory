@@ -1,0 +1,115 @@
+name: Revisao e pacote HostGator - financeiro TSE 15nov
+on:
+  push:
+    branches: [publicacao-financas-tse-15nov-2026]
+permissions:
+  contents: read
+
+jobs:
+  validar-pacote:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Dependencias de projeto travadas
+        run: bun install --frozen-lockfile
+      - name: Auditar snapshot, hash e manchete
+        run: node scripts/recontagem/validar_snapshot_financeiro.mjs
+      - name: Tipagem TypeScript
+        run: bunx tsc --noEmit
+      - name: Construir pacote estatico HostGator
+        run: bun run build:hostgator
+      - name: Conferir cortes, CSVs e dimensoes dos binarios
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,csv,decimal
+          a=Path('dist/client')
+          assert (a/'index.html').is_file()
+          p=a/'dados/fundo-eleitoral-deputado-por-partido.csv'
+          assert p.is_file()
+          h=hashlib.sha256(p.read_bytes()).hexdigest()
+          assert h=='ea33f944be2cf7a8f8bc2e7036489bfa6fd340c49b73bd04caf73da07033ac51',h
+          with p.open(encoding='utf-8-sig',newline='') as f:
+            rows=list(csv.DictReader(f))
+          assert len(rows)==336
+          total=sum(decimal.Decimal(r['fefc_reais']) for r in rows if r['grupo']=='todas')
+          assert total==decimal.Decimal('3988617748.81'),total
+          assert '04/11/2026' in Path('src/data/base-publica.ts').read_text(),'Manter datas historicas no manifesto'
+          assert '15/11/2026' in Path('src/data/base-publica.ts').read_text()
+          print('OK: CSV FEFC 15/11 presente, hash e soma corretos; CSVs historicos preservados.')
+          PY
+      - name: Revisar renderizacao da pagina Dinheiro (desktop e celular)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet --break-system-packages playwright pillow
+          mkdir -p qa-publicacao
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-publicacao.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          output=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for name,width,height in [('desktop',1366,900),('mobile',390,844)]:
+              ctx=browser.new_context(viewport={'width':width,'height':height})
+              for path in ['/','/dinheiro/','/achados/','/downloads/','/metodo/']:
+                page=ctx.new_page()
+                errors=[]
+                page.on('pageerror',lambda e: errors.append(str(e)))
+                response=page.goto('http://127.0.0.1:4173'+path,wait_until='domcontentloaded',timeout=30000)
+                page.wait_for_timeout(500)
+                info=page.evaluate('''() => ({
+                  h1:document.querySelector('h1')?.innerText,
+                  width:document.documentElement.scrollWidth,
+                  viewport:innerWidth,
+                  text:document.body.innerText.slice(0,25000),
+                })''')
+                assert response.status==200,(path,response.status)
+                assert not errors,(path,errors)
+                assert info['width']<=info['viewport']+3,(path,name,info['width'],info['viewport'])
+                if path=='/dinheiro/':
+                  assert '15/11' in info['text'],'A data financeira atualizada não apareceu em Dinheiro'
+                  page.screenshot(path=f'qa-publicacao/dinheiro-{name}.png',full_page=False)
+                if path=='/achados/':
+                  assert '56,1%' in info['text'],'A manchete financeira não foi localizada em Achados'
+                output.append({'pagina':path,'dispositivo':name,'h1':info['h1'],'errosJs':len(errors),'largura':info['width']})
+                page.close()
+              ctx.close()
+            browser.close()
+          Path('qa-publicacao/resultados.json').write_text(json.dumps(output,ensure_ascii=False,indent=2))
+          print(json.dumps(output,ensure_ascii=False,indent=2))
+          PY
+      - name: Empacotar versao revisada sem publicar
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd dist/client
+          zip -qr ../../quem-sao-elas-financas-tse-15nov-hostgator.zip .
+          test -s ../../quem-sao-elas-financas-tse-15nov-hostgator.zip
+      - name: Guardar ZIP para revisao
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quem-sao-elas-hostgator-financas-15nov
+          path: quem-sao-elas-financas-tse-15nov-hostgator.zip
+          if-no-files-found: error
+          retention-days: 14
+      - name: Guardar capturas e checklist
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-financas-publicacao-15nov
+          path: qa-publicacao/
+          if-no-files-found: warn
+          retention-days: 14
