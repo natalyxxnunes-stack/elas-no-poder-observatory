@@ -105,6 +105,7 @@ jobs:
                   assert page.locator('section[aria-labelledby="dados-entradas"] a').count()==3,(name,'entradas de consulta')
                   assert page.locator('section[aria-labelledby="dados-por-tema"] > ol > li').count()==6,(name,'temas')
                   assert page.locator('section[aria-labelledby="dados-verificar"] a').count()==5,(name,'recursos de apoio')
+                  assert 'As candidatas por cor/raça, cargo e estado' in d['body'],(name,'descrições dos links visíveis')
                   for destino in ['/quem-sao-elas','/eleitas','/comparar','/downloads','/metodo']:
                     assert page.locator('a[href="'+destino+'"]').count()>=1,(name,'destino',destino)
                 if url=='/direitos/':
