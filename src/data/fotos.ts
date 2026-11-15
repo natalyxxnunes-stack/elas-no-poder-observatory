@@ -24,6 +24,17 @@ export type Foto = {
 };
 
 export const FOTOS: Record<string, Foto> = {
+  "plenario-camara-junho-2026": {
+    src: "/fotos/plenario-camara-junho-2026.jpg",
+    alt: "Vista ampla do plenário da Câmara dos Deputados durante sessão deliberativa, em 30 de junho de 2026.",
+    credito: "Thiago Cristino/Câmara dos Deputados",
+    acervo: "Agência Câmara de Notícias; sessão deliberativa de 30/06/2026",
+    licenca: "CC-BY",
+    licencaUrl: "https://www.camara.leg.br/internet/bancoimagem/default.asp?data=30%2F06%2F2026",
+    data: "30/06/2026",
+    proporcao: "3/2",
+    fornecidaPor: "acervo-verificado",
+  },
   "pagu": {
     src: "/fotos/pagu-patricia-galvao-anos-1920.jpg",
     alt: "Retrato histórico de Patrícia Galvão, Pagu, olhando para a esquerda, com cabelo escuro e casaco de pele.",
