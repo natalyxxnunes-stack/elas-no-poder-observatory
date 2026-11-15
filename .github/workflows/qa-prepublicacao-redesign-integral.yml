@@ -1,0 +1,130 @@
+name: QA e pacote — redesign integral + TSE 15nov
+on:
+  push:
+    branches: [prepublicacao-redesign-integral-15nov]
+permissions:
+  contents: read
+jobs:
+  revisar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Instalar dependencias
+        run: bun install --frozen-lockfile
+      - name: Verificar integridade financeira 15/11 e TypeScript
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/recontagem/validar_snapshot_financeiro.mjs
+          bunx tsc --noEmit
+      - name: Gerar pacote HostGator com fotografias e CSVs preservados
+        run: bun run build:hostgator
+      - name: Conferir arquivos de redesign e fundos
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p qa-redesign-integral
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, csv, decimal, json
+          dist=Path('dist/client')
+          files=[
+            'index.html','dinheiro/index.html','achados/index.html','dados/index.html',
+            'pioneiras/index.html','pioneiras/pagu/index.html','temas/index.html',
+            'colecoes/antigenero-no-poder/index.html','downloads/index.html',
+            'fotos/pagu-patricia-galvao-anos-1920.jpg','fotos/bertha-lutz-1927.jpg',
+            'fotos/plenario-igualdade-salarial-2023.jpg','fotos/plenario-camara-junho-2026.jpg',
+            'dados/fundo-eleitoral-deputado-por-partido.csv'
+          ]
+          missing=[f for f in files if not (dist/f).is_file()]
+          assert not missing, ('Arquivos esperados ausentes',missing)
+          money=(dist/'dinheiro/index.html').read_text('utf-8')
+          assert '15/11' in money, 'Corte TSE de 15/11 ausente da pagina Dinheiro'
+          home=(dist/'index.html').read_text('utf-8')
+          assert 'Seis temas, muitas entradas' in home,'Capa editorial v3 nao foi publicada no artefato'
+          csvbytes=(dist/'dados/fundo-eleitoral-deputado-por-partido.csv').read_bytes()
+          expect='ea33f944be2cf7a8f8bc2e7036489bfa6fd340c49b73bd04caf73da07033ac51'
+          assert hashlib.sha256(csvbytes).hexdigest()==expect,'CSV FEFC alterado pelo empacotamento'
+          for f in files:
+            if f.endswith('.jpg'):
+              data=(dist/f).read_bytes()
+              assert data[:2]==b'\xff\xd8' and data[-2:]==b'\xff\xd9',(f,'JPG invalido')
+          count=len(list(dist.rglob('index.html')))
+          output={'arquivos_obrigatorios':files,'paginas_html':count,'fefc_csv_sha256':expect,
+            'foto_pagu_bytes':(dist/'fotos/pagu-patricia-galvao-anos-1920.jpg').stat().st_size}
+          Path('qa-redesign-integral/inventario.json').write_text(json.dumps(output,ensure_ascii=False,indent=2))
+          print(json.dumps(output,ensure_ascii=False,indent=2))
+          PY
+      - name: Rodar navegador nas paginas em desktop e celular
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet --break-system-packages playwright
+          python3 -m http.server 4173 --directory dist/client >/tmp/http-qse.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          routes=['/','/dinheiro/','/achados/','/dados/','/colecoes/antigenero-no-poder/','/pioneiras/','/pioneiras/pagu/','/temas/','/downloads/']
+          out=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for typ,w,h in [('desktop',1366,900),('celular',390,844)]:
+              ctx=browser.new_context(viewport={'width':w,'height':h})
+              for url in routes:
+                pg=ctx.new_page()
+                errs=[]
+                pg.on('pageerror',lambda e,errs=errs:errs.append(str(e)[:240]))
+                resp=pg.goto('http://127.0.0.1:4173'+url,wait_until='domcontentloaded',timeout=30000)
+                pg.wait_for_timeout(300)
+                data=pg.evaluate('''() => ({
+                  h1:document.querySelector('h1')?.innerText?.trim(),
+                  overflow:document.documentElement.scrollWidth-innerWidth,
+                  text:document.body.innerText.slice(0,24000),
+                  images:[...document.querySelectorAll('img')].map(x=>({src:x.getAttribute('src'),loading:x.loading}))
+                })''')
+                assert resp is not None and resp.status==200,(typ,url,'HTTP',resp.status if resp else None)
+                assert not errs,(typ,url,'JS',errs)
+                assert data['overflow']<=3,(typ,url,'overflow',data['overflow'])
+                if url=='/':
+                  assert 'Seis temas, muitas entradas' in data['text']
+                if url=='/dinheiro/':
+                  assert '15/11' in data['text']
+                if url=='/pioneiras/pagu/':
+                  assert 'Pagu' in data['text'] or 'Patrícia' in data['text']
+                if url in ['/', '/dinheiro/', '/pioneiras/pagu/']:
+                  pg.screenshot(path=f'qa-redesign-integral/{typ}-{url.strip("/").replace("/","-") or "home"}.jpg',type='jpeg',quality=77)
+                out.append({'dispositivo':typ,'rota':url,'status':resp.status,'h1':data['h1'],'overflowHorizontal':data['overflow'],'errosJS':errs})
+                pg.close()
+              ctx.close()
+            browser.close()
+          Path('qa-redesign-integral/navegacao.json').write_text(json.dumps(out,ensure_ascii=False,indent=2))
+          print('OK: '+str(len(out))+' verificacoes de paginas, sem erros JS ou overflow global')
+          PY
+      - name: Empacotar a versao completa, sem publicar
+        run: |
+          cd dist/client
+          zip -qr ../../quem-sao-elas-redesign-integral-tse-15nov-hostgator.zip .
+      - name: Guardar o ZIP
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-redesign-integral-15nov-hostgator
+          path: quem-sao-elas-redesign-integral-tse-15nov-hostgator.zip
+          retention-days: 14
+          if-no-files-found: error
+      - name: Guardar relatorio e capturas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-redesign-integral-15nov-qa
+          path: qa-redesign-integral/
+          retention-days: 14
+          if-no-files-found: warn

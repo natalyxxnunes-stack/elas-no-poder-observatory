@@ -6,9 +6,23 @@
  * 27/10/2026), pelo partido do registro.
  * 27 cadeiras: mandatos de 2023 a 2031, pela lista de quem está em exercício
  * (API de Dados Abertos do Senado, /senador/lista/atual, consulta de
- * 28/10/2026), com o partido atual. Dois desses senadores foram eleitos
- * governadores em 2026 (Omar Aziz, AM, e Sergio Moro, PR); no lugar deles entra
- * o 1º suplente. A API não informa o partido do 1º suplente de Sergio Moro.
+ * 28/10/2026), com o partido atual. Três desses senadores foram eleitos
+ * governadores em 2026 (Omar Aziz, AM, Sergio Moro, PR, e Cleitinho, MG); no
+ * lugar deles entra o 1º suplente. A API não informa o partido do 1º suplente
+ * de Sergio Moro.
+ *
+ * Correção de 13/11/2026: a primeira versão manteve Cleitinho (Republicanos)
+ * na cadeira de MG, apesar de sua eleição para governador no 1º turno.
+ * O primeiro suplente, Alex Diniz (PL), soma uma cadeira ao PL.
+ *
+ * Complemento de 15/11/2026: Luis Felipe Cunha, primeiro suplente de Sergio
+ * Moro (PR), filiou-se ao PL em 08/10/2026. A Agência Senado confirmou o PL
+ * como seu partido em 25/10/2026 e projetou 29 cadeiras para a legenda em 2027.
+ * Fonte primária: https://www12.senado.leg.br/noticias/materias/2026/10/25/fim-da-eleicao-define-composicao-do-senado-em-2027-com-13-partidos
+ * O registro anterior deixava sem partido a cadeira do suplente, resultando
+ * em 28; agora são 19 eleitos em 2026 e 10 ocupantes dos mandatos até 2031.
+ * Os 29 refletem partidos esperados no exercício, não apenas partido de
+ * registro eleitoral em 2022.
  *
  * Previsão: a composição muda com trocas de partido, licenças e retorno de
  * titulares (Ana Paula Lobato e Jussara Lima exercem hoje o mandato como
@@ -26,6 +40,8 @@ export type CadeiraSenado = {
 
 export const SENADO_2027_META = {
   consultaSenado: "28/10/2026",
+  revisaoProjecao: "25/10/2026",
+  fonteProjecao: "https://www12.senado.leg.br/noticias/materias/2026/10/25/fim-da-eleicao-define-composicao-do-senado-em-2027-com-13-partidos",
   baseTse: "27/10/2026 19:30:36",
   hoje: { pl: 15, mulheres: 15 },
 } as const;
@@ -504,11 +520,11 @@ export const SENADO_2027: CadeiraSenado[] = [
   "raca": null
  },
  {
-  "nome": "Cleitinho",
-  "partido": "REPUBLICANOS",
+  "nome": "Alex Diniz",
+  "partido": "PL",
   "uf": "MG",
   "genero": "M",
-  "origem": "mandato até 2031",
+  "origem": "mandato até 2031 (1º suplente de Cleitinho, eleito governador de MG)",
   "raca": null
  },
  {
@@ -641,7 +657,7 @@ export const SENADO_2027: CadeiraSenado[] = [
  },
  {
   "nome": "Luis Felipe Cunha",
-  "partido": "sem partido informado",
+  "partido": "PL",
   "uf": "PR",
   "genero": "M",
   "origem": "mandato até 2031 (1º suplente de Sergio Moro, eleito governador do PR)",

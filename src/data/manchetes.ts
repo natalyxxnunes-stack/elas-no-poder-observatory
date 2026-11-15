@@ -149,7 +149,7 @@ export const M_PISO: Manchete = {
   texto: `No PL, candidaturas pardas eram ${formatPct(plPardas.cand)} das candidaturas a deputado e ficaram com ${formatPct(plPardas.fundo)} do fundo eleitoral; pretas, ${formatPct(plPretasF.cand)} e ${formatPct(plPretasF.fundo)}`,
   to: "/partidos",
   pagina: "Partido por partido",
-  fonte: `TSE, Prestação de Contas 2026, base de ${FEFC_META.baseGeneratedAt}. Só candidaturas a deputado; declarações disponíveis no corte de 15/11/2026, sujeitas a retificações e julgamento`,
+  fonte: `TSE, Prestação de Contas 2026, base de ${FEFC_META.baseGeneratedAt}. Só candidaturas a deputado; declarações disponíveis no corte, sujeitas a retificação e julgamento`,
   parcial: true,
 };
 
@@ -158,6 +158,14 @@ const vf = VOTOS_2026.federal;
 const candF = sum(vf.candidacies["FEMININO"]);
 const candAll = candF + sum(vf.candidacies["MASCULINO"]);
 const votF = sum(vf.votes["FEMININO"]);
+/** funil da Câmara em números (mesmas contas da manchete), para o objeto da capa */
+export const CAMARA_FUNIL = {
+  candidaturas: candAll > 0 ? (candF / candAll) * 100 : 0,
+  votos: vf.votesTotal > 0 ? (votF / vf.votesTotal) * 100 : 0,
+  cadeiras: R.byCargo.federal.seats > 0 ? (R.byCargo.federal.feminine / R.byCargo.federal.seats) * 100 : 0,
+  eleitas: R.byCargo.federal.feminine,
+  vagas: R.byCargo.federal.seats,
+};
 export const M_VOTOS: Manchete = {
   id: "votos",
   texto: `Na Câmara, mulheres foram ${pct(candF, candAll)} das candidaturas, ${pct(votF, vf.votesTotal)} dos votos e ${pct(R.byCargo.federal.feminine, R.byCargo.federal.seats)} das cadeiras`,
@@ -180,10 +188,10 @@ export const M_GOVERNOS: Manchete = {
 export const M_SENADO: Manchete = {
   id: "senado",
   texto:
-    "O PL deve começar 2027 com 27 das 81 cadeiras do Senado, um terço da Casa",
+    "O PL deve começar 2027 com 29 das 81 cadeiras do Senado, mais de um terço da Casa",
   to: "/quem-chega#senado",
   pagina: "Quem chega",
-  fonte: "TSE, Candidatos 2026; Senado Federal, Dados Abertos (28/10/2026)",
+  fonte: "TSE, Candidatos 2026; Senado Federal, Dados Abertos (28/10/2026); Agência Senado, projeção de 25/10/2026",
 };
 
 /* ---------- Como votaram ---------- */
@@ -309,12 +317,12 @@ M_IGUALDADE.ancora = {
 M_IGUALDADE.fonteCurta = "Câmara dos Deputados; TSE";
 
 M_SENADO.ancora = {
-  valor: "27 de 81",
+  valor: "29 de 81",
   rotulo: "cadeiras do Senado devem ser do PL em 2027",
-  tensao: "Hoje são 15. Um terço é o número de assinaturas para criar uma CPI ou propor emenda constitucional, se a bancada prevista se mantiver.",
-  visual: { tipo: "pontos", total: 81, cheios: 27, legendaCheios: "PL", legendaVazios: "outros partidos" },
+  tensao: "Hoje são 15. Um terço (27) é o número de assinaturas para criar uma CPI ou propor emenda constitucional: o PL passa dessa marca sozinho, se a bancada prevista se mantiver.",
+  visual: { tipo: "pontos", total: 81, cheios: 29, legendaCheios: "PL", legendaVazios: "outros partidos" },
 };
-M_SENADO.fonteCurta = "TSE; Senado Federal · 28/10/2026";
+M_SENADO.fonteCurta = "TSE; Agência Senado · projeção de 25/10/2026 · revisada em 15/11";
 
 M_PISO.ancora = {
   valor: formatPct(plPardas.fundo),

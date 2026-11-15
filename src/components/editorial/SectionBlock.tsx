@@ -55,6 +55,7 @@ export function SectionBlock({
   source,
   tone = "paper",
   collapsible,
+  semFio = false,
 }: {
   id?: string;
   kicker: string;
@@ -66,12 +67,14 @@ export function SectionBlock({
   tone?: Tone;
   /** material de consulta: o conteúdo fica recolhido atrás de um botão, com o título e o lead à vista */
   collapsible?: string;
+  /** título sem linha superior; padrão visual anterior preservado */
+  semFio?: boolean;
 }) {
   const colored = tone !== "paper";
 
   const body = (
     <>
-      <Secao nome={kicker} claro={tone === "plum" || tone === "ink"} />
+      <Secao nome={kicker} claro={tone === "plum" || tone === "ink"} semFio={semFio} />
       <h2
         className={`mt-3 font-display text-2xl leading-snug md:text-4xl ${TONE_TITLE[tone]} ${
           align === "wide" ? "max-w-4xl" : "max-w-2xl"
@@ -79,23 +82,29 @@ export function SectionBlock({
       >
         {question}
       </h2>
-      {lead && (
-        <div className={`mt-4 max-w-2xl leading-relaxed ${TONE_LEAD[tone]}`}>
-          {lead}
-        </div>
+      {lead && !(children && collapsible) && (
+        <div className={`mt-4 max-w-2xl leading-relaxed ${TONE_LEAD[tone]}`}>{lead}</div>
       )}
       {children && !collapsible && <div className="mt-8">{children}</div>}
       {children && collapsible && (
         <details className="group mt-6">
-          <summary className={`inline-flex min-h-11 cursor-pointer list-none items-center gap-2 border px-4 py-2 text-[13px] [&::-webkit-details-marker]:hidden ${tone === "plum" || tone === "ink" ? "border-cream/70 text-cream" : "border-plum text-plum"} font-semibold`}>
+          <summary
+            className={`inline-flex min-h-11 cursor-pointer list-none items-center gap-2 border px-4 py-2 text-[13px] [&::-webkit-details-marker]:hidden ${tone === "plum" || tone === "ink" ? "border-cream/70 text-cream" : "border-plum text-plum"} font-semibold`}
+          >
             <span className="group-open:hidden">{collapsible}</span>
             <span className="hidden group-open:inline">Recolher</span>
-            <span aria-hidden="true" className="transition-transform group-open:rotate-180">▾</span>
+            <span aria-hidden="true" className="transition-transform group-open:rotate-180">
+              ▾
+            </span>
           </summary>
+          {lead && (
+            <div className={`mt-6 max-w-2xl leading-relaxed ${TONE_LEAD[tone]}`}>{lead}</div>
+          )}
           <div className="mt-6">{children}</div>
+          {source && <p className={`mt-6 font-mono text-xs ${TONE_LEAD[tone]}`}>{source}</p>}
         </details>
       )}
-      {source && (
+      {source && !(children && collapsible) && (
         <p className={`mt-6 font-mono text-xs ${TONE_LEAD[tone]}`}>{source}</p>
       )}
     </>

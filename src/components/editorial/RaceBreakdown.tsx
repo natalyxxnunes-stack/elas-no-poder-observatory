@@ -1,3 +1,4 @@
+import { Abas } from "@/components/editorial/Abas";
 import { RACE_CATEGORY_RULE } from "@/data/architecture";
 import { Desdobra } from "@/components/editorial/Desdobra";
 import { GapNote } from "@/components/GapNote";
@@ -93,10 +94,15 @@ function Table({ snapshot, universe }: { snapshot: PublicSnapshot | null; univer
 export function RaceBreakdown({ snapshot }: { snapshot: PublicSnapshot | null }) {
   return (
     <div className="space-y-8">
-      <div className="grid gap-6 lg:grid-cols-2">
-        <Table snapshot={snapshot} universe="proporcional" />
-        <Table snapshot={snapshot} universe="majoritario" />
-      </div>
+      <Abas
+        abas={[
+          { rotulo: "Deputada", conteudo: <Table snapshot={snapshot} universe="proporcional" /> },
+          {
+            rotulo: "Governo, Senado e Presidência",
+            conteudo: <Table snapshot={snapshot} universe="majoritario" />,
+          },
+        ]}
+      />
       <Desdobra rotulo="Como calculamos e as categorias de cor/raça">
         <div className="space-y-6">
           <ContextBox variant="calculamos">

@@ -1,13 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import {
-  CapaChamadas,
-  CapaCitacao,
-  CapaExplore,
-  CapaManchete,
-  CapaNumeros,
-  CapaPioneiras,
-} from "@/components/home/CapaRevista";
+import { CapaEditorialV3 } from "@/components/home/CapaEditorialV3";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,16 +24,11 @@ export const Route = createFileRoute("/")({
   component: CapaPage,
 });
 
-/** Capa em formato de revista (direção B, aprovada em 02/11/2026). Ordem em src/data/capa.ts. */
+/** Capa editorial v3: teste isolado em branch, sem publicação automática. */
 function CapaPage() {
   return (
     <PageShell home>
-      <CapaManchete />
-      <CapaCitacao />
-      <CapaChamadas />
-      <CapaNumeros />
-      <CapaPioneiras />
-      <CapaExplore />
+      <CapaEditorialV3 />
     </PageShell>
   );
 }

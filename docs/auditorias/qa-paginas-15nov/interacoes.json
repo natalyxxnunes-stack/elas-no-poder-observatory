@@ -1,0 +1,145 @@
+{
+  "desktop_home_images": [
+    {
+      "src": "/fotos/plenario-igualdade-salarial-2023.jpg",
+      "loading": "eager",
+      "complete": true,
+      "width": 768
+    },
+    {
+      "src": "/fotos/bertha-lutz-1927.jpg",
+      "loading": "lazy",
+      "complete": true,
+      "width": 3801
+    },
+    {
+      "src": "/materiais/infografico-universos-quadrado.png",
+      "loading": "lazy",
+      "complete": true,
+      "width": 1080
+    },
+    {
+      "src": "/materiais/cartilha-cota-miniatura.png",
+      "loading": "lazy",
+      "complete": true,
+      "width": 637
+    },
+    {
+      "src": "/materiais/oficina-funil-miniatura.png",
+      "loading": "lazy",
+      "complete": true,
+      "width": 637
+    }
+  ],
+  "desktop_finance_interaction": {
+    "tableHeaders": [
+      "Partido",
+      "FEFC",
+      "Mulheres",
+      "Brancas e brancos",
+      "Pardas e pardos",
+      "Pretas e pretos",
+      "Candidaturas negras (pretas + pardas)",
+      "Indígenas",
+      "Amarelas e amarelos"
+    ],
+    "tableRows": 29,
+    "partyColumnPosition": "sticky",
+    "hasPCO": true,
+    "hasPRTB": true,
+    "hasCandidaturasNegras": true,
+    "tableScrollable": false,
+    "tableScrollWidth": 1166,
+    "tableVisibleWidth": 1166,
+    "navFloating": {
+      "rect": {
+        "x": 1192.984375,
+        "y": 832,
+        "width": 149.015625,
+        "height": 44
+      },
+      "visible": "1"
+    },
+    "h1": [
+      "Brancas: 46,8% das candidatas a deputada, 54,9% do fundo eleitoral que foi para mulheres"
+    ],
+    "tableHVisible": {
+      "x": 100,
+      "y": -0.0625,
+      "width": 1166,
+      "height": 2171.84375
+    }
+  },
+  "mobile_home_images": [
+    {
+      "src": "/fotos/plenario-igualdade-salarial-2023.jpg",
+      "loading": "eager",
+      "complete": true,
+      "width": 768
+    },
+    {
+      "src": "/fotos/bertha-lutz-1927.jpg",
+      "loading": "lazy",
+      "complete": true,
+      "width": 3801
+    },
+    {
+      "src": "/materiais/infografico-universos-quadrado.png",
+      "loading": "lazy",
+      "complete": true,
+      "width": 1080
+    },
+    {
+      "src": "/materiais/cartilha-cota-miniatura.png",
+      "loading": "lazy",
+      "complete": true,
+      "width": 637
+    },
+    {
+      "src": "/materiais/oficina-funil-miniatura.png",
+      "loading": "lazy",
+      "complete": true,
+      "width": 637
+    }
+  ],
+  "mobile_finance_interaction": {
+    "tableHeaders": [
+      "Partido",
+      "FEFC",
+      "Mulheres",
+      "Brancas e brancos",
+      "Pardas e pardos",
+      "Pretas e pretos",
+      "Candidaturas negras (pretas + pardas)",
+      "Indígenas",
+      "Amarelas e amarelos"
+    ],
+    "tableRows": 29,
+    "partyColumnPosition": "sticky",
+    "hasPCO": true,
+    "hasPRTB": true,
+    "hasCandidaturasNegras": true,
+    "tableScrollable": true,
+    "tableScrollWidth": 1024,
+    "tableVisibleWidth": 308,
+    "navFloating": {
+      "rect": {
+        "x": 316.15625,
+        "y": 784,
+        "width": 57.84375,
+        "height": 44
+      },
+      "visible": "1"
+    },
+    "h1": [
+      "Brancas: 46,8% das candidatas a deputada, 54,9% do fundo eleitoral que foi para mulheres"
+    ],
+    "tableHVisible": {
+      "x": 41,
+      "y": 0.15625,
+      "width": 1024,
+      "height": 2301.84375
+    },
+    "tableScrollLeft": 358
+  }
+}

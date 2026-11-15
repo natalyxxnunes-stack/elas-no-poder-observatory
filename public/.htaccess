@@ -18,6 +18,12 @@ Redirect 301 /condicoes /quem-controla
   RewriteCond %{HTTP:X-Forwarded-Proto} !https
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+  # Temas migrados no redesign de 15/11: redirecionar rotas antigas,
+  # inclusive quando pastas de builds anteriores ainda existirem na HostGator.
+  RewriteRule ^temas/cor-e-raca/?$ /temas/presenca/ [R=301,L]
+  RewriteRule ^temas/direitos/?$ /direitos/ [R=301,L]
+  RewriteRule ^temas/democracia/?$ /temas/agenda/ [R=301,L]
+
   # 1) Rota pré-renderizada: /metodo → /metodo/index.html
   RewriteCond %{REQUEST_FILENAME}/index.html -f
   RewriteRule ^(.+?)/?$ /$1/index.html [L]

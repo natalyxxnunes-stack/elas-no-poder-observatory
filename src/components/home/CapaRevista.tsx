@@ -1,7 +1,12 @@
-import type { ReactNode } from "react";
 import { Secao } from "@/components/editorial/Secao";
 import { Link } from "@tanstack/react-router";
 import { FotoDocumental } from "@/components/editorial/FotoDocumental";
+import { Faixa } from "@/components/editorial/Faixa";
+import { ObjetoFigura, OBJETOS } from "@/components/editorial/ObjetoTema";
+import { Recorte } from "@/components/editorial/Recorte";
+import { PROXIMAS, REPORTAGENS } from "@/data/reportagens";
+import { ANTIGENERO_DEPUTADAS } from "@/data/colecoes";
+import { TEMAS } from "@/data/temas";
 import { ACHADOS } from "@/data/achados";
 import { CAPA_MANCHETE } from "@/data/capa";
 import { FALAS } from "@/data/falas";
@@ -10,50 +15,142 @@ import { M_BRANCAS, M_CADEIRAS, M_PL_PRETAS } from "@/data/manchetes";
 import { ANCORAS_PIONEIRAS, PERFIS_PIONEIRAS } from "@/data/perfis-pioneiras";
 
 /**
- * Capa da página inicial, direção B (02/11/2026): fundos claros alternados
- * (papel e creme) com blocos de roxo para a citação e para explorar os dados.
- * Laranja só marca o dado de 2026. Pastel fica em detalhes.
+ * Capa da página inicial (12/11/2026): manchete com número-objeto em roxo-tinta,
+ * os seis temas como seis perguntas, reportagens, Pioneiras e o caminho para
+ * os dados. Fundos alternam branco-papel e cinza-lilás frio; laranja só marca
+ * o dado de agora.
  */
-
-function Faixa({
-  fundo,
-  children,
-  className = "",
-}: {
-  fundo: string;
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <section className={`relative left-1/2 -ml-[50vw] w-screen ${fundo} ${className}`}>
-      <div className="mx-auto max-w-7xl px-5 md:px-8">{children}</div>
-    </section>
-  );
-}
 
 const achado = (id: string) => ACHADOS.find((a) => a.id === id);
 
-export function CapaManchete() {
+const dataBRc = (iso: string) => iso.split("-").reverse().join("/");
+
+/** a reportagem marcada como manchete, se houver (a mais recente vence) */
+const REPORTAGEM_MANCHETE = [...REPORTAGENS]
+  .filter((r) => r.manchete)
+  .sort((a, b) => b.data.localeCompare(a.data))[0];
+
+function MancheteDados({ comoManchete }: { comoManchete: boolean }) {
   const m = CAPA_MANCHETE;
   const temFoto = Boolean(FOTOS[m.fotoId]);
+  const Titulo = comoManchete ? "h1" : "h2";
   return (
-    <Faixa fundo="bg-cream">
-      <div
-        className={`grid gap-8 py-10 md:items-end md:gap-12 md:py-16 ${temFoto ? "md:grid-cols-[1.15fr_1fr]" : ""}`}
-      >
-        <div className={temFoto ? "" : "max-w-5xl"}>
-          <Secao nome={m.secao} tipo={m.tipo} />
-          <h1 className="mt-4 font-display text-[2.4rem] font-semibold leading-[1.05] tracking-[-0.01em] text-plum md:text-6xl">
-            <Link to={m.to} className="hover:underline hover:underline-offset-4">
+    <Faixa fundo={comoManchete ? "bg-plum-deep text-paper" : "bg-ink text-paper"}>
+      <div className="grid gap-10 py-12 md:grid-cols-[1fr_1.1fr] md:items-center md:gap-16 md:py-20">
+        <div>
+          <Secao nome={m.secao} tipo={m.tipo} claro />
+          <Titulo className="mt-5 font-display text-[2.3rem] font-semibold leading-[1.05] tracking-[-0.01em] md:text-[3.4rem]">
+            <Link
+              to={m.to}
+              className="hover:underline hover:decoration-coral hover:underline-offset-4"
+            >
               {m.titulo}
             </Link>
-          </h1>
-          <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink/80 md:text-lg">
+          </Titulo>
+          <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-paper/85 md:text-lg">
             {m.linhaFina}
           </p>
+          <Link
+            to={m.to}
+            className="mt-6 inline-flex min-h-11 items-center text-[15px] font-semibold text-paper underline decoration-coral decoration-2 underline-offset-4"
+          >
+            Candidatura, voto e cadeira →
+          </Link>
         </div>
-        <FotoDocumental id={m.fotoId} />
+        <div>{temFoto ? <FotoDocumental id={m.fotoId} /> : <ObjetoFigura slug="presenca" />}</div>
       </div>
+    </Faixa>
+  );
+}
+
+/**
+ * Manchete da capa (12/11/2026): quando há reportagem marcada como manchete em
+ * reportagens.ts, ela abre a capa; a manchete de dados desce logo abaixo.
+ * Sem reportagem marcada, abre a manchete de dados.
+ */
+export function CapaManchete() {
+  const r = REPORTAGEM_MANCHETE;
+  if (!r) return <MancheteDados comoManchete />;
+  return (
+    <>
+      <Faixa fundo="bg-plum-deep text-paper">
+        <div className="max-w-5xl py-14 md:py-24">
+          <Secao nome="Reportagem" tipo={r.tema} claro />
+          <h1 className="mt-5 font-display text-[2.4rem] font-semibold leading-[1.03] tracking-[-0.01em] md:text-[4.2rem]">
+            <Link
+              to={r.to}
+              className="hover:underline hover:decoration-coral hover:underline-offset-4"
+            >
+              {r.titulo}
+            </Link>
+          </h1>
+          <p className="mt-6 max-w-2xl text-[18px] leading-relaxed text-paper/85 md:text-xl">
+            {r.linhaFina}
+          </p>
+          <p className="mt-6 font-mono text-[14px] text-lilac">
+            {r.autora} · {dataBRc(r.data)}
+          </p>
+        </div>
+      </Faixa>
+      <MancheteDados comoManchete={false} />
+    </>
+  );
+}
+
+/** Na próxima edição: reportagens com data marcada, sem adiantar conteúdo. */
+export function CapaProxima() {
+  if (!PROXIMAS.length) return null;
+  return (
+    <Faixa fundo="bg-cream">
+      <ul className="divide-y divide-rule py-2">
+        {PROXIMAS.map((p) => (
+          <li key={p.data} className="flex flex-wrap items-baseline gap-x-5 gap-y-1 py-4">
+            <span className="font-display text-lg italic text-plum">Na próxima edição</span>
+            <span className="font-mono text-[14px] text-ink/75">
+              {dataBRc(p.data)} · {p.nota}
+            </span>
+            <span className="font-display text-xl text-ink">{p.titulo}</span>
+          </li>
+        ))}
+      </ul>
+    </Faixa>
+  );
+}
+
+/** Coleção Antigênero no poder: número agregado na capa, sem nomes. */
+export function CapaColecao() {
+  const total = ANTIGENERO_DEPUTADAS.length;
+  const voltaram = ANTIGENERO_DEPUTADAS.filter(
+    (d) => d.desfecho === "reeleita" || d.desfecho === "eleita para outro cargo",
+  ).length;
+  return (
+    <Faixa fundo="bg-ink text-paper">
+      <Link
+        to="/colecoes/antigenero-no-poder"
+        className="group grid gap-8 py-12 md:grid-cols-[1.3fr_1fr] md:items-end md:gap-14 md:py-16"
+      >
+        <span>
+          <Secao nome="Coleção" tipo="votos, mandatos e falas" claro />
+          <span className="mt-4 block font-display text-4xl font-semibold leading-none md:text-6xl">
+            A agenda antigênero no poder
+          </span>
+          <span className="mt-5 block max-w-xl text-[17px] leading-relaxed text-paper/85">
+            {total} deputadas votaram contra a lei de igualdade salarial ou a favor de sustar a
+            norma do Conanda. {voltaram} terão mandato em 2027.
+          </span>
+          <span className="mt-5 inline-flex min-h-11 items-center text-[15px] font-semibold underline decoration-coral decoration-2 underline-offset-4">
+            Abrir a coleção →
+          </span>
+        </span>
+        <span aria-hidden="true" className="grid max-w-md grid-cols-7 gap-1.5 sm:grid-cols-14">
+          {Array.from({ length: total }, (_, i) => (
+            <span
+              key={i}
+              className={`aspect-square ${i < voltaram ? "bg-coral" : "border border-cream/50"}`}
+            />
+          ))}
+        </span>
+      </Link>
     </Faixa>
   );
 }
@@ -122,58 +219,103 @@ export function CapaCitacao() {
   );
 }
 
-export function CapaChamadas() {
-  const reeleicao = achado("dinheiro-reeleicao");
+export function CapaTemas() {
   return (
     <Faixa fundo="bg-paper">
-      <div className="grid gap-8 py-10 md:grid-cols-[1.4fr_1fr] md:gap-12 md:py-14">
-        <article className="border-b border-rule pb-8 md:border-b-0 md:border-r md:pb-0 md:pr-12">
-          <Secao nome="No plenário" tipo="reportagem" />
-          <h2 className="mt-3 font-display text-[1.7rem] font-semibold leading-tight text-ink md:text-4xl">
-            <Link to="/como-votaram" className="hover:underline hover:underline-offset-4">
-              Entre as deputadas que tentaram voltar, as de maior receita voltaram mais
+      <div className="py-12 md:py-16">
+        <Secao nome="Seis perguntas" tipo="os temas do observatório" />
+        <ol className="mt-8 grid gap-px bg-rule md:grid-cols-2 xl:grid-cols-3">
+          {TEMAS.map((t) => (
+            <li key={t.slug} className="bg-paper">
+              <Link
+                to="/temas/$slug"
+                params={{ slug: t.slug }}
+                className="group flex h-full flex-col hover:bg-cream"
+              >
+                <Recorte slug={t.slug} className="aspect-[2/1] group-hover:opacity-90" />
+                <span className="flex flex-1 flex-col p-6 md:p-8">
+                  <span className="font-mono text-[14px] text-ink/60">{t.ordem}</span>
+                  <span className="mt-2 font-display text-3xl font-semibold leading-tight text-ink group-hover:text-plum">
+                    {t.nome}
+                  </span>
+                  <span className="font-display text-xl italic text-plum">{t.pergunta}</span>
+                  <span className="mt-5 border-t-[3px] border-coral pt-3 text-[16px] leading-relaxed text-ink/85">
+                    {OBJETOS[t.slug]().frase}
+                  </span>
+                  <span className="mt-auto pt-5 text-[14px] font-semibold text-plum">
+                    Abrir o tema →
+                  </span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </Faixa>
+  );
+}
+
+/**
+ * Reportagens na capa. "Na voz delas" saiu da capa em 09/11/2026 à espera dos
+ * pedidos de posicionamento e voltou em 13/11/2026: pela regra reescrita no
+ * Método, fala literal com data e link é registro público e sai sem pedido
+ * prévio. Fica aqui o mecanismo para tirar uma reportagem da capa.
+ */
+const FORA_DA_CAPA = new Set<string>([]);
+
+export function CapaReportagens() {
+  const [principal, ...outras] = REPORTAGENS.filter((r) => !FORA_DA_CAPA.has(r.to));
+  if (!principal) return null;
+  const dataBR = (iso: string) => iso.split("-").reverse().join("/");
+  return (
+    <Faixa fundo="bg-cream">
+      <div className="grid gap-10 py-12 md:grid-cols-[1.4fr_1fr] md:gap-14 md:py-16">
+        <article>
+          <Secao nome="Reportagem" tipo={principal.tema} />
+          <h2 className="mt-4 font-display text-[2rem] font-semibold leading-tight text-ink md:text-5xl">
+            <Link to={principal.to} className="hover:underline hover:underline-offset-4">
+              {principal.titulo}
             </Link>
           </h2>
-          {reeleicao?.ancora ? (
-            <div className="mt-5 flex flex-wrap items-end gap-x-6 gap-y-2">
-              <span className="font-display text-5xl font-semibold leading-none text-plum">
-                {reeleicao.ancora.valor}
-              </span>
-              <span className="max-w-xs text-[15px] leading-snug text-ink/70">
-                {reeleicao.ancora.rotulo}
-              </span>
-            </div>
-          ) : null}
-          <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-ink/80">
-            Seis votações na Câmara, deputada por deputada, cruzadas com o resultado de 2026 e o
-            dinheiro de campanha.
+          <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-ink/80">
+            {principal.linhaFina}
+          </p>
+          <p className="mt-4 font-mono text-[13px] text-ink/70">
+            {principal.autora} · {dataBR(principal.data)}
           </p>
         </article>
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-1">
-          <article className="bg-ink p-5 text-cream">
-            <Secao nome="Dinheiro" pequeno claro />
-            <h3 className="mt-2 font-display text-xl font-semibold leading-snug text-cream">
-              <Link to="/dinheiro" className="hover:underline hover:underline-offset-4">
-                Mediana da candidata a deputada: branca, R$ 151 mil; parda, R$ 100 mil; preta, R$ 81
-                mil
+        <div>
+          {outras.map((r) => (
+            <article key={r.to} className="border-t-[3px] border-plum pt-4">
+              <p className="text-[13px] font-semibold text-coral-ink">{r.tema}</p>
+              <h3 className="mt-1 font-display text-2xl font-semibold leading-snug text-ink">
+                <Link to={r.to} className="hover:underline hover:underline-offset-4">
+                  {r.titulo}
+                </Link>
+              </h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-ink/75">{r.linhaFina}</p>
+            </article>
+          ))}
+          {outras.length === 0 ? (
+            <div className="border-t-[3px] border-plum pt-4">
+              <p className="text-[13px] font-semibold text-coral-ink">Em apuração</p>
+              <p className="mt-1 font-display text-2xl leading-snug text-ink">
+                As investigações abertas, com o que já se sabe e o que falta confirmar.
+              </p>
+              <Link
+                to="/investigacoes"
+                className="mt-2 inline-flex min-h-11 items-center text-[15px] font-semibold text-plum"
+              >
+                Ver as investigações →
               </Link>
-            </h3>
-            <p className="mt-2 text-[14px] leading-relaxed text-cream/80">
-              Nos 12 partidos com mais receita. Prestação final do 1º turno, base de 04/11.
-            </p>
-          </article>
-          <article className="bg-cream p-5">
-            <Secao nome="Direitos" pequeno />
-            <h3 className="mt-2 font-display text-xl font-semibold leading-snug text-ink">
-              <Link to="/direitos" className="hover:underline hover:underline-offset-4">
-                Treze marcos, de 1932 a 2026
-              </Link>
-            </h3>
-            <p className="mt-2 text-[14px] leading-relaxed text-ink/75">
-              Cada lei, decisão e emenda que mudou o acesso das mulheres às urnas e ao dinheiro de
-              campanha.
-            </p>
-          </article>
+            </div>
+          ) : null}
+          <Link
+            to="/reportagens"
+            className="mt-5 inline-flex min-h-11 items-center text-[15px] font-semibold text-plum"
+          >
+            Todas as reportagens →
+          </Link>
         </div>
       </div>
     </Faixa>
@@ -241,7 +383,7 @@ export function CapaPioneiras() {
   const ancora = ANCORAS_PIONEIRAS[destaque.id];
 
   return (
-    <Faixa fundo="bg-cream">
+    <Faixa fundo="bg-paper">
       <div className="py-10 md:py-14">
         <Secao nome="Pioneiras" tipo="perfis" />
         <h2 className="mt-3 font-display text-3xl font-semibold leading-tight text-ink md:text-4xl">
@@ -284,7 +426,7 @@ export function CapaPioneiras() {
                 p.to ? (
                   <div
                     key={p.id}
-                    className={`border-t border-[#DCD3C3] pt-5 ${FOTOS[destaque.id] ? "mt-6" : "md:border-t-0 md:pt-0"}`}
+                    className={`border-t border-rule pt-5 ${FOTOS[destaque.id] ? "mt-6" : "md:border-t-0 md:pt-0"}`}
                   >
                     <p className="font-mono text-[13px] text-ink/70">{p.years}</p>
                     <h3 className="mt-1 font-display text-2xl font-semibold text-ink">
@@ -312,10 +454,10 @@ export function CapaPioneiras() {
 
 const EXPLORE = [
   { to: "/eleitas" as const, label: "Quem entrou: as eleitas, uma a uma" },
-  { to: "/funil" as const, label: "O funil, da candidatura ao poder" },
-  { to: "/quem-sao-elas" as const, hash: "estados", label: "E no seu estado?" },
-  { to: "/partidos" as const, label: "Partido por partido" },
-  { to: "/historico" as const, label: "A série desde 2014" },
+  { to: "/achados" as const, label: "Achados: um dado por vez" },
+  { to: "/quem-sao-elas" as const, label: "Explorar candidatas por cor/raça e cargo" },
+  { to: "/comparar" as const, label: "Comparar partidos ou estados" },
+  { to: "/downloads" as const, label: "Baixar os dados" },
   { to: "/metodo" as const, label: "Como sabemos: o método" },
 ];
 
@@ -329,7 +471,6 @@ export function CapaExplore() {
             <li key={e.label} className="border-b border-plum-soft">
               <Link
                 to={e.to}
-                {...(e.hash ? { hash: e.hash } : {})}
                 className="flex min-h-14 items-center justify-between gap-4 font-display text-[1.3rem] text-paper hover:underline hover:underline-offset-4"
               >
                 {e.label} <span aria-hidden="true">→</span>

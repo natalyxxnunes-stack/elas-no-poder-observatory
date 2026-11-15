@@ -1,0 +1,822 @@
+[
+  {
+    "title": "Quem são elas? · Mulheres, eleições e poder | Dados 2026",
+    "h1": [
+      "Como votaram as deputadas, e quem voltou"
+    ],
+    "main": 1,
+    "width": 1366,
+    "viewport": 1366,
+    "bodyHeight": 3690,
+    "pictures": [
+      {
+        "src": "/materiais/infografico-universos-quadrado.png",
+        "alt": "Miniatura do infográfico real do QSE sobre universos proporcionais e majoritários",
+        "loaded": false
+      },
+      {
+        "src": "/materiais/cartilha-cota-miniatura.png",
+        "alt": "Prévia fiel da primeira página do PDF original",
+        "loaded": false
+      },
+      {
+        "src": "/materiais/oficina-funil-miniatura.png",
+        "alt": "Prévia fiel da primeira página do PDF original",
+        "loaded": false
+      }
+    ],
+    "linksEmpty": [],
+    "headings": [
+      "Histórias, decisões e arquivos",
+      "Quem abriu o caminho",
+      "Na voz delas",
+      "Quem chega às cadeiras",
+      "Seis temas, muitas entradas",
+      "A presença nas listas não se repete nas cadeiras.",
+      "Materiais para consultar e compartilhar",
+      "Dois universos eleitorais",
+      "O que a cota de gênero faz e o que ela não faz",
+      "O funil: candidatura, competição e poder",
+      "A pesquisa continua nos dados",
+      "Temas",
+      "Reportagens",
+      "Dados"
+    ],
+    "tables": [],
+    "path": "/",
+    "device": "desktop",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 0,
+    "count_15/11/2026": 0,
+    "count_04/11/2026": 0,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 0
+  },
+  {
+    "title": "Entre as candidatas a deputada, as brancas concentram uma fatia maior da receita declarada | Quem são elas?",
+    "h1": [
+      "Brancas: 46,8% das candidatas a deputada, 54,9% do fundo eleitoral que foi para mulheres"
+    ],
+    "main": 1,
+    "width": 1366,
+    "viewport": 1366,
+    "bodyHeight": 6242,
+    "pictures": [],
+    "linksEmpty": [],
+    "headings": [
+      "Quanto foi declarado como receita, e por quantas candidaturas",
+      "Presença e receita, cargo a cargo",
+      "",
+      "Entre as mulheres, para quais categorias declaradas o dinheiro chegou?",
+      "Candidatas a deputada",
+      "Presidência, governos e Senado",
+      "O fundo público acompanhou a presença de mulheres e de pessoas negras ",
+      "",
+      "De onde saiu o dinheiro que as campanhas gastaram, e em quê",
+      "",
+      "",
+      "",
+      "Cota de candidaturas e cota de dinheiro são regras diferentes",
+      "O que significa?",
+      "",
+      "",
+      "",
+      "",
+      "Fonte, conta e limites desta página",
+      "Temas"
+    ],
+    "tables": [
+      {
+        "width": 1166,
+        "parentWidth": 1166,
+        "containerScroll": 1166
+      }
+    ],
+    "path": "/dinheiro/",
+    "device": "desktop",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 0,
+    "count_15/11/2026": 2,
+    "count_04/11/2026": 0,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 3
+  },
+  {
+    "title": "O que encontramos | Quem são elas?",
+    "h1": [
+      "O que encontramos"
+    ],
+    "main": 1,
+    "width": 1366,
+    "viewport": 1366,
+    "bodyHeight": 11226,
+    "pictures": [],
+    "linksEmpty": [],
+    "headings": [
+      "Mais recentes",
+      "O Distrito Federal terá só senadoras",
+      "Entre o voto obrigatório e a primeira cota, 49 anos",
+      "De uma eleição geral para a outra, os processos de violência política ",
+      "Quem manda a partir de 2027",
+      "O PL terá mais de um terço do Senado a partir de 2027",
+      "Três governadoras em 27 estados, as três brancas",
+      "O dinheiro da campanha",
+      "Entre as deputadas que tentaram voltar, as de maior receita voltaram m",
+      "O fundo eleitoral foi mais para candidaturas brancas",
+      "No dinheiro, as candidatas brancas ficam com mais do que o seu peso",
+      "Cor e raça",
+      "As deputadas pretas eleitas vêm de três partidos",
+      "Candidatas pretas ao comando: um recorte que pede contexto",
+      "A cor das candidatas muda com o cargo em disputa",
+      "Vice e suplência",
+      "Vice e suplência concentram mais mulheres do que as chapas titulares",
+      "Vice, não titular",
+      "Desde 2014, mulheres aparecem mais entre as vices do que entre as titu",
+      "A série desde 2014"
+    ],
+    "tables": [],
+    "path": "/achados/",
+    "device": "desktop",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 8,
+    "count_15/11/2026": 4,
+    "count_04/11/2026": 2,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 3
+  },
+  {
+    "title": "Dinheiro: Com que dinheiro? | Quem são elas?",
+    "h1": [
+      "Dinheiro"
+    ],
+    "main": 1,
+    "width": 1366,
+    "viewport": 1366,
+    "bodyHeight": 4347,
+    "pictures": [],
+    "linksEmpty": [],
+    "headings": [
+      "Entre as deputadas que tentaram voltar, as de maior receita voltaram m",
+      "O fundo eleitoral foi mais para candidaturas brancas",
+      "No dinheiro, as candidatas brancas ficam com mais do que o seu peso",
+      "Temas",
+      "Reportagens",
+      "Dados"
+    ],
+    "tables": [],
+    "path": "/temas/dinheiro/",
+    "device": "desktop",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 0,
+    "count_15/11/2026": 3,
+    "count_04/11/2026": 3,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 4
+  },
+  {
+    "title": "Dados para consultar | Quem são elas?",
+    "h1": [
+      "Dados para consultar"
+    ],
+    "main": 1,
+    "width": 1366,
+    "viewport": 1366,
+    "bodyHeight": 2637,
+    "pictures": [],
+    "linksEmpty": [],
+    "headings": [
+      "Presença",
+      "Dinheiro",
+      "Agenda",
+      "Poder",
+      "Violência política",
+      "Memória",
+      "Temas",
+      "Reportagens",
+      "Dados"
+    ],
+    "tables": [],
+    "path": "/dados/",
+    "device": "desktop",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 0,
+    "count_15/11/2026": 0,
+    "count_04/11/2026": 0,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 0
+  },
+  {
+    "title": "Como votaram · Quem são elas? | Deputadas em seis votações da Câmara",
+    "h1": [
+      "Como votaram as deputadas, e quem voltou?"
+    ],
+    "main": 1,
+    "width": 1366,
+    "viewport": 1366,
+    "bodyHeight": 5645,
+    "pictures": [],
+    "linksEmpty": [],
+    "headings": [
+      "O placar das seis votações",
+      "Em poucas linhas",
+      "10 deputadas votaram contra a lei que obriga empresas a pagar o mesmo ",
+      "55 deputadas votaram para livrar de punição os partidos que não destin",
+      "Quais votações entram, e por quê",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Deputadas e deputados, votação por votação",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Quais deputadas votaram como",
+      ""
+    ],
+    "tables": [
+      {
+        "width": 1166,
+        "parentWidth": 1166,
+        "containerScroll": 1166
+      },
+      {
+        "width": 1214,
+        "parentWidth": 1216,
+        "containerScroll": 1214
+      }
+    ],
+    "path": "/como-votaram/",
+    "device": "desktop",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 0,
+    "count_15/11/2026": 0,
+    "count_04/11/2026": 1,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 0
+  },
+  {
+    "title": "A agenda antigênero no poder | Coleção | Quem são elas?",
+    "h1": [
+      "A agenda antigênero no poder"
+    ],
+    "main": 1,
+    "width": 1366,
+    "viewport": 1366,
+    "bodyHeight": 2272,
+    "pictures": [],
+    "linksEmpty": [],
+    "headings": [
+      "Temas",
+      "Reportagens",
+      "Dados"
+    ],
+    "tables": [],
+    "path": "/colecoes/antigenero-no-poder/",
+    "device": "desktop",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 0,
+    "count_15/11/2026": 0,
+    "count_04/11/2026": 0,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 0
+  },
+  {
+    "title": "Método · Quem são elas? | Como sabemos",
+    "h1": [
+      "Todo número precisa mostrar de onde veio."
+    ],
+    "main": 1,
+    "width": 1366,
+    "viewport": 1366,
+    "bodyHeight": 14319,
+    "pictures": [],
+    "linksEmpty": [
+      "https://dadosabertos.tse.jus.br/dataset/candidatos-2026",
+      "https://dadosabertos.tse.jus.br/dataset/candidatos-2026",
+      "https://dadosabertos.tse.jus.br/dataset/candidatos-2026",
+      "https://dadosabertos.tse.jus.br/dataset/candidatos-2026",
+      "/funil",
+      "https://dadosabertos.tse.jus.br/dataset/candidatos-2026",
+      "/dinheiro"
+    ],
+    "headings": [
+      "Em três pontos",
+      "Como calculamos?",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Presença e poder de decidir são medidas diferentes",
+      "Representação descritiva",
+      "Representação substantiva",
+      "Fonte e processamento",
+      "",
+      "A base de candidaturas mudou depois do prazo de registro",
+      "Deputadas e deputados (proporcional)",
+      "Presidência, governos e Senado (majoritário)"
+    ],
+    "tables": [
+      {
+        "width": 556,
+        "parentWidth": 598,
+        "containerScroll": 0
+      },
+      {
+        "width": 556,
+        "parentWidth": 598,
+        "containerScroll": 0
+      },
+      {
+        "width": 1216,
+        "parentWidth": 1216,
+        "containerScroll": 1216
+      },
+      {
+        "width": 1216,
+        "parentWidth": 1216,
+        "containerScroll": 1216
+      }
+    ],
+    "path": "/metodo/",
+    "device": "desktop",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 3,
+    "count_15/11/2026": 0,
+    "count_04/11/2026": 14,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 1
+  },
+  {
+    "title": "Downloads · Quem são elas? | Cartilhas e materiais",
+    "h1": [
+      "Materiais para consultar e compartilhar"
+    ],
+    "main": 1,
+    "width": 1366,
+    "viewport": 1366,
+    "bodyHeight": 5831,
+    "pictures": [],
+    "linksEmpty": [],
+    "headings": [
+      "Materiais para baixar e circular",
+      "O que a cota de gênero faz e o que ela não faz",
+      "Dois universos: proporcional e majoritária",
+      "O funil: candidatura, competição e poder",
+      "Fotografia das candidaturas de 2026 (CSV)",
+      "Os dados do observatório, em planilha",
+      "As eleitas de 2026",
+      "Deputado 2026, por partido, gênero e cor/raça",
+      "Deputado 2026, por estado, gênero e cor/raça",
+      "Série histórica 2014 a 2026, por cargo",
+      "Série histórica de deputado federal, por estado",
+      "Como votaram as deputadas: seis votações",
+      "Monitor de mandato, Câmara, 2026",
+      "Quem assina junto: coautoria entre deputadas, 2026",
+      "Fundo eleitoral a deputado, por partido",
+      "Como usar e como creditar",
+      "Por que isso importa?",
+      "O que significa?",
+      "Temas",
+      "Reportagens"
+    ],
+    "tables": [],
+    "path": "/downloads/",
+    "device": "desktop",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 0,
+    "count_15/11/2026": 0,
+    "count_04/11/2026": 6,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 0
+  },
+  {
+    "title": "Quem são elas? · Mulheres, eleições e poder | Dados 2026",
+    "h1": [
+      "Como votaram as deputadas, e quem voltou"
+    ],
+    "main": 1,
+    "width": 390,
+    "viewport": 390,
+    "bodyHeight": 7022,
+    "pictures": [
+      {
+        "src": "/materiais/infografico-universos-quadrado.png",
+        "alt": "Miniatura do infográfico real do QSE sobre universos proporcionais e majoritários",
+        "loaded": false
+      },
+      {
+        "src": "/materiais/cartilha-cota-miniatura.png",
+        "alt": "Prévia fiel da primeira página do PDF original",
+        "loaded": false
+      },
+      {
+        "src": "/materiais/oficina-funil-miniatura.png",
+        "alt": "Prévia fiel da primeira página do PDF original",
+        "loaded": false
+      }
+    ],
+    "linksEmpty": [],
+    "headings": [
+      "Histórias, decisões e arquivos",
+      "Quem abriu o caminho",
+      "Na voz delas",
+      "Quem chega às cadeiras",
+      "Seis temas, muitas entradas",
+      "A presença nas listas não se repete nas cadeiras.",
+      "Materiais para consultar e compartilhar",
+      "Dois universos eleitorais",
+      "O que a cota de gênero faz e o que ela não faz",
+      "O funil: candidatura, competição e poder",
+      "A pesquisa continua nos dados",
+      "Temas",
+      "Reportagens",
+      "Dados"
+    ],
+    "tables": [],
+    "path": "/",
+    "device": "mobile",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 0,
+    "count_15/11/2026": 0,
+    "count_04/11/2026": 0,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 0
+  },
+  {
+    "title": "Entre as candidatas a deputada, as brancas concentram uma fatia maior da receita declarada | Quem são elas?",
+    "h1": [
+      "Brancas: 46,8% das candidatas a deputada, 54,9% do fundo eleitoral que foi para mulheres"
+    ],
+    "main": 1,
+    "width": 390,
+    "viewport": 390,
+    "bodyHeight": 7566,
+    "pictures": [],
+    "linksEmpty": [],
+    "headings": [
+      "Quanto foi declarado como receita, e por quantas candidaturas",
+      "Presença e receita, cargo a cargo",
+      "",
+      "Entre as mulheres, para quais categorias declaradas o dinheiro chegou?",
+      "Candidatas a deputada",
+      "Presidência, governos e Senado",
+      "O fundo público acompanhou a presença de mulheres e de pessoas negras ",
+      "",
+      "De onde saiu o dinheiro que as campanhas gastaram, e em quê",
+      "",
+      "",
+      "",
+      "Cota de candidaturas e cota de dinheiro são regras diferentes",
+      "O que significa?",
+      "",
+      "",
+      "",
+      "",
+      "Fonte, conta e limites desta página",
+      "Temas"
+    ],
+    "tables": [
+      {
+        "width": 1024,
+        "parentWidth": 308,
+        "containerScroll": 1024
+      }
+    ],
+    "path": "/dinheiro/",
+    "device": "mobile",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 0,
+    "count_15/11/2026": 2,
+    "count_04/11/2026": 0,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 3
+  },
+  {
+    "title": "O que encontramos | Quem são elas?",
+    "h1": [
+      "O que encontramos"
+    ],
+    "main": 1,
+    "width": 390,
+    "viewport": 390,
+    "bodyHeight": 18816,
+    "pictures": [],
+    "linksEmpty": [],
+    "headings": [
+      "Mais recentes",
+      "O Distrito Federal terá só senadoras",
+      "Entre o voto obrigatório e a primeira cota, 49 anos",
+      "De uma eleição geral para a outra, os processos de violência política ",
+      "Quem manda a partir de 2027",
+      "O PL terá mais de um terço do Senado a partir de 2027",
+      "Três governadoras em 27 estados, as três brancas",
+      "O dinheiro da campanha",
+      "Entre as deputadas que tentaram voltar, as de maior receita voltaram m",
+      "O fundo eleitoral foi mais para candidaturas brancas",
+      "No dinheiro, as candidatas brancas ficam com mais do que o seu peso",
+      "Cor e raça",
+      "As deputadas pretas eleitas vêm de três partidos",
+      "Candidatas pretas ao comando: um recorte que pede contexto",
+      "A cor das candidatas muda com o cargo em disputa",
+      "Vice e suplência",
+      "Vice e suplência concentram mais mulheres do que as chapas titulares",
+      "Vice, não titular",
+      "Desde 2014, mulheres aparecem mais entre as vices do que entre as titu",
+      "A série desde 2014"
+    ],
+    "tables": [],
+    "path": "/achados/",
+    "device": "mobile",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 8,
+    "count_15/11/2026": 4,
+    "count_04/11/2026": 2,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 3
+  },
+  {
+    "title": "Dinheiro: Com que dinheiro? | Quem são elas?",
+    "h1": [
+      "Dinheiro"
+    ],
+    "main": 1,
+    "width": 390,
+    "viewport": 390,
+    "bodyHeight": 7835,
+    "pictures": [],
+    "linksEmpty": [],
+    "headings": [
+      "Entre as deputadas que tentaram voltar, as de maior receita voltaram m",
+      "O fundo eleitoral foi mais para candidaturas brancas",
+      "No dinheiro, as candidatas brancas ficam com mais do que o seu peso",
+      "Temas",
+      "Reportagens",
+      "Dados"
+    ],
+    "tables": [],
+    "path": "/temas/dinheiro/",
+    "device": "mobile",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 0,
+    "count_15/11/2026": 3,
+    "count_04/11/2026": 3,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 4
+  },
+  {
+    "title": "Dados para consultar | Quem são elas?",
+    "h1": [
+      "Dados para consultar"
+    ],
+    "main": 1,
+    "width": 390,
+    "viewport": 390,
+    "bodyHeight": 4493,
+    "pictures": [],
+    "linksEmpty": [],
+    "headings": [
+      "Presença",
+      "Dinheiro",
+      "Agenda",
+      "Poder",
+      "Violência política",
+      "Memória",
+      "Temas",
+      "Reportagens",
+      "Dados"
+    ],
+    "tables": [],
+    "path": "/dados/",
+    "device": "mobile",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 0,
+    "count_15/11/2026": 0,
+    "count_04/11/2026": 0,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 0
+  },
+  {
+    "title": "Como votaram · Quem são elas? | Deputadas em seis votações da Câmara",
+    "h1": [
+      "Como votaram as deputadas, e quem voltou?"
+    ],
+    "main": 1,
+    "width": 390,
+    "viewport": 390,
+    "bodyHeight": 8275,
+    "pictures": [],
+    "linksEmpty": [],
+    "headings": [
+      "O placar das seis votações",
+      "Em poucas linhas",
+      "10 deputadas votaram contra a lei que obriga empresas a pagar o mesmo ",
+      "55 deputadas votaram para livrar de punição os partidos que não destin",
+      "Quais votações entram, e por quê",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Deputadas e deputados, votação por votação",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Quais deputadas votaram como",
+      ""
+    ],
+    "tables": [
+      {
+        "width": 576,
+        "parentWidth": 308,
+        "containerScroll": 576
+      },
+      {
+        "width": 896,
+        "parentWidth": 350,
+        "containerScroll": 896
+      }
+    ],
+    "path": "/como-votaram/",
+    "device": "mobile",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 0,
+    "count_15/11/2026": 0,
+    "count_04/11/2026": 1,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 0
+  },
+  {
+    "title": "A agenda antigênero no poder | Coleção | Quem são elas?",
+    "h1": [
+      "A agenda antigênero no poder"
+    ],
+    "main": 1,
+    "width": 390,
+    "viewport": 390,
+    "bodyHeight": 3564,
+    "pictures": [],
+    "linksEmpty": [],
+    "headings": [
+      "Temas",
+      "Reportagens",
+      "Dados"
+    ],
+    "tables": [],
+    "path": "/colecoes/antigenero-no-poder/",
+    "device": "mobile",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 0,
+    "count_15/11/2026": 0,
+    "count_04/11/2026": 0,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 0
+  },
+  {
+    "title": "Método · Quem são elas? | Como sabemos",
+    "h1": [
+      "Todo número precisa mostrar de onde veio."
+    ],
+    "main": 1,
+    "width": 390,
+    "viewport": 390,
+    "bodyHeight": 22624,
+    "pictures": [],
+    "linksEmpty": [
+      "https://dadosabertos.tse.jus.br/dataset/candidatos-2026",
+      "https://dadosabertos.tse.jus.br/dataset/candidatos-2026",
+      "https://dadosabertos.tse.jus.br/dataset/candidatos-2026",
+      "https://dadosabertos.tse.jus.br/dataset/candidatos-2026",
+      "/funil",
+      "https://dadosabertos.tse.jus.br/dataset/candidatos-2026",
+      "/dinheiro"
+    ],
+    "headings": [
+      "Em três pontos",
+      "Como calculamos?",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Presença e poder de decidir são medidas diferentes",
+      "Representação descritiva",
+      "Representação substantiva",
+      "Fonte e processamento",
+      "",
+      "A base de candidaturas mudou depois do prazo de registro",
+      "Deputadas e deputados (proporcional)",
+      "Presidência, governos e Senado (majoritário)"
+    ],
+    "tables": [
+      {
+        "width": 308,
+        "parentWidth": 350,
+        "containerScroll": 0
+      },
+      {
+        "width": 308,
+        "parentWidth": 350,
+        "containerScroll": 0
+      },
+      {
+        "width": 560,
+        "parentWidth": 350,
+        "containerScroll": 560
+      },
+      {
+        "width": 736,
+        "parentWidth": 350,
+        "containerScroll": 736
+      }
+    ],
+    "path": "/metodo/",
+    "device": "mobile",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 3,
+    "count_15/11/2026": 0,
+    "count_04/11/2026": 14,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 1
+  },
+  {
+    "title": "Downloads · Quem são elas? | Cartilhas e materiais",
+    "h1": [
+      "Materiais para consultar e compartilhar"
+    ],
+    "main": 1,
+    "width": 390,
+    "viewport": 390,
+    "bodyHeight": 8938,
+    "pictures": [],
+    "linksEmpty": [],
+    "headings": [
+      "Materiais para baixar e circular",
+      "O que a cota de gênero faz e o que ela não faz",
+      "Dois universos: proporcional e majoritária",
+      "O funil: candidatura, competição e poder",
+      "Fotografia das candidaturas de 2026 (CSV)",
+      "Os dados do observatório, em planilha",
+      "As eleitas de 2026",
+      "Deputado 2026, por partido, gênero e cor/raça",
+      "Deputado 2026, por estado, gênero e cor/raça",
+      "Série histórica 2014 a 2026, por cargo",
+      "Série histórica de deputado federal, por estado",
+      "Como votaram as deputadas: seis votações",
+      "Monitor de mandato, Câmara, 2026",
+      "Quem assina junto: coautoria entre deputadas, 2026",
+      "Fundo eleitoral a deputado, por partido",
+      "Como usar e como creditar",
+      "Por que isso importa?",
+      "O que significa?",
+      "Temas",
+      "Reportagens"
+    ],
+    "tables": [],
+    "path": "/downloads/",
+    "device": "mobile",
+    "status": 200,
+    "errors": [],
+    "count_13/11/2026": 0,
+    "count_15/11/2026": 0,
+    "count_04/11/2026": 6,
+    "count_343 candidaturas": 0,
+    "count_56,1%": 0
+  }
+]

@@ -9,7 +9,7 @@
 import { CANDIDATAS_MAJORITARIAS_2026 } from "@/data/candidatas-majoritarias-2026";
 import { ELEITAS_2026, type CargoEleita, type Eleita } from "@/data/eleitas-2026";
 import { FALAS } from "@/data/falas";
-import { DEPUTADAS } from "@/data/votacoes-camara";
+import { DEPUTADAS } from "@/data/votacoes-deputadas";
 
 export const norm = (s: string) =>
   s
@@ -42,17 +42,55 @@ export const SITUACAO: Record<string, string> = {
 };
 
 export const UF_NOME: Record<string, string> = {
-  AC: "Acre", AL: "Alagoas", AP: "Amapá", AM: "Amazonas", BA: "Bahia", CE: "Ceará", DF: "Distrito Federal",
-  ES: "Espírito Santo", GO: "Goiás", MA: "Maranhão", MT: "Mato Grosso", MS: "Mato Grosso do Sul",
-  MG: "Minas Gerais", PA: "Pará", PB: "Paraíba", PR: "Paraná", PE: "Pernambuco", PI: "Piauí",
-  RJ: "Rio de Janeiro", RN: "Rio Grande do Norte", RS: "Rio Grande do Sul", RO: "Rondônia", RR: "Roraima",
-  SC: "Santa Catarina", SP: "São Paulo", SE: "Sergipe", TO: "Tocantins",
+  AC: "Acre",
+  AL: "Alagoas",
+  AP: "Amapá",
+  AM: "Amazonas",
+  BA: "Bahia",
+  CE: "Ceará",
+  DF: "Distrito Federal",
+  ES: "Espírito Santo",
+  GO: "Goiás",
+  MA: "Maranhão",
+  MT: "Mato Grosso",
+  MS: "Mato Grosso do Sul",
+  MG: "Minas Gerais",
+  PA: "Pará",
+  PB: "Paraíba",
+  PR: "Paraná",
+  PE: "Pernambuco",
+  PI: "Piauí",
+  RJ: "Rio de Janeiro",
+  RN: "Rio Grande do Norte",
+  RS: "Rio Grande do Sul",
+  RO: "Rondônia",
+  RR: "Roraima",
+  SC: "Santa Catarina",
+  SP: "São Paulo",
+  SE: "Sergipe",
+  TO: "Tocantins",
 };
 
 /** "por São Paulo", "pelo Paraná", "pela Bahia", "pelo Distrito Federal" */
 const ARTIGO_UF: Record<string, "o" | "a"> = {
-  AC: "o", AP: "o", AM: "o", BA: "a", CE: "o", DF: "o", ES: "o", MA: "o", MT: "o", MS: "o",
-  PA: "o", PB: "a", PR: "o", PI: "o", RJ: "o", RN: "o", RS: "o", TO: "o",
+  AC: "o",
+  AP: "o",
+  AM: "o",
+  BA: "a",
+  CE: "o",
+  DF: "o",
+  ES: "o",
+  MA: "o",
+  MT: "o",
+  MS: "o",
+  PA: "o",
+  PB: "a",
+  PR: "o",
+  PI: "o",
+  RJ: "o",
+  RN: "o",
+  RS: "o",
+  TO: "o",
 };
 export function porUF(uf: string): string {
   const nome = UF_NOME[uf] ?? uf;

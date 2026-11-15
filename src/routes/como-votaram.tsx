@@ -3,8 +3,9 @@ import { MatrizVotos } from "@/components/editorial/MatrizVotos";
 import { Registro } from "@/components/editorial/Registro";
 import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { ReportagemOpening } from "@/components/editorial/ReportagemOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
+import { ConsultationPanel } from "@/components/editorial/ConsultationPanel";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
@@ -12,13 +13,8 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { ChartBar, ChartFrame, ChartScale, LegendSwatch } from "@/components/editorial/ChartFrame";
 import { GapNote } from "@/components/GapNote";
 import { axis } from "@/data/architecture";
-import {
-  DEPUTADAS,
-  DINHEIRO_REELEICAO,
-  VOTACOES,
-  VOTACOES_META,
-  type Votacao,
-} from "@/data/votacoes-camara";
+import { DINHEIRO_REELEICAO, VOTACOES, VOTACOES_META, type Votacao } from "@/data/votacoes-camara";
+import { DEPUTADAS } from "@/data/votacoes-deputadas";
 import { formatBRLCompact, formatDateBR, formatInt, formatPct } from "@/lib/format-br";
 
 /**
@@ -33,19 +29,40 @@ import { formatBRLCompact, formatDateBR, formatInt, formatPct } from "@/lib/form
  *  - bases abaixo de 20 aparecem como "X de Y".
  */
 
-
 /** Placar das deputadas nas seis votações: uma barra por votação, Sim, Não e ausência. */
 function PlacarDeputadas() {
   return (
-    <section aria-labelledby="placar-deputadas" className="relative left-1/2 -ml-[50vw] mb-10 w-screen bg-cream">
-      <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
-        <h2 id="placar-deputadas" className="font-display text-2xl leading-tight text-ink md:text-3xl">
-          Como as deputadas votaram, votação por votação
-        </h2>
-        <ul aria-hidden="true" className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[13px] text-ink/80">
-          <li className="inline-flex items-center gap-1.5"><span className="size-3 bg-plum" />Sim</li>
-          <li className="inline-flex items-center gap-1.5"><span className="size-3 border-2 border-ink bg-paper" />Não</li>
-          <li className="inline-flex items-center gap-1.5"><span className="size-3 bg-[var(--race-na)]" />Ausente ou abstenção</li>
+    <section
+      aria-labelledby="placar-deputadas"
+      className="relative left-1/2 -ml-[50vw] mb-10 w-screen bg-cream"
+    >
+      <details className="group mx-auto max-w-7xl px-5 md:px-8">
+        <summary className="flex min-h-24 cursor-pointer list-none items-center justify-between gap-4 py-5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum [&::-webkit-details-marker]:hidden">
+          <h2 id="placar-deputadas" className="font-display text-xl font-semibold leading-tight text-ink md:text-2xl">
+            O placar das seis votações
+          </h2>
+          <span className="shrink-0 text-sm font-semibold text-plum">
+            <span className="group-open:hidden">Consultar +</span>
+            <span className="hidden group-open:inline">Recolher −</span>
+          </span>
+        </summary>
+        <div className="pb-8">
+        <ul
+          aria-hidden="true"
+          className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[13px] text-ink/80"
+        >
+          <li className="inline-flex items-center gap-1.5">
+            <span className="size-3 bg-plum" />
+            Sim
+          </li>
+          <li className="inline-flex items-center gap-1.5">
+            <span className="size-3 border-2 border-ink bg-paper" />
+            Não
+          </li>
+          <li className="inline-flex items-center gap-1.5">
+            <span className="size-3 bg-[var(--race-na)]" />
+            Ausente ou abstenção
+          </li>
         </ul>
         <ol className="mt-6 grid gap-x-10 gap-y-6 md:grid-cols-2">
           {VOTACOES.map((v) => {
@@ -63,17 +80,20 @@ function PlacarDeputadas() {
                   <span className="h-full bg-[var(--race-na)]" style={{ width: w(outros) }} />
                 </div>
                 <p className="mt-1 text-[13px] text-ink/80">
-                  <span className="font-semibold text-ink">{n(sim)} Sim</span> · {n(nao)} Não · {n(outros)} ausentes
-                  ou abstenção, de {n(f.total)} deputadas em exercício · {formatDateBR(v.data)}
+                  <span className="font-semibold text-ink">{n(sim)} Sim</span> · {n(nao)} Não ·{" "}
+                  {n(outros)} ausentes ou abstenção, de {n(f.total)} deputadas em exercício ·{" "}
+                  {formatDateBR(v.data)}
                 </p>
               </li>
             );
           })}
         </ol>
         <p className="mt-5 text-[13px] text-muted-foreground">
-          Fonte: Câmara dos Deputados, Dados Abertos, votos nominais; placar recontado igual ao oficial.
+          Fonte: Câmara dos Deputados, Dados Abertos, votos nominais; placar recontado igual ao
+          oficial.
         </p>
-      </div>
+        </div>
+      </details>
     </section>
   );
 }
@@ -321,7 +341,10 @@ function RaceVoteTable() {
           "Cor/raça é a autodeclaração ao TSE na eleição de 2022. Nenhuma deputada se declarou amarela; a linha fica visível para manter as cinco categorias.",
       }}
     >
-      <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
+      <div
+        tabIndex={0}
+        className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum"
+      >
         <table className="w-full min-w-[36rem] text-sm">
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
@@ -523,13 +546,13 @@ function DeputadasTable() {
           só quem votou contra o próprio partido ao menos uma vez
         </label>
       </div>
-      <p
-        className="mb-2 text-[13px] text-muted-foreground font-semibold"
-        aria-live="polite"
-      >
+      <p className="mb-2 text-[13px] text-muted-foreground font-semibold" aria-live="polite">
         {n(rows.length)} de {n(DEPUTADAS.length)} deputadas
       </p>
-      <div tabIndex={0} className="overflow-x-auto border border-rule bg-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
+      <div
+        tabIndex={0}
+        className="overflow-x-auto border border-rule bg-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum"
+      >
         <table className="w-full min-w-[56rem] text-sm">
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
@@ -628,7 +651,7 @@ function AsDezDaIgualdade() {
         ? `eleita ${(d.cargo2026 ?? "").toLowerCase() === "senador" ? "senadora" : (d.cargo2026 ?? "").toLowerCase()}`
         : d.desfecho2026;
   return (
-    <section aria-labelledby="as-dez" className="border-y-2 border-ink bg-card px-5 py-6 sm:px-8">
+    <section aria-labelledby="as-dez" className="border-y border-rule bg-muted px-5 py-6 sm:px-8">
       <p className="kicker">Igualdade salarial · 04/05/2023</p>
       <h2 id="as-dez" className="mt-2 font-display text-2xl leading-tight text-ink sm:text-3xl">
         {n(lista.length)} deputadas votaram contra a lei que obriga empresas a pagar o mesmo salário
@@ -639,7 +662,13 @@ function AsDezDaIgualdade() {
         que disputaram a eleição de 2026,{" "}
         {eleitas.length === concorreram.length ? "todas" : n(eleitas.length)} se elegeram.
       </p>
-      <ul className="mt-5 grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-5">
+      <details className="group mt-5 border-y border-rule">
+        <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold text-plum focus-visible:outline-2 focus-visible:outline-plum [&::-webkit-details-marker]:hidden">
+          <span>Consultar as {n(lista.length)} deputadas, partidos e resultado eleitoral</span>
+          <span aria-hidden="true" className="group-open:hidden">+</span>
+          <span aria-hidden="true" className="hidden group-open:inline">−</span>
+        </summary>
+        <ul className="mb-4 grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-5">
         {lista.map((d) => {
           const x = d.votos[vid]!;
           return (
@@ -651,13 +680,14 @@ function AsDezDaIgualdade() {
               {x.alinhamento === "contra a bancada" && (
                 <p className="mt-1 text-xs text-ink/70">contra a maioria do partido</p>
               )}
-              <p className="mt-2 inline-block bg-coral px-1.5 py-0.5 font-mono text-[13px] text-ink">
+              <p className="mt-2 inline-block border-l-4 border-coral bg-paper px-2 py-0.5 font-mono text-[13px] text-ink">
                 em 2026: {destino(d)}
               </p>
             </li>
           );
         })}
-      </ul>
+        </ul>
+      </details>
       <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
         Partido na data do voto. Placar oficial: {n(byId(vid).placar.sim)} a{" "}
         {n(byId(vid).placar.nao)}. Fonte: Câmara dos Deputados, Dados Abertos; TSE, Candidatos 2026
@@ -703,14 +733,16 @@ function AnistiaCotas() {
         candidaturas pretas e pardas e um programa de regularização de dívidas dos partidos. Placar
         oficial: {n(v.placar.sim)} a {n(v.placar.nao)}.
       </p>
-      <div className="mt-4">
-        <p className="text-[13px] text-muted-foreground">
-          As {n(lista.length)} deputadas que votaram Sim, por partido
-        </p>
-        <div className="mt-2">
+      <details className="group mt-4 border-y border-rule">
+        <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold text-plum focus-visible:outline-2 focus-visible:outline-plum [&::-webkit-details-marker]:hidden">
+          <span>Consultar as {n(lista.length)} deputadas que votaram Sim, por partido</span>
+          <span aria-hidden="true" className="group-open:hidden">+</span>
+          <span aria-hidden="true" className="hidden group-open:inline">−</span>
+        </summary>
+        <div className="pb-5">
           <PartyNames list={lista} />
         </div>
-      </div>
+      </details>
       <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
         Partido na data do voto. * votou contra a maioria do próprio partido. Fonte: Câmara dos
         Deputados, Dados Abertos, recontagem igual ao placar oficial.
@@ -732,9 +764,12 @@ function ComoVotaramPage() {
     <PageShell
       breadcrumb={[{ label: "Reportagens", to: "/reportagens" }, { label: "Como votaram" }]}
     >
-      <PageHero
+      <ReportagemOpening
         kicker="Reportagem"
-        question={a.question}
+        title={a.question}
+        photoId="plenario-igualdade-salarial-2023"
+        photoContext="Plenário da Câmara, maio de 2023, durante a tramitação do PL 1.085/2023. Imagem de arquivo; não retrata as seis votações analisadas."
+        photoSourceUrl="https://www.camara.leg.br/noticias/957955-camara-pode-votar-nesta-quarta-feira-projeto-que-equipara-salario-entre-homens-e-mulheres/"
         lead={
           <p>
             Seis votações de mérito no plenário da Câmara, de 2023 a 2025, deputada por deputada. Na
@@ -747,13 +782,12 @@ function ComoVotaramPage() {
             {n(conanda.porSexo.F.votos["Não"] ?? 0)} contra.
           </p>
         }
-        aside={
-          <div className="editorial-card p-5">
-            <p className="kicker">Assinatura</p>
-            <p className="mt-2 font-display text-lg leading-snug text-ink">
+        credits={
+          <div>
+            <p className="font-semibold text-ink">
               Apuração e texto: Nataly Nunes Pinto
             </p>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-2 text-[13px] leading-relaxed text-ink/75">
               Publicada em 27/10/2026 e atualizada em 28/10/2026. Os números são recontagem própria
               dos dados abertos da Câmara e do TSE; a seleção das votações e a leitura são escolhas
               editoriais, declaradas abaixo.
@@ -764,8 +798,11 @@ function ComoVotaramPage() {
 
       <PlacarDeputadas />
 
-      <div className="pb-4">
-        <InBrief aberto
+      <div className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
+        <div className="mx-auto max-w-7xl px-5 py-8 md:px-8 md:py-11">
+        <InBrief
+          aberto
+          inverse
           found={
             <>
               Entre as deputadas que votaram, a taxa de reeleição em 2026 ficou entre{" "}
@@ -795,6 +832,7 @@ function ComoVotaramPage() {
             </>
           }
         />
+        </div>
       </div>
 
       <div className="pb-8">
@@ -805,18 +843,29 @@ function ComoVotaramPage() {
         <AnistiaCotas />
       </div>
 
-
-      <div className="pb-4">
-        <GapNote label="Correção em 28/10/2026">
-          {VOTACOES_META.correcao} {VOTACOES_META.pdl3Senado}
-        </GapNote>
+      <div className="pb-5">
+        <details className="group border-y border-rule">
+          <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 text-sm text-ink focus-visible:outline-2 focus-visible:outline-plum [&::-webkit-details-marker]:hidden">
+            <span>
+              <strong>Correção em 28/10/2026:</strong> uma sexta votação foi incorporada à análise.
+            </span>
+            <span className="shrink-0 font-semibold text-plum">
+              <span className="group-open:hidden">Detalhes +</span>
+              <span className="hidden group-open:inline">Recolher −</span>
+            </span>
+          </summary>
+          <div className="pb-5">
+            <GapNote label="Histórico da correção e atualização dos dados">
+              {VOTACOES_META.correcao} {VOTACOES_META.pdl3Senado}
+            </GapNote>
+          </div>
+        </details>
       </div>
 
-      <SectionBlock
+      <ConsultationPanel
         id="criterio"
         kicker="Critério"
         question="Quais votações entram, e por quê"
-        align="wide"
         lead={
           <p>
             {VOTACOES_META.criterio} O critério foi fixado antes de cruzar os votos com o resultado
@@ -856,37 +905,33 @@ function ComoVotaramPage() {
             ))}
           </ul>
         </details>
-      </SectionBlock>
+      </ConsultationPanel>
 
-      <SectionBlock
+      <ConsultationPanel
         id="votos"
-        tone="lilac"
+        tinted
         kicker="O voto"
         question="Deputadas e deputados, votação por votação"
-        align="wide"
       >
         <div className="grid gap-6 lg:grid-cols-2 [&>*]:min-w-0">
           {VOTACOES.map((v) => (
             <VoteSplit key={v.id} v={v} />
           ))}
         </div>
-      </SectionBlock>
+      </ConsultationPanel>
 
-      <SectionBlock
+      <ConsultationPanel
         id="raca"
         kicker="Gênero e cor/raça"
         question="Quais deputadas votaram como"
-        align="wide"
       >
         <RaceVoteTable />
-      </SectionBlock>
+      </ConsultationPanel>
 
-      <SectionBlock
+      <ConsultationPanel
         id="bancada"
-        tone="butter"
         kicker="Partido"
         question="Quem votou contra o próprio partido"
-        align="wide"
         lead={
           <p>
             Na Câmara, a maior parte do voto acompanha a bancada. Por isso o voto contra a maioria
@@ -897,9 +942,7 @@ function ComoVotaramPage() {
         <ul className="grid gap-4 md:grid-cols-2">
           {VOTACOES.map((v) => (
             <li key={v.id} className="editorial-card p-5">
-              <p className="text-[13px] text-muted-foreground font-semibold">
-                {SHORT[v.id]}
-              </p>
+              <p className="text-[13px] text-muted-foreground font-semibold">{SHORT[v.id]}</p>
               <p className="mt-1 font-display text-2xl text-ink">
                 {n(v.deputadasContraBancada.length)} deputadas
               </p>
@@ -927,20 +970,36 @@ function ComoVotaramPage() {
             </p>
           </ContextBox>
         </div>
-      </SectionBlock>
+      </ConsultationPanel>
 
       <SectionBlock
         id="quem-voltou"
+        tone="plum"
+        semFio
         kicker="Votação × urna"
         question="Quem voltou em 2026: o voto e o dinheiro"
         align="wide"
       >
-        <ReelectionChart />
-        <div className="mt-6">
-          <MoneyReelectionChart />
+        <div className="mb-5 flex flex-wrap items-center gap-x-4 gap-y-2 bg-paper px-5 py-4 text-ink md:px-6">
+          <span className="inline-flex items-center gap-2 text-sm font-semibold text-coral-ink">
+            <span aria-hidden="true" className="h-4 w-1 bg-coral" />
+            Eleição de 2026
+          </span>
+          <p className="text-sm leading-relaxed text-ink/75">
+            Resultado eleitoral relacionado às votações nominais de 2023 a 2025.
+          </p>
         </div>
+        <MoneyReelectionChart />
+        <details className="group mt-6 border-y border-rule bg-paper px-5 text-ink">
+          <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold text-plum focus-visible:outline-2 focus-visible:outline-plum [&::-webkit-details-marker]:hidden">
+            <span>Comparar voto e reeleição nas seis votações</span>
+            <span aria-hidden="true" className="group-open:hidden">+</span>
+            <span aria-hidden="true" className="hidden group-open:inline">−</span>
+          </summary>
+          <div className="pb-6 pt-3"><ReelectionChart /></div>
+        </details>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <Registro tipo="fato">
+          <Registro tipo="fato" className="bg-paper p-5">
             <p className="leading-relaxed text-ink/80">
               Pelo voto, a reeleição das deputadas variou entre {formatPct(range.min)} e{" "}
               {formatPct(range.max)}. Pela receita, variou de{" "}
@@ -956,40 +1015,44 @@ function ComoVotaramPage() {
               no de maior.
             </p>
           </Registro>
-          <Registro tipo="interpretacao">
+          <Registro tipo="interpretacao" className="bg-paper p-5">
             <p className="leading-relaxed text-ink/80">
               Para quem tentou voltar à Câmara, o dinheiro de campanha acompanha a reeleição muito
               mais de perto que o voto nessas seis pautas. A diferença é maior entre as mulheres do
               que entre os homens.
             </p>
           </Registro>
-          <Registro tipo="hipotese" registradaEm="27/10/2026" status="nao-confirmada">
+          <Registro className="bg-paper p-5" tipo="hipotese" registradaEm="27/10/2026" status="nao-confirmada">
             <p className="leading-relaxed text-ink/80">
               Parte da relação corre ao contrário: quem já tinha base e chance de vencer atrai mais
               dinheiro do partido e de doadores.
             </p>
             <p className="mt-2 leading-relaxed text-ink/80">
-              <strong>Testada em 04/11/2026, com regra fixada antes: não confirmada.</strong> Entre as 410 pessoas eleitas
-              deputadas e deputados federais em 2022 que tentaram voltar, o fundo de 2026 quase não acompanhou a votação de 2022.
-              A diferença de reeleição entre quem teve mais e menos receita fica igual entre pessoas de força eleitoral
-              parecida, e é maior entre quem tinha a votação mais apertada. <a href="/metodo#hipoteses" className="underline decoration-plum underline-offset-4">A regra e os números</a>.
+              <strong>Testada em 04/11/2026, com regra fixada antes: não confirmada.</strong> Entre
+              as 410 pessoas eleitas deputadas e deputados federais em 2022 que tentaram voltar, o
+              fundo de 2026 quase não acompanhou a votação de 2022. A diferença de reeleição entre
+              quem teve mais e menos receita fica igual entre pessoas de força eleitoral parecida, e
+              é maior entre quem tinha a votação mais apertada.{" "}
+              <a href="/metodo#hipoteses" className="underline decoration-plum underline-offset-4">
+                A regra e os números
+              </a>
+              .
             </p>
           </Registro>
         </div>
       </SectionBlock>
 
-      <SectionBlock
+      <ConsultationPanel
         id="deputadas"
-        tone="lilac"
+        tinted
         kicker="Deputada por deputada"
         question={`As ${n(DEPUTADAS.length)} deputadas que estavam no mandato em alguma das seis datas`}
-        align="wide"
       >
         <MatrizVotos />
         <div className="mt-10">
           <DeputadasTable />
         </div>
-      </SectionBlock>
+      </ConsultationPanel>
 
       <div className="pb-6">
         <GapNote label="Lacuna declarada">

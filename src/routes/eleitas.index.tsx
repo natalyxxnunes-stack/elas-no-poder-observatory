@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { PageShell } from "@/components/PageShell";
-import { Secao } from "@/components/editorial/Secao";
 import { ELEITAS_2026, ELEITAS_META, type CargoEleita } from "@/data/eleitas-2026";
 import { CARGO_PLURAL, CARGO_ROTULO, UF_NOME } from "@/data/eleitas-cruzamentos";
 import { TRAJETORIA_ELEITAS } from "@/data/eleitas-trajetoria-2026";
@@ -90,19 +89,35 @@ function EleitasPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Eleições 2026", to: "/quem-chega" }, { label: "Quem entrou" }]}>
-      <header className="py-10 md:py-14">
-        <Secao nome="Quem entrou" tipo="fichas" />
-        <h1 className="mt-4 font-display text-4xl font-semibold leading-tight text-plum md:text-6xl">
-          As {n(ELEITAS_2026.length)} mulheres eleitas em 2026, uma a uma
-        </h1>
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink/80">
-          {CARGOS.map((c) => `${n(ELEITAS_META.porCargo[c] ?? 0)} ${CARGO_PLURAL[c].toLowerCase()}`).join(", ")}. Cada ficha traz o
-          registro público no TSE e, quando existe, o que o site já levantou sobre ela. Quem já é deputada federal tem
-          o registro de 2026 no <a href="/monitor" className="underline decoration-plum underline-offset-4">monitor de mandato</a>; a atuação no novo mandato entra depois da posse.
-        </p>
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-cream">
+        <div className="mx-auto grid max-w-7xl gap-7 px-5 py-11 md:px-8 md:py-15 lg:grid-cols-[1.2fr_.8fr] lg:items-center">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-plum">Dados eleitorais · Catálogo de fichas</p>
+            <h1 className="mt-4 max-w-3xl font-display text-[clamp(2.45rem,4vw,4rem)] font-semibold leading-[1.05] text-ink">
+              As {n(ELEITAS_2026.length)} mulheres eleitas em 2026, uma a uma
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink/85">
+              {CARGOS.map((c) => `${n(ELEITAS_META.porCargo[c] ?? 0)} ${CARGO_PLURAL[c].toLowerCase()}`).join(", ")}.
+              Cada ficha traz o registro público no TSE e, quando existe, o que o site já levantou sobre ela.
+              Quem já é deputada federal tem o registro de 2026 no{" "}
+              <a href="/monitor" className="underline decoration-plum underline-offset-4">monitor de mandato</a>;
+              a atuação no novo mandato entra depois da posse.
+            </p>
+          </div>
+          <aside className="border-l-4 border-plum bg-paper p-6 text-ink" aria-label="Sobre a consulta">
+            <p className="text-xs font-semibold uppercase tracking-wide text-plum">Como usar esta página</p>
+            <p className="mt-3 font-display text-xl leading-snug">Escolha o cargo, o estado ou o partido para consultar as fichas.</p>
+            <p className="mt-3 text-sm leading-relaxed text-ink/70">
+              Os filtros não alteram o universo original; mostram um recorte da base. A cor/raça segue a autodeclaração registrada no TSE.
+            </p>
+            <a href="#filtros-eleitas" className="mt-4 inline-flex min-h-11 items-center font-semibold text-plum underline underline-offset-4">
+              Ir aos filtros ↘
+            </a>
+          </aside>
+        </div>
       </header>
 
-      <section aria-label="Filtros" className="space-y-4">
+      <section id="filtros-eleitas" aria-label="Filtros" className="scroll-mt-24 space-y-4 border-b border-rule bg-paper py-8">
         <div className="flex flex-wrap gap-2" role="group" aria-label="Cargo">
           <button type="button" className={chip(!cargo)} aria-pressed={!cargo} onClick={() => set("cargo")("")}>
             Todos os cargos

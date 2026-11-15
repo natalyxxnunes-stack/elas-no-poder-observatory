@@ -1,12 +1,14 @@
 import { M_FUNDO_BRANCAS } from "@/data/manchetes";
 import { Desdobra, ExploreDivisa } from "@/components/editorial/Desdobra";
+import { AchadosDaPagina } from "@/components/editorial/AchadosDaPagina";
+import { LeituraDoTema } from "@/components/editorial/LeituraDoTema";
+import { Recorte } from "@/components/editorial/Recorte";
 import { FundoNoGasto, TiposDeGasto, Vaquinhas } from "@/components/editorial/DespesasCharts";
 import { FefcPartidos } from "@/components/editorial/FefcPartidos";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
-import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
@@ -38,7 +40,7 @@ export const Route = createFileRoute("/dinheiro")({
       {
         name: "description",
         content:
-          "Receitas declaradas nas campanhas de 2026 por gênero, cor/raça, cargo, partido e UF, com cobertura, denominadores e limites da base gerada em 15/11, sujeita a retificação.",
+          "Receitas declaradas nas campanhas de 2026 por gênero, cor/raça, cargo, partido e UF, com cobertura, denominadores e limites da base de declarações de 15/11, após o prazo do 2º turno.",
       },
       {
         property: "og:title",
@@ -46,7 +48,7 @@ export const Route = createFileRoute("/dinheiro")({
       },
       {
         property: "og:description",
-        content: `Receitas declaradas pelas candidaturas de mulheres na base gerada após o prazo do 2º turno, por cargo, cor/raça, partido e UF. Fotografia de ${FINANCE_BASE_LABEL}.`,
+        content: `Receitas declaradas pelas candidaturas de mulheres na base de declarações de 15/11, após o prazo do 2º turno, por cargo, cor/raça, partido e UF. Fotografia de ${FINANCE_BASE_LABEL}.`,
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -105,7 +107,7 @@ const MONEY_LAYERS = [
 function DinheiroPage() {
   return (
     <PageShell
-      breadcrumb={[{ label: "Investigação", to: "/investigacoes" }, { label: "Dinheiro" }]}
+      breadcrumb={[{ label: "Dados", to: "/dados" }, { label: "Consultar o dinheiro" }]}
     >
       <EditorialOpening
         variant="financial"
@@ -122,39 +124,17 @@ function DinheiroPage() {
           </p>
         }
         layers={MONEY_LAYERS.map((layer) => layer.label)}
-        gap="TSE, base de 15/11 · receitas declaradas, não despesas · 195 candidaturas com prestação parcial e 102 com relatório financeiro"
+        gap="Contas declaradas no TSE em 15/11 · receitas, não despesas · 195 candidaturas com prestação parcial e 102 com relatório financeiro"
         snapshot={financeSnapshot}
       />
 
-      <div className="pb-4">
-        <InBrief
-          found={
-            <>
-              Nas listas para deputada, as mulheres receberam 32,9% das receitas declaradas e
-              representam 35,7% das candidaturas com receita, na extração de 15/11. Em 25/09,
-              eram 34,9% das receitas e 36,0% das candidaturas; em 27/10, 33,2% e 35,9%.
-              Nas disputas majoritárias, elas receberam 14,7% da receita e são 20,3%
-              das candidaturas com receita.
-            </>
-          }
-          matters={
-            <>
-              Contar mulheres em bloco esconde onde o dinheiro se concentra. Nas listas para
-              deputada, as candidatas brancas recebem uma fatia maior do que o peso delas entre as
-              candidatas com receita, também dentro dos maiores partidos.
-            </>
-          }
-          unknown={
-            <>
-              Por que fontes de recursos diferentes chegam de forma desigual às candidaturas.
-              A base já é posterior ao prazo do segundo turno, mas ainda pode ser retificada.
-            </>
-          }
-        />
-      </div>
+      <LeituraDoTema slug="dinheiro" />
+
+      <AchadosDaPagina temas={["dinheiro"]} max={3} />
 
       <SectionBlock
         id="fotografia"
+        collapsible="Ver a fotografia da receita"
         kicker="Fotografia da receita"
         question="Quanto foi declarado como receita, e por quantas candidaturas"
         align="wide"
@@ -173,6 +153,7 @@ function DinheiroPage() {
 
       <SectionBlock
         id="cargo"
+        collapsible="Ver cargo a cargo"
         kicker="Por cargo"
         question="Presença e receita, cargo a cargo"
         align="wide"
@@ -183,7 +164,7 @@ function DinheiroPage() {
             das candidaturas com receita). Nas assembleias legislativas, quase empatam (34,8% e
             34,9%). Nas outras, recebem menos: Câmara dos Deputados (31,8% e 36,9%), Câmara
             Legislativa do DF (29,9% e 35,4%) e governos estaduais (12,2% e 17,8%). Na Presidência,
-            as mulheres são 2 das 14 candidaturas com receita; com base tão pequena, a fatia delas
+            as mulheres são 2 das 13 candidaturas com receita; com base tão pequena, a fatia delas
             no dinheiro não vira percentual aqui.
           </p>
         }
@@ -220,6 +201,7 @@ function DinheiroPage() {
 
       <SectionBlock
         id="fundo-eleitoral"
+        collapsible="Ver o fundo eleitoral partido por partido"
         tone="butter"
         kicker="Fundo eleitoral por partido"
         question="O fundo público acompanhou a presença de mulheres e de pessoas negras nas candidaturas de cada partido?"
@@ -236,17 +218,19 @@ function DinheiroPage() {
               9,5%. Candidaturas de pessoas brancas são 49,8% e receberam 60,8%.
             </p>
             <p className="mt-3">
-              No recorte de deputadas e deputados, três partidos registraram menos de 30%
-               do FEFC recebido por candidaturas pretas e pardas somadas: PL (26,7%),
-               NOVO (25,6%) e PCO (24,7%). Entre titulares dos seis cargos, são seis:
-               PL (22,3%), NOVO (26,4%), MDB (28,2%), Cidadania (29,4%), PSD (29,4%) e
-               PRTB (14,1%). O PRTB reúne somente seis candidaturas titulares, quatro
-               com FEFC; seu percentual é sensível a poucos registros. Nas disputas
-               majoritárias, as mulheres receberam 33,2% do FEFC entre titulares.
-               Dados de 15/11/2026: medem o fundo recebido pelas candidaturas,
-               não demonstram cumprimento ou descumprimento das cotas. A aferição legal
-               utiliza outro universo e critérios próprios, inclusive para chapas.
-             </p>
+              Na conta restrita a deputadas e deputados, três partidos ficaram abaixo de 30%
+              do FEFC declarado recebido por candidaturas pretas e pardas: PL (26,7%), NOVO (25,6%)
+              e PCO (24,7%). Incluindo os titulares dos seis cargos, são seis: PL (22,3%),
+              NOVO (26,4%), MDB (28,2%), Cidadania (29,4%), PSD (29,4%) e PRTB (14,1%).
+              O PRTB tem somente seis candidaturas titulares neste recorte, quatro com FEFC;
+              percentuais de universos tão pequenos exigem cautela. A conta com todos os cargos
+              depende ainda de como se atribui o dinheiro das chapas de governo e Senado.
+              Somando governo, Senado e Presidência, a fatia das mulheres no fundo fica em
+              33,2%. Os valores vêm da extração de 15/11/2026, após o prazo final do segundo
+              turno, e medem o FEFC recebido pelas candidaturas, não o cumprimento legal das cotas.
+              Para essa verificação, o TSE usa o universo e os percentuais oficiais de distribuição
+              dos partidos e examina as contas correspondentes.
+            </p>
           </>
         }
       >
@@ -254,8 +238,8 @@ function DinheiroPage() {
           <FefcPartidos />
         </Desdobra>
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-          Base de 15/11/2026, após o prazo final do segundo turno: 195 candidaturas ainda constam com
-          prestação parcial e 102 com relatório financeiro. Valores sujeitos a retificações.
+          Base de 15/11/2026, gerada após o prazo final do 2º turno: 195 candidaturas ainda constam
+          com prestação parcial e 102 com relatório financeiro. Estes números poderão ser revistos.
         </p>
       </SectionBlock>
 
@@ -304,39 +288,41 @@ function DinheiroPage() {
           </ContextBox>
         </div>
       </SectionBlock>
+      <Recorte slug="dinheiro" className="mt-10 aspect-[3/1] md:aspect-[5/1]" />
       <ExploreDivisa lead="Os cinco partidos com mais receita e a receita declarada em cada estado." />
+      <Desdobra rotulo="Abrir as ferramentas de consulta" className="pb-10">
+        <SectionBlock
+          id="partidos"
+          kicker="Partidos"
+          question="Os cinco partidos com maior receita no universo proporcional"
+          align="wide"
+          lead={
+            <p>
+              O recorte ordena os partidos pelo total de receita declarada e mostra, dentro de cada
+              um, quanto foi declarado por candidaturas de mulheres. Não é ranking de equidade.
+            </p>
+          }
+        >
+          <FinanceParties snapshot={financeSnapshot} />
+        </SectionBlock>
 
-      <SectionBlock
-        id="partidos"
-        kicker="Partidos"
-        question="Os cinco partidos com maior receita no universo proporcional"
-        align="wide"
-        lead={
-          <p>
-            O recorte ordena os partidos pelo total de receita declarada e mostra, dentro de cada
-            um, quanto foi declarado por candidaturas de mulheres. Não é ranking de equidade.
-          </p>
-        }
-      >
-        <FinanceParties snapshot={financeSnapshot} />
-      </SectionBlock>
-
-      <SectionBlock
-        id="territorio"
-        collapsible="Ver estado por estado"
-        tone="lilac"
-        kicker="Território"
-        question="A receita declarada por UF"
-        align="wide"
-        lead={
-          <p>
-            Valores do universo proporcional, com total de receita declarada, parcela de mulheres e
-            a fatia correspondente em cada unidade da Federação.
-          </p>
-        }
-      >
-        <FinanceByUf snapshot={financeSnapshot} />
-      </SectionBlock>
+        <SectionBlock
+          id="territorio"
+          collapsible="Ver estado por estado"
+          tone="lilac"
+          kicker="Território"
+          question="A receita declarada por UF"
+          align="wide"
+          lead={
+            <p>
+              Valores do universo proporcional, com total de receita declarada, parcela de mulheres
+              e a fatia correspondente em cada unidade da Federação.
+            </p>
+          }
+        >
+          <FinanceByUf snapshot={financeSnapshot} />
+        </SectionBlock>
+      </Desdobra>
 
       <ComoSabemos
         fonte={
@@ -360,8 +346,8 @@ function DinheiroPage() {
         }
         limites={[
           "Despesas contratadas e pagas e o doador originário do financiamento coletivo entram desde 28/10, na seção sobre gasto e vaquinhas.",
-          "Entre 19.660 candidaturas com receita nos seis cargos, 19.363 constam como FINAL, 195 PARCIAL e 102 RELATÓRIO FINANCEIRO na extração de 15/11; o tipo da prestação não equivale à aprovação de contas.",
-          "Base financeira de 15/11/2026 (04h05) e cadastro de candidaturas do mesmo dia (05h30), após o prazo final do segundo turno em 14/11. Complementações, retificações e julgamentos ainda podem alterar o resultado. Fotografias anteriores de 13/11, 04/11, 27/10 e 25/09 são preservadas no histórico.",
+          "Entre as 19.660 candidaturas com receita nos seis cargos, 19.363 constam com prestação FINAL, 195 PARCIAL e 102 RELATÓRIO FINANCEIRO na extração de 15/11; tipo de prestação não equivale à aprovação das contas.",
+          "Base financeira de 15/11/2026 e cadastro de candidaturas de 15/11/2026, após o prazo final do 2º turno (14/11). Os registros ainda podem ser complementados ou retificados e as contas estão sujeitas a julgamento. Fotografias anteriores de 13/11, 04/11, 27/10 e 25/09 ficam preservadas no histórico.",
           "Os percentuais que o TSE usa para distribuir o Fundo Partidário e o FEFC (divulgados em 21/08/2026) partem de outro universo: 20.560 candidaturas com pedido aceito até 18/08/2026, fixado para esse fim. Por isso diferem dos números deste site, que acompanham o registro atualizado.",
           "Titularidade e suplência ficam para a próxima fase. A relação entre dinheiro e reeleição está em Como votaram; índice de competitividade não entra no site.",
         ]}

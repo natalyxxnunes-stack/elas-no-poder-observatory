@@ -16,7 +16,7 @@ A identidade é própria: o projeto recusa virar cópia visual de outro veículo
 
 ## Paleta
 
-A paleta é a do projeto. A paleta coral, amarelo e verde proposta pela auditoria externa de novembro de 2026 foi recusada.
+A paleta estrutural é a do projeto. A substituição integral da identidade pela paleta coral, amarelo e verde sugerida na auditoria externa de novembro de 2026 foi recusada. Em 15/11, foi aprovada uma ampliação **exclusiva para imagens editoriais próprias** com creme quente, violeta, coral e dourado, sem alterar a semântica dos gráficos nem as cores da interface.
 
 | Token                          | Valor                                   | Papel                                                                                      |
 | ------------------------------ | --------------------------------------- | ------------------------------------------------------------------------------------------ |
@@ -37,9 +37,19 @@ A paleta é a do projeto. A paleta coral, amarelo e verde proposta pela auditori
 - Pastel saturado (lavanda, manteiga) não ocupa área grande. No `SectionBlock`, os tons `lilac` e `butter` foram mantidos por compatibilidade e caem em `muted` e `cream`.
 - Sem gradiente de cor. Sem fundo inteiramente branco.
 
+### Imagens autorais: repertório cromático (15/11/2026)
+
+A prancha de seis painéis enviada pela editora é uma **referência de relação entre cores**, não um modelo estilístico a copiar. Seus tons aproximados ficaram em tokens próprios no `src/styles.css`: `--art-ink` (#341738), `--art-plum` (#602f6a), `--art-violet` (#915fa5), `--art-cream` (#f7e5d8), `--art-coral` (#eb5d39) e `--art-gold` (#f2ac37).
+
+- Aplicar estes tokens somente em **composições interpretativas, capas e imagens autorais**. Os fundos de leitura continuam usando `--paper`, `--cream` e `--muted`.
+- As artes são vetoriais e originais; não simular documentos oficiais, votos, pessoas ou estatísticas. Título fora da imagem. Identificar como arte editorial.
+- Manter a grade: sem elementos inclinados, sobreposição decorativa, gradiente ou textos fictícios.
+- **Não usar** `--art-coral` ou `--art-gold` para codificar dados. A regra `--coral` = dados eleitorais atuais (2026), assim como as cores por cor/raça, permanece inalterada.
+- Alternar fotografia documental, composição autoral e imagem real de material. A arte não deve monopolizar a capa.
+
 ### Laranja com função
 
-O laranja marca o dado de agora (2026) nos gráficos e as datas de destaque. Não é enfeite e não aparece só para colorir.
+Em gráficos, tabelas e marcadores de resultado, o laranja `--coral` marca o dado atual (2026) e datas de destaque. Nas composições ilustrativas, somente o token isolado `--art-coral` pode ser usado como elemento expressivo, sem sugerir codificação numérica.
 
 ### Combinações proibidas
 

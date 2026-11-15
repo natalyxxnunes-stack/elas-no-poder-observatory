@@ -1,0 +1,414 @@
+{
+ "deputadas": {
+  "220579": {
+   "nome": "Silvia Waiãpi",
+   "nomeCivil": "SILVIA NOBRE LOPES"
+  },
+  "220549": {
+   "nome": "Any Ortiz",
+   "nomeCivil": "ANY MACHADO ORTIZ"
+  },
+  "204462": {
+   "nome": "Chris Tonietto",
+   "nomeCivil": "CHRISTINE NOGUEIRA DOS REIS TONIETTO"
+  },
+  "220603": {
+   "nome": "Dani Cunha",
+   "nomeCivil": "DANIELLE DYTZ DA CUNHA"
+  },
+  "220559": {
+   "nome": "Julia Zanatta",
+   "nomeCivil": "JULIA PEDROSO ZANATTA"
+  },
+  "204507": {
+   "nome": "Carla Zambelli",
+   "nomeCivil": "CARLA ZAMBELLI SALGADO DE OLIVEIRA"
+  },
+  "204374": {
+   "nome": "Bia Kicis",
+   "nomeCivil": "BEATRIZ KICIS TORRENTS DE SORDI"
+  },
+  "220644": {
+   "nome": "Rosangela Moro",
+   "nomeCivil": "ROSANGELA MARIA WOLFF DE QUADROS MORO"
+  },
+  "204369": {
+   "nome": "Caroline de Toni",
+   "nomeCivil": "CAROLINE RODRIGUES DE TONI"
+  },
+  "204528": {
+   "nome": "Adriana Ventura",
+   "nomeCivil": "ADRIANA MIGUEL VENTURA"
+  },
+  "220620": {
+   "nome": "Rosângela Reis",
+   "nomeCivil": "ROSANGELA DE OLIVEIRA CAMPOS REIS"
+  },
+  "220551": {
+   "nome": "Franciane Bayer",
+   "nomeCivil": "FRANCIANE ABADE BAYER MULLER"
+  },
+  "220537": {
+   "nome": "Helena Lima",
+   "nomeCivil": "MARIA HELENA TEIXEIRA LIMA"
+  },
+  "220572": {
+   "nome": "Marussa Boldrin",
+   "nomeCivil": "MARUSSA CASSIA FAVARO BOLDRIN"
+  },
+  "220656": {
+   "nome": "Fernanda Pessoa",
+   "nomeCivil": "FERNANDA ENEIDA PESSOA CARACAS DE SOUZA"
+  },
+  "204525": {
+   "nome": "Rosana Valle",
+   "nomeCivil": "ROSANA DE OLIVEIRA VALLE"
+  },
+  "220569": {
+   "nome": "Silvye Alves",
+   "nomeCivil": "SILVYE ALVES DA SILVA"
+  },
+  "220651": {
+   "nome": "Simone Marquetto",
+   "nomeCivil": "SIMONE APARECIDA MARQUETO CURRALADAS"
+  },
+  "213762": {
+   "nome": "Carla Dickson",
+   "nomeCivil": "HILKEA CARLA DE SOUZA MEDEIROS LIMA"
+  },
+  "220670": {
+   "nome": "Iza Arruda",
+   "nomeCivil": "IZA PAULA DE DEUS E MELLO ALBUQUERQUE ARRUDA"
+  },
+  "178966": {
+   "nome": "Geovania de Sá",
+   "nomeCivil": "Geovânia de Sá"
+  },
+  "123756": {
+   "nome": "Antônia Lúcia",
+   "nomeCivil": "ANTÔNIA LUCILÉIA CRUZ RAMOS CÂMARA"
+  },
+  "220695": {
+   "nome": "Rogéria Santos",
+   "nomeCivil": "ROGÉRIA DE ALMEIDA PEREIRA DOS SANTOS"
+  },
+  "220564": {
+   "nome": "Yandra Moura",
+   "nomeCivil": "YANDRA BARRETO FERREIRA"
+  },
+  "74065": {
+   "nome": "Fatima Pelaes",
+   "nomeCivil": "FÁTIMA LÚCIA PELAES"
+  },
+  "218086": {
+   "nome": "Ely Santos",
+   "nomeCivil": "ELIANE DE SOUSA ALVES"
+  },
+  "204360": {
+   "nome": "Silvia Cristina",
+   "nomeCivil": "SILVIA CRISTINA AMANCIO CHAGAS"
+  },
+  "166402": {
+   "nome": "Magda Mofatto",
+   "nomeCivil": "MAGDA MOFATTO HON"
+  },
+  "198197": {
+   "nome": "Greyce Elias",
+   "nomeCivil": "GREYCE DE QUEIROZ ELIAS"
+  },
+  "220625": {
+   "nome": "Delegada Ione",
+   "nomeCivil": "IONE MARIA MOREIRA DIAS BARBOSA"
+  },
+  "220665": {
+   "nome": "Clarissa Tércio",
+   "nomeCivil": "ERICA CLARISSA BORBA CORDEIRO DE MOURA"
+  },
+  "204410": {
+   "nome": "Luisa Canziani",
+   "nomeCivil": "LUISA CANZIANI DOS SANTOS SILVEIRA"
+  },
+  "107970": {
+   "nome": "Ana Paula Leão",
+   "nomeCivil": "ANA PAULA PROCOPIO JUNQUEIRA"
+  },
+  "220659": {
+   "nome": "Dayany Bittencourt",
+   "nomeCivil": "DAYANY BITTENCOURT SANTIL"
+  },
+  "220693": {
+   "nome": "Roberta Roma",
+   "nomeCivil": "Roberta de Araujo Costa Roma"
+  },
+  "220608": {
+   "nome": "Cristiane Lopes",
+   "nomeCivil": "CRISTIANE LOPES DA LUZ"
+  },
+  "178946": {
+   "nome": "Soraya Santos",
+   "nomeCivil": "SORAYA ALENCAR DOS SANTOS"
+  },
+  "220561": {
+   "nome": "Delegada Katarina",
+   "nomeCivil": "KATARINA FEITOZA LIMA SANTANA"
+  },
+  "204540": {
+   "nome": "Maria Rosas",
+   "nomeCivil": "MARIA DO PARTO MENDES ROSAS"
+  },
+  "220622": {
+   "nome": "Nely Aquino",
+   "nomeCivil": "NELI PEREIRA DE AQUINO"
+  },
+  "178989": {
+   "nome": "Renata Abreu",
+   "nomeCivil": "RENATA HELLMEISTER DE ABREU MELO"
+  },
+  "220674": {
+   "nome": "Dra. Alessandra Haber",
+   "nomeCivil": "ALESSANDRA HABER CARVALHO SANTOS"
+  }
+ },
+ "discursos": [
+  {
+   "id": 204462,
+   "nome": "Chris Tonietto",
+   "data": "2025-07-08T17:40",
+   "fase": "Ordem do Dia",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=9%2F7%2F2025&txPagina=132&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 204462,
+   "nome": "Chris Tonietto",
+   "data": "2024-06-19T18:32",
+   "fase": "Breves Comunicações",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=20%2F6%2F2024&txPagina=123&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 204462,
+   "nome": "Chris Tonietto",
+   "data": "2023-09-26T20:52",
+   "fase": "Breves Comunicações",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=27%2F9%2F2023&txPagina=160&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 204462,
+   "nome": "Chris Tonietto",
+   "data": "2023-03-16T14:24",
+   "fase": "Ordem do Dia",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=17%2F3%2F2023&txPagina=132&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 204462,
+   "nome": "Chris Tonietto",
+   "data": "2023-03-14T21:36",
+   "fase": "Ordem do Dia",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=15%2F3%2F2023&txPagina=170&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 220559,
+   "nome": "Julia Zanatta",
+   "data": "2026-07-01T18:24",
+   "fase": "Ordem do Dia",
+   "url": null,
+   "auto": false
+  },
+  {
+   "id": 220559,
+   "nome": "Julia Zanatta",
+   "data": "2026-03-18T20:36",
+   "fase": "Ordem do Dia",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=19%2F3%2F2026&txPagina=187&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 220559,
+   "nome": "Julia Zanatta",
+   "data": "2026-03-10T19:20",
+   "fase": "Ordem do Dia",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=11%2F3%2F2026&txPagina=163&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 220559,
+   "nome": "Julia Zanatta",
+   "data": "2024-10-15T18:44",
+   "fase": "Ordem do Dia",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=16%2F10%2F2024&txPagina=99&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 220559,
+   "nome": "Julia Zanatta",
+   "data": "2024-09-09T21:20",
+   "fase": "Ordem do Dia",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=10%2F9%2F2024&txPagina=114&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 220559,
+   "nome": "Julia Zanatta",
+   "data": "2024-06-19T16:24",
+   "fase": "Breves Comunicações",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=20%2F6%2F2024&txPagina=87&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 220559,
+   "nome": "Julia Zanatta",
+   "data": "2024-04-17T17:00",
+   "fase": "Breves Comunicações",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=18%2F4%2F2024&txPagina=142&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 220559,
+   "nome": "Julia Zanatta",
+   "data": "2023-12-20T22:04",
+   "fase": "Ordem do Dia",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=21%2F12%2F2023&txPagina=86&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 220559,
+   "nome": "Julia Zanatta",
+   "data": "2023-11-29T21:08",
+   "fase": "Ordem do Dia",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=30%2F11%2F2023&txPagina=182&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 220559,
+   "nome": "Julia Zanatta",
+   "data": "2023-03-08T20:04",
+   "fase": "Ordem do Dia",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=9%2F3%2F2023&txPagina=145&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 220559,
+   "nome": "Julia Zanatta",
+   "data": "2023-03-07T16:56",
+   "fase": "Breves Comunicações",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=8%2F3%2F2023&txPagina=77&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 204507,
+   "nome": "Carla Zambelli",
+   "data": "2024-03-05T20:48",
+   "fase": "Breves Comunicações",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=6%2F3%2F2024&txPagina=104&txSuplemento=&enviar=Pesquisar",
+   "auto": true
+  },
+  {
+   "id": 204374,
+   "nome": "Bia Kicis",
+   "data": "2026-11-03T17:08",
+   "fase": "Breves Comunicações",
+   "url": null,
+   "auto": false
+  },
+  {
+   "id": 204374,
+   "nome": "Bia Kicis",
+   "data": "2025-07-08T18:16",
+   "fase": "Ordem do Dia",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=9%2F7%2F2025&txPagina=144&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 204374,
+   "nome": "Bia Kicis",
+   "data": "2025-07-08T17:32",
+   "fase": "Ordem do Dia",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=9%2F7%2F2025&txPagina=129&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 204374,
+   "nome": "Bia Kicis",
+   "data": "2024-10-08T19:32",
+   "fase": "Ordem do Dia",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=9%2F10%2F2024&txPagina=135&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 204374,
+   "nome": "Bia Kicis",
+   "data": "2023-12-21T21:16",
+   "fase": "Ordem do Dia",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=22%2F12%2F2023&txPagina=109&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 204528,
+   "nome": "Adriana Ventura",
+   "data": "2024-07-11T16:40",
+   "fase": "Ordem do Dia",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=12%2F7%2F2024&txPagina=197&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 213762,
+   "nome": "Carla Dickson",
+   "data": "2026-03-17T16:40",
+   "fase": "Breves Comunicações",
+   "url": null,
+   "auto": false
+  },
+  {
+   "id": 213762,
+   "nome": "Carla Dickson",
+   "data": "2026-02-24T17:56",
+   "fase": "Breves Comunicações",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=25%2F2%2F2026&txPagina=128&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 213762,
+   "nome": "Carla Dickson",
+   "data": "2025-08-20T18:36",
+   "fase": "Breves Comunicações",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=21%2F8%2F2025&txPagina=195&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 213762,
+   "nome": "Carla Dickson",
+   "data": "2025-04-22T16:52",
+   "fase": "Breves Comunicações",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=23%2F4%2F2025&txPagina=116&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 220665,
+   "nome": "Clarissa Tércio",
+   "data": "2025-07-01T15:32",
+   "fase": "Breves Comunicações",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=2%2F7%2F2025&txPagina=61&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 204540,
+   "nome": "Maria Rosas",
+   "data": "2024-02-27T16:30",
+   "fase": "Encerramento",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=28%2F2%2F2024&txPagina=177&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  },
+  {
+   "id": 204540,
+   "nome": "Maria Rosas",
+   "data": "2023-12-06T13:55",
+   "fase": "Encerramento",
+   "url": "https://imagem.camara.gov.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=7%2F12%2F2023&txPagina=240&txSuplemento=&enviar=Pesquisar",
+   "auto": false
+  }
+ ]
+}

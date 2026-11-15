@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChartFrame } from "@/components/editorial/ChartFrame";
-import { DEPUTADAS, VOTACOES, VOTACOES_META } from "@/data/votacoes-camara";
+import { VOTACOES, VOTACOES_META } from "@/data/votacoes-camara";
+import { DEPUTADAS } from "@/data/votacoes-deputadas";
 import { formatInt as n } from "@/lib/format-br";
 
 /**
@@ -36,7 +37,15 @@ const partidoDe = (d: Dep) =>
 
 const dataBR = (iso: string) => iso.split("-").reverse().join("/");
 
-function Celula({ voto, apagada, titulo }: { voto: string | undefined; apagada: boolean; titulo: string }) {
+function Celula({
+  voto,
+  apagada,
+  titulo,
+}: {
+  voto: string | undefined;
+  apagada: boolean;
+  titulo: string;
+}) {
   const base = "block h-[14px] w-[14px] box-border";
   let cls = "";
   let style: React.CSSProperties | undefined;
@@ -51,7 +60,9 @@ function Celula({ voto, apagada, titulo }: { voto: string | undefined; apagada: 
   } else cls = "border border-rule";
   return (
     <span title={titulo} className={`${base} ${cls} ${apagada ? "opacity-20" : ""}`} style={style}>
-      {voto === "Ausente" ? <span className="block h-1 w-1 rounded-full bg-muted-foreground" /> : null}
+      {voto === "Ausente" ? (
+        <span className="block h-1 w-1 rounded-full bg-muted-foreground" />
+      ) : null}
     </span>
   );
 }
@@ -62,7 +73,8 @@ export function MatrizVotos() {
   const partidos = [...contagem.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
   const ordem = partidos.map(([p]) => p);
   const linhas = [...DEPUTADAS].sort(
-    (a, b) => ordem.indexOf(partidoDe(a)) - ordem.indexOf(partidoDe(b)) || a.nome.localeCompare(b.nome),
+    (a, b) =>
+      ordem.indexOf(partidoDe(a)) - ordem.indexOf(partidoDe(b)) || a.nome.localeCompare(b.nome),
   );
   const [foco, setFoco] = useState("");
 
@@ -76,25 +88,38 @@ export function MatrizVotos() {
       ariaLabel="Matriz com o voto de cada deputada nas seis votações"
       legend={
         <ul className="flex flex-wrap gap-x-4 gap-y-2 text-[13px] text-ink/80">
-          <li className="flex items-center gap-1.5"><Celula voto="Sim" apagada={false} titulo="" /> Sim</li>
-          <li className="flex items-center gap-1.5"><Celula voto="Não" apagada={false} titulo="" /> Não</li>
-          <li className="flex items-center gap-1.5"><Celula voto="Abstenção" apagada={false} titulo="" /> Abstenção ou obstrução</li>
-          <li className="flex items-center gap-1.5"><Celula voto="Ausente" apagada={false} titulo="" /> Ausente</li>
-          <li className="flex items-center gap-1.5"><Celula voto={undefined} apagada={false} titulo="" /> Fora do mandato na data</li>
+          <li className="flex items-center gap-1.5">
+            <Celula voto="Sim" apagada={false} titulo="" /> Sim
+          </li>
+          <li className="flex items-center gap-1.5">
+            <Celula voto="Não" apagada={false} titulo="" /> Não
+          </li>
+          <li className="flex items-center gap-1.5">
+            <Celula voto="Abstenção" apagada={false} titulo="" /> Abstenção ou obstrução
+          </li>
+          <li className="flex items-center gap-1.5">
+            <Celula voto="Ausente" apagada={false} titulo="" /> Ausente
+          </li>
+          <li className="flex items-center gap-1.5">
+            <Celula voto={undefined} apagada={false} titulo="" /> Fora do mandato na data
+          </li>
         </ul>
       }
       ficha={{
-        vendo: "O voto nominal de cada deputada em seis votações de mérito no plenário da Câmara. A posição de cada quadrado é a mesma em todas as faixas.",
+        vendo:
+          "O voto nominal de cada deputada em seis votações de mérito no plenário da Câmara. A posição de cada quadrado é a mesma em todas as faixas.",
         contados: `As ${n(DEPUTADAS.length)} deputadas que estavam em exercício em ao menos uma das seis datas. A presidente da sessão não vota e aparece como fora da contagem.`,
         denominador: "Cada faixa conta só quem estava em exercício naquela data.",
         data: VOTACOES_META.coletaEm,
         fonte: VOTACOES_META.fonte,
-        limitacao: "Sim e Não têm sentidos diferentes em cada votação; o que cada um significa está escrito em cada faixa. O partido é o da data do voto. A matriz descreve votos; não mede efeito do voto na eleição.",
+        limitacao:
+          "Sim e Não têm sentidos diferentes em cada votação; o que cada um significa está escrito em cada faixa. O partido é o da data do voto. A matriz descreve votos; não mede efeito do voto na eleição.",
       }}
     >
       <div className="px-5 py-5 md:px-6">
         <p className="sr-only">
-          Para ler voto a voto, use a tabela Deputada por deputada, logo abaixo, que traz os mesmos dados em texto.
+          Para ler voto a voto, use a tabela Deputada por deputada, logo abaixo, que traz os mesmos
+          dados em texto.
         </p>
         <label className="flex flex-col gap-1 text-[13px] font-semibold text-ink md:hidden">
           Destacar um partido
@@ -111,19 +136,36 @@ export function MatrizVotos() {
             ))}
           </select>
         </label>
-        <div className="hidden flex-wrap gap-2 md:flex" role="group" aria-label="Destacar um partido">
-          <button type="button" className={chip(!foco)} aria-pressed={!foco} onClick={() => setFoco("")}>
+        <div
+          className="hidden flex-wrap gap-2 md:flex"
+          role="group"
+          aria-label="Destacar um partido"
+        >
+          <button
+            type="button"
+            className={chip(!foco)}
+            aria-pressed={!foco}
+            onClick={() => setFoco("")}
+          >
             Todos
           </button>
           {partidos.map(([p, c]) => (
-            <button key={p} type="button" className={chip(foco === p)} aria-pressed={foco === p} onClick={() => setFoco(p)}>
+            <button
+              key={p}
+              type="button"
+              className={chip(foco === p)}
+              aria-pressed={foco === p}
+              onClick={() => setFoco(p)}
+            >
               {p} ({n(c)})
             </button>
           ))}
         </div>
         <ol className="mt-6 space-y-6" aria-hidden="true">
           {VOTACOES.map((v) => {
-            const emExercicio = linhas.filter((d) => d.votos[v.id] && d.votos[v.id]?.voto !== "Presidência da sessão");
+            const emExercicio = linhas.filter(
+              (d) => d.votos[v.id] && d.votos[v.id]?.voto !== "Presidência da sessão",
+            );
             const sim = emExercicio.filter((d) => d.votos[v.id]?.voto === "Sim").length;
             const nao = emExercicio.filter((d) => d.votos[v.id]?.voto === "Não").length;
             return (
@@ -131,14 +173,21 @@ export function MatrizVotos() {
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                   <p className="font-display text-lg leading-snug text-ink">
                     {CURTO[v.id] ?? v.titulo}{" "}
-                    <span className="font-mono text-[13px] text-muted-foreground">{dataBR(v.data)}</span>
+                    <span className="font-mono text-[13px] text-muted-foreground">
+                      {dataBR(v.data)}
+                    </span>
                   </p>
                   <p className="font-mono text-[13px] text-ink/80">
                     {n(sim)} sim · {n(nao)} não
                   </p>
                 </div>
-                <p className="mt-1 text-[13px] leading-snug text-muted-foreground">Sim = {v.sim}.</p>
-                <div className="mt-2 grid gap-[3px]" style={{ gridTemplateColumns: "repeat(auto-fill, 14px)" }}>
+                <p className="mt-1 text-[13px] leading-snug text-muted-foreground">
+                  Sim = {v.sim}.
+                </p>
+                <div
+                  className="mt-2 grid gap-[3px]"
+                  style={{ gridTemplateColumns: "repeat(auto-fill, 14px)" }}
+                >
                   {linhas.map((d) => {
                     const x = d.votos[v.id];
                     const voto = x?.voto === "Presidência da sessão" ? undefined : x?.voto;

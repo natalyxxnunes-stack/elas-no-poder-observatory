@@ -1,0 +1,58 @@
+{
+  "auditoria": {
+    "pagoSemPrestador": 0.0,
+    "doadorSemReceita": 0
+  },
+  "proporcional": {
+    "FEMININO": {
+      "candidaturas": 6953,
+      "contratadoTotal": 1668509671.93,
+      "pagoPorFonte": {
+        "Fundo Especial de Financiamento de Campanha": 1389698201.03,
+        "Outros Recursos": 132316254.83,
+        "Fundo Partidário": 125921456.93
+      },
+      "comVaquinha": 549,
+      "vaquinhaTotal": 3179953.72,
+      "doadoresDistintos": 30438
+    },
+    "MASCULINO": {
+      "candidaturas": 12578,
+      "contratadoTotal": 3503746317.8,
+      "pagoPorFonte": {
+        "Fundo Especial de Financiamento de Campanha": 2367842425.91,
+        "Outros Recursos": 750098487.02,
+        "Fundo Partidário": 301084182.19
+      },
+      "comVaquinha": 921,
+      "vaquinhaTotal": 9949960.72,
+      "doadoresDistintos": 89643
+    }
+  },
+  "majoritario": {
+    "FEMININO": {
+      "candidaturas": 107,
+      "contratadoTotal": 208734629.6,
+      "pagoPorFonte": {
+        "Fundo Especial de Financiamento de Campanha": 175387023.32,
+        "Outros Recursos": 17139495.53,
+        "Fundo Partidário": 11583477.59
+      },
+      "comVaquinha": 27,
+      "vaquinhaTotal": 674076.0,
+      "doadoresDistintos": 7250
+    },
+    "MASCULINO": {
+      "candidaturas": 426,
+      "contratadoTotal": 1228827418.98,
+      "pagoPorFonte": {
+        "Fundo Especial de Financiamento de Campanha": 841065127.22,
+        "Outros Recursos": 247649692.64,
+        "Fundo Partidário": 79464488.26
+      },
+      "comVaquinha": 65,
+      "vaquinhaTotal": 7582274.75,
+      "doadoresDistintos": 86206
+    }
+  }
+}

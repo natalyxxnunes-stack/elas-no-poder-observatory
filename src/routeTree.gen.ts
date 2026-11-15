@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AchadosRouteImport } from './routes/achados'
 import { Route as BarreirasRouteImport } from './routes/barreiras'
 import { Route as BuscaRouteImport } from './routes/busca'
 import { Route as CalendarioRouteImport } from './routes/calendario'
@@ -18,6 +17,7 @@ import { Route as CoautoriaRouteImport } from './routes/coautoria'
 import { Route as ComoVotaramRouteImport } from './routes/como-votaram'
 import { Route as CompararRouteImport } from './routes/comparar'
 import { Route as CondicoesRouteImport } from './routes/condicoes'
+import { Route as DadosRouteImport } from './routes/dados'
 import { Route as DinheiroRouteImport } from './routes/dinheiro'
 import { Route as DireitosRouteImport } from './routes/direitos'
 import { Route as DownloadsRouteImport } from './routes/downloads'
@@ -36,6 +36,9 @@ import { Route as Relatorio2026RouteImport } from './routes/relatorio-2026'
 import { Route as ReportagensRouteImport } from './routes/reportagens'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as VotosRouteImport } from './routes/votos'
+import { Route as AchadosIndexRouteImport } from './routes/achados.index'
+import { Route as AchadosIdRouteImport } from './routes/achados.$id'
+import { Route as ColecoesAntigeneroNoPoderRouteImport } from './routes/colecoes.antigenero-no-poder'
 import { Route as EleitasIndexRouteImport } from './routes/eleitas.index'
 import { Route as EleitasSlugRouteImport } from './routes/eleitas.$slug'
 import { Route as PioneirasIndexRouteImport } from './routes/pioneiras.index'
@@ -49,11 +52,6 @@ import { Route as ApiPublicTseIngestHistoryRouteImport } from './routes/api/publ
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AchadosRoute = AchadosRouteImport.update({
-  id: '/achados',
-  path: '/achados',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BarreirasRoute = BarreirasRouteImport.update({
@@ -89,6 +87,11 @@ const CompararRoute = CompararRouteImport.update({
 const CondicoesRoute = CondicoesRouteImport.update({
   id: '/condicoes',
   path: '/condicoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DadosRoute = DadosRouteImport.update({
+  id: '/dados',
+  path: '/dados',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DinheiroRoute = DinheiroRouteImport.update({
@@ -181,6 +184,22 @@ const VotosRoute = VotosRouteImport.update({
   path: '/votos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AchadosIndexRoute = AchadosIndexRouteImport.update({
+  id: '/achados/',
+  path: '/achados/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AchadosIdRoute = AchadosIdRouteImport.update({
+  id: '/achados/$id',
+  path: '/achados/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ColecoesAntigeneroNoPoderRoute =
+  ColecoesAntigeneroNoPoderRouteImport.update({
+    id: '/colecoes/antigenero-no-poder',
+    path: '/colecoes/antigenero-no-poder',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EleitasIndexRoute = EleitasIndexRouteImport.update({
   id: '/eleitas/',
   path: '/eleitas/',
@@ -230,7 +249,6 @@ const ApiPublicTseIngestHistoryRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/achados': typeof AchadosRoute
   '/barreiras': typeof BarreirasRoute
   '/busca': typeof BuscaRoute
   '/calendario': typeof CalendarioRoute
@@ -238,6 +256,7 @@ export interface FileRoutesByFullPath {
   '/como-votaram': typeof ComoVotaramRoute
   '/comparar': typeof CompararRoute
   '/condicoes': typeof CondicoesRoute
+  '/dados': typeof DadosRoute
   '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
   '/downloads': typeof DownloadsRoute
@@ -256,10 +275,13 @@ export interface FileRoutesByFullPath {
   '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
+  '/achados/$id': typeof AchadosIdRoute
+  '/colecoes/antigenero-no-poder': typeof ColecoesAntigeneroNoPoderRoute
   '/eleitas/$slug': typeof EleitasSlugRoute
   '/pioneiras/lelia-gonzalez': typeof PioneirasLeliaGonzalezRoute
   '/pioneiras/pagu': typeof PioneirasPaguRoute
   '/temas/$slug': typeof TemasSlugRoute
+  '/achados/': typeof AchadosIndexRoute
   '/eleitas/': typeof EleitasIndexRoute
   '/pioneiras/': typeof PioneirasIndexRoute
   '/temas/': typeof TemasIndexRoute
@@ -268,7 +290,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/achados': typeof AchadosRoute
   '/barreiras': typeof BarreirasRoute
   '/busca': typeof BuscaRoute
   '/calendario': typeof CalendarioRoute
@@ -276,6 +297,7 @@ export interface FileRoutesByTo {
   '/como-votaram': typeof ComoVotaramRoute
   '/comparar': typeof CompararRoute
   '/condicoes': typeof CondicoesRoute
+  '/dados': typeof DadosRoute
   '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
   '/downloads': typeof DownloadsRoute
@@ -294,10 +316,13 @@ export interface FileRoutesByTo {
   '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
+  '/achados/$id': typeof AchadosIdRoute
+  '/colecoes/antigenero-no-poder': typeof ColecoesAntigeneroNoPoderRoute
   '/eleitas/$slug': typeof EleitasSlugRoute
   '/pioneiras/lelia-gonzalez': typeof PioneirasLeliaGonzalezRoute
   '/pioneiras/pagu': typeof PioneirasPaguRoute
   '/temas/$slug': typeof TemasSlugRoute
+  '/achados': typeof AchadosIndexRoute
   '/eleitas': typeof EleitasIndexRoute
   '/pioneiras': typeof PioneirasIndexRoute
   '/temas': typeof TemasIndexRoute
@@ -307,7 +332,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/achados': typeof AchadosRoute
   '/barreiras': typeof BarreirasRoute
   '/busca': typeof BuscaRoute
   '/calendario': typeof CalendarioRoute
@@ -315,6 +339,7 @@ export interface FileRoutesById {
   '/como-votaram': typeof ComoVotaramRoute
   '/comparar': typeof CompararRoute
   '/condicoes': typeof CondicoesRoute
+  '/dados': typeof DadosRoute
   '/dinheiro': typeof DinheiroRoute
   '/direitos': typeof DireitosRoute
   '/downloads': typeof DownloadsRoute
@@ -333,10 +358,13 @@ export interface FileRoutesById {
   '/reportagens': typeof ReportagensRoute
   '/sobre': typeof SobreRoute
   '/votos': typeof VotosRoute
+  '/achados/$id': typeof AchadosIdRoute
+  '/colecoes/antigenero-no-poder': typeof ColecoesAntigeneroNoPoderRoute
   '/eleitas/$slug': typeof EleitasSlugRoute
   '/pioneiras/lelia-gonzalez': typeof PioneirasLeliaGonzalezRoute
   '/pioneiras/pagu': typeof PioneirasPaguRoute
   '/temas/$slug': typeof TemasSlugRoute
+  '/achados/': typeof AchadosIndexRoute
   '/eleitas/': typeof EleitasIndexRoute
   '/pioneiras/': typeof PioneirasIndexRoute
   '/temas/': typeof TemasIndexRoute
@@ -347,7 +375,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/achados'
     | '/barreiras'
     | '/busca'
     | '/calendario'
@@ -355,6 +382,7 @@ export interface FileRouteTypes {
     | '/como-votaram'
     | '/comparar'
     | '/condicoes'
+    | '/dados'
     | '/dinheiro'
     | '/direitos'
     | '/downloads'
@@ -373,10 +401,13 @@ export interface FileRouteTypes {
     | '/reportagens'
     | '/sobre'
     | '/votos'
+    | '/achados/$id'
+    | '/colecoes/antigenero-no-poder'
     | '/eleitas/$slug'
     | '/pioneiras/lelia-gonzalez'
     | '/pioneiras/pagu'
     | '/temas/$slug'
+    | '/achados/'
     | '/eleitas/'
     | '/pioneiras/'
     | '/temas/'
@@ -385,7 +416,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/achados'
     | '/barreiras'
     | '/busca'
     | '/calendario'
@@ -393,6 +423,7 @@ export interface FileRouteTypes {
     | '/como-votaram'
     | '/comparar'
     | '/condicoes'
+    | '/dados'
     | '/dinheiro'
     | '/direitos'
     | '/downloads'
@@ -411,10 +442,13 @@ export interface FileRouteTypes {
     | '/reportagens'
     | '/sobre'
     | '/votos'
+    | '/achados/$id'
+    | '/colecoes/antigenero-no-poder'
     | '/eleitas/$slug'
     | '/pioneiras/lelia-gonzalez'
     | '/pioneiras/pagu'
     | '/temas/$slug'
+    | '/achados'
     | '/eleitas'
     | '/pioneiras'
     | '/temas'
@@ -423,7 +457,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/achados'
     | '/barreiras'
     | '/busca'
     | '/calendario'
@@ -431,6 +464,7 @@ export interface FileRouteTypes {
     | '/como-votaram'
     | '/comparar'
     | '/condicoes'
+    | '/dados'
     | '/dinheiro'
     | '/direitos'
     | '/downloads'
@@ -449,10 +483,13 @@ export interface FileRouteTypes {
     | '/reportagens'
     | '/sobre'
     | '/votos'
+    | '/achados/$id'
+    | '/colecoes/antigenero-no-poder'
     | '/eleitas/$slug'
     | '/pioneiras/lelia-gonzalez'
     | '/pioneiras/pagu'
     | '/temas/$slug'
+    | '/achados/'
     | '/eleitas/'
     | '/pioneiras/'
     | '/temas/'
@@ -462,7 +499,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AchadosRoute: typeof AchadosRoute
   BarreirasRoute: typeof BarreirasRoute
   BuscaRoute: typeof BuscaRoute
   CalendarioRoute: typeof CalendarioRoute
@@ -470,6 +506,7 @@ export interface RootRouteChildren {
   ComoVotaramRoute: typeof ComoVotaramRoute
   CompararRoute: typeof CompararRoute
   CondicoesRoute: typeof CondicoesRoute
+  DadosRoute: typeof DadosRoute
   DinheiroRoute: typeof DinheiroRoute
   DireitosRoute: typeof DireitosRoute
   DownloadsRoute: typeof DownloadsRoute
@@ -488,10 +525,13 @@ export interface RootRouteChildren {
   ReportagensRoute: typeof ReportagensRoute
   SobreRoute: typeof SobreRoute
   VotosRoute: typeof VotosRoute
+  AchadosIdRoute: typeof AchadosIdRoute
+  ColecoesAntigeneroNoPoderRoute: typeof ColecoesAntigeneroNoPoderRoute
   EleitasSlugRoute: typeof EleitasSlugRoute
   PioneirasLeliaGonzalezRoute: typeof PioneirasLeliaGonzalezRoute
   PioneirasPaguRoute: typeof PioneirasPaguRoute
   TemasSlugRoute: typeof TemasSlugRoute
+  AchadosIndexRoute: typeof AchadosIndexRoute
   EleitasIndexRoute: typeof EleitasIndexRoute
   PioneirasIndexRoute: typeof PioneirasIndexRoute
   TemasIndexRoute: typeof TemasIndexRoute
@@ -506,13 +546,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/achados': {
-      id: '/achados'
-      path: '/achados'
-      fullPath: '/achados'
-      preLoaderRoute: typeof AchadosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/barreiras': {
@@ -562,6 +595,13 @@ declare module '@tanstack/react-router' {
       path: '/condicoes'
       fullPath: '/condicoes'
       preLoaderRoute: typeof CondicoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dados': {
+      id: '/dados'
+      path: '/dados'
+      fullPath: '/dados'
+      preLoaderRoute: typeof DadosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dinheiro': {
@@ -690,6 +730,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VotosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/achados/': {
+      id: '/achados/'
+      path: '/achados'
+      fullPath: '/achados/'
+      preLoaderRoute: typeof AchadosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/achados/$id': {
+      id: '/achados/$id'
+      path: '/achados/$id'
+      fullPath: '/achados/$id'
+      preLoaderRoute: typeof AchadosIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/colecoes/antigenero-no-poder': {
+      id: '/colecoes/antigenero-no-poder'
+      path: '/colecoes/antigenero-no-poder'
+      fullPath: '/colecoes/antigenero-no-poder'
+      preLoaderRoute: typeof ColecoesAntigeneroNoPoderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/eleitas/': {
       id: '/eleitas/'
       path: '/eleitas'
@@ -758,7 +819,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AchadosRoute: AchadosRoute,
   BarreirasRoute: BarreirasRoute,
   BuscaRoute: BuscaRoute,
   CalendarioRoute: CalendarioRoute,
@@ -766,6 +826,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComoVotaramRoute: ComoVotaramRoute,
   CompararRoute: CompararRoute,
   CondicoesRoute: CondicoesRoute,
+  DadosRoute: DadosRoute,
   DinheiroRoute: DinheiroRoute,
   DireitosRoute: DireitosRoute,
   DownloadsRoute: DownloadsRoute,
@@ -784,10 +845,13 @@ const rootRouteChildren: RootRouteChildren = {
   ReportagensRoute: ReportagensRoute,
   SobreRoute: SobreRoute,
   VotosRoute: VotosRoute,
+  AchadosIdRoute: AchadosIdRoute,
+  ColecoesAntigeneroNoPoderRoute: ColecoesAntigeneroNoPoderRoute,
   EleitasSlugRoute: EleitasSlugRoute,
   PioneirasLeliaGonzalezRoute: PioneirasLeliaGonzalezRoute,
   PioneirasPaguRoute: PioneirasPaguRoute,
   TemasSlugRoute: TemasSlugRoute,
+  AchadosIndexRoute: AchadosIndexRoute,
   EleitasIndexRoute: EleitasIndexRoute,
   PioneirasIndexRoute: PioneirasIndexRoute,
   TemasIndexRoute: TemasIndexRoute,

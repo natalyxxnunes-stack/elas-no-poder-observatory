@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { EditorialOpening } from "@/components/editorial/EditorialOpening";
+import { Faixa } from "@/components/editorial/Faixa";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/downloads")({
   component: DownloadsPage,
 });
 
-/* Conteúdo publicado como catálogo de materiais em preparação. */
+/* Catálogo de materiais existentes; miniaturas usam os próprios arquivos, sem inventar capas. */
 
 /**
  * Catálogo de materiais. Estrutura preparada para gestão futura por CMS:
@@ -94,28 +94,89 @@ const MATERIALS: readonly Material[] = [
   },
 ];
 
+/** Prévia fiel, quando o navegador conseguir renderizar o arquivo original.
+ * Miniaturas derivadas dos próprios PDFs, geradas no pipeline verificado.
+ */
+function MiniaturaMaterial({ material }: { material: Material }) {
+  if (!material.file || material.file === "/metodo") {
+    return (
+      <div className="flex aspect-[5/3] items-center justify-center bg-cream p-5 text-center text-sm text-ink/70">
+        Base de consulta · arquivo e metodologia disponíveis no Método
+      </div>
+    );
+  }
+  if (material.file.endsWith(".png")) {
+    return (
+      <div className="flex aspect-[5/3] items-center justify-center overflow-hidden bg-cream">
+        <img src={material.file} loading="lazy" className="h-full w-full object-contain"
+          alt="Prévia do infográfico original, sem alterações editoriais" />
+      </div>
+    );
+  }
+  if (material.file.endsWith(".pdf")) {
+    const miniatura = material.id === "cartilha-cota"
+      ? "/materiais/cartilha-cota-miniatura.png"
+      : material.id === "cartilha-funil"
+        ? "/materiais/oficina-funil-miniatura.png"
+        : null;
+    return miniatura ? (
+      <div className="flex aspect-[5/3] items-center justify-center overflow-hidden bg-cream">
+        <img src={miniatura} alt={"Prévia da primeira página do material: " + material.title}
+          loading="lazy" className="h-full w-full object-contain" />
+      </div>
+    ) : (
+      <div className="flex aspect-[5/3] items-center justify-center bg-cream p-5 text-sm text-ink/70">
+        Arquivo PDF para download · prévia indisponível
+      </div>
+    );
+  }
+  return null;
+}
+
 function DownloadsPage() {
   return (
     <PageShell breadcrumb={[{ label: "Projeto" }, { label: "Downloads" }]}>
-      <EditorialOpening
-        variant="downloads"
-        kicker="Downloads"
-        question="O que posso levar daqui?"
-        lead={
-          <p>
-            Materiais para circular fora do site: cartilhas, infográficos, roteiros de oficina e
-            tabelas com dicionário de variáveis. Tudo com fonte e data da base impressas na própria
-            peça.
-          </p>
-        }
-        documents={MATERIALS.map((material) => ({
-          format: material.format.split(/[ ,]/)[0] ?? material.format,
-          label: material.kind,
-          available: material.file !== null,
-        }))}
-      />
+      <Faixa fundo="bg-plum-deep text-paper">
+        <header className="grid items-center gap-8 py-12 md:grid-cols-[1.1fr_.9fr] md:gap-14 md:py-16">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-lilac">
+              Biblioteca do observatório
+            </p>
+            <h1 className="mt-4 max-w-xl font-display text-[2.5rem] font-semibold leading-[1.08] md:text-[3.5rem]">
+              Materiais para consultar e compartilhar
+            </h1>
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-paper/85">
+              Cartilhas, infográficos, oficinas e bases de dados para usar em pesquisas,
+              aulas e reportagens. Os materiais identificam as fontes e o período analisado.
+            </p>
+            <a href="#catalogo"
+              className="mt-6 inline-flex min-h-11 items-center font-semibold text-paper underline decoration-lilac decoration-2 underline-offset-4">
+              Explorar os materiais <span aria-hidden="true" className="ml-2">↘</span>
+            </a>
+          </div>
+          <div className="grid grid-cols-2 gap-3" aria-label="Prévia de publicações reais do observatório">
+            <figure>
+              <div className="flex aspect-[3/4] items-center justify-center overflow-hidden bg-paper/10">
+                <img src="/materiais/cartilha-cota-miniatura.png"
+                  alt="Capa original da cartilha sobre cotas de gênero"
+                  loading="eager" className="h-full w-full object-contain" />
+              </div>
+              <figcaption className="mt-2 text-xs text-paper/75">Cartilha · PDF</figcaption>
+            </figure>
+            <figure>
+              <div className="flex aspect-[3/4] items-center justify-center overflow-hidden bg-paper/10">
+                <img src="/materiais/oficina-funil-miniatura.png"
+                  alt="Primeira página original do material de oficina sobre o funil eleitoral"
+                  loading="eager" className="h-full w-full object-contain" />
+              </div>
+              <figcaption className="mt-2 text-xs text-paper/75">Oficina · PDF</figcaption>
+            </figure>
+          </div>
+        </header>
+      </Faixa>
 
       <SectionBlock
+        id="catalogo"
         kicker="Catálogo"
         question="Materiais para baixar e circular"
         align="wide"
@@ -134,6 +195,7 @@ function DownloadsPage() {
                   {m.kind}
                 </p>
               </div>
+              <div className="mb-4"><MiniaturaMaterial material={m} /></div>
               <h3 className="mt-2 font-display text-xl leading-snug text-ink">{m.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{m.description}</p>
               <dl className="mt-4 space-y-1 font-mono text-[13px] text-muted-foreground">
@@ -181,9 +243,11 @@ function DownloadsPage() {
         align="wide"
         lead={
           <p>
-            Arquivos com fotografias identificadas dos dados do observatório, em CSV que abre no Excel ou no Google Planilhas. As datas de corte podem variar entre as planilhas e os gráficos atuais. Cada arquivo traz fonte,
-            data e uma impressão digital (SHA-256): se o código do seu arquivo bater com o daqui, é o mesmo arquivo, byte a
-            byte. O SHA-256 verifica se o arquivo é idêntico ao publicado; as fontes e as regras de cálculo estão documentadas no repositório e no Método.
+            Os arquivos CSV preservam fotografias identificadas dos dados do observatório, em formato
+            que abre no Excel ou no Google Planilhas. Cada planilha informa a fonte e a data da base,
+            que pode ser diferente da utilizada em gráficos atualizados. O SHA-256 permite conferir
+            se o arquivo corresponde ao publicado aqui; as fontes e o método de cálculo estão
+            documentados nos scripts do repositório e no Método.
           </p>
         }
       >
