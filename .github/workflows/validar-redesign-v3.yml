@@ -36,6 +36,25 @@ jobs:
             test -s "dist/client/$file"
             echo "OK: $file"
           done
+      - name: Impedir publicação de imagens corrompidas
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import struct
+          folder=Path('dist/client')
+          images=list(folder.rglob('*.png'))+list(folder.rglob('*.jpg'))+list(folder.rglob('*.jpeg'))
+          assert images, 'Nenhuma imagem encontrada no build'
+          for p in images:
+              d=p.read_bytes()
+              if p.suffix == '.png':
+                  assert d[:8] == bytes([137,80,78,71,13,10,26,10]), f'PNG inválido: {p}'
+                  w,h=struct.unpack('>II',d[16:24])
+                  assert w>0 and h>0, f'Dimensões inválidas: {p}'
+              else:
+                  assert d[:2] == bytes([255,216]) and d[-2:] == bytes([255,217]), f'JPEG inválido: {p}'
+          print(f'Arquivos de imagem verificados: {len(images)}')
+          PY
       - name: Disponibilizar build estático para testes de usabilidade
         uses: actions/upload-artifact@v4
         with:
