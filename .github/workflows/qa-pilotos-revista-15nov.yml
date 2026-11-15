@@ -122,7 +122,7 @@ jobs:
                   assert sum([int(el.inner_text().strip()) for el in atlas.locator('ol button > span:last-child').all()]) <= 342,(route,device,'absolute counts')
                   atlas.get_by_role('button',name='Ver todas as').click()
                   assert atlas.locator('ol button').count()==27,(route,device,'UF map complete')
-                  atlas.get_by_role('button',name='Ver eleitas do Rio de Janeiro').click()
+                  atlas.locator('button[aria-label*="(RJ)"]').click()
                   assert page.locator('select').first.input_value()=='RJ',(route,device,'atlas filtered the state select')
                   assert 'uf=RJ' in page.evaluate('window.location.search'),(route,device,'shareable UF link')
                   page.get_by_role('button',name='Limpar filtro').click()
