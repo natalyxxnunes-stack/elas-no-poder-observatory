@@ -12,13 +12,17 @@
  * de Sergio Moro.
  *
  * Correção de 13/11/2026: a primeira versão manteve Cleitinho (Republicanos)
- * na cadeira de MG, embora ele tenha sido eleito governador no 1º turno
- * (TSE, base de 12/11/2026). Entra o 1º suplente, Alex Diniz (PL). O PL passa
- * de 27 para 28 cadeiras e o Republicanos de 6 para 5. A projeção da Agência
- * Senado reproduzida pela imprensa depois do 2º turno fala em 29 para o PL; a
- * diferença está no partido de Luis Felipe Cunha (PR), sem partido informado
- * nos dados abertos do Senado e descrito como União Brasil por parte da
- * imprensa. Fica sem partido informado até confirmação em fonte primária.
+ * na cadeira de MG, apesar de sua eleição para governador no 1º turno.
+ * O primeiro suplente, Alex Diniz (PL), soma uma cadeira ao PL.
+ *
+ * Complemento de 15/11/2026: Luis Felipe Cunha, primeiro suplente de Sergio
+ * Moro (PR), filiou-se ao PL em 08/10/2026. A Agência Senado confirmou o PL
+ * como seu partido em 25/10/2026 e projetou 29 cadeiras para a legenda em 2027.
+ * Fonte primária: https://www12.senado.leg.br/noticias/materias/2026/10/25/fim-da-eleicao-define-composicao-do-senado-em-2027-com-13-partidos
+ * O registro anterior deixava sem partido a cadeira do suplente, resultando
+ * em 28; agora são 19 eleitos em 2026 e 10 ocupantes dos mandatos até 2031.
+ * Os 29 refletem partidos esperados no exercício, não apenas partido de
+ * registro eleitoral em 2022.
  *
  * Previsão: a composição muda com trocas de partido, licenças e retorno de
  * titulares (Ana Paula Lobato e Jussara Lima exercem hoje o mandato como
@@ -36,6 +40,8 @@ export type CadeiraSenado = {
 
 export const SENADO_2027_META = {
   consultaSenado: "28/10/2026",
+  revisaoProjecao: "25/10/2026",
+  fonteProjecao: "https://www12.senado.leg.br/noticias/materias/2026/10/25/fim-da-eleicao-define-composicao-do-senado-em-2027-com-13-partidos",
   baseTse: "27/10/2026 19:30:36",
   hoje: { pl: 15, mulheres: 15 },
 } as const;
@@ -651,7 +657,7 @@ export const SENADO_2027: CadeiraSenado[] = [
  },
  {
   "nome": "Luis Felipe Cunha",
-  "partido": "sem partido informado",
+  "partido": "PL",
   "uf": "PR",
   "genero": "M",
   "origem": "mandato até 2031 (1º suplente de Sergio Moro, eleito governador do PR)",
