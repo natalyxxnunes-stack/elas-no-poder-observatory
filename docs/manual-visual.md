@@ -214,7 +214,7 @@ O arquivo editável permanente `Quem_sao_elas_Manual_Identidade_Editorial_Contin
 
 **Aplicação em prévia:** na branch `pilotos-revista-visual-15nov2026` (PR #8), a abertura passou de `--art-coral: #eb5d39` com texto em tinta para uma **variante tonal coral mais profunda `#c53f22` com texto `--paper`**, inclusive na manchete, no número, na legenda e no CTA. O token `--art-coral` **não foi alterado**, não surgiu uma cor estrutural nova nem se modificou a semântica cromática dos gráficos.
 
-**Razão técnica:** texto branco sobre o coral original tem contraste aproximado de **3,4:1**, insuficiente para corpo de texto WCAG AA (4,5:1); `#c53f22` com papel claro permite contraste superior a 4,5:1. A verificação automatizada do navegador usa amostragem sRGB para suportar valores CSS em `oklch` e exige contraste de **4,5:1** para títulos, textos e links da abertura em computador e celular. Confirmar a execução final no GitHub Actions.
+**Razão técnica:** texto branco sobre o coral original tem contraste aproximado de **3,4:1**, insuficiente para corpo de texto WCAG AA (4,5:1); `#c53f22` com papel claro permite contraste superior a 4,5:1. A verificação automatizada do navegador usa amostragem sRGB para suportar valores CSS em `oklch` e exige contraste de **4,5:1** para títulos, textos e links da abertura em computador e celular. [GitHub Actions #43776806314](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43776806314) **passou**, incluindo o teste de contraste WCAG AA em computador e celular. A aceitação visual integral continua pendente.
 
 **Decisão pendente:** aceitar ou ajustar a **escala da área coral** na composição geral depois de conferir as capturas de página inteira, sem voltar a texto preto nessa abertura.
 
