@@ -1264,7 +1264,7 @@ function MetodoPage() {
             ["Direito de resposta", METODO_ATUACAO.respostas],
             ["O que o voto não mostra", METODO_ATUACAO.limites],
           ].map(([titulo, texto]) => (
-            <div key={titulo} className="border-t-[3px] border-plum pt-3">
+            <div key={titulo} className="border-t border-rule pt-4">
               <h3 className="font-display text-lg text-ink">{titulo}</h3>
               <p className="mt-1 text-[15px] leading-relaxed text-ink/80">{texto}</p>
             </div>
