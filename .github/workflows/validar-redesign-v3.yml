@@ -1,0 +1,30 @@
+name: Verificação técnica da capa editorial v3
+on:
+  push:
+    branches:
+      - redesign-editorial-v3-teste
+  pull_request:
+    branches:
+      - revista-temas
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Instalar Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Instalar dependências travadas
+        run: bun install --frozen-lockfile
+      - name: Validar TypeScript
+        run: bunx tsc --noEmit
+      - name: Build estático HostGator
+        run: bun run build:hostgator
