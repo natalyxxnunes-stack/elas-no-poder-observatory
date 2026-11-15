@@ -7,7 +7,7 @@
  * Enquanto uma página não tiver foto registrada, o lugar mostra a peça gráfica
  * da própria página.
  */
-export type Licenca = "CC-BY" | "CC-BY-4.0" | "CC-BY-SA-4.0" | "CC0" | "dominio-publico" | "cessao-autorizada";
+export type Licenca = "CC-BY" | "CC-BY-4.0" | "CC-BY-SA-4.0" | "CC0" | "dominio-publico" | "cessao-autorizada" | "verificacao-pendente";
 
 export type Foto = {
   /** caminho em /public, por exemplo "/fotos/lelia-gonzalez-1983.jpg" */
@@ -40,7 +40,7 @@ export const FOTOS: Record<string, Foto> = {
     alt: "Retrato histórico de Patrícia Galvão, Pagu, olhando para a esquerda, com cabelo escuro e casaco de pele.",
     credito: "Autor não identificado / Wikimedia Commons",
     acervo: "Reproduzido em Depois da Cena, A Tribuna, março de 2008 (origem declarada no Commons)",
-    licenca: "dominio-publico",
+    licenca: "verificacao-pendente",
     licencaUrl: "https://commons.wikimedia.org/wiki/File:Patricia_Galvao.jpg",
     data: "Data atribuída ao fim da década de 1920; não confirmada",
     proporcao: "4/5",
@@ -89,4 +89,5 @@ export const LICENCA_ROTULO: Record<Licenca, string> = {
   CC0: "CC0",
   "dominio-publico": "domínio público",
   "cessao-autorizada": "uso autorizado",
+  "verificacao-pendente": "Wikimedia Commons indica domínio público; validação documental pendente",
 };
