@@ -18,8 +18,8 @@ export const TEMAS_COM_OBJETO_NA_ABERTURA = ["presenca", "dinheiro"] as const;
 const temaSuperficie: Record<Tema["slug"], string> = {
   presenca: "bg-plum-deep text-paper",
   dinheiro: "bg-cream text-ink",
-  agenda: "bg-paper text-ink",
-  poder: "bg-ink text-paper",
+  agenda: "bg-ink text-paper",
+  poder: "bg-plum-deep text-paper",
   violencia: "bg-ink text-paper",
   memoria: "bg-cream text-ink",
 };
@@ -35,11 +35,16 @@ function FotoTema({ tipo }: { tipo: "agenda" | "poder" | "memoria" }) {
     poder: "Bancada feminina da Câmara, março de 2026. Registro anterior às eleições de outubro; não representa as eleitas para 2027.",
     memoria: "Bertha Lutz na campanha pelo voto feminino, 1927. Arquivo Nacional, fundo da Federação Brasileira pelo Progresso Feminino.",
   }[tipo];
+  const moldura = tipo === "agenda" ? "bg-[var(--art-coral)]"
+    : tipo === "poder" ? "bg-[var(--art-gold)]"
+    : "bg-[var(--art-violet)]";
   return (
     <figure className="min-w-0">
-      <img src={foto.src} alt={foto.alt} loading="eager" fetchPriority="high"
-        className="block h-64 w-full object-cover object-center md:h-[360px]" />
-      <figcaption className={tipo === "poder" ? "mt-3 text-xs leading-relaxed text-paper/75" : "mt-3 text-xs leading-relaxed text-ink/70"}>
+      <div className={`${moldura} p-3 md:p-4`}>
+        <img src={foto.src} alt={foto.alt} loading="eager" fetchPriority="high"
+          className="block h-64 w-full object-cover object-center md:h-[342px]" />
+      </div>
+      <figcaption className={tipo === "memoria" ? "mt-3 text-xs leading-relaxed text-ink/75" : "mt-3 text-xs leading-relaxed text-paper/85"}>
         {contexto}{" "}
         <a href={foto.licencaUrl} target="_blank" rel="noreferrer"
           className="font-semibold underline underline-offset-2">
@@ -76,7 +81,7 @@ function DocumentoLei() {
 
 export function TemaOpening({ tema }: { tema: Tema }) {
   const slug = tema.slug;
-  const escuro = slug === "presenca" || slug === "poder" || slug === "violencia";
+  const escuro = slug === "presenca" || slug === "agenda" || slug === "poder" || slug === "violencia";
   const objeto = OBJETOS[slug]();
   const figuraDados = slug === "presenca" || slug === "dinheiro";
   return (
