@@ -110,9 +110,13 @@ jobs:
                     href=indices.nth(i).get_attribute('href')
                     assert href and href.startswith('#') and page.locator(href).count()==1,(name,'âncora',href)
                 if url=='/pioneiras/':
-                  page.locator('details summary').filter(has_text='Consultar os arquivos eleitorais').click()
-                  assert 'VOTACAO_CANDIDATO_UF_1950_SP.txt' in page.locator('details[open]').inner_text()
-                  assert 'VOTACAO_CANDIDATO_UF_1982_RJ.txt' in page.locator('details[open]').inner_text()
+                  arquivo=page.locator('details').filter(has_text='Consultar os arquivos eleitorais')
+                  assert arquivo.count()==1,(name,'inventário único')
+                  arquivo.locator('summary').click()
+                  assert arquivo.get_attribute('open') is not None,(name,'inventário expandido')
+                  texto_arquivo=arquivo.inner_text()
+                  assert 'VOTACAO_CANDIDATO_UF_1950_SP.txt' in texto_arquivo
+                  assert 'VOTACAO_CANDIDATO_UF_1982_RJ.txt' in texto_arquivo
                 if url=='/reportagens/':
                   assert 'Diário da Câmara' in d['body'],(name,'fonte primaria',url)
                   assert 'Referências textuais a fontes primárias' in d['body'],(name,'legenda documental')
