@@ -100,6 +100,19 @@ jobs:
                     page.get_by_role('button',name='Todos os cargos').click()
                     page.wait_for_timeout(180)
                     assert items.count()==36,(name,'filter reset',items.count())
+                if url=='/direitos/':
+                  marcos=page.locator('li[id^="marco-"]')
+                  indices=page.locator('nav[aria-label="Índice dos marcos jurídicos"] a')
+                  assert marcos.count()==13,(name,'marcos jurídicos',marcos.count())
+                  assert indices.count()==13,(name,'índice jurídico',indices.count())
+                  assert page.locator('li[id^="marco-2024-"]').count()==2,(name,'dois marcos distintos de 2024')
+                  for i in range(indices.count()):
+                    href=indices.nth(i).get_attribute('href')
+                    assert href and href.startswith('#') and page.locator(href).count()==1,(name,'âncora',href)
+                if url=='/pioneiras/':
+                  page.locator('details summary').filter(has_text='Consultar os arquivos eleitorais').click()
+                  assert 'VOTACAO_CANDIDATO_UF_1950_SP.txt' in page.locator('details[open]').inner_text()
+                  assert 'VOTACAO_CANDIDATO_UF_1982_RJ.txt' in page.locator('details[open]').inner_text()
                 if url=='/reportagens/':
                   assert 'Diário da Câmara' in d['body'],(name,'fonte primaria',url)
                   assert 'Referências textuais a fontes primárias' in d['body'],(name,'legenda documental')
