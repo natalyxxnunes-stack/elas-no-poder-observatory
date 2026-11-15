@@ -25,13 +25,13 @@ jobs:
           node scripts/recontagem/validar_snapshot_financeiro.mjs
           bunx tsc --noEmit
           bun run build:hostgator
-      - name: Assegurar que logotipo, paleta e números não foram alterados
+      - name: Preservar logo, fotografia, capa aprovada, paleta e bases de dados
         shell: bash
         run: |
           set -euo pipefail
           git fetch --depth=1 origin main
-          test -z "$(git diff --name-only origin/main...HEAD -- src/data public/dados src/styles.css src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
-          echo "Identidade visual, fotografia financeira e fichas eleitorais preservadas."
+          test -z "$(git diff --name-only origin/main...HEAD -- src/data public/dados public/fotos src/styles.css src/components/BrandLogo.tsx src/components/BrandWordmark.tsx src/components/home/CapaEditorialV3.tsx src/routes/index.tsx src/components/editorial/Faixa.tsx)"
+          echo "Homepage aprovada, imagem documental, identidade e bases eleitorais preservadas."
       - name: Navegador de testes
         run: python3 -m pip install --quiet --break-system-packages playwright
       - name: Conferir páginas e interações com Chromium
@@ -83,7 +83,10 @@ jobs:
                   assert 'Histórico de correções' in d['body']
                 if url=='/eleitas/':
                   assert '342 mulheres eleitas' in d['body']
-                  assert 'Onde elas conquistaram cadeiras' in d['body']
+                  assert 'Quantas vagas foram conquistadas por mulheres?' in d['body']
+                  assert '109 de 513' in d['body'],(name,'Câmara: numerador e denominador')
+                  assert '12 de 54' in d['body'],(name,'Senado: apenas as cadeiras renovadas')
+                  assert '3 de 27' in d['body'],(name,'Governos: 27 UFs')
                   assert 'Nomes e fichas' in d['body']
                   items=page.locator('section[aria-labelledby="lista-eleitas"] li')
                   assert items.count()==36,(name,'initial cards',items.count())
