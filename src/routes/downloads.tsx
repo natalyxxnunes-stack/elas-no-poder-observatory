@@ -181,9 +181,9 @@ function DownloadsPage() {
         align="wide"
         lead={
           <p>
-            Os mesmos números que o site publica, em CSV que abre no Excel ou no Google Planilhas. Cada arquivo traz fonte,
+            Arquivos com fotografias identificadas dos dados do observatório, em CSV que abre no Excel ou no Google Planilhas. As datas de corte podem variar entre as planilhas e os gráficos atuais. Cada arquivo traz fonte,
             data e uma impressão digital (SHA-256): se o código do seu arquivo bater com o daqui, é o mesmo arquivo, byte a
-            byte. O código prova a procedência; a conta está nos scripts do repositório e no Método.
+            byte. O SHA-256 verifica se o arquivo é idêntico ao publicado; as fontes e as regras de cálculo estão documentadas no repositório e no Método.
           </p>
         }
       >
