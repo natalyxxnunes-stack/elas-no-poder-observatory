@@ -122,15 +122,19 @@ function PlacarSeisVotacoes() {
 function ReportagensPage() {
   return (
     <PageShell breadcrumb={[{ label: "Reportagens" }]}>
-      <header className="pb-9 pt-11 md:pb-12 md:pt-14">
-        <p className="text-[13px] font-semibold text-plum">Jornalismo de dados · Reportagens assinadas</p>
-        <h1 className="mt-4 max-w-5xl font-display text-[clamp(2.6rem,5.2vw,5rem)] leading-[1.04] text-ink">
-          Apuração assinada, com a conta aberta
-        </h1>
-        <p className="mt-5 max-w-3xl text-base leading-relaxed text-ink/80">
-          Reportagens, documentos e histórias que atravessam a eleição e chegam ao
-          exercício do poder. Cada texto reúne apuração, critérios e fontes declaradas.
-        </p>
+      <header className="pb-7 pt-6 md:pb-8 md:pt-9">
+        <div className="grid items-end gap-4 md:grid-cols-[.9fr_1.1fr] md:gap-10">
+          <div>
+            <p className="text-[13px] font-semibold text-plum">Jornalismo de dados · Edição 2026</p>
+            <h1 className="mt-2 font-display text-[clamp(2.8rem,5.2vw,5.1rem)] leading-[1.02] text-ink">
+              Reportagens
+            </h1>
+          </div>
+          <p className="max-w-xl border-l-4 border-[var(--art-coral)] pl-5 text-[15px] leading-relaxed text-ink/80">
+            Apuração assinada, com a conta aberta. As histórias reúnem
+            documentos, critérios e fontes que podem ser conferidos.
+          </p>
+        </div>
       </header>
 
       <section
@@ -177,7 +181,7 @@ function ReportagensPage() {
         className="relative left-1/2 -ml-[50vw] w-screen"
       >
         <div className="grid lg:grid-cols-2">
-          <article className="bg-[var(--art-cream)] px-5 py-10 text-ink md:px-8 md:py-12 lg:pl-[max(2rem,calc((100vw-80rem)/2))] lg:pr-12">
+          <article className="bg-[var(--art-coral)] px-5 py-10 text-ink md:px-8 md:py-12 lg:pl-[max(2rem,calc((100vw-80rem)/2))] lg:pr-12">
             <p className="text-[13px] font-semibold text-plum">Falas públicas · Apuração</p>
             <h2 id="reportagem-falas" className="mt-4 font-display text-[clamp(2.3rem,4vw,4rem)] leading-tight text-plum-deep">
               {FALAS_REPORTAGEM?.titulo ?? "Na voz delas"}
@@ -197,24 +201,24 @@ function ReportagensPage() {
               </p>
             )}
           </article>
-          <aside className="bg-paper px-5 py-10 text-ink md:px-8 md:py-12 lg:pl-10 lg:pr-[max(2rem,calc((100vw-80rem)/2))]">
-            <p className="text-[13px] font-semibold text-plum">Fontes documentais</p>
+          <aside className="bg-ink px-5 py-10 text-paper md:px-8 md:py-12 lg:pl-10 lg:pr-[max(2rem,calc((100vw-80rem)/2))]">
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">Fontes documentais</p>
             <h3 className="mt-3 font-display text-2xl leading-tight md:text-3xl">
               Registros da Câmara
             </h3>
-            <p className="mt-2 max-w-lg text-sm leading-relaxed text-ink/75">
+            <p className="mt-2 max-w-lg text-sm leading-relaxed text-paper/80">
               Referências oficiais citadas na apuração. Esta relação é textual,
               não uma reprodução dos documentos originais.
             </p>
-            <ol className="mt-5 divide-y divide-rule border-y border-rule">
+            <ol className="mt-5 divide-y divide-paper/25 border-y border-paper/25">
               {FONTES_DOCUMENTAIS.map((fala) => (
                 <li key={fala.id} className="py-4">
-                  <p className="text-sm font-semibold text-ink">{fala.pessoa} · {fala.data}</p>
+                  <p className="text-sm font-semibold text-paper">{fala.pessoa} · {fala.data}</p>
                   <a
                     href={fala.fonteUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-1 inline-flex min-h-9 items-center text-[13px] leading-snug text-plum underline underline-offset-4"
+                    className="mt-1 inline-flex min-h-9 items-center text-[13px] leading-snug text-[var(--art-gold)] underline underline-offset-4"
                   >
                     {fala.fonteRotulo} ↗
                   </a>
