@@ -148,6 +148,10 @@ function MetodoPage() {
     history: PublicSnapshot[];
   };
   const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
+  const receitaBrancas = financeSnapshot.universes.proporcional.feminineRevenueByRace["BRANCA"]?.value;
+  if (receitaBrancas === undefined) {
+    throw new Error("Base financeira sem a categoria BRANCA: a visualização não pode ser calculada");
+  }
 
   // O CSV é montado no navegador a partir da mesma fotografia já carregada
   // nesta página: nenhum número novo, nenhum cálculo adicional.
@@ -245,7 +249,7 @@ function MetodoPage() {
           <figure className="min-w-0 bg-paper p-5 text-ink md:p-7">
             <p className="text-[13px] font-semibold text-plum">Receitas proporcionais · mulheres</p>
             <p className="mt-3 font-display text-5xl leading-none text-plum md:text-6xl">
-              {formatPct((financeSnapshot.universes.proporcional.feminineRevenueByRace.BRANCA.value /
+              {formatPct((receitaBrancas /
                 financeSnapshot.universes.proporcional.feminineRevenue) * 100)}
             </p>
             <p className="mt-2 text-sm leading-relaxed text-ink/75">
@@ -254,7 +258,7 @@ function MetodoPage() {
             <div className="mt-5 h-4 bg-plum/10" aria-hidden="true">
               <div
                 className="h-full bg-plum"
-                style={{ width: `${(financeSnapshot.universes.proporcional.feminineRevenueByRace.BRANCA.value /
+                style={{ width: `${(receitaBrancas /
                   financeSnapshot.universes.proporcional.feminineRevenue) * 100}%` }}
               />
             </div>
@@ -263,7 +267,7 @@ function MetodoPage() {
                 <dt className="text-[13px] font-semibold text-plum">Numerador · candidatas brancas</dt>
                 <dd className="mt-1 break-words font-mono text-sm tabular-nums sm:text-base">
                   {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
-                    financeSnapshot.universes.proporcional.feminineRevenueByRace.BRANCA.value)}
+                    receitaBrancas)}
                 </dd>
               </div>
               <div>
