@@ -3,7 +3,7 @@ import { MatrizVotos } from "@/components/editorial/MatrizVotos";
 import { Registro } from "@/components/editorial/Registro";
 import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { ReportagemOpening } from "@/components/editorial/ReportagemOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -749,9 +749,12 @@ function ComoVotaramPage() {
     <PageShell
       breadcrumb={[{ label: "Reportagens", to: "/reportagens" }, { label: "Como votaram" }]}
     >
-      <PageHero
+      <ReportagemOpening
         kicker="Reportagem"
-        question={a.question}
+        title={a.question}
+        photoId="plenario-igualdade-salarial-2023"
+        photoContext="Plenário da Câmara, maio de 2023, durante a tramitação do PL 1.085/2023. Imagem de arquivo; não retrata as seis votações analisadas."
+        photoSourceUrl="https://www.camara.leg.br/noticias/957955-camara-pode-votar-nesta-quarta-feira-projeto-que-equipara-salario-entre-homens-e-mulheres/"
         lead={
           <p>
             Seis votações de mérito no plenário da Câmara, de 2023 a 2025, deputada por deputada. Na
@@ -764,13 +767,12 @@ function ComoVotaramPage() {
             {n(conanda.porSexo.F.votos["Não"] ?? 0)} contra.
           </p>
         }
-        aside={
-          <div className="editorial-card p-5">
-            <p className="kicker">Assinatura</p>
-            <p className="mt-2 font-display text-lg leading-snug text-ink">
+        credits={
+          <div>
+            <p className="font-semibold text-ink">
               Apuração e texto: Nataly Nunes Pinto
             </p>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-2 text-[13px] leading-relaxed text-ink/75">
               Publicada em 27/10/2026 e atualizada em 28/10/2026. Os números são recontagem própria
               dos dados abertos da Câmara e do TSE; a seleção das votações e a leitura são escolhas
               editoriais, declaradas abaixo.
