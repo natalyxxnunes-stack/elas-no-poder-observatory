@@ -1,0 +1,47 @@
+{
+  "receitas.csv": {
+    "csvsha256": "73ec0cd7727edd6ef3f9b69e7158f0e9dbb02a772a47e01e01374d004f4bdd90",
+    "zipsha256": "9ae80e2e2ea9561c9f9810008b9efad0bba6e7f16d8b56935039cc6fb3cc71bf",
+    "zipbytes": 472795238,
+    "csvbytes": 187460492,
+    "geracao": "15/11/2026 04:05:10",
+    "origem": "financeiro.zip",
+    "csv_source": "receitas_candidatos_2026_BRASIL.csv"
+  },
+  "despesas_contratadas_candidatos_2026_BRASIL.csv": {
+    "csvsha256": "86b9ddca8adc5fcd6119b1622e2d15474caad89b10f48d15cc3bffd1f8af92d7",
+    "zipsha256": "9ae80e2e2ea9561c9f9810008b9efad0bba6e7f16d8b56935039cc6fb3cc71bf",
+    "zipbytes": 472795238,
+    "csvbytes": 1099913377,
+    "geracao": "15/11/2026 04:05:10",
+    "origem": "financeiro.zip",
+    "csv_source": "despesas_contratadas_candidatos_2026_BRASIL.csv"
+  },
+  "despesas_pagas_candidatos_2026_BRASIL.csv": {
+    "csvsha256": "0358686b4843d1b3b448803c24857405d57fd0c807431065cbb1bc63622dc0d8",
+    "zipsha256": "9ae80e2e2ea9561c9f9810008b9efad0bba6e7f16d8b56935039cc6fb3cc71bf",
+    "zipbytes": 472795238,
+    "csvbytes": 714413372,
+    "geracao": "15/11/2026 04:05:23",
+    "origem": "financeiro.zip",
+    "csv_source": "despesas_pagas_candidatos_2026_BRASIL.csv"
+  },
+  "receitas_candidatos_doador_originario_2026_BRASIL.csv": {
+    "csvsha256": "ef37a8e3b39f8af37376a7c9ed7bf4afeb6bb277e2d2c51b723c79d677920b79",
+    "zipsha256": "9ae80e2e2ea9561c9f9810008b9efad0bba6e7f16d8b56935039cc6fb3cc71bf",
+    "zipbytes": 472795238,
+    "csvbytes": 90364102,
+    "geracao": "15/11/2026 04:05:12",
+    "origem": "financeiro.zip",
+    "csv_source": "receitas_candidatos_doador_originario_2026_BRASIL.csv"
+  },
+  "candidaturas.csv": {
+    "csvsha256": "60843af924b8da04d3f5bbacc0c0b14582dc89eba502e90a0b661c33928f44ce",
+    "zipsha256": "f6b719410a4d8a715e3a0f30d9d51393f166ffceb66a7df582c14c10497e631b",
+    "zipbytes": 3288103,
+    "csvbytes": 11835225,
+    "geracao": "15/11/2026 05:30:40",
+    "origem": "candidaturas.zip",
+    "csv_source": "consulta_cand_2026_BRASIL.csv"
+  }
+}

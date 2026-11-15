@@ -1,0 +1,52 @@
+{
+  "baseReceitas": "15/11/2026 04:05:10",
+  "baseCandidaturas": "15/11/2026 05:30:40",
+  "linhasOriginais": 269003,
+  "duplicatasRemovidas": 982,
+  "valorDasDuplicatas": 778961.81,
+  "linhasProcessadas": 268021,
+  "candidaturasComReceita": 19660,
+  "candidaturasSemCorrespondencia": 0,
+  "divergenciasGeneroLinhas": 0,
+  "tiposPrestacao": {
+    "FINAL": 19363,
+    "PARCIAL": 195,
+    "RELATÓRIO FINANCEIRO": 102
+  },
+  "propCandidaturasComReceita": 19133,
+  "propCandidatasComReceita": 6836,
+  "propReceitaTotal": 5537498125.18,
+  "propReceitaFeminina": 1819706552.93,
+  "brancasReceita": 1020920855.3,
+  "brancasPctReceitaMulheres": 56.1036,
+  "racas": {
+    "BRANCA": {
+      "value": 1020920855.3,
+      "candidacies": 3203
+    },
+    "PARDA": {
+      "value": 504718085.33,
+      "candidacies": 2332
+    },
+    "PRETA": {
+      "value": 258566394.63,
+      "candidacies": 1180
+    },
+    "INDÍGENA": {
+      "value": 27557271.15,
+      "candidacies": 81
+    },
+    "AMARELA": {
+      "value": 7943946.52,
+      "candidacies": 40
+    }
+  },
+  "fefcProporcionalTotal": 3988617748.81,
+  "fefcProporcionalMulheres": 1488657197.62,
+  "fefcTitularesTotal": 5031966889.0,
+  "fefcTitularesMulheres": 1672035872.98,
+  "despesasAuditoria": {
+    "pagoSemPrestador": 0.0,
+    "doadorSemReceita": 0
+  }
+}
