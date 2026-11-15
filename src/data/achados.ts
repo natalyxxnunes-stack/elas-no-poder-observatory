@@ -353,26 +353,26 @@ export const ACHADOS: Achado[] = [
   {
     id: "senado-pl-um-terco",
     ancora: {
-      valor: "28 de 81",
+      valor: "29 de 81",
       rotulo: "cadeiras do Senado serão do PL a partir de 2027, contra 15 hoje",
     },
     tema: "poder",
     foco: "PL 2027",
     numero: "12",
     data: "2026-10-28",
-    atualizadoEm: "2026-11-13",
+    atualizadoEm: "2026-11-15",
     titulo: "O PL terá mais de um terço do Senado a partir de 2027",
     texto:
-      "O PL ganhou 19 das 54 vagas do Senado em 2026. Com as 9 cadeiras que terá até 2031, contando o suplente que assume a vaga de Cleitinho, eleito governador de MG, deve começar 2027 com 28 das 81, contra 15 hoje. Um terço do Senado (27) é o número de assinaturas que a Constituição exige para criar uma CPI ou apresentar uma emenda constitucional: o PL passa dessa marca sozinho. As senadoras passam de 15 para 19; 3 delas são do PL. Correção em 13/11/2026: a primeira versão dizia 27.",
+      "O PL ganhou 19 das 54 vagas do Senado em 2026. Com dez cadeiras nos mandatos até 2031, contando os suplentes de Cleitinho (MG) e Sergio Moro (PR), deve começar 2027 com 29 das 81, contra 15 em 28/10. Um terço do Senado (27) é o número de assinaturas que a Constituição exige para criar uma CPI ou apresentar uma emenda constitucional: o PL passa dessa marca sozinho. As senadoras passam de 15 para 19; 3 delas são do PL. Correção em 13/11: a primeira versão dizia 27 e passou a 28; revisão em 15/11 confirmou a filiação de Luis Felipe Cunha ao PL, informada pela Agência Senado em 25/10, elevando a projeção a 29.",
     barras: [
       { rotulo: "PL hoje", valor: 18.5 },
-      { rotulo: "PL 2027", valor: 34.6 },
+      { rotulo: "PL 2027", valor: 35.8 },
       { rotulo: "Mulheres hoje", valor: 18.5 },
       { rotulo: "Mulheres 2027", valor: 23.5 },
     ],
     legenda: "Fatia das 81 cadeiras do Senado",
     fonte:
-      "TSE, Candidatos 2026 · base de 27/10/2026 (governadores: base de 12/11/2026); Senado Federal, Dados Abertos, consulta de 28/10/2026",
+      "TSE, Candidatos 2026 · base de 27/10/2026 (governadores: base de 12/11/2026); Senado Federal, Dados Abertos, consulta de 28/10/2026; Agência Senado, projeção de 25/10/2026",
     to: "/quem-chega",
     linkLabel: "Ver em Quem chega",
   },
