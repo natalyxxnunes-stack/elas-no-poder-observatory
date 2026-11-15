@@ -55,6 +55,7 @@ export function SectionBlock({
   source,
   tone = "paper",
   collapsible,
+  semFio = false,
 }: {
   id?: string;
   kicker: string;
@@ -66,12 +67,14 @@ export function SectionBlock({
   tone?: Tone;
   /** material de consulta: o conteúdo fica recolhido atrás de um botão, com o título e o lead à vista */
   collapsible?: string;
+  /** título sem linha superior; padrão visual anterior preservado */
+  semFio?: boolean;
 }) {
   const colored = tone !== "paper";
 
   const body = (
     <>
-      <Secao nome={kicker} claro={tone === "plum" || tone === "ink"} />
+      <Secao nome={kicker} claro={tone === "plum" || tone === "ink"} semFio={semFio} />
       <h2
         className={`mt-3 font-display text-2xl leading-snug md:text-4xl ${TONE_TITLE[tone]} ${
           align === "wide" ? "max-w-4xl" : "max-w-2xl"
