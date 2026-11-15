@@ -161,6 +161,8 @@ jobs:
                   assert page.locator('a[href="https://dadosabertos.tse.jus.br/dataset/candidatos-2026"]').count()>=1,(route,device,'primary source link')
                   assert 'Histórico de correções' in info['body'],(route,device,'correction history')
                 if route=='/reportagens/':
+                  assert info['headings'][0]=='Reportagens',(route,device,'compact magazine header')
+                  assert page.locator('article.bg-\\[var\\(--art-coral\\)\\]').count()>=1,(route,device,'coral editorial treatment')
                   assert 'O voto das deputadas, em seis decisões' in info['body'],(route,device,'editorial documentary opener')
                   assert page.locator('figure[aria-label="Visualização documental dos votos de deputadas nas seis votações"] ol > li').count()==6,(route,device,'six votes')
                   assert 'coleta em' in info['body'].lower(),(route,device,'vote sources')
