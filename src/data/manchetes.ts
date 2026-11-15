@@ -188,10 +188,10 @@ export const M_GOVERNOS: Manchete = {
 export const M_SENADO: Manchete = {
   id: "senado",
   texto:
-    "O PL deve começar 2027 com 28 das 81 cadeiras do Senado, mais de um terço da Casa",
+    "O PL deve começar 2027 com 29 das 81 cadeiras do Senado, mais de um terço da Casa",
   to: "/quem-chega#senado",
   pagina: "Quem chega",
-  fonte: "TSE, Candidatos 2026; Senado Federal, Dados Abertos (28/10/2026)",
+  fonte: "TSE, Candidatos 2026; Senado Federal, Dados Abertos (28/10/2026); Agência Senado, projeção de 25/10/2026",
 };
 
 /* ---------- Como votaram ---------- */
@@ -317,12 +317,12 @@ M_IGUALDADE.ancora = {
 M_IGUALDADE.fonteCurta = "Câmara dos Deputados; TSE";
 
 M_SENADO.ancora = {
-  valor: "28 de 81",
+  valor: "29 de 81",
   rotulo: "cadeiras do Senado devem ser do PL em 2027",
   tensao: "Hoje são 15. Um terço (27) é o número de assinaturas para criar uma CPI ou propor emenda constitucional: o PL passa dessa marca sozinho, se a bancada prevista se mantiver.",
-  visual: { tipo: "pontos", total: 81, cheios: 28, legendaCheios: "PL", legendaVazios: "outros partidos" },
+  visual: { tipo: "pontos", total: 81, cheios: 29, legendaCheios: "PL", legendaVazios: "outros partidos" },
 };
-M_SENADO.fonteCurta = "TSE; Senado Federal · 28/10/2026 · corrigido em 13/11/2026";
+M_SENADO.fonteCurta = "TSE; Agência Senado · projeção de 25/10/2026 · revisada em 15/11";
 
 M_PISO.ancora = {
   valor: formatPct(plPardas.fundo),
