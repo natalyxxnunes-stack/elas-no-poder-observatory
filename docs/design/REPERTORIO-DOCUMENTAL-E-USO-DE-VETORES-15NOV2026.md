@@ -72,3 +72,19 @@ Alterações no PR #6 preservam a capa e os dados; adicionar verificação do í
 **Restrições respeitadas:** sem gráficos inventados, indicadores numéricos decorativos, cartões ilustrativos ou novas fotografias apenas para preencher o espaço; sem novas cores, sem alterar a homepage, marca ou dados. É uma intervenção de hierarquia, não uma nova direção de arte.
 
 **Antes da aprovação:** executar o workflow de QA e conferir capturas em desktop e celular, inclusive links, contraste, tabulação e legibilidade dos temas longos. O teste automatizado da rota /dados/ foi incluído, mas sua aprovação ainda não foi observada.
+
+## Quarta rodada — Sobre, Investigações e transparência editorial
+
+**Sobre (`src/routes/sobre.tsx`):** mantidos a apresentação em primeira pessoa, a autoria, as afirmações sobre independência e todo o texto dos seis compromissos. Os seis compromissos deixaram de ser cartões repetidos e passaram a constituir uma lista tipográfica. A ficha do projeto passou a ser seguida de três ligações diretas: `/metodo#dicionario`, `/metodo#correcoes` e `/downloads`. Foram preservados os meios de contato e correção.
+
+**Investigações (`src/routes/investigacoes.tsx` e `src/components/editorial/InvestigationIndex.tsx`):** a sequência de cartões foi substituída por um índice editorial de linhas. Cada frente continua mostrando nome, pergunta, estado editorial e nota de andamento. Foi retirada a numeração puramente decorativa. A introdução esclarece a diferença entre conteúdo publicado e apuração concluída e oferece links ao Método e às correções.
+
+**Dois problemas de consistência identificados no catálogo `src/data/architecture.ts`:**
+- `dinheiro.statusNote` ainda apontava para uma fotografia financeira de **04/11/2026**, enquanto `src/data/tse-finance-snapshot.ts` já adota a base de **15/11/2026**. No componente de apresentação, o status agora lê a data de `FINANCE_BASE_LABEL` e declara que as contas podem receber complementações, retificações e julgamento.
+- `sobre.statusNote` dizia “Princípios, equipe e compromissos editoriais”, formulação incompatível com a apresentação do observatório como projeto de autoria individual. O índice exibe “Autoria, princípios e compromissos editoriais”.
+
+O arquivo `architecture.ts` não foi alterado, pois integra a camada `src/data` protegida no QA desta rodada. **Pendência de manutenção:** reconciliar futuramente essas duas notas na camada de metadados, sem mudar os números nem reabrir a identidade aprovada.
+
+**Validação registrada:** a execução [GitHub Actions #43758237880](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43758237880) terminou com sucesso (build, verificação numérica, TypeScript, 21 rotas em desktop e celular, verificações funcionais e captação de imagens da primeira dobra). As imagens foram examinadas para a homepage, Sobre e Investigações. A aprovação do QA não substitui testes de acessibilidade aprofundados, revisão de conteúdo integral ou inspeção visual de todas as alturas de página.
+
+Nenhuma imagem sintética, fotografia não licenciada, cor nova ou mudança da homepage foi introduzida. O conjunto continua em rascunho no PR #6; sem publicação.
