@@ -9,7 +9,7 @@ Data de conferência: 14/11/2026. Esta branch é teste isolado, sem publicação
 - Arquivo original identificado: https://upload.wikimedia.org/wikipedia/commons/1/14/Bertha_Lutz_e_a_campanha_pelo_voto_feminino.jpg
 - Acervo: Arquivo Nacional, Fundo Federação Brasileira pelo Progresso Feminino.
 - Crédito da ficha: Domínio público / Acervo Arquivo Nacional.
-- Estado: licença identificada; download local tentado e não concluído. Imagem não registrada no código.
+- Estado: fotografia original obtida e salva em public/fotos/bertha-lutz-1927.jpg; SHA-1 verificado com a ficha do Commons (34fae1c264d484e377f7a21a584579ce736a4a92). Registrada em src/data/fotos.ts e exibida na chamada Memória.
 
 ### Célia Xakriabá, Câmara, 04/03/2026
 - Galeria: https://www.camara.leg.br/banco-imagens/eventos/8327BCE3-BAAC-4C71-B8B4-2A1550A2A73A
@@ -30,22 +30,22 @@ Data de conferência: 14/11/2026. Esta branch é teste isolado, sem publicação
 - public/materiais/infografico-universos-quadrado.png
 - public/materiais/cartilha-cota.pdf
 - public/materiais/oficina-funil.pdf
-- Estado: os três arquivos já constam do projeto. O infográfico é mostrado com a imagem original. PDFs são visualizados pelo navegador quando suportado, com fallback explícito.
+- Estado: os três arquivos já constam do projeto. O infográfico é mostrado com a imagem original. Miniaturas fiéis da primeira página dos PDFs foram geradas por pdftoppm no GitHub Actions e salvas como cartilha-cota-miniatura.png e oficina-funil-miniatura.png, sem capas fictícias.
 
 ## Como funciona a implementação de teste
 1. A rota inicial chama CapaEditorialV3 somente na branch redesign-editorial-v3-teste.
 2. A abertura trabalha com reportagem publicada no índice e com arte SVG geométrica escrita no código, rotulada como composição editorial não documental.
-3. Os três destaques usam composições ortogonais originais com indicação explícita de que são gráficos, não fotografias ou documentos.
+3. O destaque Memória usa fotografia documental de domínio público do Arquivo Nacional com crédito. Os outros dois usam composições gráficas originais, identificadas como tais.
 4. Os seis temas ocupam grade consistente, sem micrográficos nem blocos inclinados.
 5. Um único módulo de dados mostra a participação de mulheres nas cadeiras da Câmara, calculada diretamente de resultado-2026.ts, com numerador, denominador e corte.
 6. A Biblioteca usa um infográfico realmente existente e PDFs do próprio acervo. Não repete títulos dentro de capas inventadas.
 7. Não há imagens geradas por IA, URLs remotas de fotografia ou citação documental construída como se fosse literal.
 
 ## Pendências antes de aprovar merge
-- Arquivar os originais de Bertha Lutz e Célia Xakriabá, verificar contextos e direitos de edição e registrar arquivos locais em src/data/fotos.ts.
-- Gerar miniaturas estáticas reais da primeira página dos PDFs caso o visualizador do navegador não funcione satisfatoriamente em celular.
+- Obter a fotografia selecionada de Célia Xakriabá em resolução editorial, conferir o arquivo individual, os termos de utilização e registrar em src/data/fotos.ts se aprovada.
+- Miniaturas reais da primeira página dos PDFs geradas e utilizadas. Conferir qualidade visual no celular.
 - Verificar os números contraditórios do financiamento em suas bases de origem (56,1% e 56,2%) antes de destacá-los.
-- Testar compilação, lint e renderização real em desktop e celular com dependências disponíveis.
+- TypeScript e build HostGator passaram no GitHub Actions após a primeira implementação; repetir após as mudanças de imagem. Lint e renderização visual desktop/celular continuam pendentes.
 - Revisar com a editora a aparência das composições, títulos e condições de uso das fotografias.
 - Manter main e hospedagem pública sem alterações até aprovação.
 
