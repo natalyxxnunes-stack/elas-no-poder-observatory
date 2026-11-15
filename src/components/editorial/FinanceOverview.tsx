@@ -39,7 +39,7 @@ export function FinanceCoverage({ snapshot }: { snapshot: TseFinanceSnapshot }) 
   return <div className="grid gap-5 md:grid-cols-2">{(["proporcional", "majoritario"] as const).map((universe) => <CoverageCard key={universe} universe={universe} data={snapshot.universes[universe]} />)}</div>;
 }
 
-const SOURCE = `Fonte: TSE, Prestação de Contas Eleitorais 2026 · base de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`;
+const SOURCE = `Fonte: TSE, Prestação de Contas Eleitorais 2026 · base de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`;
 const MIN_BASE = 20;
 
 export const RACE_BAR: Record<string, string> = {
@@ -67,9 +67,9 @@ export function FinanceByOffice({ snapshot }: { snapshot: TseFinanceSnapshot }) 
         vendo: "Para cada cargo, a fatia de mulheres entre as candidaturas com receita e a fatia delas no dinheiro declarado.",
         contados: "Candidaturas que já declararam alguma receita na prestação de contas.",
         denominador: "Presença: candidaturas com receita no cargo. Receita: total declarado no cargo.",
-        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`,
+        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
-        limitacao: "Prestação final do 1º turno; 343 candidaturas ainda constam com prestação parcial. Mede receita declarada, não despesa.",
+        limitacao: "Base de 15/11: 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Mede receita declarada, não despesa.",
       }}
       eyebrow="Presença × receita, por cargo · 2026"
       title="Fatia das mulheres entre as candidaturas e no dinheiro de cada cargo"
@@ -110,9 +110,9 @@ export function FinanceRace({ snapshot }: { snapshot: TseFinanceSnapshot }) {
         vendo: "Como o dinheiro declarado por candidatas se divide entre os grupos de cor/raça.",
         contados: universe === "proporcional" ? "Candidatas a deputada com receita declarada." : "Candidatas à Presidência, aos governos e ao Senado com receita declarada.",
         denominador: "Receita total declarada pelas candidatas do mesmo universo.",
-        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`,
+        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
-        limitacao: "Prestação final do 1º turno; 343 candidaturas ainda constam com prestação parcial. Mede receita declarada, não despesa.",
+        limitacao: "Base de 15/11: 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Mede receita declarada, não despesa.",
       }}
       eyebrow={`Receita de mulheres por cor/raça · ${UNIVERSE_LABEL[universe].toLocaleLowerCase("pt-BR")}`}
             title={universe === "proporcional" ? "Candidatas a deputada" : "Presidência, governos e Senado"}
@@ -162,9 +162,9 @@ export function FinanceParties({ snapshot }: { snapshot: TseFinanceSnapshot }) {
         vendo: "Nos cinco partidos com mais receita, a fatia do dinheiro do partido que foi para candidatas.",
         contados: "Candidaturas a deputada e deputado com receita declarada, pelo partido do registro.",
         denominador: "Receita total declarada pelas candidaturas do próprio partido.",
-        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`,
+        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
-        limitacao: "Receita registrada na candidatura, de qualquer origem, além do repasse do partido. Prestação final do 1º turno.",
+        limitacao: "Receita declarada por candidatura, de qualquer origem, inclusive repasses partidários. A base segue sujeita a retificações.",
       }}
       eyebrow="Cinco partidos com mais receita · proporcional"
       title="Quanto do dinheiro de cada partido foi para candidatas"
@@ -201,9 +201,9 @@ export function FinanceByUf({ snapshot }: { snapshot: TseFinanceSnapshot }) {
         vendo: "Em cada estado, a fatia das candidatas no dinheiro declarado para deputado.",
         contados: "Candidaturas a deputada e deputado com receita declarada, por UF.",
         denominador: "Receita total declarada pelas candidaturas do estado.",
-        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`,
+        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
-        limitacao: "Prestação final do 1º turno; 343 candidaturas ainda constam com prestação parcial. Mede receita declarada, não despesa.",
+        limitacao: "Base de 15/11: 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Mede receita declarada, não despesa.",
       }}
       eyebrow="Receita das mulheres por estado · proporcional"
       title={rows.length ? `A fatia das candidatas a deputada no dinheiro declarado vai de ${formatPct(rows.at(-1)!.pct)}, em ${rows.at(-1)!.uf}, a ${formatPct(rows[0]!.pct)}, em ${rows[0]!.uf}` : "Fatia das candidatas no dinheiro declarado em cada UF"}
