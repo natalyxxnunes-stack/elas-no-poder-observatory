@@ -115,7 +115,7 @@ function DinheiroPage() {
         question={M_FUNDO_BRANCAS.texto}
         lead={
           <p>
-            Nas disputas para deputada, mulheres são 35,8% das candidaturas com receita declarada e
+            Nas disputas para deputada, mulheres são 35,7% das candidaturas com receita declarada e
             ficam com 32,9% do dinheiro, abaixo da presença delas. A diferença maior aparece dentro
             do grupo. Nos 12 partidos com mais receita declarada, que concentram 87,9% do dinheiro,
             a mediana das candidatas brancas é R$ 151 mil; a das pardas, R$ 100 mil; a das pretas,
@@ -124,7 +124,7 @@ function DinheiroPage() {
           </p>
         }
         layers={MONEY_LAYERS.map((layer) => layer.label)}
-        gap="Prestação final do 1º turno (base de 04/11) · receita, não despesa · 343 candidaturas ainda com prestação parcial"
+        gap="Contas declaradas no TSE em 13/11 · receitas, não despesas · 203 candidaturas ainda com prestação parcial e 119 apenas com relatório financeiro"
         snapshot={financeSnapshot}
       />
 
@@ -219,12 +219,12 @@ function DinheiroPage() {
             </p>
             <p className="mt-3">
               Dois partidos ficam abaixo de 30% para candidaturas pretas e pardas nas duas contas
-              que fizemos, só deputados e todos os cargos: PL (26,7% e 22,3%) e NOVO (25,8% e
-              26,6%). Na conta com todos os cargos, outros três também ficam abaixo: MDB (28,2%),
-              Cidadania (29,2%) e PSD (29,4%); essa conta depende de como se atribui o dinheiro das
+              que fizemos, só deputados e todos os cargos: PL (26,7% e 22,3%) e NOVO (25,6% e
+              26,4%). Na conta com todos os cargos, outros três também ficam abaixo: MDB (28,2%),
+              Cidadania (29,3%) e PSD (29,4%); essa conta depende de como se atribui o dinheiro das
               chapas de governo e Senado. Somando governo, Senado e Presidência, a fatia das
               mulheres no fundo cai para 33,2%, porque elas são poucas entre os titulares dessas
-              chapas. Os números são da prestação final do 1º turno (base de 04/11), contados por
+              chapas. Os números vêm da extração de 13/11/2026, anterior ao prazo final do 2º turno, contados por
               candidatura; a conta oficial é feita pelo TSE no julgamento das contas de cada
               partido.
             </p>
@@ -235,8 +235,8 @@ function DinheiroPage() {
           <FefcPartidos />
         </Desdobra>
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-          Prestação final do 1º turno (base de 04/11/2026). 343 candidaturas ainda constam com
-          prestação parcial; a tabela será revista com a prestação do 2º turno.
+          Base de 13/11/2026, anterior ao prazo final do 2º turno: 203 candidaturas ainda constam
+          com prestação parcial e 119 apenas com relatório financeiro. Estes números poderão ser revistos.
         </p>
       </SectionBlock>
 
@@ -343,8 +343,8 @@ function DinheiroPage() {
         }
         limites={[
           "Despesas contratadas e pagas e o doador originário do financiamento coletivo entram desde 28/10, na seção sobre gasto e vaquinhas.",
-          "A data de corte varia por candidatura: 19.034 entregaram a prestação final do 1º turno, 343 ainda constam com a prestação parcial (movimentação até 08/09/2026) e 230 com o relatório financeiro mais recente.",
-          "Base de 04/11/2026, com a prestação final do 1º turno; a do 2º turno entra depois. Receitas dos dois turnos são somadas por candidatura. Fotografias anteriores (25/09 e 27/10) estão no histórico do repositório.",
+          "Entre as 19.655 candidaturas com receita nos seis cargos, 19.333 constam com prestação FINAL, 203 PARCIAL e 119 RELATÓRIO FINANCEIRO na extração de 13/11; tipo de prestação não equivale à aprovação das contas.",
+          "Base financeira de 13/11/2026 e cadastro de candidaturas de 14/11/2026. A extração de receitas antecede o prazo final do 2º turno (14/11). Fotos anteriores de 04/11, 27/10 e 25/09 ficam preservadas no histórico.",
           "Os percentuais que o TSE usa para distribuir o Fundo Partidário e o FEFC (divulgados em 21/08/2026) partem de outro universo: 20.560 candidaturas com pedido aceito até 18/08/2026, fixado para esse fim. Por isso diferem dos números deste site, que acompanham o registro atualizado.",
           "Titularidade e suplência ficam para a próxima fase. A relação entre dinheiro e reeleição está em Como votaram; índice de competitividade não entra no site.",
         ]}
