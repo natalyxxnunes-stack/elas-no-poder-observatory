@@ -1,0 +1,170 @@
+name: Auditoria integral do produto editorial — novembro 2026
+on:
+  push:
+    branches: [auditoria-editorial-integral-2026-11-15]
+    paths: [.github/workflows/auditar-design-editorial-integral.yml]
+permissions:
+  contents: write
+jobs:
+  auditar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Construir copia exata da branch de redesign, sem publicar
+        run: |
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Instalar navegador de testes
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Auditar rotas, respiro, semantica e funcionamento desktop/mobile
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p docs/auditorias/design-integral-2026-11-15
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-auditoria-http.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 2
+          python3 - <<'PY'
+          import json,collections,urllib.parse
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          root=Path('dist/client')
+          dest=Path('docs/auditorias/design-integral-2026-11-15')
+          core=[
+           '/','/temas/','/temas/presenca/','/temas/dinheiro/','/temas/agenda/','/temas/poder/',
+           '/temas/violencia/','/temas/memoria/','/reportagens/','/como-votaram/','/na-voz-delas/',
+           '/colecoes/antigenero-no-poder/','/pioneiras/','/pioneiras/pagu/','/pioneiras/lelia-gonzalez/',
+           '/eleitas/','/quem-chega/','/quem-sao-elas/','/votos/','/funil/','/partidos/',
+           '/comparar/','/historico/','/relatorio-2026/','/quem-controla/','/monitor/','/coautoria/',
+           '/barreiras/','/direitos/','/em-disputa/','/dinheiro/','/dados/','/achados/',
+           '/downloads/','/metodo/','/sobre/','/investigacoes/','/calendario/','/busca/'
+          ]
+          # Amostrar paginas de perfis e achados individuais e nao apenas os indices.
+          for prefix,n in [('eleitas',3),('achados',2)]:
+            folders=sorted(p.parent for p in (root/prefix).glob('*/index.html') if p.parent.name!='index')
+            core += ['/'+str(x.relative_to(root)).strip('/')+'/' for x in folders[:n]]
+          core=list(dict.fromkeys(core))
+          screenshots={'/','/eleitas/','/metodo/','/achados/','/como-votaram/','/quem-chega/','/dinheiro/','/dados/','/pioneiras/','/reportagens/','/sobre/','/temas/'}
+          results=[]
+          with sync_playwright() as playwright:
+            browser=playwright.chromium.launch(headless=True, executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for device,width,height in [('desktop',1440,900),('celular',390,844)]:
+              context=browser.new_context(viewport={'width':width,'height':height},device_scale_factor=1)
+              for url in core:
+                p=context.new_page()
+                js_errors=[]
+                p.on('pageerror',lambda e,arr=js_errors:arr.append(str(e)[:180]))
+                status=None;error=None
+                try:
+                  response=p.goto('http://127.0.0.1:4173'+url,wait_until='domcontentloaded',timeout=20000)
+                  status=response.status if response else None
+                  p.wait_for_timeout(220)
+                  info=p.evaluate('''() => {
+                    const main=document.querySelector('main'),h1=[...document.querySelectorAll('h1')];
+                    const cs=getComputedStyle(document.body);
+                    const img=[...document.querySelectorAll('img')];
+                    const links=[...document.querySelectorAll('a[href]')];
+                    const blocks=[...document.querySelectorAll('section')];
+                    return {
+                      title:document.title,description:document.querySelector('meta[name="description"]')?.content||'',
+                      h1:h1.map(x=>x.innerText.trim().slice(0,115)),
+                      h2:[...document.querySelectorAll('h2')].length,
+                      h3:[...document.querySelectorAll('h3')].length,
+                      bodyTextLength:main?.innerText?.length||0,
+                      width:document.documentElement.scrollWidth,viewport:innerWidth,bodyHeight:document.documentElement.scrollHeight,
+                      sections:blocks.length,tables:document.querySelectorAll('table').length,
+                      figures:document.querySelectorAll('figure').length,
+                      details:document.querySelectorAll('details').length,
+                      elementsWithTinyText:[...document.querySelectorAll('p,span,small,li')].filter(el=> {
+                        const s=getComputedStyle(el);return el.innerText.trim().length>35&&parseFloat(s.fontSize)<13
+                      }).length,
+                      images:img.length,imagesNoAlt:img.filter(x=>!x.hasAttribute('alt')).length,
+                      internalLinks:links.map(x=>x.getAttribute('href')).filter(x=>x&&x.startsWith('/')&&!x.startsWith('//')).slice(0,200),
+                      accessibleLinksWithoutName:links.filter(a=>!a.innerText.trim()&&!a.getAttribute('aria-label')&&!a.querySelector('img[alt]')).slice(0,15).map(a=>a.getAttribute('href')),
+                      font:cs.fontFamily,
+                      background:cs.backgroundColor
+                    }
+                  }''')
+                  if url in screenshots:
+                    label=url.strip('/').replace('/','-') or 'home'
+                    p.screenshot(path=str(dest/f'{label}-{device}.jpg'),type='jpeg',quality=75,animations='disabled')
+                except Exception as exc:
+                  info={};error=str(exc)[:350]
+                info.update({'url':url,'device':device,'httpStatus':status,'jsErrors':js_errors,'fatal':error,'staticHtmlExists':(root/url.lstrip('/')/'index.html').exists() if url!='/' else (root/'index.html').exists()})
+                results.append(info)
+                p.close()
+              context.close()
+            browser.close()
+          def exists(url):
+            parsed=urllib.parse.urlsplit(url).path
+            if parsed=='/':return True
+            name=parsed.lstrip('/')
+            if not name:return True
+            return (root/name).is_file() or (root/name/'index.html').is_file()
+          page_links={}
+          for item in results:
+            if item['device']=='desktop':
+              broken=[url for url in item.get('internalLinks',[]) if not exists(url)]
+              if broken:page_links[item['url']]=list(dict.fromkeys(broken))
+          (dest/'auditoria-paginas.json').write_text(json.dumps(results,indent=2,ensure_ascii=False)+'\n')
+          (dest/'links-internos-possivelmente-quebrados.json').write_text(json.dumps(page_links,indent=2,ensure_ascii=False)+'\n')
+          fail=[x for x in results if x['fatal'] or x['httpStatus']!=200 or x['jsErrors'] or x.get('width',0)>x.get('viewport',0)+3 or not x.get('staticHtmlExists')]
+          missing_h1=[x for x in results if len(x.get('h1',[]))!=1]
+          fonts=[x for x in results if x.get('elementsWithTinyText',0)>10]
+          report=[
+            '# Auditoria de cobertura visual e navegação — 15/11/2026',
+            '',
+            '**Base:** branch de redesign com atualização financeira do TSE de 15/11. Esta rotina testa páginas renderizadas do pacote estático, não o domínio público. A avaliação estética e semântica final exige leitura humana das capturas.',
+            '',
+            f'- Rotas e exemplos examinados: **{len(core)}**; passagens por dispositivos: **{len(results)}** (1440 × 900 e 390 × 844).',
+            f'- Falhas técnicas observadas (qualquer critério): **{len(fail)}** passagens.',
+            f'- Páginas com quantidade de h1 diferente de 1: **{len(missing_h1)}** passagens.',
+            f'- Páginas com mais de dez elementos textuais longos em fontes inferiores a 13 px: **{len(fonts)}** passagens (sinal para revisão visual, não reprovação automática).',
+            f'- Páginas com possíveis links internos sem arquivo correspondente: **{len(page_links)}**. Conferir redirecionamentos e rotas dinâmicas antes de classificar como quebrados.',
+            '',
+            '| Página | Desktop H1 | Mobile H1 | Comprimento texto | Seções | Tabelas | Detalhes | Mobile overflow |',
+            '| --- | --- | --- | ---: | ---: | ---: | ---: | ---: |'
+          ]
+          indexed={x['url']:{'desktop':None,'celular':None} for x in results}
+          for r in results:indexed[r['url']][r['device']]=r
+          for url,r in indexed.items():
+            d,m=r['desktop'],r['celular']
+            title='; '.join(d.get('h1',[])).replace('|','/')[:48]
+            report.append(f'| {url} | {title} | {len(m.get("h1",[]))} | {d.get("bodyTextLength",0)} | {d.get("sections",0)} | {d.get("tables",0)} | {d.get("details",0)} | {m.get("width",0)-m.get("viewport",0)} |')
+          report+=['','## Alertas técnicos observados','']
+          for x in fail:
+            report.append(f'- {x["device"]} {x["url"]}: HTTP {x["httpStatus"]}, overflow {x.get("width",0)-x.get("viewport",0)}, JS {x["jsErrors"]}, erro {x["fatal"]}')
+          if not fail:report+=['Nenhuma falha de carregamento, erro JavaScript, overflow global ou HTML ausente nos percursos automatizados.']
+          report+=['','## Limites','',
+           '- Contagem de elementos e captura da primeira dobra não aferem qualidade de projeto visual, composição, contraste, legibilidade do texto completo nem a adequação da narrativa.',
+           '- Links sinalizados precisam de verificação manual: rotas dinâmicas ou redirecionadas podem produzir falso positivo.',
+           '- As páginas individuais de eleitas e achados são amostras, não todas as fichas.',
+           '- Não houve alteração em texto publicado, dados ou componentes.'
+          ]
+          (dest/'RELATORIO-ROTAS.md').write_text('\n'.join(report)+'\n')
+          print('ROTAS',len(core),'VISITAS',len(results),'ALERTAS',len(fail),'LINKS SUSPEITOS',len(page_links))
+          PY
+      - name: Salvar a auditoria na branch de trabalho, sem alterar o site
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/auditorias/design-integral-2026-11-15/
+          git diff --cached --quiet && exit 0
+          git commit -m 'auditoria: inventario completo de rotas, navegacao e capturas desktop/mobile'
+          git push origin HEAD:auditoria-editorial-integral-2026-11-15
+      - name: Preservar evidencias
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-auditoria-design-integral-15nov
+          path: docs/auditorias/design-integral-2026-11-15/
+          retention-days: 20
+          if-no-files-found: warn
