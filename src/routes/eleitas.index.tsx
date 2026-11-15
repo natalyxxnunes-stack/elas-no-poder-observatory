@@ -93,22 +93,21 @@ function EleitasPage() {
   return (
     <PageShell breadcrumb={[{ label: "Eleições 2026", to: "/quem-chega" }, { label: "Quem entrou" }]}>
       <header className="relative left-1/2 -ml-[50vw] w-screen bg-plum text-cream">
-        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-11 md:px-8 md:py-14 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-8 md:px-8 md:py-14 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
           <div>
             <p className="text-[13px] font-semibold text-cream/80">Eleição 2026 · Catálogo de fichas</p>
             <h1 className="mt-5 max-w-3xl font-display text-[clamp(2.45rem,4vw,4rem)] font-semibold leading-[1.05] text-cream">
               As {n(ELEITAS_2026.length)} mulheres eleitas em 2026, uma a uma
             </h1>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-cream/90">
-              Consulte as mulheres eleitas por cargo, estado, partido, cor/raça autodeclarada e
-              trajetória registrada em 2022. Cada ficha reúne informações públicas do TSE e,
-              quando houver apuração, os registros já documentados pelo observatório.
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-cream/90">
+              Consulte as eleitas por cargo, estado, partido, cor/raça e trajetória eleitoral.
+              Cada ficha reúne registros do TSE e apurações já concluídas pelo observatório.
             </p>
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-cream/75">
+            <p className="mt-4 hidden max-w-xl text-sm leading-relaxed text-cream/75 md:block">
               Eleição, diplomação e exercício do mandato são situações diferentes.
               A atuação de 2027 será acompanhada após a posse.
             </p>
-            <a href="#filtros-eleitas" className="mt-6 inline-flex min-h-11 items-center font-semibold text-cream underline decoration-cream/60 underline-offset-4 hover:decoration-cream">
+            <a href="#filtros-eleitas" className="mt-4 inline-flex min-h-11 items-center font-semibold text-cream underline decoration-cream/60 underline-offset-4 hover:decoration-cream md:mt-6">
               Consultar as fichas <span aria-hidden="true" className="ml-2">↓</span>
             </a>
           </div>
@@ -139,6 +138,10 @@ function EleitasPage() {
             <p className="mt-5 text-[13px] leading-relaxed text-ink/70">
               Cada barra indica a parcela das eleitas em cada cargo, não o percentual de mulheres entre
               todas as cadeiras desse cargo. Fonte: TSE, candidaturas geradas em {ELEITAS_META.baseGeneratedAt}.
+            </p>
+            <p className="mt-3 text-[13px] leading-relaxed text-ink/70 md:hidden">
+              Eleição, diplomação e exercício do mandato são situações distintas.
+              A atuação de 2027 será acompanhada após a posse.
             </p>
           </figure>
         </div>
