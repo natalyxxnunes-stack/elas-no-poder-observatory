@@ -243,9 +243,11 @@ function DownloadsPage() {
         align="wide"
         lead={
           <p>
-            Os mesmos números que o site publica, em CSV que abre no Excel ou no Google Planilhas. Cada arquivo traz fonte,
-            data e uma impressão digital (SHA-256): se o código do seu arquivo bater com o daqui, é o mesmo arquivo, byte a
-            byte. O código prova a procedência; a conta está nos scripts do repositório e no Método.
+            Os arquivos CSV preservam fotografias identificadas dos dados do observatório, em formato
+            que abre no Excel ou no Google Planilhas. Cada planilha informa a fonte e a data da base,
+            que pode ser diferente da utilizada em gráficos atualizados. O SHA-256 permite conferir
+            se o arquivo corresponde ao publicado aqui; as fontes e o método de cálculo estão
+            documentados nos scripts do repositório e no Método.
           </p>
         }
       >
