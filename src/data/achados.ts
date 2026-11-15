@@ -113,7 +113,7 @@ export const ACHADOS: Achado[] = [
   {
     id: "dinheiro-brancas-peso",
     ancora: {
-      valor: "56,2%",
+      valor: "56,1%",
       rotulo: "do dinheiro das candidatas a deputada foi para as brancas, que eram 46,9% delas",
     },
     tema: "dinheiro",
