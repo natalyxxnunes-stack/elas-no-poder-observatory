@@ -284,6 +284,11 @@ function EleitasPage() {
           <p className="font-display text-2xl text-plum">
             {n(lista.length)} {lista.length === 1 ? "eleita" : "eleitas"}
           </p>
+          {lista.length > 0 && (
+            <a href="#lista-eleitas" className="inline-flex min-h-11 items-center font-semibold text-plum underline underline-offset-4">
+              Ver fichas deste recorte <span className="ml-2" aria-hidden="true">↓</span>
+            </a>
+          )}
           {ativos > 0 && (
             <button type="button" onClick={() => setF(VAZIO)} className="min-h-11 text-[14px] font-semibold text-ink underline underline-offset-4">
               Limpar {ativos === 1 ? "filtro" : `${ativos} filtros`}
