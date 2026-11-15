@@ -2,8 +2,8 @@
  * fotos — registro das fotografias documentais do site.
  *
  * Regra do projeto (AGENTS.md): nenhuma imagem gerada por IA; fotografia só
- * entra se for documental, com licença e crédito, e com o arquivo fornecido
- * pela editora (salvo em /public/fotos). Nada de link para imagem de terceiros.
+ * entra se for documental, com licença e crédito e com cópia local em
+ * /public/fotos. As origens devem ser preservadas nos metadados.
  * Enquanto uma página não tiver foto registrada, o lugar mostra a peça gráfica
  * da própria página.
  */
@@ -20,10 +20,21 @@ export type Foto = {
   licencaUrl?: string;
   data?: string;
   proporcao: "4/5" | "3/2" | "1/1" | "16/9";
-  fornecidaPor: "editora";
+  fornecidaPor: "editora" | "acervo-verificado";
 };
 
 export const FOTOS: Record<string, Foto> = {
+  "bertha-lutz-1927": {
+    src: "/fotos/bertha-lutz-1927.jpg",
+    alt: "Bertha Lutz ao lado de um avião usado na campanha pelo voto feminino, em 1927.",
+    credito: "Domínio público / Acervo Arquivo Nacional",
+    acervo: "Fundo Federação Brasileira pelo Progresso Feminino",
+    licenca: "dominio-publico",
+    licencaUrl: "https://commons.wikimedia.org/wiki/File:Bertha_Lutz_e_a_campanha_pelo_voto_feminino.jpg",
+    data: "1927",
+    proporcao: "3/2",
+    fornecidaPor: "acervo-verificado",
+  },
   // "lelia-gonzalez": { src: "/fotos/...", alt: "...", credito: "...", acervo: "...", licenca: "...", proporcao: "4/5", fornecidaPor: "editora" },
 };
 
