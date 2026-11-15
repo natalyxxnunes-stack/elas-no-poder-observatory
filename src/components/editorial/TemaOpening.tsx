@@ -25,13 +25,13 @@ const temaSuperficie: Record<Tema["slug"], string> = {
 };
 
 function FotoTema({ tipo }: { tipo: "agenda" | "poder" | "memoria" }) {
-  const id = tipo === "agenda" ? "plenario-igualdade-salarial-2023"
+  const id = tipo === "agenda" ? "plenario-camara-junho-2026"
     : tipo === "poder" ? "bancada-feminina-camara-marco-2026"
     : "bertha-lutz-1927";
   const foto = FOTOS[id];
   if (!foto) return null;
   const contexto = {
-    agenda: "Plenário da Câmara, maio de 2023, durante a tramitação do PL 1.085/2023. Não retrata todas as votações examinadas.",
+    agenda: "Sessão deliberativa da Câmara em 30 de junho de 2026. Fotografia de arquivo sobre o trabalho legislativo; não documenta as pautas reunidas neste tema.",
     poder: "Bancada feminina da Câmara, março de 2026. Registro anterior às eleições de outubro; não representa as eleitas para 2027.",
     memoria: "Bertha Lutz na campanha pelo voto feminino, 1927. Arquivo Nacional, fundo da Federação Brasileira pelo Progresso Feminino.",
   }[tipo];
