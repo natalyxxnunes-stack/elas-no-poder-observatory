@@ -166,3 +166,27 @@ Componente `Registro`: fato (fio roxo), interpretação (fio tinta), hipótese (
 - `src/styles.css`, `src/data/fotos.ts` e componentes editoriais (estado efetivo do produto, a ser conferido contra as decisões acima).
 
 **Este manual registra decisões consolidadas. Não representa autorização para integrar ou publicar alterações visuais pendentes.**
+
+
+## Registro vivo de decisões e auditoria integrada de 15/11/2026
+
+### Regra de atualização do manual — determinação editorial
+
+A cada decisão sobre identidade visual, direção de arte, paleta, composição, tipografia, fotografia, documentos, infografias ou navegação editorial, **atualizar o mesmo arquivo editável de continuidade** `Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md`, preservando o nome e registrando data, página afetada, decisão, motivo, evidência visual, arquivos/PRs e estado (aprovado, proposto, rejeitado ou pendente). Entregar novamente a versão editável à editora. **Esta seção e o manual `docs/manual-visual.md` da `main` devem refletir a mesma orientação normativa**, sem criar uma nova identidade ou manuais concorrentes.
+
+Não confundir: parecer técnico ou avaliação visual preliminar não equivale à aprovação editorial. Não atualizar uma diretriz aprovada apenas porque uma branch contém uma versão diferente.
+
+### Avaliação comparativa dos três pilotos no PR #8 — 15/11/2026
+
+**Evidências:** capturas de página completa em desktop 1440 px e celular 390 px, realizadas no GitHub Actions [#43771862025](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43771862025). Referência: homepage aprovada na `main`. Páginas de teste: `/eleitas/`, `/metodo/`, `/reportagens/` da branch `pilotos-revista-visual-15nov2026`.
+
+| Página | O que avançou | Ainda precisa avaliação / não aprovar automaticamente |
+| --- | --- | --- |
+| **Homepage** | Fotografia documental, hierarquia de revista, alternância de temas. | **Preservar como aprovada**. As miniaturas claras dos materiais devem ser conferidas; a captura não prova se são placeholders intencionais ou falha de carregamento. |
+| **Quem entrou?** | Proporções por cargo com denominadores, filtros, atlas de **contagens absolutas** por UF e consulta nominal paginada. | Em celular, caminho longo entre filtros, atlas e fichas; avaliar acesso rápido aos nomes e equilíbrio entre informação e navegação. Atlas não é mapa geográfico e não mede proporção de vagas. |
+| **Método** | Captura real do portal TSE, esquema metodológico vetorial, fotografia institucional contextualizada, conta financeira verificável e 16 capítulos técnicos em caderno recolhível. | Conferir legibilidade do documento em celular, pertinência da foto e acesso direto a procedimentos/âncoras; **não considerar a proposta aprovada**. |
+| **Reportagens** | Placar de seis votações em vez da fotografia repetida da homepage, referências textuais ao Diário da Câmara e contraste coral/tinta. | As legendas devem explicitar que “Sim/Não” se referem ao texto votado e que outras situações compõem a categoria residual; conferir leitura móvel e contraste da seção documental. |
+
+**Achado transversal:** as três páginas-piloto variaram os tipos de evidência, mas continuam repetindo a lógica de grandes fundos escuros e aberturas repartidas em duas colunas. A identidade aprovada exige **diversidade de soluções por pauta**, não o mesmo cabeçalho com outra imagem. **Recomendação em avaliação:** variar escala, localização e sequência da evidência nas aberturas, mantendo roxo estrutural e paleta original. Isso **não** autoriza trocar a capa, adicionar imagem sem pertinência, criar cores novas, impor foto/vetor a todas as páginas ou fixar percentuais de área por cor.
+
+**Situação:** diagnóstico registrado, **nenhuma nova composição aprovada** e PR #8 ainda em rascunho. Mostrar alternativas justificadas e capturas completas antes de qualquer integração. A versão editável de continuidade recebeu estes achados e o protocolo de atualização em 15/11/2026.
