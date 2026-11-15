@@ -5,6 +5,7 @@ import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { ReportagemOpening } from "@/components/editorial/ReportagemOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
+import { ConsultationPanel } from "@/components/editorial/ConsultationPanel";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
@@ -35,13 +36,17 @@ function PlacarDeputadas() {
       aria-labelledby="placar-deputadas"
       className="relative left-1/2 -ml-[50vw] mb-10 w-screen bg-cream"
     >
-      <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
-        <h2
-          id="placar-deputadas"
-          className="font-display text-2xl leading-tight text-ink md:text-3xl"
-        >
-          Como as deputadas votaram, votação por votação
-        </h2>
+      <details className="group mx-auto max-w-7xl px-5 md:px-8">
+        <summary className="flex min-h-24 cursor-pointer list-none items-center justify-between gap-4 py-5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum [&::-webkit-details-marker]:hidden">
+          <h2 id="placar-deputadas" className="font-display text-xl font-semibold leading-tight text-ink md:text-2xl">
+            O placar das seis votações
+          </h2>
+          <span className="shrink-0 text-sm font-semibold text-plum">
+            <span className="group-open:hidden">Consultar +</span>
+            <span className="hidden group-open:inline">Recolher −</span>
+          </span>
+        </summary>
+        <div className="pb-8">
         <ul
           aria-hidden="true"
           className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[13px] text-ink/80"
@@ -87,7 +92,8 @@ function PlacarDeputadas() {
           Fonte: Câmara dos Deputados, Dados Abertos, votos nominais; placar recontado igual ao
           oficial.
         </p>
-      </div>
+        </div>
+      </details>
     </section>
   );
 }
@@ -831,11 +837,10 @@ function ComoVotaramPage() {
         </GapNote>
       </div>
 
-      <SectionBlock
+      <ConsultationPanel
         id="criterio"
         kicker="Critério"
         question="Quais votações entram, e por quê"
-        align="wide"
         lead={
           <p>
             {VOTACOES_META.criterio} O critério foi fixado antes de cruzar os votos com o resultado
@@ -875,37 +880,32 @@ function ComoVotaramPage() {
             ))}
           </ul>
         </details>
-      </SectionBlock>
+      </ConsultationPanel>
 
-      <SectionBlock
+      <ConsultationPanel
         id="votos"
-        tone="lilac"
         kicker="O voto"
         question="Deputadas e deputados, votação por votação"
-        align="wide"
       >
         <div className="grid gap-6 lg:grid-cols-2 [&>*]:min-w-0">
           {VOTACOES.map((v) => (
             <VoteSplit key={v.id} v={v} />
           ))}
         </div>
-      </SectionBlock>
+      </ConsultationPanel>
 
-      <SectionBlock
+      <ConsultationPanel
         id="raca"
         kicker="Gênero e cor/raça"
         question="Quais deputadas votaram como"
-        align="wide"
       >
         <RaceVoteTable />
-      </SectionBlock>
+      </ConsultationPanel>
 
-      <SectionBlock
+      <ConsultationPanel
         id="bancada"
-        tone="butter"
         kicker="Partido"
         question="Quem votou contra o próprio partido"
-        align="wide"
         lead={
           <p>
             Na Câmara, a maior parte do voto acompanha a bancada. Por isso o voto contra a maioria
@@ -944,7 +944,7 @@ function ComoVotaramPage() {
             </p>
           </ContextBox>
         </div>
-      </SectionBlock>
+      </ConsultationPanel>
 
       <SectionBlock
         id="quem-voltou"
@@ -1000,18 +1000,16 @@ function ComoVotaramPage() {
         </div>
       </SectionBlock>
 
-      <SectionBlock
+      <ConsultationPanel
         id="deputadas"
-        tone="lilac"
         kicker="Deputada por deputada"
         question={`As ${n(DEPUTADAS.length)} deputadas que estavam no mandato em alguma das seis datas`}
-        align="wide"
       >
         <MatrizVotos />
         <div className="mt-10">
           <DeputadasTable />
         </div>
-      </SectionBlock>
+      </ConsultationPanel>
 
       <div className="pb-6">
         <GapNote label="Lacuna declarada">
