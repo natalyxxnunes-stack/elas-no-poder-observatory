@@ -85,6 +85,16 @@ jobs:
                       r:Math.round(e.getBoundingClientRect().right),
                       o:getComputedStyle(e).overflowX
                     })).filter(x=>x.sw>x.cw+10).slice(0,30),
+                    problematicSections:[...document.querySelectorAll('main section')].filter(e=>e.scrollWidth>e.clientWidth+10).map(e=>({
+                      id:e.id,heading:e.querySelector('h2')?.innerText.slice(0,80),
+                      cw:e.clientWidth,sw:e.scrollWidth,
+                      children:[...e.querySelectorAll('*')].map(x=>({
+                        tag:x.tagName.toLowerCase(),cls:String(x.className).slice(0,100),
+                        right:Math.round(x.getBoundingClientRect().right),
+                        client:x.clientWidth,scroll:x.scrollWidth,
+                        text:(x.innerText||'').slice(0,45)
+                      })).filter(x=>x.right>485 || x.scroll>x.client+50).sort((a,b)=>b.scroll-b.client-(a.scroll-a.client)).slice(0,9)
+                    })),
                     nonClipped:[...document.querySelectorAll('main *')].filter(e=>{
                       const rect=e.getBoundingClientRect();
                       if(rect.right<=innerWidth+3 || rect.width<=0)return false;
