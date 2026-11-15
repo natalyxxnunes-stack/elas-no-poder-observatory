@@ -1,0 +1,85 @@
+name: Arquivar resultados completos da recontagem de novembro (uso único)
+on:
+  push:
+    branches: [redesign-editorial-v3-teste]
+    paths:
+      - .github/workflows/arquivar-auditoria-financeira-nov2026.yml
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  arquivar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: redesign-editorial-v3-teste
+      - name: Recuperar recontagens completas já aprovadas
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/auditoria-financas /tmp/auditoria-despesas
+          gh run download 43678550070 --repo natalyxxnunes-stack/elas-no-poder-observatory \
+            -n qse-recontagem-financas-13nov -D /tmp/auditoria-financas
+          gh run download 43678713208 --repo natalyxxnunes-stack/elas-no-poder-observatory \
+            -n qse-recontagem-despesas-nov2026 -D /tmp/auditoria-despesas
+          ls -lh /tmp/auditoria-financas/ /tmp/auditoria-despesas/
+      - name: Validar cruzamentos e preservar resultados agregados sem dados pessoais
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, shutil
+          fin=Path('/tmp/auditoria-financas')
+          des=Path('/tmp/auditoria-despesas')
+          output=Path('docs/auditorias/financiamento-2026-13nov')
+          output.mkdir(parents=True,exist_ok=True)
+          provenance=json.loads((fin/'proveniencia.json').read_text())
+          p2=json.loads((des/'proveniencia.json').read_text())
+          assert provenance['receitas.csv']['csvsha256']=='722c27a3c71ed4ed2c268b4baae189e1231ae95be2f40bb2bd1edc4e2bc7f35b'
+          assert provenance['candidaturas.csv']['csvsha256']=='29029414bed2708555af68545a63af6a765eed563e4b1274873ea8145f2a203b'
+          assert p2['receitas_candidatos_2026_BRASIL.csv']['sha256']==provenance['receitas.csv']['csvsha256']
+          assert p2['consulta_cand_2026_BRASIL.csv']['sha256']==provenance['candidaturas.csv']['csvsha256']
+          receipts=json.loads((fin/'receitas-agregadas.json').read_text())
+          fefc=json.loads((fin/'fefc-proporcional.json').read_text())
+          desps=json.loads((des/'despesas-agregadas.json').read_text())
+          candidates=json.loads((des/'registro-agregado.json').read_text())
+          prop=receipts['universes']['proporcional']
+          assert candidates['BASE']['proporcional']['total']==prop['registeredCandidacies']==fefc['total']['candidaturas']==19531
+          assert candidates['BASE']['proporcional']['feminine']==prop['registeredFeminineCandidacies']==6953
+          assert receipts['unmatchedCandidacies']==0 and receipts['genderMismatchRows']==0
+          assert receipts['rawRows']==receipts['rowsProcessed']+receipts['duplicateRows']
+          assert abs(sum(q['value'] for q in prop['feminineRevenueByRace'].values())-prop['feminineRevenue'])<0.01
+          assert desps['auditoria']['pagoSemPrestador']==0 and desps['auditoria']['doadorSemReceita']==0
+          for source,dest,name in [
+            (fin,output,'proveniencia.json'),
+            (fin,output,'receitas-agregadas.json'),
+            (fin,output,'fefc-proporcional.json'),
+            (fin,output,'fefc-titulares.json'),
+            (fin,output,'resumo-auditoria.json'),
+            (des,output,'registro-agregado.json'),
+            (des,output,'despesas-agregadas.json'),
+            (des,output,'resumo-despesas.json'),
+          ]: shutil.copy2(source/name,dest/name)
+          (output/'proveniencia-despesas.json').write_bytes((des/'proveniencia.json').read_bytes())
+          print('Preservados 9 arquivos agregados, todos os controles cruzados passaram.')
+          print('Nova receita brancas:',prop['feminineRevenueByRace']['BRANCA']['value'])
+          print('Nova receita mulheres:',prop['feminineRevenue'])
+          print('Percentual:',round(100*prop['feminineRevenueByRace']['BRANCA']['value']/prop['feminineRevenue'],4))
+          PY
+      - name: Arquivar em branch de teste sem publicar
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/auditorias/financiamento-2026-13nov
+          git diff --cached --quiet && exit 0
+          git commit -m 'docs(auditoria): armazenar agregados recontados TSE 13/11 e candidaturas 14/11'
+          git push origin HEAD:redesign-editorial-v3-teste
