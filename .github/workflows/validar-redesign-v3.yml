@@ -32,6 +32,8 @@ jobs:
           bun-version: latest
       - name: Instalar dependências travadas
         run: bun install --frozen-lockfile
+      - name: Conferir coerência do snapshot financeiro e das fontes
+        run: node scripts/recontagem/validar_snapshot_financeiro.mjs
       - name: Validar TypeScript
         run: bunx tsc --noEmit
       - name: Construir site estático Vite
