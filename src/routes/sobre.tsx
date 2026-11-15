@@ -157,13 +157,13 @@ function SobrePage() {
         aria-label="Conferir as fontes e o trabalho editorial"
         className="flex flex-wrap gap-x-8 gap-y-3 border-y border-rule py-5 text-sm font-semibold text-plum"
       >
-        <a href="/metodo#dicionario" className="min-h-11 content-center underline underline-offset-4">
+        <a href="/metodo#dicionario" className="inline-flex min-h-11 items-center underline underline-offset-4">
           Consultar os campos e as fontes
         </a>
-        <a href="/metodo#correcoes" className="min-h-11 content-center underline underline-offset-4">
+        <a href="/metodo#correcoes" className="inline-flex min-h-11 items-center underline underline-offset-4">
           Ver o histórico de correções
         </a>
-        <a href="/downloads" className="min-h-11 content-center underline underline-offset-4">
+        <a href="/downloads" className="inline-flex min-h-11 items-center underline underline-offset-4">
           Acessar arquivos e materiais
         </a>
       </nav>
