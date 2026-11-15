@@ -77,6 +77,9 @@ jobs:
               page.wait_for_timeout(350)
               page.screenshot(path=str(dest/f'dinheiro-{device}-tabela-aberta.jpg'),type='jpeg',quality=75)
               data['tableHVisible']=table.bounding_box()
+              if device=='mobile':
+                assert data['navFloating']['rect']['width']<100, 'Índice flutuante ainda grande demais no celular'
+                assert 'Deslize a tabela para o lado' in sec.inner_text(), 'Instrução de rolagem não aparece'
               if data['tableScrollable']:
                 table.evaluate('''x=>{const p=x.closest('.overflow-x-auto');p.scrollLeft=Math.round((p.scrollWidth-p.clientWidth)/2)}''')
                 page.wait_for_timeout(350)
