@@ -115,9 +115,20 @@ jobs:
                     const h=document.querySelector('main header');
                     if (!h) return {error:'header not found'};
                     const bg=getComputedStyle(h).backgroundColor;
-                    const parse=s=>(s.match(/[\\d.]+/g)||[]).slice(0,3).map(Number);
+                    // Canvas resolves modern CSS Color 4 values (e.g. oklch)
+                    // to actual sRGB pixels. getComputedStyle may return oklch
+                    // rather than rgb in recent Chromium versions.
+                    const canvas=document.createElement('canvas');
+                    canvas.width=canvas.height=1;
+                    const ctx=canvas.getContext('2d',{willReadFrequently:true});
+                    const toRgb=c=>{
+                      ctx.clearRect(0,0,1,1);
+                      ctx.fillStyle=c;
+                      ctx.fillRect(0,0,1,1);
+                      return Array.from(ctx.getImageData(0,0,1,1).data).slice(0,3);
+                    };
                     const lin=n=>{const v=n/255;return v<=0.04045?v/12.92:Math.pow((v+0.055)/1.055,2.4)};
-                    const l=c=>{const [r,g,b]=parse(c).map(lin);return 0.2126*r+0.7152*g+0.0722*b};
+                    const l=c=>{const [r,g,b]=toRgb(c).map(lin);return 0.2126*r+0.7152*g+0.0722*b};
                     const base=l(bg);
                     const checks=[...h.querySelectorAll('h1,p,a')].map(el=>{
                       const fg=getComputedStyle(el).color;const top=Math.max(base,l(fg));const bottom=Math.min(base,l(fg));
