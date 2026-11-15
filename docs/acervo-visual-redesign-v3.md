@@ -19,6 +19,16 @@ Data de conferência: 14/11/2026. Esta branch é teste isolado, sem publicação
 - Cópia obtida e validada como JPEG: public/fotos/plenario-igualdade-salarial-2023.jpg.
 - Aplicação: fotografia da abertura editorial; legenda identifica o uso como imagem de arquivo associada a UMA das pautas investigadas. Não apresenta a foto como registro das seis votações.
 
+### Foto coletiva da bancada feminina da Câmara, 04/03/2026
+- Registro: fotografia oficial da bancada feminina em homenagem ao Dia Internacional da Mulher, **antes das eleições de outubro de 2026**. Esta foto **não é** a composição das mulheres eleitas para a legislatura iniciada em 2027.
+- Artigo da Agência Câmara que reproduz a foto: https://www.camara.leg.br/noticias/1299890-representacao-feminina-total-de-candidatas-a-camara-cai-24-em-2026
+- Fonte primária do arquivo: https://www.camara.leg.br/midias/image/2026/03/img20260304142115193-768x473.jpg
+- Banco de Imagens da Câmara, 04/03/2026: https://www.camara.leg.br/internet/bancoimagem/default.asp?data=04/03/2026
+- Crédito conferido: **Vinicius Loures/Câmara dos Deputados**. O banco oficial informa utilização com crédito, sob regime Creative Commons BY.
+- Cópia local: `public/fotos/bancada-feminina-camara-marco-2026.jpg`. Arquivo JPEG verificado por assinatura e tamanho no GitHub Actions.
+- Usada na chamada “Quem chega às cadeiras” como **contexto institucional de 2026**, com legenda temporal explícita. Não apresentar como fotografia das eleitas de outubro, nem associar presença na foto à eleição.
+- Aplicação visual: fotografia integral, sem filtros, desenhos por cima, recortes que mudem sentido ou retratos gerados por IA.
+
 ### Célia Xakriabá, Câmara, 04/03/2026
 - Galeria: https://www.camara.leg.br/banco-imagens/eventos/8327BCE3-BAAC-4C71-B8B4-2A1550A2A73A
 - Prévia do item: https://www.camara.leg.br/internet/bancoimagem/banco/2026/03/img20260304112235745PEQ.jpg
