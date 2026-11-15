@@ -43,7 +43,7 @@ jobs:
           path: dist/client/
           if-no-files-found: error
           retention-days: 7
-      - name: Capturar homepage em desktop e celular
+      - name: Capturar páginas inteiras em desktop e celular
         shell: bash
         run: |
           set -euo pipefail
@@ -55,16 +55,21 @@ jobs:
           sleep 3
           curl -fsS http://127.0.0.1:4173/ >/dev/null
           chrome="$(command -v google-chrome || command -v chromium)"
-          "$chrome" --headless --no-sandbox --disable-dev-shm-usage \
-            --disable-gpu --hide-scrollbars --virtual-time-budget=5000 \
-            --window-size=1440,1000 --screenshot="$PWD/capturas-v3/home-desktop.png" \
-            http://127.0.0.1:4173/
-          "$chrome" --headless --no-sandbox --disable-dev-shm-usage \
-            --disable-gpu --hide-scrollbars --virtual-time-budget=5000 \
-            --window-size=390,844 --screenshot="$PWD/capturas-v3/home-celular.png" \
-            http://127.0.0.1:4173/
-          test -s capturas-v3/home-desktop.png
-          test -s capturas-v3/home-celular.png
+          for route in 'home:/' 'biblioteca:/downloads/' 'reportagem:/como-votaram/'; do
+            name="${route%%:*}"
+            path="${route#*:}"
+            curl -fsS "http://127.0.0.1:4173$path" >/dev/null
+            "$chrome" --headless --no-sandbox --disable-dev-shm-usage \
+              --disable-gpu --hide-scrollbars --virtual-time-budget=4500 \
+              --window-size=1440,6200 --screenshot="$PWD/capturas-v3/$name-desktop-completo.png" \
+              "http://127.0.0.1:4173$path"
+            "$chrome" --headless --no-sandbox --disable-dev-shm-usage \
+              --disable-gpu --hide-scrollbars --virtual-time-budget=4500 \
+              --window-size=390,6700 --screenshot="$PWD/capturas-v3/$name-celular-completo.png" \
+              "http://127.0.0.1:4173$path"
+          done
+          test -s capturas-v3/home-desktop-completo.png
+          test -s capturas-v3/biblioteca-celular-completo.png
       - name: Disponibilizar capturas para avaliação editorial
         if: always()
         uses: actions/upload-artifact@v4
