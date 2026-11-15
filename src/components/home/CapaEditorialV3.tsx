@@ -16,6 +16,7 @@ import { formatInt, formatPct } from "@/lib/format-br";
 const DESTAQUE = REPORTAGENS.find((r) => r.to === "/como-votaram");
 const NUM = RESULT_2026_PROPORCIONAL.byCargo.federal;
 const PERCENTUAL = (NUM.feminine / NUM.seats) * 100;
+const FOTO_BERTHA = FOTOS["bertha-lutz-1927"]!; // ativo local registrado e verificado
 
 function ArteVotacoes() {
   return (
@@ -93,7 +94,7 @@ function ChamadaEditorial({tipo,titulo,linha,to,variant}:{
       <Link to={to} className="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-plum">
         <div className="relative flex aspect-[5/3] items-center justify-center overflow-hidden bg-cream">
           {variant==="foto" ? (
-            <img src={FOTOS["bertha-lutz-1927"].src} alt={FOTOS["bertha-lutz-1927"].alt}
+            <img src={FOTO_BERTHA.src} alt={FOTO_BERTHA.alt}
               loading="lazy" className="h-full w-full object-cover" />
           ) : variant==="arquivo" ? (
             <svg className="h-full w-full" viewBox="0 0 500 300" role="img" aria-label="Composição original de fichas de arquivo, sem reprodução de documentos">
@@ -135,7 +136,7 @@ function ChamadaEditorial({tipo,titulo,linha,to,variant}:{
           ) : null}
         </div>
         {variant === "foto" ? (
-          <p className="mt-2 text-xs text-ink/65">{FOTOS["bertha-lutz-1927"].credito}, {FOTOS["bertha-lutz-1927"].data}</p>
+          <p className="mt-2 text-xs text-ink/65">{FOTO_BERTHA.credito}, {FOTO_BERTHA.data}</p>
         ) : null}
         <p className="mt-4 text-xs font-semibold text-plum">{tipo}</p>
         <h3 className="mt-1 font-display text-2xl font-semibold leading-tight text-ink group-hover:underline group-hover:underline-offset-4">{titulo}</h3>
