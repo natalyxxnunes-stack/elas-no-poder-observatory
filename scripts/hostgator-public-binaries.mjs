@@ -1,7 +1,7 @@
 /**
- * Restaura e valida binários públicos após a exportação estática.
+ * Restaura e valida arquivos públicos (imagens, PDFs e CSVs) após a exportação estática.
  * O Vite já reencodou um PNG de 1080px de 89 50 4e 47 para ef bf bd 50.
- * Arquivos originais em public/ devem sair idênticos em dist/client/.
+ * Arquivos originais em public/ devem sair idênticos em dist/client/, inclusive CSVs financeiros.
  * Não interfere em HTML, JS, CSS, SVG nem arquivos criados no build.
  */
 import { readdir, mkdir, readFile, copyFile } from "node:fs/promises";
@@ -10,7 +10,7 @@ import path from "node:path";
 
 const PUBLIC = path.join(process.cwd(), "public");
 const DIST = path.join(process.cwd(), "dist/client");
-const BINARIOS = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".ico", ".pdf"]);
+const BINARIOS = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".ico", ".pdf", ".csv"]);
 
 async function* percorrer(dir) {
   for (const item of await readdir(dir, { withFileTypes: true })) {
