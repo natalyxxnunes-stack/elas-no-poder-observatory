@@ -95,7 +95,7 @@ const MATERIALS: readonly Material[] = [
 ];
 
 /** Prévia fiel, quando o navegador conseguir renderizar o arquivo original.
- * Nenhuma capa fictícia é apresentada como se fosse o PDF.
+ * Miniaturas derivadas dos próprios PDFs, geradas no pipeline verificado.
  */
 function MiniaturaMaterial({ material }: { material: Material }) {
   if (!material.file || material.file === "/metodo") {
@@ -114,15 +114,19 @@ function MiniaturaMaterial({ material }: { material: Material }) {
     );
   }
   if (material.file.endsWith(".pdf")) {
-    return (
-      <div className="relative aspect-[5/3] overflow-hidden border border-rule bg-cream">
-        <object data={material.file + "#page=1&toolbar=0&navpanes=0"} type="application/pdf"
-          aria-label={"Prévia da primeira página do PDF: " + material.title}
-          className="pointer-events-none h-full w-full">
-          <span className="flex h-full w-full items-center justify-center p-4 text-center text-sm text-ink/70">
-            PDF original disponível para abrir; prévia indisponível neste navegador
-          </span>
-        </object>
+    const miniatura = material.id === "cartilha-cota"
+      ? "/materiais/cartilha-cota-miniatura.png"
+      : material.id === "cartilha-funil"
+        ? "/materiais/oficina-funil-miniatura.png"
+        : null;
+    return miniatura ? (
+      <div className="flex aspect-[5/3] items-center justify-center overflow-hidden bg-cream">
+        <img src={miniatura} alt={"Prévia da primeira página do material: " + material.title}
+          loading="lazy" className="h-full w-full object-contain" />
+      </div>
+    ) : (
+      <div className="flex aspect-[5/3] items-center justify-center bg-cream p-5 text-sm text-ink/70">
+        Arquivo PDF para download · prévia indisponível
       </div>
     );
   }
