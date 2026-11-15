@@ -32,7 +32,9 @@ jobs:
           set -euo pipefail
           git fetch --depth=1 origin main
           test -z "$(git diff --name-only origin/main...HEAD -- src/data public/dados public/fotos src/styles.css src/components/BrandLogo.tsx src/components/BrandWordmark.tsx src/components/home/CapaEditorialV3.tsx src/routes/index.tsx src/components/editorial/Faixa.tsx)"
-          echo "Capa, marca, fotografias, estilos e bases preservados."
+          test -s public/documentos/tse-candidatos-2026-portal.png
+          test -s public/documentos/tse-candidatos-2026-portal-fonte.txt
+          echo "Capa e bases preservadas; documento TSE e sua procedência presentes na prévia."
       - name: Instalar navegador de validação
         run: python3 -m pip install --quiet --break-system-packages playwright
       - name: Testar três páginas e fotografar versões completas
