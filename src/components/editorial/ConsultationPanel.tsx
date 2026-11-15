@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 /**
  * Painel compacto de consulta: os dados completos permanecem acessíveis,
@@ -20,9 +20,23 @@ export function ConsultationPanel({
   lead?: ReactNode;
   children: ReactNode;
 }) {
+  const detailsRef = useRef<HTMLDetailsElement>(null);
+
+  useEffect(() => {
+    // Acesso direto por #deputadas, #votos etc. abre o conteúdo correspondente.
+    const abrirAoNavegar = () => {
+      if (decodeURIComponent(window.location.hash.slice(1)) === id && detailsRef.current) {
+        detailsRef.current.open = true;
+      }
+    };
+    abrirAoNavegar();
+    window.addEventListener("hashchange", abrirAoNavegar);
+    return () => window.removeEventListener("hashchange", abrirAoNavegar);
+  }, [id]);
+
   return (
     <section id={id} className="scroll-mt-24 border-t border-rule">
-      <details className="group">
+      <details ref={detailsRef} className="group">
         <summary className="flex min-h-28 cursor-pointer list-none items-center justify-between gap-4 py-5 text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum [&::-webkit-details-marker]:hidden sm:py-6">
           <span className="min-w-0">
             <span className="block text-xs font-semibold uppercase tracking-wide text-plum">{kicker}</span>
