@@ -70,6 +70,16 @@ jobs:
                 assert not errors,(route,device,'Javascript',errors)
                 assert info['sw']<=info['width']+3,(route,device,'horizontal overflow',info['sw'],info['width'])
                 assert len(info['headings'])==1,(route,device,'H1',info['headings'])
+                if route=='/metodo/' and device=='celular':
+                  rightmost=page.evaluate('''() => [...document.querySelectorAll('main *')].map(e=>({
+                    right: Math.round(e.getBoundingClientRect().right),
+                    left: Math.round(e.getBoundingClientRect().left),
+                    width: Math.round(e.getBoundingClientRect().width),
+                    tag: e.tagName.toLowerCase(),
+                    name: String(e.className).slice(0,130)
+                  })).filter(e=>e.right>innerWidth+4 || e.left < -4).sort((a,b)=>b.right-a.right).slice(0,10)''')
+                  print('DIAGNOSTICO LARGURA METODO CELULAR:',json.dumps({'bodyWidth':page.evaluate('document.body.scrollWidth'),'windowWidth':width,'elements':rightmost},ensure_ascii=False))
+
                 if route=='/eleitas/':
                   assert '342' in info['body'],(route,device,'total')
                   assert '109 / 513' in info['body'],(route,device,'federal')
