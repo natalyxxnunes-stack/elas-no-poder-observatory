@@ -2,8 +2,7 @@ import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { AchadoCard } from "@/components/editorial/AchadoCard";
 import { Faixa } from "@/components/editorial/Faixa";
-import { ObjetoFigura, OBJETOS } from "@/components/editorial/ObjetoTema";
-import { Recorte } from "@/components/editorial/Recorte";
+import { TemaOpening, ObjetoComplementar } from "@/components/editorial/TemaOpening";
 import { Secao } from "@/components/editorial/Secao";
 import { ACHADOS } from "@/data/achados";
 import { FALAS } from "@/data/falas";
@@ -54,7 +53,6 @@ function TemaPage() {
   const i = TEMAS.findIndex((t) => t.slug === slug);
   const tema = TEMAS[i]!;
   const proximo = TEMAS[(i + 1) % TEMAS.length]!;
-  const objeto = OBJETOS[tema.slug]();
   const achados = [...ACHADOS].reverse().filter((a) => a.tema && tema.achados.includes(a.tema));
   const votacoes = VOTACOES.filter((v) => tema.votacoes.includes(v.bloco));
   const falas = tema.falas
@@ -63,51 +61,40 @@ function TemaPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Temas", to: "/temas" }, { label: tema.nome }]}>
-      <Faixa fundo="bg-plum-deep text-paper">
-        <div className="grid gap-10 py-12 md:grid-cols-[1fr_1.15fr] md:gap-16 md:py-20">
-          <div>
-            <p className="font-mono text-[14px] text-lilac">
-              Tema {tema.ordem} de {TEMAS.length}
-            </p>
-            <h1 className="mt-3 font-display text-5xl font-semibold leading-none md:text-7xl">
-              {tema.nome}
-            </h1>
-            <p className="mt-3 font-display text-2xl italic text-lilac md:text-3xl">
-              {tema.pergunta}
-            </p>
-            <p className="mt-10 border-t-[5px] border-coral pt-5 font-display text-[1.7rem] leading-tight md:text-[2.2rem]">
-              {objeto.frase}
-            </p>
-            <a
-              href={`${objeto.link.to}${objeto.link.hash ? `#${objeto.link.hash}` : ""}`}
-              className="mt-6 inline-flex min-h-11 items-center text-[15px] font-semibold text-paper underline decoration-coral decoration-2 underline-offset-4"
-            >
-              {objeto.link.label} →
-            </a>
-          </div>
-          <div className="md:pt-6">
-            <ObjetoFigura slug={tema.slug} />
-          </div>
-        </div>
-      </Faixa>
+      <TemaOpening tema={tema} />
 
-      <section className="py-14 md:py-20">
-        <Secao nome="A tese" tipo="o que o observatório encontrou neste tema" />
+      <nav aria-label="Nesta página temática"
+        className="relative left-1/2 -ml-[50vw] w-screen border-b border-rule bg-paper">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-1 px-5 py-3 text-sm md:px-8">
+          <span className="font-semibold text-plum">Neste tema</span>
+          <a href="#tese" className="inline-flex min-h-10 items-center text-ink hover:text-plum">O essencial</a>
+          {achados.length > 0 ? (
+            <a href="#provas" className="inline-flex min-h-10 items-center text-ink hover:text-plum">Os achados</a>
+          ) : null}
+          <a href="#quem-decide" className="inline-flex min-h-10 items-center text-ink hover:text-plum">Quem decide</a>
+          <a href="#lacunas" className="inline-flex min-h-10 items-center text-ink hover:text-plum">Lacunas</a>
+          <a href="#leitura-e-consulta" className="inline-flex min-h-10 items-center text-ink hover:text-plum">Ler e consultar</a>
+        </div>
+      </nav>
+
+      <section id="tese" className="scroll-mt-24 py-12 md:py-16">
+        <Secao nome="O essencial" tipo="o que o observatório encontrou neste tema" semFio />
         {/* Duas colunas no desktop para a tese não deixar meia tela vazia (13/11/2026). */}
         <div className="mt-6 grid gap-8 md:grid-cols-12 md:gap-10">
           <p className="font-display text-[1.9rem] leading-[1.15] text-ink md:col-span-8 md:text-[2.5rem]">
             {tema.tese}
           </p>
-          <p className="border-t-4 border-plum pt-4 text-[17px] leading-relaxed text-ink/80 md:col-span-4 md:self-end">
+          <p className="border-l-4 border-plum bg-muted px-5 py-4 text-[16px] leading-relaxed text-ink/80 md:col-span-4 md:self-end">
             {tema.linha} Cor/raça atravessa todos os temas: pretas, pardas, brancas, indígenas e
             amarelas aparecem sempre separadas, e qualquer soma vem declarada.
           </p>
         </div>
+        <ObjetoComplementar tema={tema} />
       </section>
 
       {achados.length ? (
         <Faixa fundo="bg-cream">
-          <div className="py-12 md:py-16">
+          <div id="provas" className="scroll-mt-24 py-12 md:py-16">
             <Secao
               nome="As provas"
               tipo={`${n(achados.length)} achados · cada um tem endereço próprio`}
@@ -121,7 +108,7 @@ function TemaPage() {
         </Faixa>
       ) : null}
 
-      <section className="py-14 md:py-20">
+      <section id="quem-decide" className="scroll-mt-24 py-12 md:py-16">
         <Secao nome="Quem decide" tipo="os atores e as relações por trás dos números" />
         <ol className="mt-8 grid gap-px bg-rule md:grid-cols-3">
           {tema.quemDecide.map((q, k) => (
@@ -205,18 +192,18 @@ function TemaPage() {
         </Faixa>
       ) : null}
 
-      <section className="-mx-5 bg-cream px-5 py-12 md:-mx-8 md:px-8 md:py-16">
+      <section id="lacunas" className="scroll-mt-24 -mx-5 bg-cream px-5 py-12 md:-mx-8 md:px-8 md:py-16">
         <Secao nome="O que ainda não sabemos" tipo="lacunas declaradas" />
         <ul className="mt-6 grid gap-6 md:grid-cols-2 md:gap-10">
           {tema.naoSabemos.map((x) => (
-            <li key={x} className="border-t-2 border-plum pt-4 text-[17px] leading-relaxed text-ink/85">
+            <li key={x} className="border-l-2 border-plum pl-4 text-[16px] leading-relaxed text-ink/85">
               {x}
             </li>
           ))}
         </ul>
       </section>
 
-      <section className="grid gap-12 py-12 md:grid-cols-2 md:py-16">
+      <section id="leitura-e-consulta" className="scroll-mt-24 grid gap-10 py-12 md:grid-cols-2 md:py-16">
         {tema.leituras.length ? (
           <div>
             <Secao nome="Para ler" tipo="reportagens e perfis" />
@@ -255,10 +242,6 @@ function TemaPage() {
         </div>
       </section>
 
-      <Recorte
-        slug={proximo.slug}
-        className="relative left-1/2 -ml-[50vw] aspect-[4/1] w-screen md:aspect-[8/1]"
-      />
       <Faixa fundo="bg-cream">
         <a
           href={`/temas/${proximo.slug}`}
