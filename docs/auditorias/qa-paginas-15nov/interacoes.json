@@ -122,9 +122,9 @@
     "tableVisibleWidth": 308,
     "navFloating": {
       "rect": {
-        "x": 224.984375,
+        "x": 316.15625,
         "y": 784,
-        "width": 149.015625,
+        "width": 57.84375,
         "height": 44
       },
       "visible": "1"
@@ -134,7 +134,7 @@
     ],
     "tableHVisible": {
       "x": 41,
-      "y": -0.09375,
+      "y": 0.15625,
       "width": 1024,
       "height": 2301.84375
     },
