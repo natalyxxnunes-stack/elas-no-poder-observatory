@@ -113,6 +113,9 @@ jobs:
                 if route=='/eleitas/':
                   assert '342' in info['body'],(route,device,'total')
                   assert '109 / 513' in info['body'],(route,device,'federal')
+                  assert 'Quantas vagas foram conquistadas por mulheres?' in info['body']
+                  assert page.locator('section[aria-labelledby="eleitas-cadeiras-titulo"] ol > li').count()==5,(route,device,'five office denominators')
+                  assert page.locator('main header').first.evaluate('(e) => getComputedStyle(e).display') is not None
                   assert '12 / 54' in info['body'],(route,device,'senado')
                   assert 'Nomes e fichas' in info['body'],(route,device,'catalogo')
                   assert 'não percentuais de cadeiras' in info['body'],(route,device,'method of absolute UF counts')
@@ -162,6 +165,8 @@ jobs:
                   assert 'Histórico de correções' in info['body'],(route,device,'correction history')
                 if route=='/reportagens/':
                   assert info['headings'][0]=='Reportagens',(route,device,'compact magazine header')
+                  assert page.locator('section[aria-labelledby="reportagem-destaque"] > article').count()==1,(route,device,'fullwidth editorial headline')
+                  assert page.locator('section[aria-labelledby="reportagem-destaque"] > div').count()==1,(route,device,'fullwidth documentary figure')
                   assert page.locator('article[class*="bg-[var(--art-coral)]"]').count()>=1,(route,device,'coral editorial treatment')
                   assert 'O voto das deputadas, em seis decisões' in info['body'],(route,device,'editorial documentary opener')
                   assert page.locator('figure[aria-label="Visualização documental dos votos de deputadas nas seis votações"] ol > li').count()==6,(route,device,'six votes')
