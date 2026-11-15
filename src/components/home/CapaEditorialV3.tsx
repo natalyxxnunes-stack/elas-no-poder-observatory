@@ -4,6 +4,7 @@ import { TEMAS } from "@/data/temas";
 import { REPORTAGENS } from "@/data/reportagens";
 import { CAPA_MANCHETE } from "@/data/capa";
 import { FOTOS } from "@/data/fotos";
+import { ComposicaoEditorial } from "@/components/editorial/ComposicaoEditorial";
 import { RESULT_2026_PROPORCIONAL, RESULT_2026_META } from "@/data/resultado-2026";
 import { formatInt, formatPct } from "@/lib/format-br";
 
@@ -75,7 +76,7 @@ function Abertura() {
 }
 
 function ChamadaEditorial({tipo,titulo,linha,to,variant}:{
-  tipo:string;titulo:string;linha:string;to:"/pioneiras"|"/como-votaram"|"/na-voz-delas"|"/eleitas";variant:"foto"|"arquivo"|"documento"|"consulta";
+  tipo:string;titulo:string;linha:string;to:"/pioneiras"|"/como-votaram"|"/na-voz-delas"|"/eleitas";variant:"foto"|"documento"|"consulta";
 }) {
   return (
     <article className="group flex min-w-0 flex-col">
@@ -84,42 +85,12 @@ function ChamadaEditorial({tipo,titulo,linha,to,variant}:{
           {variant==="foto" ? (
             <img src={FOTO_BERTHA.src} alt={FOTO_BERTHA.alt}
               loading="lazy" className="h-full w-full object-cover" />
-          ) : variant==="arquivo" ? (
-            <svg className="h-full w-full" viewBox="0 0 500 300" role="img" aria-label="Composição original de fichas de arquivo, sem reprodução de documentos">
-              <rect width="500" height="300" fill="var(--cream)"/>
-              <rect x="65" y="40" width="175" height="217" fill="var(--lilac)" stroke="var(--plum)" strokeWidth="2"/>
-              <rect x="159" y="57" width="255" height="198" fill="var(--paper)" stroke="var(--plum-deep)" strokeWidth="2"/>
-              <rect x="184" y="86" width="195" height="5" fill="var(--plum)"/>
-              <rect x="184" y="106" width="151" height="5" fill="var(--plum-soft)"/>
-              <rect x="184" y="156" width="170" height="2" fill="var(--rule)"/>
-              <rect x="184" y="179" width="170" height="2" fill="var(--rule)"/>
-              <rect x="184" y="202" width="120" height="2" fill="var(--rule)"/>
-              <circle cx="122" cy="202" r="30" fill="var(--plum)"/>
-            </svg>
-          ) : variant==="documento" ? (
-            <svg className="h-full w-full" viewBox="0 0 500 300" role="img" aria-label="Composição original de páginas e pauta, sem fac-símile documental">
-              <rect width="500" height="300" fill="var(--plum)"/>
-              <rect x="73" y="40" width="356" height="219" fill="var(--paper)"/>
-              <rect x="101" y="70" width="245" height="8" fill="var(--plum-deep)"/>
-              <rect x="101" y="93" width="306" height="3" fill="var(--rule)"/>
-              <rect x="101" y="108" width="296" height="3" fill="var(--rule)"/>
-              <rect x="101" y="123" width="268" height="3" fill="var(--rule)"/>
-              <rect x="101" y="165" width="110" height="54" fill="var(--lilac)"/>
-              <rect x="224" y="165" width="183" height="54" fill="var(--cream)"/>
-              <rect x="101" y="234" width="306" height="2" fill="var(--rule)"/>
-            </svg>
           ) : (
-            <svg className="h-full w-full" viewBox="0 0 500 300" role="img" aria-label="Composição editorial original de cadeiras parlamentares">
-              <rect width="500" height="300" fill="var(--plum-deep)"/>
-              {Array.from({length:7},(_,i)=>Array.from({length:4},(_,j)=>(
-                <rect key={i+"-"+j} x={42+i*62} y={38+j*56} width="42" height="34"
-                  fill={(i+j)%4===0?"var(--lilac)":"var(--plum-soft)"} />
-              )))}
-            </svg>
+            <ComposicaoEditorial tipo={variant === "consulta" ? "poder" : "voz"} />
           )}
           {variant !== "foto" ? (
             <span className="absolute bottom-2 left-3 bg-paper px-2 py-1 text-[11px] font-semibold text-plum">
-              Composição gráfica original
+              Arte editorial original
             </span>
           ) : null}
         </div>
