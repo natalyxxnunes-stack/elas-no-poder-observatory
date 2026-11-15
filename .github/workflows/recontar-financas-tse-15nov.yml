@@ -1,0 +1,167 @@
+name: Recontar contas TSE pós-prazo (15 novembro 2026)
+on:
+  push:
+    branches: [redesign-editorial-v3-teste]
+    paths: [.github/workflows/recontar-financas-tse-15nov.yml]
+permissions:
+  contents: write
+
+jobs:
+  recontar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+      - name: Baixar arquivos oficiais e verificar proveniência sem publicar dados pessoais
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/qse-tse-15nov docs/auditorias/financiamento-2026-15nov
+          curl -fL --retry 3 --retry-delay 3 --max-time 480 --silent --show-error \
+            'https://cdn.tse.jus.br/estatistica/sead/odsele/prestacao_contas/prestacao_de_contas_eleitorais_candidatos_2026.zip' \
+            -o /tmp/qse-tse-15nov/financeiro.zip
+          curl -fL --retry 3 --retry-delay 3 --max-time 300 --silent --show-error \
+            'https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2026.zip' \
+            -o /tmp/qse-tse-15nov/candidaturas.zip
+          python3 - <<'PY'
+          import csv,hashlib,json,shutil
+          from pathlib import Path
+          from zipfile import ZipFile
+          root=Path('/tmp/qse-tse-15nov')
+          dest=Path('docs/auditorias/financiamento-2026-15nov')
+          spec=[
+            ('financeiro.zip','receitas_candidatos_2026_BRASIL.csv','receitas.csv'),
+            ('financeiro.zip','despesas_contratadas_candidatos_2026_BRASIL.csv',None),
+            ('financeiro.zip','despesas_pagas_candidatos_2026_BRASIL.csv',None),
+            ('financeiro.zip','receitas_candidatos_doador_originario_2026_BRASIL.csv',None),
+            ('candidaturas.zip','consulta_cand_2026_BRASIL.csv','candidaturas.csv'),
+          ]
+          def hashfile(p):
+            h=hashlib.sha256()
+            with p.open('rb') as f:
+              for block in iter(lambda:f.read(1<<20),b''):h.update(block)
+            return h.hexdigest()
+          archive_sha={z:hashfile(root/z) for z in ('financeiro.zip','candidaturas.zip')}
+          expected='9ae80e2e2ea9561c9f9810008b9efad0bba6e7f16d8b56935039cc6fb3cc71bf'
+          assert archive_sha['financeiro.zip']==expected,'O TSE substituiu o ZIP desde a consulta de 15/11 às 11h38: revalidar antes de recontar'
+          meta={}
+          for z,filename,alias in spec:
+            with ZipFile(root/z) as archive:
+              matches=[n for n in archive.namelist() if n.lower().endswith(filename.lower())]
+              assert len(matches)==1,(filename,matches)
+              with archive.open(matches[0]) as source,(root/filename).open('wb') as target:
+                shutil.copyfileobj(source,target)
+            p=root/filename
+            with p.open(encoding='latin1',newline='') as f:
+              first=next(csv.DictReader(f,delimiter=';'))
+            entry={'csvsha256':hashfile(p),'zipsha256':archive_sha[z],
+              'zipbytes':(root/z).stat().st_size,'csvbytes':p.stat().st_size,
+              'geracao':first.get('DT_GERACAO','')+' '+first.get('HH_GERACAO',''),
+              'origem':z,'csv_source':filename}
+            meta[alias or filename]=entry
+          assert meta['receitas.csv']['geracao']=='15/11/2026 04:05:10',meta['receitas.csv']['geracao']
+          (dest/'proveniencia.json').write_text(json.dumps(meta,ensure_ascii=False,indent=2)+'\n')
+          print('PROVENIENCIA (somente metadados):')
+          print(json.dumps({k:{'geracao':v['geracao'],'csvsha256':v['csvsha256'],'csvbytes':v['csvbytes']} for k,v in meta.items()},ensure_ascii=False,indent=2))
+          PY
+      - name: Recontar receitas, fundo, despesas e candidaturas com scripts existentes
+        shell: bash
+        run: |
+          set -euo pipefail
+          folder=docs/auditorias/financiamento-2026-15nov
+          dados=/tmp/qse-tse-15nov
+          python3 -I scripts/recontagem/dinheiro_2026.py \
+            "$dados/receitas_candidatos_2026_BRASIL.csv" "$dados/consulta_cand_2026_BRASIL.csv" \
+            > /tmp/qse-tse-15nov/receitas-completas.json
+          python3 -I scripts/recontagem/fefc_partidos_2026.py \
+            "$dados/receitas_candidatos_2026_BRASIL.csv" "$dados/consulta_cand_2026_BRASIL.csv" proporcional \
+            > "$folder/fefc-proporcional.json"
+          python3 -I scripts/recontagem/fefc_partidos_2026.py \
+            "$dados/receitas_candidatos_2026_BRASIL.csv" "$dados/consulta_cand_2026_BRASIL.csv" titulares \
+            > "$folder/fefc-titulares.json"
+          python3 -I scripts/recontagem/despesas_doadores_2026.py \
+            "$dados" "$dados/consulta_cand_2026_BRASIL.csv" \
+            > "$folder/despesas-agregadas.json"
+          python3 -I scripts/recontagem/snapshot_candidaturas_2026.py \
+            "$dados/consulta_cand_2026_BRASIL.csv" \
+            > /tmp/qse-tse-15nov/registro-completo.json
+      - name: Remover dados individuais, reconciliar universos e registrar resumo
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          folder=Path('docs/auditorias/financiamento-2026-15nov')
+          raw=Path('/tmp/qse-tse-15nov')
+          def read(f):return json.loads((folder/f).read_text())
+          def store(f,obj):(folder/f).write_text(json.dumps(obj,ensure_ascii=False,indent=2)+'\n')
+          receitas=json.loads((raw/'receitas-completas.json').read_text())
+          receitas.pop('candidatasMajoritarias',None)
+          registro=json.loads((raw/'registro-completo.json').read_text())
+          registro={k:registro[k] for k in ('sha256','baseGeneratedAt','BASE','OUT_OF_UNIVERSE')}
+          store('receitas-agregadas.json',receitas)
+          store('registro-agregado.json',registro)
+          fefc=read('fefc-proporcional.json')
+          fefc6=read('fefc-titulares.json')
+          despesas=read('despesas-agregadas.json')
+          proveniencia=read('proveniencia.json')
+          prop=receitas['universes']['proporcional']
+          assert receitas['csvSha256']==proveniencia['receitas.csv']['csvsha256']
+          assert registro['sha256']==proveniencia['candidaturas.csv']['csvsha256']
+          assert receitas['rawRows']==receitas['rowsProcessed']+receitas['duplicateRows']
+          assert receitas['unmatchedCandidacies']==0,receitas['unmatchedCandidacies']
+          assert receitas['genderMismatchRows']==0,receitas['genderMismatchRows']
+          assert registro['BASE']['proporcional']['total']==prop['registeredCandidacies']==fefc['total']['candidaturas']
+          assert registro['BASE']['proporcional']['feminine']==prop['registeredFeminineCandidacies']
+          assert despesas['proporcional']['FEMININO']['candidaturas']+despesas['proporcional']['MASCULINO']['candidaturas']==prop['registeredCandidacies']
+          assert abs(sum(v['value'] for v in prop['feminineRevenueByRace'].values())-prop['feminineRevenue'])<0.01
+          assert sum(v['candidacies'] for v in prop['feminineRevenueByRace'].values())==prop['feminineCandidaciesWithRevenue']
+          brancas=prop['feminineRevenueByRace']['BRANCA']['value']
+          resumo={
+            'baseReceitas':receitas['baseGeneratedAt'],
+            'baseCandidaturas':registro['baseGeneratedAt'],
+            'linhasOriginais':receitas['rawRows'],
+            'duplicatasRemovidas':receitas['duplicateRows'],
+            'valorDasDuplicatas':receitas['duplicateValue'],
+            'linhasProcessadas':receitas['rowsProcessed'],
+            'candidaturasComReceita':receitas['candidaciesWithRevenue'],
+            'candidaturasSemCorrespondencia':receitas['unmatchedCandidacies'],
+            'divergenciasGeneroLinhas':receitas['genderMismatchRows'],
+            'tiposPrestacao':receitas['tiposPrestacao'],
+            'propCandidaturasComReceita':prop['candidaciesWithRevenue'],
+            'propCandidatasComReceita':prop['feminineCandidaciesWithRevenue'],
+            'propReceitaTotal':prop['totalRevenue'],
+            'propReceitaFeminina':prop['feminineRevenue'],
+            'brancasReceita':brancas,
+            'brancasPctReceitaMulheres':round(100*brancas/prop['feminineRevenue'],4),
+            'racas':prop['feminineRevenueByRace'],
+            'fefcProporcionalTotal':fefc['total']['fefc'],
+            'fefcProporcionalMulheres':fefc['total']['mulheres']['fefc'],
+            'fefcTitularesTotal':fefc6['total']['fefc'],
+            'fefcTitularesMulheres':fefc6['total']['mulheres']['fefc'],
+            'despesasAuditoria':despesas['auditoria'],
+          }
+          store('resumo-auditoria.json',resumo)
+          print('CONTROLES: somas, candidaturas, linhas e hashes conciliados')
+          print('RESUMO SEM DADOS PESSOAIS:')
+          print(json.dumps(resumo,ensure_ascii=False,indent=2))
+          PY
+      - name: Arquivar somente resultados agregados na branch de teste
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/auditorias/financiamento-2026-15nov
+          git diff --cached --quiet && exit 0
+          git commit -m 'dados(auditoria): preservar recontagem TSE de 15 novembro sem publicar'
+          git push origin HEAD:redesign-editorial-v3-teste
+      - name: Preservar artefato agregado para auditoria
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-recontagem-tse-15nov
+          path: docs/auditorias/financiamento-2026-15nov/
+          if-no-files-found: warn
+          retention-days: 14
