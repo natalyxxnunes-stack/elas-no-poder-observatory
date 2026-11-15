@@ -170,7 +170,7 @@ export const TEMAS: readonly Tema[] = [
     linha:
       "Ser eleita é diferente de controlar a pauta: governos, Senado, vice e suplência, e as decisões dos partidos. Mesas, comissões e lideranças entram depois da posse, em 2027.",
     tese:
-      "Chegar é diferente de mandar: as senadoras passam de 15 para 19 das 81 cadeiras em 2027, num Senado em que o PL sozinho terá 28, mais do que todas as senadoras juntas.",
+      "Chegar é diferente de mandar: as senadoras passam de 15 para 19 das 81 cadeiras em 2027, num Senado em que o PL poderá ter 29, mais do que todas as senadoras juntas, conforme projeção da Agência Senado de 25/10.",
     quemDecide: [
       { ator: "A Mesa Diretora de cada Casa", decide: "a pauta do plenário e a administração" },
       { ator: "Os partidos, pelo tamanho da bancada", decide: "a divisão das presidências e das vagas nas comissões" },
