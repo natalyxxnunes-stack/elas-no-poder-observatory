@@ -98,18 +98,20 @@ function ReportagensPage() {
             return (
               <li key={r.to} className="group min-w-0">
                 <Link to={r.to} className="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-plum">
-                  <figure className="aspect-[5/3] overflow-hidden bg-plum-deep">
-                    {foto ? (
-                      <img src={foto.src} alt={foto.alt} loading="lazy" className="h-full w-full object-cover" />
-                    ) : (
-                      <IndiceDocumental />
-                    )}
+                  <figure>
+                    <div className="aspect-[5/3] overflow-hidden bg-plum-deep">
+                      {foto ? (
+                        <img src={foto.src} alt={foto.alt} loading="lazy" className="h-full w-full object-cover" />
+                      ) : (
+                        <IndiceDocumental />
+                      )}
+                    </div>
+                    <figcaption className="mt-2 text-xs text-ink/65">
+                      {foto
+                        ? `${foto.credito} · foto de arquivo de maio de 2023, relacionada ao PL 1.085/2023`
+                        : "Referências textuais a fontes primárias citadas na reportagem; não são imagens dos documentos."}
+                    </figcaption>
                   </figure>
-                  <p className="mt-2 text-xs text-ink/65">
-                    {foto
-                      ? `${foto.credito} · foto de arquivo de maio de 2023, relacionada ao PL 1.085/2023`
-                      : "Índice de fontes primárias citadas na reportagem; referências textuais, não imagem dos documentos."}
-                  </p>
                   <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-plum">
                     {r.tema} · {formatDateBR(r.data)} · {r.autora}
                   </p>
