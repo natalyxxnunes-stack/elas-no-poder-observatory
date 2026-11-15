@@ -259,7 +259,7 @@ export function FinanceParties({ snapshot }: { snapshot: TseFinanceSnapshot }) {
         data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
         limitacao:
-          "Receita registrada na candidatura, de qualquer origem, além do repasse do partido. Prestação final do 1º turno.",
+          "Receita declarada por candidatura, de qualquer origem, inclusive repasses partidários. Base gerada após o prazo final do segundo turno, ainda sujeita a retificações.",
       }}
       eyebrow="Cinco partidos com mais receita · proporcional"
       title="Quanto do dinheiro de cada partido foi para candidatas"
