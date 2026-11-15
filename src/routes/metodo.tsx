@@ -3,7 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Registro } from "@/components/editorial/Registro";
 import { buildSnapshotCsv } from "@/lib/tse/snapshot-csv";
 import { WhatChanged } from "@/components/home/WhatChanged";
-import { formatDateBR, formatInt } from "@/lib/format-br";
+import { formatDateBR, formatInt, formatPct } from "@/lib/format-br";
+import { FINANCE_BASE_LABEL, financeSnapshot } from "@/data/tse-finance-snapshot";
 import { INSPECTED_AT } from "@/lib/tse/data-dictionary";
 import { CORRECOES, DICIONARIO, METODO_ATUACAO, METODO_FICHAS } from "@/data/metodo-publico";
 
@@ -192,13 +193,14 @@ function MetodoPage() {
         ]}
         aside={
           <div>
-            <p className="text-[13px] text-ink/65 font-semibold">Fotografia vigente</p>
+            <p className="text-[13px] text-ink/65 font-semibold">Candidaturas · fotografia de referência</p>
             <p className="mt-2 font-display text-lg leading-snug text-ink">
               Base do TSE gerada em{" "}
               {br(snapshot?.baseGeneratedAt ?? TSE_SOURCE.baseGeneratedAt)}
             </p>
             <p className="mt-1 text-sm text-muted-foreground">
-              Processada pelo observatório em {br(snapshot?.collectedAt ?? null)}
+              Processada pelo observatório em {br(snapshot?.collectedAt ?? null)}.
+              A base financeira tem corte próprio: {FINANCE_BASE_LABEL}.
             </p>
             {snapshot && (
               <p className="mt-3 font-mono text-[13px] text-muted-foreground">
@@ -222,6 +224,72 @@ function MetodoPage() {
           </div>
         }
       />
+
+      {/* EXEMPLO EDITORIAL — resultado auditável, calculado da mesma fotografia financeira usada no site. */}
+      <section aria-labelledby="metodo-exemplo" className="relative left-1/2 -ml-[50vw] w-screen bg-plum text-cream">
+        <div className="mx-auto grid max-w-7xl gap-9 px-5 py-11 md:px-8 md:py-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div>
+            <p className="text-[13px] font-semibold text-cream/80">Um número, uma conta verificável</p>
+            <h2 id="metodo-exemplo" className="mt-3 max-w-xl font-display text-3xl leading-tight md:text-5xl">
+              O que significa dizer que 56,1% da receita foi para candidatas brancas?
+            </h2>
+            <p className="mt-5 max-w-xl leading-relaxed text-cream/85">
+              Este resultado considera somente as receitas declaradas pelas mulheres que
+              disputaram cargos proporcionais. Não é a parcela de todo o dinheiro eleitoral.
+              O registro de cor/raça vem da autodeclaração das candidatas no TSE.
+            </p>
+            <a href="#financiamento" className="mt-5 inline-flex min-h-11 items-center font-semibold text-cream underline decoration-cream/60 underline-offset-4 hover:decoration-cream">
+              Consultar os critérios do financiamento <span aria-hidden="true" className="ml-2">↓</span>
+            </a>
+          </div>
+          <figure className="min-w-0 bg-paper p-5 text-ink md:p-7">
+            <p className="text-[13px] font-semibold text-plum">Receitas proporcionais · mulheres</p>
+            <p className="mt-3 font-display text-5xl leading-none text-plum md:text-6xl">
+              {formatPct((financeSnapshot.universes.proporcional.feminineRevenueByRace.BRANCA.value /
+                financeSnapshot.universes.proporcional.feminineRevenue) * 100)}
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-ink/75">
+              Fração da receita declarada pelas candidatas proporcionais recebida por candidatas brancas.
+            </p>
+            <div className="mt-5 h-4 bg-plum/10" aria-hidden="true">
+              <div
+                className="h-full bg-plum"
+                style={{ width: `${(financeSnapshot.universes.proporcional.feminineRevenueByRace.BRANCA.value /
+                  financeSnapshot.universes.proporcional.feminineRevenue) * 100}%` }}
+              />
+            </div>
+            <dl className="mt-5 grid gap-5 border-t border-rule pt-5 sm:grid-cols-2">
+              <div>
+                <dt className="text-[13px] font-semibold text-plum">Numerador · candidatas brancas</dt>
+                <dd className="mt-1 break-words font-mono text-sm tabular-nums sm:text-base">
+                  {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
+                    financeSnapshot.universes.proporcional.feminineRevenueByRace.BRANCA.value)}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-[13px] font-semibold text-plum">Denominador · todas as candidatas</dt>
+                <dd className="mt-1 break-words font-mono text-sm tabular-nums sm:text-base">
+                  {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
+                    financeSnapshot.universes.proporcional.feminineRevenue)}
+                </dd>
+              </div>
+            </dl>
+            <figcaption className="mt-5 text-[13px] leading-relaxed text-ink/75">
+              Fonte: TSE, receitas de campanha de {FINANCE_BASE_LABEL}, cruzadas com o cadastro de candidaturas
+              do mesmo dia. Unidade: candidatura titular proporcional com receita declarada. Cálculo:
+              numerador ÷ denominador × 100, arredondado a uma casa decimal. A base pode ser retificada.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <nav aria-label="Percursos do Método" className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-rule py-5 text-sm font-semibold text-plum">
+        <span className="text-ink/70">Nesta página:</span>
+        <a className="min-h-11 content-center underline-offset-4 hover:underline" href="#calculo">Entender a conta</a>
+        <a className="min-h-11 content-center underline-offset-4 hover:underline" href="#ficha">Ver as bases</a>
+        <a className="min-h-11 content-center underline-offset-4 hover:underline" href="#dicionario">Consultar os campos</a>
+        <a className="min-h-11 content-center underline-offset-4 hover:underline" href="#correcoes">Histórico de correções</a>
+      </nav>
 
       {/* RESUMO DE ENTRADA — três pontos, no padrão dos blocos "Em poucas linhas" */}
       <div className="pb-4">
