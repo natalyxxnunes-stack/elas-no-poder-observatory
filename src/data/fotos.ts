@@ -24,6 +24,17 @@ export type Foto = {
 };
 
 export const FOTOS: Record<string, Foto> = {
+  "bancada-feminina-camara-marco-2026": {
+    src: "/fotos/bancada-feminina-camara-marco-2026.jpg",
+    alt: "Integrantes da bancada feminina da Câmara posam em frente ao Congresso Nacional em março de 2026.",
+    credito: "Vinicius Loures/Câmara dos Deputados",
+    acervo: "Banco de Imagens da Câmara dos Deputados",
+    licenca: "CC-BY",
+    licencaUrl: "https://www.camara.leg.br/internet/bancoimagem/default.asp?data=04/03/2026",
+    data: "04/03/2026",
+    proporcao: "3/2",
+    fornecidaPor: "acervo-verificado",
+  },
   "plenario-igualdade-salarial-2023": {
     src: "/fotos/plenario-igualdade-salarial-2023.jpg",
     alt: "Vista ampla do Plenário da Câmara dos Deputados, com parlamentares reunidos entre as bancadas.",
