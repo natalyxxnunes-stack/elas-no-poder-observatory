@@ -1,0 +1,61 @@
+name: Preparar ativos editoriais v3
+on:
+  push:
+    branches:
+      - redesign-editorial-v3-teste
+    paths:
+      - .github/workflows/ativos-editoriais-v3.yml
+
+permissions:
+  contents: write
+
+jobs:
+  ativos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout na branch de teste
+        uses: actions/checkout@v6
+        with:
+          ref: redesign-editorial-v3-teste
+          fetch-depth: 1
+      - name: Preparar ferramentas para PDFs
+        run: |
+          if ! command -v pdftoppm >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y poppler-utils
+          fi
+      - name: Baixar e verificar original do Arquivo Nacional
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/fotos
+          curl -fL --retry 3 --retry-delay 2 \
+            --user-agent 'QuemSaoElas-AcervoEditorial/1.0 (uso jornalistico com credito)' \
+            'https://upload.wikimedia.org/wikipedia/commons/1/14/Bertha_Lutz_e_a_campanha_pelo_voto_feminino.jpg' \
+            -o public/fotos/bertha-lutz-1927.jpg
+          test "$(file -b --mime-type public/fotos/bertha-lutz-1927.jpg)" = image/jpeg
+          echo '34fae1c264d484e377f7a21a584579ce736a4a92  public/fotos/bertha-lutz-1927.jpg' | sha1sum -c -
+      - name: Criar miniaturas fiéis da primeira página dos PDFs
+        shell: bash
+        run: |
+          set -euo pipefail
+          pdftoppm -f 1 -l 1 -singlefile -scale-to 900 -png \
+            public/materiais/cartilha-cota.pdf public/materiais/cartilha-cota-miniatura
+          pdftoppm -f 1 -l 1 -singlefile -scale-to 900 -png \
+            public/materiais/oficina-funil.pdf public/materiais/oficina-funil-miniatura
+          test -s public/materiais/cartilha-cota-miniatura.png
+          test -s public/materiais/oficina-funil-miniatura.png
+          file public/fotos/bertha-lutz-1927.jpg public/materiais/*-miniatura.png
+      - name: Salvar somente ativos verificados na branch de teste
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/fotos/bertha-lutz-1927.jpg \
+            public/materiais/cartilha-cota-miniatura.png public/materiais/oficina-funil-miniatura.png
+          if ! git diff --cached --quiet; then
+            git commit -m 'assets(editorial): fotografia de dominio publico e miniaturas reais dos PDFs'
+            git push origin HEAD:redesign-editorial-v3-teste
+          fi
