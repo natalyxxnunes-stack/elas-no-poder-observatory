@@ -40,7 +40,7 @@ export const Route = createFileRoute("/dinheiro")({
       {
         name: "description",
         content:
-          "Receitas declaradas nas campanhas de 2026 por gênero, cor/raça, cargo, partido e UF, com cobertura, denominadores e limites da prestação final do 1º turno.",
+          "Receitas declaradas nas campanhas de 2026 por gênero, cor/raça, cargo, partido e UF, com cobertura, denominadores e limites da base de declarações de 15/11, após o prazo do 2º turno.",
       },
       {
         property: "og:title",
@@ -48,7 +48,7 @@ export const Route = createFileRoute("/dinheiro")({
       },
       {
         property: "og:description",
-        content: `Receitas declaradas pelas candidaturas de mulheres na prestação final do 1º turno, por cargo, cor/raça, partido e UF. Fotografia de ${FINANCE_BASE_LABEL}.`,
+        content: `Receitas declaradas pelas candidaturas de mulheres na base de declarações de 15/11, após o prazo do 2º turno, por cargo, cor/raça, partido e UF. Fotografia de ${FINANCE_BASE_LABEL}.`,
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -124,7 +124,7 @@ function DinheiroPage() {
           </p>
         }
         layers={MONEY_LAYERS.map((layer) => layer.label)}
-        gap="Contas declaradas no TSE em 13/11 · receitas, não despesas · 203 candidaturas ainda com prestação parcial e 119 apenas com relatório financeiro"
+        gap="Contas declaradas no TSE em 15/11 · receitas, não despesas · 195 candidaturas com prestação parcial e 102 com relatório financeiro"
         snapshot={financeSnapshot}
       />
 
@@ -221,10 +221,10 @@ function DinheiroPage() {
               Dois partidos ficam abaixo de 30% para candidaturas pretas e pardas nas duas contas
               que fizemos, só deputados e todos os cargos: PL (26,7% e 22,3%) e NOVO (25,6% e
               26,4%). Na conta com todos os cargos, outros três também ficam abaixo: MDB (28,2%),
-              Cidadania (29,3%) e PSD (29,4%); essa conta depende de como se atribui o dinheiro das
+              Cidadania (29,4%) e PSD (29,4%); essa conta depende de como se atribui o dinheiro das
               chapas de governo e Senado. Somando governo, Senado e Presidência, a fatia das
               mulheres no fundo cai para 33,2%, porque elas são poucas entre os titulares dessas
-              chapas. Os números vêm da extração de 13/11/2026, anterior ao prazo final do 2º turno, contados por
+              chapas. Os números vêm da extração de 15/11/2026, posterior ao prazo final do 2º turno, contados por
               candidatura; a conta oficial é feita pelo TSE no julgamento das contas de cada
               partido.
             </p>
@@ -235,8 +235,8 @@ function DinheiroPage() {
           <FefcPartidos />
         </Desdobra>
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-          Base de 13/11/2026, anterior ao prazo final do 2º turno: 203 candidaturas ainda constam
-          com prestação parcial e 119 apenas com relatório financeiro. Estes números poderão ser revistos.
+          Base de 15/11/2026, gerada após o prazo final do 2º turno: 195 candidaturas ainda constam
+          com prestação parcial e 102 com relatório financeiro. Estes números poderão ser revistos.
         </p>
       </SectionBlock>
 
@@ -343,8 +343,8 @@ function DinheiroPage() {
         }
         limites={[
           "Despesas contratadas e pagas e o doador originário do financiamento coletivo entram desde 28/10, na seção sobre gasto e vaquinhas.",
-          "Entre as 19.655 candidaturas com receita nos seis cargos, 19.333 constam com prestação FINAL, 203 PARCIAL e 119 RELATÓRIO FINANCEIRO na extração de 13/11; tipo de prestação não equivale à aprovação das contas.",
-          "Base financeira de 13/11/2026 e cadastro de candidaturas de 14/11/2026. A extração de receitas antecede o prazo final do 2º turno (14/11). Fotos anteriores de 04/11, 27/10 e 25/09 ficam preservadas no histórico.",
+          "Entre as 19.660 candidaturas com receita nos seis cargos, 19.363 constam com prestação FINAL, 195 PARCIAL e 102 RELATÓRIO FINANCEIRO na extração de 15/11; tipo de prestação não equivale à aprovação das contas.",
+          "Base financeira de 15/11/2026 e cadastro de candidaturas de 15/11/2026, após o prazo final do 2º turno (14/11). Os registros ainda podem ser complementados ou retificados e as contas estão sujeitas a julgamento. Fotografias anteriores de 13/11, 04/11, 27/10 e 25/09 ficam preservadas no histórico.",
           "Os percentuais que o TSE usa para distribuir o Fundo Partidário e o FEFC (divulgados em 21/08/2026) partem de outro universo: 20.560 candidaturas com pedido aceito até 18/08/2026, fixado para esse fim. Por isso diferem dos números deste site, que acompanham o registro atualizado.",
           "Titularidade e suplência ficam para a próxima fase. A relação entre dinheiro e reeleição está em Como votaram; índice de competitividade não entra no site.",
         ]}
