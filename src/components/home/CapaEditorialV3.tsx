@@ -85,7 +85,7 @@ function Abertura() {
 }
 
 function ChamadaEditorial({tipo,titulo,linha,to,variant}:{
-  tipo:string;titulo:string;linha:string;to:string;variant:"arquivo"|"documento"|"consulta";
+  tipo:string;titulo:string;linha:string;to:"/pioneiras"|"/como-votaram"|"/eleitas";variant:"arquivo"|"documento"|"consulta";
 }) {
   return (
     <article className="group flex min-w-0 flex-col">
