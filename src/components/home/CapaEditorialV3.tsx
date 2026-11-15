@@ -17,7 +17,8 @@ import { formatInt, formatPct } from "@/lib/format-br";
 const DESTAQUE = REPORTAGENS.find((r) => r.to === "/como-votaram");
 const NUM = RESULT_2026_PROPORCIONAL.byCargo.federal;
 const PERCENTUAL = (NUM.feminine / NUM.seats) * 100;
-const FOTO_BERTHA = FOTOS["bertha-lutz-1927"]!; // ativo local registrado e verificado
+const FOTO_BERTHA = FOTOS["bertha-lutz-1927"]!;
+const FOTO_BANCADA = FOTOS["bancada-feminina-camara-marco-2026"]!; // ativo local registrado e verificado
 
 /** Imagem documental publicada pela Agência Câmara durante a tramitação do PL 1.085/2023.
  * A legenda explicita que esta fotografia NÃO representa o conjunto das seis votações.
@@ -76,31 +77,40 @@ function Abertura() {
 }
 
 function ChamadaEditorial({tipo,titulo,linha,to,variant}:{
-  tipo:string;titulo:string;linha:string;to:"/pioneiras"|"/como-votaram"|"/na-voz-delas"|"/eleitas";variant:"foto"|"documento"|"consulta";
+  tipo:string;titulo:string;linha:string;to:"/pioneiras"|"/como-votaram"|"/na-voz-delas"|"/eleitas";variant:"foto"|"foto-coletiva"|"documento"|"consulta";
 }) {
+  const foto = variant==="foto" ? FOTO_BERTHA : variant==="foto-coletiva" ? FOTO_BANCADA : null;
   return (
     <article className="group flex min-w-0 flex-col">
       <Link to={to} className="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-plum">
         <div className="relative flex aspect-[5/3] items-center justify-center overflow-hidden bg-cream">
-          {variant==="foto" ? (
-            <img src={FOTO_BERTHA.src} alt={FOTO_BERTHA.alt}
+          {foto ? (
+            <img src={foto.src} alt={foto.alt}
               loading="lazy" className="h-full w-full object-cover" />
           ) : (
             <ComposicaoEditorial tipo={variant === "consulta" ? "poder" : "voz"} />
           )}
-          {variant !== "foto" ? (
+          {!foto ? (
             <span className="absolute bottom-2 left-3 bg-paper px-2 py-1 text-[11px] font-semibold text-plum">
               Arte editorial original
             </span>
           ) : null}
         </div>
-        {variant === "foto" ? (
-          <p className="mt-2 text-xs text-ink/65">{FOTO_BERTHA.credito}, {FOTO_BERTHA.data}</p>
+        {foto ? (
+          <p className="mt-2 text-xs text-ink/65">{foto.credito} · {foto.data}</p>
         ) : null}
         <p className="mt-4 text-xs font-semibold text-plum">{tipo}</p>
         <h3 className="mt-1 font-display text-2xl font-semibold leading-tight text-ink group-hover:underline group-hover:underline-offset-4">{titulo}</h3>
       </Link>
       <p className="mt-2 text-sm leading-relaxed text-ink/75">{linha}</p>
+      {variant === "foto-coletiva" ? (
+        <p className="mt-2 text-xs leading-relaxed text-ink/70">
+          Imagem de arquivo anterior à eleição de outubro de 2026. Não retrata as eleitas para 2027.{" "}
+          <a className="font-semibold underline underline-offset-2"
+             href="https://www.camara.leg.br/noticias/1299890-representacao-feminina-total-de-candidatas-a-camara-cai-24-em-2026"
+             target="_blank" rel="noreferrer">Ver a fonte original</a>.
+        </p>
+      ) : null}
     </article>
   );
 }
@@ -120,7 +130,7 @@ function Vitrine() {
           <ChamadaEditorial variant="documento" tipo="Reportagem · Falas públicas"
             titulo="Na voz delas" linha="Declarações públicas com data, fonte original e contexto político."
             to="/na-voz-delas"/>
-          <ChamadaEditorial variant="consulta" tipo="Poder · Dados"
+          <ChamadaEditorial variant="foto-coletiva" tipo="Poder · Dados"
             titulo="Quem chega às cadeiras" linha="As eleitas de 2026 e as informações disponíveis sobre seus mandatos."
             to="/eleitas"/>
         </div>
