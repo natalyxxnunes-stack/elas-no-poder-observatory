@@ -49,6 +49,8 @@ jobs:
         run: |
           node scripts/hostgator-assets.mjs
           node scripts/hostgator-seo.mjs
+      - name: Restaurar e validar binários públicos
+        run: node scripts/hostgator-public-binaries.mjs
       - name: Verificar arquivos visuais no pacote construído
         shell: bash
         run: |
