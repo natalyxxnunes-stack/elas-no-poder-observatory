@@ -134,7 +134,7 @@ export const DICIONARIO: readonly CampoDicionario[] = [
     oQueE:
       "Valor, fonte (fundo eleitoral, fundo partidário, outros recursos) e origem de cada receita declarada.",
     comoUsamos:
-      "Receita por candidatura, fundo eleitoral por partido e por cor/raça. Prestação final do 1º turno (base de 04/11/2026); o 2º turno entrega contas depois.",
+      "Receita por candidatura, fundo eleitoral por partido e por cor/raça. Base de 15/11/2026, após o prazo do segundo turno; sujeita a retificações e julgamento.",
     publicado: true,
   },
   {
@@ -184,6 +184,14 @@ export type Correcao = {
  * apareceu. Toda nova correção entra aqui e no lugar do erro, no mesmo commit.
  */
 export const CORRECOES: readonly Correcao[] = [
+  {
+    data: "15/11/2026",
+    pagina: "Dinheiro, Achados e base pública de FEFC",
+    to: "/dinheiro",
+    tipo: "dado",
+    oQueMudou:
+      "Atualização dos indicadores de receitas, FEFC e despesas com base financeira do TSE de 15/11/2026 (04h05), cruzada com cadastro gerado em 15/11 (05h30). A participação das brancas na receita das candidatas proporcionais permanece em 56,1%; no FEFC recebido pelas mulheres, é 54,9%. Entre 19.660 candidaturas com receita, 195 ainda constam com prestação parcial e 102 com relatório financeiro. A base segue sujeita a retificações e julgamento; recontagens históricas de outras reportagens preservam seus próprios cortes.",
+  },
   {
     data: "04/11/2026",
     pagina: "Quem chega, O funil e No plenário",
