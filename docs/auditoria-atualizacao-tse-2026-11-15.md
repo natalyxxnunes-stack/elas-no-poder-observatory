@@ -23,8 +23,8 @@ O arquivo de 13/11 tem 381.787.972 bytes. O servidor reportou última modificaç
 
 - A recontagem anterior de **56,1%** (R$ 1.020.050.781,54 para brancas / R$ 1.817.663.647,93 para candidaturas femininas proporcionais) **corresponde à base de 04/11/2026**.
 - A correção de **56,2%** para **56,1%** no destaque de `src/data/achados.ts` resolve a inconsistência *dentro dessa base antiga*, **não valida o número para 13/11**.
-- Antes de atualizar os percentuais divulgados, repetir os scripts de recontagem com o ZIP novo, documentar universo, taxas de cobertura, datas das fontes de candidaturas e hashes e comparar os resultados da nova fotografia.
+- **Executado em 15/11:** recontagem dos três conjuntos financeiros e arquivamento dos agregados, hashes, universos e critérios na pasta `docs/auditorias/financiamento-2026-13nov/`, com testes automatizados de coerência.
 - O prazo para as contas finais do 2º turno foi 14/11/2026 (TSE). Como o ZIP inspecionado foi gerado em 13/11, **não é possível afirmar que ele já incorpora todas as entregas do prazo final**.
-- Não substituir os dados do site em produção nem fazer merge com novos números sem reconciliação.
+- A branch de teste passou a referenciar os agregados de 13/11/2026 nas três séries financeiras; a versão publicada continua intacta. Não fazer merge até haver conferência do arquivo posterior ao prazo do segundo turno e aprovação editorial.
 
-**Estado:** novidade na base confirmada; recontagem de indicadores do arquivo novo pendente.
+**Estado atualizado em 15/11/2026:** recontagem de receitas, FEFC e despesas **concluída** e registrada em [Relatório de reconciliação](./auditorias/financiamento-2026-13nov/RELATORIO.md). Ambos os cortes arredondam o percentual das candidatas brancas para **56,1%**, apesar de aumentos nos valores absolutos. Os módulos financeiros foram atualizados somente na branch de teste. **Pendente apenas:** verificar a próxima geração oficial do arquivo financeiro posterior ao prazo do segundo turno (14/11) e obter aprovação editorial antes do merge/publicação.
