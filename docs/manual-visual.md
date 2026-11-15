@@ -203,3 +203,6 @@ Não confundir: parecer técnico ou avaliação visual preliminar não equivale 
 **Critério de decisão:** conferir capturas reais das páginas completas e sua primeira dobra em desktop e celular, legibilidade, contraste, navegação, e depois aprovar/rejeitar **cada proposta**. O fato de as cores já pertencerem à paleta aprovada **não autoriza** sua aplicação nesta escala sem avaliação.
 
 O arquivo editável permanente `Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md` foi atualizado, na seção 14.4/14.5, com os mesmos estados e critérios. **Nenhuma nova composição foi incorporada como regra aprovada deste manual.**
+
+
+**Verificação técnica das alternativas (15/11/2026):** [GitHub Actions #43774175278](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43774175278) concluído com sucesso no commit `42a550e906388d8df94cb068fce7768d6020f8da`. Foram verificados build, TypeScript, cálculos financeiros, cinco proporções por cargo, seis votações, acesso direto às fichas e capturas reais de desktop 1440 px/celular 390 px (primeira dobra e página completa). O arquivo editável de continuidade registra esta mesma evidência. **Permanece pendente o aceite editorial das duas propostas; teste técnico não valida automaticamente proporção cromática, legibilidade ou identidade.**
