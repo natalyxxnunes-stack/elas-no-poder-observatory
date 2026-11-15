@@ -3,10 +3,6 @@ on:
   push:
     branches:
       - redesign-editorial-v3-teste
-  pull_request:
-    branches:
-      - revista-temas
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -28,3 +24,45 @@ jobs:
         run: bunx tsc --noEmit
       - name: Build estático HostGator
         run: bun run build:hostgator
+      - name: Verificar arquivos visuais no pacote construído
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in \
+            fotos/bertha-lutz-1927.jpg \
+            materiais/cartilha-cota-miniatura.png \
+            materiais/oficina-funil-miniatura.png \
+            materiais/infografico-universos-quadrado.png; do
+            test -s "dist/client/$file"
+            echo "OK: $file"
+          done
+      - name: Capturar homepage em desktop e celular
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v google-chrome || command -v chromium
+          mkdir -p capturas-v3
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-local.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 3
+          curl -fsS http://127.0.0.1:4173/ >/dev/null
+          chrome="$(command -v google-chrome || command -v chromium)"
+          "$chrome" --headless --no-sandbox --disable-dev-shm-usage \
+            --disable-gpu --hide-scrollbars --virtual-time-budget=5000 \
+            --window-size=1440,1000 --screenshot="$PWD/capturas-v3/home-desktop.png" \
+            http://127.0.0.1:4173/
+          "$chrome" --headless --no-sandbox --disable-dev-shm-usage \
+            --disable-gpu --hide-scrollbars --virtual-time-budget=5000 \
+            --window-size=390,844 --screenshot="$PWD/capturas-v3/home-celular.png" \
+            http://127.0.0.1:4173/
+          test -s capturas-v3/home-desktop.png
+          test -s capturas-v3/home-celular.png
+      - name: Disponibilizar capturas para avaliação editorial
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-redesign-v3-capturas
+          path: capturas-v3/
+          if-no-files-found: warn
+          retention-days: 7
