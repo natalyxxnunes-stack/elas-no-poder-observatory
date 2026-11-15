@@ -3,6 +3,7 @@ import { Faixa } from "@/components/editorial/Faixa";
 import { TEMAS } from "@/data/temas";
 import { REPORTAGENS } from "@/data/reportagens";
 import { CAPA_MANCHETE } from "@/data/capa";
+import { FOTOS } from "@/data/fotos";
 import { RESULT_2026_PROPORCIONAL, RESULT_2026_META } from "@/data/resultado-2026";
 import { formatInt, formatPct } from "@/lib/format-br";
 
@@ -85,13 +86,16 @@ function Abertura() {
 }
 
 function ChamadaEditorial({tipo,titulo,linha,to,variant}:{
-  tipo:string;titulo:string;linha:string;to:"/pioneiras"|"/como-votaram"|"/eleitas";variant:"arquivo"|"documento"|"consulta";
+  tipo:string;titulo:string;linha:string;to:"/pioneiras"|"/como-votaram"|"/eleitas";variant:"foto"|"arquivo"|"documento"|"consulta";
 }) {
   return (
     <article className="group flex min-w-0 flex-col">
       <Link to={to} className="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-plum">
         <div className="relative flex aspect-[5/3] items-center justify-center overflow-hidden bg-cream">
-          {variant==="arquivo" ? (
+          {variant==="foto" ? (
+            <img src={FOTOS["bertha-lutz-1927"].src} alt={FOTOS["bertha-lutz-1927"].alt}
+              loading="lazy" className="h-full w-full object-cover" />
+          ) : variant==="arquivo" ? (
             <svg className="h-full w-full" viewBox="0 0 500 300" role="img" aria-label="Composição original de fichas de arquivo, sem reprodução de documentos">
               <rect width="500" height="300" fill="var(--cream)"/>
               <rect x="65" y="40" width="175" height="217" fill="var(--lilac)" stroke="var(--plum)" strokeWidth="2"/>
@@ -124,10 +128,15 @@ function ChamadaEditorial({tipo,titulo,linha,to,variant}:{
               )))}
             </svg>
           )}
-          <span className="absolute bottom-2 left-3 bg-paper px-2 py-1 text-[11px] font-semibold text-plum">
-            Composição gráfica original
-          </span>
+          {variant !== "foto" ? (
+            <span className="absolute bottom-2 left-3 bg-paper px-2 py-1 text-[11px] font-semibold text-plum">
+              Composição gráfica original
+            </span>
+          ) : null}
         </div>
+        {variant === "foto" ? (
+          <p className="mt-2 text-xs text-ink/65">{FOTOS["bertha-lutz-1927"].credito}, {FOTOS["bertha-lutz-1927"].data}</p>
+        ) : null}
         <p className="mt-4 text-xs font-semibold text-plum">{tipo}</p>
         <h3 className="mt-1 font-display text-2xl font-semibold leading-tight text-ink group-hover:underline group-hover:underline-offset-4">{titulo}</h3>
       </Link>
@@ -145,7 +154,7 @@ function Vitrine() {
           <Link to="/reportagens" className="text-sm font-semibold text-plum underline-offset-4 hover:underline">Ver reportagens ↗</Link>
         </div>
         <div className="mt-8 grid gap-8 md:grid-cols-3">
-          <ChamadaEditorial variant="arquivo" tipo="Memória · Perfis"
+          <ChamadaEditorial variant="foto" tipo="Memória · Perfis"
             titulo="Quem abriu o caminho" linha="Trajetórias e documentos para compreender a presença das mulheres na política."
             to="/pioneiras"/>
           <ChamadaEditorial variant="documento" tipo="Agenda · Votações"
@@ -246,14 +255,9 @@ function Biblioteca() {
             <article key={m.href} className="flex flex-col">
               <a href={m.href} className="group">
                 <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-cream">
-                  <svg viewBox="0 0 320 220" role="img" aria-label="Ícone neutro de arquivo PDF; não é prévia do material" className="h-24 w-24">
-                    <rect x="70" y="14" width="170" height="192" fill="var(--paper)" stroke="var(--plum)" strokeWidth="4"/>
-                    <path d="M190 14v50h50" fill="none" stroke="var(--plum)" strokeWidth="4"/>
-                    <rect x="95" y="102" width="119" height="9" fill="var(--plum-soft)"/>
-                    <rect x="95" y="126" width="119" height="9" fill="var(--plum-soft)"/>
-                    <rect x="95" y="150" width="83" height="9" fill="var(--plum-soft)"/>
-                  </svg>
-                  <span className="absolute bottom-3 left-3 text-xs text-ink/60">Prévia do PDF ainda não incorporada</span>
+                  <img src={m.href.includes("cartilha-cota") ? "/materiais/cartilha-cota-miniatura.png" : "/materiais/oficina-funil-miniatura.png"}
+                    alt="Prévia fiel da primeira página do PDF original"
+                    loading="lazy" className="h-full w-full object-contain" />
                 </div>
                 <p className="mt-3 text-xs font-semibold text-plum">{m.tipo}</p>
                 <h3 className="mt-1 font-display text-xl font-semibold text-ink group-hover:underline">{m.titulo}</h3>
