@@ -75,7 +75,7 @@ function Abertura() {
 }
 
 function ChamadaEditorial({tipo,titulo,linha,to,variant}:{
-  tipo:string;titulo:string;linha:string;to:"/pioneiras"|"/como-votaram"|"/eleitas";variant:"foto"|"arquivo"|"documento"|"consulta";
+  tipo:string;titulo:string;linha:string;to:"/pioneiras"|"/como-votaram"|"/na-voz-delas"|"/eleitas";variant:"foto"|"arquivo"|"documento"|"consulta";
 }) {
   return (
     <article className="group flex min-w-0 flex-col">
@@ -146,9 +146,9 @@ function Vitrine() {
           <ChamadaEditorial variant="foto" tipo="Memória · Perfis"
             titulo="Quem abriu o caminho" linha="Trajetórias e documentos para compreender a presença das mulheres na política."
             to="/pioneiras"/>
-          <ChamadaEditorial variant="documento" tipo="Agenda · Votações"
-            titulo="Como votaram" linha="Seis decisões da Câmara, registradas e comparadas com os resultados de 2026."
-            to="/como-votaram"/>
+          <ChamadaEditorial variant="documento" tipo="Reportagem · Falas públicas"
+            titulo="Na voz delas" linha="Declarações públicas com data, fonte original e contexto político."
+            to="/na-voz-delas"/>
           <ChamadaEditorial variant="consulta" tipo="Poder · Dados"
             titulo="Quem chega às cadeiras" linha="As eleitas de 2026 e as informações disponíveis sobre seus mandatos."
             to="/eleitas"/>
