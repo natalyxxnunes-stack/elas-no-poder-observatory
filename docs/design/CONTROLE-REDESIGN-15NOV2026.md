@@ -9,8 +9,8 @@
 | Objeto | Evidência confirmada em 15/11/2026 | Encaminhamento |
 | --- | --- | --- |
 | Homepage atual na `main` | Abertura de investigação com fotografia documental da Câmara em `src/components/home/CapaEditorialV3.tsx` | **Aprovada; proteger logo, fotografia, crédito, manchete e composição.** Refinamento posterior do ritmo da capa exige escopo próprio. |
-| PR [#1](../../pull/1) | Branch `redesign-editorial-v3-teste`, **12 commits atrás da `main`, nenhum à frente**; permanece aberto em rascunho | **Histórico visual**, com manual v2 e [acervo visual da etapa 2](../../blob/redesign-editorial-v3-teste/docs/acervo-visual-etapa2.md). Não usar como base de publicação. |
-| PR [#6](../../pull/6) | `ajustes-editoriais-identidade-aprovada-15nov`, **19 arquivos alterados** em relação à `main`, misturando componentes, rotas, QA e documentação | **Em revisão; bloquear integração como pacote.** Recortar e validar modificações por natureza e por página. |
+| PR [#1](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/pull/1) | Branch `redesign-editorial-v3-teste`, **12 commits atrás da `main`, nenhum à frente**; permanece aberto em rascunho | **Histórico visual**, com manual v2 e [acervo visual da etapa 2](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/blob/redesign-editorial-v3-teste/docs/acervo-visual-etapa2.md). Não usar como base de publicação. |
+| PR [#6](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/pull/6) | `ajustes-editoriais-identidade-aprovada-15nov`, **19 arquivos alterados** em relação à `main`, misturando componentes, rotas, QA e documentação | **Em revisão; bloquear integração como pacote.** Recortar e validar modificações por natureza e por página. |
 | Manual visual v3 | Decisões consolidadas e agora propostas em branch exclusivamente documental | Poderá ser incorporado à `main` **sem levar o código visual do PR #6**. |
 | Site na HostGator | Publicação feita por procedimento próprio | **Conferir contra `main` na auditoria**. Não presumir sincronização automática. |
 
