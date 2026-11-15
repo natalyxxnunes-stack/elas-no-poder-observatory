@@ -73,7 +73,7 @@ export function FinanceCoverage({ snapshot }: { snapshot: TseFinanceSnapshot }) 
   );
 }
 
-const SOURCE = `Fonte: TSE, Prestação de Contas Eleitorais 2026 · base de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`;
+const SOURCE = `Fonte: TSE, Prestação de Contas Eleitorais 2026 · base de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`;
 const MIN_BASE = 20;
 
 export const RACE_BAR: Record<string, string> = {
@@ -110,10 +110,10 @@ export function FinanceByOffice({ snapshot }: { snapshot: TseFinanceSnapshot }) 
         contados: "Candidaturas que já declararam alguma receita na prestação de contas.",
         denominador:
           "Presença: candidaturas com receita no cargo. Receita: total declarado no cargo.",
-        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`,
+        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
         limitacao:
-          "Prestação final do 1º turno; 343 candidaturas ainda constam com prestação parcial. Mede receita declarada, não despesa.",
+          "Prestação final do 1º turno; 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Mede receita declarada, não despesa.",
       }}
       eyebrow="Presença × receita, por cargo · 2026"
       title="Fatia das mulheres entre as candidaturas e no dinheiro de cada cargo"
@@ -191,11 +191,11 @@ export function FinanceRace({ snapshot }: { snapshot: TseFinanceSnapshot }) {
                     ? "Candidatas a deputada com receita declarada."
                     : "Candidatas à Presidência, aos governos e ao Senado com receita declarada.",
                 denominador: "Receita total declarada pelas candidatas do mesmo universo.",
-                data: `Prestação de contas de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`,
+                data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
                 fonte:
                   "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
                 limitacao:
-                  "Prestação final do 1º turno; 343 candidaturas ainda constam com prestação parcial. Mede receita declarada, não despesa.",
+                  "Prestação final do 1º turno; 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Mede receita declarada, não despesa.",
               }}
               eyebrow={`Receita de mulheres por cor/raça · ${UNIVERSE_LABEL[universe].toLocaleLowerCase("pt-BR")}`}
               title={
@@ -256,7 +256,7 @@ export function FinanceParties({ snapshot }: { snapshot: TseFinanceSnapshot }) {
         contados:
           "Candidaturas a deputada e deputado com receita declarada, pelo partido do registro.",
         denominador: "Receita total declarada pelas candidaturas do próprio partido.",
-        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`,
+        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
         limitacao:
           "Receita registrada na candidatura, de qualquer origem, além do repasse do partido. Prestação final do 1º turno.",
@@ -296,10 +296,10 @@ export function FinanceByUf({ snapshot }: { snapshot: TseFinanceSnapshot }) {
         vendo: "Em cada estado, a fatia das candidatas no dinheiro declarado para deputado.",
         contados: "Candidaturas a deputada e deputado com receita declarada, por UF.",
         denominador: "Receita total declarada pelas candidaturas do estado.",
-        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, prestação final do 1º turno`,
+        data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
         limitacao:
-          "Prestação final do 1º turno; 343 candidaturas ainda constam com prestação parcial. Mede receita declarada, não despesa.",
+          "Prestação final do 1º turno; 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Mede receita declarada, não despesa.",
       }}
       eyebrow="Receita das mulheres por estado · proporcional"
       title={
