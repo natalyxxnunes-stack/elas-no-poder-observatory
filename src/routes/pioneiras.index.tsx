@@ -1,7 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PerfilCard } from "@/components/editorial/Pioneiras";
-import { EM_APURACAO, PERFIS_PIONEIRAS, PIONEIRAS_CRITERIO } from "@/data/perfis-pioneiras";
+import {
+  EM_APURACAO,
+  PERFIS_PIONEIRAS,
+  PIONEIRAS_CRITERIO,
+  SP_1950,
+  RJ_1982,
+  RJ_1986,
+} from "@/data/perfis-pioneiras";
 import { PIONEIRAS } from "@/data/pioneiras";
 
 export const Route = createFileRoute("/pioneiras/")({
@@ -17,6 +24,13 @@ export const Route = createFileRoute("/pioneiras/")({
   }),
   component: PioneirasPage,
 });
+
+/** Arquivos oficiais utilizados nos dois perfis publicados; não são fac-símiles. */
+const REGISTROS_ELEITORAIS = [
+  { ano: "1950", uf: "SP", nome: "Pagu · Assembleia de São Paulo", arquivo: SP_1950.arquivoSp, sha: SP_1950.arquivoSpSha256 },
+  { ano: "1982", uf: "RJ", nome: "Lélia Gonzalez · Câmara Federal", arquivo: RJ_1982.arquivo, sha: RJ_1982.arquivoSha256 },
+  { ano: "1986", uf: "RJ", nome: "Lélia Gonzalez · Assembleia do Rio de Janeiro", arquivo: RJ_1986.arquivo, sha: RJ_1986.arquivoSha256 },
+] as const;
 
 function PioneirasPage() {
   const publicados = PERFIS_PIONEIRAS.filter((p) => p.to);
@@ -54,6 +68,36 @@ function PioneirasPage() {
               <PerfilCard key={p.id} p={p} n={i + 1} />
             ))}
           </ul>
+
+          <details className="group mt-8 border-y border-rule">
+            <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-5 py-4 font-semibold text-plum focus-visible:outline-2 [&::-webkit-details-marker]:hidden">
+              <span className="font-display text-xl leading-snug">Consultar os arquivos eleitorais que sustentam os perfis</span>
+              <span className="shrink-0 text-sm"><span className="group-open:hidden">Abrir +</span><span className="hidden group-open:inline">Fechar −</span></span>
+            </summary>
+            <div className="pb-6">
+              <p className="mb-5 max-w-3xl text-sm leading-relaxed text-ink/75">
+                Inventário dos arquivos de votação nominal por UF utilizados na recontagem dos perfis
+                de Pagu e Lélia Gonzalez. Os nomes e códigos de integridade identificam os dados
+                consultados; esta listagem não é uma reprodução visual dos documentos do TSE.
+              </p>
+              <dl className="space-y-5">
+                {REGISTROS_ELEITORAIS.map((registro) => (
+                  <div key={registro.arquivo} className="grid gap-2 border-l-2 border-plum pl-4 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-5">
+                    <dt className="font-mono text-sm font-semibold text-plum">{registro.ano} · {registro.uf}</dt>
+                    <dd className="min-w-0">
+                      <p className="font-semibold text-ink">{registro.nome}</p>
+                      <p className="mt-1 break-all font-mono text-[12px] leading-relaxed text-ink/75">{registro.arquivo}</p>
+                      <p className="mt-1 break-all font-mono text-[12px] leading-relaxed text-ink/65">SHA-256 do arquivo por UF: {registro.sha}</p>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="mt-5 text-[13px] leading-relaxed text-ink/70">
+                Fonte: TSE, Dados Abertos, resultados eleitorais de 1950, 1982 e 1986.
+                Procedimentos e limites da recontagem são explicados nos perfis.
+              </p>
+            </div>
+          </details>
 
           {emApuracao.map((p) => (
             <div key={p.id} className="mt-5 border border-dashed border-plum/40 p-5 md:p-6">

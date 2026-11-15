@@ -291,10 +291,12 @@ function PowerFlowOpening({ levers, ...text }: OpeningBase & { levers: readonly 
 
 function MethodOpening({ steps, aside, ...text }: OpeningBase & { steps: readonly { number: string; label: string; detail: string }[]; aside?: ReactNode }) {
   return (
-    <Frame className="bg-cream">
-      <div className="mx-auto grid min-h-[31rem] max-w-7xl gap-10 px-5 py-10 md:px-8 lg:grid-cols-[1fr_1fr] lg:items-center">
-        <OpeningText {...text} />
-        <div>
+    <Frame className="bg-paper">
+      <div className="mx-auto grid min-h-[27rem] max-w-7xl px-5 md:px-8 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="-mx-5 flex items-center bg-ink px-5 py-10 text-cream md:-mx-8 md:px-8 lg:mx-0 lg:py-12">
+          <OpeningText {...text} inverse />
+        </div>
+        <div className="min-w-0 bg-paper py-8 lg:px-10 lg:py-10">
           <ol className="divide-y divide-ink/25 border-y border-ink/25">
             {steps.map((step) => <li key={step.number} className="grid grid-cols-[3.5rem_7rem_minmax(0,1fr)] items-baseline gap-3 py-3"><strong className="font-display text-3xl text-ink">{step.number}</strong><span className="text-[13px] font-semibold text-ink">{step.label}</span><span className="text-xs text-ink/65">{step.detail}</span></li>)}
           </ol>

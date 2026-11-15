@@ -30,7 +30,7 @@ export function AchadoCard({
       <p className="text-[13px] text-muted-foreground font-semibold">
         Achado {achado.numero} · {formatDateBR(achado.data)}
         {achado.atualizadoEm && (
-          <span className="ml-2 border border-muted-foreground/50 px-1.5 py-0.5 normal-case tracking-normal">
+          <span className="block text-plum sm:ml-3 sm:inline">
             atualizado em {formatDateBR(achado.atualizadoEm)}
           </span>
         )}
@@ -49,7 +49,7 @@ export function AchadoCard({
             {achado.barras.map((barra) => {
               const foco = barra.rotulo === achado.foco;
               return (
-                <div key={barra.rotulo} className="grid grid-cols-[minmax(0,9.5rem)_minmax(0,1fr)_3.5rem] items-center gap-3">
+                <div key={barra.rotulo} className="grid grid-cols-[minmax(0,6.5rem)_minmax(0,1fr)_3rem] items-center gap-2 sm:grid-cols-[minmax(0,9.5rem)_minmax(0,1fr)_3.5rem] sm:gap-3">
                   <span className={`text-[13px] leading-tight ${foco ? "font-semibold text-ink" : "text-ink/75"}`}>
                     {barra.rotulo}
                   </span>
@@ -70,22 +70,34 @@ export function AchadoCard({
           </figcaption>
         </figure>
       )}
-      <h3 className={`mt-5 font-display leading-snug text-ink ${grande ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"}`}>
-        <Link
-          {...(pagina ? { to: achado.to } : { to: "/achados/$id", params: { id: achado.id } })}
-          className="after:absolute after:inset-0 focus-visible:outline-none group-hover:underline group-hover:decoration-plum group-hover:underline-offset-4"
-        >
+      {pagina ? (
+        <h1 className={`mt-5 font-display leading-snug text-ink ${grande ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"}`}>
           {achado.titulo}
-        </Link>
-      </h3>
+        </h1>
+      ) : (
+        <h3 className={`mt-5 font-display leading-snug text-ink ${grande ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"}`}>
+          <Link
+            to="/achados/$id"
+            params={{ id: achado.id }}
+            className="after:absolute after:inset-0 focus-visible:outline-none group-hover:underline group-hover:decoration-plum group-hover:underline-offset-4"
+          >
+            {achado.titulo}
+          </Link>
+        </h3>
+      )}
       <p className="mt-3 max-w-[62ch] text-[15px] leading-relaxed text-ink/80">{achado.texto}</p>
       <div className="mt-auto pt-5" />
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-rule pt-2 text-[13px] text-muted-foreground">
         <span className="max-w-[40ch]">{achado.fonte}</span>
-        <span aria-hidden="true" className="inline-flex min-h-11 items-center font-medium text-plum">
-          {pagina ? achado.linkLabel : "Ver o achado"}
-          <span className="ml-1.5 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none">→</span>
-        </span>
+        {pagina ? (
+          <a href={achado.to} className="inline-flex min-h-11 items-center font-semibold text-plum underline-offset-4 hover:underline">
+            {achado.linkLabel} <span aria-hidden="true" className="ml-1.5">→</span>
+          </a>
+        ) : (
+          <span aria-hidden="true" className="inline-flex min-h-11 items-center font-medium text-plum">
+            Ver o achado <span className="ml-1.5 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none">→</span>
+          </span>
+        )}
       </div>
     </article>
   );

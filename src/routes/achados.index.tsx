@@ -66,9 +66,9 @@ function AchadosPage() {
         </nav>
       </header>
 
-      <section aria-labelledby="mais-recentes" className="relative left-1/2 -ml-[50vw] w-screen bg-cream">
+      <section aria-labelledby="mais-recentes" className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-cream">
         <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
-          <h2 id="mais-recentes" className="border-t-[5px] border-plum pt-3 font-display text-[1.35rem] font-medium italic text-plum md:text-2xl">
+          <h2 id="mais-recentes" className="font-display text-[1.35rem] font-medium italic text-cream md:text-2xl">
             Mais recentes
           </h2>
           <div className="mt-5 grid gap-5 lg:grid-cols-12">

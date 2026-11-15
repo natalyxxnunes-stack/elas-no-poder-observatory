@@ -4,7 +4,7 @@ import { PROXIMAS, REPORTAGENS, REPORTAGENS_REGRA } from "@/data/reportagens";
 import { PERFIS_PIONEIRAS } from "@/data/perfis-pioneiras";
 import { Secao } from "@/components/editorial/Secao";
 import { FOTOS } from "@/data/fotos";
-import { ComposicaoEditorial } from "@/components/editorial/ComposicaoEditorial";
+import { FALAS } from "@/data/falas";
 import { formatDateBR } from "@/lib/format-br";
 
 export const Route = createFileRoute("/reportagens")({
@@ -28,6 +28,45 @@ export const Route = createFileRoute("/reportagens")({
   }),
   component: ReportagensPage,
 });
+
+/**
+ * Referências textuais a fontes primárias já publicadas em "Na voz delas".
+ * A peça não se apresenta como imagem ou fac-símile do documento original.
+ */
+const FONTES_PUBLICADAS = FALAS.filter((fala) => fala.publicar)
+  .sort((a, b) => {
+    const data = (valor: string) => valor.split("/").reverse().join("-");
+    return data(b.data).localeCompare(data(a.data));
+  })
+  .slice(0, 3);
+
+function IndiceDocumental() {
+  return (
+    <div
+      className="grid h-full w-full grid-cols-[.48fr_1fr] bg-paper text-ink"
+      aria-label="Índice de três referências a registros publicados no Diário da Câmara"
+    >
+      <div className="flex flex-col justify-between bg-plum-deep p-4 text-paper sm:p-6">
+        <span className="text-[12px] font-semibold leading-snug text-lilac">Na voz delas</span>
+        <div>
+          <p className="font-display text-[clamp(1.25rem,2.8vw,2.4rem)] leading-[1.08]">As fontes da reportagem</p>
+          <p className="mt-3 text-[12px] leading-snug text-paper/75">Registros oficiais, datas e referências</p>
+        </div>
+      </div>
+      <div className="flex min-w-0 flex-col justify-center px-4 py-3 sm:px-6 sm:py-5">
+        <p className="mb-2 text-[12px] font-semibold text-plum">Diário da Câmara · referências</p>
+        <ol className="min-w-0 divide-y divide-rule border-y border-rule">
+          {FONTES_PUBLICADAS.map((fala) => (
+            <li key={fala.id} className="py-2 sm:py-3">
+              <p className="text-[12px] leading-snug text-ink/70">{fala.data} · {fala.pessoa}</p>
+              <p className="mt-1 text-[13px] font-semibold leading-snug text-ink">{fala.fonteRotulo}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  );
+}
 
 function ReportagensPage() {
   return (
@@ -59,16 +98,20 @@ function ReportagensPage() {
             return (
               <li key={r.to} className="group min-w-0">
                 <Link to={r.to} className="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-plum">
-                  <figure className="aspect-[5/3] overflow-hidden bg-plum-deep">
-                    {foto ? (
-                      <img src={foto.src} alt={foto.alt} loading="lazy" className="h-full w-full object-cover" />
-                    ) : (
-                      <ComposicaoEditorial tipo="voz" />
-                    )}
+                  <figure>
+                    <div className="aspect-[5/3] overflow-hidden bg-plum-deep">
+                      {foto ? (
+                        <img src={foto.src} alt={foto.alt} loading="lazy" className="h-full w-full object-cover" />
+                      ) : (
+                        <IndiceDocumental />
+                      )}
+                    </div>
+                    <figcaption className="mt-2 text-xs text-ink/65">
+                      {foto
+                        ? `${foto.credito} · foto de arquivo de maio de 2023, relacionada ao PL 1.085/2023`
+                        : "Referências textuais a fontes primárias citadas na reportagem; não são imagens dos documentos."}
+                    </figcaption>
                   </figure>
-                  <p className="mt-2 text-xs text-ink/65">
-                    {foto ? `${foto.credito} · foto de arquivo de maio de 2023, relacionada ao PL 1.085/2023` : "Arte editorial original · não documental"}
-                  </p>
                   <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-plum">
                     {r.tema} · {formatDateBR(r.data)} · {r.autora}
                   </p>

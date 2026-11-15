@@ -1,0 +1,191 @@
+name: QA editorial integral sem alteração da identidade — 15nov
+on:
+  push:
+    branches: [ajustes-editoriais-identidade-aprovada-15nov]
+    paths:
+      - "src/**"
+      - ".github/workflows/qa-ajustes-editoriais-15nov.yml"
+      - "docs/**"
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Dependências, cálculo financeiro, TypeScript e site estático
+        shell: bash
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          node scripts/recontagem/validar_snapshot_financeiro.mjs
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Preservar logo, fotografia, capa aprovada, paleta e bases de dados
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin main
+          test -z "$(git diff --name-only origin/main...HEAD -- src/data public/dados public/fotos src/styles.css src/components/BrandLogo.tsx src/components/BrandWordmark.tsx src/components/home/CapaEditorialV3.tsx src/routes/index.tsx src/components/editorial/Faixa.tsx)"
+          echo "Homepage aprovada, imagem documental, identidade e bases eleitorais preservadas."
+      - name: Navegador de testes
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Conferir páginas e interações com Chromium
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p qa-editorial
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-ci.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          core=[
+            '/','/eleitas/','/metodo/','/achados/','/achados/candidatar-se-nao-e-eleger-se/',
+            '/colecoes/antigenero-no-poder/','/como-votaram/','/dinheiro/',
+            '/quem-chega/','/quem-sao-elas/','/votos/','/historico/','/partidos/',
+            '/temas/','/reportagens/','/pioneiras/','/sobre/','/investigacoes/','/dados/','/downloads/','/direitos/',
+          ]
+          shots={'/','/eleitas/','/metodo/','/achados/','/colecoes/antigenero-no-poder/','/dinheiro/','/como-votaram/','/dados/','/sobre/','/investigacoes/'}
+          result=[]
+          public_result=[]
+          public_pages=['/','/eleitas/','/metodo/','/reportagens/','/sobre/','/investigacoes/','/downloads/']
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for name,width,height in [('desktop',1440,900),('celular',390,844)]:
+              context=browser.new_context(viewport={'width':width,'height':height},device_scale_factor=1)
+              for url in core:
+                page=context.new_page()
+                errors=[]
+                page.on('pageerror',lambda e,errors=errors:errors.append(str(e)))
+                response=page.goto('http://127.0.0.1:4173'+url,wait_until='domcontentloaded',timeout=30000)
+                page.wait_for_timeout(350)
+                d=page.evaluate('''() => ({
+                  h1:[...document.querySelectorAll('h1')].map(x=>x.innerText.trim()),
+                  sw:document.documentElement.scrollWidth,ww:innerWidth,
+                  body:document.body.innerText.slice(0,35000),
+                  sections:document.querySelectorAll('section').length
+                })''')
+                assert response is not None and response.status==200,(name,url,'HTTP',response.status if response else None)
+                assert not errors,(name,url,'JS',errors)
+                assert d['sw']<=d['ww']+3,(name,url,'overflow',d['sw']-d['ww'])
+                assert len(d['h1'])==1,(name,url,'h1',d['h1'])
+                if url=='/metodo/':
+                  assert 'Um número, uma conta verificável' in d['body']
+                  assert '56,1%' in d['body']
+                  assert '15/11/2026' in d['body']
+                  assert 'Histórico de correções' in d['body']
+                if url=='/eleitas/':
+                  assert '342 mulheres eleitas' in d['body']
+                  assert 'Quantas vagas foram conquistadas por mulheres?' in d['body']
+                  assert '109 de 513' in d['body'],(name,'Câmara: numerador e denominador')
+                  assert '12 de 54' in d['body'],(name,'Senado: apenas as cadeiras renovadas')
+                  assert '3 de 27' in d['body'],(name,'Governos: 27 UFs')
+                  assert 'Nomes e fichas' in d['body']
+                  items=page.locator('section[aria-labelledby="lista-eleitas"] li')
+                  assert items.count()==36,(name,'initial cards',items.count())
+                  page.get_by_role('button',name='Mostrar mais fichas').click()
+                  page.wait_for_timeout(250)
+                  assert items.count()==72,(name,'loadmore',items.count())
+                  if name=='celular':
+                    page.get_by_role('button',name=re.compile(r'^Deputadas federais')).click()
+                    page.wait_for_timeout(180)
+                    assert items.count()==36,(name,'filter change',items.count())
+                    page.get_by_role('button',name='Todos os cargos').click()
+                    page.wait_for_timeout(180)
+                    assert items.count()==36,(name,'filter reset',items.count())
+                if url=='/sobre/':
+                  assert 'Um projeto independente, feito por mim' in d['body'],(name,'autoria preservada')
+                  assert page.locator('a[href="/metodo#dicionario"]').count()==1,(name,'fonte e dicionario')
+                  assert page.locator('a[href="/metodo#correcoes"]').count()==1,(name,'historico de correcoes')
+                  assert page.locator('section#compromisso ol > li').count()==6,(name,'seis compromissos editoriais')
+                if url=='/investigacoes/':
+                  assert page.locator('section[aria-labelledby^="grupo-"] ol > li').count()==15,(name,'15 frentes editoriais')
+                  assert '15/11/2026' in d['body'],(name,'corte financeiro vigente')
+                  assert 'Autoria, princípios e compromissos editoriais.' in d['body'],(name,'autoria sem equipe')
+                  assert 'base de 04/11/2026' not in d['body'],(name,'data anterior obsoleta')
+                  assert page.locator('a[href="/metodo#correcoes"]').count()==1
+                if url=='/dados/':
+                  assert page.locator('h1').inner_text().strip() == 'Dados para consultar'
+                  assert page.locator('section[aria-labelledby="dados-entradas"] a').count()==3,(name,'entradas de consulta')
+                  assert page.locator('section[aria-labelledby="dados-por-tema"] > ol > li').count()==6,(name,'temas')
+                  assert page.locator('section[aria-labelledby="dados-verificar"] a').count()==5,(name,'recursos de apoio')
+                  assert 'As candidatas por cor/raça, cargo e estado' in d['body'],(name,'descrições dos links visíveis')
+                  for destino in ['/quem-sao-elas','/eleitas','/comparar','/downloads','/metodo']:
+                    assert page.locator('a[href="'+destino+'"]').count()>=1,(name,'destino',destino)
+                if url=='/direitos/':
+                  marcos=page.locator('li[id^="marco-"]')
+                  indices=page.locator('nav[aria-label="Índice dos marcos jurídicos"] a')
+                  assert marcos.count()==13,(name,'marcos jurídicos',marcos.count())
+                  assert indices.count()==13,(name,'índice jurídico',indices.count())
+                  assert page.locator('li[id^="marco-2024-"]').count()==2,(name,'dois marcos distintos de 2024')
+                  for i in range(indices.count()):
+                    href=indices.nth(i).get_attribute('href')
+                    assert href and href.startswith('#') and page.locator(href).count()==1,(name,'âncora',href)
+                if url=='/pioneiras/':
+                  arquivo=page.locator('details').filter(has_text='Consultar os arquivos eleitorais')
+                  assert arquivo.count()==1,(name,'inventário único')
+                  arquivo.locator('summary').click()
+                  assert arquivo.get_attribute('open') is not None,(name,'inventário expandido')
+                  texto_arquivo=arquivo.inner_text()
+                  assert 'VOTACAO_CANDIDATO_UF_1950_SP.txt' in texto_arquivo
+                  assert 'VOTACAO_CANDIDATO_UF_1982_RJ.txt' in texto_arquivo
+                if url=='/reportagens/':
+                  assert 'Diário da Câmara' in d['body'],(name,'fonte primaria',url)
+                  assert 'Referências textuais a fontes primárias' in d['body'],(name,'legenda documental')
+                  assert 'Arte editorial original · não documental' not in d['body'],(name,'vetor repetido na lista')
+                if url=='/achados/candidatar-se-nao-e-eleger-se/':
+                  assert page.locator('h1').count()==1
+                if url=='/colecoes/antigenero-no-poder/':
+                  assert page.get_by_role('heading',name='Os votos, a eleição e os discursos').count()==1
+                if url in shots:
+                  key=url.strip('/').replace('/','-') or 'home'
+                  page.evaluate('window.scrollTo(0, 0)')
+                  page.wait_for_timeout(260)
+                  page.screenshot(path=f'qa-editorial/{name}-{key}.jpg',type='jpeg',quality=77)
+                  page.screenshot(path=f'qa-editorial/{name}-{key}-pagina-inteira.jpg',type='jpeg',quality=66,full_page=True)
+                result.append({'dispositivo':name,'pagina':url,'h1':d['h1'][0],'javascript':len(errors),'overflow':d['sw']-d['ww'],'sections':d['sections']})
+                page.close()
+              # A comparação com o publicado é diagnóstica: problemas de rede
+              # não devem fazer o QA da branch falhar nem ser interpretados
+              # como defeitos do site.
+              for url in public_pages:
+                publicada=context.new_page()
+                try:
+                  resposta=publicada.goto('https://quemsaoelas.com.br'+url,wait_until='domcontentloaded',timeout=20000)
+                  publicada.wait_for_timeout(550)
+                  if resposta is None or resposta.status>=400:
+                    raise RuntimeError(f'HTTP {resposta.status if resposta else "sem resposta"}')
+                  titulos=publicada.locator('h1')
+                  if titulos.count()!=1:
+                    raise RuntimeError(f'H1 inesperado: {titulos.count()}')
+                  key=url.strip('/').replace('/','-') or 'home'
+                  publicada.screenshot(path=f'qa-editorial/publicado-{name}-{key}-pagina-inteira.jpg',type='jpeg',quality=66,full_page=True)
+                  public_result.append({'pagina':url,'dispositivo':name,'status':'capturado','h1':titulos.first.inner_text()})
+                except Exception as exc:
+                  public_result.append({'pagina':url,'dispositivo':name,'status':'pendente','motivo':str(exc)})
+                finally:
+                  publicada.close()
+              context.close()
+            browser.close()
+          Path('qa-editorial/resultado.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          Path('qa-editorial/publicado-resultados.json').write_text(json.dumps(public_result,ensure_ascii=False,indent=2)+'\n')
+          print('OK:',len(result),'passagens em Chromium; interação das eleitas e fórmulas do Método verificadas')
+          print('Auditoria de primeiras páginas completas:',len(public_result),'tentativas no site publicado')
+          PY
+      - name: Guardar evidências de validação
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-redesign-preservado-primeira-rodada
+          path: qa-editorial/
+          if-no-files-found: warn
+          retention-days: 14
