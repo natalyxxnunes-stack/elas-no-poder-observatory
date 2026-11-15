@@ -5,6 +5,7 @@ on:
       - pilotos-revista-visual-15nov2026
     paths:
       - "src/**"
+      - "public/documentos/**"
       - ".github/workflows/qa-pilotos-revista-15nov.yml"
 permissions:
   contents: read
@@ -120,7 +121,15 @@ jobs:
                   assert 'Um número, uma conta verificável.' in info['body'],(route,device,'hero')
                   assert '56,1%' in info['body'],(route,device,'finance')
                   assert '15/11/2026' in info['body'],(route,device,'finance date')
-                  assert 'não fac-símiles' in info['body'],(route,device,'source distinction')
+                  assert 'O arquivo CSV não está reproduzido na imagem.' in info['body'],(route,device,'source distinction')
+                  assert 'Como sabemos?' in info['headings'][0],(route,device,'editorial headline')
+                  assert page.locator('img[src="/documentos/tse-candidatos-2026-portal.png"]').count()==1,(route,device,'real TSE capture')
+                  assert page.locator('img[src="/fotos/bancada-feminina-camara-marco-2026.jpg"]').count()==1,(route,device,'real documentary photo')
+                  assert page.locator('img[src="/documentos/tse-candidatos-2026-portal.png"]').evaluate('(img) => img.complete && img.naturalWidth > 200'),(route,device,'original TSE capture load')
+                  assert page.locator('img[src="/fotos/bancada-feminina-camara-marco-2026.jpg"]').evaluate('(img) => img.complete && img.naturalWidth > 200'),(route,device,'photo load')
+                  assert page.locator('section[aria-labelledby="metodo-fluxo-titulo"] ol > li').count()==4,(route,device,'authored methodological infographic')
+                  assert page.locator('section[aria-label="Documentação técnica do observatório"] section[id]').count()>=15,(route,device,'method archive preserved')
+                  assert page.locator('a[href="https://dadosabertos.tse.jus.br/dataset/candidatos-2026"]').count()>=1,(route,device,'primary source link')
                   assert 'Histórico de correções' in info['body'],(route,device,'correction history')
                 if route=='/reportagens/':
                   assert 'Bruno Spada' in info['body'],(route,device,'photo attribution')
