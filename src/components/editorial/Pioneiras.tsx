@@ -7,6 +7,7 @@ import {
 } from "@/data/perfis-pioneiras";
 import { formatInt } from "@/lib/format-br";
 import { FotoDocumental } from "@/components/editorial/FotoDocumental";
+import { FOTOS } from "@/data/fotos";
 
 /**
  * Peças visuais da série Pioneiras (30/10/2026, a partir da avaliação de
@@ -52,33 +53,60 @@ export function PerfilHero({
   nome: string;
   quemFoi: string;
   ancora: AncoraPerfil;
-  /** foto documental registrada em src/data/fotos.ts; sem registro, nada aparece */
   fotoId?: string;
-  /** peça que ocupa o lugar da foto enquanto ela não existe */
+  /** Ficha extraída de dados oficiais; exibida quando não há foto licenciada. */
   ficha?: React.ReactNode;
 }) {
+  const temFoto = Boolean(fotoId && FOTOS[fotoId]);
   return (
-    <header className="grid gap-8 border-b border-ink py-10 md:py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:gap-12">
-      <div>
-        {fotoId && (
-          <div className="mb-8 empty:hidden">
-            <FotoDocumental id={fotoId} fallback={ficha ? <div className="hidden lg:block">{ficha}</div> : null} />
+    <header className="relative left-1/2 -ml-[50vw] w-screen bg-cream">
+      <div className="mx-auto max-w-7xl px-5 py-11 md:px-8 md:py-16">
+        <div className="grid items-start gap-8 lg:grid-cols-[1fr_.9fr] lg:gap-12">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-plum">Série Pioneiras · {years}</p>
+            <h1 className="mt-4 max-w-2xl font-display text-[clamp(2.7rem,5vw,4.7rem)] font-semibold leading-[1.03] text-ink">
+              {nome}
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/85">{quemFoi}</p>
+            <p className="mt-6 max-w-lg text-xs leading-relaxed text-ink/65">
+              Perfil documental: imagem histórica apenas com procedência e direitos identificados.
+              Os resultados eleitorais são registrados na ficha do TSE.
+            </p>
           </div>
-        )}
-        <p className="text-[13px] text-plum font-semibold">Pioneiras · {years}</p>
-        <h1 className="mt-4 font-display text-5xl leading-[0.98] text-ink md:text-7xl">{nome}</h1>
-        <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink/80">{quemFoi}</p>
-      </div>
-      <div className="relative bg-cream p-6 pt-8 md:p-8 md:pl-10">
-        <span aria-hidden="true" className="absolute inset-x-0 top-0 h-2 bg-coral md:inset-y-0 md:left-0 md:h-auto md:w-2" />
-        <p className="text-[13px] text-muted-foreground font-semibold">{ancora.eleicao}</p>
-        <p className="poster-figure mt-3 text-[5rem] text-plum md:text-[6.5rem]">{formatInt(ancora.valor)}</p>
-        <p className="mt-2 max-w-[30ch] font-medium text-ink">{ancora.rotulo}</p>
-        <div className="mt-5">
-          <Regua a={ancora} alta />
+          <div className="min-w-0">
+            {temFoto && fotoId ? (
+              <FotoDocumental id={fotoId} />
+            ) : ficha ? (
+              <div className="border border-rule bg-paper p-5 md:p-6">
+                <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-plum">Arquivo eleitoral · Reprodução tipográfica</p>
+                {ficha}
+              </div>
+            ) : (
+              <p className="border border-rule bg-paper p-5 text-sm text-ink/75">
+                Fotografia não disponível com procedência e direitos verificados.
+              </p>
+            )}
+          </div>
         </div>
-        <p className="mt-5 font-display text-xl leading-snug text-ink">{ancora.tensao}</p>
-        <p className="mt-4 text-[13px] text-muted-foreground">{ancora.fonte}</p>
+        <div className="mt-9 grid gap-5 border-t border-plum/30 pt-6 md:grid-cols-[.75fr_1fr_1.2fr] md:items-start md:gap-9">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-plum">O registro eleitoral</p>
+            <p className="mt-2 text-sm leading-relaxed text-ink/75">{ancora.eleicao}</p>
+          </div>
+          <div>
+            <p className="font-display text-[3.3rem] font-semibold leading-none text-plum">
+              {formatInt(ancora.valor)}
+            </p>
+            <p className="mt-2 max-w-[35ch] text-sm font-medium leading-relaxed text-ink">
+              {ancora.rotulo}
+            </p>
+            <p className="mt-2 text-xs text-ink/65">{ancora.fonte}</p>
+          </div>
+          <div>
+            <p className="font-display text-lg leading-snug text-ink">{ancora.tensao}</p>
+            <div className="mt-4"><Regua a={ancora} /></div>
+          </div>
+        </div>
       </div>
     </header>
   );
@@ -89,7 +117,7 @@ export function PerfilCard({ p, n, compacto }: { p: PerfilPioneira; n: number; c
   const a = ANCORAS_PIONEIRAS[p.id];
   if (!p.to) return null;
   return (
-    <li className="group relative flex flex-col border-t-4 border-plum bg-paper p-6 outline-offset-4 outline-plum focus-within:outline-2 md:p-8">
+    <li className="group relative flex flex-col border border-rule bg-paper p-6 outline-offset-4 outline-plum focus-within:outline-2 md:p-8">
       <p className="text-[13px] text-muted-foreground font-semibold">
         {String(n).padStart(2, "0")} · {p.years}
       </p>
@@ -103,7 +131,7 @@ export function PerfilCard({ p, n, compacto }: { p: PerfilPioneira; n: number; c
       </h3>
       {a && (
         <>
-          <p className={`poster-figure mt-5 text-plum ${compacto ? "text-5xl" : "text-6xl md:text-7xl"}`}>
+          <p className={`poster-figure mt-5 text-plum ${compacto ? "text-5xl" : "text-4xl md:text-5xl"}`}>
             {formatInt(a.valor)}
           </p>
           <p className="mt-2 max-w-[32ch] font-medium leading-snug text-ink">{a.rotulo}</p>
