@@ -114,65 +114,92 @@ function EleitasPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Eleições 2026", to: "/quem-chega" }, { label: "Quem entrou" }]}>
-      <header className="relative left-1/2 -ml-[50vw] w-screen bg-plum-deep text-paper">
-        <div className="mx-auto grid max-w-7xl lg:grid-cols-[.95fr_1.05fr]">
-          <div className="flex flex-col justify-center px-5 py-10 md:px-8 md:py-14 lg:py-16 lg:pr-12">
-            <p className="text-[13px] font-semibold text-paper/80">Eleições 2026 · Resultado</p>
-            <h1 className="mt-5 font-display text-[clamp(2.65rem,5.4vw,5.4rem)] font-semibold leading-[1.02] text-paper">
-              Quem <em className="font-normal text-plum-bright">entrou?</em>
-            </h1>
-            <p className="mt-5 font-display text-[clamp(5rem,9.2vw,8rem)] font-semibold leading-none tabular-nums text-[var(--art-gold)]">
+      {/*
+        Alternativa editorial em teste: abertura horizontal guiada pelo total
+        de eleitas e quadro de proporções em superfície separada. Não replica
+        o hero documental em duas colunas do Método.
+      */}
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-coral)] text-ink">
+        <div className="mx-auto max-w-7xl px-5 py-11 md:px-8 md:py-14 lg:py-16">
+          <p className="text-[13px] font-semibold">Eleições 2026 · Resultado</p>
+          <h1 className="mt-4 max-w-5xl font-display text-[clamp(3.7rem,9vw,8.5rem)] font-semibold leading-[.95] tracking-tight">
+            Quem entrou?
+          </h1>
+          <div className="mt-7 flex flex-wrap items-end gap-x-8 gap-y-3 border-t-2 border-ink/50 pt-7 md:mt-10">
+            <p className="font-display text-[clamp(6rem,14vw,12rem)] font-semibold leading-[.8] tabular-nums">
               {n(ELEITAS_2026.length)}
             </p>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-paper/90">
-              mulheres eleitas em 2026. Cada ficha permite consultar o resultado por
-              cargo, estado, partido e cor/raça declarada ao TSE.
+            <p className="max-w-md pb-1 font-display text-[clamp(1.45rem,2.7vw,2.5rem)] leading-tight">
+              mulheres eleitas em 2026
             </p>
-            <p className="mt-6 max-w-lg text-[13px] leading-relaxed text-paper/75">
-              TSE: fichas geradas em {ELEITAS_META.baseGeneratedAt}. Os resultados podem
-              receber atualizações. Eleição, diplomação e exercício do mandato são situações distintas.
-            </p>
-            <a href="#filtros-eleitas" className="mt-6 inline-flex min-h-11 items-center self-start font-semibold text-paper underline underline-offset-4">
-              Consultar as fichas <span className="ml-2" aria-hidden="true">↓</span>
-            </a>
           </div>
-          <figure className="min-w-0 bg-ink px-5 py-9 text-paper md:px-8 md:py-12 lg:py-16 lg:pl-12">
-            <figcaption>
-              <p className="text-[13px] font-semibold text-[var(--art-gold)]">Da urna à cadeira</p>
-              <h2 className="mt-3 max-w-lg font-display text-3xl leading-tight md:text-4xl">
-                Quantas vagas foram conquistadas por mulheres?
-              </h2>
-            </figcaption>
-            <ol className="mt-7 space-y-5">
-              {CARGOS.map((c) => {
-                const eleitas = ELEITAS_META.porCargo[c] ?? 0;
-                const vagas = VAGAS_2026[c];
-                const percentual = (eleitas / vagas) * 100;
-                return (
-                  <li key={c}>
-                    <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 text-[13px]">
-                      <span className="text-paper/90">{CARGO_PLURAL[c]}</span>
-                      <strong className="font-mono text-paper tabular-nums">
-                        {n(eleitas)} / {n(vagas)} · {formatPct(percentual)}
-                      </strong>
-                    </div>
-                    <div className="h-2 bg-paper/25" aria-hidden="true">
-                      <div className="h-full bg-coral" style={{ width: `${percentual}%` }} />
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
-            <p className="mt-7 max-w-lg border-t border-paper/25 pt-4 text-[13px] leading-relaxed text-paper/75">
-              Percentual de vagas disputadas em cada cargo. Senado: somente as 54 vagas
-              renovadas em 2026, não as 81 cadeiras da Casa. Fontes: TSE,
-              resultado gerado em {RESULT_2026_META.baseGeneratedAt} (vagas);
-              fichas das eleitas geradas em {ELEITAS_META.baseGeneratedAt}.
-              Bases com cortes distintos, sujeitas à conciliação.
+          <div className="mt-8 grid items-end gap-x-12 gap-y-4 md:grid-cols-[1.2fr_.8fr]">
+            <p className="max-w-2xl text-base leading-relaxed">
+              Os registros permitem consultar cargo, estado, partido, cor/raça
+              autodeclarada e trajetória. Eleição, diplomação e exercício
+              efetivo do mandato são situações distintas.
             </p>
-          </figure>
+            <div className="md:text-right">
+              <a href="#filtros-eleitas" className="inline-flex min-h-11 items-center border-b-2 border-ink text-sm font-semibold">
+                Encontrar uma eleita <span aria-hidden="true" className="ml-3">↓</span>
+              </a>
+              <p className="mt-3 text-[12px] leading-relaxed">
+                TSE: fichas geradas em {ELEITAS_META.baseGeneratedAt}.
+                Registros sujeitos a atualizações.
+              </p>
+            </div>
+          </div>
         </div>
       </header>
+
+      <section aria-labelledby="eleitas-cadeiras-titulo" className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
+        <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-12 lg:py-14">
+          <div className="grid items-end gap-x-10 gap-y-3 md:grid-cols-[1fr_1fr]">
+            <div>
+              <p className="text-[13px] font-semibold text-[var(--art-gold)]">
+                Da urna à cadeira · Proporção de vagas
+              </p>
+              <h2 id="eleitas-cadeiras-titulo" className="mt-3 max-w-xl font-display text-[clamp(1.75rem,3vw,2.7rem)] leading-tight">
+                Quantas vagas foram conquistadas por mulheres?
+              </h2>
+            </div>
+            <p className="max-w-xl text-[13px] leading-relaxed text-paper/75 md:ml-auto">
+              Cada percentual compara mulheres eleitas com o total de vagas
+              disputadas no respectivo cargo em 2026. No Senado, são as
+              54 vagas renovadas, não as 81 cadeiras da Casa.
+            </p>
+          </div>
+          <ol className="mt-8 grid gap-x-7 gap-y-6 border-t border-paper/30 pt-6 sm:grid-cols-2 lg:grid-cols-5">
+            {CARGOS.map((c) => {
+              const eleitas = ELEITAS_META.porCargo[c] ?? 0;
+              const vagas = VAGAS_2026[c];
+              const percentual = (eleitas / vagas) * 100;
+              return (
+                <li key={c} className="min-w-0">
+                  <p className="min-h-10 text-[13px] font-semibold leading-snug text-paper/85">
+                    {CARGO_PLURAL[c]}
+                  </p>
+                  <p className="mt-2 font-display text-[clamp(2rem,3.4vw,3.4rem)] leading-none tabular-nums text-[var(--art-gold)]">
+                    {formatPct(percentual)}
+                  </p>
+                  <div className="mt-4 h-2 w-full overflow-hidden bg-paper/25" aria-hidden="true">
+                    <div className="h-full bg-coral" style={{ width: `${percentual}%` }} />
+                  </div>
+                  <p className="mt-3 font-mono text-[12px] tabular-nums text-paper/85">
+                    {n(eleitas)} / {n(vagas)} vagas
+                  </p>
+                </li>
+              );
+            })}
+          </ol>
+          <p className="mt-7 max-w-5xl border-t border-paper/25 pt-4 text-[12px] leading-relaxed text-paper/70">
+            Fontes: TSE, resultado gerado em {RESULT_2026_META.baseGeneratedAt}
+            (denominadores) e fichas das eleitas geradas em {ELEITAS_META.baseGeneratedAt}
+            (numeradores). Bases com datas distintas, sujeitas a conciliação.
+          </p>
+        </div>
+      </section>
+
       <section id="filtros-eleitas" aria-label="Filtros" className="scroll-mt-24 space-y-5 border-b border-rule bg-paper py-10">
         <div className="grid items-end gap-5 md:grid-cols-[.75fr_1.25fr] md:gap-12">
           <div>
