@@ -161,10 +161,14 @@ jobs:
                   assert page.locator('a[href="https://dadosabertos.tse.jus.br/dataset/candidatos-2026"]').count()>=1,(route,device,'primary source link')
                   assert 'Histórico de correções' in info['body'],(route,device,'correction history')
                 if route=='/reportagens/':
-                  assert 'Bruno Spada' in info['body'],(route,device,'photo attribution')
-                  assert 'não registra as seis votações' in info['body'],(route,device,'photo context')
-                  assert 'Diário da Câmara' in info['body'],(route,device,'original documents')
-                  assert page.locator('a[href*="dc_20b.asp"]').count()>=1,(route,device,'direct sources')
+                  assert 'O voto das deputadas, em seis decisões' in info['body'],(route,device,'editorial documentary opener')
+                  assert page.locator('figure[aria-label="Visualização documental dos votos de deputadas nas seis votações"] ol > li').count()==6,(route,device,'six votes')
+                  assert 'coleta em' in info['body'].lower(),(route,device,'vote sources')
+                  assert 'não indicam, isoladamente' in info['body'],(route,device,'neutrality of Sim Nao')
+                  assert page.locator('img[src="/fotos/plenario-igualdade-salarial-2023.jpg"]').count()==0,(route,device,'no repeated cover photograph')
+                  assert 'Diário da Câmara' in info['body'],(route,device,'documentary sources')
+                  assert page.locator('a[href*="dc_20b.asp"]').count()>=1,(route,device,'direct source links')
+                  assert page.locator('a[href="/como-votaram"]').count()>=1,(route,device,'feature article link')
                 key=route.strip('/').replace('/','-') or 'home'
                 page.evaluate('window.scrollTo(0,0)')
                 page.screenshot(path=f'qa-pilotos/{device}-{key}-primeira-dobra.jpg',type='jpeg',quality=80)
