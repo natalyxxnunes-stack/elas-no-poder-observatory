@@ -52,9 +52,9 @@ jobs:
             '/','/eleitas/','/metodo/','/achados/','/achados/candidatar-se-nao-e-eleger-se/',
             '/colecoes/antigenero-no-poder/','/como-votaram/','/dinheiro/',
             '/quem-chega/','/quem-sao-elas/','/votos/','/historico/','/partidos/',
-            '/temas/','/reportagens/','/pioneiras/','/sobre/','/dados/','/downloads/','/direitos/',
+            '/temas/','/reportagens/','/pioneiras/','/sobre/','/investigacoes/','/dados/','/downloads/','/direitos/',
           ]
-          shots={'/','/eleitas/','/metodo/','/achados/','/colecoes/antigenero-no-poder/','/dinheiro/','/como-votaram/','/dados/'}
+          shots={'/','/eleitas/','/metodo/','/achados/','/colecoes/antigenero-no-poder/','/dinheiro/','/como-votaram/','/dados/','/sobre/','/investigacoes/'}
           result=[]
           with sync_playwright() as p:
             browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
@@ -100,6 +100,17 @@ jobs:
                     page.get_by_role('button',name='Todos os cargos').click()
                     page.wait_for_timeout(180)
                     assert items.count()==36,(name,'filter reset',items.count())
+                if url=='/sobre/':
+                  assert 'Um projeto independente, feito por mim' in d['body'],(name,'autoria preservada')
+                  assert page.locator('a[href="/metodo#dicionario"]').count()==1,(name,'fonte e dicionario')
+                  assert page.locator('a[href="/metodo#correcoes"]').count()==1,(name,'historico de correcoes')
+                  assert page.locator('section#compromisso ol > li').count()==6,(name,'seis compromissos editoriais')
+                if url=='/investigacoes/':
+                  assert page.locator('section[aria-labelledby^="grupo-"] ol > li').count()==15,(name,'15 frentes editoriais')
+                  assert '15/11/2026' in d['body'],(name,'corte financeiro vigente')
+                  assert 'Autoria, princípios e compromissos editoriais.' in d['body'],(name,'autoria sem equipe')
+                  assert 'base de 04/11/2026' not in d['body'],(name,'data anterior obsoleta')
+                  assert page.locator('a[href="/metodo#correcoes"]').count()==1
                 if url=='/dados/':
                   assert page.locator('h1').inner_text().strip() == 'Dados para consultar'
                   assert page.locator('section[aria-labelledby="dados-entradas"] a').count()==3,(name,'entradas de consulta')
