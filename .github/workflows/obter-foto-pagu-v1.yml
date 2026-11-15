@@ -1,0 +1,50 @@
+name: Obter retrato de Pagu do Wikimedia Commons (uso único)
+on:
+  push:
+    branches:
+      - redesign-editorial-v3-teste
+    paths:
+      - .github/workflows/obter-foto-pagu-v1.yml
+permissions:
+  contents: write
+jobs:
+  fotografia:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: redesign-editorial-v3-teste
+      - name: Baixar e verificar retrato histórico do Commons
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/fotos
+          curl --fail --location --retry 3 --retry-delay 2 --silent --show-error \
+            --user-agent 'QuemSaoElas-Acervo/1.0 (jornalismo)' \
+            'https://upload.wikimedia.org/wikipedia/commons/f/f2/Patricia_Galvao.jpg' \
+            -o public/fotos/pagu-patricia-galvao-anos-1920.jpg
+          test "$(file -b --mime-type public/fotos/pagu-patricia-galvao-anos-1920.jpg)" = 'image/jpeg'
+          python3 - <<'PY'
+          from pathlib import Path
+          import struct,hashlib
+          p=Path('public/fotos/pagu-patricia-galvao-anos-1920.jpg')
+          d=p.read_bytes()
+          assert d[:2] == bytes([255,216]) and d[-2:] == bytes([255,217])
+          assert len(d)>50000, len(d)
+          expected='987e30e5335b45c9789060efb98d4ccaa01f230a'
+          found=hashlib.sha1(d).hexdigest()
+          assert found==expected, (found,expected)
+          print('Fotografia preservada e SHA-1 verificado:',len(d),found)
+          PY
+      - name: Registrar somente original histórico na branch de teste
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/fotos/pagu-patricia-galvao-anos-1920.jpg
+          if ! git diff --cached --quiet; then
+            git commit -m 'assets(pioneiras): fotografia histórica de Pagu do Commons, SHA-1 conferido'
+            git push origin HEAD:redesign-editorial-v3-teste
+          fi
