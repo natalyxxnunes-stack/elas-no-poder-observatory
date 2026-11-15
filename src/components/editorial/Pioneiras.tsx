@@ -58,23 +58,37 @@ export function PerfilHero({
   ficha?: React.ReactNode;
 }) {
   const temFoto = Boolean(fotoId && FOTOS[fotoId]);
+  const pagu = fotoId === "pagu" && temFoto;
   return (
-    <header className="relative left-1/2 -ml-[50vw] w-screen bg-cream">
+    <header className={`relative left-1/2 -ml-[50vw] w-screen ${pagu ? "bg-ink text-paper" : "bg-cream text-ink"}`}>
       <div className="mx-auto max-w-7xl px-5 py-11 md:px-8 md:py-16">
         <div className="grid items-start gap-8 lg:grid-cols-[1fr_.9fr] lg:gap-12">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-plum">Série Pioneiras · {years}</p>
-            <h1 className="mt-4 max-w-2xl font-display text-[clamp(2.7rem,5vw,4.7rem)] font-semibold leading-[1.03] text-ink">
+            <p className={`text-xs font-semibold uppercase tracking-wide ${pagu ? "text-lilac" : "text-plum"}`}>Série Pioneiras · {years}</p>
+            <h1 className="mt-4 max-w-2xl font-display text-[clamp(2.7rem,5vw,4.7rem)] font-semibold leading-[1.03] ${pagu ? "text-paper" : "text-ink"}`}>
               {nome}
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/85">{quemFoi}</p>
-            <p className="mt-6 max-w-lg text-xs leading-relaxed text-ink/65">
+            <p className={`mt-6 max-w-xl text-lg leading-relaxed ${pagu ? "text-paper/90" : "text-ink/85"}`}>{quemFoi}</p>
+            <p className={`mt-6 max-w-lg text-xs leading-relaxed ${pagu ? "text-paper/70" : "text-ink/65"}`}>
               Perfil documental: imagem histórica apenas com procedência e direitos identificados.
               Os resultados eleitorais são registrados na ficha do TSE.
             </p>
           </div>
           <div className="min-w-0">
-            {temFoto && fotoId ? (
+            {pagu && fotoId && FOTOS[fotoId] ? (
+              <figure className="mx-auto max-w-[390px] bg-[var(--art-coral)] p-3 sm:p-4 lg:mx-0">
+                <img src={FOTOS[fotoId]!.src} alt={FOTOS[fotoId]!.alt}
+                  loading="eager" fetchPriority="high"
+                  className="block aspect-[3/4] w-full object-cover object-center"/>
+                <figcaption className="mt-3 bg-ink px-3 py-3 text-xs leading-relaxed text-paper/85">
+                  Pagu, retrato atribuído ao fim dos anos 1920. Autoria não identificada.{" "}
+                  <a href={FOTOS[fotoId]!.licencaUrl} target="_blank" rel="noreferrer"
+                    className="font-semibold underline underline-offset-2">
+                    Wikimedia Commons (domínio público indicado na ficha)
+                  </a>.
+                </figcaption>
+              </figure>
+            ) : temFoto && fotoId ? (
               <FotoDocumental id={fotoId} />
             ) : ficha ? (
               <div className="border border-rule bg-paper p-5 md:p-6">
@@ -88,23 +102,23 @@ export function PerfilHero({
             )}
           </div>
         </div>
-        <div className="mt-9 grid gap-5 border-t border-plum/30 pt-6 md:grid-cols-[.75fr_1fr_1.2fr] md:items-start md:gap-9">
+        <div className={`mt-9 grid gap-5 border-t pt-6 md:grid-cols-[.75fr_1fr_1.2fr] md:items-start md:gap-9 ${pagu ? "border-paper/35" : "border-plum/30"}`}>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-plum">O registro eleitoral</p>
-            <p className="mt-2 text-sm leading-relaxed text-ink/75">{ancora.eleicao}</p>
+            <p className={`text-xs font-semibold uppercase tracking-wide ${pagu ? "text-lilac" : "text-plum"}`}>O registro eleitoral</p>
+            <p className={`mt-2 text-sm leading-relaxed ${pagu ? "text-paper/80" : "text-ink/75"}`}>{ancora.eleicao}</p>
           </div>
           <div>
-            <p className="font-display text-[3.3rem] font-semibold leading-none text-plum">
+            <p className={`font-display text-[3.3rem] font-semibold leading-none ${pagu ? "text-paper" : "text-plum"}`}>
               {formatInt(ancora.valor)}
             </p>
-            <p className="mt-2 max-w-[35ch] text-sm font-medium leading-relaxed text-ink">
+            <p className={`mt-2 max-w-[35ch] text-sm font-medium leading-relaxed ${pagu ? "text-paper" : "text-ink"}`}>
               {ancora.rotulo}
             </p>
-            <p className="mt-2 text-xs text-ink/65">{ancora.fonte}</p>
+            <p className={`mt-2 text-xs ${pagu ? "text-paper/70" : "text-ink/65"}`}>{ancora.fonte}</p>
           </div>
           <div>
-            <p className="font-display text-lg leading-snug text-ink">{ancora.tensao}</p>
-            <div className="mt-4"><Regua a={ancora} /></div>
+            <p className={`font-display text-lg leading-snug ${pagu ? "text-paper" : "text-ink"}`}>{ancora.tensao}</p>
+            <div className={pagu ? "mt-4 bg-paper p-4 text-ink" : "mt-4"}><Regua a={ancora} /></div>
           </div>
         </div>
       </div>
