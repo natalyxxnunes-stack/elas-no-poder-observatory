@@ -45,6 +45,7 @@ jobs:
           sleep 3
           python3 - <<'PY'
           import json
+          import re
           from pathlib import Path
           from playwright.sync_api import sync_playwright
           core=[
@@ -90,6 +91,9 @@ jobs:
                   page.wait_for_timeout(250)
                   assert items.count()==72,(name,'loadmore',items.count())
                   if name=='celular':
+                    page.get_by_role('button',name=re.compile(r'^Deputadas federais')).click()
+                    page.wait_for_timeout(180)
+                    assert items.count()==36,(name,'filter change',items.count())
                     page.get_by_role('button',name='Todos os cargos').click()
                     page.wait_for_timeout(180)
                     assert items.count()==36,(name,'filter reset',items.count())
