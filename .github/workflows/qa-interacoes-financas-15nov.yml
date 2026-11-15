@@ -66,6 +66,7 @@ jobs:
                 const t=sec.innerText;
                 return {tableHeaders:[...table.querySelectorAll('thead th')].map(x=>x.innerText.trim()),
                   tableRows:table.querySelectorAll('tbody tr').length,
+                  partyColumnPosition:getComputedStyle(table.querySelector('tbody tr th')).position,
                   hasPCO:t.includes('PCO'),hasPRTB:t.includes('PRTB'),
                   hasCandidaturasNegras:t.includes('Candidaturas negras (pretas + pardas)'),
                   tableScrollable:scrolling.scrollWidth>scrolling.clientWidth,
@@ -80,6 +81,7 @@ jobs:
               if device=='mobile':
                 assert data['navFloating']['rect']['width']<100, 'Índice flutuante ainda grande demais no celular'
                 assert 'Deslize a tabela para o lado' in sec.inner_text(), 'Instrução de rolagem não aparece'
+                assert data['partyColumnPosition']=='sticky', 'Coluna de partido nao ficou fixa'
               if data['tableScrollable']:
                 table.evaluate('''x=>{const p=x.closest('.overflow-x-auto');p.scrollLeft=Math.round((p.scrollWidth-p.clientWidth)/2)}''')
                 page.wait_for_timeout(350)
