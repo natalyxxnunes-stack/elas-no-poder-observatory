@@ -1,0 +1,38 @@
+name: Incorporar foto documental do plenário
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  foto:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: redesign-editorial-v3-teste
+      - name: Baixar fotografia original da Agência Câmara
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/fotos
+          curl --fail --location --retry 3 --silent --show-error \
+            'https://www.camara.leg.br/midias/image/2023/05/img20230502202050592-768x512.jpg' \
+            --output public/fotos/plenario-igualdade-salarial-2023.jpg
+          test "$(file -b --mime-type public/fotos/plenario-igualdade-salarial-2023.jpg)" = "image/jpeg"
+          test "$(stat -c %s public/fotos/plenario-igualdade-salarial-2023.jpg)" -gt 30000
+          file public/fotos/plenario-igualdade-salarial-2023.jpg
+          sha256sum public/fotos/plenario-igualdade-salarial-2023.jpg
+      - name: Registrar fotografia na branch de teste
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/fotos/plenario-igualdade-salarial-2023.jpg
+          if ! git diff --cached --quiet; then
+            git commit -m 'assets: foto de arquivo do plenário em maio de 2023 (Bruno Spada/Câmara)'
+            git push origin HEAD:redesign-editorial-v3-teste
+          fi
