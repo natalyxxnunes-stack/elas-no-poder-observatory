@@ -62,3 +62,13 @@ Alterações no PR #6 preservam a capa e os dados; adicionar verificação do í
 - **Dados**: a rota foi examinada, mas sua grade de consultas **não foi redesenhada** nesta rodada; qualquer mudança substancial de composição precisa ser comparada à identidade aprovada.
 - **Validação prevista:** verificar em navegador a unicidade das 13 âncoras, os dois registros de 2024 e a abertura do inventário documental. Os testes constam do workflow da branch, mas sua execução ainda depende de confirmação.
 - Todas as mudanças seguem isoladas na branch de revisão. Homepage, fotos e paleta continuam protegidas, sem merge ou publicação.
+
+## Terceira rodada — Dados como instrumento de consulta
+
+**Arquivo de interface:** `src/routes/dados.tsx`. Na versão publicada, as seis áreas apareciam em cartões uniformes e as sete ferramentas gerais vinham ao final. O conjunto dificulta identificar o primeiro caminho de exploração.
+
+**Prévia no PR #6:** mantém a apresentação tipográfica adulta e o repertório da capa sem replicar seu cabeçalho fotográfico. O novo percurso abre com três questões práticas, ligadas diretamente às ferramentas existentes: candidaturas (`/quem-sao-elas`), eleitas (`/eleitas`) e comparador (`/comparar`). Depois, os seis temas são listados como índice editorial de linhas e seus links de consulta são preservados, a partir de `TEMAS`. Os demais serviços continuam acessíveis em uma seção de verificação e reuso.
+
+**Restrições respeitadas:** sem gráficos inventados, indicadores numéricos decorativos, cartões ilustrativos ou novas fotografias apenas para preencher o espaço; sem novas cores, sem alterar a homepage, marca ou dados. É uma intervenção de hierarquia, não uma nova direção de arte.
+
+**Antes da aprovação:** executar o workflow de QA e conferir capturas em desktop e celular, inclusive links, contraste, tabulação e legibilidade dos temas longos. O teste automatizado da rota /dados/ foi incluído, mas sua aprovação ainda não foi observada.
