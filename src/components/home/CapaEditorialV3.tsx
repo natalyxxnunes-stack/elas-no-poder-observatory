@@ -150,7 +150,7 @@ function Temas() {
                 <span className="text-xs font-semibold text-lilac">{t.ordem} · {t.pergunta}</span>
                 <span className="flex items-end justify-between gap-4">
                   <span className="font-display text-[1.8rem] font-semibold text-paper">{t.nome}</span>
-                  <span aria-hidden="true" className="text-xl text-[var(--art-gold)]">↗</span>
+                  <span aria-hidden="true" className="text-xl text-paper/80">↗</span>
                 </span>
               </Link>
             </li>
