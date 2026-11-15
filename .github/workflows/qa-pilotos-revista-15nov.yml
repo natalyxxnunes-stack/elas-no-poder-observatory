@@ -1,0 +1,111 @@
+name: QA — três pilotos de revista (sem publicação)
+on:
+  push:
+    branches:
+      - pilotos-revista-visual-15nov2026
+    paths:
+      - "src/**"
+      - ".github/workflows/qa-pilotos-revista-15nov.yml"
+permissions:
+  contents: read
+jobs:
+  conferir-pilotos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Dependências, TypeScript, base financeira e build estático
+        shell: bash
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          node scripts/recontagem/validar_snapshot_financeiro.mjs
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Proteger homepage, identidade e bases
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin main
+          test -z "$(git diff --name-only origin/main...HEAD -- src/data public/dados public/fotos src/styles.css src/components/BrandLogo.tsx src/components/BrandWordmark.tsx src/components/home/CapaEditorialV3.tsx src/routes/index.tsx src/components/editorial/Faixa.tsx)"
+          echo "Capa, marca, fotografias, estilos e bases preservados."
+      - name: Instalar navegador de validação
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Testar três páginas e fotografar versões completas
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p qa-pilotos
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-pilotos.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          result=[]
+          routes=['/','/eleitas/','/metodo/','/reportagens/']
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for device,width,height in [('desktop',1440,900),('celular',390,844)]:
+              context=browser.new_context(viewport={'width':width,'height':height},device_scale_factor=1)
+              for route in routes:
+                page=context.new_page()
+                errors=[]
+                page.on('pageerror',lambda e,errors=errors:errors.append(str(e)))
+                response=page.goto('http://127.0.0.1:4173'+route,wait_until='domcontentloaded',timeout=45000)
+                page.wait_for_timeout(500)
+                info=page.evaluate('''() => ({
+                  headings: [...document.querySelectorAll('h1')].map(x=>x.innerText.trim()),
+                  sw: document.documentElement.scrollWidth,
+                  width: innerWidth,
+                  height: document.documentElement.scrollHeight,
+                  body: document.body.innerText.slice(0,40000)
+                })''')
+                assert response and response.status==200,(route,device,'HTTP')
+                assert not errors,(route,device,'Javascript',errors)
+                assert info['sw']<=info['width']+3,(route,device,'horizontal overflow',info['sw'],info['width'])
+                assert len(info['headings'])==1,(route,device,'H1',info['headings'])
+                if route=='/eleitas/':
+                  assert '342' in info['body'],(route,device,'total')
+                  assert '109 / 513' in info['body'],(route,device,'federal')
+                  assert '12 / 54' in info['body'],(route,device,'senado')
+                  assert 'Nomes e fichas' in info['body'],(route,device,'catalogo')
+                  itens=page.locator('section[aria-labelledby="lista-eleitas"] li')
+                  assert itens.count()==36,(route,device,'36 initial cards',itens.count())
+                  page.get_by_role('button',name='Mostrar mais fichas').click()
+                  assert itens.count()==72,(route,device,'load more')
+                if route=='/metodo/':
+                  assert 'Um número, uma conta verificável.' in info['body'],(route,device,'hero')
+                  assert '56,1%' in info['body'],(route,device,'finance')
+                  assert '15/11/2026' in info['body'],(route,device,'finance date')
+                  assert 'não fac-símiles' in info['body'],(route,device,'source distinction')
+                  assert 'Histórico de correções' in info['body'],(route,device,'correction history')
+                if route=='/reportagens/':
+                  assert 'Bruno Spada' in info['body'],(route,device,'photo attribution')
+                  assert 'não registra as seis votações' in info['body'],(route,device,'photo context')
+                  assert 'Diário da Câmara' in info['body'],(route,device,'original documents')
+                  assert page.locator('a[href*="dc_20b.asp"]').count()>=1,(route,device,'direct sources')
+                key=route.strip('/').replace('/','-') or 'home'
+                page.evaluate('window.scrollTo(0,0)')
+                page.screenshot(path=f'qa-pilotos/{device}-{key}-primeira-dobra.jpg',type='jpeg',quality=80)
+                page.screenshot(path=f'qa-pilotos/{device}-{key}-pagina-inteira.jpg',type='jpeg',quality=68,full_page=True)
+                result.append({'device':device,'page':route,'title':info['headings'][0],'height':info['height'],'javascript_errors':len(errors),'horizontal_overflow':info['sw']-info['width']})
+                page.close()
+              context.close()
+            browser.close()
+          Path('qa-pilotos/resultado.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          print('PASSOU:',len(result),'páginas/dispositivos com imagens da primeira dobra e da página inteira.')
+          PY
+      - name: Guardar evidências para revisão visual
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-tres-pilotos-editoriais
+          path: qa-pilotos/
+          if-no-files-found: warn
+          retention-days: 14
