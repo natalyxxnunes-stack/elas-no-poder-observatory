@@ -29,7 +29,7 @@ const fefcShare = (o: Record<string, number>) => {
   const t = sum(o);
   return t > 0 ? ((o[DESPESAS_META.fefcLabel] ?? 0) / t) * 100 : 0;
 };
-const FONTE = `Fonte: TSE, Prestação de Contas Eleitorais 2026 (despesas pagas, despesas contratadas e doador originário) e Candidatos 2026, base de ${DESPESAS_META.baseGeneratedAt}, prestação final do 1º turno. Recontagem independente.`;
+const FONTE = `Fonte: TSE, Prestação de Contas Eleitorais 2026 (despesas pagas, despesas contratadas e doador originário) e Candidatos 2026, base de ${DESPESAS_META.baseGeneratedAt}, declarações disponíveis até a geração da base. Recontagem independente.`;
 
 /** Quanto do que cada grupo pagou saiu do fundo eleitoral público. */
 export function FundoNoGasto() {
@@ -72,7 +72,7 @@ export function FundoNoGasto() {
         fonte:
           "TSE, Prestação de Contas Eleitorais 2026 (despesas pagas, campo DS_FONTE_DESPESA) e Candidatos 2026",
         limitacao:
-          "Prestação final do 1º turno: 343 candidaturas ainda constam com prestação parcial. Despesa paga é diferente de despesa contratada; dívidas de campanha ainda não pagas ficam fora.",
+          "Prestação final do 1º turno: 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Despesa paga é diferente de despesa contratada; dívidas de campanha ainda não pagas ficam fora.",
       }}
     >
       <div className="grid gap-x-8 gap-y-6 md:grid-cols-2">
