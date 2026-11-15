@@ -2,7 +2,7 @@
 
 Esta versão consolida o manual v2 e as decisões editoriais posteriores de novembro de 2026. O histórico da v2 permanece no GitHub. O projeto gráfico aprovado orienta as mudanças na interface; a existência de um estilo ou componente no código não implica aprovação automática de seu uso em todas as páginas.
 
-**Estado de implementação:** este documento está atualizado **somente na branch de revisão do PR #6**, ainda sem merge/publicação. As decisões aqui descritas representam a direção editorial já aprovada; a execução visual das páginas internas segue sujeita à comparação com a homepage, revisão em computador e celular e decisão específica antes de publicação.
+**Estado de implementação:** este manual consolida as decisões editoriais aprovadas e é versionado separadamente das propostas de redesign. Suas regras não implicam que todas as páginas já estejam adequadas. As composições internas dependem de comparação com a homepage e de validação editorial em computador e celular antes de qualquer publicação.
 
 **Ordem de precedência:** decisões editoriais mais recentes e explícitas prevalecem sobre orientações antigas do manual, especialmente no uso de fios ornamentais, superfícies brancas/lilases e ilustrações vetoriais. Divergências entre decisão e código devem ser registradas, testadas e resolvidas na branch de revisão, sem alterar silenciosamente a `main`.
 
@@ -165,4 +165,4 @@ Componente `Registro`: fato (fio roxo), interpretação (fio tinta), hipótese (
 - `docs/design/REPERTORIO-DOCUMENTAL-E-USO-DE-VETORES-15NOV2026.md` (auditoria das substituições pontuais na prévia).
 - `src/styles.css`, `src/data/fotos.ts` e componentes editoriais (estado efetivo do produto, a ser conferido contra as decisões acima).
 
-**Este manual consolida decisões; não representa execução ou publicação das alterações visuais pendentes.**
+**Este manual registra decisões consolidadas. Não representa autorização para integrar ou publicar alterações visuais pendentes.**
