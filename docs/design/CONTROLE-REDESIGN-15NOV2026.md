@@ -73,3 +73,27 @@ Toda intervenção deve registrar: arquivo alterado, efeito no conteúdo, efeito
 A revisão de conteúdo jurídico/político não pode ser subsumida a uma decisão estética. Separar expressamente **correção de fato**, **mudança de dados**, **melhoria funcional** e **preferência de apresentação**.
 
 **Última decisão consolidada:** recuperar a riqueza de uma revista sem perder respiro nem copiar a Gênero e Número. A capa aprovada é referência. O PR #6, enquanto mistura alterações aprováveis com composições rejeitadas, não é publicável.
+
+## 6. Etapa 2 iniciada — diagnóstico de referência, 15/11/2026
+
+**Estado:** auditoria em andamento, sem modificação do site. **Fontes distintas:** HTML do site publicado `https://quemsaoelas.com.br/` consultado em 15/11/2026, código da `main` e prévia do PR #6. A consulta textual ao HTML **não substitui** uma renderização visual. O roteiro de testes da prévia verifica 21 rotas em desktop/celular, mas as capturas anteriores eram apenas da primeira dobra. Novo teste de capturas integrais foi preparado na branch de revisão.
+
+| Área | Evidência inicial | Pendência objetiva |
+| --- | --- | --- |
+| Homepage | Abertura da investigação “Como votaram as deputadas, e quem voltou” com fotografia do plenário creditada a Bruno Spada/Câmara e ressalva expressa de que a imagem não registra as seis votações. Arquivo `CapaEditorialV3.tsx` idêntico nas duas branches. | **Preservar.** Avaliar depois o ritmo da página completa, sem reconstruir a capa. |
+| Quem entrou? | Site publicado apresenta **342 mulheres eleitas**, filtros e fichas em listagem extensa. PR #6 propõe melhoria com frações de vagas por cargo e carregamento incremental. | Conferir experiência completa e datas das bases; evitar mostrar percentuais calculados com universos não conciliados. |
+| Método | A versão publicada tem extensa documentação de candidaturas, explicações e arquivo de metadados; identifica a fotografia de candidatos **27/10/2026**. A prévia do PR #6 também apresenta cálculo financeiro com corte **15/11/2026**. | **Não tratar como a mesma fotografia:** candidaturas e receitas são bases diferentes. Avaliar hierarquia, documentos e exemplos em páginas completas. |
+| Investigações | O HTML publicado ainda informa, na frente *Dinheiro*, **“base de 04/11/2026”**; a prévia utiliza `FINANCE_BASE_LABEL` da extração financeira de **15/11/2026**. | **Divergência editorial de data confirmada entre interfaces**; corrigir com fonte/corte após controle da versão publicada. |
+| Reportagens | O índice público reúne duas investigações assinadas: uma com fotografia documental de maio de 2023, outra com arte editorial de microfone. O PR #6 substitui esta última por referências do Diário da Câmara. | Avaliar equilíbrio entre fotografia, documento e arte; a relevância e a hierarquia das fontes precisam ser revistas visualmente. |
+| Sobre | Apresenta autoria individual, ficha do projeto, compromissos e canal de correções. O PR #6 alterou composição tipográfica, mas as capturas da primeira dobra apontaram predominância de superfícies claras. | **Composição visual não aprovada**; preservar integralmente o texto autoral. |
+| Biblioteca | O HTML de `/downloads/` devolveu rótulos de navegação diferentes dos vistos nas demais rotas (por exemplo, “Histórias” e “Eleições 2026”, em vez de “Temas” e “Reportagens”). | **Hipótese técnica, ainda não confirmada visualmente:** verificar em navegador se há página estática antiga, cache ou diferença de renderização/hidratação. Não afirmar erro de deploy sem prova. |
+| Direitos / Pioneiras | A publicação reúne cronologia com **13 marcos**, perfis de Pagu e Lélia, documentos e fontes históricas; o PR #6 acrescenta índice e inventário de arquivos eleitorais. | Capturar e inspecionar a página inteira; Pagu permanece com **licenciamento pendente**. |
+
+### Evidências e limites da auditoria inicial
+
+- Publicado: `https://quemsaoelas.com.br/`, `/eleitas/`, `/metodo/`, `/reportagens/`, `/investigacoes/`, `/sobre/`, `/direitos/`, `/pioneiras/`, `/downloads/`.
+- Prévia: PR #6 e [execuções de QA](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions) no GitHub; capturas anteriores limitadas à primeira dobra.
+- **Próxima evidência obrigatória:** capturas integrais e comparáveis (versão publicada e branch de revisão, desktop e celular), com identificação de URL, ambiente e data. Sem elas, ainda não cabe afirmar a extensão da predominância cromática em cada rota.
+- **Limite metodológico:** a atualização das receitas do TSE não significa atualização automática das candidaturas; a reconciliação deve identificar os dois arquivos, suas datas e seus universos antes de trocar indicadores.
+
+**Nenhuma alteração visual foi aprovada ou publicada por esta auditoria.**
