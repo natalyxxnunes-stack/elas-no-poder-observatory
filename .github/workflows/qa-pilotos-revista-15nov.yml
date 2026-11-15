@@ -111,6 +111,22 @@ jobs:
                   assert page.evaluate('document.body.scrollWidth')<=width+3,(route,device,'largura total real',page.evaluate('document.body.scrollWidth'),width)
 
                 if route=='/eleitas/':
+                  contrast=page.evaluate('''() => {
+                    const h=document.querySelector('main header');
+                    if (!h) return {error:'header not found'};
+                    const bg=getComputedStyle(h).backgroundColor;
+                    const parse=s=>(s.match(/[\\d.]+/g)||[]).slice(0,3).map(Number);
+                    const lin=n=>{const v=n/255;return v<=0.04045?v/12.92:Math.pow((v+0.055)/1.055,2.4)};
+                    const l=c=>{const [r,g,b]=parse(c).map(lin);return 0.2126*r+0.7152*g+0.0722*b};
+                    const base=l(bg);
+                    const checks=[...h.querySelectorAll('h1,p,a')].map(el=>{
+                      const fg=getComputedStyle(el).color;const top=Math.max(base,l(fg));const bottom=Math.min(base,l(fg));
+                      return {tag:el.tagName,text:el.innerText.slice(0,32),ratio:(top+.05)/(bottom+.05)};
+                    });
+                    return {bg,checks};
+                  }''')
+                  assert contrast.get('bg')=='rgb(197, 63, 34)',(route,device,'coral tonal variant',contrast)
+                  assert all(x['ratio']>=4.5 for x in contrast['checks']),(route,device,'WCAG AA light text',contrast)
                   assert '342' in info['body'],(route,device,'total')
                   assert page.locator('section[aria-label="Filtros"] a[href="#lista-eleitas"]').count()==1,(route,device,'direct access to name index')
                   assert '109 / 513' in info['body'],(route,device,'federal')
