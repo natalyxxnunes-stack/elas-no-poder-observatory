@@ -1,0 +1,25 @@
+name: Preparar amostras visuais legiveis da QA - temporario
+on:
+  push:
+    branches: [redesign-editorial-v3-teste]
+    paths: [.github/workflows/qa-preview-encoded-temp.yml]
+permissions:
+  contents: write
+jobs:
+  preparar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Codificar seis capturas ja feitas como texto temporario de revisao
+        shell: bash
+        run: |
+          set -euo pipefail
+          folder=docs/auditorias/qa-paginas-15nov
+          for filename in dinheiro-desktop-top.jpg dinheiro-mobile-top.jpg dinheiro-desktop-fefc.jpg dinheiro-mobile-fefc.jpg dinheiro-desktop-raca.jpg dinheiro-mobile-raca.jpg home-desktop-top.jpg home-mobile-top.jpg; do
+            base64 -w0 "$folder/$filename" > "$folder/$filename.b64.txt"
+          done
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$folder"/*.b64.txt
+          git commit -m 'qa(temporario): imagens codificadas para revisao visual'
+          git push origin HEAD:redesign-editorial-v3-teste
