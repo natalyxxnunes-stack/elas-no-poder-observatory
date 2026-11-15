@@ -36,6 +36,13 @@ jobs:
             test -s "dist/client/$file"
             echo "OK: $file"
           done
+      - name: Disponibilizar build estático para testes de usabilidade
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-redesign-v3-build
+          path: dist/client/
+          if-no-files-found: error
+          retention-days: 7
       - name: Capturar homepage em desktop e celular
         shell: bash
         run: |
