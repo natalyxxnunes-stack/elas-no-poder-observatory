@@ -162,7 +162,7 @@ function DinheiroPage() {
           <p>
             Só no Senado as mulheres recebem mais do que a presença delas (25,6% da receita, 22,2%
             das candidaturas com receita). Nas assembleias legislativas, quase empatam (34,8% e
-            35,0%). Nas outras, recebem menos: Câmara dos Deputados (31,8% e 36,9%), Câmara
+            34,9%). Nas outras, recebem menos: Câmara dos Deputados (31,8% e 36,9%), Câmara
             Legislativa do DF (29,9% e 35,4%) e governos estaduais (12,2% e 17,8%). Na Presidência,
             as mulheres são 2 das 13 candidaturas com receita; com base tão pequena, a fatia delas
             no dinheiro não vira percentual aqui.
@@ -193,7 +193,7 @@ function DinheiroPage() {
           </p>
           <p className="font-mono text-xs">
             Maiores partidos = os 12 com mais receita declarada para deputada e deputado (MDB, PDT,
-            PL, PODE, PP, PSB, PSD, PSDB, PSOL, PT, Republicanos e União), que somam 88,1% dessa
+            PL, PODE, PP, PSB, PSD, PSDB, PSOL, PT, Republicanos e União), que somam 87,9% dessa
             receita.
           </p>
         </div>
@@ -251,7 +251,7 @@ function DinheiroPage() {
             As campanhas de candidatas a deputada dependem mais do fundo público que as de homens:
             84,3% do que elas pagaram saiu do fundo eleitoral, contra 69,3% entre os homens. A
             dependência é maior entre as pretas (88,1%) e as pardas (85,8%) do que entre as brancas
-            (82,4%). Os homens brancos são o grupo com mais dinheiro de outras fontes: só 66,5% do
+            (82,3%). Os homens brancos são o grupo com mais dinheiro de outras fontes: só 66,5% do
             que pagaram veio do fundo. Dinheiro privado chega mais a eles.
           </p>
         }
@@ -262,7 +262,7 @@ function DinheiroPage() {
           <Vaquinhas />
         </div>
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-          Vaquinhas: candidatas brancas usaram mais (9,8% delas) do que pardas (4,2%) e pretas
+          Vaquinhas: candidatas brancas usaram mais (9,9% delas) do que pardas (4,2%) e pretas
           (8,4%). Somadas, as vaquinhas das candidatas a deputada arrecadaram R$ 3,2 milhões, 24% do
           total arrecadado assim para deputado, com as mulheres sendo 35,6% das candidaturas. Na
           mediana, quem usou vaquinha recebeu de 15 ou 16 pessoas.
