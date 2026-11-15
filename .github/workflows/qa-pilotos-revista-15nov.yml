@@ -105,6 +105,7 @@ jobs:
                     }).map(e=>({t:e.tagName,c:String(e.className).slice(0,100),r:Math.round(e.getBoundingClientRect().right)})).slice(0,15)
                   })''')
                   print('DIAGNOSTICO LARGURA METODO CELULAR:',json.dumps({'bodyWidth':page.evaluate('document.body.scrollWidth'),'windowWidth':width,'elements':rightmost,'root':more},ensure_ascii=False))
+                  assert page.evaluate('document.body.scrollWidth')<=width+3,(route,device,'largura total real',page.evaluate('document.body.scrollWidth'),width)
 
                 if route=='/eleitas/':
                   assert '342' in info['body'],(route,device,'total')
