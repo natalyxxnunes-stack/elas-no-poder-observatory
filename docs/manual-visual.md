@@ -190,3 +190,16 @@ Não confundir: parecer técnico ou avaliação visual preliminar não equivale 
 **Achado transversal:** as três páginas-piloto variaram os tipos de evidência, mas continuam repetindo a lógica de grandes fundos escuros e aberturas repartidas em duas colunas. A identidade aprovada exige **diversidade de soluções por pauta**, não o mesmo cabeçalho com outra imagem. **Recomendação em avaliação:** variar escala, localização e sequência da evidência nas aberturas, mantendo roxo estrutural e paleta original. Isso **não** autoriza trocar a capa, adicionar imagem sem pertinência, criar cores novas, impor foto/vetor a todas as páginas ou fixar percentuais de área por cor.
 
 **Situação:** diagnóstico registrado, **nenhuma nova composição aprovada** e PR #8 ainda em rascunho. Mostrar alternativas justificadas e capturas completas antes de qualquer integração. A versão editável de continuidade recebeu estes achados e o protocolo de atualização em 15/11/2026.
+
+
+### Alternativas em prévia para distinguir as aberturas — 15/11/2026
+
+**Estado:** propostas implementadas **somente** na branch `pilotos-revista-visual-15nov2026` do [PR #8](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/pull/8), ainda **não aprovadas editorialmente**, sem merge nem publicação. Referência visual: auditoria integrada de página inteira em desktop e celular.
+
+- **Quem entrou?** alternativa transversal em `--art-coral` com total das mulheres eleitas em destaque; proporções por cargo passam à faixa separada em `--ink`, com universos e denominadores preservados. Os filtros ganham link direto à lista nominal. Testar especialmente se a área coral em larga escala respeita a linguagem adulta e mantém legibilidade; **não torná-la padrão automático**.
+- **Reportagens:** alternativa com manchete de investigação em largura total, sobre `--art-plum`, seguida do placar das seis votações em largura total sobre tinta, em duas colunas no desktop. Preservar contagens, datas, fonte, contexto do voto literal e ressalvas. **Não é fac-símile nem substitui a reportagem completa.**
+- **Método:** abertura documental com captura real do TSE mantida inalterada nesta rodada; a variedade deve resultar da função da evidência, não da aplicação da mesma grade em todas as páginas.
+
+**Critério de decisão:** conferir capturas reais das páginas completas e sua primeira dobra em desktop e celular, legibilidade, contraste, navegação, e depois aprovar/rejeitar **cada proposta**. O fato de as cores já pertencerem à paleta aprovada **não autoriza** sua aplicação nesta escala sem avaliação.
+
+O arquivo editável permanente `Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md` foi atualizado, na seção 14.4/14.5, com os mesmos estados e critérios. **Nenhuma nova composição foi incorporada como regra aprovada deste manual.**
