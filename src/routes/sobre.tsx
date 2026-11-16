@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { formatInt } from "@/lib/format-br";
 import { CHANGE_TO } from "@/data/o-que-mudou";
@@ -46,32 +45,57 @@ const COMMITMENTS = [
 function SobrePage() {
   return (
     <PageShell breadcrumb={[{ label: "Projeto" }, { label: "Sobre" }]}>
-      <EditorialOpening
-        variant="manifesto"
-        kicker="Sobre"
-        question="Quem faz?"
-        lead={
-          <p>
-            Sou Nataly Nunes Pinto, jornalista. A cada eleição, os números sobre
-            mulheres na política viram manchete e se perdem em poucos dias. O{" "}
-            {SITE.name} guarda esses números no lugar certo: registros do TSE,
-            receitas de campanha e série histórica desde 2014, lidos com método
-            declarado e atualizados até o fim da apuração.
-          </p>
-        }
-        aside={
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-plum-deep text-paper">
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[1.35fr_.65fr] lg:gap-16">
           <div>
-            <p className="text-[13px] text-ink/65 font-semibold">O projeto</p>
-            <p className="mt-2 font-display text-lg leading-snug text-ink">
-              {SITE.name}
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">
+              Sobre · Quem faz?
             </p>
-            <p className="mt-1 text-sm text-muted-foreground">{SITE.tagline}</p>
-            <p className="mt-3 font-mono text-[13px] text-muted-foreground">
-              {SITE.cycle}
+            <h1 className="mt-5 font-display text-[clamp(3.5rem,6.5vw,6.2rem)] leading-none">
+              Quem faz?
+            </h1>
+            <p className="mt-7 max-w-3xl text-[17px] leading-relaxed text-paper/90">
+              Sou Nataly Nunes Pinto, jornalista. A cada eleição, os números sobre
+              mulheres na política viram manchete e se perdem em poucos dias. O{" "}
+              {SITE.name} guarda esses números no lugar certo: registros do TSE,
+              receitas de campanha e série histórica desde 2014, lidos com método
+              declarado e atualizados até o fim da apuração.
             </p>
           </div>
-        }
-      />
+          <aside aria-label="Documentação de referência do projeto" className="min-w-0 border-t-4 border-[var(--art-gold)] pt-5">
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">As fontes podem ser abertas</p>
+            <p className="mt-3 font-display text-2xl leading-tight text-paper">
+              A documentação está ao alcance da leitura.
+            </p>
+            <p className="mt-3 text-[14px] leading-relaxed text-paper/80">
+              Links para a origem dos dados e para o método de recontagem.
+              Documentos oficiais são identificados como fontes; não como
+              ilustrações genéricas.
+            </p>
+            <ul className="mt-5 divide-y divide-paper/25 border-y border-paper/25 text-[14px] font-semibold">
+              <li>
+                <a
+                  href="https://dadosabertos.tse.jus.br/dataset/candidatos-2026"
+                  target="_blank" rel="noreferrer"
+                  className="flex min-h-12 items-center justify-between gap-3 py-3 text-paper underline-offset-4 hover:underline focus-visible:outline-2"
+                >
+                  TSE · Candidatos 2026 <span aria-hidden="true">↗</span>
+                </a>
+              </li>
+              <li>
+                <a href="/metodo" className="flex min-h-12 items-center justify-between gap-3 py-3 text-paper underline-offset-4 hover:underline focus-visible:outline-2">
+                  Método e limitações <span aria-hidden="true">↗</span>
+                </a>
+              </li>
+              <li>
+                <a href="#correcoes" className="flex min-h-12 items-center justify-between gap-3 py-3 text-paper underline-offset-4 hover:underline focus-visible:outline-2">
+                  Política de correções <span aria-hidden="true">↓</span>
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </header>
 
       {/* Ficha do projeto — cartão institucional escaneável no topo da página */}
       <section className="py-8 md:py-10">

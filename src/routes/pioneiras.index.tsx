@@ -3,6 +3,7 @@ import { PageShell } from "@/components/PageShell";
 import { PerfilCard } from "@/components/editorial/Pioneiras";
 import { EM_APURACAO, PERFIS_PIONEIRAS, PIONEIRAS_CRITERIO } from "@/data/perfis-pioneiras";
 import { PIONEIRAS } from "@/data/pioneiras";
+import { FOTOS } from "@/data/fotos";
 
 export const Route = createFileRoute("/pioneiras/")({
   head: () => ({
@@ -26,21 +27,49 @@ function PioneirasPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Pioneiras" }]}>
-      <header className="relative left-1/2 -ml-[50vw] w-screen bg-plum-deep text-paper">
-        <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
-          <p className="text-xs font-semibold uppercase tracking-wide text-lilac">
-            Série · {publicados.length} perfis publicados
-          </p>
-          <h1 className="mt-5 max-w-3xl font-display text-[clamp(2.8rem,5.5vw,4.7rem)] font-semibold leading-[1.02]">
-            Quem abriu o caminho
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-paper/85">
-            {PIONEIRAS_CRITERIO} Quando ela disputou uma eleição, o perfil traz a votação oficial,
-            recontada, e separa o que tem documento do que é reputação.
-          </p>
-          <a href="#perfis" className="mt-6 inline-flex min-h-11 items-center font-semibold text-paper underline decoration-lilac decoration-2 underline-offset-4">
-            Conhecer as trajetórias ↘
-          </a>
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
+        <div className="mx-auto grid max-w-7xl gap-x-12 gap-y-9 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[.84fr_1.16fr] lg:items-center">
+          <div>
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">
+              Série Pioneiras · {publicados.length} perfis publicados
+            </p>
+            <h1 className="mt-5 max-w-3xl font-display text-[clamp(3rem,5.6vw,5.5rem)] leading-[1.04]">
+              Quem abriu o caminho
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-paper/85">
+              {PIONEIRAS_CRITERIO} Quando uma mulher disputou uma eleição, o
+              perfil distingue a votação oficial de relatos e interpretações
+              posteriores.
+            </p>
+            <a href="#perfis" className="mt-6 inline-flex min-h-11 items-center border-b-2 border-[var(--art-gold)] text-sm font-semibold text-paper focus-visible:outline-2">
+              Conhecer as trajetórias <span aria-hidden="true" className="ml-2">↓</span>
+            </a>
+          </div>
+          <figure className="min-w-0">
+            <img
+              src={FOTOS["posse-bertha-lutz-1936"]!.src}
+              alt={FOTOS["posse-bertha-lutz-1936"]!.alt}
+              width={2880}
+              height={2116}
+              loading="eager"
+              className="aspect-[4/3] w-full object-cover"
+            />
+            <figcaption className="mt-3 max-w-2xl text-[13px] leading-relaxed text-paper/85">
+              <strong className="font-semibold text-paper">Fotografia documental · 28 de julho de 1936.</strong>{" "}
+              Bertha Lutz após sua posse na Câmara, no Rio de Janeiro, entre
+              familiares, feministas e outras pessoas. Domínio público /
+              Acervo Arquivo Nacional, fundo Federação Brasileira pelo Progresso
+              Feminino. O registro retrata aquela ocasião histórica.
+              {" "}<a
+                href={FOTOS["posse-bertha-lutz-1936"]!.licencaUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="font-semibold text-paper underline underline-offset-4"
+              >
+                Consultar origem e condições de uso ↗
+              </a>
+            </figcaption>
+          </figure>
         </div>
       </header>
 
