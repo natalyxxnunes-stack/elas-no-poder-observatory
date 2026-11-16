@@ -1,0 +1,165 @@
+name: QA — matriz visual-documental de revista, site integral
+on:
+  push:
+    branches: [revista-evidencias-visuais-documentais-16nov2026]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  evidencia-integral:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Compilar e verificar Tipos
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Preservação da identidade e das bases originais
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin revista-14-rotas-integral-16nov2026
+          test -z "$(git diff --name-only origin/revista-14-rotas-integral-16nov2026...HEAD -- src/data public/fotos public/dados public/documentos public/materiais src/styles.css src/routes/index.tsx src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
+          test -s public/documentos/tse-candidatos-2026-portal.png
+          test -s public/fotos/plenario-camara-junho-2026.jpg
+          test -s docs/matriz-fotografias-documentos-graficos-16nov2026.md
+          echo "Dados, home, logo e arquivos de acervo preservados."
+      - name: Instalar navegador de teste
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Capturar integralmente as 35 rotas e variantes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p capturas-editoriais
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-qa25.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          routes = [
+            ('/', 'home-controle'),
+            ('/achados/quanto-mais-alto-mais-brancas', 'achado-individual'),
+            ('/achados', 'achados'),
+            ('/barreiras', 'barreiras'),
+            ('/busca?q=mulheres', 'busca'),
+            ('/calendario', 'calendario'),
+            ('/coautoria', 'coautoria'),
+            ('/colecoes/antigenero-no-poder', 'colecao'),
+            ('/como-votaram', 'como-votaram'),
+            ('/comparar', 'comparar'),
+            ('/dados', 'dados'),
+            ('/dinheiro', 'dinheiro'),
+            ('/direitos', 'direitos'),
+            ('/downloads', 'downloads'),
+            ('/eleitas/perpetua-almeida-ac', 'eleita-individual'),
+            ('/eleitas', 'eleitas-indice'),
+            ('/em-disputa', 'em-disputa'),
+            ('/funil', 'funil'),
+            ('/historico', 'historico'),
+            ('/investigacoes', 'investigacoes'),
+            ('/metodo', 'metodo'),
+            ('/monitor', 'monitor'),
+            ('/na-voz-delas', 'na-voz-delas'),
+            ('/partidos', 'partidos'),
+            ('/pioneiras', 'pioneiras-indice'),
+            ('/pioneiras/lelia-gonzalez', 'lelia'),
+            ('/pioneiras/pagu', 'pagu'),
+            ('/quem-chega', 'quem-chega'),
+            ('/quem-controla', 'quem-controla'),
+            ('/quem-sao-elas', 'quem-sao-elas'),
+            ('/relatorio-2026', 'relatorio-2026'),
+            ('/reportagens', 'reportagens'),
+            ('/sobre', 'sobre'),
+            ('/temas', 'temas-indice'),
+            ('/temas/agenda', 'tema-agenda'),
+            ('/temas/dinheiro', 'tema-dinheiro'),
+            ('/temas/memoria', 'tema-memoria'),
+            ('/temas/poder', 'tema-poder'),
+            ('/temas/presenca', 'tema-presenca'),
+            ('/temas/violencia', 'tema-violencia'),
+            ('/votos', 'votos'),
+          ]
+          records=[]
+          failed=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for device,w,h in [('desktop',1440,900),('celular',390,844)]:
+              ctx=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=1)
+              for route,name in routes:
+                page=ctx.new_page()
+                errors=[]
+                page.on('pageerror',lambda error:errors.append(str(error)))
+                try:
+                  res=page.goto('http://127.0.0.1:4173'+route,wait_until='domcontentloaded',timeout=30000)
+                  page.evaluate("""async () => {
+                    const imgs=Array.from(document.images);
+                    imgs.forEach(img => { img.loading='eager'; });
+                    await Promise.all(imgs.map(img => img.decode().catch(() => {})));
+                  }""")
+                  page.wait_for_timeout(160)
+                  doc=page.evaluate("""() => ({
+                    scrollWidth:document.documentElement.scrollWidth,
+                    main:!!document.querySelector('#conteudo'),
+                    titles: Array.from(document.querySelectorAll('main h1')).map(n=>n.textContent.trim().slice(0,100)),
+                    brokenImages:Array.from(document.images).filter(n=>n.complete && n.naturalWidth===0).map(n=>n.getAttribute('src')),
+                    photos:Array.from(document.images).filter(n=>n.getAttribute('src')?.startsWith('/fotos/')).map(n=>n.getAttribute('src')),
+                    sources:document.querySelectorAll('main a[href*="tse.jus.br"], main a[href*="camara.leg.br"]').length,
+                  })""")
+                  if name=='comparar':
+                    if page.locator('#comparar-distancia figure').count()<3:
+                      errors.append('Gráfico comparativo não aparece nos recortes padrão')
+                    if device=='desktop':
+                      page.get_by_role('button',name='Estados',exact=True).click()
+                      if page.locator('#comparar-distancia figure').count()<3:
+                        errors.append('Gráfico comparativo não reagiu ao filtro de Estados')
+                  if name=='dados' and page.locator('img[src="/documentos/tse-candidatos-2026-portal.png"]').count()<1:
+                    errors.append('Captura real do portal do TSE ausente')
+                  if name=='dinheiro' and page.get_by_text('Metadados da extração, não fac-símile do TSE').count()<1:
+                    errors.append('Ficha de proveniência financeira ausente')
+                  if name=='relatorio-2026':
+                    if page.locator('img[src="/fotos/plenario-camara-junho-2026.jpg"]').count()<1:
+                      errors.append('Foto contextual da Câmara ausente')
+                    if page.get_by_text('Gráfico de síntese · Deputados em 2026').count()<1:
+                      errors.append('Gráfico com denominador ausente')
+                  if name=='reportagens' and page.locator('img[src="/fotos/plenario-igualdade-salarial-2023.jpg"]').count()<1:
+                    errors.append('Foto de arquivo da reportagem ausente')
+                  if name=='pagu' and any('pagu-patricia' in src for src in doc['photos']):
+                    errors.append('Retrato de Pagu com direitos pendentes aparece na página')
+                  shot='capturas-editoriais/'+name+'-'+device+'.png'
+                  page.screenshot(path=shot,full_page=True,animations='disabled',timeout=30000)
+                  rec={'rota':route,'nome':name,'viewport':device,'http':res.status if res else None,'largura':doc['scrollWidth'],
+                       'largura_visivel':w,'h1':doc['titles'],'fotos':doc['photos'],'fontes_institucionais':doc['sources'],
+                       'imagens_falhas':doc['brokenImages'],'erros_js':errors,'captura':shot}
+                  records.append(rec)
+                  if rec['http']!=200 or doc['scrollWidth']>w+2 or not doc['main'] or not doc['titles'] or doc['brokenImages'] or errors:
+                    failed.append(rec)
+                except Exception as e:
+                  failed.append({'rota':route,'viewport':device,'erro':str(e)})
+                finally:
+                  page.close()
+              ctx.close()
+            browser.close()
+          Path('capturas-editoriais/relatorio.json').write_text(json.dumps({'registros':records,'falhas':failed},ensure_ascii=False,indent=2))
+          print('Total de capturas',len(records),'falhas',len(failed))
+          for f in failed[:10]: print('ERRO',json.dumps(f,ensure_ascii=False))
+          assert not failed, 'Ver capturas-editoriais/relatorio.json'
+          PY
+      - name: Arquivar capturas e matriz de evidências
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-pr25-auditoria-documental-35-paginas
+          path: |
+            capturas-editoriais/
+            docs/matriz-fotografias-documentos-graficos-16nov2026.md
+            docs/manual-visual.md
+            Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md
+          retention-days: 14
