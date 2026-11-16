@@ -139,31 +139,34 @@ function MobileUniverseRows({ series, universe }: { series: Series; universe: Un
     "serie-mulheres-negras-entre-mulheres",
     "serie-mulheres-negras-eleitas",
   ].includes(series.id);
+
   return (
     <section aria-label={`Leitura por ano: ${UNIVERSE_LABEL[universe]}`}>
       <h3 className="font-sans text-sm font-semibold text-plum">{UNIVERSE_LABEL[universe]}</h3>
-      <ol className="mt-3 divide-y divide-rule border-y border-rule">
+      <ol className="mt-2 divide-y divide-rule border-y border-rule">
         {points.map((p) => {
           const preta = splitRace && p.denominator && p.pretaNumerator !== undefined
             ? (p.pretaNumerator / p.denominator) * 100 : null;
           const parda = splitRace && p.denominator && p.pardaNumerator !== undefined
             ? (p.pardaNumerator / p.denominator) * 100 : null;
           return (
-            <li key={p.year} className="grid min-w-0 grid-cols-[4.1rem_minmax(0,1fr)] gap-3 py-4">
-              <p className={`font-display text-2xl leading-tight ${p.year === 2026 ? "text-coral-ink" : "text-plum"}`}>
+            <li key={p.year} className="grid min-w-0 grid-cols-[3.5rem_minmax(0,1fr)] gap-2.5 py-2.5">
+              <p className={`font-display text-xl leading-tight ${p.year === 2026 ? "text-coral-ink" : "text-plum"}`}>
                 {p.year}
               </p>
               <div className="min-w-0">
-                <p className="font-display text-2xl font-semibold leading-none text-ink">
-                  {p.value === null ? "Sem dado" : `${fmt(p.value)}%`}
-                </p>
-                <p className="mt-1 font-mono text-[12px] leading-relaxed text-ink/75">
-                  {p.numerator !== null && p.denominator !== null
-                    ? `${formatInt(p.numerator)} de ${formatInt(p.denominator)}`
-                    : p.unavailableReason ?? "Sem dado no arquivo"}
-                </p>
+                <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
+                  <strong className="font-display text-xl leading-none text-ink">
+                    {p.value === null ? "Sem dado" : `${fmt(p.value)}%`}
+                  </strong>
+                  <span className="font-mono text-[11px] leading-snug text-ink/75">
+                    {p.numerator !== null && p.denominator !== null
+                      ? `${formatInt(p.numerator)} de ${formatInt(p.denominator)}`
+                      : p.unavailableReason ?? "Sem registro"}
+                  </span>
+                </div>
                 {p.value !== null && (
-                  <div className="mt-2 h-2.5 w-full bg-muted" aria-hidden="true">
+                  <div className="mt-1.5 h-2 w-full bg-muted" aria-hidden="true">
                     {preta !== null && parda !== null ? (
                       <div className="flex h-full">
                         <span className="h-full" style={{ width: `${Math.min(preta, 100)}%`, backgroundColor: RACE_COLORS.preta }} />
@@ -176,9 +179,8 @@ function MobileUniverseRows({ series, universe }: { series: Series; universe: Un
                   </div>
                 )}
                 {preta !== null && parda !== null && (
-                  <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[12px] leading-relaxed text-ink/80">
-                    <span>Preta: {fmt(preta)}%</span>
-                    <span>Parda: {fmt(parda)}%</span>
+                  <p className="mt-1 font-mono text-[11px] leading-snug text-ink/80">
+                    Pretas {fmt(preta)}% · Pardas {fmt(parda)}%
                   </p>
                 )}
               </div>
@@ -186,9 +188,6 @@ function MobileUniverseRows({ series, universe }: { series: Series; universe: Un
           );
         })}
       </ol>
-      <p className="mt-3 text-[12px] leading-relaxed text-ink/75">
-        Escala de 0 a 100% em todos os anos. A ficha e a fonte da série estão abaixo.
-      </p>
     </section>
   );
 }
