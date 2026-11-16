@@ -65,6 +65,63 @@ function DireitosPage() {
         milestones={RIGHTS_TIMELINE.slice(0, 6).map(({ year, title }) => ({ year, title }))}
       />
 
+      {/*
+        Documento histórico real, transcrito do art. 2º da publicação
+        informatizada pela Câmara. Não é um fac-símile fotográfico do DOU.
+        A própria Câmara informa que o texto eletrônico não substitui o original
+        do Diário Oficial da União de 26/02/1932.
+      */}
+      <section
+        aria-labelledby="direitos-documento-1932"
+        className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper"
+      >
+        <div className="mx-auto grid max-w-7xl gap-9 px-5 py-11 md:px-8 md:py-15 lg:grid-cols-[.65fr_1.35fr] lg:gap-14">
+          <div>
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">
+              Fonte primária · Legislação histórica
+            </p>
+            <h2 id="direitos-documento-1932" className="mt-4 font-display text-[clamp(2rem,3.5vw,3.4rem)] leading-[1.1]">
+              O que dizia o Código Eleitoral de 1932
+            </h2>
+            <p className="mt-5 max-w-md text-[14px] leading-relaxed text-paper/80">
+              Decreto nº 21.076, de 24 de fevereiro de 1932. A Câmara registra
+              a publicação original no Diário Oficial da União de 26 de fevereiro,
+              página 3385. É uma norma histórica, posteriormente revogada.
+            </p>
+          </div>
+          <figure className="min-w-0 border-l-4 border-[var(--art-gold)] pl-6 md:pl-9">
+            <p className="font-mono text-[13px] text-[var(--art-gold)]">
+              Código Eleitoral · Art. 2º
+            </p>
+            <blockquote className="mt-6 max-w-3xl font-display text-[clamp(1.8rem,3.2vw,3.5rem)] leading-[1.15]">
+              E&apos; eleitor o cidadão maior de 21 anos, sem distinção de sexo,
+              alistado na fórma deste Codigo.
+            </blockquote>
+            <figcaption className="mt-7 max-w-3xl text-[13px] leading-relaxed text-paper/80">
+              Transcrição literal do texto legislativo disponibilizado pela
+              Câmara dos Deputados; preservada a grafia histórica. Não é imagem
+              do documento original nem reprodução fotográfica do Diário Oficial.
+              {" "}<a
+                href="https://www2.camara.leg.br/legin/fed/decret/1930-1939/decreto-21076-24-fevereiro-1932-507583-publicacaooriginal-1-pe.html"
+                target="_blank"
+                rel="noreferrer"
+                className="font-semibold text-paper underline underline-offset-4"
+              >
+                Consultar a transcrição na Câmara ↗
+              </a>
+              {" "} <a
+                href="https://www2.camara.leg.br/legin/fed/decret/1930-1939/decreto-21076-24-fevereiro-1932-507583-norma-pe.html"
+                target="_blank"
+                rel="noreferrer"
+                className="font-semibold text-paper underline underline-offset-4"
+              >
+                Conferir o registro da norma ↗
+              </a>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
       <div className="pb-4">
         <InBrief
           foundLabel={`${timelineCount} marcos, uma linha`}
