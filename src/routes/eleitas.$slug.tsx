@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { GapNote } from "@/components/GapNote";
 import { FotoDocumental } from "@/components/editorial/FotoDocumental";
+import { CadernoDeFontes } from "@/components/editorial/CadernoDocumentalRevista";
 import { FOTOS } from "@/data/fotos";
 import { Secao } from "@/components/editorial/Secao";
 import { ELEITAS_2026, ELEITAS_META } from "@/data/eleitas-2026";
@@ -82,26 +83,26 @@ function EleitaPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Quem entrou", to: "/eleitas" }, { label: e.nome }]}>
-      <header className="relative left-1/2 -ml-[50vw] w-screen bg-cream">
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 py-11 md:px-8 md:py-16 lg:grid-cols-[1.15fr_.85fr] lg:items-center lg:gap-12">
           <div className="min-w-0">
-            <p className="text-xs font-semibold uppercase tracking-wide text-plum">
+            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--art-gold)]">
               Quem entrou · Ficha eleitoral · {CARGO_ROTULO[e.cargo]}
             </p>
-            <h1 className="mt-4 max-w-2xl break-words font-display text-[clamp(2.4rem,4.5vw,4.5rem)] font-semibold leading-[1.04] text-ink">
+            <h1 className="mt-4 max-w-2xl break-words font-display text-[clamp(2.4rem,4.5vw,4.5rem)] font-semibold leading-[1.04] text-paper">
               {e.nome}
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/85">
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-paper/85">
               Eleita {CARGO_ROTULO[e.cargo]} {lugar} em 2026
               {e.cargo === "governadora" ? (e.turno === 2 ? ", no 2º turno" : ", no 1º turno") : ""} ({e.partido}).
             </p>
-            <p className="mt-5 text-xs text-ink/65">
+            <p className="mt-5 text-xs text-paper/70">
               Ficha baseada no resultado eleitoral de 2026. Exercício do mandato é registrado separadamente,
               quando houver confirmação da posse.
             </p>
           </div>
           <div className="min-w-0">
-            {FOTOS[`eleita-${e.slug}`] ? (
+            {FOTOS[`eleita-${e.slug}`] && FOTOS[`eleita-${e.slug}`]?.licenca !== "verificacao-pendente" ? (
               <FotoDocumental id={`eleita-${e.slug}`} />
             ) : (
               <aside className="border border-rule bg-paper p-6 md:p-8" aria-label="Identificação do registro eleitoral">
@@ -127,7 +128,7 @@ function EleitaPage() {
         </div>
       </header>
 
-      <section className="py-6">
+      <section id="registro-eleita" className="border-b border-rule py-9 md:py-12">
         <Secao nome="O registro" tipo="TSE" />
         <dl className="mt-4 grid max-w-3xl gap-x-8 sm:grid-cols-2">
           {[
@@ -151,7 +152,7 @@ function EleitaPage() {
       </section>
 
       {traj ? (
-        <section className="py-8">
+        <section className="my-8 border-l-[5px] border-plum bg-cream px-5 py-9 md:px-8">
           <Secao nome="Trajetória" tipo="no registro do TSE" />
           <dl className="mt-4 grid max-w-3xl gap-x-8 sm:grid-cols-2">
             {[
@@ -207,7 +208,7 @@ function EleitaPage() {
       ) : null}
 
       {monitor ? (
-        <section className="py-8">
+        <section className="my-8 border-l-[5px] border-[var(--art-coral)] bg-cream px-5 py-9 md:px-8">
           <Secao nome="Na Câmara em 2026" tipo="monitor de mandato" />
           <dl className="mt-4 grid max-w-3xl gap-4 sm:grid-cols-3">
             <div className="border-t-[3px] border-plum pt-2">
@@ -272,7 +273,7 @@ function EleitaPage() {
         </GapNote>
       </section>
 
-      <section className="border-t border-rule py-8">
+      <section className="border-t border-rule py-10">
         <Secao nome="Sobre esta ficha" pequeno />
         <dl className="mt-3 grid max-w-3xl gap-x-8 gap-y-3 text-[14px] leading-relaxed text-ink/80 sm:grid-cols-[10rem_1fr]">
           <dt className="font-semibold text-ink">Endereço permanente</dt>
@@ -302,6 +303,17 @@ function EleitaPage() {
           </dd>
         </dl>
       </section>
+
+
+      <CadernoDeFontes
+        editoria="Identidade e documentos · Ficha individual"
+        titulo="Registro de eleita e exercício do cargo são etapas diferentes."
+        nota="As informações desta ficha derivam de registros eleitorais, sem fotos geradas por IA nem dados pessoais privados publicados. A eleição é verificável no TSE; atuação institucional depende de registros posteriores da Câmara, do Senado ou do governo correspondente."
+        documentos={[
+          { rotulo: "TSE · Base eleitoral", titulo: "Candidatos 2026", url: "https://dadosabertos.tse.jus.br/dataset/candidatos-2026", descricao: `Universo da ficha: ${CARGO_ROTULO[e.cargo]}, ${e.uf}, ${e.partido}. Arquivo gerado em ${ELEITAS_META.baseGeneratedAt}.` },
+          { rotulo: "Quem são elas? · Fichas", titulo: "Método de cruzamento e proteção dos dados", url: "/metodo#fichas", descricao: "Definição de situação eleitoral, vínculo entre séries e critérios de publicação." },
+        ]}
+      />
 
       {naOutraPonta.length ? (
         <section className="py-8 pb-16">

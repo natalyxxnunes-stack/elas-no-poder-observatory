@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { Secao } from "@/components/editorial/Secao";
+import { FotografiaEmContexto, CadernoDeFontes } from "@/components/editorial/CadernoDocumentalRevista";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { Registro } from "@/components/editorial/Registro";
 import { COAUTORIA_LIGACOES, COAUTORIA_META, COAUTORIA_NOS } from "@/data/coautoria-camara";
@@ -55,17 +56,17 @@ function CoautoriaPage() {
   const entre = PEQUENAS.filter((l) => l.entrePartidos).length;
   return (
     <PageShell breadcrumb={[{ label: "No poder", to: "/como-votaram" }, { label: "Quem assina junto" }]}>
-      <header className="py-10 md:py-14">
-        <Secao nome="Quem assina junto" tipo="rede documentada" />
-        <h1 className="mt-4 max-w-4xl font-display text-4xl font-semibold leading-tight text-plum md:text-6xl">{titulo}</h1>
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink/80">
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-plum text-paper"><div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
+        <p className="text-[13px] font-semibold text-[var(--art-gold)]">Rede documentada · Câmara dos Deputados</p>
+        <h1 className="mt-4 max-w-4xl font-display text-4xl font-semibold leading-[1.08] text-paper md:text-6xl">{titulo}</h1>
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-paper/85">
           De {n(COAUTORIA_META.proposicoes)} projetos (PL, PLP, PEC e PDL) apresentados com ao menos uma deputada entre os autores
           em 2026, {n(SOZINHA)} foram assinados por ela sozinha. Só {n(COM_COAUTORA)} das {n(COAUTORIA_META.deputadas)} deputadas
           dividiram a autoria de algum projeto com outra deputada, fora os abaixo-assinados com mais de 20 nomes.
         </p>
-      </header>
+      </div></header>
 
-      <div className="grid max-w-4xl gap-4 border-y border-rule py-5 sm:grid-cols-3">
+      <div className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-gold)] text-ink"><div className="mx-auto grid max-w-7xl gap-6 px-5 py-9 md:grid-cols-3 md:px-8 md:py-12">
         <div>
           <p className="font-display text-4xl text-plum">{n(PEQUENAS.length)}</p>
           <p className="text-[14px] text-ink/80">pares de deputadas que assinaram ao menos um projeto juntas</p>
@@ -78,7 +79,14 @@ function CoautoriaPage() {
           <p className="font-display text-4xl text-plum">{n(COAUTORIA_META.proposicoesComMaisDe20Autores)}</p>
           <p className="text-[14px] text-ink/80">projetos com mais de 20 autores, contados à parte</p>
         </div>
-      </div>
+      </div></div>
+      <FotografiaEmContexto
+        fotoId="plenario-camara-junho-2026"
+        tom="ink"
+        editoria="Fotografia contextual · Câmara dos Deputados"
+        titulo="A autoria se registra em documentos."
+        contexto="A imagem documenta uma sessão legislativa em junho de 2026; não retrata a assinatura dos projetos analisados. As ligações entre deputadas, nesta página, são recontadas pelos registros de autoria dos projetos na API da Câmara."
+      />
 
       <section className="py-12" aria-labelledby="matriz">
         <Secao nome="Entre partidos" />
@@ -131,7 +139,7 @@ function CoautoriaPage() {
         </div>
       </section>
 
-      <section className="pb-12" aria-labelledby="pares">
+      <section className="relative left-1/2 -ml-[50vw] w-screen bg-cream text-ink" aria-labelledby="pares"><div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
         <Secao nome="Os pares" />
         <h2 id="pares" className="mt-3 font-display text-2xl leading-snug text-ink md:text-3xl">Quem mais assinou junto</h2>
         <ol className="mt-5 max-w-4xl divide-y divide-rule border-y border-rule">
@@ -168,7 +176,7 @@ function CoautoriaPage() {
             );
           })}
         </ol>
-      </section>
+        </div></section>
 
       <section className="max-w-3xl space-y-4 pb-12">
         <Registro tipo="fato">
@@ -193,6 +201,16 @@ function CoautoriaPage() {
           </p>
         </Registro>
       </section>
+
+      <CadernoDeFontes
+        editoria="Caderno documental · Autoria legislativa"
+        titulo="Cada par tem propostas para conferir."
+        nota="A coautoria é definida pela presença de duas deputadas na relação oficial de autores de uma mesma proposta. Os exemplos estão ligados ao inteiro registro da Câmara; não se trata de atribuir intenção ou afinidade pessoal."
+        documentos={[
+          { rotulo: "Câmara dos Deputados · API v2", titulo: "Dados Abertos da Câmara", url: "https://dadosabertos.camara.leg.br/", descricao: "Consulta de proposições e autores, com o recorte e a data de coleta indicados na metodologia." },
+          { rotulo: "Quem são elas? · Método", titulo: "Regra de recontagem", url: "/metodo", descricao: "Definições de universo, exclusões de listas com mais de 20 autores e limites interpretativos." },
+        ]}
+      />
 
       <ComoSabemos
         fonte="Câmara dos Deputados, Dados Abertos (API v2): /proposicoes e /proposicoes/{id}/autores"

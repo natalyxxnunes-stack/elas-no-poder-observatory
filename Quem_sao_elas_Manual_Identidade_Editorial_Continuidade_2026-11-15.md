@@ -644,3 +644,46 @@ O repositório tem 37 arquivos de rota. Considerando 21 modelos de página traba
 Conferir primeiro a integração e a legibilidade das 13 páginas recuperadas. Depois avançar nas 14 rotas restantes, sem perder as versões anteriores. Fazer uma segunda rodada de apuração visual e documental em toda a cadeia PRs #12–#22, especialmente Relatório 2026 e Dinheiro. Cruzar fontes, períodos, denominadores e categorias de cor/raça. Manter todas as mudanças como PRs de prévia até a autorização explícita de publicação.
 
 **Governança do manual:** os 609 registros/linhas anteriores foram recuperados integralmente da cópia da Biblioteca e permanecem neste mesmo arquivo, com o capítulo 15 acrescentado na branch do PR #23. O arquivo normativo do repositório continua sendo docs/manual-visual.md. A cópia pessoal da Biblioteca não pôde ser substituída em seu local original por falta de permissão para materializar seus bytes, portanto este Markdown sob o nome original na branch #23 é a cópia editável atualizada para continuidade.
+
+---
+
+## 16. Rodada integral das 14 rotas restantes — PR #24, 16/11/2026
+
+**Estado:** prévia em GitHub, sem integração à main e sem deploy. Branch revista-14-rotas-integral-16nov2026, baseada no PR #23. A direção visual da revista continua a aprovada nos pilotos: roxo estrutural, tinta, papel, dourado e coral profundo com texto claro. Marca, homepage, CSS global, bases eleitorais e os arquivos de fotos e documentos existentes permanecem intocados.
+
+### 16.1. Todas as rotas revisadas
+
+1. **Achado individual** (/achados/$id): capa em roxo com número do registro, datas e caderno verificável de origem e método, sem repetir indevidamente a manchete do card.
+2. **Busca** (/busca): abertura em tinta; formulário com contraste; categorias de resultados em superfícies de papel e creme; preservados parâmetro q, URL e links.
+3. **Calendário** (/calendario): abertura em roxo; meses organizados por faixas, com papel, creme e dourado; mantidos datas, fontes, diferenciação do andamento e cálculo do próximo evento no navegador.
+4. **Coautoria** (/coautoria): abertura em roxo, régua numérica dourada, matriz de partidos e pares preservados, fotografia real da Câmara em junho de 2026 explicitamente apresentada como contexto, não prova de autoria; fontes documentais e fórmulas intactas.
+5. **Coleção antigênero** (/colecoes/antigenero-no-poder): capa em tinta, números em superfícies distintas, critérios e falas preservados e caderno documental; sem atribuir intenções individuais a partir da seleção editorial de duas votações. Corrigido contraste da abertura após conferência do código.
+6. **Como votaram** (/como-votaram): abertura fotográfica original preservada, mais caderno documental entre critérios e consulta; as seis votações e a matriz nominal seguem disponíveis.
+7. **Ficha individual de eleita** (/eleitas/$slug): capa em tinta, dados de registro, trajetória, voto, atuação e fontes; destaque a documentos primários e resguardo de fotografias sem licença verificada.
+8. **Em disputa** (/em-disputa): normas em cards e caderno de fontes originais com status, data e limitações; sem transformar uma proposição em norma vigente por inferência.
+9. **Lélia Gonzalez** (/pioneiras/lelia-gonzalez): caderno das séries históricas 1982 e 1986 do TSE, distinção de cargo e grafia, fonte e limites.
+10. **Pagu** (/pioneiras/pagu): caderno histórico de votação de 1950 e limites de inferência de gênero; fotografia classificada como verificacao-pendente **deixa de ser exibida**. Em seu lugar permanece a ficha tipográfica identificada, claramente distinta de reprodução do documento original.
+11. **Quem chega** (/quem-chega): fotografia real da bancada feminina de março de 2026 com ressalva temporal, resultados e composição por raça preservados, caderno TSE e distinção entre eleição e exercício de poder.
+12. **Consultar candidatas** (/quem-sao-elas): captura real e contextualizada do portal de Dados Abertos do TSE, com distinção explícita entre interface e CSV; categorias preta e parda permanecem separadas; cruzamentos e ferramentas preservados.
+13. **Tema individual** (/temas/$slug): seis temas com capítulos em tinta para atores e coral profundo para lacunas, texto claro; fotografia de Bertha Lutz em Memória e plenário em Agenda, quando têm pertinência; sem decorar todas as páginas.
+14. **Votos** (/votos): três universos (candidaturas, votos nominais válidos, cadeiras) com numeradores e denominadores, caderno de fontes TSE e cálculos originais preservados.
+
+**Peça de apoio:** src/components/editorial/CadernoDocumentalRevista.tsx contém componentes de fotografia contextualizada, captura oficial do portal do TSE e caderno documental. Trabalha só com fotos previamente cadastradas no acervo local, exclui qualquer entrada com licença verificacao-pendente e publica créditos/links de origem.
+
+**Resguardo transversal:** src/components/editorial/Pioneiras.tsx e src/components/editorial/ReportagemOpening.tsx agora impedem a renderização de fotografias cujo cadastro indique direitos ainda não verificados. Não altera os arquivos físicos nem os metadados originais: bloqueia somente a exibição.
+
+### 16.2. QA e limites
+
+A rotina .github/workflows/qa-14-rotas-revista-16nov.yml compila TypeScript e a versão HostGator, impede alterações em dados/logo/home/acervos, e registra capturas integrais no desktop (1440 × 900) e celular (390 × 844), incluindo seis variações de tema, ficha individual, perfil histórico e busca com termo. O primeiro ensaio revelou que um **ID inexistente foi colocado na URL do próprio teste de Achado individual**: /achados/cor-raca designava tema, não achado. O teste foi retificado para /achados/quanto-mais-alto-mais-brancas, registro que existe no arquivo de dados, sem alterar a aplicação. Registrar a conclusão do teste no relatório de QA após execução.
+
+**Ainda pendente:** inspeção humana de todas as capturas de página inteira, verificação ponto a ponto de licenças/créditos e acessibilidade WCAG integral; aprovar estas páginas significa analisar o conteúdo e as imagens, e não apenas a compilação. A página publicada não reflete automaticamente a branch nem o PR.
+
+**Prioridade depois desta rodada:** reconciliação visual e documental da revista inteira (inclusive páginas PRs #12–#22), correção de problemas identificados nas prévias e integração editorial controlada. Manter a separação entre candidata, eleita, diplomada e ocupante efetiva. Não publicar nem mesclar sem autorização.
+
+
+### Fechamento da QA das 14 rotas — 16/11/2026
+**Resultado real:** execução GitHub Actions #43896345250 concluída com sucesso (commit 3ba5205af50fbebdae5f157341f201f3952f4f25). TypeScript, build HostGator, proteção de homepage, logo, fontes eleitorais e arquivos documentais aprovados. O script abriu 20 variações de URL, cobrindo 14 modelos de conteúdo, seis temas, perfil de eleita, busca e uma homepage de controle, em desktop 1440 × 900 e celular 390 × 844: **40 capturas completas, nenhuma falha registrada**. O teste conferiu respostas HTTP, título H1, largura, erros de execução e carregamento efetivo das imagens, inclusive as lazy. A imagem de Pagu com direitos pendentes não apareceu no DOM.
+
+**Artefato de prova:** https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43896345250 (artefato qse-14-rotas-revista-integrais, ID 14239282143), incluindo capturas, relatório JSON e os dois manuais. Foram montadas e **visualmente examinadas folhas de contato** com o início, um ponto intermediário e o final das 20 páginas em cada viewport. Nesta leitura de conjunto, preservaram-se contrastes estruturais, bandas de revista e fontes destacadas; trata-se de uma inspeção de panorama, que não substitui revisão individual em escala real, de todas as imagens, links ou controles por teclado.
+
+**Pendente antes de publicar:** revisão editorial final das 35 rotas de conteúdo no conjunto integrado, auditoria WCAG completa, direitos/licenças e verificação documental específica. Nenhum PR foi mesclado nem foi executado deploy.

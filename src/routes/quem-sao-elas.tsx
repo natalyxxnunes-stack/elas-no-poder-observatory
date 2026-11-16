@@ -11,6 +11,7 @@ import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { CandidatasMajoritarias } from "@/components/editorial/CandidatasMajoritarias";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
+import { PortalTSEEmContexto } from "@/components/editorial/CadernoDocumentalRevista";
 import { RaceBreakdown } from "@/components/editorial/RaceBreakdown";
 import { RaceFinding2026 } from "@/components/editorial/RaceFinding2026";
 import { RaceExplorer } from "@/components/editorial/RaceExplorer";
@@ -169,6 +170,8 @@ function QuemSaoElasPage() {
       <LeituraDoTema slug="presenca" />
 
       <AchadosDaPagina temas={["cor-raca", "vices"]} max={3} />
+
+      <PortalTSEEmContexto recorte={`O cadastro de candidaturas de 2026 é a fonte das categorias declaradas pelo TSE. Esta consulta distingue cargos proporcionais, majoritários e vices, e preserva as categorias preta e parda separadas. Fotografia da base usada neste recorte: ${baseStamp ?? "em atualização"}.`} />
 
       <SectionBlock
         id="raca"
@@ -454,7 +457,7 @@ function QuemSaoElasPage() {
           kicker="Explorador"
           question="Escolha o cargo, o estado e o partido e veja quem são elas ali"
           align="wide"
-          tone="lilac"
+          tone="warm"
           lead={
             <p>
               Cada combinação recalcula a distribuição por cor/raça daquela fatia, com a base à
@@ -480,7 +483,7 @@ function QuemSaoElasPage() {
           kicker="Por estado"
           question="E no seu estado?"
           align="wide"
-          tone="lilac"
+          tone="warm"
           lead={
             <p>
               Escolha um estado e leia a realidade daquela região: quantas candidaturas foram
@@ -499,6 +502,18 @@ function QuemSaoElasPage() {
           <StateExplorer snapshot={snapshot} />
         </SectionBlock>
       </Desdobra>
+
+      <section className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
+        <div className="mx-auto grid max-w-7xl gap-7 px-5 py-10 md:grid-cols-[1fr_1fr] md:px-8 md:py-14">
+          <div>
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">Leitura crítica · Limite do dado</p>
+            <h2 className="mt-3 font-display text-[clamp(2rem,3.4vw,3.2rem)] leading-[1.08]">Cor/raça é autodeclaração. O denominador muda com a disputa.</h2>
+          </div>
+          <p className="text-[16px] leading-relaxed text-paper/85">
+            Uma candidatura a vice não ocupa o mesmo lugar institucional de uma candidatura a titular. Na distribuição por raça, pretas e pardas são examinadas como categorias distintas; qualquer agregação é explicitada. O cadastro eleitoral também não permite inferir identidade trans ou travesti.
+          </p>
+        </div>
+      </section>
 
       <ComoSabemos
         fonte="TSE, Candidaturas 2026; IBGE, Censo Demográfico 2022 (SIDRA, tabela 9606, mulheres de 18 anos ou mais)."

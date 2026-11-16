@@ -2,6 +2,7 @@ import { M_REGRAS } from "@/data/manchetes";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
+import { CadernoDeFontes } from "@/components/editorial/CadernoDocumentalRevista";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { StatusTag } from "@/components/editorial/StatusTag";
@@ -79,13 +80,14 @@ function EmDisputaPage() {
       </div>
 
       <SectionBlock
+        tone="warm"
         kicker="Acompanhamento"
         question="O que está em vigor em 2026"
         align="wide"
       >
-        <ul className="space-y-4">
+        <ul className="grid gap-4 lg:grid-cols-2">
           {PUBLISHED_ITEMS.map((item) => (
-            <li key={item.id} className="editorial-card p-6">
+            <li key={item.id} className="border-t-[5px] border-plum bg-paper p-6 md:p-8">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <p className="text-[13px] text-muted-foreground font-semibold">
@@ -133,6 +135,18 @@ function EmDisputaPage() {
         </ul>
 
       </SectionBlock>
+
+      <CadernoDeFontes
+        editoria="Arquivo legislativo · Regras de 2026"
+        titulo="Norma, alcance e situação documental"
+        nota="A conferência é feita pelo texto oficial e pela data registrada para cada item. A existência de uma proposição ou alteração anunciada não equivale à entrada em vigor."
+        documentos={PUBLISHED_ITEMS.map((item) => ({
+          rotulo: item.kind,
+          titulo: item.title,
+          url: item.sourceUrl,
+          descricao: `Situação: ${item.status}. Verificado em ${formatDateBR(item.checkedAt)}. ${item.statusNote}`,
+        }))}
+      />
 
       <ComoSabemos
         fonte="Texto oficial de cada norma, com link em cada item da lista."

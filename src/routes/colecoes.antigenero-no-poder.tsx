@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { Faixa } from "@/components/editorial/Faixa";
+import { CadernoDeFontes } from "@/components/editorial/CadernoDocumentalRevista";
 import {
   ANTIGENERO_CRITERIO,
   ANTIGENERO_DEPUTADAS,
@@ -96,37 +97,37 @@ function ColecaoPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Reportagens", to: "/reportagens" }, { label: titulo }]}>
-      <Faixa fundo="bg-cream">
+      <Faixa fundo="bg-ink text-paper">
         <div className="grid gap-9 py-12 md:grid-cols-[1.1fr_.9fr] md:items-center md:gap-12 md:py-16">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-plum">Coleção · Investigações e dados</p>
-            <h1 className="mt-4 max-w-2xl font-display text-[clamp(2.6rem,5vw,4.8rem)] font-semibold leading-[1.04] text-ink">
+            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--art-gold)]">Coleção · Investigações e dados</p>
+            <h1 className="mt-4 max-w-2xl font-display text-[clamp(2.6rem,5vw,4.8rem)] font-semibold leading-[1.04] text-paper">
               {titulo}
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/85">
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-paper/85">
               {n(total)} deputadas votaram contra a lei de igualdade salarial ou a favor de sustar a
               norma do Conanda. {n(voltaram)} terão mandato em 2027.
             </p>
             <a href="#evidencias-colecao"
-              className="mt-5 inline-flex min-h-11 items-center font-semibold text-plum underline underline-offset-4">
+              className="mt-5 inline-flex min-h-11 items-center font-semibold text-paper underline underline-offset-4">
               Consultar as evidências ↘
             </a>
           </div>
-          <aside className="bg-ink p-6 text-paper md:p-8" aria-label="Documentos legislativos que definem o recorte">
-            <p className="text-xs font-semibold uppercase tracking-wide text-lilac">Duas votações documentadas</p>
-            <p className="mt-3 text-sm leading-relaxed text-paper/80">
+          <aside className="bg-paper p-6 text-ink md:p-8" aria-label="Documentos legislativos que definem o recorte">
+            <p className="text-xs font-semibold uppercase tracking-wide text-plum">Duas votações documentadas</p>
+            <p className="mt-3 text-sm leading-relaxed text-ink/80">
               O recorte parte de registros nominais da Câmara dos Deputados.
               A identificação da proposição não substitui o voto individual.
             </p>
-            <dl className="mt-6 divide-y divide-paper/25 border-y border-paper/25">
+            <dl className="mt-6 divide-y divide-ink/25 border-y border-ink/25">
               {ANTIGENERO_VOTACOES.map((x) => (
                 <div key={x.votacao.id} className="py-4">
-                  <dt className="text-xs uppercase tracking-wide text-lilac">{x.votacao.proposicao}</dt>
-                  <dd className="mt-2 font-display text-lg leading-snug text-paper">{x.votacao.titulo}</dd>
+                  <dt className="text-xs uppercase tracking-wide text-plum">{x.votacao.proposicao}</dt>
+                  <dd className="mt-2 font-display text-lg leading-snug text-ink">{x.votacao.titulo}</dd>
                 </div>
               ))}
             </dl>
-            <Link to="/como-votaram" className="mt-5 inline-flex min-h-11 items-center font-semibold text-paper underline underline-offset-4">
+            <Link to="/como-votaram" className="mt-5 inline-flex min-h-11 items-center font-semibold text-ink underline underline-offset-4">
               Ver votos e contexto ↗
             </Link>
           </aside>
@@ -135,11 +136,11 @@ function ColecaoPage() {
 
 
       <section id="evidencias-colecao" className="scroll-mt-24 grid gap-px border-y border-rule bg-rule md:grid-cols-2">
-        {numeros.map((x) => (
-          <div key={x.rotulo} className="bg-paper px-5 py-7 md:px-8 md:py-8">
-            <p className="font-display text-4xl font-semibold text-plum">{x.valor}</p>
-            <p className="mt-2 font-display text-xl leading-snug text-ink">{x.rotulo}</p>
-            <p className="mt-3 text-[15px] leading-relaxed text-ink/75">{x.linha}</p>
+        {numeros.map((x, i) => (
+          <div key={x.rotulo} className={`px-5 py-7 md:px-8 md:py-9 ${i % 4 === 1 ? "bg-[var(--art-gold)] text-ink" : i % 4 === 2 ? "bg-plum text-paper" : "bg-paper text-ink"}`}>
+            <p className={`font-display text-4xl font-semibold ${i % 4 === 2 ? "text-[var(--art-gold)]" : "text-plum"}`}>{x.valor}</p>
+            <p className={`mt-2 font-display text-xl leading-snug ${i % 4 === 2 ? "text-paper" : "text-ink"}`}>{x.rotulo}</p>
+            <p className={`mt-3 text-[15px] leading-relaxed ${i % 4 === 2 ? "text-paper/85" : "text-ink/75"}`}>{x.linha}</p>
           </div>
         ))}
       </section>
@@ -250,6 +251,18 @@ function ColecaoPage() {
           </div>
         </details>
       </section>
+
+
+      <CadernoDeFontes
+        editoria="Caderno documental · Votações e contraditório"
+        titulo="O voto individual é o registro verificável."
+        nota="O recorte de duas votações é uma escolha editorial explícita. As atas e os dados abertos permitem conferir as posições nominais. A participação nessas votações não demonstra intenção individual nem adesão a todas as posições associadas ao termo antigênero."
+        documentos={[
+          { rotulo: "Câmara dos Deputados · Registros oficiais", titulo: "Dados Abertos da Câmara", url: "https://dadosabertos.camara.leg.br/", descricao: "Fonte da recontagem das votações nominais, com período e critérios definidos na reportagem." },
+          { rotulo: "Quem são elas? · Reportagem", titulo: "Seis votações e contexto", url: "/como-votaram", descricao: "Matriz de votos, posição das bancadas, critérios de seleção e alterações registradas." },
+          { rotulo: "Quem são elas? · Falas", titulo: "Declarações com origem", url: "/na-voz-delas", descricao: "Reúne pronunciamentos acompanhados de data, autoria e ligação à fonte original." },
+        ]}
+      />
 
       <p className="max-w-3xl text-[14px] leading-relaxed text-ink/70">
         Correções e pedidos de resposta:{" "}

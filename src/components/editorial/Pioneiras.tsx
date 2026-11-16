@@ -57,8 +57,8 @@ export function PerfilHero({
   /** Ficha extraída de dados oficiais; exibida quando não há foto licenciada. */
   ficha?: React.ReactNode;
 }) {
-  const temFoto = Boolean(fotoId && FOTOS[fotoId]);
-  const pagu = fotoId === "pagu" && temFoto;
+  const temFoto = Boolean(fotoId && FOTOS[fotoId] && FOTOS[fotoId]?.licenca !== "verificacao-pendente");
+  const pagu = fotoId === "pagu";
   return (
     <header className={`relative left-1/2 -ml-[50vw] w-screen ${pagu ? "bg-ink text-paper" : "bg-cream text-ink"}`}>
       <div className="mx-auto max-w-7xl px-5 py-11 md:px-8 md:py-16">
@@ -75,7 +75,7 @@ export function PerfilHero({
             </p>
           </div>
           <div className="min-w-0">
-            {pagu && fotoId && FOTOS[fotoId] ? (
+            {pagu && temFoto && fotoId && FOTOS[fotoId] ? (
               <figure className="mx-auto max-w-[390px] bg-[var(--art-coral)] p-3 sm:p-4 lg:mx-0">
                 <img src={FOTOS[fotoId]!.src} alt={FOTOS[fotoId]!.alt}
                   loading="eager" fetchPriority="high"

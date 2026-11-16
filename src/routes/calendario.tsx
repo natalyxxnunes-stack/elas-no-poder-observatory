@@ -43,26 +43,26 @@ function CalendarioPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Calendário" }]}>
-      <header className="py-10 md:py-14">
-        <Secao nome="Calendário" tipo="da urna à posse" />
-        <h1 className="mt-4 max-w-4xl font-display text-4xl font-semibold leading-tight text-plum md:text-6xl">
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-plum text-paper"><div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
+        <p className="text-[13px] font-semibold text-[var(--art-gold)]">Calendário · Da urna à posse</p>
+        <h1 className="mt-4 max-w-4xl font-display text-4xl font-semibold leading-[1.07] text-paper md:text-6xl">
           Da urna à posse: as datas que decidem quem chega ao poder
         </h1>
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink/80">
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-paper/85">
           A eleição acabou em outubro, os mandatos começam em janeiro e fevereiro, e no meio as contas são julgadas e os diplomas,
           entregues. Cada data traz a fonte e, quando há, o que o observatório publica nela.
         </p>
         {proxima && (
-          <p className="mt-6 inline-block border-l-4 border-coral bg-card px-4 py-3 text-[15px] text-ink" aria-live="polite">
+          <p className="mt-7 inline-block border-l-4 border-[var(--art-gold)] bg-paper px-5 py-4 text-[15px] text-ink" aria-live="polite">
             Próxima data:{" "}
             <a href={`#${proxima.data}`} className="font-semibold underline decoration-plum underline-offset-4">
               {Number(proxima.data.slice(8))} de {MESES[Number(proxima.data.slice(5, 7)) - 1]}, {proxima.titulo.toLowerCase()}
             </a>
           </p>
         )}
-      </header>
+      </div></header>
 
-      <ul aria-label="Legenda" className="mb-6 flex flex-wrap gap-x-6 gap-y-2 text-[14px] text-ink/80">
+      <ul aria-label="Legenda" className="mb-0 flex flex-wrap gap-x-6 gap-y-2 border-b border-rule py-6 text-[14px] text-ink/80">
         {(Object.keys(TIPO) as TipoData[]).map((t) => (
           <li key={t} className="inline-flex items-center gap-2">
             <span className={`h-4 border-l-4 ${COR_TIPO[t]}`} aria-hidden="true" />
@@ -71,9 +71,9 @@ function CalendarioPage() {
         ))}
       </ul>
 
-      <div className="space-y-12 pb-12">
-        {[...porMes.entries()].map(([mes, itens]) => (
-          <section key={mes} aria-labelledby={`m-${mes}`}>
+      <div className="pb-0">
+        {[...porMes.entries()].map(([mes, itens], pos) => (
+          <section key={mes} aria-labelledby={`m-${mes}`} className={`relative left-1/2 -ml-[50vw] w-screen ${pos % 3 === 0 ? "bg-cream" : pos % 3 === 1 ? "bg-paper" : "bg-[var(--art-gold)]"}`}><div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
             <h2 id={`m-${mes}`} className="border-b-[3px] border-plum pb-2 font-display text-2xl italic text-plum">
               {MESES[Number(mes.slice(5)) - 1]} de {mes.slice(0, 4)}
             </h2>
@@ -106,13 +106,21 @@ function CalendarioPage() {
                 );
               })}
             </ol>
-          </section>
+            </div></section>
         ))}
       </div>
-      <p className="pb-14 text-[13px] text-muted-foreground">
+      <p className="py-8 text-[13px] text-muted-foreground">
         Datas conferidas em {CALENDARIO_META.conferidoEm}. Prazo eleitoral pode mudar por resolução do TSE; quando mudar, a
         data é corrigida aqui com registro no Método.
       </p>
+      <section className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
+        <div className="mx-auto grid max-w-7xl gap-5 px-5 py-10 md:grid-cols-[1fr_1fr] md:px-8 md:py-14">
+          <h2 className="font-display text-2xl md:text-3xl">Uma data muda o estágio do processo.</h2>
+          <p className="text-[15px] leading-relaxed text-paper/85">
+            Eleição, diplomação e posse são etapas distintas. Os prazos e as fontes institucionais de cada registro aparecem junto à data; o calendário não antecipa o exercício efetivo do mandato.
+          </p>
+        </div>
+      </section>
     </PageShell>
   );
 }

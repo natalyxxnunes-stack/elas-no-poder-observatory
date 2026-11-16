@@ -509,3 +509,27 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 **Cópia editável original:** recuperado integralmente o conteúdo de 609 linhas do arquivo Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md na Biblioteca, e criado um Markdown **com o mesmo nome** na branch PR #23, acrescido do capítulo 15. Não se conseguiu alterar o próprio arquivo da Biblioteca, pois a materialização dos bytes originais foi negada. Este manual normativo e o original agora acessível na branch #23 devem ser mantidos coerentes; nenhum terceiro manual foi criado.
 
 **Próximo trabalho:** após QA e conferência de capturas, revisar as 14 rotas restantes e reabrir a questão das evidências visuais nas páginas Inteiras de Dinheiro, Relatório, Histórico, Funil, Comparar e Dados. Documentos verdadeiros e fotografias pertinentes com procedência e licença devem ganhar presença visual. Não gerar imagens por IA ou simular fontes primárias.
+
+---
+
+## PR #24 — 14 rotas integrais, documentos e contrastes (16/11/2026)
+
+**Escopo:** branch revista-14-rotas-integral-16nov2026, base PR #23, em rascunho, sem publicação. Revisa os 14 modelos de conteúdo antes não trabalhados: Achado individual, Busca, Calendário, Coautoria, Coleção antigênero, Como votaram, Ficha individual de eleita, Em disputa, Lélia Gonzalez, Pagu, Quem chega, Consultar candidatas, Tema individual (seis temas) e Votos. A homepage, logo, CSS global, dados, fotografias e materiais documentais existentes foram preservados.
+
+**Linguagem:** páginas inteiras com alternância de tinta, roxo, papel, creme, coral de letra clara e dourado, conforme função informativa; não são apenas aberturas. A pesquisa de mídia continua restrita a documentos/fotos de fonte real com contexto, legenda e atribuição. O componente CadernoDocumentalRevista.tsx centraliza fotografias com licença cadastrada, a captura real do portal TSE e cadernos documentais de referência. Novos textos explicitam as distinções entre registro TSE, fotografia institucional, dado nominal, interpretação, limitação de fonte e situação posterior ao pleito.
+
+**Fotografias:** arquivo institucional da Câmara 2026 em Coautoria e Quem chega, plenário histórico de 2023 em reportagens e Agenda, Bertha Lutz 1936 em Memória. Fotografias não provam por si autoria, voto ou participação individual; as legendas informam o papel contextual. **Pagu** tinha retrato local com direitos pendentes e passou a exibir somente ficha tipográfica até nova verificação, por alteração do filtro de licença em Pioneiras.tsx e ReportagemOpening.tsx. Nenhuma fotografia sintética.
+
+**Recortes eleitorais:** na página Votos, candidatura, votação nominal válida e cadeiras são universos de contagem distintos; a tabela/fonte TSE mantém seus respectivos denominadores. Em Quem são elas e Temas, preta e parda permanecem categorias originais distintas, com agregações apenas quando declaradas. Dados numéricos não sofreram edição.
+
+**QA:** .github/workflows/qa-14-rotas-revista-16nov.yml compila e fotografa as rotas completas nos dois viewports, incluindo as seis páginas temáticas; valida largura, carregamento das imagens, erros JS e presença do conteúdo. Em uma primeira execução, o teste especificou URL inexistente /achados/cor-raca (o identificador correto de um achado disponível é /achados/quanto-mais-alto-mais-brancas). A URL no roteiro foi corrigida; isso era falha do teste, não do aplicativo. A conclusão de execução deve ser verificada no Actions. Não equivale a aprovação estética ou auditoria WCAG completa.
+
+**Próxima rodada:** conferir de fato as capturas e a consistência fotográfica/documental do conjunto de 35 modelos de conteúdo (37 rotas menos home e redirecionamento), reconciliar PRs e revisar pendências editoriais antes de publicar. O arquivo original Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md, sob o mesmo nome, recebe capítulo 16 nesta branch, sem substituição automática da cópia de Biblioteca por limitação de permissão.
+
+
+### Fechamento da QA das 14 rotas — 16/11/2026
+**Resultado real:** execução GitHub Actions #43896345250 concluída com sucesso (commit 3ba5205af50fbebdae5f157341f201f3952f4f25). TypeScript, build HostGator, proteção de homepage, logo, fontes eleitorais e arquivos documentais aprovados. O script abriu 20 variações de URL, cobrindo 14 modelos de conteúdo, seis temas, perfil de eleita, busca e uma homepage de controle, em desktop 1440 × 900 e celular 390 × 844: **40 capturas completas, nenhuma falha registrada**. O teste conferiu respostas HTTP, título H1, largura, erros de execução e carregamento efetivo das imagens, inclusive as lazy. A imagem de Pagu com direitos pendentes não apareceu no DOM.
+
+**Artefato de prova:** https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43896345250 (artefato qse-14-rotas-revista-integrais, ID 14239282143), incluindo capturas, relatório JSON e os dois manuais. Foram montadas e **visualmente examinadas folhas de contato** com o início, um ponto intermediário e o final das 20 páginas em cada viewport. Nesta leitura de conjunto, preservaram-se contrastes estruturais, bandas de revista e fontes destacadas; trata-se de uma inspeção de panorama, que não substitui revisão individual em escala real, de todas as imagens, links ou controles por teclado.
+
+**Pendente antes de publicar:** revisão editorial final das 35 rotas de conteúdo no conjunto integrado, auditoria WCAG completa, direitos/licenças e verificação documental específica. Nenhum PR foi mesclado nem foi executado deploy.

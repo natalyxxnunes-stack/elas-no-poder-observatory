@@ -4,6 +4,7 @@ import { Registro } from "@/components/editorial/Registro";
 import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { ReportagemOpening } from "@/components/editorial/ReportagemOpening";
+import { CadernoDeFontes } from "@/components/editorial/CadernoDocumentalRevista";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ConsultationPanel } from "@/components/editorial/ConsultationPanel";
 import { InBrief } from "@/components/editorial/InBrief";
@@ -839,8 +840,8 @@ function ComoVotaramPage() {
         <AsDezDaIgualdade />
       </div>
 
-      <div className="pb-8">
-        <AnistiaCotas />
+      <div className="relative left-1/2 -ml-[50vw] w-screen bg-cream px-5 pb-8 pt-8 md:px-8">
+        <div className="mx-auto max-w-7xl"><AnistiaCotas /></div>
       </div>
 
       <div className="pb-5">
@@ -906,6 +907,18 @@ function ComoVotaramPage() {
           </ul>
         </details>
       </ConsultationPanel>
+
+
+      <CadernoDeFontes
+        editoria="Fontes de reportagem · Câmara e TSE"
+        titulo="O caminho até o voto nominal"
+        nota="A seleção das seis votações, seus votos individuais e o recorte por cor/raça são documentos de pesquisa distintos. A Câmara registra o comportamento parlamentar; o TSE registra a disputa eleitoral. O cruzamento não permite deduzir os motivos de cada voto."
+        documentos={[
+          { rotulo: "Câmara dos Deputados", titulo: "Dados Abertos: votações e parlamentares", url: "https://dadosabertos.camara.leg.br/", descricao: "Base para a recontagem de votos nominais das deputadas, de 2023 a 2025." },
+          { rotulo: "Tribunal Superior Eleitoral", titulo: "Candidatos 2026", url: "https://dadosabertos.tse.jus.br/dataset/candidatos-2026", descricao: "Cadastro eleitoral, universo e categorias autodeclaradas utilizados para cruzar votação e resultado." },
+          { rotulo: "Quem são elas? · Metodologia", titulo: "Critério, exclusões e histórico de correções", url: "/metodo", descricao: "Entenda os denominadores, a atualização da sexta votação e os limites de interpretação." },
+        ]}
+      />
 
       <ConsultationPanel
         id="votos"

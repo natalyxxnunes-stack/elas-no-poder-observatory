@@ -5,6 +5,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
+import { FotografiaEmContexto, CadernoDeFontes } from "@/components/editorial/CadernoDocumentalRevista";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { StatusTag } from "@/components/editorial/StatusTag";
@@ -457,6 +458,15 @@ function QuemChegaPage() {
         />
       </div>
 
+
+      <FotografiaEmContexto
+        fotoId="bancada-feminina-camara-marco-2026"
+        editoria="Fotografia de arquivo · Antes do pleito"
+        titulo="O plenário é um registro de outra etapa."
+        contexto="Fotografia institucional da bancada feminina da Câmara em março de 2026, anterior às eleições gerais. Ela documenta representação parlamentar naquele momento; não identifica quais mulheres foram eleitas em outubro, nem quem exercerá funções de direção a partir de 2027."
+        tom="ink"
+      />
+
       <a
         href="/eleitas"
         className="group mt-6 flex items-center justify-between gap-4 border-t-[5px] border-plum bg-cream px-5 py-4 md:px-6"
@@ -475,7 +485,7 @@ function QuemChegaPage() {
 
       <SectionBlock
         id="senado"
-        tone="lilac"
+        tone="warm"
         kicker="Senado"
         question="O Senado de 2027: o PL passa de um terço da Casa"
         align="wide"
@@ -509,7 +519,7 @@ function QuemChegaPage() {
 
       <SectionBlock
         id="raca"
-        tone="lilac"
+        tone="warm"
         kicker="Gênero e cor/raça"
         question="Quais mulheres se elegeram"
         align="wide"
@@ -616,6 +626,17 @@ function QuemChegaPage() {
           </Link>
         </p>
       </SectionBlock>
+
+
+      <CadernoDeFontes
+        editoria="Resultados eleitorais · Base e período"
+        titulo="Quem foi eleita não equivale a quem já exerce poder."
+        nota="As cadeiras foram recontadas a partir dos registros eleitorais de 2026. A posse, a instalação de comissões e os postos de comando exigem outras fontes e novas datas de corte. Não presumimos a situação futura a partir da fotografia anterior à eleição."
+        documentos={[
+          { rotulo: "TSE · Base de candidaturas e resultados", titulo: "Candidatos 2026", url: "https://dadosabertos.tse.jus.br/dataset/candidatos-2026", descricao: "Registros eleitorais e autodeclaração de cor/raça; verificar situação de cada eleita e data de geração." },
+          { rotulo: "Quem são elas? · Consulta", titulo: "Fichas individuais das eleitas", url: "/eleitas", descricao: "Lista pesquisável de eleitas, separada do acompanhamento de exercício do mandato." },
+        ]}
+      />
 
       <NextAxes ids={["votos", "funil", "quem-controla"]} />
     </PageShell>
