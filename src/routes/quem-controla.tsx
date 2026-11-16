@@ -131,15 +131,18 @@ function QuemControlaPage() {
         />
       </div>
 
-      <SectionBlock id="alavancas"
+      <SectionBlock id="alavancas" tone="plum"
         kicker="Alavancas de controle"
         question="Cinco decisões que moldam a disputa"
         align="wide"
       >
-        <ul className="divide-y divide-rule border-y border-rule">
-          {CONTROL_LEVERS.map((l) => (
-            <li key={l.lever} className="py-5">
-              <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <ol className="grid gap-4 md:grid-cols-2">
+          {CONTROL_LEVERS.map((l, i) => (
+            <li key={l.lever} className="min-w-0 bg-paper p-5 text-ink md:p-7 last:md:col-span-2">
+              <p className="font-display text-[clamp(2.75rem,4vw,4rem)] leading-none text-plum" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </p>
+              <div className="mt-4 flex flex-wrap items-baseline justify-between gap-3">
                 <h3 className="font-display text-xl text-ink">{l.lever}</h3>
                 <StatusTag tone={l.ready === "yes" ? "ok" : l.ready === "partial" ? "limit" : "pending"}>
                   {l.ready === "yes" ? "disponível" : l.ready === "partial" ? "parcial" : "aguardando dado"}
@@ -149,10 +152,10 @@ function QuemControlaPage() {
               <p className="mt-2 font-mono text-[13px] text-muted-foreground">Exige: {l.needs}</p>
             </li>
           ))}
-        </ul>
+        </ol>
       </SectionBlock>
 
-      <SectionBlock id="regras" tone="lilac"
+      <SectionBlock id="regras" tone="ink"
         kicker="As regras que incidem"
         question="O que a regra alcança e o que ela deixa para o partido decidir"
         lead={<p>{QUOTA_RULE.scope}</p>}
@@ -163,13 +166,14 @@ function QuemControlaPage() {
               href={QUOTA_RULE.sourceUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-plum underline underline-offset-4"
+              className="text-paper underline underline-offset-4"
             >
               Lei 9.504/1997, art. 10, §3º
             </a>
           </>
         }
       >
+        <div className="bg-paper p-5 text-ink md:p-8">
         <div className="grid gap-4 md:grid-cols-2">
           <ContextBox variant="significa" title="O que a cota não alcança">
             <p>{QUOTA_RULE.outOfScope}</p>
@@ -177,6 +181,7 @@ function QuemControlaPage() {
           <ContextBox variant="importa" title="Onde entra o dinheiro">
             <p>{QUOTA_RULE.financingNote}</p>
           </ContextBox>
+        </div>
         </div>
       </SectionBlock>
 

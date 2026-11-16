@@ -108,17 +108,17 @@ function AberturaFalas({ publicadas }: { publicadas: Fala[] }) {
 }
 
 function FalaCard({ f, i }: { f: Fala; i: number }) {
-  const escuro = i === 0;
+  const escuro = i % 3 !== 1;
   const posicionamento = f.posicionamento
     ? `Resposta de ${f.pessoa}: ${f.posicionamento.texto} (${f.posicionamento.data})`
     : FALAS_PEDIDO_ENVIADO_EM
       ? `Pedido enviado em ${FALAS_PEDIDO_ENVIADO_EM}; sem resposta até a última atualização`
       : "Registro público, publicado com data e link. Correção ou resposta: contato@quemsaoelas.com.br; entra aqui, com data";
   return (
-    <article id={f.id} className={`scroll-mt-24 relative left-1/2 -ml-[50vw] w-screen ${escuro ? "bg-plum-deep text-paper" : i % 2 === 0 ? "bg-cream" : "bg-paper"}`}>
+    <article id={f.id} className={`scroll-mt-24 relative left-1/2 -ml-[50vw] w-screen ${escuro ? (i % 3 === 0 ? "bg-ink text-paper" : "bg-plum text-paper") : "bg-paper text-ink"}`}>
       <div className="mx-auto grid max-w-7xl gap-6 px-5 py-9 md:px-8 md:py-12 lg:grid-cols-[1.1fr_.9fr] lg:gap-12">
         <div className="min-w-0">
-          <p className={`text-xs font-semibold ${escuro ? "text-lilac" : "text-plum"}`}>{f.data} · {f.onde}</p>
+          <p className={`text-xs font-semibold ${escuro ? "text-paper" : "text-plum"}`}>{f.data} · {f.onde}</p>
           <blockquote className="mt-4">
             <p className={`font-display leading-[1.2] ${escuro ? "text-[1.65rem] text-paper md:text-[2.3rem]" : "text-[1.55rem] text-ink md:text-[1.95rem]"}`}>
               “{f.fala}”
@@ -133,14 +133,14 @@ function FalaCard({ f, i }: { f: Fala; i: number }) {
         </div>
         <div className="min-w-0 space-y-4 lg:pt-1">
           {f.dado ? (
-            <div className="bg-butter px-5 py-4 text-ink">
+            <div className="bg-[var(--art-gold)] px-5 py-4 text-ink">
               <p className="text-xs font-semibold uppercase tracking-wide">O dado oficial</p>
               <p className="mt-2 text-base leading-relaxed">{f.dado.texto}</p>
               <p className="mt-2 text-xs text-ink/70">{f.dado.fonte}</p>
             </div>
           ) : null}
           <div className={escuro ? "bg-paper/10 p-5" : "bg-muted p-5"}>
-            <p className={`text-xs font-semibold uppercase tracking-wide ${escuro ? "text-lilac" : "text-plum"}`}>Contexto documental</p>
+            <p className={`text-xs font-semibold uppercase tracking-wide ${escuro ? "text-paper" : "text-plum"}`}>Contexto documental</p>
             <p className={`mt-2 text-sm leading-relaxed ${escuro ? "text-paper/90" : "text-ink/85"}`}>{f.contexto}</p>
             {f.versao ? (
               <p className={`mt-3 text-sm leading-relaxed ${escuro ? "text-paper/90" : "text-ink/85"}`}>

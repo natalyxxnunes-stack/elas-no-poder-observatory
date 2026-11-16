@@ -13,6 +13,7 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { FichaArquivoFinanceiro } from "@/components/editorial/EvidenciasGrafadas2026";
+import { DuasResolucoesFEFC } from "@/components/editorial/FacsimilesFEFC2026";
 import { QUOTA_RULE } from "@/data/election-2026";
 import {
   DUPLICATE_ROWS_REMOVED,
@@ -186,7 +187,7 @@ function DinheiroPage() {
 
       <SectionBlock
         id="cor-raca"
-        tone="butter"
+        tone="ink"
         kicker="Gênero × cor/raça × receita"
         question="Entre as mulheres, para quais categorias declaradas o dinheiro chegou?"
         align="wide"
@@ -197,6 +198,7 @@ function DinheiroPage() {
           </p>
         }
       >
+        <div className="bg-paper p-5 text-ink md:p-8">
         <FinanceRace snapshot={financeSnapshot} />
         <div className="mt-5 max-w-3xl space-y-2 text-sm leading-relaxed text-ink/80">
           <p>
@@ -208,6 +210,7 @@ function DinheiroPage() {
             PL, PODE, PP, PSB, PSD, PSDB, PSOL, PT, Republicanos e União), que somam 87,9% dessa
             receita.
           </p>
+        </div>
         </div>
       </SectionBlock>
 
@@ -253,6 +256,8 @@ function DinheiroPage() {
           </nav>
         </div>
       </section>
+
+      <DuasResolucoesFEFC />
 
       <SectionBlock
         id="fundo-eleitoral"
