@@ -131,6 +131,8 @@ jobs:
                       errors.append('Gráfico com denominador ausente')
                   if name=='reportagens' and page.locator('img[src="/fotos/plenario-igualdade-salarial-2023.jpg"]').count()<1:
                     errors.append('Foto de arquivo da reportagem ausente')
+                  if name=='quem-chega' and page.get_by_text('29 das 81 cadeiras',exact=False).count()<1:
+                    errors.append('Projeção do Senado divergente: texto não registra 29 das 81 cadeiras')
                   if name=='pagu' and any('pagu-patricia' in src for src in doc['photos']):
                     errors.append('Retrato de Pagu com direitos pendentes aparece na página')
                   shot='capturas-editoriais/'+name+'-'+device+'.png'
