@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { FOTOS } from "@/data/fotos";
+import { ArquivoDocumentalFEFC } from "@/components/editorial/ArquivoDocumentalFEFC";
 import { PILOT_CORAL } from "@/lib/editorial-pilot-colors";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
@@ -54,18 +55,6 @@ const VOTE_IDS = [
   "345311-270", "2358548-89", "2270800-160",
 ];
 
-/** Os números de PJe e datas abaixo são publicados na tabela oficial do TSE.
- * As peças são documentos reais. Sua reprodução visual não é simulada aqui.
- * A seleção de três siglas é uma amostra de acesso, não classificação.
- */
-const FEFC_DOCUMENTOS = [
-  { sigla: "PL", pje: "0600974-71.2026.6.00.0000", liberado: "20/08/2026", href: "https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0600974_71-2026-6-00-0000___pl_nacional___criterios_fefc" },
-  { sigla: "PT", pje: "0601252-72.2026.6.00.0000", liberado: "21/08/2026", href: "https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0601252_72-2026-6-00-0000___pt_nacional___criterios_fefc" },
-  { sigla: "União Brasil", pje: "0601251-87.2026.6.00.0000", liberado: "21/08/2026", href: "https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0601251_87-2026-6-00-0000___uniao_brasil_nacional___criterios_fefc" },
-] as const;
-
-const TSE_CRITERIOS = "https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/fundo-especial-de-financiamento-de-campanha-fefc";
-const TSE_COTAS = "https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/distribuicao-dos-recursos-do-fundo-especial-de-financiamento-de-campanha-fefc-eleicoes-2026";
 const FOTO_BANCADA = FOTOS["bancada-feminina-camara-marco-2026"]!;
 
 
@@ -550,58 +539,9 @@ function RegistroBancada() {
   );
 }
 
-/** Indice de documentos oficiais, não fac-símile nem leitura de mérito dos critérios. */
+/** Caderno de provas PJe reutilizado pela investigação Quem controla. */
 function ArquivoFEFC() {
-  return (
-    <section aria-labelledby="partidos-documentos-fefc" className="bg-[var(--art-gold)] p-5 text-ink md:p-8">
-      <div className="grid gap-8 lg:grid-cols-[.88fr_1.12fr]">
-        <div>
-          <p className="font-mono text-[12px] font-semibold uppercase tracking-wide">Arquivo eleitoral · TSE · 2026</p>
-          <h3 id="partidos-documentos-fefc" className="mt-3 max-w-lg font-display text-3xl leading-tight md:text-4xl">
-            O critério declarado está publicado. O repasse exige conferir as contas.
-          </h3>
-          <p className="mt-4 max-w-lg leading-relaxed">
-            O TSE reúne decisões apresentadas pelas direções nacionais dos partidos
-            sobre a distribuição interna do Fundo Especial de Financiamento de Campanha.
-            Cada registro identifica processo no PJe e dá acesso ao documento quando disponibilizado.
-            Isso não equivale a conhecer todos os pagamentos feitos às candidaturas.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-4 text-sm font-semibold">
-            <a href={TSE_CRITERIOS} target="_blank" rel="noreferrer"
-              className="underline underline-offset-4 focus-visible:outline focus-visible:outline-2">
-              Todos os critérios publicados no TSE ↗
-            </a>
-            <a href={TSE_COTAS} target="_blank" rel="noreferrer"
-              className="underline underline-offset-4 focus-visible:outline focus-visible:outline-2">
-              Cotas destinadas a cada partido ↗
-            </a>
-          </div>
-        </div>
-        <div className="border-t-2 border-ink">
-          <p className="py-3 text-sm font-semibold">Três entradas verificáveis do acervo · amostra, não ranking</p>
-          <ol className="divide-y divide-ink/35">
-            {FEFC_DOCUMENTOS.map((doc) => (
-              <li key={doc.pje} className="grid gap-x-5 gap-y-2 py-4 sm:grid-cols-[6rem_minmax(0,1fr)]">
-                <strong className="font-display text-2xl">{doc.sigla}</strong>
-                <div className="min-w-0">
-                  <p className="break-words font-mono text-[12px]">PJe {doc.pje}</p>
-                  <p className="mt-1 text-[13px]">FEFC liberado em {doc.liberado}, segundo o TSE</p>
-                  <a href={doc.href} target="_blank" rel="noreferrer"
-                    className="mt-2 inline-flex min-h-11 items-center text-sm font-semibold underline underline-offset-4">
-                    Consultar o documento original ↗
-                  </a>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <p className="mt-2 text-xs leading-relaxed">
-            Documentos institucionais reais, sem montagem ou simulação de página histórica.
-            A amostra não constitui exame comparativo do teor das resoluções.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
+  return <ArquivoDocumentalFEFC id="partidos-documentos-fefc" variante="ouro" />;
 }
 
 /** Consulta de FEFC por sigla; a conta está no mesmo recorte da tabela auditável. */
