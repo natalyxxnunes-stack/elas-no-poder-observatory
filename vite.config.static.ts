@@ -9,6 +9,8 @@
 // pasta `public_html` da HostGator.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { ACHADOS } from "./src/data/achados";
+import { ELEITAS_2026 } from "./src/data/eleitas-2026";
+import { TEMAS } from "./src/data/temas";
 
 /** Rotas despublicadas: existem no código, mas redirecionam para a home. */
 const UNPUBLISHED: string[] = [];
@@ -28,7 +30,14 @@ export default defineConfig({
     // Toda página de achado sai em HTML próprio, mesmo sem link apontando
     // para ela (13/11/2026): quem chega pelo Google precisa do HTML, e o
     // rastreador de links só alcança as que aparecem em alguma página.
-    pages: ACHADOS.map((a) => ({ path: `/achados/${a.id}`, prerender: { enabled: true } })),
+    pages: [
+      ...ACHADOS.map((a) => ({ path: `/achados/${a.id}`, prerender: { enabled: true } })),
+      // A listagem de eleitas carrega apenas as primeiras fichas inicialmente.
+      // CrawlLinks sozinho NÃO alcança todas as 342 URLs individuais.
+      ...ELEITAS_2026.map((e) => ({ path: `/eleitas/${e.slug}`, prerender: { enabled: true } })),
+      // Cada tema tem conteúdo e fontes próprios: garantir todas as variantes.
+      ...TEMAS.map((t) => ({ path: `/temas/${t.slug}`, prerender: { enabled: true } })),
+    ],
     prerender: {
       enabled: true,
       crawlLinks: true,
