@@ -207,7 +207,7 @@ function HistoricoPage() {
         }
         source="Fonte: TSE · Candidatos (DS_GENERO)"
       >
-        <SeriesChart series={feminine} />
+        <SeriesChart series={feminine} mobileSelectable />
       </SectionBlock>
 
       <SectionBlock id="raca" tone="plum"
@@ -223,7 +223,7 @@ function HistoricoPage() {
         }
         source="Fonte: TSE · Candidatos (DS_COR_RACA)"
       >
-        <SeriesChart series={byId("serie-negras-negros-candidaturas")} />
+        <SeriesChart series={byId("serie-negras-negros-candidaturas")} mobileSelectable />
       </SectionBlock>
 
       <SectionBlock id="genero-raca" tone="butter"
@@ -240,8 +240,8 @@ function HistoricoPage() {
         source="Fonte: TSE · Candidatos (tabela cruzada gênero × cor/raça)"
       >
         <div className="space-y-6">
-          <SeriesChart series={byId("serie-mulheres-negras-sobre-total")} />
-          <SeriesChart series={byId("serie-mulheres-negras-entre-mulheres")} />
+          <SeriesChart series={byId("serie-mulheres-negras-sobre-total")} mobileSelectable />
+          <SeriesChart series={byId("serie-mulheres-negras-entre-mulheres")} mobileSelectable />
         </div>
         <div className="mt-6">
           <ContextBox variant="importa" title="Por que separar por cor muda a leitura">
@@ -322,8 +322,8 @@ function HistoricoPage() {
           </aside>
         )}
         <div className="space-y-6">
-          <SeriesChart series={byId("serie-mulheres-eleitas")} />
-          <SeriesChart series={byId("serie-mulheres-negras-eleitas")} />
+          <SeriesChart series={byId("serie-mulheres-eleitas")} mobileSelectable />
+          <SeriesChart series={byId("serie-mulheres-negras-eleitas")} mobileSelectable />
         </div>
         <details className="group mt-8 border border-plum bg-cream px-4 py-3 md:px-5">
           <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-3 text-base font-semibold text-plum">
