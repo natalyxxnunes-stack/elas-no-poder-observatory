@@ -130,6 +130,17 @@ function DinheiroPage() {
 
       <LeituraDoTema slug="dinheiro" />
 
+      <aside aria-label="Diferença entre as medidas de fundo eleitoral e receita total"
+        className="mt-4 max-w-4xl border-l-4 border-plum bg-cream px-5 py-4 text-ink">
+        <p className="font-semibold">Como ler os percentuais desta página</p>
+        <p className="mt-2 text-sm leading-relaxed text-ink/80">
+          A manchete considera apenas a distribuição do Fundo Especial de Financiamento
+          de Campanha (FEFC) entre candidaturas de mulheres. Os indicadores de
+          <strong> receita total declarada</strong> incluem outras fontes de financiamento.
+          As participações podem ser diferentes, mesmo quando o recorte eleitoral é o mesmo.
+        </p>
+      </aside>
+
       <AchadosDaPagina temas={["dinheiro"]} max={3} />
 
       <SectionBlock
@@ -157,7 +168,7 @@ function DinheiroPage() {
         kicker="Por cargo"
         question="Presença e receita, cargo a cargo"
         align="wide"
-        tone="lilac"
+        tone="plum"
         lead={
           <p>
             Só no Senado as mulheres recebem mais do que a presença delas (25,6% da receita, 22,2%
@@ -199,10 +210,51 @@ function DinheiroPage() {
         </div>
       </SectionBlock>
 
+      <section id="criterios-fefc" aria-labelledby="dinheiro-criterios-fefc" className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-gold)] text-ink">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 md:grid-cols-[1.1fr_.9fr] md:px-8 md:py-14">
+          <div>
+            <p className="font-mono text-xs font-semibold uppercase tracking-wide text-ink/80">
+              Arquivo eleitoral · documentos oficiais do TSE · 2026
+            </p>
+            <h2 id="dinheiro-criterios-fefc" className="mt-3 max-w-3xl font-display text-3xl leading-tight text-ink md:text-4xl">
+              Os critérios são públicos. Sua aplicação precisa ser investigada.
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed">
+              Os partidos entregaram ao TSE os critérios formais para repartir o Fundo Especial
+              de Financiamento de Campanha. O TSE identifica os processos por sigla e
+              disponibiliza os respectivos documentos quando presentes em sua página.
+              O registro desses critérios, a cota destinada a cada
+              partido e as receitas declaradas pelas candidaturas são três camadas diferentes.
+              A existência do documento não explica, por si, a decisão concreta sobre cada repasse.
+            </p>
+          </div>
+          <nav aria-label="Fontes oficiais de distribuição do FEFC" className="border-t-2 border-ink">
+            <a href="https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/fundo-especial-de-financiamento-de-campanha-fefc"
+              target="_blank" rel="noreferrer"
+              className="flex min-h-16 items-center justify-between gap-4 border-b border-ink/35 py-3 text-sm font-semibold text-ink underline-offset-4 hover:underline">
+              Critérios formais por partido e documentos PJe <span aria-hidden="true">↗</span>
+            </a>
+            <a href="https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/distribuicao-dos-recursos-do-fundo-especial-de-financiamento-de-campanha-fefc-eleicoes-2026"
+              target="_blank" rel="noreferrer"
+              className="flex min-h-16 items-center justify-between gap-4 border-b border-ink/35 py-3 text-sm font-semibold text-ink underline-offset-4 hover:underline">
+              Cota de FEFC destinada a cada sigla <span aria-hidden="true">↗</span>
+            </a>
+            <a href={financeSnapshot.datasetUrl} target="_blank" rel="noreferrer"
+              className="flex min-h-16 items-center justify-between gap-4 border-b border-ink/35 py-3 text-sm font-semibold text-ink underline-offset-4 hover:underline">
+              Receitas declaradas na prestação de contas <span aria-hidden="true">↗</span>
+            </a>
+            <p className="mt-5 text-[13px] leading-relaxed text-ink/75">
+              Base de receitas usada nesta página: {FINANCE_BASE_LABEL}. Os critérios publicados
+              não foram classificados aqui quanto ao mérito, nem comparados integralmente com
+              todas as transferências realizadas.
+            </p>
+          </nav>
+        </div>
+      </section>
+
       <SectionBlock
         id="fundo-eleitoral"
-        collapsible="Ver o fundo eleitoral partido por partido"
-        tone="butter"
+        tone="ink"
         kicker="Fundo eleitoral por partido"
         question="O fundo público acompanhou a presença de mulheres e de pessoas negras nas candidaturas de cada partido?"
         align="wide"
@@ -218,9 +270,11 @@ function DinheiroPage() {
               9,5%. Candidaturas de pessoas brancas são 49,8% e receberam 60,8%.
             </p>
             <p className="mt-3">
-              Na conta restrita a deputadas e deputados, três partidos ficaram abaixo de 30%
-              do FEFC declarado recebido por candidaturas pretas e pardas: PL (26,7%), NOVO (25,6%)
-              e PCO (24,7%). Incluindo os titulares dos seis cargos, são seis: PL (22,3%),
+              No recorte das candidaturas a deputado, a participação de pretas e pardas
+              somadas no FEFC declarado ficou abaixo de 30% em três siglas:
+              PL (26,7%), NOVO (25,6%) e PCO (24,7%). Esses percentuais
+              descrevem apenas o recorte, sem estabelecer infração legal.
+              Incluindo titulares dos seis cargos, são seis: PL (22,3%),
               NOVO (26,4%), MDB (28,2%), Cidadania (29,4%), PSD (29,4%) e PRTB (14,1%).
               O PRTB tem somente seis candidaturas titulares neste recorte, quatro com FEFC;
               percentuais de universos tão pequenos exigem cautela. A conta com todos os cargos
@@ -234,13 +288,17 @@ function DinheiroPage() {
           </>
         }
       >
-        <Desdobra rotulo="Ver o fundo partido por partido">
-          <FefcPartidos />
-        </Desdobra>
-        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-          Base de 15/11/2026, gerada após o prazo final do 2º turno: 195 candidaturas ainda constam
-          com prestação parcial e 102 com relatório financeiro. Estes números poderão ser revistos.
-        </p>
+        <div className="bg-paper p-4 text-ink md:p-7">
+          <Desdobra rotulo="Ver a tabela íntegra, partido por partido">
+            <FefcPartidos />
+          </Desdobra>
+          <p className="mt-5 max-w-3xl border-t border-rule pt-4 text-[13px] leading-relaxed text-ink/80">
+            Base de 15/11/2026, gerada após o prazo final do 2º turno: 195 candidaturas
+            ainda constam com prestação parcial e 102 com relatório financeiro.
+            São registros declarados e sujeitos a atualização e julgamento.
+            Esta tabela não verifica, isoladamente, cumprimento ou infração de cotas legais.
+          </p>
+        </div>
       </SectionBlock>
 
       <SectionBlock
@@ -274,11 +332,12 @@ function DinheiroPage() {
 
       <SectionBlock
         id="regra"
+        tone="plum"
         kicker="A regra"
         question="Cota de candidaturas e cota de dinheiro são regras diferentes"
         lead={<p>{QUOTA_RULE.financingNote}</p>}
       >
-        <div className="grid gap-4">
+        <div className="grid gap-4 bg-paper p-4 text-ink md:p-6">
           <ContextBox variant="significa">
             <p>
               A regra de composição de candidaturas de {QUOTA_RULE.floor}% a {QUOTA_RULE.ceiling}%
@@ -309,7 +368,7 @@ function DinheiroPage() {
         <SectionBlock
           id="territorio"
           collapsible="Ver estado por estado"
-          tone="lilac"
+          tone="butter"
           kicker="Território"
           question="A receita declarada por UF"
           align="wide"
