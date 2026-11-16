@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { FOTOS } from "@/data/fotos";
+import { PILOT_CORAL } from "@/lib/editorial-pilot-colors";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { GapNote } from "@/components/GapNote";
@@ -728,7 +729,7 @@ function PartidosPage() {
         { label: "Partido por partido" },
       ]}
     >
-      <header className="relative left-1/2 -ml-[50vw] w-screen bg-coral-ink text-white">
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-coral-ink text-white" style={{ backgroundColor: PILOT_CORAL }}>
         <div className="mx-auto grid max-w-7xl gap-9 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[1.15fr_.85fr] lg:gap-16">
           <div>
             <p className="font-display text-xl italic text-white/90">Partido por partido</p>
