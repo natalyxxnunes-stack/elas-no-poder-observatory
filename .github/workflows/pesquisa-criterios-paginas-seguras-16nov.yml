@@ -28,7 +28,7 @@ jobs:
           terms=[('resolução',4),('resolucao',4),('critério',3),('criterio',3),('distribuição',3),('distribuicao',3),('fundo especial',2),('cotas',2),('recursos',1),('mulher',1),('pretas',1),('pardas',1)]
           report=[]
           for name,(url,sha) in targets.items():
-            data=requests.get(url,timeout=45).content
+            data=requests.get(url,timeout=45,headers={'User-Agent':'Mozilla/5.0 (compatible; QSE-Jornalismo-Dados/1.0)'}).content
             if hashlib.sha256(data).hexdigest()!=sha:
               report.append({'partido':name,'erro':'hash difere da leitura anterior; nenhum documento renderizado'});continue
             file=Path('/tmp/qsecriterios')/(name+'.pdf');file.write_bytes(data)
