@@ -22,7 +22,7 @@ export const Route = createFileRoute("/achados/")({
   component: AchadosPage,
 });
 
-const FUNDOS = ["bg-ink text-paper", "bg-[var(--art-violet)] text-paper", "bg-paper text-ink"] as const;
+const FUNDOS = ["bg-ink text-paper", "bg-[var(--art-plum)] text-paper", "bg-paper text-ink"] as const;
 
 function AchadosPage() {
   const ordem = [...ACHADOS].reverse();
