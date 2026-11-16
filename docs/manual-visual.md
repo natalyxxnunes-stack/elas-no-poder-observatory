@@ -310,3 +310,32 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 **Validação:** [GitHub Actions #43794329151](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43794329151), commit `74d1c234a23ce626e1611e251803fdd4d642da84`, **success**. TypeScript, build, proteção das bases numéricas, links documentais, explicitação de limites probatórios, medição de contraste real a partir de cores renderizadas (inclusive OKLCH) e capturas da homepage e três investigações em desktop 1440 px e celular 390 px. Sem overflow horizontal nem erros de JavaScript no roteiro automatizado.
 
 **Nota cromática:** o coral original continua destinado a acentos e gráficos. Nas grandes áreas com texto claro, usar o **coral profundo aprovado** e confirmar contraste. Cores não substituem material factual; cada página necessita linguagem própria. **Teste concluído não significa aprovação visual**, ainda pendente.
+
+## Registro de prévia — lote 5 de páginas de dados (16/11/2026)
+
+**Situação:** proposta isolada na branch `revista-lote5-dados-16nov2026`, ainda **sem aprovação editorial, merge ou deploy**. O arquivo editável de continuidade `Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md` recebeu o registro detalhado na seção 14.13; preserva as decisões normativas anteriores.
+
+- **Partidos:** índice para eleitas, candidaturas/eleição, FEFC e votação. A marcação coral de percentuais abaixo de 30% refere-se apenas às candidaturas a deputado e não permite concluir descumprimento dos pisos constitucionais, que cobrem universo maior. Referência: Constituição Federal, art. 17, §§ 8º e 9º.
+- **Funil:** seção de contexto histórico no roxo estrutural, com microedição para retirar rótulo temporal anacrônico; os universos das etapas permanecem separados.
+- **Histórico:** índice textual de seis áreas da série, sem mexer nos pontos e denominadores. **Corrigida** a menção a “27/09” para “27/10/2026”, com base em `historical.reads.ts` e `resultado-2026.ts`, onde consta a geração TSE de 27/10/2026 19:30:36. Nenhum número foi alterado.
+- **Monitor:** abertura em tinta com período de 01/01 a 03/11/2026 e coleta de 04/11/2026; substituir a indicação “fora do exercício hoje” por “na coleta”; reduzir a manchete no celular e identificar com precisão o numerador como **voto ou presidência de sessão**. Sem alteração dos dados de atividade parlamentar.
+
+**QA:** workflow próprio do lote 5 em `.github/workflows/qa-lote5-dados.yml`, com capturas integrais (1440 px e 390 px). A aprovação técnica não valida automaticamente cor, ritmo ou leitura e nenhuma versão foi publicada.
+
+**Escopo protegido:** `main`, homepage, logo, `src/data`, arquivos de base, fotos, documentos e `src/styles.css`. As quatro soluções não se tornam templates obrigatórios para outras rotas.
+
+**QA confirmado em 16/11/2026:** [execução #43798365553](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43798365553), concluída com sucesso após os últimos ajustes. Compilação, tipos, proteção de arquivos, 10 renderizações (cinco rotas × desktop/celular), sem erro de JavaScript nem transbordamento horizontal. Artefato `qse-lote5-dados-previsuais`, com capturas de primeira dobra e páginas completas. **As composições seguem pendentes de aceite editorial.**
+
+## Auditoria de páginas completas — lote 5 (16/11/2026)
+
+**Estado:** [diagnóstico em `docs/design/AUDITORIA-PAGINAS-INTEIRAS-LOTE5-16NOV2026.md`](design/AUDITORIA-PAGINAS-INTEIRAS-LOTE5-16NOV2026.md), **sem aprovação visual, merge nem publicação**. A editora apontou corretamente que a regressão atinge as páginas **inteiras**, não apenas suas aberturas. Foram inspecionadas as capturas integrais de desktop (1440 px) e celular (390 px) da execução [QA #43798365553](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43798365553).
+
+**Partidos:** índice, gráfico e metodologia permanecem úteis, mas a sequência de cartões e tabelas torna a leitura longa, sobretudo no celular. O recorte de FEFC exclusivamente para deputadas e deputados não pode ser lido como teste suficiente de cumprimento da cota constitucional. Proposta: documento formal FEFC do TSE junto da leitura do dinheiro, acesso a consulta integral por partido, resumo contextual e destaque do limite antes da tabela.
+
+**Funil:** manter a abertura roxa e os denominadores separados; as “etapas” são fotografias de **universos diferentes**, não trânsito longitudinal das mesmas candidaturas. Proposta: leitura por problema, UF selecionável, tabela integral acessível e ritmo visual entre evidências.
+
+**Histórico:** o lilás e gráficos semelhantes repetidos criam aparência de relatório. Proposta: contraste narrativo e documental ao longo de todas as séries, seleção de cargos/UF e caderno de quatro arquivos TSE com origem identificada. Não usar fotografia de 1927 como imagem de referência das eleições 2014–2026.
+
+**Monitor:** preservar coleta de 04/11 e período 01/01–03/11/2026, bem como distinção entre voto registrado e presidência de sessão, proposições com coautoria e discursos. Proposta: experiência móvel de consulta individual progressiva, pré-registro de 2027 como documento metodológico e possível foto real do plenário de 30/06/2026 **com legenda que a dissocie do conjunto das votações**.
+
+**Direção preservada:** fontes, créditos, licenças, fotografia/documento apenas com pertinência; paleta editorial adulta e roxo estrutural; convenções das categorias raciais e das barras de dados; homepage e logo protegidas. **Nenhum novo desenho aprovado por este registro**. O procedimento próximo é revisão **por página integral**, na ordem proposta Partidos → Histórico → Monitor → Funil, com aprovação explícita posterior.

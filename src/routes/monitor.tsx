@@ -11,7 +11,8 @@ import { MIN_VOTACOES, PRESENCA_DEPUTADAS } from "@/lib/monitor";
 const presenca = (l: LinhaMonitor) => (l.votacoesEmExercicio ? l.votosRegistrados / l.votacoesEmExercicio : null);
 const data = (iso: string) => iso.split("-").reverse().join("/");
 
-const titulo = `As deputadas registraram voto em ${formatPct(PRESENCA_DEPUTADAS)} das votações nominais de 2026 em que estavam em exercício; a Câmara inteira, em ${formatPct(MONITOR_META.casaPresencaPct ?? 0)}`;
+const titulo = `Em 2026, deputadas tiveram registro de voto ou presidência em ${formatPct(PRESENCA_DEPUTADAS)} das votações nominais em que estavam em exercício; na Câmara inteira, ${formatPct(MONITOR_META.casaPresencaPct ?? 0)}`;
+const manchete = `Deputadas tiveram registro em ${formatPct(PRESENCA_DEPUTADAS)} das votações nominais em que estavam em exercício`;
 
 export const Route = createFileRoute("/monitor")({
   head: () => ({
@@ -31,7 +32,7 @@ export const Route = createFileRoute("/monitor")({
 type Ordem = "nome" | "presenca" | "proposicoes" | "discursos";
 const ORDENS: [Ordem, string][] = [
   ["nome", "Nome"],
-  ["presenca", "Votos registrados"],
+  ["presenca", "Registro em votações"],
   ["proposicoes", "Proposições"],
   ["discursos", "Discursos"],
 ];
@@ -72,14 +73,22 @@ function MonitorPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "No poder", to: "/como-votaram" }, { label: "Monitor de mandato" }]}>
-      <header className="py-10 md:py-14">
-        <Secao nome="Monitor de mandato" tipo="Câmara dos Deputados" />
-        <h1 className="mt-4 max-w-5xl font-display text-3xl font-semibold leading-tight text-plum md:text-5xl">{titulo}</h1>
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink/80">
+      <header className="my-5 bg-[var(--art-ink)] px-5 py-10 text-cream md:px-9 md:py-14">
+        <Secao nome="Monitor de mandato" tipo="Câmara dos Deputados" claro semFio />
+        <h1 className="mt-4 max-w-5xl font-display text-3xl font-semibold leading-tight text-cream md:text-5xl">{manchete}</h1>
+        <p className="mt-4 max-w-3xl font-display text-xl leading-relaxed text-cream md:text-2xl">
+          O indicador reúne votos registrados e presidência da sessão. Na Câmara inteira,
+          pelo mesmo critério, a proporção foi de {formatPct(MONITOR_META.casaPresencaPct ?? 0)}.
+        </p>
+        <p className="mt-5 max-w-3xl text-lg leading-relaxed text-cream/85">
           O que cada uma das {n(MONITOR_META.deputadasNoPeriodo)} deputadas federais que passaram pela Câmara em 2026 registrou,
           de {data(MONITOR_META.periodo[0])} a {data(MONITOR_META.periodo[1])}: votos nas {n(MONITOR_META.votacoesNominais)}{" "}
           votações nominais do plenário, {n(totalProps)} assinaturas em proposições (uma proposição com várias autoras conta uma vez para cada) e {n(totalDisc)} discursos. Os números
           descrevem o registro; qualidade, motivo e efeito ficam para a reportagem.
+        </p>
+        <p className="mt-6 border-t border-cream/30 pt-4 font-mono text-[12px] leading-relaxed text-cream/80">
+          Período observado: {data(MONITOR_META.periodo[0])} a {data(MONITOR_META.periodo[1])} ·
+          Coleta: {MONITOR_META.coletaEm} · Câmara dos Deputados
         </p>
       </header>
 
@@ -145,7 +154,7 @@ function MonitorPage() {
           <thead>
             <tr className="border-b-2 border-ink text-[13px] text-ink">
               <th scope="col" className="px-3 py-3 text-left font-semibold">Deputada</th>
-              <th scope="col" className="px-3 py-3 text-right font-semibold">Votos registrados</th>
+              <th scope="col" className="px-3 py-3 text-right font-semibold">Registro em votações</th>
               <th scope="col" className="px-3 py-3 text-right font-semibold">Proposições</th>
               <th scope="col" className="px-3 py-3 text-right font-semibold">Discursos</th>
               <th scope="col" className="px-3 py-3 text-left font-semibold">Em 2026</th>
@@ -160,7 +169,7 @@ function MonitorPage() {
                     <span className="font-display text-[17px] text-ink">{l.nome}</span>
                     <span className="block text-[13px] text-ink/70">
                       {l.partido}-{l.uf}
-                      {!l.emExercicioHoje && " · fora do exercício hoje"}
+                      {!l.emExercicioHoje && ` · fora do exercício na coleta de ${MONITOR_META.coletaEm}`}
                     </span>
                   </th>
                   <td className="px-3 py-2 text-right font-mono text-[14px] text-ink">
@@ -197,7 +206,7 @@ function MonitorPage() {
         </table>
       </div>
       <p className="mt-3 max-w-3xl text-[13px] leading-relaxed text-muted-foreground">
-        Votos registrados = votações nominais do plenário em que ela votou (Sim, Não, abstenção ou obstrução) ou presidiu a sessão ÷ votações em
+        Registro em votações = votações nominais do plenário em que ela votou (Sim, Não, abstenção ou obstrução) ou presidiu a sessão ÷ votações em
         que estava em exercício. Percentual só com {MIN_VOTACOES} ou mais votações; abaixo disso, “X de Y”. O registro não diz
         se uma ausência foi justificada. Proposições = PL, PLP, PEC e PDL apresentados no período com ela entre os autores,
         como primeira signatária ou coautora. Discursos = todos os registrados pela Câmara, em qualquer fase da sessão.

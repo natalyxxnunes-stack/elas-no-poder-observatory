@@ -95,6 +95,20 @@ function HistoricoPage() {
         years={["2014", "2018", "2022", "2026"]}
       />
 
+      <nav aria-label="Navegar pelas séries históricas" className="my-6 border-y border-rule py-5">
+        <p className="font-mono text-xs font-semibold uppercase tracking-wide text-plum">
+          Índice das séries · cada gráfico informa seu próprio universo
+        </p>
+        <div className="mt-3 flex flex-wrap gap-x-7 gap-y-3 text-sm font-semibold">
+          <a href="#genero" className="text-plum underline decoration-plum/40 underline-offset-4 hover:decoration-plum">Candidaturas</a>
+          <a href="#raca" className="text-plum underline decoration-plum/40 underline-offset-4 hover:decoration-plum">Cor e raça</a>
+          <a href="#genero-raca" className="text-plum underline decoration-plum/40 underline-offset-4 hover:decoration-plum">Gênero × cor/raça</a>
+          <a href="#eleitas" className="text-plum underline decoration-plum/40 underline-offset-4 hover:decoration-plum">Eleitas</a>
+          <a href="#cargo-uf" className="text-plum underline decoration-plum/40 underline-offset-4 hover:decoration-plum">Cargos e estados</a>
+          <a href="#bases" className="text-plum underline decoration-plum/40 underline-offset-4 hover:decoration-plum">Bases e lacunas</a>
+        </div>
+      </nav>
+
       <div className="pb-4">
         <InBrief
           foundLabel="O achado"
@@ -276,7 +290,7 @@ function HistoricoPage() {
       </SectionBlock>
 
       <ComoSabemos
-        fonte="TSE, Candidatos 2014, 2018 e 2022 (resultado do 1º turno no proporcional; resultado final, com 2º turno, no majoritário); TSE, Candidaturas 2026 (fotografia de 27/09) e resultado final de 2026 (base de 27/10, com o 2º turno)."
+        fonte="TSE, Candidatos 2014, 2018 e 2022 (resultado do 1º turno no proporcional; resultado final, com 2º turno, no majoritário); TSE, Candidaturas 2026 (fotografia de 27/10) e resultado final de 2026 (mesma base de 27/10, com o 2º turno)."
         universo="Proporcional (Câmara, assembleias e Câmara Legislativa do DF) e majoritário (Presidência, governos e Senado), nunca somados. Cada candidatura entra uma vez em cada ano."
         calculo={<>Candidaturas de mulheres divididas pelo total de candidaturas do mesmo universo e do mesmo ano. {BLACK_AGGREGATION_NOTE}</>}
         limites={[

@@ -184,7 +184,7 @@ function FunilPage() {
       </SectionBlock>
 
 
-      <SectionBlock id="contexto"
+      <SectionBlock id="contexto" tone="plum"
         kicker="Contexto"
         question="Como isso se compara ao passado?"
         lead={
@@ -196,7 +196,7 @@ function FunilPage() {
       </SectionBlock>
 
       <SectionBlock id="chapas" tone="lilac"
-        kicker="Antes do resultado"
+        kicker="Como funcionam as cadeiras"
         question="Na disputa proporcional, ninguém concorre isoladamente"
       >
         <div className="grid gap-4 md:grid-cols-2">
