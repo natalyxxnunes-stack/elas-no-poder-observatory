@@ -24,7 +24,7 @@ const GRUPOS: { key: string; label: string; get: (p: FefcPartido) => FefcGrupo }
   { key: "AMARELA", label: "Amarelas e amarelos", get: (p) => p.raca["AMARELA"] ?? ZERO },
 ];
 
-function Cell({ g, p, k }: { g: FefcGrupo; p: FefcPartido; k: string }) {
+function Cell({ g, p }: { g: FefcGrupo; p: FefcPartido }) {
   if (p.candidaturas < SMALL || p.comFefc < SMALL) {
     return (
       <span className="font-mono text-[13px] text-muted-foreground">
@@ -109,7 +109,7 @@ export function FefcPartidos() {
               </td>
               {GRUPOS.map((g) => (
                 <td key={g.key} className="py-2 pr-3">
-                  <Cell g={g.get(FEFC_TOTAL)} p={FEFC_TOTAL} k={g.key} />
+                  <Cell g={g.get(FEFC_TOTAL)} p={FEFC_TOTAL} />
                 </td>
               ))}
             </tr>
@@ -129,7 +129,7 @@ export function FefcPartidos() {
                 </td>
                 {GRUPOS.map((g) => (
                   <td key={g.key} className="py-2 pr-3">
-                    <Cell g={g.get(p)} p={p} k={g.key} />
+                    <Cell g={g.get(p)} p={p} />
                   </td>
                 ))}
               </tr>
