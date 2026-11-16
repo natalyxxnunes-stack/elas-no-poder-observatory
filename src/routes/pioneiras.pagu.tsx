@@ -87,7 +87,7 @@ function PaguPage() {
       />
 
 
-      <section className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
+      <section className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-plum)] text-paper">
         <div className="mx-auto grid max-w-7xl gap-7 px-5 py-10 md:grid-cols-[1fr_1fr] md:px-8 md:py-14">
           <div>
             <p className="text-[13px] font-semibold text-[var(--art-gold)]">Arquivo eleitoral · São Paulo · 1950</p>
@@ -99,7 +99,7 @@ function PaguPage() {
         </div>
       </section>
 
-      <SectionBlock id="quem-foi" kicker="Quem foi" question="Da antropofagia à Assembleia">
+      <SectionBlock id="quem-foi" tone="warm" kicker="Quem foi" question="Da antropofagia à Assembleia">
         <Lide>
           Patrícia Rehder Galvão nasceu em 9 de junho de 1910, em São João da Boa Vista (SP), e morreu
           em 12 de dezembro de 1962, em Santos, de câncer, aos 52 anos. Começou a escrever em jornais
@@ -182,6 +182,20 @@ function PaguPage() {
           ]}
         />
       </SectionBlock>
+
+      <section aria-label="A votação nominal de Pagu em 1950" className="relative left-1/2 -ml-[50vw] w-screen bg-[#c53f22] text-paper">
+        <div className="mx-auto grid max-w-7xl gap-7 px-5 py-11 md:grid-cols-[.75fr_1.25fr] md:items-center md:px-8 md:py-16">
+          <div>
+            <p className="text-[13px] font-semibold text-paper">São Paulo · eleição de 1950 · PSB</p>
+            <p className="mt-3 font-display text-[clamp(4.5rem,9vw,8rem)] leading-none tabular-nums text-paper">{n(d.pagu.votos)}</p>
+            <p className="mt-2 text-[14px] font-semibold text-paper">votos nominais</p>
+          </div>
+          <div className="border-t border-paper/40 pt-6 md:border-l md:border-t-0 md:pl-9 md:pt-0">
+            <h2 className="max-w-xl font-display text-[clamp(2rem,3.5vw,3rem)] leading-tight text-paper">Uma candidatura preservada no arquivo eleitoral.</h2>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-paper">O registro é de votação nominal para deputada estadual. A composição da Assembleia e as limitações do arquivo são analisadas no capítulo seguinte.</p>
+          </div>
+        </div>
+      </section>
 
       <SectionBlock
         id="eleicao-1950"

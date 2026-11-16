@@ -95,7 +95,7 @@ function LeliaPage() {
       />
 
 
-      <section className="relative left-1/2 -ml-[50vw] w-screen bg-plum text-paper">
+      <section className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
         <div className="mx-auto grid max-w-7xl gap-7 px-5 py-10 md:grid-cols-[1fr_1fr] md:px-8 md:py-14">
           <div>
             <p className="text-[13px] font-semibold text-[var(--art-gold)]">Arquivo eleitoral · Rio de Janeiro</p>
@@ -107,7 +107,7 @@ function LeliaPage() {
         </div>
       </section>
 
-      <SectionBlock id="quem-foi" kicker="Quem foi" question="De Belo Horizonte à Constituinte">
+      <SectionBlock id="quem-foi" tone="warm" kicker="Quem foi" question="De Belo Horizonte à Constituinte">
         <Lide>
           Lélia de Almeida nasceu em Belo Horizonte, em 1935, penúltima de 18 irmãos. O pai, Accacio,
           era ferroviário e negro; a mãe, Orcinda, empregada doméstica de origem indígena. A família se
@@ -183,6 +183,21 @@ function LeliaPage() {
           ]}
         />
       </SectionBlock>
+
+      <section aria-label="As duas candidaturas de Lélia no arquivo do TSE" className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-11 md:grid-cols-[1fr_1fr] md:px-8 md:py-16">
+          <div>
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">1982 · deputada federal · PT</p>
+            <p className="mt-3 font-display text-[clamp(3rem,6vw,5rem)] leading-none tabular-nums text-paper">{n(a.lelia.votos)}</p>
+            <p className="mt-3 text-sm leading-relaxed text-paper">Votos nominais recebidos no Rio de Janeiro.</p>
+          </div>
+          <div className="border-t border-paper/30 pt-6 md:border-l md:border-t-0 md:pl-9 md:pt-0">
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">1986 · deputada estadual · PDT</p>
+            <p className="mt-3 font-display text-[clamp(3rem,6vw,5rem)] leading-none tabular-nums text-paper">{n(b.lelia.votos)}</p>
+            <p className="mt-3 text-sm leading-relaxed text-paper">Outro cargo e outra eleição. A comparação exige considerar cada disputa e seu universo.</p>
+          </div>
+        </div>
+      </section>
 
       <SectionBlock
         id="eleicoes"

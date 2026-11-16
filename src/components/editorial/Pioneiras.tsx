@@ -57,19 +57,23 @@ export function PerfilHero({
   /** Ficha extraída de dados oficiais; exibida quando não há foto licenciada. */
   ficha?: React.ReactNode;
 }) {
-  const temFoto = Boolean(fotoId && FOTOS[fotoId] && FOTOS[fotoId]?.licenca !== "verificacao-pendente");
   const pagu = fotoId === "pagu";
+  const lelia = fotoId === "lelia-gonzalez";
+  const fundoEscuro = pagu || lelia;
+  // Somente para imagens de avaliação. O build normal mantém o bloqueio jurídico.
+  const previaPagu = pagu && import.meta.env.VITE_QSE_PREVIEW_PAGU_FOTO === "true";
+  const temFoto = Boolean(fotoId && FOTOS[fotoId] && (FOTOS[fotoId]?.licenca !== "verificacao-pendente" || previaPagu));
   return (
-    <header className={`relative left-1/2 -ml-[50vw] w-screen ${pagu ? "bg-ink text-paper" : "bg-cream text-ink"}`}>
+    <header className={`relative left-1/2 -ml-[50vw] w-screen ${pagu ? "bg-ink text-paper" : lelia ? "bg-[var(--art-plum)] text-paper" : "bg-cream text-ink"}`}>
       <div className="mx-auto max-w-7xl px-5 py-11 md:px-8 md:py-16">
         <div className="grid items-start gap-8 lg:grid-cols-[1fr_.9fr] lg:gap-12">
           <div>
-            <p className={`text-xs font-semibold uppercase tracking-wide ${pagu ? "text-lilac" : "text-plum"}`}>Série Pioneiras · {years}</p>
-            <h1 className={`mt-4 max-w-2xl font-display text-[clamp(2.7rem,5vw,4.7rem)] font-semibold leading-[1.03] ${pagu ? "text-paper" : "text-ink"}`}>
+            <p className={`text-xs font-semibold uppercase tracking-wide ${fundoEscuro ? "text-[var(--art-gold)]" : "text-plum"}`}>Série Pioneiras · {years}</p>
+            <h1 className={`mt-4 max-w-2xl font-display text-[clamp(2.7rem,5vw,4.7rem)] font-semibold leading-[1.03] ${fundoEscuro ? "text-paper" : "text-ink"}`}>
               {nome}
             </h1>
-            <p className={`mt-6 max-w-xl text-lg leading-relaxed ${pagu ? "text-paper/90" : "text-ink/85"}`}>{quemFoi}</p>
-            <p className={`mt-6 max-w-lg text-xs leading-relaxed ${pagu ? "text-paper/70" : "text-ink/65"}`}>
+            <p className={`mt-6 max-w-xl text-lg leading-relaxed ${fundoEscuro ? "text-paper/90" : "text-ink/85"}`}>{quemFoi}</p>
+            <p className={`mt-6 max-w-lg text-xs leading-relaxed ${fundoEscuro ? "text-paper/85" : "text-ink/75"}`}>
               Perfil documental: imagem histórica apenas com procedência e direitos identificados.
               Os resultados eleitorais são registrados na ficha do TSE.
             </p>
@@ -85,7 +89,7 @@ export function PerfilHero({
                   <a href={FOTOS[fotoId]!.licencaUrl} target="_blank" rel="noreferrer"
                     className="font-semibold underline underline-offset-2">
                     Wikimedia Commons (domínio público indicado na ficha)
-                  </a>.
+                  </a>. {previaPagu ? "Reprodução apenas na prévia editorial, com direitos ainda em verificação; não liberar para publicação." : ""}
                 </figcaption>
               </figure>
             ) : temFoto && fotoId ? (
@@ -102,22 +106,22 @@ export function PerfilHero({
             )}
           </div>
         </div>
-        <div className={`mt-9 grid gap-5 border-t pt-6 md:grid-cols-[.75fr_1fr_1.2fr] md:items-start md:gap-9 ${pagu ? "border-paper/35" : "border-plum/30"}`}>
+        <div className={`mt-9 grid gap-5 border-t pt-6 md:grid-cols-[.75fr_1fr_1.2fr] md:items-start md:gap-9 ${fundoEscuro ? "border-paper/35" : "border-plum/30"}`}>
           <div>
-            <p className={`text-xs font-semibold uppercase tracking-wide ${pagu ? "text-lilac" : "text-plum"}`}>O registro eleitoral</p>
-            <p className={`mt-2 text-sm leading-relaxed ${pagu ? "text-paper/80" : "text-ink/75"}`}>{ancora.eleicao}</p>
+            <p className={`text-xs font-semibold uppercase tracking-wide ${fundoEscuro ? "text-[var(--art-gold)]" : "text-plum"}`}>O registro eleitoral</p>
+            <p className={`mt-2 text-sm leading-relaxed ${fundoEscuro ? "text-paper" : "text-ink/75"}`}>{ancora.eleicao}</p>
           </div>
           <div>
-            <p className={`font-display text-[3.3rem] font-semibold leading-none ${pagu ? "text-paper" : "text-plum"}`}>
+            <p className={`font-display text-[3.3rem] font-semibold leading-none ${fundoEscuro ? "text-[var(--art-gold)]" : "text-plum"}`}>
               {formatInt(ancora.valor)}
             </p>
-            <p className={`mt-2 max-w-[35ch] text-sm font-medium leading-relaxed ${pagu ? "text-paper" : "text-ink"}`}>
+            <p className={`mt-2 max-w-[35ch] text-sm font-medium leading-relaxed ${fundoEscuro ? "text-paper" : "text-ink"}`}>
               {ancora.rotulo}
             </p>
-            <p className={`mt-2 text-xs ${pagu ? "text-paper/70" : "text-ink/65"}`}>{ancora.fonte}</p>
+            <p className={`mt-2 text-xs ${fundoEscuro ? "text-paper/85" : "text-ink/75"}`}>{ancora.fonte}</p>
           </div>
           <div>
-            <p className={`font-display text-lg leading-snug ${pagu ? "text-paper" : "text-ink"}`}>{ancora.tensao}</p>
+            <p className={`font-display text-lg leading-snug ${fundoEscuro ? "text-paper" : "text-ink"}`}>{ancora.tensao}</p>
             <div className={pagu ? "mt-4 bg-paper p-4 text-ink" : "mt-4"}><Regua a={ancora} /></div>
           </div>
         </div>
