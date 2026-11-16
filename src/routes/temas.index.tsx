@@ -92,7 +92,7 @@ function TemasPage() {
                     </a>
                   </div>
                   {isMemoria && (
-                    <figure className="max-w-sm md:col-start-2 lg:col-start-auto lg:row-start-1 lg:row-span-2">
+                    <figure className="min-w-0 max-w-sm md:col-start-2 lg:col-start-4 lg:row-start-1 lg:row-span-2">
                       <img
                         src={FOTOS["bertha-lutz-1927"]!.src}
                         alt={FOTOS["bertha-lutz-1927"]!.alt}
