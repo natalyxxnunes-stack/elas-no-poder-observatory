@@ -106,7 +106,7 @@ export function IndiceDiariosCamara({ falas }: { falas: readonly Fala[] }) {
               apresentar tipografia do site como imagem do Diário.
             </p>
             <p className="mt-4 text-[13px] leading-relaxed text-ink/80">
-              Este catálogo reúne apenas declarações já autorizadas à publicação
+              Este catálogo reúne declarações selecionadas para publicação
               editorial na base da reportagem. O acervo original é da Câmara
               dos Deputados; a seleção e a organização são do observatório.
             </p>
