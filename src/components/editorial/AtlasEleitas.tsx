@@ -97,6 +97,7 @@ export function AtlasEleitas({
                     type="button"
                     aria-label={`Ver eleitas de ${UF_NOME[uf] ?? uf} (${uf}): ${total} registros`}
                     aria-pressed={ativo}
+                    aria-controls="lista-eleitas"
                     onClick={() => selecionar(ativo ? "" : uf)}
                     className={`group grid w-full grid-cols-[3.25rem_minmax(0,1fr)_3rem] items-center gap-3 py-2.5 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--art-gold)] ${ativo ? "bg-plum px-2 -mx-2 w-[calc(100%+1rem)]" : ""}`}
                   >
