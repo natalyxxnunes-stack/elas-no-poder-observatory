@@ -22,6 +22,25 @@ jobs:
           bun install --frozen-lockfile
           bunx tsc --noEmit
           bun run build:hostgator
+      - name: Confirmar HTML proprio de todas as eleitas e temas no pacote HostGator
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          eleitas=Path("src/data/eleitas-2026.ts").read_text()
+          temas=Path("src/data/temas.ts").read_text()
+          slugs_eleitas=re.findall(r'"slug": "([^"]+)"',eleitas)
+          slugs_temas=re.findall(r'slug: "(presenca|dinheiro|agenda|poder|violencia|memoria)"',temas)
+          assert len(slugs_eleitas)==len(set(slugs_eleitas)) and len(slugs_eleitas)>=342,("fichas duplicadas ou ausentes",len(slugs_eleitas))
+          assert len(slugs_temas)==6 and len(set(slugs_temas))==6,slugs_temas
+          raiz=Path("dist/client")
+          ausentes=[str(raiz/"eleitas"/slug/"index.html") for slug in slugs_eleitas if not (raiz/"eleitas"/slug/"index.html").exists()]
+          ausentes += [str(raiz/"temas"/slug/"index.html") for slug in slugs_temas if not (raiz/"temas"/slug/"index.html").exists()]
+          sitemap=(raiz/"sitemap.xml").read_text()
+          ausentes += ["sitemap: "+slug for slug in slugs_eleitas if "/eleitas/"+slug+"</loc>" not in sitemap]
+          print("Fichas eleitorais",len(slugs_eleitas),"Temas",len(slugs_temas),"Paginas ausentes",len(ausentes))
+          assert not ausentes,ausentes[:30]
+          PY
       - name: Preparar Playwright e axe-core
         run: |
           python3 -m pip install --quiet --break-system-packages playwright
