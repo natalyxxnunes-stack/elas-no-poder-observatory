@@ -454,3 +454,26 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 **Escopo protegido:** arquivos numéricos e scripts de `src/data`, fotos, homepage, logo, CSS global e HostGator. A única alteração em `src/data` foi o texto editorial de `temas.ts`. Verificação por QA específico em desktop/celular, com a rota temática e a rota de dados; resultado ainda exige aprovação editorial.
 
 **QA final de Dinheiro:** [GitHub Actions #43809995591](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43809995591), concluído com sucesso após os ajustes de texto e critérios. Builds/tipos, homepage e bases protegidas, rotas `/dinheiro` e `/temas/dinheiro` em desktop 1440 px/celular 390 px, acesso a critérios e cotas TSE, mensagem corrigida na editoria, tabela integral expansível, sem erros JS nem overflow. Capturas completas: `qse-dinheiro-pagina-integral`. Altura padrão no celular: 10.195 px na prévia, não tomada como indicador isolado de qualidade visual. **QA técnico sem aceite editorial, merge ou deploy.**
+
+
+## Comparar — composição editorial de página inteira (16/11/2026)
+
+**Situação:** [PR #20](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/pull/20), rascunho derivado do PR #19. Nenhum merge ou publicação. [GitHub Actions #43811771014](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43811771014) — sucesso técnico, com capturas integrais em computador e celular; aprovação estética pendente.
+
+**Diagnóstico:** a informação estava concentrada em tabela extensa, sem capítulo de leitura e sem documento primário em destaque. A linha “Pretas e pardas somadas (régua da lei)” podia sugerir que o subconjunto de candidaturas a deputado verificasse a cota legal do FEFC.
+
+**Intervenção:** abertura de tinta; índice; capítulo roxo de proporções de eleitas por total de pessoas eleitas em cada recorte, sempre com numerador, denominador e escala de 0–100%; faixa coral profundo com texto claro sobre o limite jurídico do FEFC; tabela integral acessível em papel; caderno documental dourado com links do TSE. Seleções duplicadas evitadas. Pretas e pardas continuam separadas nas linhas de origem. Sem alteração em bases, fotografia, homepage, marca ou CSS global.
+
+## Relatório 2026 — cinco capítulos distintos (16/11/2026)
+
+**Situação:** [PR #21](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/pull/21), rascunho derivado de #20. [GitHub Actions #43811953250](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43811953250) — sucesso técnico, não aceite visual.
+
+**Diagnóstico:** cinco capítulos repetiam número, título e lista, sem progressão visual por natureza de evidência. **Intervenção:** capa roxa datada da edição preliminar de 04/11; navegação; resultados em tinta, cor/raça em papel, financiamento em dourado, mandato em roxo e violência em coral profundo, sempre com texto claro nos fundos escuros. Todas as manchetes, fontes, links e limites preservados. Registro explícito de que atuações das deputadas em exercício em 2026 não equivalem às ações das recém-eleitas. Encerramento com lacunas, agenda conforme corte de 04/11 e método. As afirmações sobre datas de julgamento e diplomação preservadas em `AINDA_NAO` precisam de verificação documental na atualização editorial. Sem mudança nos dados, foto, logo, homepage ou CSS global.
+
+## Dados — seis editorias, índice completo (16/11/2026)
+
+**Situação:** [PR #22](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/pull/22), rascunho derivado de #21. [GitHub Actions #43812144098](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43812144098) — sucesso técnico, aceite visual pendente.
+
+**Diagnóstico:** o código herdado do PR #19 era uma grade de diretórios sem ritmo editorial. O PR #9, independente e ainda pendente, já continha a abertura dourada e os capítulos de tinta e roxo; suas decisões foram reaproveitadas e refinadas, **sem integração do PR #9**. **Intervenção:** abertura dourada, rotas claras entre leitura, comparação e verificação; índice temático; seis capítulos com variações de escala, ordem de colunas e superfície em tinta, roxo e coral profundo (para violência, com letra clara); caderno documental dourado com referência TSE, base pública e método; ferramentas gerais em roxo. Todos os links e temas mantidos; nenhum número novo, foto decorativa ou documento simulado. Bases, logo, homepage e CSS global preservados.
+
+**Governança transversal:** PRs #20, #21 e #22 são prévias encadeadas após o PR #19; o resultado do GitHub Actions indica funcionamento técnico e capturas produzidas, não inspeção estética nem aprovação editorial. A direção de arte continua ancorada nos pilotos do PR #8 e em `docs/design/ANCORA-EDITORIAL-PILOTOS-16NOV2026.md`. A cópia editável do manual de continuidade localizada na Biblioteca alcança 14.12; os registros equivalentes a 14.13–14.21 estão neste arquivo GitHub. A reconstrução do manual sob o nome original deve distinguir transcrição recuperada e cópia anterior não localizada.
