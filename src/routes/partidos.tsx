@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
-import { PageHero } from "@/components/editorial/PageHero";
+import { FOTOS } from "@/data/fotos";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { GapNote } from "@/components/GapNote";
@@ -48,13 +49,24 @@ const SHORT: Record<string, string> = {
   "2270800-160": "PEC prerrogativas",
 };
 const VOTE_IDS = [
-  "2351179-51",
-  "2352476-149",
-  "2482078-57",
-  "345311-270",
-  "2358548-89",
-  "2270800-160",
+  "2351179-51", "2352476-149", "2482078-57",
+  "345311-270", "2358548-89", "2270800-160",
 ];
+
+/** Os números de PJe e datas abaixo são publicados na tabela oficial do TSE.
+ * As peças são documentos reais. Sua reprodução visual não é simulada aqui.
+ * A seleção de três siglas é uma amostra de acesso, não classificação.
+ */
+const FEFC_DOCUMENTOS = [
+  { sigla: "PL", pje: "0600974-71.2026.6.00.0000", liberado: "20/08/2026", href: "https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0600974_71-2026-6-00-0000___pl_nacional___criterios_fefc" },
+  { sigla: "PT", pje: "0601252-72.2026.6.00.0000", liberado: "21/08/2026", href: "https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0601252_72-2026-6-00-0000___pt_nacional___criterios_fefc" },
+  { sigla: "União Brasil", pje: "0601251-87.2026.6.00.0000", liberado: "21/08/2026", href: "https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0601251_87-2026-6-00-0000___uniao_brasil_nacional___criterios_fefc" },
+] as const;
+
+const TSE_CRITERIOS = "https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/fundo-especial-de-financiamento-de-campanha-fefc";
+const TSE_COTAS = "https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/distribuicao-dos-recursos-do-fundo-especial-de-financiamento-de-campanha-fefc-eleicoes-2026";
+const FOTO_BANCADA = FOTOS["bancada-feminina-camara-marco-2026"]!;
+
 
 type Linha = {
   partido: string;
@@ -198,6 +210,7 @@ function LinhaPartido({ r }: { r: Linha }) {
         {n(pretas)}
       </td>
       <td className={td}>{n(r.raca["INDÍGENA"] ?? 0)}</td>
+      <td className={td}>{n(r.raca["AMARELA"] ?? 0)}</td>
       <td className={td}>{r.senado > 0 ? `${n(r.senadoras)} de ${n(r.senado)}` : "—"}</td>
       <td className={td}>{r.governadoras > 0 ? n(r.governadoras) : "—"}</td>
     </tr>
@@ -216,7 +229,7 @@ function CardPartido({ r }: { r: Linha }) {
         {n(r.mulheres)} <span className="font-sans text-[15px] text-ink">mulheres eleitas ({share(r.mulheres, r.cadeiras)})</span>
       </p>
       <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-[15px] text-ink">
-        {RACAS.slice(0, 4).map(([k, l]) => (
+        {RACAS.map(([k, l]) => (
           <div key={k} className={`flex justify-between ${k === "PRETA" && r.mulheres >= GRANDES && !pretas ? "border-b-2 border-coral font-semibold" : ""}`}>
             <dt>{l[0]?.toUpperCase() + l.slice(1)}</dt>
             <dd className="font-mono">{n(r.raca[k] ?? 0)}</dd>
@@ -250,6 +263,7 @@ function TabelaPartidos({ rows }: { rows: Linha[] }) {
               <th className={th}>Pardas</th>
               <th className={th}>Pretas</th>
               <th className={th}>Indígenas</th>
+              <th className={th}>Amarelas</th>
               <th className={th}>Senado 2027</th>
               <th className={th}>Governadoras</th>
             </tr>
@@ -274,24 +288,63 @@ function EleitasTable() {
   const rows = linhas();
   const grandes = rows.filter((r) => r.cadeiras >= GRANDES);
   const outros = rows.filter((r) => r.cadeiras < GRANDES);
+  const [partido, setPartido] = useState(rows[0]?.partido ?? "");
+  const selecionado = rows.find((r) => r.partido === partido);
   return (
     <div className="space-y-6">
       <EleitasGrafico />
-      <TabelaPartidos rows={grandes} />
-      {outros.length > 0 && (
-        <details className="group border border-rule bg-card">
-          <summary className="flex min-h-12 cursor-pointer items-center justify-between px-4 font-medium text-plum">
-            Ver os outros {n(outros.length)} partidos, com menos de {GRANDES} cadeiras
-            <span aria-hidden="true" className="transition-transform group-open:rotate-180">↓</span>
+
+      <div className="md:hidden border border-plum bg-cream px-4 py-5">
+        <label htmlFor="eleitas-escolha-partido" className="block text-sm font-semibold text-plum">
+          Consultar uma sigla
+        </label>
+        <select
+          id="eleitas-escolha-partido"
+          value={partido}
+          onChange={(e) => setPartido(e.target.value)}
+          className="mt-2 min-h-12 w-full border border-ink bg-paper px-3 text-base text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum"
+        >
+          {rows.map((r) => <option key={r.partido} value={r.partido}>{r.partido}</option>)}
+        </select>
+        <p className="mt-3 text-[13px] leading-relaxed text-ink/70">
+          A ficha reúne deputados federais, estaduais e distritais eleitos pelo partido em 2026.
+        </p>
+        {selecionado && <div className="mt-4"><CardPartido r={selecionado} /></div>}
+        <details className="mt-5 border-t border-plum/40 pt-3">
+          <summary className="min-h-11 cursor-pointer font-semibold text-plum underline underline-offset-4">
+            Consultar todas as siglas e respectivas fichas
           </summary>
-          <div className="border-t border-rule p-3 md:p-0">
-            <TabelaPartidos rows={outros} />
+          <div className="mt-4"><TabelaPartidos rows={rows} /></div>
+        </details>
+      </div>
+
+      <div className="hidden md:block">
+        <details className="group border border-plum bg-card px-4 py-3 md:px-5">
+          <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-4 text-base font-semibold text-plum">
+            Abrir a tabela de eleitas por partido e cor/raça
+            <span aria-hidden="true" className="group-open:rotate-180">↓</span>
+          </summary>
+          <div className="mt-5">
+            <TabelaPartidos rows={grandes} />
+            {outros.length > 0 && (
+              <details className="group mt-5 border border-rule bg-card">
+                <summary className="flex min-h-12 cursor-pointer items-center justify-between px-4 font-medium text-plum">
+                  Ver os outros {n(outros.length)} partidos, com menos de {GRANDES} cadeiras
+                  <span aria-hidden="true" className="transition-transform group-open:rotate-180">↓</span>
+                </summary>
+                <div className="border-t border-rule p-3 md:p-0">
+                  <TabelaPartidos rows={outros} />
+                </div>
+              </details>
+            )}
           </div>
         </details>
-      )}
+      </div>
+
       <p className="text-[13px] leading-relaxed text-muted-foreground">
         Cadeiras de deputado federal, estadual e distrital eleitas em 2026, pelo partido do registro.
-        Cor/raça declarada ao TSE, categorias originais; amarelas aparecem no total de mulheres. Fio
+        Cor/raça declarada ao TSE nas categorias originais, incluindo amarelas, agora
+        identificadas nas fichas e no quadro de consulta. Fio
         laranja: partido com {GRANDES} ou mais deputadas eleitas e nenhuma preta. Senado 2027:
         senadoras sobre o total previsto de cadeiras do partido (eleitas em 2026 e mandatos até
         2031). Base de {n(RESULT_2026_PARTIDOS.seats)} cadeiras e {n(RESULT_2026_PARTIDOS.feminine)}{" "}
@@ -339,25 +392,22 @@ function FundoTable() {
                   R$ {formatDecimal(d.fefc / 1e6).replace(/,0$/, "")} mi
                 </td>
                 <td className={td}>{p(d.mulheres.candidaturas, d.candidaturas)}</td>
-                <td className={`${td} ${mf < 30 ? "border-l-4 border-coral font-semibold" : ""}`}>{formatPct(mf)}</td>
+                <td className={td}>{formatPct(mf)}</td>
                 <td className={td}>{p(d.pretasPardasSoma.candidaturas, d.candidaturas)}</td>
-                <td className={`${td} ${pf < 30 ? "border-l-4 border-coral font-semibold" : ""}`}>{formatPct(pf)}</td>
+                <td className={td}>{formatPct(pf)}</td>
               </tr>
             );
           })}
         </tbody>
       </table>
       <p className="border-t border-rule px-3 py-3 text-xs leading-relaxed text-muted-foreground">
-        Fundo Especial de Financiamento de Campanha recebido pelas candidaturas a deputado federal,
-        estadual e distrital de cada partido, entre os partidos com R$ 10 milhões ou mais neste
-        recorte. Coral indica participação inferior a 30% <strong>apenas neste universo de deputados</strong>:
-        não demonstra, isoladamente, descumprimento de cota constitucional.
-        O art. 17, §§ 8º e 9º, da Constituição (EC 117/2022 e EC 133/2024) estabelece regras para
-        os recursos de campanha dos partidos, que também abrangem as disputas majoritárias.
-        As candidaturas pretas e pardas são somadas somente nesta comparação com o piso racial;
-        permanecem separadas nos demais gráficos.
-        Fonte: TSE, Prestação de Contas 2026, base de {FEFC_META.baseGeneratedAt}; a prestação ainda
-        está aberta e os números podem mudar.
+        Este quadro inclui apenas candidaturas a deputado federal, estadual e distrital, entre
+        as siglas com R$ 10 milhões ou mais de FEFC declarado nesse universo.
+        <strong> Nenhum percentual isolado desta tabela comprova cumprimento ou infração às cotas constitucionais.</strong>
+        Para essa avaliação, seria necessário considerar o conjunto dos recursos de campanha do partido,
+        incluindo disputas majoritárias, a regra aplicável e os lançamentos pertinentes.
+        Pretas e pardas foram somadas exclusivamente na coluna indicada; nas análises raciais permanecem separadas.
+        Fonte: TSE, Prestação de Contas 2026, base de {FEFC_META.baseGeneratedAt}; valores sujeitos a retificações.
       </p>
     </div>
     </>
@@ -463,6 +513,213 @@ function VotosTable() {
   );
 }
 
+
+/** Material real, situado na data e sem fingir que retrata as eleitas de outubro. */
+function RegistroBancada() {
+  return (
+    <figure className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-ink)] text-cream">
+      <div className="mx-auto grid max-w-7xl gap-0 lg:grid-cols-[1.05fr_.95fr]">
+        <img
+          src={FOTO_BANCADA.src}
+          alt={FOTO_BANCADA.alt}
+          loading="lazy"
+          className="h-[260px] w-full object-cover object-center sm:h-[410px] lg:h-[450px]"
+        />
+        <figcaption className="flex flex-col justify-center px-5 py-8 md:px-8 lg:px-12">
+          <p className="font-mono text-[12px] font-semibold uppercase tracking-wide text-cream/75">
+            Registro documental · antes da eleição de 2026
+          </p>
+          <h2 className="mt-4 max-w-md font-display text-3xl leading-tight text-cream md:text-4xl">
+            Mulheres no Parlamento, em outra fotografia do tempo
+          </h2>
+          <p className="mt-4 max-w-md leading-relaxed text-cream/90">
+            A imagem registra integrantes da bancada feminina da Câmara em março de 2026,
+            antes das eleições. Não mostra o conjunto de candidatas ou eleitas contabilizado
+            nos gráficos desta página. A composição das bancadas e as filiações devem ser
+            lidas conforme a data de cada base.
+          </p>
+          <p className="mt-6 border-t border-cream/30 pt-3 text-[13px] leading-relaxed text-cream/80">
+            {FOTO_BANCADA.credito} · {FOTO_BANCADA.acervo} · {FOTO_BANCADA.data}.
+            {" "}<a href={FOTO_BANCADA.licencaUrl} target="_blank" rel="noreferrer"
+              className="font-semibold text-cream underline underline-offset-4">Fonte e licença CC BY</a>.
+          </p>
+        </figcaption>
+      </div>
+    </figure>
+  );
+}
+
+/** Indice de documentos oficiais, não fac-símile nem leitura de mérito dos critérios. */
+function ArquivoFEFC() {
+  return (
+    <section aria-labelledby="partidos-documentos-fefc" className="bg-[var(--art-gold)] p-5 text-ink md:p-8">
+      <div className="grid gap-8 lg:grid-cols-[.88fr_1.12fr]">
+        <div>
+          <p className="font-mono text-[12px] font-semibold uppercase tracking-wide">Arquivo eleitoral · TSE · 2026</p>
+          <h3 id="partidos-documentos-fefc" className="mt-3 max-w-lg font-display text-3xl leading-tight md:text-4xl">
+            O critério declarado está publicado. O repasse exige conferir as contas.
+          </h3>
+          <p className="mt-4 max-w-lg leading-relaxed">
+            O TSE reúne decisões apresentadas pelas direções nacionais dos partidos
+            sobre a distribuição interna do Fundo Especial de Financiamento de Campanha.
+            Cada registro identifica processo no PJe e dá acesso ao documento quando disponibilizado.
+            Isso não equivale a conhecer todos os pagamentos feitos às candidaturas.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-4 text-sm font-semibold">
+            <a href={TSE_CRITERIOS} target="_blank" rel="noreferrer"
+              className="underline underline-offset-4 focus-visible:outline focus-visible:outline-2">
+              Todos os critérios publicados no TSE ↗
+            </a>
+            <a href={TSE_COTAS} target="_blank" rel="noreferrer"
+              className="underline underline-offset-4 focus-visible:outline focus-visible:outline-2">
+              Cotas destinadas a cada partido ↗
+            </a>
+          </div>
+        </div>
+        <div className="border-t-2 border-ink">
+          <p className="py-3 text-sm font-semibold">Três entradas verificáveis do acervo · amostra, não ranking</p>
+          <ol className="divide-y divide-ink/35">
+            {FEFC_DOCUMENTOS.map((doc) => (
+              <li key={doc.pje} className="grid gap-x-5 gap-y-2 py-4 sm:grid-cols-[6rem_minmax(0,1fr)]">
+                <strong className="font-display text-2xl">{doc.sigla}</strong>
+                <div className="min-w-0">
+                  <p className="break-words font-mono text-[12px]">PJe {doc.pje}</p>
+                  <p className="mt-1 text-[13px]">FEFC liberado em {doc.liberado}, segundo o TSE</p>
+                  <a href={doc.href} target="_blank" rel="noreferrer"
+                    className="mt-2 inline-flex min-h-11 items-center text-sm font-semibold underline underline-offset-4">
+                    Consultar o documento original ↗
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-2 text-xs leading-relaxed">
+            Documentos institucionais reais, sem montagem ou simulação de página histórica.
+            A amostra não constitui exame comparativo do teor das resoluções.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Consulta de FEFC por sigla; a conta está no mesmo recorte da tabela auditável. */
+function FundoEmFoco() {
+  const rows = Object.entries(FEFC_PARTIDOS)
+    .filter(([, d]) => d.fefc >= 10_000_000)
+    .sort((a, b) => b[1].fefc - a[1].fefc);
+  const [partido, setPartido] = useState(rows[0]?.[0] ?? "");
+  const d = FEFC_PARTIDOS[partido];
+  const pct = (a: number, b: number) => b > 0 ? (a / b) * 100 : 0;
+  return (
+    <section aria-label="Consultar financiamento por partido" className="bg-plum px-5 py-7 text-cream md:px-8">
+      <div className="flex flex-wrap items-end justify-between gap-5">
+        <div>
+          <p className="font-mono text-[12px] font-semibold uppercase text-cream/75">Receitas declaradas de candidaturas</p>
+          <h3 className="mt-2 font-display text-2xl leading-tight text-cream md:text-3xl">Quanto chegou às candidaturas neste recorte?</h3>
+        </div>
+        <label className="block text-sm font-semibold text-cream">
+          Partido
+          <select value={partido} onChange={(e) => setPartido(e.target.value)}
+            className="mt-1 block min-h-12 min-w-52 border border-cream bg-paper px-3 text-base text-ink">
+            {rows.map(([sigla]) => <option key={sigla} value={sigla}>{sigla}</option>)}
+          </select>
+        </label>
+      </div>
+      {d && (
+        <div className="mt-6 grid gap-6 border-t border-cream/35 pt-6 md:grid-cols-[.7fr_1.3fr]">
+          <div>
+            <p className="font-display text-[clamp(2.8rem,5vw,4.2rem)] leading-none text-cream">
+              R$ {formatDecimal(d.fefc / 1e6).replace(/,0$/, "")} mi
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-cream/85">
+              Recebidos por candidaturas a deputado federal, estadual e distrital
+              da sigla, conforme prestação de contas na base de {FEFC_META.baseGeneratedAt}.
+            </p>
+          </div>
+          <dl className="space-y-5">
+            {[
+              {label: "Participação de candidaturas de mulheres no FEFC deste recorte", count: d.mulheres.fefc, total: d.fefc},
+              {label: "Participação de candidaturas pretas e pardas somadas no FEFC deste recorte", count: d.pretasPardasSoma.fefc, total: d.fefc},
+            ].map((x) => {
+              const valor = pct(x.count, x.total);
+              return <div key={x.label}>
+                <dt className="flex flex-wrap justify-between gap-3 text-sm">
+                  <span className="max-w-md text-cream/90">{x.label}</span>
+                  <strong className="font-mono text-cream">{formatPct(valor)}</strong>
+                </dt>
+                <dd className="mt-2 h-2.5 w-full bg-cream/25" role="img"
+                  aria-label={x.label + ": " + formatPct(valor)}>
+                  <span className="block h-full bg-[var(--art-gold)]"
+                    style={{width: Math.max(0,Math.min(valor,100)) + "%"}} />
+                </dd>
+              </div>;
+            })}
+          </dl>
+        </div>
+      )}
+      <p className="mt-6 max-w-3xl border-t border-cream/30 pt-4 text-[13px] leading-relaxed text-cream/85">
+        Atenção ao universo: a consulta não inclui candidaturas majoritárias nem todos
+        os gastos partidários. Esses percentuais não são teste de cumprimento de cotas
+        constitucionais; a tabela completa abaixo permite conferir numeradores,
+        denominadores e demais siglas.
+      </p>
+    </section>
+  );
+}
+
+/** Exposição de uma votação por vez sem omitir a matriz integral. */
+function VotacaoEmFoco() {
+  const [votoId, setVotoId] = useState<string>(VOTE_IDS[0]!);
+  const partidos = Object.keys(PARTIDOS_VOTOS[votoId] ?? {}).sort();
+  const [sigla, setSigla] = useState("");
+  const partido = partidos.includes(sigla) ? sigla : (partidos.includes("PL") ? "PL" : (partidos[0] ?? ""));
+  const d = PARTIDOS_VOTOS[votoId]?.[partido];
+  const fonte = VOTACOES.find((v) => v.id === votoId);
+  return (
+    <section aria-label="Votação nominal em foco" className="bg-paper p-5 text-ink md:p-8">
+      <p className="font-mono text-[12px] font-semibold uppercase tracking-wide text-plum">
+        Câmara dos Deputados · seis votações nominais selecionadas
+      </p>
+      <div className="mt-4 grid gap-4 md:grid-cols-2">
+        <label className="block text-sm font-semibold">Votação
+          <select value={votoId} onChange={(e) => {setVotoId(e.target.value);setSigla("");}}
+            className="mt-1 block min-h-12 w-full border border-ink bg-card px-3 text-base">
+            {VOTE_IDS.map((id) => <option value={id} key={id}>{SHORT[id]}</option>)}
+          </select>
+        </label>
+        <label className="block text-sm font-semibold">Bancada
+          <select value={partido} onChange={(e) => setSigla(e.target.value)}
+            className="mt-1 block min-h-12 w-full border border-ink bg-card px-3 text-base">
+            {partidos.map((p) => <option value={p} key={p}>{p}</option>)}
+          </select>
+        </label>
+      </div>
+      {fonte && <p className="mt-4 max-w-3xl text-sm leading-relaxed text-ink/80">
+        {fonte.proposicao} · {fonte.data.split("-").reverse().join("/")}:
+        votar <strong>Sim</strong> nesta deliberação significava: {fonte.sim}.
+      </p>}
+      {d ? (
+        <div className="mt-6 grid gap-4 border-t-2 border-ink pt-5 sm:grid-cols-[1fr_1fr_1.2fr]">
+          <div><p className="font-display text-4xl text-plum">{n(d.sim)}</p><p className="mt-1 text-sm">votos Sim na bancada</p></div>
+          <div><p className="font-display text-4xl text-plum">{n(d.nao)}</p><p className="mt-1 text-sm">votos Não na bancada</p></div>
+          <div className="border-t border-rule pt-3 sm:border-l sm:border-t-0 sm:pl-4 sm:pt-0">
+            <p className="font-display text-2xl text-ink">{d.maioria === "dividida" ? "Dividida" : "Maioria: " + d.maioria}</p>
+            <p className="mt-2 font-mono text-[13px] text-ink/75">
+              Deputadas da bancada: {n(d.simF)} Sim, {n(d.naoF)} Não
+            </p>
+          </div>
+        </div>
+      ) : <p className="mt-5 text-sm">Sem votos Sim/Não registrados para a sigla nesta votação.</p>}
+      <p className="mt-5 border-t border-rule pt-4 text-[13px] leading-relaxed text-ink/75">
+        A maioria observada na votação não equivale a orientação formal de liderança,
+        nem a unanimidade da bancada. As siglas refletem a data da votação, entre 2023 e 2025,
+        não necessariamente as filiações de 2026.
+      </p>
+    </section>
+  );
+}
+
 function PartidosPage() {
   return (
     <PageShell
@@ -471,18 +728,34 @@ function PartidosPage() {
         { label: "Partido por partido" },
       ]}
     >
-      <PageHero
-        kicker="Partido por partido"
-        question={M_PL_PRETAS.texto}
-        lead={
-          <p>
-            A lei fixa pisos; quem escolhe as candidatas, divide o dinheiro e orienta o voto é o
-            partido. Esta página põe lado a lado, para cada partido, quantas mulheres elegeu e quem
-            são elas, como dividiu o fundo eleitoral e como a bancada votou nas seis votações de
-            Como votaram.
-          </p>
-        }
-      />
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-ink)] text-cream">
+        <div className="mx-auto grid max-w-7xl gap-9 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[1.15fr_.85fr] lg:gap-16">
+          <div>
+            <p className="font-display text-xl italic text-[var(--art-gold)]">Partido por partido</p>
+            <h1 className="mt-5 max-w-3xl text-balance font-display text-[clamp(2rem,4.6vw,4.15rem)] font-semibold leading-[1.06] text-cream">
+              {M_PL_PRETAS.texto}
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-cream/85 md:text-lg">
+              A lei estabelece pisos. Os partidos decidem candidaturas e distribuem
+              recursos segundo regras próprias. Comparamos eleitas, financiamento
+              declarado e votos efetivamente registrados pelas bancadas, sem
+              confundir a eleição de 2026 com votações ocorridas em 2023–2025.
+            </p>
+          </div>
+          <aside aria-label="Universo da investigação" className="self-end border-t border-cream/40 pt-5 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+            <p className="font-mono text-[12px] uppercase tracking-wide text-cream/75">Eleições 2026 · TSE</p>
+            <p className="mt-4 font-display text-[clamp(3rem,6vw,5rem)] leading-none text-cream">{n(RESULT_2026_PARTIDOS.feminine)}</p>
+            <p className="mt-2 max-w-sm text-sm leading-relaxed text-cream/85">
+              deputadas federais, estaduais e distritais eleitas entre
+              {" "}{n(RESULT_2026_PARTIDOS.seats)} cadeiras.
+            </p>
+            <p className="mt-5 border-t border-cream/30 pt-4 font-mono text-[12px] leading-relaxed text-cream/70">
+              Resultado: base TSE de {RESULT_2026_META.baseGeneratedAt}. Financiamento e votação
+              usam outras fontes e datas, indicadas em cada capítulo.
+            </p>
+          </aside>
+        </div>
+      </header>
 
       <nav aria-label="Ir para os quatro recortes por partido" className="my-7 bg-[var(--art-plum)] px-5 py-5 text-cream md:px-7">
         <p className="font-mono text-[12px] font-semibold uppercase tracking-wide text-cream/80">
@@ -524,31 +797,64 @@ function PartidosPage() {
         <LancaElege />
       </SectionBlock>
 
+      <RegistroBancada />
+
       <SectionBlock
         id="fundo"
         tone="butter"
         kicker="Dinheiro"
-        question="Como cada partido dividiu o fundo eleitoral"
+        question="Os critérios que os partidos publicaram e o fundo que chegou às candidaturas"
         align="wide"
+        lead={<p>
+          Critérios partidários formalizados no TSE, cotas destinadas aos partidos e
+          repasses declarados pelas candidaturas são registros diferentes.
+          Aqui a comparação financeira se restringe às disputas proporcionais de deputado.
+        </p>}
       >
-        <FundoTable />
+        <div className="space-y-6">
+          <ArquivoFEFC />
+          <FundoEmFoco />
+          <details className="group border border-plum bg-paper px-4 py-3 md:px-5">
+            <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-3 text-base font-semibold text-plum">
+              Abrir tabela integral de receitas por partido
+              <span aria-hidden="true" className="group-open:rotate-180">↓</span>
+            </summary>
+            <div className="mt-4"><FundoTable /></div>
+          </details>
+        </div>
       </SectionBlock>
 
       <SectionBlock
         id="votos"
-        tone="lilac"
+        tone="ink"
         kicker="Plenário"
-        question="Como cada bancada votou"
+        question="Seis votações, diferentes composições de bancada"
         align="wide"
+        lead={<p>
+          O voto acompanha a filiação registrada na data da deliberação.
+          Esta comparação não mede o comportamento das eleitas de 2026,
+          nem substitui a apuração individual de cada votação.
+        </p>}
       >
-        <VotosTable />
+        <div className="space-y-6">
+          <VotacaoEmFoco />
+          <details className="group border border-cream/50 px-4 py-3 md:px-5">
+            <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-3 text-base font-semibold text-cream">
+              Abrir a matriz completa das seis votações
+              <span aria-hidden="true" className="group-open:rotate-180">↓</span>
+            </summary>
+            <div className="mt-4 bg-paper p-2 text-ink md:p-4"><VotosTable /></div>
+          </details>
+        </div>
       </SectionBlock>
 
       <div className="pb-6">
         <GapNote label="Lacuna declarada">
-          Partidos mudam de nome, se fundem e trocam de membros entre 2023 e 2026: o voto vale com a
-          sigla da data, e as eleitas, com a sigla do registro em 2026. A comparação entre tabelas é
-          por sigla, não por pessoa. O fundo usa a prestação final do 1º turno; algumas candidaturas ainda não entregaram a conta final.
+          Partidos mudam de nome, se fundem e trocam de membros entre 2023 e 2026:
+          o voto vale com a sigla da data, e as eleitas, com a sigla do registro em 2026.
+          A comparação entre tabelas é por sigla, não por pessoa. O FEFC reflete
+          as receitas declaradas pelas candidaturas na base de {FEFC_META.baseGeneratedAt},
+          com prestações ainda sujeitas a retificação ou julgamento.
         </GapNote>
       </div>
 
@@ -564,7 +870,7 @@ function PartidosPage() {
           </>
         }
         limites={[
-          "O fundo usa a prestação final do 1º turno (base do TSE de 04/11/2026); 343 candidaturas ainda tinham só a prestação parcial e entram com o valor declarado até então.",
+          "O FEFC utiliza a base de 15/11/2026; parte das contas não estava em situação final. Os valores declarados podem ser retificados e precisam ser distinguidos dos gastos realizados pelo partido.",
           "O voto em plenário usa a sigla da data do voto; as eleitas, a sigla do registro em 2026.",
           "Cor/raça é autodeclarada ao TSE; o arquivo não registra identidade trans ou travesti.",
         ]}
