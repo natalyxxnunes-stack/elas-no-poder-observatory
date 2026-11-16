@@ -1,4 +1,4 @@
-import { FALAS, type Fala } from "@/data/falas";
+import type { Fala } from "@/data/falas";
 import { VOTACOES, VOTACOES_META } from "@/data/votacoes-camara";
 import { formatDateBR } from "@/lib/format-br";
 
