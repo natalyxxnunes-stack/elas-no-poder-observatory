@@ -266,3 +266,19 @@ O arquivo editável permanente `Quem_sao_elas_Manual_Identidade_Editorial_Contin
 **Critério de validação:** superfície coral profunda com textos visivelmente claros **e** contraste WCAG AA mínimo de 4,5:1 para tipografia corrente; validar cor computada no navegador e inspecionar capturas desktop/celular. [GitHub Actions #43785757894](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43785757894) **success**, head `939df87c70222e6e987a9b9937dc0f862aaab8e4`. Mantidos homepage, logo, CSS global, bases TSE e imagens originais.
 
 **Governança:** decisão cromática de legibilidade aprovada. As composições completas das páginas-piloto **seguem em avaliação**, apenas no PR #8, sem merge nem publicação. Registrar também no arquivo editável permanente `Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md` (seção 14.9).
+
+
+### Lote 2: índices de Temas, Investigações, Dados e Achados — 15/11/2026 (propostas)
+
+**Estado: testado em prévia, NÃO aprovado editorialmente e NÃO publicado.** A editora determinou avançar pelas muitas páginas restantes, sem prolongar indefinidamente a aprovação dos três pilotos anteriores. O segundo lote foi criado diretamente da `main` no [PR #9](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/pull/9), branch `revista-lote2-indices-15nov2026`. O PR #8 continua separado e em rascunho.
+
+- **Temas**: índice de leitura das seis perguntas, com composição tipográfica, cromatismo motivado pelo assunto e **fotografia histórica existente de Bertha Lutz exclusivamente na entrada Memória**. O posicionamento inicial da foto saiu incorreto no desktop e foi corrigido para a última coluna, com legenda legível.
+- **Investigações**: índices por frente e situação editorial, em lugar de grade de cards; os termos “publicado”, “parcial” e “aguardando dado” permanecem explícitos e **não equivalem a graus de confiabilidade das afirmações**. A nota de 04/11/2026 presente em `src/data/architecture.ts` requer revisão de fontes/cortes em trabalho separado, sem substituição silenciosa.
+- **Dados**: diretório temático em faixas distintas para leitura e ferramentas, preservando todos os links e tipos de consulta.
+- **Achados**: abertura e vitrine jornalística com tratamentos cromáticos diferentes, preservando resultados, fontes, escalas, datas e páginas citáveis.
+
+Os quatro tratamentos são **propostas específicas por função**, não um novo template obrigatório. Continuam vigentes: logo original, fotografia documental pertinente e creditada, roxo estrutural, repertório cromático aprovado, **coral profundo com texto claro nas grandes superfícies**, gráficos com categorias e denominadores corretos, nada de vetores ou cartões repetidos automaticamente. Nenhuma base, fotografia original, token de `src/styles.css` ou homepage foi alterada.
+
+**QA:** [GitHub Actions #43787402665](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43787402665) concluiu com **success** no head `604ff587e825a7faf432cf807bc012918a47254a`, verificando TypeScript, compilação, cinco rotas (inclui homepage) em desktop 1440px e celular 390px, links principais, estrutura dos índices e ausência de transbordamento horizontal. A foto em Memória passou no teste específico de posicionamento. Capturas completas arquivadas no artefato `qse-indices-revista-lote2`.
+
+**Governança:** as propostas foram registradas no **mesmo manual editável permanente**, seção **14.10**, arquivo `Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md`. Não interpretar sucesso do QA como aceite visual; nenhuma integração ou publicação foi autorizada.
