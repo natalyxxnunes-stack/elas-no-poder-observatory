@@ -152,7 +152,7 @@ function RelatorioPage() {
         {CAPITULOS.map((c, i) => {
           const plano = planos[i]!;
           const texto = plano.claro ? "text-paper" : "text-ink";
-          const secundario = plano.claro ? "text-paper/80" : "text-ink/75";
+          const secundario = plano.claro ? "text-paper" : "text-ink/75";
           const divisoria = plano.claro ? "border-paper/30" : "border-ink/25";
           return (
             <section
