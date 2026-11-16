@@ -1,0 +1,114 @@
+name: QA — Histórico móvel e séries completas
+on:
+  push:
+    branches: [revista-historico-leitura-movel-16nov2026]
+    paths:
+      - 'src/routes/historico.tsx'
+      - 'src/components/historical/SeriesChart.tsx'
+      - '.github/workflows/qa-historico-leitura-movel.yml'
+permissions:
+  contents: read
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: {bun-version: latest}
+      - name: Verificar tipos e compilar site
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Verificar arquivos protegidos
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin main
+          test -z "$(git diff --name-only origin/main...HEAD -- public/dados public/fotos public/materiais src/data src/styles.css src/routes/index.tsx src/components/home/CapaEditorialV3.tsx src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
+          echo 'Bases, logo, homepage e fotografias não modificadas.'
+      - name: Preparar navegador
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Testar interações e produzir capturas completas
+        run: |
+          set -euo pipefail
+          mkdir -p qa-historico-movel
+          python3 -m http.server 4173 --directory dist/client > /tmp/qse-site.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          resultados=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for device,w,h in [('desktop',1440,900),('celular',390,844)]:
+              ctx=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=1)
+              for route,nome in [('/','home'),('/historico','historico')]:
+                pg=ctx.new_page()
+                erros=[]
+                pg.on('pageerror',lambda e,arr=erros:arr.append(str(e)))
+                resp=pg.goto('http://127.0.0.1:4173'+route,wait_until='domcontentloaded',timeout=45000)
+                pg.wait_for_timeout(650)
+                assert resp and resp.status==200,(device,route,'http')
+                assert not erros,(device,route,'javascript',erros)
+                assert pg.locator('main h1').count()==1,(device,route,'h1')
+                bw=pg.evaluate('document.body.scrollWidth')
+                assert bw<=w+3,(device,route,'overflow',bw)
+                if nome=='historico':
+                  main=pg.locator('main')
+                  assert main.locator('#raca').count()==1 and main.locator('#genero-raca').count()==1
+                  assert main.locator('#eleitas').count()==1 and main.locator('#bases').count()==1
+                  assert main.locator('a[href*="consulta_cand_"]').count()==4,(device,'TSE sources')
+                  groups=main.locator('div[role="group"][aria-label^="Universo eleitoral do gráfico:"]')
+                  assert groups.count()==6,(device,'selectors',groups.count())
+                  g=main.locator('#genero div[role="group"][aria-label^="Universo eleitoral do gráfico:"]')
+                  assert g.count()==1,(device,'gender chart')
+                  proportional=g.get_by_role('button',name='Proporcional')
+                  majoritaria=g.get_by_role('button',name='Majoritária')
+                  if device=='celular':
+                    assert g.is_visible()
+                    assert proportional.is_visible() and majoritaria.is_visible()
+                    assert proportional.get_attribute('aria-pressed')=='true'
+                    majoritaria.click()
+                    assert majoritaria.get_attribute('aria-pressed')=='true'
+                    assert proportional.get_attribute('aria-pressed')=='false'
+                    assert main.locator('#genero h3').filter(has_text='Majoritária').first.is_visible(),(device,'majority graph visible')
+                    pg.screenshot(path='qa-historico-movel/celular-historico-majoritaria-selecionada.jpg',type='jpeg',quality=80)
+                    proportional.click()
+                    assert proportional.get_attribute('aria-pressed')=='true'
+                  else:
+                    assert not g.is_visible()
+                    assert main.locator('#genero h3').filter(has_text='Majoritária').first.is_visible()
+                    assert main.locator('#genero h3').filter(has_text='Proporcional').first.is_visible()
+                  s=main.locator('summary').filter(has_text='Abrir tabela de todos os estados')
+                  s.click()
+                  assert main.locator('#cargo-uf table tbody tr').count()>=27
+                  main.locator('#cargo-uf select').select_option('RJ')
+                  assert main.locator('#cargo-uf select').input_value()=='RJ'
+                  pg.reload(wait_until='domcontentloaded')
+                  pg.wait_for_timeout(400)
+                pg.evaluate('window.scrollTo(0,0)')
+                pg.screenshot(path=f'qa-historico-movel/{device}-{nome}-abertura.jpg',type='jpeg',quality=80)
+                pg.screenshot(path=f'qa-historico-movel/{device}-{nome}-completa.jpg',type='jpeg',quality=66,full_page=True)
+                altura=pg.evaluate('document.body.scrollHeight')
+                if nome=='historico' and device=='celular':
+                  assert altura<20520,(device,'não houve redução real da altura',altura)
+                resultados.append({'device':device,'route':route,'bodyWidth':bw,'bodyHeight':altura,'errors':erros})
+                pg.close()
+              ctx.close()
+            browser.close()
+          Path('qa-historico-movel/resultados.json').write_text(json.dumps(resultados,indent=2,ensure_ascii=False)+'\n')
+          print('PASSOU',resultados)
+          PY
+      - name: Guardar capturas da página inteira
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-historico-compactacao-movel
+          path: qa-historico-movel/
+          if-no-files-found: warn
+          retention-days: 14
