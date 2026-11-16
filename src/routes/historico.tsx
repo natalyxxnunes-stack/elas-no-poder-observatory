@@ -290,7 +290,7 @@ function HistoricoPage() {
       </SectionBlock>
 
       <ComoSabemos
-        fonte="TSE, Candidatos 2014, 2018 e 2022 (resultado do 1º turno no proporcional; resultado final, com 2º turno, no majoritário); TSE, Candidaturas 2026 (fotografia de 27/09) e resultado final de 2026 (base de 27/10, com o 2º turno)."
+        fonte="TSE, Candidatos 2014, 2018 e 2022 (resultado do 1º turno no proporcional; resultado final, com 2º turno, no majoritário); TSE, Candidaturas 2026 (fotografia de 27/10) e resultado final de 2026 (mesma base de 27/10, com o 2º turno)."
         universo="Proporcional (Câmara, assembleias e Câmara Legislativa do DF) e majoritário (Presidência, governos e Senado), nunca somados. Cada candidatura entra uma vez em cada ano."
         calculo={<>Candidaturas de mulheres divididas pelo total de candidaturas do mesmo universo e do mesmo ano. {BLACK_AGGREGATION_NOTE}</>}
         limites={[
