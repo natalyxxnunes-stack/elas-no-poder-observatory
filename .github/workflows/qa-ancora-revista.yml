@@ -50,13 +50,8 @@ jobs:
                   v=v/255
                   return v/12.92 if v<=.04045 else ((v+.055)/1.055)**2.4
               return sum(k*linear(v) for k,v in zip([.2126,.7152,.0722],c))
-          def rgb(c):
-              import re
-              m=re.search(r'rgba?\(([^)]+)\)',c)
-              if not m: raise ValueError('cor desconhecida '+c)
-              return [float(x) for x in m.group(1).replace(',',' ').split()[:3]]
           def contrast(a,b):
-              x,y=sorted([luminancia(rgb(a)),luminancia(rgb(b))])
+              x,y=sorted([luminancia(a),luminancia(b)])
               return (y+.05)/(x+.05)
 
           routes=[('/','home'),('/partidos','partidos'),('/historico','historico'),('/monitor','monitor'),('/funil','funil')]
@@ -100,8 +95,19 @@ jobs:
                           assert main.locator('summary').filter(has_text='Abrir todas as UFs').count()==1
 
                       for sec in main.locator('.bg-coral-ink').all():
-                          vals=sec.evaluate('(el)=>{const c=getComputedStyle(el);return [c.color,c.backgroundColor]}')
-                          if vals[1]=='rgba(0, 0, 0, 0)': continue
+                          vals=sec.evaluate("""(el)=>{
+                            const c=getComputedStyle(el);
+                            const canvas=document.createElement('canvas');
+                            canvas.width=1; canvas.height=1;
+                            const ctx=canvas.getContext('2d');
+                            function sample(color) {
+                              ctx.clearRect(0,0,1,1);
+                              ctx.fillStyle=color;
+                              ctx.fillRect(0,0,1,1);
+                              return [...ctx.getImageData(0,0,1,1).data].slice(0,3);
+                            }
+                            return [sample(c.color),sample(c.backgroundColor)];
+                          }""")
                           ratio=contrast(*vals)
                           assert ratio>=4.5,(device,name,'coral contrast AA',ratio,vals)
                       page.evaluate('window.scrollTo(0,0)')
