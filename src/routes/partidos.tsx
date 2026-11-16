@@ -349,11 +349,13 @@ function FundoTable() {
       </table>
       <p className="border-t border-rule px-3 py-3 text-xs leading-relaxed text-muted-foreground">
         Fundo Especial de Financiamento de Campanha recebido pelas candidaturas a deputado federal,
-        estadual e distrital de cada partido, partidos com R$ 10 milhões ou mais. Coral: abaixo de
-        30%, o piso da Constituição para mulheres (EC 117/2022) e para candidaturas pretas e pardas
-        (EC 133/2024). Pretas e pardas aparecem somadas porque é assim que a emenda define o piso. A
-        regra vale para o fundo do partido inteiro, incluindo governo e Senado; aqui a conta é só
-        das candidaturas a deputado, onde a divisão não depende de como contar vices e suplentes.
+        estadual e distrital de cada partido, entre os partidos com R$ 10 milhões ou mais neste
+        recorte. Coral indica participação inferior a 30% <strong>apenas neste universo de deputados</strong>:
+        não demonstra, isoladamente, descumprimento de cota constitucional.
+        O art. 17, §§ 8º e 9º, da Constituição (EC 117/2022 e EC 133/2024) estabelece regras para
+        os recursos de campanha dos partidos, que também abrangem as disputas majoritárias.
+        As candidaturas pretas e pardas são somadas somente nesta comparação com o piso racial;
+        permanecem separadas nos demais gráficos.
         Fonte: TSE, Prestação de Contas 2026, base de {FEFC_META.baseGeneratedAt}; a prestação ainda
         está aberta e os números podem mudar.
       </p>
@@ -482,6 +484,27 @@ function PartidosPage() {
         }
       />
 
+      <nav aria-label="Ir para os quatro recortes por partido" className="my-7 bg-[var(--art-plum)] px-5 py-5 text-cream md:px-7">
+        <p className="font-mono text-[12px] font-semibold uppercase tracking-wide text-cream/80">
+          Quatro comparações · bases e universos diferentes
+        </p>
+        <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ["#eleitas", "Eleitas e cor/raça"],
+            ["#lanca-elege", "Quem se candidata e se elege"],
+            ["#fundo", "Recursos de campanha"],
+            ["#votos", "Votações das bancadas"],
+          ].map(([href, label]) => (
+            <a
+              key={href}
+              href={href}
+              className="flex min-h-12 items-center justify-between gap-3 border border-cream/40 px-3 py-2 text-sm font-semibold text-cream hover:bg-cream/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cream"
+            >
+              {label} <span aria-hidden="true">↘</span>
+            </a>
+          ))}
+        </div>
+      </nav>
 
       <SectionBlock
         id="eleitas"
