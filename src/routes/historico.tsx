@@ -1,7 +1,7 @@
 import { HistoryByOffice, HistoryByUf } from "@/components/historical/HistoryByOffice";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
-import { EditorialOpening } from "@/components/editorial/EditorialOpening";
+import { formatInt } from "@/lib/format-br";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -83,17 +83,59 @@ function HistoricoPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Dados", to: "/dados" }, { label: "Histórico" }]}>
-      <EditorialOpening
-        variant="timeline"
-        kicker="Como chegamos até aqui?"
-        question={`Em ${historyYear ?? "2026"}, 1 em cada ${feminineElectionRatio ?? "—"} candidatas a deputada se elegeu; entre os homens, 1 em cada ${masculineElectionRatio ?? "—"}`}
-        lead={
-          <p>
-            Candidatar-se não é eleger-se. As duas taxas subiram em relação a 2022 também porque havia menos candidaturas para as mesmas cadeiras. De 2014 a 2026, a presença de mulheres cresceu nas listas e nas cadeiras, mas candidatura e eleição continuam sendo medidas diferentes. Em {historicalLatest?.year ?? "—"}, mulheres eram {candidacyFrequency} candidaturas a deputada e {electedFrequency} eleitas.
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-ink)] text-cream">
+        <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
+          <p className="font-display text-xl italic text-[var(--art-gold)]">Como chegamos até aqui?</p>
+          <div className="mt-4 grid gap-6 lg:grid-cols-[1.2fr_.8fr] lg:gap-14">
+            <h1 className="max-w-4xl text-balance font-display text-[clamp(2rem,4.1vw,3.8rem)] font-semibold leading-[1.07] text-cream">
+              Em {historyYear ?? "2026"}, 1 em cada {feminineElectionRatio ?? "—"} candidatas a deputada se elegeu; entre os homens, 1 em cada {masculineElectionRatio ?? "—"}
+            </h1>
+            <div className="max-w-xl self-end space-y-4 text-base leading-relaxed text-cream/85">
+              <p>
+                De 2014 a 2026, mais mulheres concorreram e conquistaram cadeiras. As
+                taxas de eleição também mudaram com o tamanho das listas. Para ler essa
+                trajetória, precisamos comparar candidaturas e cadeiras em seus
+                respectivos universos, sem atribuir as diferenças a uma causa única.
+              </p>
+              <p>
+                Em {historicalLatest?.year ?? "—"}, mulheres eram {candidacyFrequency}
+                {" "}candidaturas proporcionais e {electedFrequency} pessoas eleitas
+                no mesmo tipo de disputa.
+              </p>
+            </div>
+          </div>
+          <div className="mt-9 grid gap-px bg-cream/20 sm:grid-cols-2 lg:grid-cols-4" role="group"
+            aria-label="Quatro eleições gerais: presença de mulheres nas candidaturas e entre eleitos">
+            {HISTORICAL_FUNNEL.map((ano) => (
+              <div key={ano.year} className="bg-[var(--art-ink)] px-4 py-5 md:px-5">
+                <p className="font-display text-4xl text-[var(--art-gold)]">{ano.year}</p>
+                <dl className="mt-3 space-y-2 text-sm">
+                  <div>
+                    <dt className="text-cream/75">Nas candidaturas a deputado</dt>
+                    <dd className="font-mono font-semibold text-cream">{formatPct(ano.candidacy.femininePercent)}
+                      <span className="ml-2 font-normal text-cream/70">({formatInt(ano.candidacy.feminine)} de {formatInt(ano.candidacy.total)})</span>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-cream/75">Entre as pessoas eleitas</dt>
+                    <dd className="font-mono font-semibold text-cream">
+                      {ano.elected ? formatPct(ano.elected.femininePercent) : "sem dado"}
+                      {ano.elected && <span className="ml-2 font-normal text-cream/70">
+                        ({formatInt(ano.elected.feminine)} de {formatInt(ano.elected.total)})
+                      </span>}
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 max-w-3xl font-mono text-[12px] leading-relaxed text-cream/75">
+            TSE · eleições gerais · deputado federal, estadual e distrital.
+            Cada percentual tem o denominador do mesmo ano e da mesma situação.
+            A série completa e suas limitações estão documentadas abaixo.
           </p>
-        }
-        years={["2014", "2018", "2022", "2026"]}
-      />
+        </div>
+      </header>
 
       <nav aria-label="Navegar pelas séries históricas" className="my-6 border-y border-rule py-5">
         <p className="font-mono text-xs font-semibold uppercase tracking-wide text-plum">
@@ -167,7 +209,7 @@ function HistoricoPage() {
         <SeriesChart series={feminine} />
       </SectionBlock>
 
-      <SectionBlock id="raca" tone="lilac"
+      <SectionBlock id="raca" tone="plum"
         kicker="Cor e raça"
         question="E quando se olha para cor e raça?"
         align="wide"
@@ -183,7 +225,7 @@ function HistoricoPage() {
         <SeriesChart series={byId("serie-negras-negros-candidaturas")} />
       </SectionBlock>
 
-      <SectionBlock id="genero-raca"
+      <SectionBlock id="genero-raca" tone="butter"
         kicker="Gênero × cor/raça"
         question="A composição das candidaturas femininas mudou?"
         align="wide"
@@ -211,7 +253,7 @@ function HistoricoPage() {
         </div>
       </SectionBlock>
 
-      <SectionBlock id="eleitas" tone="butter"
+      <SectionBlock id="eleitas"
         kicker="Candidatas e eleitas"
         question="Entre candidatar-se e eleger-se, o que muda?"
         align="wide"
@@ -225,13 +267,42 @@ function HistoricoPage() {
         }
         source="Fonte: TSE · Candidatos (DS_SIT_TOT_TURNO). Proporcional: resultado do 1º turno, o único da eleição proporcional. Majoritário: resultado final, com 2º turno onde houve."
       >
+        {historicalLatest?.elected && (
+          <aside className="mb-7 grid gap-5 bg-[var(--art-ink)] px-5 py-7 text-cream md:grid-cols-2 md:px-8"
+            aria-label="Dois denominadores da eleição de 2026">
+            <div>
+              <p className="font-mono text-[12px] font-semibold uppercase tracking-wide text-cream/75">2026 · candidaturas proporcionais</p>
+              <p className="mt-3 font-display text-5xl text-cream">{formatPct(historicalLatest.candidacy.femininePercent)}</p>
+              <p className="mt-2 font-mono text-[13px] leading-relaxed text-cream/85">
+                {formatInt(historicalLatest.candidacy.feminine)} mulheres entre
+                {" "}{formatInt(historicalLatest.candidacy.total)} candidaturas.
+              </p>
+            </div>
+            <div className="border-t border-cream/30 pt-5 md:border-l md:border-t-0 md:pl-7 md:pt-0">
+              <p className="font-mono text-[12px] font-semibold uppercase tracking-wide text-cream/75">2026 · cadeiras proporcionais</p>
+              <p className="mt-3 font-display text-5xl text-[var(--art-gold)]">{formatPct(historicalLatest.elected.femininePercent)}</p>
+              <p className="mt-2 font-mono text-[13px] leading-relaxed text-cream/85">
+                {formatInt(historicalLatest.elected.feminine)} mulheres entre
+                {" "}{formatInt(historicalLatest.elected.total)} pessoas eleitas.
+              </p>
+            </div>
+            <p className="md:col-span-2 border-t border-cream/30 pt-4 text-[13px] leading-relaxed text-cream/85">
+              A diferença entre percentuais descreve representações em duas populações
+              distintas. Não é uma taxa individual de conversão de candidatas em eleitas.
+            </p>
+          </aside>
+        )}
         <div className="space-y-6">
           <SeriesChart series={byId("serie-mulheres-eleitas")} />
           <SeriesChart series={byId("serie-mulheres-negras-eleitas")} />
         </div>
-        <div className="mt-8">
-          <HistoryFunnel />
-        </div>
+        <details className="group mt-8 border border-plum bg-cream px-4 py-3 md:px-5">
+          <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-3 text-base font-semibold text-plum">
+            Abrir os quatro cadernos de candidatas e eleitas, por ano
+            <span aria-hidden="true" className="group-open:rotate-180">↓</span>
+          </summary>
+          <div className="mt-5"><HistoryFunnel /></div>
+        </details>
         <div className="mt-6 space-y-4">
           <GapNote label="Lacunas já documentadas">
             Em 2018, parte das linhas de Senado veio com resultado nulo no arquivo
@@ -244,6 +315,7 @@ function HistoricoPage() {
 
       <SectionBlock
         id="cargo-uf"
+        tone="butter"
         kicker="Por cargo e por estado"
         question="Em que cargos e em que estados a presença de mulheres mudou"
         align="wide"
@@ -261,7 +333,7 @@ function HistoricoPage() {
         </div>
       </SectionBlock>
 
-      <SectionBlock collapsible="Ver as quatro bases" id="bases"
+      <SectionBlock id="bases"
         kicker="Linha temporal"
         question="Quatro eleições gerais, quatro bases diferentes"
         align="wide"
