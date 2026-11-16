@@ -1,4 +1,4 @@
-name: QA revista — ritmo visual consolidado e Pagu em previa
+name: QA revista — fotos documentais e perfis históricos em prévia
 on:
   push:
     branches: [revista-consolidada-ajustes-de-ritmo-16nov2026]
@@ -48,10 +48,13 @@ jobs:
             print('Build normal: duas fotos pendentes bloqueadas, fichas editoriais preservadas')
             browser.close()
           PY
-      - name: Compilar imagem de Pagu somente para a previa editorial
+      - name: Compilar retratos de Pagu e Lelia somente na previa editorial
         env:
           VITE_QSE_PREVIEW_PAGU_FOTO: "true"
-        run: bun run build:hostgator
+          VITE_QSE_PREVIEW_LELIA_FOTO: "true"
+        run: |
+          cp docs/acervo-em-revisao/lelia-gonzalez-cezar-loureiro-referencia.jpg public/fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg
+          bun run build:hostgator
       - name: Auditar sete paginas revistas e duas ancoras em tres larguras
         run: |
           set -euo pipefail
@@ -139,8 +142,13 @@ jobs:
                     else:
                       alt=fotos.first.get_attribute('alt')
                       if not alt or not page.locator('main header figure figcaption').count():hard.append({'rota':route,'dispositivo':device,'erro':'Retrato em prévia sem alternativa ou legenda'})
-                  if route == '/pioneiras/lelia-gonzalez' and page.locator('main header figure img').count() > 0:
-                    hard.append({'rota':route,'dispositivo':device,'erro':'Fotografia de Lélia exibida sem registro de liberação'})
+                  if route == '/pioneiras/lelia-gonzalez':
+                    retrato = page.locator('main header figure img')
+                    if retrato.count() != 1 or not retrato.first.get_attribute('alt') or not page.locator('main header figure figcaption').count():
+                      hard.append({'rota':route,'dispositivo':device,'erro':'Retrato de Lélia não aparece adequadamente no build explícito de prévia'})
+                    else:
+                      imagem_ok = retrato.first.evaluate('(img)=>img.complete && img.naturalWidth > 500')
+                      if not imagem_ok: hard.append({'rota':route,'dispositivo':device,'erro':'Arquivo fotográfico de Lélia não carrega na prévia'})
                   widths=page.evaluate("""() => ({scroll:document.documentElement.scrollWidth,visible:window.innerWidth})""")
                   record={'rota':route,'dispositivo':device,'http':response.status if response else None,
                           'violacoes':axe,'foco_primeiros_12':keyboard,'documentos':docs,
