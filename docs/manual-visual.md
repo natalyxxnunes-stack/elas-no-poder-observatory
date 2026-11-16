@@ -370,3 +370,15 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 **Validação:** workflow independente com TypeScript, build, proteção de arquivos, consultas e capturas integrais em desktop 1440 px/celular 390 px. Capturas ainda exigem inspeção humana antes de aceite.
 
 **QA confirmado para Histórico:** [execução #43803631665](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43803631665), concluída com sucesso. Renderizações desktop 1440 px e celular 390 px, navegação pelas séries, quatro links a conjuntos TSE, consulta por UF, tabela integral, proteção dos dados e da homepage; sem overflow ou erros de JavaScript. Capturas integrais arquivadas como `qse-historico-pagina-integral`. **Ressalva editorial:** a página continua extensa no celular (cerca de 19,5 mil px de altura na captura); o êxito técnico não a aprova em termos de ritmo e densidade de leitura.
+
+## Monitor de mandato — prévia integral (16/11/2026)
+
+**Estado:** [PR #15](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/pull/15), **em rascunho**, dependente dos PRs #14, #13 e #12. Não publicado nem aprovado visualmente. A continuidade foi registrada na seção 14.17 do manual editável.
+
+- Abertura de atividade parlamentar de **01/01 a 03/11/2026**, coleta em **04/11/2026**, com navegação direta para registros individuais, tabela integral e pré-registro de 2027. Numeradores e denominadores do recorte original permanecem.
+- Fotografia histórica catalogada de **30/06/2026** da Câmara (Thiago Cristino/Câmara, CC BY). Legenda deixa inequívoco que **não é reprodução das votações que compõem a série** nem evidência individual das deputadas analisadas.
+- Consulta de deputada com filtros por nome, partido, UF e resultado eleitoral de 2026; ficha individual reconstitui as contagens originais sem alterar dados. Indicador de votação inclui votos registrados **ou presidência da sessão**; percentual apenas se a base tem no mínimo o patamar já fixado. Assinatura de proposição inclui coautoria, discurso é registro administrativo.
+- A tabela com todas as deputadas é mantida, mas acessível sob expansão e sem sobrecarregar o percurso móvel. A consulta aponta diretamente para a API de Dados Abertos da Câmara.
+- Pré-registro de indicadores de 2027 em destaque dourado, datado de 04/11/2026 e diferenciado dos resultados da legislatura observada em 2026. Não apresentar critérios a partir de fevereiro de 2027 como dados já coletados.
+
+**Proteções:** valores, fontes, datas, classificação de candidaturas, homepage, logo, CSS global, acervo e arquivos de dados preservados. QA específico em desktop/celular, com fonte fotográfica real, filtros, tabela, acessibilidade de leitura e revisão visual de página completa. Aceite editorial pendente.
