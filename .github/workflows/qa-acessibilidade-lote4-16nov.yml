@@ -161,7 +161,7 @@ jobs:
                 page.goto('http://127.0.0.1:4173/quem-sao-elas',wait_until='domcontentloaded')
                 section=page.locator('section#partidos')
                 details=section.locator('details').first
-                summary=details.locator('summary')
+                summary=details.locator('summary').first
                 summary.wait_for()
                 assert not details.evaluate('(e)=>e.open'),'Explorador de partidos deve iniciar fechado'
                 summary.focus()
@@ -173,7 +173,7 @@ jobs:
                 records.append({'dispositivo':dev,'controle':'explorador-de-candidatas','resultado':'aprovado'})
                 page.goto('http://127.0.0.1:4173/votos',wait_until='domcontentloaded')
                 details=page.locator('section#raca details').first
-                summary=details.locator('summary')
+                summary=details.locator('summary').first
                 summary.wait_for()
                 assert not details.evaluate('(e)=>e.open'),'Tabela estadual deveria iniciar recolhida'
                 summary.focus()
