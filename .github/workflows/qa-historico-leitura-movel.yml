@@ -73,6 +73,11 @@ jobs:
                     assert g.is_visible()
                     assert proportional.is_visible() and majoritaria.is_visible()
                     assert proportional.get_attribute('aria-pressed')=='true'
+                    linhas=main.locator('#genero section[aria-label="Leitura por ano: Proporcional"]')
+                    assert linhas.count()==1 and linhas.is_visible(),(device,'year rows')
+                    assert linhas.locator('ol > li').count()==4,(device,'four annual data points')
+                    raca=main.locator('#raca section[aria-label="Leitura por ano: Proporcional"]')
+                    assert 'Pretas' in raca.inner_text() and 'Pardas' in raca.inner_text(),(device,'race categories preserved')
                     majoritaria.click()
                     assert majoritaria.get_attribute('aria-pressed')=='true'
                     assert proportional.get_attribute('aria-pressed')=='false'
