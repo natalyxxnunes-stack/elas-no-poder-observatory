@@ -44,6 +44,7 @@ function brDate(iso: string | null | undefined): string | null {
 export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null }) {
   const [universe, setUniverse] = useState<UniverseId>("proporcional");
   const [sortBy, setSortBy] = useState<"uf" | "concorrencia">("uf");
+  const [selectedUf, setSelectedUf] = useState("");
   const baseStamp = brDate(snapshot?.baseGeneratedAt ?? snapshot?.collectedAt);
   const universes: UniverseId[] = snapshot?.universes.majoritario.dimensions?.totalByUf
     ? ["proporcional", "majoritario"]
@@ -94,6 +95,8 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
       return rb - ra || a.uf.localeCompare(b.uf, "pt-BR");
     });
   }, [data, sortBy]);
+
+  const selected = sorted.find((r) => r.uf === selectedUf) ?? sorted[0] ?? null;
 
   return (
     <div className="space-y-4">
@@ -168,6 +171,56 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
                 : ""}
             </p>
 
+            <section aria-label="Uma unidade eleitoral em foco" className="mt-6 border-t-2 border-plum bg-cream px-5 py-6">
+              <div className="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <p className="font-mono text-[12px] font-semibold uppercase tracking-wide text-plum">
+                    Consulta por território · {label}
+                  </p>
+                  <h3 className="mt-2 font-display text-2xl text-ink">Uma unidade eleitoral de cada vez</h3>
+                </div>
+                <label className="text-sm font-semibold text-ink">
+                  Unidade eleitoral
+                  <select value={selected?.uf ?? ""} onChange={(e) => setSelectedUf(e.target.value)}
+                    className="mt-1 block min-h-12 min-w-32 border border-ink bg-paper px-3 text-base text-ink">
+                    {sorted.map((r) => <option value={r.uf} key={r.uf}>{r.uf}</option>)}
+                  </select>
+                </label>
+              </div>
+              {selected ? (
+                <div className="mt-5 grid gap-5 border-t border-rule pt-5 sm:grid-cols-2 lg:grid-cols-4" aria-live="polite">
+                  <div>
+                    <p className="text-sm font-semibold text-ink/75">Vagas do recorte</p>
+                    <p className="mt-2 font-display text-4xl text-plum">{selected.vagas === null ? "—" : int(selected.vagas)}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-ink/75">Candidaturas registradas</p>
+                    <p className="mt-2 font-display text-4xl text-plum">{int(selected.total)}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-ink/75">Candidaturas por vaga</p>
+                    <p className="mt-2 font-display text-4xl text-plum">{selected.vagas ? n1(selected.total / selected.vagas) : "—"}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-ink/75">Mulheres entre candidaturas</p>
+                    <p className="mt-2 font-display text-4xl text-plum">
+                      {selected.total > 0 ? n1((selected.feminine / selected.total) * 100) + "%" : "—"}
+                    </p>
+                    <p className="mt-1 font-mono text-[12px] text-ink/75">{int(selected.feminine)} de {int(selected.total)}</p>
+                  </div>
+                </div>
+              ) : null}
+              <p className="mt-5 border-t border-rule pt-3 text-[13px] leading-relaxed text-ink/75">
+                Esta medida divide candidaturas pelas vagas do mesmo universo e território.
+                Não representa uma probabilidade de eleição individual.
+              </p>
+            </section>
+
+            <details className="group mt-5 border border-plum bg-card px-4 py-3 md:px-5">
+              <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-3 font-semibold text-plum">
+                Abrir todas as UFs e comparar candidaturas por vaga
+                <span aria-hidden="true" className="group-open:rotate-180">↓</span>
+              </summary>
             <div className="mt-5 flex flex-wrap items-center gap-2">
               <span className="poster-eyebrow text-muted-foreground">
                 Ordenar por
@@ -255,6 +308,7 @@ export function CompetitionByUf({ snapshot }: { snapshot: PublicSnapshot | null 
                 </tbody>
               </table>
             </div>
+            </details>
           </>
         )}
       </div>
