@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Series } from "@/lib/tse/historical-compute";
 import type { UniverseId } from "@/lib/tse/compute";
 import { GapNote } from "@/components/GapNote";
@@ -19,7 +20,9 @@ const UNIVERSE_LABEL: Record<UniverseId, string> = {
 
 const fmt = (v: number) => formatDecimal(v);
 
-function UniverseColumn({ series, universe }: { series: Series; universe: UniverseId }) {
+function UniverseColumn({
+  series, universe, compactMobile = false,
+}: { series: Series; universe: UniverseId; compactMobile?: boolean }) {
   const points = series.points
     .filter((p) => p.universe === universe)
     .sort((a, b) => a.year - b.year);
@@ -42,7 +45,7 @@ function UniverseColumn({ series, universe }: { series: Series; universe: Univer
       <div className="mt-4 flex items-end gap-3">
         {points.map((p) => (
           <div key={p.year} className="flex flex-1 flex-col items-center">
-            <div className="flex h-40 w-full items-end justify-center">
+            <div className={`flex w-full items-end justify-center ${compactMobile ? "h-28 md:h-40" : "h-40"}`}>
               {p.value === null ? (
                 <div
                   className="flex h-full w-full items-end justify-center rounded-t-sm border-x border-t border-dashed border-rule"
@@ -124,10 +127,16 @@ function UniverseColumn({ series, universe }: { series: Series; universe: Univer
 export function SeriesChart({
   series,
   universes = ["proporcional", "majoritario"],
+  mobileSelectable = false,
 }: {
   series: Series | undefined;
   universes?: readonly UniverseId[];
+  /** Em Histórico, escolha de universo no celular; desktop exibe ambos lado a lado. */
+  mobileSelectable?: boolean;
 }) {
+  const [activeMobileUniverse, setActiveMobileUniverse] = useState<UniverseId>(
+    universes[0] ?? "proporcional",
+  );
   if (!series) {
     return (
       <GapNote label="Lacuna declarada">
@@ -162,11 +171,49 @@ export function SeriesChart({
       }
       source="Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026"
     >
+      {mobileSelectable && universes.length > 1 && (
+        <div
+          role="group"
+          aria-label={`Universo eleitoral do gráfico: ${series.label}`}
+          className="mb-5 grid grid-cols-2 gap-1 border border-plum p-1 md:hidden"
+        >
+          {universes.map((u) => (
+            <button
+              type="button"
+              key={u}
+              aria-pressed={activeMobileUniverse === u}
+              onClick={() => setActiveMobileUniverse(u)}
+              className={`min-h-11 px-2 py-2 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum ${
+                activeMobileUniverse === u
+                  ? "bg-plum text-cream"
+                  : "bg-paper text-plum"
+              }`}
+            >
+              {UNIVERSE_LABEL[u]}
+            </button>
+          ))}
+        </div>
+      )}
       <div className="grid gap-8 md:grid-cols-2">
         {universes.map((u) => (
-          <UniverseColumn key={u} series={series} universe={u} />
+          <div
+            key={u}
+            className={
+              mobileSelectable && universes.length > 1 && activeMobileUniverse !== u
+                ? "hidden md:block"
+                : "block"
+            }
+          >
+            <UniverseColumn series={series} universe={u} compactMobile={mobileSelectable} />
+          </div>
         ))}
       </div>
+      {mobileSelectable && universes.length > 1 && (
+        <p className="mt-5 border-t border-rule pt-3 text-[13px] leading-relaxed text-ink/75 md:hidden">
+          Os dois universos têm denominadores próprios. Selecione
+          “Majoritária” para consultar a outra série; nenhuma informação foi excluída.
+        </p>
+      )}
     </ChartFrame>
   );
 }
