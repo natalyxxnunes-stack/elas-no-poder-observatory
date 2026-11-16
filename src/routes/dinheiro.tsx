@@ -12,6 +12,7 @@ import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
+import { FichaArquivoFinanceiro } from "@/components/editorial/EvidenciasGrafadas2026";
 import { QUOTA_RULE } from "@/data/election-2026";
 import {
   DUPLICATE_ROWS_REMOVED,
@@ -227,6 +228,7 @@ function DinheiroPage() {
               partido e as receitas declaradas pelas candidaturas são três camadas diferentes.
               A existência do documento não explica, por si, a decisão concreta sobre cada repasse.
             </p>
+            <FichaArquivoFinanceiro />
           </div>
           <nav aria-label="Fontes oficiais de distribuição do FEFC" className="border-t-2 border-ink">
             <a href="https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/fundo-especial-de-financiamento-de-campanha-fefc"
