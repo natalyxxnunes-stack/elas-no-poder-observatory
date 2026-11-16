@@ -156,3 +156,8 @@ Composições: fundos claros/creme usados em excesso foram retirados de Barreira
 - **Reportagens:** manteve a foto do plenário de maio de 2023, legendada como contexto histórico, não como registro das seis votações; caderno de seis votações e coleção seguem como as evidências pertinentes.
 
 Capturas e checagens de conteúdo, imagens, âncoras e legibilidade: [GitHub Actions #43971435624](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43971435624). Ver `docs/revisao-investigacoes-documentos-16nov2026.md` e capítulo 28 dos dois manuais. Não abrir nova identidade.
+
+
+## PR #33 — localização efetiva das imagens e apresentação à editora (16/11/2026)
+
+Na revisão do pacote de screenshots `qse-investigacoes-capturas`, a prancha geral ocultava a evidência devido à redução de páginas com milhares de pixels. Deve-se mostrar **captura integral para ritmo** e **recortes nativos/legíveis** para fotografia, resolução, documento ou gráfico, identificando sua localização e origem. Inventário de quatro páginas examinadas: **Quem controla?** = capa PJe PL/TSE no capítulo coral; **Dinheiro** = resoluções União Brasil 043/2026 e Federação Brasil da Esperança 14/2026 no caderno roxo; **Reportagens** = foto da Câmara de maio de 2023, contextual e não equivalente às seis votações; **Na voz delas** = uma linha real do índice de discursos da Câmara (não fac-símile do Diário), agora destacada logo após a abertura com sua página 163 indicada e com o recorte **sem duplicação no fim**. Não inventar páginas de Diário nem retratos para substituir fonte não localizada. Ver `docs/visibilidade-real-de-imagens-documentos-16nov2026.md` e [QA #43973899797](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43973899797). 
