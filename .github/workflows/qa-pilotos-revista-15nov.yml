@@ -252,7 +252,7 @@ jobs:
                   arquivo=page.locator('details#metodo-arquivo-tecnico')
                   assert arquivo.count()==1,(route,device,'caderno existente')
                   assert arquivo.get_attribute('open') is None,(route,device,'caderno fechado na entrada')
-                  summary=arquivo.locator('summary')
+                  summary=arquivo.locator(':scope > summary')
                   summary.focus()
                   page.keyboard.press('Enter')
                   assert arquivo.evaluate('(e) => e.open'),(route,device,'keyboard opens technical archive')
