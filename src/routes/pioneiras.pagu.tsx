@@ -99,7 +99,8 @@ function PaguPage() {
         </div>
       </section>
 
-      <SectionBlock id="quem-foi" tone="warm" kicker="Quem foi" question="Da antropofagia à Assembleia">
+      <SectionBlock id="quem-foi" tone="ink" kicker="Quem foi" question="Da antropofagia à Assembleia">
+        <div className="max-w-5xl bg-paper p-6 text-ink md:p-10">
         <Lide>
           Patrícia Rehder Galvão nasceu em 9 de junho de 1910, em São João da Boa Vista (SP), e morreu
           em 12 de dezembro de 1962, em Santos, de câncer, aos 52 anos. Começou a escrever em jornais
@@ -181,6 +182,7 @@ function PaguPage() {
             },
           ]}
         />
+        </div>
       </SectionBlock>
 
       <section aria-label="A votação nominal de Pagu em 1950" className="relative left-1/2 -ml-[50vw] w-screen bg-[#c53f22] text-paper">

@@ -95,19 +95,20 @@ function LeliaPage() {
       />
 
 
-      <section className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
+      <section className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-gold)] text-ink">
         <div className="mx-auto grid max-w-7xl gap-7 px-5 py-10 md:grid-cols-[1fr_1fr] md:px-8 md:py-14">
           <div>
-            <p className="text-[13px] font-semibold text-[var(--art-gold)]">Arquivo eleitoral · Rio de Janeiro</p>
+            <p className="text-[13px] font-semibold text-ink">Arquivo eleitoral · Rio de Janeiro</p>
             <h2 className="mt-3 font-display text-2xl leading-tight md:text-3xl">Duas eleições, dois cargos diferentes.</h2>
           </div>
-          <p className="text-[15px] leading-relaxed text-paper/85">
+          <p className="text-[15px] leading-relaxed text-ink/85">
             As candidaturas de 1982 e 1986 aparecem em arquivos históricos do TSE. As bases não registram gênero nem cor/raça; a conferência dos campos e das grafias do nome é parte da investigação.
           </p>
         </div>
       </section>
 
-      <SectionBlock id="quem-foi" tone="warm" kicker="Quem foi" question="De Belo Horizonte à Constituinte">
+      <SectionBlock id="quem-foi" tone="ink" kicker="Quem foi" question="De Belo Horizonte à Constituinte">
+        <div className="max-w-5xl bg-paper p-6 text-ink md:p-10">
         <Lide>
           Lélia de Almeida nasceu em Belo Horizonte, em 1935, penúltima de 18 irmãos. O pai, Accacio,
           era ferroviário e negro; a mãe, Orcinda, empregada doméstica de origem indígena. A família se
@@ -182,6 +183,7 @@ function LeliaPage() {
             },
           ]}
         />
+        </div>
       </SectionBlock>
 
       <section aria-label="As duas candidaturas de Lélia no arquivo do TSE" className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">

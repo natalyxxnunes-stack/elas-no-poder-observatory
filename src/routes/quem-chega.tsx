@@ -485,7 +485,7 @@ function QuemChegaPage() {
 
       <SectionBlock
         id="senado"
-        tone="warm"
+        tone="ink"
         kicker="Senado"
         question="O Senado de 2027: o PL passa de um terço da Casa"
         align="wide"
@@ -518,10 +518,12 @@ function QuemChegaPage() {
           </>
         }
       >
+        <div className="bg-paper p-5 text-ink md:p-8">
         <Senado2027Chart />
         <div className="mt-6">
           <p className="poster-eyebrow mb-3 text-ink">As 19 senadoras previstas para 2027</p>
           <Senadoras2027 />
+        </div>
         </div>
       </SectionBlock>
 
