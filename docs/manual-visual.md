@@ -317,8 +317,8 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 
 - **Partidos:** índice para eleitas, candidaturas/eleição, FEFC e votação. A marcação coral de percentuais abaixo de 30% refere-se apenas às candidaturas a deputado e não permite concluir descumprimento dos pisos constitucionais, que cobrem universo maior. Referência: Constituição Federal, art. 17, §§ 8º e 9º.
 - **Funil:** seção de contexto histórico no roxo estrutural, com microedição para retirar rótulo temporal anacrônico; os universos das etapas permanecem separados.
-- **Histórico:** índice textual de seis áreas da série, sem mexer nos pontos e denominadores. Confrontar futuramente a menção a “27/09” nas fontes com “27/10” de outros componentes, **sem corrigi-la por suposição**.
-- **Monitor:** abertura em tinta com período de 01/01 a 03/11/2026 e coleta de 04/11/2026; substituir a indicação “fora do exercício hoje” por “na coleta”. Sem alteração dos dados de atividade parlamentar.
+- **Histórico:** índice textual de seis áreas da série, sem mexer nos pontos e denominadores. **Corrigida** a menção a “27/09” para “27/10/2026”, com base em `historical.reads.ts` e `resultado-2026.ts`, onde consta a geração TSE de 27/10/2026 19:30:36. Nenhum número foi alterado.
+- **Monitor:** abertura em tinta com período de 01/01 a 03/11/2026 e coleta de 04/11/2026; substituir a indicação “fora do exercício hoje” por “na coleta”; reduzir a manchete no celular e identificar com precisão o numerador como **voto ou presidência de sessão**. Sem alteração dos dados de atividade parlamentar.
 
 **QA:** workflow próprio do lote 5 em `.github/workflows/qa-lote5-dados.yml`, com capturas integrais (1440 px e 390 px). A aprovação técnica não valida automaticamente cor, ritmo ou leitura e nenhuma versão foi publicada.
 
