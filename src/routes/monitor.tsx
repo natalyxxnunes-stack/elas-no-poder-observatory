@@ -83,7 +83,8 @@ function MonitorPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "No poder", to: "/como-votaram" }, { label: "Monitor de mandato" }]}>
-      <header className="my-5 bg-[var(--art-ink)] px-5 py-10 text-cream md:px-9 md:py-14">
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-plum text-cream">
+        <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
         <Secao nome="Monitor de mandato" tipo="Câmara dos Deputados" claro semFio />
         <h1 className="mt-4 max-w-5xl font-display text-3xl font-semibold leading-tight text-cream md:text-5xl">{manchete}</h1>
         <p className="mt-4 max-w-3xl font-display text-xl leading-relaxed text-cream md:text-2xl">
@@ -106,15 +107,29 @@ function MonitorPage() {
           Período observado: {data(MONITOR_META.periodo[0])} a {data(MONITOR_META.periodo[1])} ·
           Coleta: {MONITOR_META.coletaEm} · Câmara dos Deputados
         </p>
+        </div>
       </header>
 
-      <section aria-label="Em 2026" className="grid max-w-4xl gap-4 border-y border-rule py-5 sm:grid-cols-4">
-        {res2026.map(([r, v]) => (
-          <div key={r}>
-            <p className="font-display text-3xl text-plum">{n(v)}</p>
-            <p className="text-[14px] text-ink/80">{r === "não concorreu" ? "não concorreram em 2026" : `${r}${v > 1 ? "s" : ""} em 2026`}</p>
-          </div>
-        ))}
+      <section aria-label="Situação eleitoral das deputadas observadas em 2026" className="relative left-1/2 -ml-[50vw] w-screen bg-coral-ink text-white">
+        <div className="mx-auto max-w-7xl px-5 py-8 md:px-8 md:py-10">
+          <h2 className="font-display text-2xl leading-snug text-white md:text-3xl">
+            O que aconteceu na eleição de 2026
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-white/90">
+            Situação eleitoral das deputadas que passaram pela Câmara durante o período observado.
+            A classificação descreve o resultado eleitoral, não a atuação parlamentar.
+          </p>
+          <dl className="mt-6 grid gap-px bg-white/25 sm:grid-cols-2 lg:grid-cols-4">
+            {res2026.map(([r, v]) => (
+              <div key={r} className="bg-coral-ink px-4 py-4">
+                <dd className="font-display text-5xl leading-none text-white">{n(v)}</dd>
+                <dt className="mt-2 text-[14px] leading-relaxed text-white/90">
+                  {r === "não concorreu" ? "não concorreram em 2026" : `${r}${v > 1 ? "s" : ""} em 2026`}
+                </dt>
+              </div>
+            ))}
+          </dl>
+        </div>
       </section>
 
       <figure className="relative left-1/2 -ml-[50vw] mt-10 w-screen bg-cream text-ink">
@@ -149,7 +164,7 @@ function MonitorPage() {
         </div>
       </figure>
 
-      <section id="consultar-deputada" aria-label="Filtros e ordem" className="mt-10 scroll-mt-20 space-y-4">
+      <section id="consultar-deputada" aria-label="Filtros e ordem" className="mt-10 scroll-mt-20 space-y-4 border-t-4 border-plum bg-cream px-5 py-7 md:px-8">
         <div className="grid gap-4 border-t-2 border-plum pt-5 sm:grid-cols-2 lg:grid-cols-4">
           <label className="flex flex-col gap-1 text-[13px] font-semibold text-ink">
             Buscar pelo nome
