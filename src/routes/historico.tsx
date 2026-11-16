@@ -83,9 +83,9 @@ function HistoricoPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Dados", to: "/dados" }, { label: "Histórico" }]}>
-      <header className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-ink)] text-cream">
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-plum text-cream">
         <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
-          <p className="font-display text-xl italic text-[var(--art-gold)]">Como chegamos até aqui?</p>
+          <p className="font-display text-xl italic text-[var(--art-gold)]">Arquivo eleitoral · 2014 a 2026</p>
           <div className="mt-4 grid gap-6 lg:grid-cols-[1.2fr_.8fr] lg:gap-14">
             <h1 className="max-w-4xl text-balance font-display text-[clamp(2rem,4.1vw,3.8rem)] font-semibold leading-[1.07] text-cream">
               Em {historyYear ?? "2026"}, 1 em cada {feminineElectionRatio ?? "—"} candidatas a deputada se elegeu; entre os homens, 1 em cada {masculineElectionRatio ?? "—"}
@@ -253,6 +253,33 @@ function HistoricoPage() {
         </div>
       </SectionBlock>
 
+      {firstProp?.value != null && lastProp?.value != null && (
+        <section aria-label="Contraste histórico das candidaturas proporcionais" className="relative left-1/2 -ml-[50vw] w-screen bg-coral-ink text-white">
+          <div className="mx-auto grid max-w-7xl gap-6 px-5 py-10 md:grid-cols-[.9fr_1.1fr] md:px-8 md:py-14">
+            <div>
+              <p className="font-mono text-xs font-semibold uppercase tracking-wide text-white/85">Uma série · dois pontos</p>
+              <h2 className="mt-3 max-w-lg font-display text-3xl leading-tight text-white md:text-4xl">
+                A presença cresceu nas listas. A distribuição das cadeiras pede outra conta.
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 gap-5 self-end border-t border-white/40 pt-5">
+              <div>
+                <p className="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-none text-white">{formatPct(firstProp.value)}</p>
+                <p className="mt-3 font-mono text-sm text-white/90">2014 · candidaturas proporcionais de mulheres</p>
+              </div>
+              <div>
+                <p className="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-none text-white">{formatPct(lastProp.value)}</p>
+                <p className="mt-3 font-mono text-sm text-white/90">2026 · mesmo universo, outra eleição</p>
+              </div>
+              <p className="col-span-2 border-t border-white/30 pt-3 text-sm leading-relaxed text-white/85">
+                Cada percentual divide mulheres candidatas pelo total de candidaturas do seu ano.
+                Não informa a taxa de eleição dessas pessoas nem a causa da mudança.
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
       <SectionBlock id="eleitas"
         kicker="Candidatas e eleitas"
         question="Entre candidatar-se e eleger-se, o que muda?"
@@ -333,8 +360,8 @@ function HistoricoPage() {
         </div>
       </SectionBlock>
 
-      <SectionBlock id="bases"
-        kicker="Linha temporal"
+      <SectionBlock id="bases" tone="ink"
+        kicker="Arquivo eleitoral"
         question="Quatro eleições gerais, quatro bases diferentes"
         align="wide"
         lead={
@@ -346,11 +373,19 @@ function HistoricoPage() {
         }
         source="Fonte: TSE · Candidatos 2014, 2018, 2022 e 2026"
       >
-        <HistoryTimeline
-          snapshots={data.snapshots}
-          missingYears={data.missingYears}
-          currentBaseGeneratedAt={currentBaseGeneratedAt}
-        />
+        <div className="bg-paper p-4 text-ink md:p-7">
+          <div className="mb-6 border-b-2 border-ink bg-[var(--art-gold)] px-5 py-5 text-ink">
+            <p className="font-mono text-xs font-semibold uppercase tracking-wide">Fonte primária · Tribunal Superior Eleitoral</p>
+            <p className="mt-2 max-w-3xl font-display text-2xl leading-tight md:text-3xl">
+              Quatro arquivos, quatro eleições, nenhum documento reconstruído.
+            </p>
+          </div>
+          <HistoryTimeline
+            snapshots={data.snapshots}
+            missingYears={data.missingYears}
+            currentBaseGeneratedAt={currentBaseGeneratedAt}
+          />
+        </div>
         {data.missingYears.length > 0 && (
           <div className="mt-6">
             <GapNote label="Lacuna declarada">
