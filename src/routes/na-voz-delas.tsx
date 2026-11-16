@@ -46,27 +46,60 @@ function AberturaFalas({ publicadas }: { publicadas: Fala[] }) {
             Ler os registros ↘
           </a>
         </div>
-        <aside aria-label="Referências documentais das declarações" className="bg-paper p-5 text-ink md:p-7">
-          <p className="text-xs font-semibold uppercase tracking-wide text-plum">Fontes primárias · Seleção do acervo</p>
-          <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink/75">
-            As referências abaixo conduzem aos registros originais; são citações bibliográficas,
-            não reproduções gráficas das páginas.
+        <aside
+          aria-label="Leitura de um registro original da Câmara"
+          className="min-w-0 border-t-4 border-[var(--art-gold)] bg-paper p-5 text-ink md:p-7"
+        >
+          {publicadas[0] ? (
+            <div>
+              <p className="text-[13px] font-semibold text-plum">
+                Documento em destaque · Diário da Câmara
+              </p>
+              <p className="mt-3 font-mono text-[13px] text-ink/75">
+                {publicadas[0].data} · {publicadas[0].onde}
+              </p>
+              <blockquote className="mt-5 border-l-4 border-plum pl-4">
+                <p className="font-display text-[clamp(1.35rem,2.2vw,2rem)] leading-[1.24] text-ink">
+                  “{publicadas[0].fala}”
+                </p>
+                <footer className="mt-4 text-[14px] font-semibold text-plum">
+                  {publicadas[0].pessoa}
+                </footer>
+              </blockquote>
+              <p className="mt-5 text-[13px] leading-relaxed text-ink/80">
+                Reprodução textual de declaração publicada na fonte original.
+                Não é um fac-símile do Diário nem uma fotografia da parlamentar.
+                O contexto e o dado oficial, quando há, estão no registro completo
+                desta reportagem.
+              </p>
+              <a href={publicadas[0].fonteUrl} target="_blank" rel="noreferrer"
+                className="mt-4 inline-flex min-h-11 items-center font-semibold text-plum underline underline-offset-4 focus-visible:outline-2">
+                {publicadas[0].fonteRotulo} ↗
+              </a>
+            </div>
+          ) : null}
+          {fontes.length > 1 && (
+            <div className="mt-6 border-t border-rule pt-4">
+              <p className="text-[13px] font-semibold text-plum">
+                Outros registros primários no acervo
+              </p>
+              <ul className="mt-2 divide-y divide-rule">
+                {fontes.slice(1).map((f) => (
+                  <li key={f.id}>
+                    <a href={f.fonteUrl} target="_blank" rel="noreferrer"
+                      className="flex min-h-12 items-center justify-between gap-4 py-3 text-[13px] font-semibold text-ink underline-offset-4 hover:underline focus-visible:outline-2">
+                      <span>{f.pessoa} · {f.fonteRotulo}</span>
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <p className="mt-4 text-[13px] text-ink/75">
+            {publicadas.length} declarações com fontes conferidas, publicadas
+            nesta seleção editorial.
           </p>
-          <ul className="mt-4 divide-y divide-rule border-y border-rule">
-            {fontes.map((f) => (
-              <li key={f.id}>
-                <a href={f.fonteUrl} target="_blank" rel="noreferrer"
-                  className="group flex min-h-16 items-center justify-between gap-3 py-3 hover:text-plum">
-                  <span>
-                    <span className="block text-xs text-ink/65">{f.data} · {f.onde}</span>
-                    <span className="mt-1 block text-sm font-semibold">{f.fonteRotulo}</span>
-                  </span>
-                  <span className="shrink-0" aria-hidden="true">↗</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 text-xs text-ink/70">{publicadas.length} registros conferidos e publicados no índice.</p>
         </aside>
       </div>
     </section>
