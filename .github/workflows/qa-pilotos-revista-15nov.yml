@@ -199,10 +199,26 @@ jobs:
                   assert page.locator('figure#metodo-documento-original a[aria-label^="Ampliar a captura documental"]').count()==1,(route,device,'zoom screenshot link')
                   assert page.locator('figure#metodo-documento-original figcaption p').last.evaluate('(e) => parseFloat(getComputedStyle(e).fontSize)')>=13,(route,device,'source caption readable')
                   assert 'Histórico de correções' in info['body'],(route,device,'correction history')
+                  photo=page.locator('section[aria-labelledby="metodo-representacao-titulo"] figure')
+                  assert photo.count()==1,(route,device,'photo documentary area')
+                  doc_contrast=photo.evaluate('''(e) => {
+                    const bg=getComputedStyle(e).backgroundColor;
+                    const caption=e.querySelector('figcaption');
+                    const fg=getComputedStyle(caption).color;
+                    const canvas=document.createElement('canvas');
+                    canvas.width=canvas.height=1;
+                    const ctx=canvas.getContext('2d');
+                    const rgb=c=>{ctx.clearRect(0,0,1,1);ctx.fillStyle=c;ctx.fillRect(0,0,1,1);return [...ctx.getImageData(0,0,1,1).data].slice(0,3)};
+                    const L=c=>rgb(c).reduce((sum,n,i)=>{let x=n/255;x=x<=.04045?x/12.92:Math.pow((x+.055)/1.055,2.4);return sum+x*[.2126,.7152,.0722][i]},0);
+                    const x=L(bg),y=L(fg);
+                    return {bg,ratio:(Math.max(x,y)+.05)/(Math.min(x,y)+.05),light:y>=.75,font:parseFloat(getComputedStyle(caption).fontSize)};
+                  }''')
+                  assert doc_contrast['bg']=='rgb(197, 63, 34)' and doc_contrast['light'] and doc_contrast['ratio']>=4.5,(route,device,'photo caption light on coral',doc_contrast)
+                  assert doc_contrast['font']>=13,(route,device,'photo caption text size',doc_contrast)
                 if route=='/reportagens/':
                   assert info['headings'][0]=='Reportagens',(route,device,'compact magazine header')
                   contraste_coral=page.evaluate('''() => {
-                    const article=document.querySelector('article[class*="bg-[var(--art-coral)]"]');
+                    const article=document.querySelector('article[class*="bg-[#c53f22]"]');
                     if (!article) return {erro:'bloco coral ausente'};
                     const bg=getComputedStyle(article).backgroundColor;
                     const canvas=document.createElement('canvas');canvas.width=1;canvas.height=1;
@@ -221,16 +237,17 @@ jobs:
                     const items=[...article.querySelectorAll('p,h2,a')].map(el=>{
                       const c=getComputedStyle(el).color;
                       const fore=luminancia(pixel(c));
-                      return {tag:el.tagName,text:el.textContent.trim().slice(0,36),razao:(Math.max(base,fore)+0.05)/(Math.min(base,fore)+0.05)};
+                      return {tag:el.tagName,text:el.textContent.trim().slice(0,36),luminancia:fore,razao:(Math.max(base,fore)+0.05)/(Math.min(base,fore)+0.05)};
                     });
                     return {fundo:bg,items};
                   }''')
+                  assert contraste_coral.get('fundo')=='rgb(197, 63, 34)',(route,device,'deep coral surface',contraste_coral)
                   assert contraste_coral.get('items'),(route,device,'coral contrast extraction',contraste_coral)
-                  assert all(z['razao']>=4.5 for z in contraste_coral['items']),(route,device,'AA contrast on all coral text',contraste_coral)
+                  assert all(z['razao']>=4.5 and z['luminancia']>=0.75 for z in contraste_coral['items']),(route,device,'light text with AA contrast on coral',contraste_coral)
 
                   assert page.locator('section[aria-labelledby="reportagem-destaque"] > article').count()==1,(route,device,'fullwidth editorial headline')
                   assert page.locator('section[aria-labelledby="reportagem-destaque"] > div').count()==1,(route,device,'fullwidth documentary figure')
-                  assert page.locator('article[class*="bg-[var(--art-coral)]"]').count()>=1,(route,device,'coral editorial treatment')
+                  assert page.locator('article[class*="bg-[#c53f22]"]').count()>=1,(route,device,'coral editorial treatment')
                   assert 'O voto das deputadas, em seis decisões' in info['body'],(route,device,'editorial documentary opener')
                   fig=page.locator('figure[aria-label="Visualização documental dos votos de deputadas nas seis votações"]')
                   assert fig.locator('ol > li').count()==6,(route,device,'six votes')
