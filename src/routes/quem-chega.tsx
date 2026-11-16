@@ -492,14 +492,22 @@ function QuemChegaPage() {
         lead={
           <>
             <p>
-              Das 54 vagas do Senado em disputa em 2026, o PL ganhou 19, quase o triplo do segundo colocado, o MDB, com
-              7. Somadas às 9 cadeiras que o partido terá com mandato até 2031 (contando Alex Diniz, suplente que assume a
-              vaga de Cleitinho, eleito governador de MG), o PL deve começar 2027 com 28 das 81 cadeiras, contra 15 hoje.
-              Um terço do Senado (27) é o número de assinaturas que a Constituição exige para criar uma CPI e para
-              apresentar uma proposta de emenda constitucional na Casa (arts. 58 e 60): o PL passa a poder fazer as duas
-              coisas sozinho. Correção em 13/11/2026: a primeira versão dizia 27, porque manteve Cleitinho na conta. A
-              projeção da Agência Senado fala em 29; a diferença está no partido do suplente de Sergio Moro, que os dados
-              abertos do Senado não informam.
+              Das 54 vagas do Senado em disputa em 2026, o PL elegeu 19, quase o triplo do segundo colocado, o MDB,
+              com 7. Somadas às 10 cadeiras previstas para o PL entre os 27 mandatos iniciados em 2023, com as
+              substituições de titulares eleitos governadores, o partido deverá começar 2027 com 29 das 81 cadeiras,
+              contra 15 na consulta de 28/10/2026. Essa projeção inclui Alex Diniz (PL), primeiro suplente de
+              Cleitinho (Republicanos-MG), e Luís Felipe Cunha (PL), primeiro suplente de Sergio Moro (PL-PR).
+              Cunha deixou o União Brasil e filiou-se ao PL em 8 de outubro. Um terço do Senado (27) é o número de
+              assinaturas que a Constituição exige para requerer CPI e apresentar proposta de emenda constitucional
+              (arts. 58 e 60); mantida a composição projetada, o PL alcançaria esse patamar sozinho. A{" "}
+              <a
+                href="https://www12.senado.leg.br/noticias/materias/2026/10/25/fim-da-eleicao-define-composicao-do-senado-em-2027-com-13-partidos"
+                target="_blank" rel="noreferrer"
+                className="font-semibold underline underline-offset-4"
+              >Agência Senado projetou 29 cadeiras em 25/10/2026</a>.
+              Correção em 16/11/2026: esta página trazia 28 porque não havia incorporado a filiação de Luís Felipe
+              Cunha. A versão anterior já havia sido corrigida em 13/11 para incluir a substituição de Cleitinho.
+              A composição de 2027 continua sujeita a novas mudanças partidárias e de exercício de mandatos.
             </p>
             <p className="mt-3">
               As mulheres passam de 15 para 19 senadoras. Três delas são do PL: Michelle Bolsonaro, Bia Kicis e Carol de
