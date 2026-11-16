@@ -1,0 +1,124 @@
+name: QA — recuperar âncora das três páginas-piloto
+on:
+  push:
+    branches: [revista-ancora-pilotos-quatro-paginas-16nov2026]
+    paths:
+      - 'src/routes/partidos.tsx'
+      - 'src/routes/historico.tsx'
+      - 'src/routes/monitor.tsx'
+      - 'src/routes/funil.tsx'
+      - '.github/workflows/qa-ancora-revista.yml'
+permissions:
+  contents: read
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: {bun-version: latest}
+      - name: Verificar tipos e compilar
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Preservar dados, fotografias, logo, homepage e CSS global
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin main
+          test -z "$(git diff --name-only origin/main...HEAD -- public/dados public/fotos public/materiais src/data src/styles.css src/routes/index.tsx src/components/home/CapaEditorialV3.tsx src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
+          echo 'Bases, foto, marca, homepage e design global intactos.'
+      - name: Preparar navegador
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Conferir páginas completas, contrastes e controles
+        run: |
+          set -euo pipefail
+          mkdir -p qa-ancora
+          python3 -m http.server 4173 --directory dist/client >/tmp/http.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+
+          def luminancia(c):
+              def linear(v):
+                  v=v/255
+                  return v/12.92 if v<=.04045 else ((v+.055)/1.055)**2.4
+              return sum(k*linear(v) for k,v in zip([.2126,.7152,.0722],c))
+          def rgb(c):
+              import re
+              m=re.search(r'rgba?\(([^)]+)\)',c)
+              if not m: raise ValueError('cor desconhecida '+c)
+              return [float(x) for x in m.group(1).replace(',',' ').split()[:3]]
+          def contrast(a,b):
+              x,y=sorted([luminancia(rgb(a)),luminancia(rgb(b))])
+              return (y+.05)/(x+.05)
+
+          routes=[('/','home'),('/partidos','partidos'),('/historico','historico'),('/monitor','monitor'),('/funil','funil')]
+          values=[]
+          with sync_playwright() as p:
+              browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+              for device,w,h in [('desktop',1440,900),('celular',390,844)]:
+                  context=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=1)
+                  for route,name in routes:
+                      page=context.new_page()
+                      errors=[]
+                      page.on('pageerror',lambda e,arr=errors:arr.append(str(e)))
+                      response=page.goto('http://127.0.0.1:4173'+route,wait_until='domcontentloaded',timeout=45000)
+                      page.wait_for_timeout(500)
+                      assert response and response.status==200,(device,route,'status')
+                      assert not errors,(device,route,'javascript',errors)
+                      assert page.locator('main h1').count()==1,(device,route,'h1')
+                      bw=page.evaluate('document.body.scrollWidth')
+                      assert bw<=w+3,(device,route,'overflow',bw)
+                      main=page.locator('main')
+                      if name=='partidos':
+                          assert main.locator('#eleitas').count()==1 and main.locator('#fundo').count()==1
+                          assert main.locator('section[aria-label="Como interpretar as comparações"]').count()==1
+                          assert main.locator('img[src="/fotos/bancada-feminina-camara-marco-2026.jpg"]').count()==1
+                          assert '15/11/2026' in main.inner_text()
+                          assert main.locator('summary').filter(has_text='Abrir tabela integral de receitas').count()==1
+                      if name=='historico':
+                          assert main.locator('section[aria-label="Contraste histórico das candidaturas proporcionais"]').count()==1
+                          assert main.locator('#bases').count()==1
+                          assert main.locator('a[href*="consulta_cand_"]').count()==4
+                          assert main.locator('label:has-text("Estado") select').count()==1
+                      if name=='monitor':
+                          assert main.locator('section[aria-label="Situação eleitoral das deputadas observadas em 2026"]').count()==1
+                          assert main.locator('#pre-registro').count()==1
+                          assert main.locator('input[type="search"]').count()==1
+                          assert main.locator('img[src="/fotos/plenario-camara-junho-2026.jpg"]').count()==1
+                      if name=='funil':
+                          assert main.locator('section[aria-label="Como ler os três universos da eleição"]').count()==1
+                          assert main.locator('#etapas').count()==1
+                          assert main.locator('aside[aria-label="Arquivos oficiais de candidaturas e vagas"]').count()==1
+                          assert main.locator('summary').filter(has_text='Abrir todas as UFs').count()==1
+
+                      for sec in main.locator('.bg-coral-ink').all():
+                          vals=sec.evaluate('(el)=>{const c=getComputedStyle(el);return [c.color,c.backgroundColor]}')
+                          if vals[1]=='rgba(0, 0, 0, 0)': continue
+                          ratio=contrast(*vals)
+                          assert ratio>=4.5,(device,name,'coral contrast AA',ratio,vals)
+                      page.evaluate('window.scrollTo(0,0)')
+                      page.screenshot(path=f'qa-ancora/{device}-{name}-abertura.jpg',type='jpeg',quality=80)
+                      page.screenshot(path=f'qa-ancora/{device}-{name}-completa.jpg',type='jpeg',quality=65,full_page=True)
+                      values.append({'device':device,'route':route,'h1':main.locator('h1').inner_text(),'bodyWidth':bw,'bodyHeight':page.evaluate('document.body.scrollHeight'),'jsErrors':errors})
+                      page.close()
+                  context.close()
+              browser.close()
+          Path('qa-ancora/resultados.json').write_text(json.dumps(values,ensure_ascii=False,indent=2)+'\n')
+          print('PASSOU',len(values),'páginas renderizadas')
+          PY
+      - name: Publicar capturas integrais para inspeção
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-ancora-pilotos-quatro-paginas
+          path: qa-ancora/
+          if-no-files-found: warn
+          retention-days: 14
