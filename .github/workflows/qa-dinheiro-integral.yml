@@ -68,7 +68,7 @@ jobs:
                 if name=='dinheiro':
                   main=page.locator('main')
                   assert main.locator('#criterios-fefc').count()==1,(device,'document chapter')
-                  assert main.locator('a[href*="fundo-especial-de-financiamento-de-campanha-fefc"]').count()==1,(device,'TSE criteria')
+                  assert main.locator('a[href$="/fundo-especial-de-financiamento-de-campanha-fefc"]').count()==1,(device,'TSE criteria')
                   assert main.locator('a[href*="distribuicao-dos-recursos-do-fundo"]').count()==1,(device,'TSE quotes')
                   assert main.locator('#fundo-eleitoral').count()==1 and main.locator('#despesas').count()==1
                   assert 'Os critérios são públicos' in text
