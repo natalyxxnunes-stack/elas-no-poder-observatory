@@ -1,0 +1,296 @@
+name: QA — três pilotos de revista (sem publicação)
+on:
+  push:
+    branches:
+      - pilotos-revista-visual-15nov2026
+    paths:
+      - "src/**"
+      - "public/documentos/**"
+      - ".github/workflows/qa-pilotos-revista-15nov.yml"
+permissions:
+  contents: read
+jobs:
+  conferir-pilotos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Dependências, TypeScript, base financeira e build estático
+        shell: bash
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          node scripts/recontagem/validar_snapshot_financeiro.mjs
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Proteger homepage, identidade e bases
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin main
+          test -z "$(git diff --name-only origin/main...HEAD -- src/data public/dados public/fotos src/styles.css src/components/BrandLogo.tsx src/components/BrandWordmark.tsx src/components/home/CapaEditorialV3.tsx src/routes/index.tsx src/components/editorial/Faixa.tsx)"
+          test -s public/documentos/tse-candidatos-2026-portal.png
+          test -s public/documentos/tse-candidatos-2026-portal-fonte.txt
+          echo "Capa e bases preservadas; documento TSE e sua procedência presentes na prévia."
+      - name: Instalar navegador de validação
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Testar três páginas e fotografar versões completas
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p qa-pilotos
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-pilotos.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          result=[]
+          routes=['/','/eleitas/','/metodo/','/reportagens/']
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for device,width,height in [('desktop',1440,900),('celular',390,844)]:
+              context=browser.new_context(viewport={'width':width,'height':height},device_scale_factor=1)
+              for route in routes:
+                page=context.new_page()
+                errors=[]
+                page.on('pageerror',lambda e,errors=errors:errors.append(str(e)))
+                response=page.goto('http://127.0.0.1:4173'+route,wait_until='domcontentloaded',timeout=45000)
+                page.wait_for_timeout(500)
+                info=page.evaluate('''() => ({
+                  headings: [...document.querySelectorAll('h1')].map(x=>x.innerText.trim()),
+                  sw: document.documentElement.scrollWidth,
+                  width: innerWidth,
+                  height: document.documentElement.scrollHeight,
+                  body: document.body.innerText.slice(0,40000)
+                })''')
+                assert response and response.status==200,(route,device,'HTTP')
+                assert not errors,(route,device,'Javascript',errors)
+                assert info['sw']<=info['width']+3,(route,device,'horizontal overflow',info['sw'],info['width'])
+                assert len(info['headings'])==1,(route,device,'H1',info['headings'])
+                if route=='/metodo/' and device=='celular':
+                  rightmost=page.evaluate('''() => [...document.querySelectorAll('main *')].map(e=>({
+                    right: Math.round(e.getBoundingClientRect().right),
+                    left: Math.round(e.getBoundingClientRect().left),
+                    width: Math.round(e.getBoundingClientRect().width),
+                    tag: e.tagName.toLowerCase(),
+                    name: String(e.className).slice(0,130)
+                  })).filter(e=>e.right>innerWidth+4 || e.left < -4).sort((a,b)=>b.right-a.right).slice(0,10)''')
+                  more=page.evaluate('''() => ({
+                    widths: [...document.querySelectorAll('html,body,main,section,aside,table,nav')].map(e=>({
+                      t:e.tagName.toLowerCase(),c:String(e.className).slice(0,100),
+                      cw:e.clientWidth,sw:e.scrollWidth,
+                      r:Math.round(e.getBoundingClientRect().right),
+                      o:getComputedStyle(e).overflowX
+                    })).filter(x=>x.sw>x.cw+10).slice(0,30),
+                    problematicSections:[...document.querySelectorAll('main section')].filter(e=>e.scrollWidth>e.clientWidth+10).map(e=>({
+                      id:e.id,heading:e.querySelector('h2')?.innerText.slice(0,80),
+                      cw:e.clientWidth,sw:e.scrollWidth,
+                      children:[...e.querySelectorAll('*')].map(x=>({
+                        tag:x.tagName.toLowerCase(),cls:String(x.className).slice(0,100),
+                        right:Math.round(x.getBoundingClientRect().right),
+                        client:x.clientWidth,scroll:x.scrollWidth,
+                        text:(x.innerText||'').slice(0,45)
+                      })).filter(x=>x.right>485 || x.scroll>x.client+50).sort((a,b)=>b.scroll-b.client-(a.scroll-a.client)).slice(0,9)
+                    })),
+                    nonClipped:[...document.querySelectorAll('main *')].filter(e=>{
+                      const rect=e.getBoundingClientRect();
+                      if(rect.right<=innerWidth+3 || rect.width<=0)return false;
+                      for(let p=e.parentElement;p;p=p.parentElement){
+                        if(['auto','scroll','hidden','clip'].includes(getComputedStyle(p).overflowX))return false;
+                      }
+                      return true;
+                    }).map(e=>({t:e.tagName,c:String(e.className).slice(0,100),r:Math.round(e.getBoundingClientRect().right)})).slice(0,15)
+                  })''')
+                  print('DIAGNOSTICO LARGURA METODO CELULAR:',json.dumps({'bodyWidth':page.evaluate('document.body.scrollWidth'),'windowWidth':width,'elements':rightmost,'root':more},ensure_ascii=False))
+                  assert page.evaluate('document.body.scrollWidth')<=width+3,(route,device,'largura total real',page.evaluate('document.body.scrollWidth'),width)
+
+                if route=='/eleitas/':
+                  contrast=page.evaluate('''() => {
+                    const h=document.querySelector('main header');
+                    if (!h) return {error:'header not found'};
+                    const bg=getComputedStyle(h).backgroundColor;
+                    // Canvas resolves modern CSS Color 4 values (e.g. oklch)
+                    // to actual sRGB pixels. getComputedStyle may return oklch
+                    // rather than rgb in recent Chromium versions.
+                    const canvas=document.createElement('canvas');
+                    canvas.width=canvas.height=1;
+                    const ctx=canvas.getContext('2d',{willReadFrequently:true});
+                    const toRgb=c=>{
+                      ctx.clearRect(0,0,1,1);
+                      ctx.fillStyle=c;
+                      ctx.fillRect(0,0,1,1);
+                      return Array.from(ctx.getImageData(0,0,1,1).data).slice(0,3);
+                    };
+                    const lin=n=>{const v=n/255;return v<=0.04045?v/12.92:Math.pow((v+0.055)/1.055,2.4)};
+                    const l=c=>{const [r,g,b]=toRgb(c).map(lin);return 0.2126*r+0.7152*g+0.0722*b};
+                    const base=l(bg);
+                    const checks=[...h.querySelectorAll('h1,p,a')].map(el=>{
+                      const fg=getComputedStyle(el).color;const top=Math.max(base,l(fg));const bottom=Math.min(base,l(fg));
+                      return {tag:el.tagName,text:el.innerText.slice(0,32),ratio:(top+.05)/(bottom+.05)};
+                    });
+                    return {bg,checks};
+                  }''')
+                  assert contrast.get('bg')=='rgb(197, 63, 34)',(route,device,'coral tonal variant',contrast)
+                  assert all(x['ratio']>=4.5 for x in contrast['checks']),(route,device,'WCAG AA light text',contrast)
+                  assert '342' in info['body'],(route,device,'total')
+                  assert page.locator('section[aria-label="Filtros"] a[href="#lista-eleitas"]').count()==1,(route,device,'direct access to name index')
+                  assert '109 / 513' in info['body'],(route,device,'federal')
+                  assert 'Quantas vagas foram conquistadas por mulheres?' in info['body']
+                  assert page.locator('section[aria-labelledby="eleitas-cadeiras-titulo"] ol > li').count()==5,(route,device,'five office denominators')
+                  assert page.locator('main header').first.evaluate('(e) => getComputedStyle(e).display') is not None
+                  assert '12 / 54' in info['body'],(route,device,'senado')
+                  assert 'Nomes e fichas' in info['body'],(route,device,'catalogo')
+                  assert 'não percentuais de cadeiras' in info['body'],(route,device,'method of absolute UF counts')
+                  atlas=page.locator('section[aria-labelledby="atlas-eleitas-titulo"]')
+                  assert atlas.count()==1,(route,device,'territorial atlas')
+                  assert atlas.locator('ol button').count()==8,(route,device,'eight visible UF entries')
+                  assert sum([int(el.inner_text().strip()) for el in atlas.locator('ol button > span:last-child').all()]) <= 342,(route,device,'absolute counts')
+                  atlas.get_by_role('button',name='Ver todas as').click()
+                  assert atlas.locator('ol button').count()==27,(route,device,'UF map complete')
+                  atlas.locator('button[aria-label*="(RJ)"]').click()
+                  page.wait_for_function("document.activeElement?.id === 'lista-eleitas'")
+                  assert atlas.locator('button[aria-controls="lista-eleitas"]').count()==27,(route,device,'accessible controls target')
+                  assert page.get_by_role('combobox',name='Cor/raça declarada').count()==1,(route,device,'racial filter labelled')
+                  assert page.get_by_role('searchbox',name='Nome').count()==1,(route,device,'name search labelled')
+                  assert page.locator('select').first.input_value()=='RJ',(route,device,'atlas filtered the state select')
+                  assert 'uf=RJ' in page.evaluate('window.location.search'),(route,device,'shareable UF link')
+                  page.get_by_role('button',name='Limpar filtro').click()
+                  assert page.locator('select').first.input_value()=='',(route,device,'filters cleared')
+                  itens=page.locator('section[aria-labelledby="lista-eleitas"] li')
+                  assert itens.count()==18,(route,device,'18 initial entries',itens.count())
+                  page.get_by_role('button',name='Mostrar mais fichas').click()
+                  assert itens.count()==36,(route,device,'load more')
+                  # Query strings must be restored rather than overwritten on first render.
+                  test=page.context.new_page()
+                  test.goto('http://127.0.0.1:4173/eleitas/?uf=RJ',wait_until='domcontentloaded',timeout=45000)
+                  test.wait_for_function("document.querySelector('select')?.value === 'RJ'")
+                  assert 'uf=RJ' in test.evaluate('window.location.search'),(route,device,'initial address survived hydration')
+                  test.close()
+                  # Depois dos testes de expansão, fotografar o estado inicial
+                  # da página — não as 27 UFs e as 36 fichas abertas pelo QA.
+                  page.goto('http://127.0.0.1:4173/eleitas/',wait_until='domcontentloaded',timeout=45000)
+                  page.wait_for_function("document.querySelectorAll('[aria-labelledby=lista-eleitas] li').length === 18")
+                  assert atlas.locator('ol button').count()==8,(route,device,'atlas inicial de oito UFs')
+                  assert page.locator('section[aria-labelledby="lista-eleitas"] li').count()==18,(route,device,'arquivo inicial de 18 fichas')
+                if route=='/metodo/':
+                  assert 'Um número, uma conta verificável.' in info['body'],(route,device,'hero')
+                  assert '56,1%' in info['body'],(route,device,'finance')
+                  assert '15/11/2026' in info['body'],(route,device,'finance date')
+                  assert 'O arquivo CSV não está reproduzido na imagem.' in info['body'],(route,device,'source distinction')
+                  assert 'Como sabemos?' in info['headings'][0],(route,device,'editorial headline')
+                  assert page.locator('img[src="/documentos/tse-candidatos-2026-portal.png"]').count()==1,(route,device,'real TSE capture')
+                  assert page.locator('img[src="/fotos/bancada-feminina-camara-marco-2026.jpg"]').count()==1,(route,device,'real documentary photo')
+                  assert page.locator('img[src="/documentos/tse-candidatos-2026-portal.png"]').evaluate('(img) => img.complete && img.naturalWidth > 200'),(route,device,'original TSE capture load')
+                  foto=page.locator('img[src="/fotos/bancada-feminina-camara-marco-2026.jpg"]')
+                  foto.scroll_into_view_if_needed()
+                  foto.evaluate('(img) => img.decode()')
+                  assert foto.evaluate('(img) => img.complete && img.naturalWidth > 200'),(route,device,'photo load')
+                  assert page.locator('section[aria-labelledby="metodo-fluxo-titulo"] ol > li').count()==4,(route,device,'authored methodological infographic')
+                  assert page.locator('section[aria-label="Documentação técnica do observatório"] section[id]').count()>=15,(route,device,'method archive preserved')
+                  assert page.locator('a[href="https://dadosabertos.tse.jus.br/dataset/candidatos-2026"]').count()>=1,(route,device,'primary source link')
+                  assert page.get_by_role('link',name='Abrir a fonte original no TSE').count()==1,(route,device,'intro directly links to official TSE')
+                  assert page.locator('header a[href="#metodo-arquivo-tecnico"]').count()==1,(route,device,'intro technical archive link')
+                  assert page.locator('figure#metodo-documento-original a[aria-label^="Ampliar a captura documental"]').count()==1,(route,device,'zoom screenshot link')
+                  assert page.locator('figure#metodo-documento-original figcaption p').last.evaluate('(e) => parseFloat(getComputedStyle(e).fontSize)')>=13,(route,device,'source caption readable')
+                  assert 'Histórico de correções' in info['body'],(route,device,'correction history')
+                  photo=page.locator('section[aria-labelledby="metodo-representacao-titulo"] figure')
+                  assert photo.count()==1,(route,device,'photo documentary area')
+                  doc_contrast=photo.evaluate('''(e) => {
+                    const bg=getComputedStyle(e).backgroundColor;
+                    const caption=e.querySelector('figcaption');
+                    const fg=getComputedStyle(caption).color;
+                    const canvas=document.createElement('canvas');
+                    canvas.width=canvas.height=1;
+                    const ctx=canvas.getContext('2d');
+                    const rgb=c=>{ctx.clearRect(0,0,1,1);ctx.fillStyle=c;ctx.fillRect(0,0,1,1);return [...ctx.getImageData(0,0,1,1).data].slice(0,3)};
+                    const L=c=>rgb(c).reduce((sum,n,i)=>{let x=n/255;x=x<=.04045?x/12.92:Math.pow((x+.055)/1.055,2.4);return sum+x*[.2126,.7152,.0722][i]},0);
+                    const x=L(bg),y=L(fg);
+                    return {bg,ratio:(Math.max(x,y)+.05)/(Math.min(x,y)+.05),light:y>=.75,font:parseFloat(getComputedStyle(caption).fontSize)};
+                  }''')
+                  assert doc_contrast['bg']=='rgb(197, 63, 34)' and doc_contrast['light'] and doc_contrast['ratio']>=4.5,(route,device,'photo caption light on coral',doc_contrast)
+                  assert doc_contrast['font']>=13,(route,device,'photo caption text size',doc_contrast)
+                if route=='/reportagens/':
+                  assert info['headings'][0]=='Reportagens',(route,device,'compact magazine header')
+                  contraste_coral=page.evaluate('''() => {
+                    const article=document.querySelector('article[class*="bg-[#c53f22]"]');
+                    if (!article) return {erro:'bloco coral ausente'};
+                    const bg=getComputedStyle(article).backgroundColor;
+                    const canvas=document.createElement('canvas');canvas.width=1;canvas.height=1;
+                    const ctx=canvas.getContext('2d',{willReadFrequently:true});
+                    const pixel=(cor,anterior)=>{
+                      ctx.clearRect(0,0,1,1);
+                      ctx.fillStyle=bg;ctx.fillRect(0,0,1,1);
+                      if(cor!==bg){ctx.fillStyle=cor;ctx.fillRect(0,0,1,1)}
+                      return [...ctx.getImageData(0,0,1,1).data].slice(0,3);
+                    };
+                    const luminancia=rgb=>rgb.reduce((total,val,i)=>{
+                      let c=val/255;c=c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4);
+                      return total+c*[0.2126,0.7152,0.0722][i];
+                    },0);
+                    const base=luminancia(pixel(bg));
+                    const items=[...article.querySelectorAll('p,h2,a')].map(el=>{
+                      const c=getComputedStyle(el).color;
+                      const fore=luminancia(pixel(c));
+                      return {tag:el.tagName,text:el.textContent.trim().slice(0,36),luminancia:fore,razao:(Math.max(base,fore)+0.05)/(Math.min(base,fore)+0.05)};
+                    });
+                    return {fundo:bg,items};
+                  }''')
+                  assert contraste_coral.get('fundo')=='rgb(197, 63, 34)',(route,device,'deep coral surface',contraste_coral)
+                  assert contraste_coral.get('items'),(route,device,'coral contrast extraction',contraste_coral)
+                  assert all(z['razao']>=4.5 and z['luminancia']>=0.75 for z in contraste_coral['items']),(route,device,'light text with AA contrast on coral',contraste_coral)
+
+                  assert page.locator('section[aria-labelledby="reportagem-destaque"] > article').count()==1,(route,device,'fullwidth editorial headline')
+                  assert page.locator('section[aria-labelledby="reportagem-destaque"] > div').count()==1,(route,device,'fullwidth documentary figure')
+                  assert page.locator('article[class*="bg-[#c53f22]"]').count()>=1,(route,device,'coral editorial treatment')
+                  assert 'O voto das deputadas, em seis decisões' in info['body'],(route,device,'editorial documentary opener')
+                  fig=page.locator('figure[aria-label="Visualização documental dos votos de deputadas nas seis votações"]')
+                  assert fig.locator('ol > li').count()==6,(route,device,'six votes')
+                  assert fig.locator('div[aria-label="Legenda da visualização"] + p#placar-como-ler').count()==1,(route,device,'interpretation adjacent to legend')
+                  assert fig.get_attribute('aria-describedby')=='placar-como-ler',(route,device,'figure has accessible interpretation')
+                  assert len(fig.locator('ol > li p.font-mono').all())==6,(route,device,'six numeric vote labels')
+                  assert all(el.evaluate('(e) => parseFloat(getComputedStyle(e).fontSize)')>=13 for el in fig.locator('ol > li p.font-mono').all()),(route,device,'numeric labels at least 13px')
+                  assert 'coleta em' in info['body'].lower(),(route,device,'vote sources')
+                  assert 'não indicam, isoladamente' in info['body'],(route,device,'neutrality of Sim Nao')
+                  assert page.locator('img[src="/fotos/plenario-igualdade-salarial-2023.jpg"]').count()==0,(route,device,'no repeated cover photograph')
+                  assert 'Diário da Câmara' in info['body'],(route,device,'documentary sources')
+                  assert page.locator('a[href*="dc_20b.asp"]').count()>=1,(route,device,'direct source links')
+                  assert page.locator('a[href="/como-votaram"]').count()>=1,(route,device,'feature article link')
+                key=route.strip('/').replace('/','-') or 'home'
+                page.evaluate('window.scrollTo(0,0)')
+                page.screenshot(path=f'qa-pilotos/{device}-{key}-primeira-dobra.jpg',type='jpeg',quality=80)
+                page.screenshot(path=f'qa-pilotos/{device}-{key}-pagina-inteira.jpg',type='jpeg',quality=68,full_page=True)
+                if route=='/metodo/':
+                  arquivo=page.locator('details#metodo-arquivo-tecnico')
+                  assert arquivo.count()==1,(route,device,'caderno existente')
+                  assert arquivo.get_attribute('open') is None,(route,device,'caderno fechado na entrada')
+                  summary=arquivo.locator(':scope > summary')
+                  summary.focus()
+                  page.keyboard.press('Enter')
+                  assert arquivo.evaluate('(e) => e.open'),(route,device,'keyboard opens technical archive')
+                  page.keyboard.press('Enter')
+                  assert not arquivo.evaluate('(e) => e.open'),(route,device,'keyboard closes technical archive')
+                  page.evaluate("window.location.hash = 'correcoes'")
+                  page.wait_for_function("document.getElementById('metodo-arquivo-tecnico')?.open === true")
+                  assert page.locator('#correcoes').is_visible(),(route,device,'correcoes com acesso por ancora')
+                  assert page.locator('#dicionario').count()==1,(route,device,'dicionario preservado')
+                result.append({'device':device,'page':route,'title':info['headings'][0],'height':info['height'],'javascript_errors':len(errors),'horizontal_overflow':info['sw']-info['width']})
+                page.close()
+              context.close()
+            browser.close()
+          Path('qa-pilotos/resultado.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          print('PASSOU:',len(result),'páginas/dispositivos com imagens da primeira dobra e da página inteira.')
+          PY
+      - name: Guardar evidências para revisão visual
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-tres-pilotos-editoriais
+          path: qa-pilotos/
+          if-no-files-found: warn
+          retention-days: 14
