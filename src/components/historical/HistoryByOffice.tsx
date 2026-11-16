@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ChartFrame } from "@/components/editorial/ChartFrame";
 import { HISTORICO_CARGO_UF } from "@/data/historico-cargo-uf";
 import { formatInt, formatPct } from "@/lib/format-br";
@@ -82,70 +83,109 @@ export function HistoryByOffice() {
   );
 }
 
-/** Deputadas federais eleitas por UF, 2014 a 2026. */
+
+/** Deputadas federais eleitas por UF, 2014 a 2026.
+ * A seleção orienta a leitura; todas as 27 UFs continuam acessíveis.
+ */
 export function HistoryByUf() {
   const ufs = Object.keys(HISTORICO_CARGO_UF["2026"]?.deputadoFederalByUf ?? {}).sort((a, b) => {
-    const e = (y: string, uf: string) =>
-      HISTORICO_CARGO_UF[y]?.deputadoFederalByUf[uf]?.eleitas ?? 0;
-    return e("2026", b) - e("2026", a) || a.localeCompare(b);
+    const eleitas = (ano: string, sigla: string) =>
+      HISTORICO_CARGO_UF[ano]?.deputadoFederalByUf[sigla]?.eleitas ?? 0;
+    return eleitas("2026", b) - eleitas("2026", a) || a.localeCompare(b);
   });
+  const [uf, setUf] = useState<string>(ufs[0] ?? "");
+  const retratos = YEARS.map((ano) => ({
+    ano,
+    dado: HISTORICO_CARGO_UF[ano]?.deputadoFederalByUf[uf],
+  }));
   return (
     <ChartFrame
       eyebrow="Câmara dos Deputados · deputadas eleitas por estado"
-      title={`Em 2026, ${ufs[0]} foi o estado que mais elegeu deputadas federais: ${HISTORICO_CARGO_UF["2026"]?.deputadoFederalByUf[ufs[0] ?? ""]?.eleitas ?? 0}`}
-      note="Número de deputadas eleitas sobre as cadeiras do estado, que são as mesmas nas quatro eleições. Ordem: mais deputadas em 2026 primeiro. Em laranja, 2026."
-      source="Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026 (base de 27/10/2026). Recontagem independente."
+      title="Como mudou a representação feminina em cada estado"
+      note="Selecione uma UF para comparar as quatro eleições. Cada ano se refere às cadeiras da própria UF; as 27 unidades permanecem na tabela completa."
+      source="Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026 (base 2026 de 27/10). Recontagem independente."
       ficha={{
-        vendo: "A bancada feminina de cada estado na Câmara, eleição a eleição.",
+        vendo: "A bancada feminina em cada UF na Câmara, eleição a eleição.",
         contados: "Deputadas e deputados federais eleitos em cada estado.",
-        denominador: "Cadeiras do estado na Câmara (de 8 a 70), iguais nas quatro eleições.",
+        denominador: "Cadeiras da UF na Câmara dos Deputados, iguais nas quatro eleições.",
         data: "Arquivos oficiais do TSE baixados em 27 e 28/10/2026",
         fonte: "TSE, Candidatos 2014, 2018, 2022 e 2026",
-        limitacao:
-          "Estados com 8 cadeiras mudam muito com uma única eleita: leia pelo número absoluto.",
+        limitacao: "Estados com oito cadeiras mudam muito com uma única eleita. Sem dado é diferente de zero.",
       }}
     >
-      <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
-        <table className="w-full min-w-[30rem] text-sm">
-          <thead>
-            <tr className="text-[13px] text-muted-foreground font-semibold">
-              <th className="pb-2 text-left font-normal">UF</th>
-              <th className="pb-2 text-right font-normal">Cadeiras</th>
-              {YEARS.map((y) => (
-                <th
-                  key={y}
-                  className={`pb-2 text-right font-normal ${y === "2026" ? "text-coral-ink" : ""}`}
-                >
-                  {y}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {ufs.map((uf) => (
-              <tr key={uf} className="border-t border-rule">
-                <th
-                  scope="row"
-                  className="py-1.5 text-left font-mono text-xs font-semibold text-ink"
-                >
-                  {uf}
-                </th>
-                <td className="py-1.5 text-right font-mono text-xs text-muted-foreground">
-                  {n(HISTORICO_CARGO_UF["2026"]?.deputadoFederalByUf[uf]?.cadeiras ?? 0)}
-                </td>
-                {YEARS.map((y) => (
-                  <td
-                    key={y}
-                    className={`py-1.5 text-right font-mono text-xs ${y === "2026" ? "font-semibold text-coral-ink" : "text-ink"}`}
-                  >
-                    {n(HISTORICO_CARGO_UF[y]?.deputadoFederalByUf[uf]?.eleitas ?? 0)}
-                  </td>
+      <section aria-label="Selecionar estado para comparação histórica" className="bg-cream p-5 md:p-6">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="font-mono text-[12px] font-semibold uppercase tracking-wide text-plum">Estados · 2014 a 2026</p>
+            <h4 className="mt-2 font-display text-2xl text-ink">Uma UF, quatro eleições</h4>
+          </div>
+          <label className="text-sm font-semibold text-ink">
+            Estado
+            <select value={uf} onChange={(e) => setUf(e.target.value)}
+              className="mt-1 block min-h-12 min-w-36 border border-ink bg-paper px-3 text-base text-ink">
+              {ufs.map((u) => <option key={u} value={u}>{u}</option>)}
+            </select>
+          </label>
+        </div>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" aria-live="polite">
+          {retratos.map(({ano, dado}) => (
+            <div key={ano} className={ano === "2026" ? "border-t-2 border-coral pt-3" : "border-t-2 border-plum pt-3"}>
+              <p className="font-mono text-[13px] text-ink/75">{ano}</p>
+              <p className="mt-2 font-display text-4xl text-plum">{dado ? n(dado.eleitas) : "—"}</p>
+              <p className="mt-1 text-[13px] leading-relaxed text-ink/80">
+                {dado ? (
+                  <>
+                    deputadas entre {n(dado.cadeiras)} cadeiras
+                    {dado.cadeiras > 0 ? " · " + formatPct((dado.eleitas / dado.cadeiras) * 100) : ""}
+                  </>
+                ) : "Sem dado neste arquivo"}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+      <details className="mt-5 border border-plum px-4 py-3 md:px-5">
+        <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-3 font-semibold text-plum">
+          Abrir tabela de todos os estados e eleições
+          <span aria-hidden="true" className="group-open:rotate-180">↓</span>
+        </summary>
+        <div tabIndex={0} className="mt-4 overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
+          <table className="w-full min-w-[30rem] text-sm">
+            <thead>
+              <tr className="text-[13px] text-muted-foreground font-semibold">
+                <th scope="col" className="pb-2 text-left font-normal">UF</th>
+                <th scope="col" className="pb-2 text-right font-normal">Cadeiras</th>
+                {YEARS.map((ano) => (
+                  <th scope="col" key={ano}
+                    className={ano === "2026" ? "pb-2 text-right font-normal text-coral-ink" : "pb-2 text-right font-normal"}>
+                    {ano}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {ufs.map((sigla) => (
+                <tr key={sigla} className="border-t border-rule">
+                  <th scope="row" className="py-1.5 text-left font-mono text-xs font-semibold text-ink">{sigla}</th>
+                  <td className="py-1.5 text-right font-mono text-xs text-muted-foreground">
+                    {n(HISTORICO_CARGO_UF["2026"]?.deputadoFederalByUf[sigla]?.cadeiras ?? 0)}
+                  </td>
+                  {YEARS.map((ano) => {
+                    const dado = HISTORICO_CARGO_UF[ano]?.deputadoFederalByUf[sigla];
+                    return (
+                      <td key={ano} className={ano === "2026"
+                        ? "py-1.5 text-right font-mono text-xs font-semibold text-coral-ink"
+                        : "py-1.5 text-right font-mono text-xs text-ink"}>
+                        {dado ? n(dado.eleitas) : "—"}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </details>
     </ChartFrame>
   );
 }

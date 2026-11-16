@@ -355,3 +355,18 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 **Critério de aceite:** captura **integral** das seções no desktop e celular, tabela expansível testada, contraste e QA. Nenhum arquivo em `src/data`, `public/fotos`, homepage, logo ou CSS global alterado. O manual editável de continuidade recebeu o registro na **seção 14.15**. A proposta não se torna padrão reutilizável para as demais páginas.
 
 **Verificação técnica do PR #13:** [GitHub Actions #43802960429](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43802960429), concluída com sucesso após a revisão do desktop. Compilação, tipos, arquivos protegidos, navegação da homepage e da rota Partidos, interações de seleção e tabelas, fotografia local carregada, ausência de transbordamento horizontal e erros de JavaScript em 1440 px e 390 px. Capturas de abertura e páginas completas no artefato `qse-partidos-pagina-integral`. Resultados: desktop 1440 × 7332 px; celular 390 × 12445 px. **QA aprovado não equivale a aprovação editorial/estética**.
+
+## Histórico — prévia de página inteira (16/11/2026)
+
+**Estado:** [PR #14](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/pull/14) em rascunho, empilhado sobre o PR #13 e o PR #12. **Sem publicação ou aceite editorial final.** A versão editável de continuidade foi atualizada até a seção **14.16**.
+
+- Abertura em tinta, cronologia 2014/2018/2022/2026 com percentuais, **numeradores e denominadores próprios**. A série não segue pessoas entre etapas.
+- Cor/raça com superfície roxa, mas gráficos mantêm cores metodológicas, pretas e pardas separadas. Gênero × raça usa outra superfície, mantendo ressalvas de denominadores.
+- Capítulo de eleição confronta participação nas candidaturas com participação nas cadeiras, mantendo séries completas; os quatro cadernos de detalhamento podem ser expandidos.
+- Exploração por UF com seleção, quatro eleições, cadeiras e proporção, além de **tabela integral das 27 UFs** em expansão. Não converter ausências de dados em zeros.
+- **Caderno documental aberto:** fichas com metadados e links para arquivos oficiais do TSE dos quatro anos. A fotografia de Bertha Lutz de 1927 **não foi reutilizada**, por ausência de relação temporal com a série.
+- Preservados números, snapshots, scripts, lacuna de 2018 no Senado, dados raciais, datas e metadados de extração. Nenhuma alteração no CSS global, fotos, dados, logo ou homepage.
+
+**Validação:** workflow independente com TypeScript, build, proteção de arquivos, consultas e capturas integrais em desktop 1440 px/celular 390 px. Capturas ainda exigem inspeção humana antes de aceite.
+
+**QA confirmado para Histórico:** [execução #43803631665](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43803631665), concluída com sucesso. Renderizações desktop 1440 px e celular 390 px, navegação pelas séries, quatro links a conjuntos TSE, consulta por UF, tabela integral, proteção dos dados e da homepage; sem overflow ou erros de JavaScript. Capturas integrais arquivadas como `qse-historico-pagina-integral`. **Ressalva editorial:** a página continua extensa no celular (cerca de 19,5 mil px de altura na captura); o êxito técnico não a aprova em termos de ritmo e densidade de leitura.
