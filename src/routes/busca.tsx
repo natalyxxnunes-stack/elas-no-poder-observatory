@@ -61,10 +61,10 @@ function BuscaPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Buscar" }]}>
-      <header className="py-10 md:py-14">
-        <Secao nome="Buscar" />
-        <h1 className="mt-4 font-display text-4xl leading-tight text-ink md:text-5xl">O que você procura?</h1>
-        <form role="search" className="mt-6 max-w-2xl" onSubmit={(e) => e.preventDefault()}>
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper"><div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
+        <p className="text-[13px] font-semibold text-[var(--art-gold)]">Arquivo público · Consulta transversal</p>
+        <h1 className="mt-4 font-display text-[clamp(2.8rem,5.5vw,5.2rem)] leading-[1.06] text-paper">O que você procura?</h1>
+        <form role="search" className="mt-10 max-w-3xl bg-paper p-5 text-ink md:p-7" onSubmit={(e) => e.preventDefault()}>
           <label htmlFor={id} className="text-[14px] font-semibold text-ink">
             Nome, partido, estado, tema, votação ou palavra
           </label>
@@ -78,19 +78,19 @@ function BuscaPage() {
             className="mt-2 block min-h-12 w-full border-2 border-ink bg-paper px-4 text-[17px] text-ink placeholder:text-ink/45 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum"
           />
         </form>
-        <p className="mt-3 text-[14px] text-ink/70" aria-live="polite">
+        <p className="mt-5 text-[14px] text-paper/85" aria-live="polite">
           {q.trim().length > 1
             ? resultados.length
               ? `${resultados.length} ${resultados.length === 1 ? "resultado" : "resultados"}`
               : "Nada encontrado. Tente outra palavra, um partido ou um estado."
             : "Busca em pessoas, temas, reportagens, achados, falas, votações, partidos e estados."}
         </p>
-      </header>
+      </div></header>
 
       {grupos.length ? (
-        <div className="space-y-10 pb-16">
-          {grupos.map((g) => (
-            <section key={g.tipo} aria-label={ROTULO[g.tipo]}>
+        <div className="pb-10">
+          {grupos.map((g, i) => (
+            <section key={g.tipo} aria-label={ROTULO[g.tipo]} className={`relative left-1/2 -ml-[50vw] w-screen ${i % 2 === 0 ? "bg-paper" : "bg-cream"}`}><div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
               <Secao nome={ROTULO[g.tipo]} tipo={`${g.itens.length}`} pequeno />
               <ul className="mt-3 divide-y divide-rule border-b border-rule">
                 {g.itens.map((it) => (
@@ -104,11 +104,11 @@ function BuscaPage() {
                   </li>
                 ))}
               </ul>
-            </section>
+              </div></section>
           ))}
         </div>
       ) : (
-        <section className="pb-16">
+        <section className="pb-16 pt-12">
           <Secao nome="Comece por um tema" pequeno />
           <ul className="mt-4 grid gap-3 md:grid-cols-3">
             {TEMAS.map((t) => (
@@ -122,6 +122,14 @@ function BuscaPage() {
           </ul>
         </section>
       )}
+      <section className="relative left-1/2 -ml-[50vw] w-screen bg-[#c53f22] text-paper">
+        <div className="mx-auto grid max-w-7xl gap-5 px-5 py-9 md:grid-cols-[1fr_1fr] md:items-center md:px-8 md:py-12">
+          <h2 className="font-display text-2xl leading-tight md:text-3xl">Um resultado aponta para a página de origem.</h2>
+          <p className="text-[15px] leading-relaxed text-paper/90">
+            A busca localiza registros já publicados no observatório. Para conferir um número ou uma fala, abra o resultado, identifique a data de corte e consulte a fonte indicada na página.
+          </p>
+        </div>
+      </section>
     </PageShell>
   );
 }
