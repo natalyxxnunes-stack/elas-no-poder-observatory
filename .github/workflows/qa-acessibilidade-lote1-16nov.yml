@@ -118,8 +118,8 @@ jobs:
                 finally:page.close()
               ctx.close()
             browser.close()
-          Path('relatorios-a11y/diagnostico.json').write_text(json.dumps({'paginas':out,'erros_execucao':hard},ensure_ascii=False,indent=2))
-          Path('relatorios-a11y/resumo.json').write_text(json.dumps({'total_paginas':len(out),'violacoes':violations,'erros_execucao':hard},ensure_ascii=False,indent=2))
+          Path('relatorios-a11y-lote1/diagnostico.json').write_text(json.dumps({'paginas':out,'erros_execucao':hard},ensure_ascii=False,indent=2))
+          Path('relatorios-a11y-lote1/resumo.json').write_text(json.dumps({'total_paginas':len(out),'violacoes':violations,'erros_execucao':hard},ensure_ascii=False,indent=2))
           print('Páginas',len(out),'regras com violações',len(violations),'erros de execução',len(hard))
           for v in violations[:35]: print(v)
           assert not hard,'Falha estrutural, JS ou largura nas páginas: ver diagnostico.json'
@@ -130,5 +130,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: qse-lote1-a11y-axe-e-capturas
-          path: relatorios-a11y/
+          path: relatorios-a11y-lote1/
           retention-days: 14
