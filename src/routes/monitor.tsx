@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { FOTOS } from "@/data/fotos";
+import { PILOT_CORAL } from "@/lib/editorial-pilot-colors";
 import { Secao } from "@/components/editorial/Secao";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { MONITOR_CAMARA, MONITOR_META, type LinhaMonitor } from "@/data/monitor-camara";
@@ -110,7 +111,7 @@ function MonitorPage() {
         </div>
       </header>
 
-      <section aria-label="Situação eleitoral das deputadas observadas em 2026" className="relative left-1/2 -ml-[50vw] w-screen bg-coral-ink text-white">
+      <section aria-label="Situação eleitoral das deputadas observadas em 2026" className="relative left-1/2 -ml-[50vw] w-screen bg-coral-ink text-white" style={{ backgroundColor: PILOT_CORAL }}>
         <div className="mx-auto max-w-7xl px-5 py-8 md:px-8 md:py-10">
           <h2 className="font-display text-2xl leading-snug text-white md:text-3xl">
             O que aconteceu na eleição de 2026
@@ -121,7 +122,7 @@ function MonitorPage() {
           </p>
           <dl className="mt-6 grid gap-px bg-white/25 sm:grid-cols-2 lg:grid-cols-4">
             {res2026.map(([r, v]) => (
-              <div key={r} className="bg-coral-ink px-4 py-4">
+              <div key={r} className="bg-coral-ink px-4 py-4" style={{ backgroundColor: PILOT_CORAL }}> 
                 <dd className="font-display text-5xl leading-none text-white">{n(v)}</dd>
                 <dt className="mt-2 text-[14px] leading-relaxed text-white/90">
                   {r === "não concorreu" ? "não concorreram em 2026" : `${r}${v > 1 ? "s" : ""} em 2026`}
