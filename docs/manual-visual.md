@@ -533,3 +533,42 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 **Artefato de prova:** https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43896345250 (artefato qse-14-rotas-revista-integrais, ID 14239282143), incluindo capturas, relatório JSON e os dois manuais. Foram montadas e **visualmente examinadas folhas de contato** com o início, um ponto intermediário e o final das 20 páginas em cada viewport. Nesta leitura de conjunto, preservaram-se contrastes estruturais, bandas de revista e fontes destacadas; trata-se de uma inspeção de panorama, que não substitui revisão individual em escala real, de todas as imagens, links ou controles por teclado.
 
 **Pendente antes de publicar:** revisão editorial final das 35 rotas de conteúdo no conjunto integrado, auditoria WCAG completa, direitos/licenças e verificação documental específica. Nenhum PR foi mesclado nem foi executado deploy.
+
+---
+
+## 17. Auditoria das evidências visuais — PR #25, 16 de novembro de 2026
+
+**Branch e PR:** revista-evidencias-visuais-documentais-16nov2026, PR #25 rascunho com base no PR #24. Nenhum merge, deploy, exclusão de mídia ou alteração dos dados eleitorais. As 35 rotas de conteúdo foram avaliadas na matriz de auditoria em `docs/matriz-fotografias-documentos-graficos-16nov2026.md`, com decisões específicas sobre **fotografia**, **documento original** e **gráfico**. A homepage é protegida e `condicoes.tsx` é só redirecionamento.
+
+### 17.1. Decisões de direção, com justificativa jornalística
+
+- **Fotografia:** registrar o acontecimento e seu contexto, não preencher blocos vazios. Acervo da Câmara é CC BY, desde que constem fotógrafo, instituição e licença; fotografias de 2023 e junho de 2026 não retratam todos os votos analisados nem as eleitas de 2027. Atribuição e ressalva acompanhando cada uso. Retratos de Lélia Gonzalez e Pagu não foram publicados por falta de confirmação suficiente de direitos na realidade editorial brasileira. Para fontes Commons, indicação de domínio público na plataforma não dispensa conferência legal.
+- **Documento:** o material documental só é reproduzido visualmente se houver origem verificável, data, identificação, natureza e direito de uso. A captura de 15/11/2026 mostra a página de disponibilização dos dados de Candidatos 2026, não o CSV, nem a Prestação de Contas; não estender automaticamente licença de dataset à interface. Enquanto um fac-símile verdadeiro não puder ser mostrado, usar uma cartela claramente rotulada como reconstrução/organização editorial, com link ao original. Diferenciar decisão judicial, lei, critério do partido e recebimento financeiro.
+- **Gráfico:** privilegiar sempre que forem comparados universos, proporções e séries. Deixar numerador, denominador, período, base e exclusões visíveis. Manter PRETA e PARDA como categorias separadas. Não fazer barras percentuais para recortes de menos de 20 casos, quando a amostra torna comparações frágeis. O comparador indica pontos percentuais entre proporções, não a chance de uma mesma mulher chegar à cadeira.
+
+### 17.2. Intervenções realizadas
+
+1. **Relatório 2026:** dentro dos capítulos, gráfico da participação de mulheres entre todos os deputados eleitos (federal/estadual/distrital), com numerador e denominador da base de 2026; fotografia documental de 30/06/2026 (Thiago Cristino/Câmara, CC BY), acompanhada de ressalva temporal; caderno de fontes oficiais TSE e Câmara. A edição preliminar mantém sua data de corte editorial de 04/11.
+2. **Comparar:** novo bloco gráfico interativo de duas etapas, que reage aos filtros de partido e estado. Candidaturas e cadeiras são medidas diferentes, representadas em barras que mostram a participação feminina dentro de cada universo; diferença em pontos percentuais. Recortes pequenos, apenas contagem.
+3. **Dados:** captura real local do portal TSE no capítulo de origem, com fonte, imagem, data e link. Índice de consulta permanece índice, sem criar um número novo.
+4. **Dinheiro:** ficha gráfica de metadados derivados do código de recontagem e dos dados existentes (data da extração, linhas de receita processadas, duplicatas removidas), explicitamente identificada como produto editorial, não como fac-símile de extrato ou recibo. Links reais de critérios do FEFC, cotas e contas declaradas preservados.
+5. **Reportagens:** fotografia institucional de maio/2023 (Bruno Spada/Câmara, CC BY) na página de índice, legendada como contexto de tramitação da igualdade salarial, sem atribuir os votos analisados às pessoas da fotografia.
+6. **Componente:** `src/components/editorial/EvidenciasGrafadas2026.tsx`. Não houve geração de imagens por IA, imagens fictícias ou edição de bases.
+
+### 17.3. O que permanece deliberadamente sem fotografia
+
+**Funil** (universos e diagramas) e **Histórico** (séries 2014–2026) já possuem visuais adequados e fontes documentais; fotografia de 1927/1936, se incluída sem novo capítulo, deslocaria o recorte histórico. **Barreiras** não receberá foto genérica de vítima nem imagem de violência como decoração. **Comparar** e **Dinheiro** priorizam dado e documento antes de fotografia. **Perfis de Lélia e Pagu** mantêm fichas documentais por direitos pendentes.
+
+### 17.4. Pendências explícitas e validação
+
+Os próximos pontos de pesquisa são: reprodução de documentos originais específicos do FEFC e PJe em Partidos/Quem controla, documentos legislativos e gravações de falas em Como votaram/Na voz delas, arquivo legal pertinente em Direitos/Em disputa/Barreiras, retratos individuais autorizados e eventual nova fotografia de reportagem com legenda situacional. Nenhum documento original será recriado como imagem sintética. A matriz de 35 páginas indica prioridade de cada um.
+
+O workflow `qa-evidencias-visuais-revista-16nov.yml` prevê TypeScript, build HostGator, integridade dos arquivos originais e capturas de 41 URLs em desktop/celular (82 renderizações), abrangendo os modelos das 35 páginas, seis temas e homepage. A conclusão precisa ser conferida no GitHub Actions; testes automatizados **não validam, por si, acessibilidade integral, direitos, precisão de números ou aprovação da editora**. A leitura das capturas completas em tamanho real é uma etapa distinta.
+
+**Referências documentais públicas:**
+- Acervo fotográfico da Câmara e licença: https://www2.camara.leg.br/a-camara/documentos-e-pesquisa/arquivo/acervo-por-tipo/fotos
+- Prestação de Contas 2026 no portal do TSE: https://dadosabertos.tse.jus.br/pt_BR/dataset/prestacao-de-contas-eleitorais-2026
+- Candidatos 2026: https://dadosabertos.tse.jus.br/dataset/candidatos-2026
+- Resultados 2026: https://dadosabertos.tse.jus.br/dataset/resultados-2026
+
+**Continuidade:** preservar integralmente as decisões anteriores. A versão original do manual sob o mesmo nome permanece neste PR como arquivo editável; sua versão na Biblioteca não pode ser sobrescrita automaticamente pelas permissões do Projeto.
