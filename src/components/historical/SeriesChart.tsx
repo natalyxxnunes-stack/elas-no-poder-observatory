@@ -159,7 +159,7 @@ function MobileUniverseRows({ series, universe }: { series: Series; universe: Un
                   <strong className="font-display text-xl leading-none text-ink">
                     {p.value === null ? "Sem dado" : `${fmt(p.value)}%`}
                   </strong>
-                  <span className="font-mono text-[11px] leading-snug text-ink/75">
+                  <span className="font-mono text-xs leading-snug text-ink/75">
                     {p.numerator !== null && p.denominator !== null
                       ? `${formatInt(p.numerator)} de ${formatInt(p.denominator)}`
                       : p.unavailableReason ?? "Sem registro"}
@@ -179,7 +179,7 @@ function MobileUniverseRows({ series, universe }: { series: Series; universe: Un
                   </div>
                 )}
                 {preta !== null && parda !== null && (
-                  <p className="mt-1 font-mono text-[11px] leading-snug text-ink/80">
+                  <p className="mt-1 font-mono text-xs leading-snug text-ink/80">
                     Pretas {fmt(preta)}% · Pardas {fmt(parda)}%
                   </p>
                 )}
