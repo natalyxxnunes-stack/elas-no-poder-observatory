@@ -7,7 +7,7 @@
  * Enquanto uma página não tiver foto registrada, o lugar mostra a peça gráfica
  * da própria página.
  */
-export type Licenca = "CC-BY" | "CC-BY-4.0" | "CC-BY-SA-4.0" | "CC0" | "dominio-publico" | "cessao-autorizada" | "verificacao-pendente";
+export type Licenca = "CC-BY" | "CC-BY-4.0" | "CC-BY-SA-4.0" | "CC0" | "dominio-publico" | "uso-livre-com-credito" | "cessao-autorizada" | "verificacao-pendente";
 
 export type Foto = {
   /** caminho em /public, por exemplo "/fotos/lelia-gonzalez-1983.jpg" */
@@ -51,7 +51,7 @@ export const FOTOS: Record<string, Foto> = {
     alt: "Deputada Renilce Nicodemos fala ao microfone na Câmara dos Deputados, diante da bandeira brasileira.",
     credito: "Kayo Magalhães/Câmara dos Deputados",
     acervo: "Agência Câmara, reportagem sobre o PL 1446/2025 publicada em 01/07/2026; fotografia de arquivo, data original não confirmada",
-    licenca: "CC-BY",
+    licenca: "uso-livre-com-credito",
     licencaUrl: "https://www2.camara.leg.br/comunicacao/assessoria-de-imprensa/guia-para-jornalistas/noticias-e-fotografias",
     data: "Fotografia de arquivo (data não confirmada)",
     proporcao: "3/2",
@@ -127,6 +127,7 @@ export const FOTOS: Record<string, Foto> = {
 
 export const LICENCA_ROTULO: Record<Licenca, string> = {
   "CC-BY": "Creative Commons BY (ver condições da fonte)",
+  "uso-livre-com-credito": "Livre utilização com crédito conforme regras da Câmara dos Deputados (sem licença CC individual indicada)",
   "CC-BY-4.0": "CC BY 4.0",
   "CC-BY-SA-4.0": "CC BY-SA 4.0",
   CC0: "CC0",
