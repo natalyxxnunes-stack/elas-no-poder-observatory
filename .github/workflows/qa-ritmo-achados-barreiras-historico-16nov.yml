@@ -153,6 +153,10 @@ jobs:
               assert page.locator('section[aria-labelledby="barreiras-documentos"] a[href^="http"]').count()==3
               assert page.locator('section#violencia-politica figure').count()>=2
               assert page.locator('section#feminicidio').count()==1
+              img=page.locator('img[src="/fotos/renilce-nicodemos-pl1446-camara.jpg"]')
+              assert img.count()==1 and img.first.get_attribute('alt'),'Foto documental de Barreiras sem alt'
+              assert img.first.evaluate('async(e)=>{await e.decode();return e.naturalWidth>500}'),'Arquivo fotográfico de Barreiras não carrega'
+              assert img.first.locator('xpath=ancestor::figure[1]').locator('figcaption').count()==1,'Legenda da foto de Barreiras ausente'
               out.append({'dispositivo':device,'teste':'barreiras','status':'ok'})
               page.goto('http://127.0.0.1:4173/historico',wait_until='domcontentloaded')
               page.locator('nav[aria-label="Navegar pelas séries históricas"] a[href="#cargo-uf"]').click()
@@ -164,6 +168,10 @@ jobs:
               pick=vals[1] if uf.input_value()==vals[0] else vals[0]
               uf.select_option(pick)
               assert uf.input_value()==pick
+              img=page.locator('img[src="/fotos/local-votacao-2026-agencia-senado.jpg"]')
+              assert img.count()==1 and img.first.get_attribute('alt'),'Foto documental de Histórico sem alt'
+              assert img.first.evaluate('async(e)=>{await e.decode();return e.naturalWidth>500}'),'Arquivo fotográfico do Histórico não carrega'
+              assert img.first.locator('xpath=ancestor::figure[1]').locator('figcaption').count()==1,'Legenda da foto de Histórico ausente'
               out.append({'dispositivo':device,'teste':'historico','status':'ok'})
               ctx.close()
             browser.close()
