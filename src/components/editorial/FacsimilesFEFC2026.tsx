@@ -95,21 +95,21 @@ export function CapaProcessoPLFEFC() {
       className="relative left-1/2 -ml-[50vw] w-screen bg-[#c53f22] text-paper">
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
         <div>
-          <p className="text-[13px] font-semibold text-paper/90">
+          <p className="text-[13px] font-semibold text-paper">
             Reprodução documental · Tribunal Superior Eleitoral
           </p>
           <h2 id="capa-original-pje-titulo"
             className="mt-4 font-display text-[clamp(2rem,4vw,3.8rem)] leading-[1.07]">
             A capa identifica o processo. A regra está nos anexos.
           </h2>
-          <p className="mt-5 max-w-lg text-[16px] leading-relaxed text-paper/90">
+          <p className="mt-5 max-w-lg text-[16px] leading-relaxed text-paper">
             Esta é a primeira página do conjunto de 34 páginas do processo
             PJe nº 0600974-71.2026.6.00.0000, apresentado pelo Partido Liberal.
             Ela traz o objeto da petição e a relação dos documentos juntados,
             incluindo a ata, a divulgação de critérios e as informações bancárias
             solicitadas pela Justiça Eleitoral.
           </p>
-          <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-paper/85">
+          <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-paper">
             A capa, isoladamente, não diz que percentuais chegaram às candidaturas,
             que os critérios foram integralmente cumpridos ou que houve análise de
             mérito pelo TSE. Os anexos e as contas devem ser examinados separadamente.

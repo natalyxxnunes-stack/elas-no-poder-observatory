@@ -300,7 +300,7 @@ function EleitasTable() {
         <p className="mt-3 text-[13px] leading-relaxed text-ink/70">
           A ficha reúne deputados federais, estaduais e distritais eleitos pelo partido em 2026.
         </p>
-        {selecionado && <div className="mt-4"><CardPartido r={selecionado} /></div>}
+        {selecionado && <ul className="mt-4"><CardPartido r={selecionado} /></ul>}
         <details className="mt-5 border-t border-plum/40 pt-3">
           <summary className="min-h-11 cursor-pointer font-semibold text-plum underline underline-offset-4">
             Consultar todas as siglas e respectivas fichas
@@ -586,14 +586,13 @@ function FundoEmFoco() {
             ].map((x) => {
               const valor = pct(x.count, x.total);
               return <div key={x.label}>
-                <dt className="flex flex-wrap justify-between gap-3 text-sm">
-                  <span className="max-w-md text-cream/90">{x.label}</span>
-                  <strong className="font-mono text-cream">{formatPct(valor)}</strong>
-                </dt>
-                <dd className="mt-2 h-2.5 w-full bg-cream/25" role="img"
-                  aria-label={x.label + ": " + formatPct(valor)}>
-                  <span className="block h-full bg-[var(--art-gold)]"
-                    style={{width: Math.max(0,Math.min(valor,100)) + "%"}} />
+                <dt className="max-w-md text-sm text-cream">{x.label}</dt>
+                <dd className="mt-2">
+                  <strong className="font-mono text-sm text-cream">{formatPct(valor)}</strong>
+                  <span className="mt-2 block h-2.5 w-full bg-cream/25" aria-hidden="true">
+                    <span className="block h-full bg-[var(--art-gold)]"
+                      style={{width: Math.max(0,Math.min(valor,100)) + "%"}} />
+                  </span>
                 </dd>
               </div>;
             })}
@@ -673,11 +672,11 @@ function PartidosPage() {
       <header className="relative left-1/2 -ml-[50vw] w-screen bg-coral-ink text-white" style={{ backgroundColor: PILOT_CORAL }}>
         <div className="mx-auto grid max-w-7xl gap-9 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[1.15fr_.85fr] lg:gap-16">
           <div>
-            <p className="font-display text-xl italic text-white/90">Partido por partido</p>
+            <p className="font-display text-xl italic text-white">Partido por partido</p>
             <h1 className="mt-5 max-w-3xl text-balance font-display text-[clamp(2.25rem,5vw,4.6rem)] font-semibold leading-[1.06] text-white">
               {M_PL_PRETAS.texto}
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-white md:text-lg">
               A lei estabelece pisos. Os partidos decidem candidaturas e distribuem
               recursos segundo regras próprias. Comparamos eleitas, financiamento
               declarado e votos efetivamente registrados pelas bancadas, sem
@@ -735,10 +734,10 @@ function PartidosPage() {
       
       <section aria-label="Como interpretar as comparações" className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-violet)] text-white">
         <div className="mx-auto grid max-w-7xl items-center gap-5 px-5 py-8 md:grid-cols-[.25fr_.75fr] md:gap-8 md:px-8 md:py-11">
-          <p className="font-display text-7xl leading-none text-[var(--art-gold)]" aria-hidden="true">04</p>
+          <p className="font-display text-7xl leading-none text-white" aria-hidden="true">04</p>
           <div>
             <h2 className="font-display text-2xl leading-tight text-white md:text-3xl">Quatro recortes. Quatro perguntas diferentes.</h2>
-            <p className="mt-3 max-w-3xl text-base leading-relaxed text-white/90">
+            <p className="mt-3 max-w-3xl text-base leading-relaxed text-white">
               Cadeiras conquistadas, candidaturas registradas, recursos recebidos e votos de bancada
               têm períodos e universos próprios. As tabelas se complementam, mas não permitem
               reconstituir sozinhas a trajetória de uma candidata.

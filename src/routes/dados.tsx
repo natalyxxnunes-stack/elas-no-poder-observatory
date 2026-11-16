@@ -106,11 +106,11 @@ function DadosPage() {
               className={"scroll-mt-24 grid " + (evidencia ? "lg:grid-cols-[.53fr_.47fr]" : "lg:grid-cols-[.42fr_.58fr]")}
             >
               <div className={"min-w-0 px-5 py-9 text-paper md:px-8 md:py-12 lg:pl-[max(2rem,calc((100vw-80rem)/2))] " + (inverter ? "lg:order-2 lg:pl-12 lg:pr-[max(2rem,calc((100vw-80rem)/2))] " : "lg:pr-12 ") + temaFundo}>
-                <p className="font-mono text-[13px] text-paper/85">Caderno {t.ordem} · {t.pergunta}</p>
+                <p className="font-mono text-[13px] text-paper">Caderno {t.ordem} · {t.pergunta}</p>
                 <h2 id={"dados-titulo-" + t.slug} className={"mt-4 font-display leading-tight " + (evidencia ? "text-[clamp(2.8rem,4.5vw,4.6rem)]" : "text-[clamp(2.25rem,3.3vw,3.4rem)]")}>
                   {t.nome}
                 </h2>
-                <p className="mt-5 max-w-lg font-display text-xl leading-snug text-paper/90">{t.linha}</p>
+                <p className="mt-5 max-w-lg font-display text-xl leading-snug text-paper">{t.linha}</p>
                 <a
                   href={"/temas/" + t.slug}
                   className="mt-6 inline-flex min-h-11 items-center border-b-2 border-paper text-sm font-semibold text-paper focus-visible:outline-2 focus-visible:outline-offset-4"

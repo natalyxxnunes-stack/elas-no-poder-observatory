@@ -787,3 +787,33 @@ O workflow `qa-evidencias-visuais-revista-16nov.yml` prevê TypeScript, build Ho
 **Investigação técnica:** workflows de download e seleção de páginas convertidos em acionamento manual para evitar repetição automática de PDFs com dados pessoais e custos de CI. A captura de um documento com CPF em outro anexo **não autoriza sua reprodução**.
 
 **Fontes originais:** https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/fundo-especial-de-financiamento-de-campanha-fefc e https://www.camara.leg.br/internet/SitaqWeb/ResultadoPesquisaDiscursos.asp?BasePesq=plenario&CampoOrdenacao=dtSessao&PageSize=50&TipoOrdenacao=DESC&btnPesqAvan=Pesquisar&dtFim=31%2F12%2F2026&dtInicio=01%2F01%2F2026&txOrador=Julia+Zanatta .
+
+---
+
+## 20. Acessibilidade, controle de publicação de documentos e limites do PR #28 — 16/11/2026
+
+**Branch:** `revista-acessibilidade-e-licencas-16nov2026`, construída sobre PR #27; sem integração à main e sem deploy. Nenhuma mudança de fotografia, arquivo documental, base de dados, homepage, marca ou CSS global. A decisão visual aprovada permanece: página de revista com roxo estrutural, tinta, creme/papel, dourado e coral profundo. Letras e metadados sobre coral devem ser suficientemente claros e legíveis; branco com 85–90% de opacidade sobre o coral da revista **não** atende à razão mínima de 4,5:1 para textos comuns.
+
+### 20.1. Auditoria automática e correções efetivas
+
+Rodado axe-core 4.10.3 com marcadores WCAG 2 A/AA, 2.1 AA e 2.2 AA nas páginas **Homepage (controle), Partidos, Quem controla, Na voz delas, Como votaram, Reportagens e Dados**, em 1440 × 900, 390 × 844 e 320 × 720 px CSS. O diagnóstico inicial em dois viewports mostrou **18 ocorrências de contraste**, **duas ocorrências de estrutura de lista de definição** e **uma de item fora de lista** (somadas as duplicações por viewport).
+
+Corrigido no código: (a) textos de abertura em Partidos sobre coral de `text-white/90` para `text-white`; (b) texto sobre violeta e algarismo decorativo 04 de dourado insuficientemente contrastado para branco; (c) no capítulo coral de Dados e na reprodução de capa PJe em Quem controla, texto agora em papel opaco, sem alterar a cor do fundo; (d) em Partidos, `<dl>` possui termo e definição sem `role=img` no `<dd>`, porcentagens legíveis como texto e barra decorativa `aria-hidden`; (e) ficha selecionada mobile passou a `<li>` dentro de `<ul>`, não mais item solto.
+
+**Resultado posterior:** execução https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43925782716, **21 verificações e zero violações automáticas das regras selecionadas, sem erros JS ou transbordamento horizontal**, em desktop, 390 px e 320 px. A rotina `.github/workflows/qa-acessibilidade-documentos-16nov.yml` agora falha se detectar nova violação ou erro estrutural. O documento `docs/qa-acessibilidade-e-liberacao-documental-16nov2026.md` guarda relatório detalhado, limitações, metodologia e links.
+
+A evidência de uma execução de axe **não é** certificação WCAG 2.2 AA. Ainda faltam leitor de telas, teste de ampliação real em 200%, foco profundo, rótulos de todos os filtros e controles, conteúdo alternativo de figuras complexas, revisão de todas as páginas restantes e avaliação com pessoas usuárias.
+
+### 20.2. Ressalva editorial de publicação — GitHub é público
+
+**Fato técnico verificado em 16/11/2026:** `natalyxxnunes-stack/elas-no-poder-observatory` possui `visibility: public`. Abrir PR como *draft* bloqueia merge automático, mas não oculta arquivos, imagens e commits da branch; **essas prévias são acessíveis no GitHub**, embora não estejam publicadas no site. Não afirmar que o material permanece privado ou inacessível. Não alterar a visibilidade do repositório sem aprovação da responsável editorial. O estado público agrava a urgência de avaliar reprodução de imagens e a triagem de dados pessoais antes de novas incorporações.
+
+Os quatro recortes de documentos incluídos no PR #27 seguem **com pendência editorial/jurídica para a publicação no site**, apesar de sua procedência e ausência de CPFs/contas nas páginas selecionadas terem sido verificadas. A Lei nº 9.610/1998, art. 8º, IV, trata dos textos de atos oficiais; não concluir automaticamente que resoluções partidárias anexadas a processo público ou capturas de tela de sistemas sejam livres de proteção autoral. A LGPD, art. 4º, II, a, prevê tratamento jornalístico, mas a avaliação concreta continua necessária, especialmente sobre proporcionalidade e interesse público dos dados divulgados.
+
+**Controle de liberação:** `docs/qa-acessibilidade-e-liberacao-documental-16nov2026.md` distingue situação das quatro imagens, fontes, eventuais dados pessoais, verificação factual, direitos de reprodução, aprovação editorial e bloqueios de deploy. Não executar merge dos PRs de acervo nem fazer deploy antes da decisão.
+
+### 20.3. Precisão editorial em Na voz delas
+
+A frase “declarações já autorizadas à publicação editorial” foi corrigida para “declarações selecionadas para publicação editorial”. A flag interna `publicar: true` não é sinônimo de autorização concedida pelas parlamentares. A oitava fala pendente continua fora do material publicado na prévia.
+
+**Diretriz para continuidade:** preservar design, marca, fotografias e documentos já auditados; corrigir violações demonstradas, sem retomar o visual branco/lilás genérico. Continuar a auditoria de acessibilidade na revista inteira, com contrastes calculados e estrutura HTML semântica, e manter revisão de direitos separada da verificação técnica.

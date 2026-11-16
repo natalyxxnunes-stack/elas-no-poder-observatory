@@ -53,3 +53,15 @@
 5. **Próxima etapa:** validação visual de página inteira em desktop/celular, revisão da acessibilidade de imagens, revisão jurídica/editorial de eventual publicação de fac-símiles e conferência periódica do teor e link da fonte. O PR é rascunho, não publicação.
 
 **Índice original de critérios do TSE:** https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/fundo-especial-de-financiamento-de-campanha-fefc
+
+---
+
+## Controle de publicação e acessibilidade após a auditoria do PR #28 (16/11/2026)
+
+**ATENÇÃO — repositório público:** a branch de PR #27 e suas imagens são acessíveis por terceiros via GitHub mesmo sem merge na `main`. “Prévia” descreve ausência de deploy no site, **não** privacidade dos arquivos. Decisão de alteração de visibilidade depende de autorização editorial.
+
+**Direitos sob revisão:** Lei nº 9.610/1998, art. 8º, IV, exclui textos de atos oficiais de proteção autoral, porém os documentos da Resolução CEN do União Brasil e da Federação Brasil da Esperança são atos partidários internos anexados ao TSE. O enquadramento jurídico e a proporcionalidade da reprodução de sua apresentação gráfica, assim como da capa PJe e da interface de pesquisa SITAQ, **permanecem pendentes**. Não presumir autorização jurídica em razão de publicidade do processo ou licença do dataset. Tratamento jornalístico previsto no art. 4º, II, a, da LGPD não autoriza divulgação indiscriminada de CPF, endereços residenciais ou dados bancários.
+
+**Acessibilidade:** o diagnóstico inicial de sete rotas apontou contraste insuficiente nos blocos coral e violeta e problemas de semântica em listas de Partidos. Os ajustes de PR #28 preservaram a paleta e produziram **zero violações automáticas nas 21 verificações** (7 páginas, 1440, 390 e 320 px) no axe-core, workflow https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43925782716 . **WCAG integral, leitores de tela, zoom real e revisão das outras rotas permanecem pendentes.**
+
+**Status de liberação das quatro reproduções:** todas **pendentes** de avaliação editorial/jurídica individual. O controle completo, com links oficiais e decisões de publicação ainda não tomadas, consta em `docs/qa-acessibilidade-e-liberacao-documental-16nov2026.md`. Não executar merge/deploy por inferência de que o CI passou.
