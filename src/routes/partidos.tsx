@@ -657,7 +657,7 @@ function FundoEmFoco() {
 
 /** Exposição de uma votação por vez sem omitir a matriz integral. */
 function VotacaoEmFoco() {
-  const [votoId, setVotoId] = useState(VOTE_IDS[0]);
+  const [votoId, setVotoId] = useState<string>(VOTE_IDS[0]!);
   const partidos = Object.keys(PARTIDOS_VOTOS[votoId] ?? {}).sort();
   const [sigla, setSigla] = useState("");
   const partido = partidos.includes(sigla) ? sigla : (partidos[0] ?? "");
