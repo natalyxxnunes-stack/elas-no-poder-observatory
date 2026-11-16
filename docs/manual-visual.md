@@ -611,3 +611,25 @@ O workflow `qa-evidencias-visuais-revista-16nov.yml` prevê TypeScript, build Ho
 - Câmara, Diários: https://www2.camara.leg.br/a-camara/documentos-e-pesquisa/diariosdacamara
 
 **Próximo passo:** conferir as capturas inteiras e o contraste das fichas, validar endpoints específicos e, apenas se justificável e autorizado, inserir imagens de **documentos autênticos** com crédito, identificação e tratamento de dados pessoais. Manter todo o histórico editorial; nenhuma publicação antecipada.
+
+---
+
+## 19. Documentos originais à vista — PR #27, 16/11/2026
+
+**Branch:** `revista-facsimiles-verificados-16nov2026`, baseada no PR #26. Intervenção em prévia, sem merge/deploy. Os três PDFs do TSE foram baixados de links públicos literais, conferidos por SHA-256 e examinados em páginas selecionadas. O acervo original contém anexos com CPF, endereços pessoais e informações bancárias; **apenas três páginas sem esses dados foram incorporadas como PNG**, nunca o PDF inteiro. Registro completo de origem, SHA, páginas e limites de cada imagem em `docs/acervo-facsimiles-tse-camara-16nov2026.md`.
+
+**Páginas de revista que ganharam prova visual autêntica:**
+
+- **Partidos:** reprodução da Resolução CEN 043, de 01/07/2026, do União Brasil, **página 24 de 33** do PDF do PJe `0601251-87.2026.6.00.0000`. Nela, a Executiva declara 20% do FEFC às disputas majoritárias e 80% às proporcionais, com previsão de ajustes, além de piso para mulheres; **não demonstra a execução dos repasses**. Ao lado, reprodução da Resolução nº 14/2026 da **Federação Brasil da Esperança**, anexa ao processo do PT `0601252-72.2026.6.00.0000`, **página 10 de 64**; indica autonomia dos partidos integrantes e observância de pisos legais. Não chamar essa resolução de critério exclusivo do PT. As imagens originais ficam clicáveis, com legendas, páginas, data, fonte, crédito e links aos PDFs completos.
+- **Quem controla:** reprodução da **capa**, página 1 de 34, do processo FEFC do PL `0600974-71.2026.6.00.0000`, gerada em 22/08/2026. A capa identifica processo, objeto e anexos, **não** prova aprovação de mérito ou valores transferidos às candidaturas. Fundo coral profundo com **toda a letra clara**, conforme decisão vinculante.
+- **Na voz delas:** recorte fiel de **uma linha do catálogo de Discursos e Notas Taquigráficas da Câmara**, com Julia Zanatta, discurso de 10/03/2026 às 19h20, edição do Diário de 11/03/2026, p. 163. É imagem do **índice de busca**, não da página 163 do Diário, nem verificação autossuficiente da transcrição. O domínio de PDFs da Câmara respondeu HTTP 403 ao acesso automatizado; os links da fonte original permanecem à disposição. A oitava fala, não verificada, continua excluída.
+
+**Interpretação:** documentos apresentados ao TSE e publicação dos critérios não equivalem a julgamento de mérito ou cumprimento de cotas. Manter distinção entre regras planejadas e contas executadas, registro e ocupação efetiva, documento autêntico e ficha editorial. Não criar documentos sintéticos. A reprodução de páginas públicas para finalidade de informação jornalística ainda deve passar por análise de direitos de uso e privacidade antes de publicação na main.
+
+**Arquivos e componentes:** `src/components/editorial/FacsimilesFEFC2026.tsx` e atualização de `IndicesDocumentaisCamara.tsx`; imagens em `public/documentos/tse-uniao-brasil-resolucao-cen043-2026.png`, `tse-fe-brasil-resolucao-14-2026.png`, `tse-pl-processo-fefc-capa-2026.png` e `camara-sitaq-julia-zanatta-2026-03-10-p163.png`. Fotos históricas de Lélia e Pagu não foram alteradas, pois continuam com direitos pendentes.
+
+**QA:** `.github/workflows/qa-facsimiles-originais-16nov.yml` testa TypeScript, build, identidade, integridade das 4 imagens e capturas de página inteira em desktop 1440 e celular 390 px, com checagem de imagens, largura, carga de documentos e texto claro no coral. Registrar resultado final real e revisar capturas antes de anunciar aprovação. A auditoria WCAG integral e o contraditório de eventuais imputações individuais continuam etapas distintas.
+
+**Investigação técnica:** workflows de download e seleção de páginas convertidos em acionamento manual para evitar repetição automática de PDFs com dados pessoais e custos de CI. A captura de um documento com CPF em outro anexo **não autoriza sua reprodução**.
+
+**Fontes originais:** https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/fundo-especial-de-financiamento-de-campanha-fefc e https://www.camara.leg.br/internet/SitaqWeb/ResultadoPesquisaDiscursos.asp?BasePesq=plenario&CampoOrdenacao=dtSessao&PageSize=50&TipoOrdenacao=DESC&btnPesqAvan=Pesquisar&dtFim=31%2F12%2F2026&dtInicio=01%2F01%2F2026&txOrador=Julia+Zanatta .

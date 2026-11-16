@@ -1,7 +1,5 @@
 name: Pesquisa documental — render de fontes primárias (não publica)
 on:
-  push:
-    branches: [revista-facsimiles-verificados-16nov2026]
   workflow_dispatch:
 permissions:
   contents: read

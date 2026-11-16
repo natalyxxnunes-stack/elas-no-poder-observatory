@@ -1,7 +1,6 @@
 name: Pesquisa de páginas dos critérios — seleção sem dados pessoais
 on:
-  push:
-    branches: [revista-facsimiles-verificados-16nov2026]
+  workflow_dispatch:
 permissions: { contents: read }
 jobs:
   inspecao:
