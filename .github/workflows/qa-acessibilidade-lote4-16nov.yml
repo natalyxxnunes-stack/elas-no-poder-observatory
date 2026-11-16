@@ -159,6 +159,13 @@ jobs:
                   assert page.locator('main img').count()==0, f'Imagem inesperada no perfil {slug}: conferir licença'
                   records.append({'dispositivo':dev,'controle':f'indice-e-bloqueio-de-foto-{slug}','resultado':'aprovado'})
                 page.goto('http://127.0.0.1:4173/quem-sao-elas',wait_until='domcontentloaded')
+                # As ferramentas inteiras ficam recolhidas numa camada editorial.
+                outer=page.locator('details').filter(has=page.locator('section#partidos')).first
+                assert outer.count()==1, 'Camada de ferramentas de consulta não localizada'
+                outer_summary=outer.locator('summary').first
+                outer_summary.focus()
+                page.keyboard.press('Enter')
+                assert outer.evaluate('(e)=>e.open'), 'Camada externa de dados não abriu via teclado'
                 section=page.locator('section#partidos')
                 details=section.locator('details').first
                 summary=details.locator('summary').first
