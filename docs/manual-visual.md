@@ -323,3 +323,5 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 **QA:** workflow próprio do lote 5 em `.github/workflows/qa-lote5-dados.yml`, com capturas integrais (1440 px e 390 px). A aprovação técnica não valida automaticamente cor, ritmo ou leitura e nenhuma versão foi publicada.
 
 **Escopo protegido:** `main`, homepage, logo, `src/data`, arquivos de base, fotos, documentos e `src/styles.css`. As quatro soluções não se tornam templates obrigatórios para outras rotas.
+
+**QA confirmado em 16/11/2026:** [execução #43798365553](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43798365553), concluída com sucesso após os últimos ajustes. Compilação, tipos, proteção de arquivos, 10 renderizações (cinco rotas × desktop/celular), sem erro de JavaScript nem transbordamento horizontal. Artefato `qse-lote5-dados-previsuais`, com capturas de primeira dobra e páginas completas. **As composições seguem pendentes de aceite editorial.**
