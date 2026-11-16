@@ -251,3 +251,18 @@ O arquivo editável permanente `Quem_sao_elas_Manual_Identidade_Editorial_Contin
 - **Preservado:** `main` visual, homepage fotográfica, logo, CSS global, `src/data/`, fotografias e fontes originais. As alterações de interface seguem **somente no PR #8 em rascunho**, sem publicação HostGator.
 
 **Próxima decisão:** aprovação ou pedidos de ajustes **por página**, após examinar as capturas mais recentes. Nenhum resultado de QA autoriza integração automática.
+
+
+### Decisão consolidada — texto claro nas grandes superfícies coral (15/11/2026)
+
+**Decisão expressa da editora:** evitar texto preto/tinta sobre coral nas grandes composições editoriais, mesmo quando o contraste calculado satisfaz um limite técnico. A combinação foi considerada ruim para a leitura. Esta decisão **substitui a orientação anterior de texto escuro no coral original na seção “Na voz delas”**; não reutilizar a solução rejeitada em outros pilotos.
+
+**Solução aplicada no PR #8, sem alterar a paleta global:**
+- **Quem entrou?:** a abertura já adotava `#c53f22` com tipografia clara `text-paper` (aprovado anteriormente).
+- **Reportagens, “Na voz delas”:** substituído o fundo `--art-coral` com letras em tinta/ameixa por **coral profundo `#c53f22`, com título, corpo, créditos e link em `text-paper`**.
+- **Método, fotografia documental:** mesmo fundo `#c53f22` e legenda/link claros; a legenda foi ampliada de 12 para 13 px.
+- **Coral original `--art-coral: #eb5d39`:** continua reservado a acentos, gráficos e composições menores, com semântica jornalística preservada. Não aplicar indiscriminadamente texto branco sobre o coral original: o contraste desse par é insuficiente para texto comum.
+
+**Critério de validação:** superfície coral profunda com textos visivelmente claros **e** contraste WCAG AA mínimo de 4,5:1 para tipografia corrente; validar cor computada no navegador e inspecionar capturas desktop/celular. [GitHub Actions #43785757894](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43785757894) **success**, head `939df87c70222e6e987a9b9937dc0f862aaab8e4`. Mantidos homepage, logo, CSS global, bases TSE e imagens originais.
+
+**Governança:** decisão cromática de legibilidade aprovada. As composições completas das páginas-piloto **seguem em avaliação**, apenas no PR #8, sem merge nem publicação. Registrar também no arquivo editável permanente `Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md` (seção 14.9).
