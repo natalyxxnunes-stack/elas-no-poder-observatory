@@ -29,12 +29,12 @@ export function FotografiaEmContexto({
   // Direitos ainda não conferidos: a imagem não pode entrar na publicação.
   if (!foto || foto.licenca === "verificacao-pendente") return null;
   return (
-    <section aria-label={editoria} className={\`relative left-1/2 -ml-[50vw] w-screen \${TONS[tom]}\`}>
+    <section aria-label={editoria} className={`relative left-1/2 -ml-[50vw] w-screen ${TONS[tom]}`}>
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[1.15fr_.85fr] lg:items-center lg:gap-12">
         <figure className="min-w-0">
           <img src={foto.src} alt={foto.alt} loading="lazy" className="block aspect-[3/2] w-full object-cover" />
           <figcaption className="mt-3 text-[13px] leading-relaxed text-paper/85">
-            {foto.credito} · {foto.acervo}{foto.data ? \` · \${foto.data}\` : ""}.{" "}
+            {foto.credito} · {foto.acervo}{foto.data ? ` · ${foto.data}` : ""}.{" "}
             {foto.licencaUrl ? (
               <a href={foto.licencaUrl} target="_blank" rel="noreferrer" className="font-semibold text-paper underline underline-offset-4">
                 Crédito, origem e condições de uso ↗
