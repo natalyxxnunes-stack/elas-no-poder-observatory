@@ -423,3 +423,16 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 **Ajuste cromático pós-inspeção:** o coral `bg-coral-ink` aparecia vermelho demais nas capturas. Para recuperar o matiz mais quente da página-piloto e conservar contraste AA com branco, a prévia adotou `PILOT_CORAL = color-mix(in srgb, var(--art-coral) 78%, var(--art-ink) 22%)`, definido uma vez em `src/lib/editorial-pilot-colors.ts` e aplicado **somente** nas quatro páginas revisadas. `src/styles.css` continua intocado. Registrar a mudança também na seção 14.19 do manual editável. A versão final de QA precisa ser revalidada após esse ajuste.
 
 **QA após ajuste cromático, versão vigente:** [GitHub Actions #43806697217](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43806697217), **sucesso** para a última revisão de código, commit `9a1327ef25497085ca8720120be19cc3a7f0fe66`. TypeScript e build, proteção de dados/home/logo/fotos/CSS, 10 renderizações (cinco rotas × dois dispositivos), texto claro sobre o novo coral com contraste AA ≥ 4,5:1, ausência de transbordamento e erros JS. Fotografias e tabelas conferidas nas capturas completas. **Ainda não há aprovação visual, merge ou deploy.**
+
+## Histórico — leitura móvel das seis séries (16/11/2026)
+
+**Motivo:** na prévia de referência do PR #17, Histórico tinha 20.520 px de altura em 390 px de largura, com dois universos repetidos em coluna e barras de quatro anos estreitas. O problema era de legibilidade, ritmo e navegação **no corpo inteiro**, além da abertura.
+
+**Intervenção do [PR #18](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/pull/18), em rascunho, derivado do #17:**
+- Somente na rota Histórico, as seis visualizações `SeriesChart` recebem `mobileSelectable`; celulares mostram **Proporcional / Majoritária**, um universo por vez, com botões acessíveis e estado `aria-pressed`. O outro universo está sempre a um toque, sem exclusão nem filtragem dos dados.
+- Os pontos de 2014, 2018, 2022 e 2026 são apresentados em **linhas por ano no celular**, com percentual, numerador/denominador, barra horizontal na escala original de 0 a 100% e indicação de ausência quando aplicável. Séries de cor/raça preservam **preta e parda separadas**, com identificação explícita de cada componente.
+- O desktop continua exibindo os universos **lado a lado**, com o mesmo gráfico anterior; nenhuma cor, cálculo, fonte, categoria, data ou regra metodológica foi alterada.
+- A apresentação mantém capa roxa, contraste coral com letras brancas, capítulos de tinta e arquivo documental TSE recuperados das três páginas-piloto. Não aplicar o seletor a outras rotas automaticamente.
+- A ficha do gráfico e as fontes continuam acessíveis no rodapé de cada visualização; as 27 UFs e os quatro arquivos TSE permanecem disponíveis.
+
+**Escopo protegido:** `main`, homepage, logo, `src/data`, arquivos oficiais, acervo de fotos, `src/styles.css` e páginas-piloto. Acesso por teclado, altura da página, presença de metadados e valores de ambas as séries devem integrar o QA. **Sem merge/deploy antes do aceite editorial.** A versão editável de continuidade incorpora este registro na seção **14.20**.
