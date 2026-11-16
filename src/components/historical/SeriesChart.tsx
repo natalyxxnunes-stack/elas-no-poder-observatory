@@ -124,6 +124,75 @@ function UniverseColumn({
   );
 }
 
+
+/** No celular, quatro linhas por eleição substituem barras estreitas e grandes vazios.
+ * Os percentuais usam o mesmo denominador de cada ponto que a versão desktop.
+ * Pretas e pardas seguem separadas, com agregação somente no total da série.
+ */
+function MobileUniverseRows({ series, universe }: { series: Series; universe: UniverseId }) {
+  const points = series.points
+    .filter((p) => p.universe === universe)
+    .sort((a, b) => a.year - b.year);
+  const splitRace = [
+    "serie-negras-negros-candidaturas",
+    "serie-mulheres-negras-sobre-total",
+    "serie-mulheres-negras-entre-mulheres",
+    "serie-mulheres-negras-eleitas",
+  ].includes(series.id);
+  return (
+    <section aria-label={`Leitura por ano: ${UNIVERSE_LABEL[universe]}`}>
+      <h3 className="font-sans text-sm font-semibold text-plum">{UNIVERSE_LABEL[universe]}</h3>
+      <ol className="mt-3 divide-y divide-rule border-y border-rule">
+        {points.map((p) => {
+          const preta = splitRace && p.denominator && p.pretaNumerator !== undefined
+            ? (p.pretaNumerator / p.denominator) * 100 : null;
+          const parda = splitRace && p.denominator && p.pardaNumerator !== undefined
+            ? (p.pardaNumerator / p.denominator) * 100 : null;
+          return (
+            <li key={p.year} className="grid min-w-0 grid-cols-[4.1rem_minmax(0,1fr)] gap-3 py-4">
+              <p className={`font-display text-2xl leading-tight ${p.year === 2026 ? "text-coral-ink" : "text-plum"}`}>
+                {p.year}
+              </p>
+              <div className="min-w-0">
+                <p className="font-display text-2xl font-semibold leading-none text-ink">
+                  {p.value === null ? "Sem dado" : `${fmt(p.value)}%`}
+                </p>
+                <p className="mt-1 font-mono text-[12px] leading-relaxed text-ink/75">
+                  {p.numerator !== null && p.denominator !== null
+                    ? `${formatInt(p.numerator)} de ${formatInt(p.denominator)}`
+                    : p.unavailableReason ?? "Sem dado no arquivo"}
+                </p>
+                {p.value !== null && (
+                  <div className="mt-2 h-2.5 w-full bg-muted" aria-hidden="true">
+                    {preta !== null && parda !== null ? (
+                      <div className="flex h-full">
+                        <span className="h-full" style={{ width: `${Math.min(preta, 100)}%`, backgroundColor: RACE_COLORS.preta }} />
+                        <span className="h-full" style={{ width: `${Math.min(parda, 100)}%`, backgroundColor: RACE_COLORS.parda }} />
+                      </div>
+                    ) : (
+                      <div className={`h-full ${p.year === 2026 ? "bg-coral" : "bg-plum"}`}
+                        style={{ width: `${Math.max(0, Math.min(p.value, 100))}%` }} />
+                    )}
+                  </div>
+                )}
+                {preta !== null && parda !== null && (
+                  <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[12px] leading-relaxed text-ink/80">
+                    <span>Preta: {fmt(preta)}%</span>
+                    <span>Parda: {fmt(parda)}%</span>
+                  </p>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+      <p className="mt-3 text-[12px] leading-relaxed text-ink/75">
+        Escala de 0 a 100% em todos os anos. A ficha e a fonte da série estão abaixo.
+      </p>
+    </section>
+  );
+}
+
 export function SeriesChart({
   series,
   universes = ["proporcional", "majoritario"],
@@ -204,7 +273,14 @@ export function SeriesChart({
                 : "block"
             }
           >
-            <UniverseColumn series={series} universe={u} compactMobile={mobileSelectable} />
+            {mobileSelectable ? (
+              <>
+                <div className="md:hidden"><MobileUniverseRows series={series} universe={u} /></div>
+                <div className="hidden md:block"><UniverseColumn series={series} universe={u} /></div>
+              </>
+            ) : (
+              <UniverseColumn series={series} universe={u} />
+            )}
           </div>
         ))}
       </div>
