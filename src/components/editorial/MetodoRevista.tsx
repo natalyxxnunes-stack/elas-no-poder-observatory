@@ -35,9 +35,22 @@ export function MetodoCapaRevista({
             Os arquivos do TSE, as escolhas da apuração, as contas que podem ser
             refeitas e os limites do que conseguimos afirmar. Um número, uma conta verificável.
           </p>
-          <a href="#metodo-documento-original" className="mt-7 inline-flex min-h-11 items-center self-start border-b-2 border-[var(--art-gold)] text-sm font-semibold text-paper">
-            Consultar a fonte original <span aria-hidden="true" className="ml-3">↗</span>
-          </a>
+          <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-3">
+            <a
+              href={TSE_DATASET}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex min-h-11 items-center border-b-2 border-[var(--art-gold)] text-sm font-semibold text-paper focus-visible:outline-2 focus-visible:outline-offset-4"
+            >
+              Abrir a fonte original no TSE <span aria-hidden="true" className="ml-3">↗</span>
+            </a>
+            <a
+              href="#metodo-arquivo-tecnico"
+              className="inline-flex min-h-11 items-center border-b border-paper/70 text-sm font-semibold text-paper focus-visible:outline-2 focus-visible:outline-offset-4"
+            >
+              Ir ao caderno técnico <span aria-hidden="true" className="ml-3">↓</span>
+            </a>
+          </div>
         </div>
         <div className="relative min-w-0 bg-ink px-5 py-10 md:px-8 md:py-14 lg:flex lg:items-center lg:pl-10 lg:pr-[max(2rem,calc((100vw-80rem)/2))]">
           <figure id="metodo-documento-original" className="relative min-w-0 w-full border border-ink/20 bg-paper text-ink shadow-[0_18px_45px_rgba(0,0,0,.25)]">
@@ -45,7 +58,13 @@ export function MetodoCapaRevista({
               <span>Documento de origem · 01</span>
               <span className="font-mono">TSE / 2026</span>
             </div>
-            <a href={TSE_DATASET} target="_blank" rel="noreferrer" className="block focus-visible:outline-2">
+            <a
+              href="/documentos/tse-candidatos-2026-portal.png"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Ampliar a captura documental da página Candidatos 2026 do TSE"
+              className="block focus-visible:outline-2 focus-visible:outline-offset-2"
+            >
               <img
                 src="/documentos/tse-candidatos-2026-portal.png"
                 alt="Captura fiel da página Candidatos - 2026 do Portal de Dados Abertos do TSE, com o título do conjunto e a informação de licença visíveis"
@@ -61,10 +80,25 @@ export function MetodoCapaRevista({
                 Captura da página oficial que disponibiliza o conjunto de dados.
                 O arquivo CSV não está reproduzido na imagem.
               </p>
-              <a href={TSE_DATASET} target="_blank" rel="noreferrer" className="mt-3 inline-block text-sm font-semibold text-plum underline underline-offset-4">
-                Abrir o conjunto de dados no TSE ↗
-              </a>
-              <p className="mt-3 text-[12px] leading-relaxed text-ink/65">
+              <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
+                <a
+                  href="/documentos/tse-candidatos-2026-portal.png"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex min-h-10 items-center text-[14px] font-semibold text-plum underline underline-offset-4"
+                >
+                  Ampliar a captura ↗
+                </a>
+                <a
+                  href={TSE_DATASET}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex min-h-10 items-center text-[14px] font-semibold text-plum underline underline-offset-4"
+                >
+                  Consultar o conjunto original no TSE ↗
+                </a>
+              </div>
+              <p className="mt-3 text-[13px] leading-relaxed text-ink/80">
                 Fonte: Portal de Dados Abertos do TSE/AGEL; captura de 15/11/2026.
                 A classificação da licença do conjunto não é, por si só,
                 uma declaração de licença da interface reproduzida.
