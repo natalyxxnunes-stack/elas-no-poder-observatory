@@ -1,0 +1,94 @@
+name: QA — quatro índices editoriais (sem deploy)
+on:
+  push:
+    branches:
+      - revista-lote2-indices-15nov2026
+    paths:
+      - "src/**"
+      - ".github/workflows/qa-indices-revista-lote2.yml"
+permissions:
+  contents: read
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Instalar, conferir tipos e compilar
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Proteger homepage, logos, dados e imagens
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin main
+          test -z "$(git diff --name-only origin/main...HEAD -- src/data public/dados public/fotos src/styles.css src/components/BrandLogo.tsx src/components/BrandWordmark.tsx src/components/home/CapaEditorialV3.tsx src/routes/index.tsx)"
+          echo "Sem alterações em dados eleitorais, fotografia original, tokens, marca ou homepage."
+      - name: Instalar navegador
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Capturar e testar quatro índices em desktop e celular
+        run: |
+          set -euo pipefail
+          mkdir -p qa-indices
+          python3 -m http.server 4173 --directory dist/client >/tmp/indices-http.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          from playwright.sync_api import sync_playwright
+          registros=[]
+          routes=[('/', 'home'),('/temas/', 'temas'),('/investigacoes', 'investigacoes'),('/dados', 'dados'),('/achados/', 'achados')]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for device,w,h in [('desktop',1440,900),('celular',390,844)]:
+              context=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=1)
+              for route,name in routes:
+                page=context.new_page()
+                errors=[]
+                page.on('pageerror',lambda e,errors=errors:errors.append(str(e)))
+                resp=page.goto('http://127.0.0.1:4173'+route,wait_until='domcontentloaded',timeout=45000)
+                page.wait_for_timeout(350)
+                h1=page.locator('main h1')
+                assert resp is not None and resp.status==200,(route,device,'HTTP',resp.status if resp else None)
+                assert len(errors)==0,(route,device,'JS',errors)
+                assert h1.count()==1,(route,device,'h1',h1.count())
+                assert page.evaluate('document.body.scrollWidth')<=w+3,(route,device,'body overflow',page.evaluate('document.body.scrollWidth'))
+                if name=='temas':
+                  assert page.locator('section[aria-labelledby="temas-indice-titulo"] ol > li').count()==6,(route,device,'6 themes')
+                  assert page.locator('section[aria-labelledby="temas-indice-titulo"] img').count()==1,(route,device,'historical photo in memory')
+                  assert page.get_by_role('link',name='Explorar o tema').count()==6,(route,device,'links to six themes')
+                if name=='investigacoes':
+                  assert page.locator('h2[id^="grupo-"]').count()==3,(route,device,'three editorial group headings')
+                  assert page.locator('p').filter(has_text='Situação:').count()>=10,(route,device,'status notes')
+                if name=='dados':
+                  assert page.locator('section[aria-labelledby^="dados-tema-"]').count()==6,(route,device,'six data paths')
+                  assert page.get_by_role('link',name='Ler a apuração').count()==6,(route,device,'read paths')
+                  assert page.get_by_role('heading',name='Para todos os temas').count()==1,(route,device,'general sources')
+                if name=='achados':
+                  assert page.locator('section[aria-labelledby="mais-recentes"] article').count()>0,(route,device,'findings')
+                  assert page.locator('section[id^="tema-"]').count()>0,(route,device,'grouped findings')
+                page.evaluate('window.scrollTo(0,0)')
+                page.screenshot(path=f'qa-indices/{device}-{name}-topo.jpg',type='jpeg',quality=80)
+                page.screenshot(path=f'qa-indices/{device}-{name}-completa.jpg',type='jpeg',quality=67,full_page=True)
+                registros.append({'dispositivo':device,'rota':route,'h1':h1.inner_text(),'altura':page.evaluate('document.body.scrollHeight'),'erros_js':len(errors)})
+                page.close()
+              context.close()
+            browser.close()
+          Path('qa-indices/resultado.json').write_text(json.dumps(registros,ensure_ascii=False,indent=2)+'\n')
+          print('PASSOU:',len(registros),'páginas e dispositivos, com capturas completas.')
+          PY
+      - name: Guardar as evidências
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-indices-revista-lote2
+          path: qa-indices/
+          if-no-files-found: warn
+          retention-days: 14
