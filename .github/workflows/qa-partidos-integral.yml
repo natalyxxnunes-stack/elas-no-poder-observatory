@@ -81,10 +81,12 @@ jobs:
                     sel.select_option(index=min(2,opts.count()-1))
                     assert page.locator('#eleitas').inner_text().count(sel.input_value())>=1
                   foto=main.locator('img[src="/fotos/bancada-feminina-camara-marco-2026.jpg"]')
-                  assert foto.evaluate('(el)=>el.complete&&el.naturalWidth>0'),(dispositivo,'photo loaded')
-                  # volta à fotografia original de página antes da interação
+                  foto.scroll_into_view_if_needed()
+                  page.wait_for_function('() => {const x=document.querySelector("img[src=\'/fotos/bancada-feminina-camara-marco-2026.jpg\']");return !!x && x.complete && x.naturalWidth>0}',timeout=10000)
+                  # Retorna aos filtros fechados antes de fotografar, mas carrega imagens lazy.
                   page.reload(wait_until='domcontentloaded')
-                  page.wait_for_timeout(400)
+                  page.locator('img[src="/fotos/bancada-feminina-camara-marco-2026.jpg"]').scroll_into_view_if_needed()
+                  page.wait_for_function('() => {const x=document.querySelector("img[src=\'/fotos/bancada-feminina-camara-marco-2026.jpg\']");return !!x && x.complete && x.naturalWidth>0}',timeout=10000)
                 page.evaluate('window.scrollTo(0,0)')
                 page.screenshot(path=f'qa-partidos/{dispositivo}-{nome}-abertura.jpg',type='jpeg',quality=83)
                 page.screenshot(path=f'qa-partidos/{dispositivo}-{nome}-completa.jpg',type='jpeg',quality=70,full_page=True)
