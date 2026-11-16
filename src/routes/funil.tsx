@@ -1,4 +1,5 @@
 import { M_GOVERNOS } from "@/data/manchetes";
+import { PILOT_CORAL } from "@/lib/editorial-pilot-colors";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
@@ -139,7 +140,7 @@ function FunilPage() {
         />
       </div>
 
-      <section aria-label="Como ler os três universos da eleição" className="relative left-1/2 -ml-[50vw] w-screen bg-coral-ink text-white">
+      <section aria-label="Como ler os três universos da eleição" className="relative left-1/2 -ml-[50vw] w-screen bg-coral-ink text-white" style={{ backgroundColor: PILOT_CORAL }}>
         <div className="mx-auto grid max-w-7xl gap-7 px-5 py-9 md:grid-cols-[.85fr_1.15fr] md:px-8 md:py-12">
           <div>
             <p className="font-mono text-xs font-semibold uppercase tracking-wide text-white/85">Chave de leitura · TSE 2026</p>
