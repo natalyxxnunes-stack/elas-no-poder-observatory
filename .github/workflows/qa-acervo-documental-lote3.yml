@@ -1,0 +1,127 @@
+name: QA acervo documental — quatro páginas de revista
+on:
+  push:
+    branches: [revista-lote3-acervo-documental-15nov2026]
+    paths: ['src/**', 'public/fotos/**', '.github/workflows/qa-acervo-documental-lote3.yml']
+permissions: {contents: read}
+jobs:
+  revisar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: {bun-version: latest}
+      - name: Instalar e compilar
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Proteger base eleitoral, homepage e marca
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin main
+          test -z "$(git diff --name-only origin/main...HEAD -- src/data/election-2026.ts src/data/tse-finance-snapshot.ts src/data/resultado-2026.ts src/data/rights-timeline.ts src/data/perfis-pioneiras.ts src/components/home/CapaEditorialV3.tsx src/routes/index.tsx src/styles.css src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
+          test -s public/fotos/posse-bertha-lutz-camara-1936.jpg
+          test -s public/materiais/cartilha-cota-miniatura.png
+          test -s public/materiais/infografico-universos-vertical.png
+          test -s public/materiais/oficina-funil-miniatura.png
+          echo 'Dados, marca, tokens, homepage e fonte documental preservados'
+      - name: Preparar navegador
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Testes reais e capturas
+        run: |
+          set -euo pipefail
+          mkdir -p evidencias
+          python3 -m http.server 4173 --directory dist/client > /tmp/qse-http.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          paths=[
+            ('/', 'homepage'),
+            ('/downloads','biblioteca'),
+            ('/pioneiras/','pioneiras'),
+            ('/direitos','direitos'),
+            ('/sobre','sobre')
+          ]
+          results=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for device,w,h in [('desktop',1440,900),('celular',390,844)]:
+              context=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=1)
+              for url,name in paths:
+                page=context.new_page()
+                errors=[]
+                page.on('pageerror',lambda e,errors=errors:errors.append(str(e)))
+                resp=page.goto('http://127.0.0.1:4173'+url,wait_until='domcontentloaded',timeout=45000)
+                page.wait_for_timeout(300)
+                assert resp and resp.status==200,(url,device,'http')
+                assert not errors,(url,device,errors)
+                assert page.locator('main h1').count()==1,(url,device,'one h1')
+                if page.evaluate('document.body.scrollWidth')>w+3:
+                  offending=page.evaluate('''(w) => [...document.querySelectorAll('body *')].map(el => {let r=el.getBoundingClientRect();return {tag:el.tagName,cls:String(el.className).slice(0,140),width:Math.round(r.width),left:Math.round(r.left),right:Math.round(r.right),text:el.textContent?.trim().slice(0,65)}}).filter(o=>o.right>w+5).sort((a,b)=>b.right-a.right).slice(0,14)''',w)
+                  print('DIAGNOSTICO OVERFLOW',url,device,page.evaluate('document.body.scrollWidth'),json.dumps(offending,ensure_ascii=False),flush=True)
+                  detail=page.evaluate('''() => {
+                    const main=document.querySelector('main'),body=document.body;
+                    const nodes=[...main.children];
+                    const original=body.scrollWidth;
+                    const segments=nodes.map((e,i)=>{
+                      const d=getComputedStyle(e).display;
+                      e.style.display='none';
+                      const reduced=body.scrollWidth;
+                      e.style.display=d;
+                      return {tag:e.tagName,cls:String(e.className).slice(0,90),id:e.id,whenHidden:reduced};
+                    });
+                    return {width:original, main:main.scrollWidth, html:document.documentElement.scrollWidth, segments};
+                  }''')
+                  print('DIAGNOSTICO SEGMENTOS',json.dumps(detail,ensure_ascii=False),flush=True)
+                  page.screenshot(path=f'evidencias/{device}-{name}-erro-largura.jpg',type='jpeg',quality=75,full_page=True)
+                assert page.evaluate('document.body.scrollWidth')<=w+3,(url,device,'overflow',page.evaluate('document.body.scrollWidth'))
+                if name=='biblioteca':
+                  for file in ['infografico-universos-vertical.png','cartilha-cota-miniatura.png','oficina-funil-miniatura.png']:
+                    im=page.locator('header img[src="/materiais/'+file+'"]')
+                    assert im.count()==1,(name,device,file)
+                    im.scroll_into_view_if_needed()
+                    im.evaluate('(e) => e.decode()')
+                    assert im.evaluate('(e) => e.naturalWidth > 200'),(name,device,'material missing',file)
+                  assert page.locator('#catalogo a[download]').count()>=3,(name,device,'published original downloads')
+                if name=='pioneiras':
+                  im=page.locator('header img[src="/fotos/posse-bertha-lutz-camara-1936.jpg"]')
+                  assert im.count()==1,(name,device,'new photo')
+                  im.evaluate('(e) => e.decode()')
+                  assert im.evaluate('(e) => e.naturalWidth > 1000'),(name,device,'photo quality')
+                  assert '28 de julho de 1936' in page.locator('header figcaption').inner_text(),(name,device,'date and context')
+                  assert page.locator('header figcaption a[href*="commons.wikimedia.org"]').count()==1,(name,device,'photo origin')
+                  assert page.locator('section[aria-labelledby="perfis"] a[href*="pioneiras/"]').count()>=2,(name,device,'published profiles')
+                if name=='direitos':
+                  sec=page.locator('section[aria-labelledby="direitos-documento-1932"]')
+                  assert sec.count()==1,(name,device,'primary document')
+                  assert 'sem distinção de sexo' in sec.inner_text(),(name,device,'verbatim article 2')
+                  assert 'não é imagem' in sec.inner_text().lower(),(name,device,'provenance distinction')
+                  assert sec.locator('a[href*="507583-publicacaooriginal-1-pe.html"]').count()==1,(name,device,'legislation source')
+                if name=='sobre':
+                  assert page.locator('aside[aria-label="Documentação de referência do projeto"] a').count()==3,(name,device,'primary sources and policies')
+                  assert page.locator('a[href="#correcoes"]').count()>=1,(name,device,'correction policy')
+                page.evaluate('window.scrollTo(0,0)')
+                page.screenshot(path=f'evidencias/{device}-{name}-topo.jpg',type='jpeg',quality=79)
+                page.screenshot(path=f'evidencias/{device}-{name}-completa.jpg',type='jpeg',quality=67,full_page=True)
+                results.append({'rota':url,'dispositivo':device,'titulo':page.locator('main h1').inner_text(),'altura':page.evaluate('document.body.scrollHeight')})
+                page.close()
+              context.close()
+            browser.close()
+          Path('evidencias/resultado.json').write_text(json.dumps(results,ensure_ascii=False,indent=2)+'\n')
+          print('PASSOU',len(results),'renderizações e verificações com fotos/documentos reais')
+          PY
+      - name: Guardar capturas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-lote3-fotografias-documentos
+          path: evidencias/
+          if-no-files-found: warn
+          retention-days: 14
