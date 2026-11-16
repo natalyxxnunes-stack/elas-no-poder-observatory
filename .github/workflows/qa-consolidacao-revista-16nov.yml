@@ -73,7 +73,14 @@ jobs:
                 page.on('pageerror', lambda error: errors.append(str(error)))
                 try:
                   response = page.goto('http://127.0.0.1:4173' + route, wait_until='domcontentloaded', timeout=25000)
-                  page.wait_for_timeout(400)
+                  # Imagens abaixo da primeira dobra usam loading="lazy".
+                  # Forçar carregamento para distinguir falha real de foto ainda não requisitada.
+                  page.evaluate("""async () => {
+                    const images = Array.from(document.images);
+                    images.forEach(img => { img.loading = 'eager'; });
+                    await Promise.all(images.map(img => img.decode().catch(() => {})));
+                  }""")
+                  page.wait_for_timeout(250)
                   metrics = page.evaluate("""() => ({
                     width: document.documentElement.scrollWidth,
                     viewport: innerWidth,
