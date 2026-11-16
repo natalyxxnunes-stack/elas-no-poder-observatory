@@ -61,7 +61,7 @@ export function PerfilHero({
   const lelia = fotoId === "lelia-gonzalez";
   const fundoEscuro = pagu || lelia;
   // Somente para imagens de avaliação. O build normal mantém o bloqueio jurídico.
-  const previaPagu = pagu && import.meta.env.VITE_QSE_PREVIEW_PAGU_FOTO === "true";
+  const previaPagu = pagu && import.meta.env["VITE_QSE_PREVIEW_PAGU_FOTO"] === "true";
   const temFoto = Boolean(fotoId && FOTOS[fotoId] && (FOTOS[fotoId]?.licenca !== "verificacao-pendente" || previaPagu));
   return (
     <header className={`relative left-1/2 -ml-[50vw] w-screen ${pagu ? "bg-ink text-paper" : lelia ? "bg-[var(--art-plum)] text-paper" : "bg-cream text-ink"}`}>
