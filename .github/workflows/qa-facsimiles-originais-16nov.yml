@@ -92,10 +92,16 @@ jobs:
                     if not co or co['bg']!='rgb(197, 63, 34)':
                       errors.append('Coral de fundo divergente da identidade de revista')
                     if co:
-                      import re
-                      channels=[int(v.strip()) for v in co['fg'].replace('rgb(', '').replace(')', '').split(',') if v.strip().isdigit()]
-                      if len(channels)<3 or min(channels)<185:
-                        errors.append('Texto sobre coral não é claro: '+str(co['fg']))
+                      color=co['fg']
+                      if color.startswith('oklch('):
+                        lightness=float(color[len('oklch('):].split()[0])
+                        if lightness<0.8:
+                          errors.append('Texto sobre coral não é claro: '+color)
+                      elif color.startswith('rgb('):
+                        channels=[int(v.strip()) for v in color.replace('rgb(', '').replace(')', '').split(',') if v.strip().isdigit()]
+                        if len(channels)<3 or min(channels)<185:
+                          errors.append('Texto sobre coral não é claro: '+color)
+                      else: errors.append('Formato de cor desconhecido para revisão: '+color)
                   if name=='na-voz-delas':
                     if not any((u or '').endswith('camara-sitaq-julia-zanatta-2026-03-10-p163.png') for u in pics):
                       errors.append('Registro original da pesquisa Câmara ausente')
