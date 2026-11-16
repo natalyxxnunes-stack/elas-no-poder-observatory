@@ -93,7 +93,7 @@ export const TEMAS: readonly Tema[] = [
       { ator: "A Justiça Eleitoral", decide: "o julgamento das contas e as sanções, depois da eleição" },
     ],
     naoSabemos: [
-      "Como cada partido aplicou os critérios formais do FEFC, publicados pelo TSE, às decisões concretas de distribuição e quais razões explicam as diferenças entre candidaturas. Os critérios públicos e os repasses declarados não esclarecem sozinhos a motivação de cada escolha.",
+      "Os critérios formais de distribuição do FEFC estão publicados por partido no TSE. Segue em aberto como foram aplicados a cada candidatura e por que determinadas transferências receberam prioridade.",
       "Se o dinheiro elege ou se quem já ia ganhar atrai o dinheiro: o teste do observatório (04/11) não confirmou a segunda hipótese, e a pergunta segue aberta.",
     ],
     achados: ["dinheiro"],
