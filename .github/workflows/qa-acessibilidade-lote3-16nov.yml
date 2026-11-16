@@ -154,7 +154,7 @@ jobs:
                 assert control.get_attribute('aria-pressed')=='true', 'Alternância para estados não ativou'
                 choices=page.locator('#escolhas-comparar select')
                 assert choices.count()==3, 'Comparador não expõe três seletores'
-                assert page.get_by_text('Estado 1',exact=True).count()>0, 'Rótulo do filtro não foi atualizado'
+                assert page.locator('#escolhas-comparar label').first.inner_text().startswith('Estado 1'), 'Rótulo do filtro não foi atualizado'
                 vals=choices.first.locator('option').evaluate_all('(nodes)=>nodes.map(x=>x.value).filter(Boolean)')
                 assert vals, 'Nenhum estado disponível para seleção'
                 choices.first.select_option(vals[0])
