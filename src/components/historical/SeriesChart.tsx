@@ -45,7 +45,7 @@ function UniverseColumn({
       <div className="mt-4 flex items-end gap-3">
         {points.map((p) => (
           <div key={p.year} className="flex flex-1 flex-col items-center">
-            <div className={`flex w-full items-end justify-center ${compactMobile ? "h-28 md:h-40" : "h-40"}`}>
+            <div className={`flex w-full items-end justify-center ${compactMobile && !isSplitRace ? "h-28 md:h-40" : "h-40"}`}>
               {p.value === null ? (
                 <div
                   className="flex h-full w-full items-end justify-center rounded-t-sm border-x border-t border-dashed border-rule"
