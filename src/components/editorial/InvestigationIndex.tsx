@@ -35,7 +35,7 @@ export function InvestigationIndex() {
               <h2 id={`grupo-${group}`} className="font-display text-[clamp(2rem,3.6vw,3.4rem)] leading-tight">
                 {GROUP_LABELS[group]}
               </h2>
-              <p className="font-mono text-[13px] opacity-85">
+              <p className="font-mono text-[13px]">
                 {items.length} {items.length === 1 ? "entrada" : "entradas"}
               </p>
             </div>

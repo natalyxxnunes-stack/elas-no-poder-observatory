@@ -125,7 +125,7 @@ function BuscaPage() {
       <section className="relative left-1/2 -ml-[50vw] w-screen bg-[#c53f22] text-paper">
         <div className="mx-auto grid max-w-7xl gap-5 px-5 py-9 md:grid-cols-[1fr_1fr] md:items-center md:px-8 md:py-12">
           <h2 className="font-display text-2xl leading-tight md:text-3xl">Um resultado aponta para a página de origem.</h2>
-          <p className="text-[15px] leading-relaxed text-paper/90">
+          <p className="text-[15px] leading-relaxed text-paper">
             A busca localiza registros já publicados no observatório. Para conferir um número ou uma fala, abra o resultado, identifique a data de corte e consulte a fonte indicada na página.
           </p>
         </div>
