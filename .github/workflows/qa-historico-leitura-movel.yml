@@ -82,8 +82,8 @@ jobs:
                     assert proportional.get_attribute('aria-pressed')=='true'
                   else:
                     assert not g.is_visible()
-                    assert main.locator('#genero h3').filter(has_text='Majoritária').first.is_visible()
-                    assert main.locator('#genero h3').filter(has_text='Proporcional').first.is_visible()
+                    assert main.locator('#genero h3').filter(has_text='Majoritária').last.is_visible()
+                    assert main.locator('#genero h3').filter(has_text='Proporcional').last.is_visible()
                   s=main.locator('summary').filter(has_text='Abrir tabela de todos os estados')
                   s.click()
                   assert main.locator('#cargo-uf table tbody tr').count()>=27
