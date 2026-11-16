@@ -2,6 +2,7 @@ import { HistoryByOffice, HistoryByUf } from "@/components/historical/HistoryByO
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { formatInt } from "@/lib/format-br";
+import { PILOT_CORAL } from "@/lib/editorial-pilot-colors";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
@@ -254,7 +255,7 @@ function HistoricoPage() {
       </SectionBlock>
 
       {firstProp?.value != null && lastProp?.value != null && (
-        <section aria-label="Contraste histórico das candidaturas proporcionais" className="relative left-1/2 -ml-[50vw] w-screen bg-coral-ink text-white">
+        <section aria-label="Contraste histórico das candidaturas proporcionais" className="relative left-1/2 -ml-[50vw] w-screen bg-coral-ink text-white" style={{ backgroundColor: PILOT_CORAL }}>
           <div className="mx-auto grid max-w-7xl gap-6 px-5 py-10 md:grid-cols-[.9fr_1.1fr] md:px-8 md:py-14">
             <div>
               <p className="font-mono text-xs font-semibold uppercase tracking-wide text-white/85">Uma série · dois pontos</p>
