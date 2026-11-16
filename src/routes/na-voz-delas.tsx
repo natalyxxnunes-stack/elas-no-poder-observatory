@@ -158,6 +158,57 @@ function FalaCard({ f, i }: { f: Fala; i: number }) {
   );
 }
 
+
+function EvidenciaCatalogoCamara() {
+  return (
+    <section aria-labelledby="caderno-registro-original"
+      className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-plum)] text-paper">
+      <div className="mx-auto grid max-w-7xl items-center gap-8 px-5 py-10 md:grid-cols-[.7fr_1.3fr] md:gap-12 md:px-8 md:py-14">
+        <div>
+          <p className="text-[13px] font-semibold text-[var(--art-gold)]">
+            Um documento do percurso de apuração
+          </p>
+          <h2 id="caderno-registro-original"
+            className="mt-4 font-display text-[clamp(2.2rem,3.8vw,3.9rem)] leading-tight text-paper">
+            A origem de uma fala também pode ser vista.
+          </h2>
+          <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-paper">
+            Este registro permite localizar a fala de Julia Zanatta, realizada em 10 de março de 2026,
+            na publicação oficial do dia seguinte. É uma linha do índice de discursos da Câmara:
+            a íntegra do pronunciamento está no Diário.
+          </p>
+          <p className="mt-5 font-display text-[clamp(3.5rem,7vw,6rem)] leading-none text-[var(--art-gold)]">
+            163
+          </p>
+          <p className="mt-2 text-[13px] text-paper">Página indicada para consulta no Diário da Câmara de 11/03/2026</p>
+        </div>
+        <figure className="min-w-0 bg-paper p-5 text-ink md:p-7">
+          <p className="text-[13px] font-semibold uppercase tracking-wide text-plum">
+            Captura original · Pesquisa de discursos da Câmara
+          </p>
+          <a href="/documentos/camara-sitaq-julia-zanatta-2026-03-10-p163.png"
+            target="_blank" rel="noreferrer"
+            className="mt-5 block border border-ink/20 bg-white p-2 focus-visible:outline-2 focus-visible:outline-offset-4"
+            aria-label="Ampliar a linha original do índice de discursos no portal da Câmara">
+            <img src="/documentos/camara-sitaq-julia-zanatta-2026-03-10-p163.png"
+              alt="Linha da pesquisa original: 10/03/2026, Julia Zanatta, PL-SC, sessão da Câmara, publicação do Diário em 11/03/2026, página 163"
+              loading="lazy" className="block h-auto w-full" />
+          </a>
+          <figcaption className="mt-5 text-[14px] leading-relaxed text-ink/85">
+            Recorte literal de uma linha do catálogo oficial, consultado em 16/11/2026.
+            <strong> Não é uma imagem da página 163 do Diário</strong> e não substitui a conferência do discurso integral.
+          </figcaption>
+          <a href="https://www.camara.leg.br/internet/SitaqWeb/ResultadoPesquisaDiscursos.asp?BasePesq=plenario&CampoOrdenacao=dtSessao&PageSize=50&TipoOrdenacao=DESC&btnPesqAvan=Pesquisar&dtFim=31%2F12%2F2026&dtInicio=01%2F01%2F2026&txOrador=Julia+Zanatta"
+            target="_blank" rel="noreferrer"
+            className="mt-4 inline-flex min-h-11 items-center font-semibold text-plum underline underline-offset-4">
+            Abrir a pesquisa original da Câmara ↗
+          </a>
+        </figure>
+      </div>
+    </section>
+  );
+}
+
 function NaVozDelasPage() {
   const demaisRef = useRef<HTMLDetailsElement>(null);
   const key = (d: string) => d.split("/").reverse().join("");
@@ -181,6 +232,7 @@ function NaVozDelasPage() {
       breadcrumb={[{ label: "Reportagens", to: "/reportagens" }, { label: "Na voz delas" }]}
     >
       <AberturaFalas publicadas={pub} />
+      <EvidenciaCatalogoCamara />
 
       <div className="py-5">
         <details className="group border-b border-rule">
@@ -246,7 +298,7 @@ function NaVozDelasPage() {
         ) : null}
       </section>
 
-      <IndiceDiariosCamara falas={pub} />
+      <IndiceDiariosCamara falas={pub} incluirRecorte={false} />
 
       <ComoSabemos
         fonte="Câmara dos Deputados, Dados Abertos (transcrição dos discursos) e Diário da Câmara; Fórum Brasileiro de Segurança Pública, Anuário 2026"

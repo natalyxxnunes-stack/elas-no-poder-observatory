@@ -83,7 +83,7 @@ export function DossieVotacoesCamara() {
   );
 }
 
-export function IndiceDiariosCamara({ falas }: { falas: readonly Fala[] }) {
+export function IndiceDiariosCamara({ falas, incluirRecorte = true }: { falas: readonly Fala[]; incluirRecorte?: boolean }) {
   const registradas = falas.filter((f) => f.publicar);
   return (
     <section id="arquivo-dos-diarios"
@@ -117,7 +117,7 @@ export function IndiceDiariosCamara({ falas }: { falas: readonly Fala[] }) {
             </a>
           </div>
           <div className="min-w-0">
-            <figure className="mb-5 border-t-[5px] border-ink bg-paper p-4 text-ink md:p-5">
+            {incluirRecorte && <figure className="mb-5 border-t-[5px] border-ink bg-paper p-4 text-ink md:p-5">
               <p className="font-mono text-[12px] font-semibold text-plum">
                 Recorte original · Índice de discursos da Câmara
               </p>
@@ -140,7 +140,7 @@ export function IndiceDiariosCamara({ falas }: { falas: readonly Fala[] }) {
                   Abrir a pesquisa no portal da Câmara ↗
                 </a>
               </figcaption>
-            </figure>
+            </figure>}
             <ol className="grid gap-3 sm:grid-cols-2">
             {registradas.map((f, i) => (
               <li key={f.id}
