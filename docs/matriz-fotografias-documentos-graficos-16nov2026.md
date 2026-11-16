@@ -1,0 +1,78 @@
+# Quem são elas? — matriz editorial de fotografias, documentos e gráficos
+**Auditoria:** 16 de novembro de 2026 · **base:** branch PR #24 e intervenção de evidências PR #25 (prévia)  
+**Escopo:** 35 modelos de rotas de conteúdo; `index.tsx` (home aprovada) é controle, e `condicoes.tsx` é redirecionamento. As seis variantes de `temas.$slug` e as fichas individuais usam modelos comuns, mas exigem inspeção amostral específica.
+
+## Critério de decisão
+
+Fotografia entra quando registra uma pessoa, um acontecimento, um lugar ou um intervalo relevante para a apuração; não serve como preenchimento. A legenda deve indicar **o que a fotografia mostra e o que ela não prova**, data, autoria, acervo, licença e link de origem. Para Lélia Gonzalez e Pagu, os direitos sobre as imagens históricas ainda demandam confirmação suficiente; usar a ficha tipográfica identificada é preferível à reprodução arriscada.
+
+Documento original deve ficar visualmente em primeiro plano quando **a afirmação depende da existência, redação ou data de um ato**: critério formal do FEFC, votação nominal, texto de lei, pronunciamento, prestação de contas e decisão judicial. Reproduções só entram com direitos e origem controlados; uma captura de portal não equivale ao conteúdo do CSV. Enquanto não houver fac-símile autorizado, mostrar link, identificador, situação, data e função do documento, sem fingir que uma cartela criada pelo site é documento original.
+
+O gráfico é preferível à fotografia quando a pergunta trata de **proporção, evolução, comparação, concentração ou universo**. Sempre indicar numerador, denominador, período, fonte, eventuais exclusões e o que a figura não mede. Não agrupar PRETA e PARDA sem explicitar a soma; não representar percentuais para bases pequenas sem cautela. Texto claro em fundo coral profundo; evitar repetição de um mesmo retrato como ilustração genérica.
+
+## Matriz por página
+
+**Leitura:** **Feito** = elemento existente ou incorporado no PR #25; **Investigar** = oportunidade para fonte, direitos ou imagem específica; **Dispensa** = inserção inadequada ao objetivo da página. As observações dizem respeito ao conteúdo visível, inclusive componentes importados, e não apenas à existência de tags diretamente no arquivo de rota.
+
+| Página (modelo) | Fotografia | Documento | Gráfico / figura | Decisão editorial e prioridade |
+|---|---|---|---|---|
+| Achado individual | Dispensa | Referência e método | Gráfico do achado | **P1:** ligar, quando possível, cada achado à fonte primária específica; não fotografar números |
+| Índice de Achados | Dispensa | Via fichas | Cards de dados | **P2:** diferenciar visualmente as famílias temáticas sem representar documentos não anexados |
+| Barreiras | Dispensa foto genérica de vítimas | Lei, painel TSE/MPF e representações | Séries e diagramas | **P1:** imagem de texto legal ou decisão só com referência correta; evitar imagem descontextualizada de violência |
+| Busca | Dispensa | Nos resultados | Dispensa | **P2:** acessibilidade e diferenciação visual das categorias; nenhum banco de imagens |
+| Calendário | Dispensa | Fontes em cada data | Linha temporal | **P2:** datas de eleição, diplomação e posse não são intercambiáveis |
+| Coautoria | Feito: plenário 2026, contexto | Propostas e API Câmara | Matriz partido × partido | **Feito; P1:** ampliar documentos de pares específicos se trouxer ganho de verificação |
+| Coleção antigênero | Foto só se vinculada a votação específica | Votos nominais e contraditório | Cartelas do recorte | **P1:** fac-símile de registro nominal em momento pertinente, sem imputar intenção por associação |
+| Como votaram | Feito: plenário da igualdade salarial, contexto | Votações originais | Múltiplas figuras e matrizes | **Feito; P1:** ampliar provas documentais por proposição, sem confundir votação e posição política |
+| Comparar | Dispensa | TSE Candidatos, resultado e FEFC | **Feito no PR #25: duas barras por recorte**, além de tabela | **Feito:** não confundir participação em candidaturas e cadeiras com taxa individual de eleição; com bases pequenas, só contagem |
+| Dados (índice) | Dispensa | **Feito no PR #25: captura real do portal TSE** | Navegação visual | **Feito:** legenda diferencia interface, CSV e contas financeiras |
+| Dinheiro | Dispensa imagem genérica de campanha | **Feito no PR #25: ficha gráfica de proveniência**, critérios FEFC, cotas e dados de receitas | Cobertura, cargo, raça, partidos, despesas | **Feito:** metadados próprios não são fac-símile; **P1:** documentos individuais de repasse por processo, quando verificados |
+| Direitos | Foto dispensável | Textos legais, decisões, evolução normativa | Cronologia e peças tipográficas | **P1:** aproximar atos legais oficiais do argumento, com vigência, processo e limite de aplicação |
+| Biblioteca/Downloads | Dispensa fotografia | Materiais publicados, arquivos e SHA | Miniaturas de materiais | **P1:** distinguir arte gráfica de capa/miniatura de uma prova documental |
+| Ficha individual de eleita | Retrato individual só licenciado/fornecido | Cadastro TSE e documentos de mandato | Ficha e séries individuais | **P1:** foto oficial não significa licença automática de reprodução; manter registro tipográfico se necessário |
+| Quem entrou (índice) | Retratos condicionais | Fichas e registros do TSE | Atlas e consulta | **P2:** evidência individual preferível a mosaico de imagens sem licença |
+| Em disputa | Dispensa | Texto normativo e estado processual | Cartões de situação | **P1:** incorporar reprodução literal de decisão/lei só após verificação documental |
+| Funil | **Dispensa** fotografia sem nexo factual | Feito: arquivos Candidatos e Vagas do TSE | Feito: diagramas e séries | **Suficiente nesta etapa:** imagem pessoal distrairia; priorizar explicitação de universos |
+| Histórico | **Dispensa** foto de pioneira no recorte 2014–2026 | Feito: 4 conjuntos oficiais com links, metadados e lacunas | Feito: séries, mapas e comparações | **Suficiente nesta etapa:** fotografia de 1927 ou 1936 seria anacrônica aqui sem capítulo histórico específico |
+| Investigações (índice) | Pauta específica, não genérica | Direcionamento para fontes em cada eixo | Índice editorial | **P2:** acervo só se houver acontecimento comprovado correspondente |
+| Método | Feito: fotografia de contexto; captura de portal TSE em componente | Bases, capturas identificadas, correções e hash | Fluxo e exemplo de conta | **Feito:** conferir licença da interface de portal antes de uso público definitivo |
+| Monitor | Feito: plenário 2026 | API da Câmara e ficha individual | Tabelas e indicadores | **Feito:** foto anterior à eleição não identifica mandatos futuros |
+| Na voz delas | Não exige retratos | Falas, Diário da Câmara e registros originais | Cartelas de citações | **P1:** recortes literais só com acesso à ata/transcrição, data e autoria; não montar fac-símile inventado |
+| Partidos | Feito: bancada feminina de 2026 | Critérios FEFC em PDF/PJe e cotas TSE | Votos, financiamento e representação | **P1:** integrar documentos oficiais concretos às decisões partidárias, sem declarar violação de cotas só pela métrica |
+| Pioneiras (índice) | Feito: arquivo de Bertha Lutz | Fichas históricas | Régua de votos | **Feito; P1:** direitos das demais fotografias devem ser rastreados |
+| Lélia Gonzalez | **Investigar** direitos de retrato | Feito: arquivos TSE 1982/1986 | Ficha nominal e réguas | **P1:** existem reproduções de autoria atribuída a Cezar Loureiro em Commons; classificação de domínio público não dispensa conferência jurídica da circulação no Brasil |
+| Pagu | **Bloqueada:** direitos do retrato pendentes | Feito: base de votação 1950 | Ficha nominal e réguas | **P1:** manter bloqueio até prova jurídica suficiente; imagem não entra por urgência estética |
+| Quem chega | Feito: bancada feminina 2026 (antes da eleição) | Base TSE e fichas | Hemiciclo, composição racial e estados | **Feito:** separar eleita, diplomada e ocupante efetiva |
+| Quem controla | Não necessária | Feito: critérios FEFC e documentação partidária | Estrutura de decisões | **P1:** aprimorar apresentação visual de cada PDF/PJe, com o documento autêntico e identificador |
+| Quem são elas? / candidatas | Dispensa retrato individual em série | Feito: captura real do TSE | Raça, cargos e exploradores | **Feito:** separar PRETA e PARDA, titulares e vices |
+| Relatório 2026 | **Feito no PR #25:** fotografia contextual de junho 2026 | **Feito:** caderno de quatro fontes oficiais | **Feito:** proporção de cadeiras com numerador e denominador | **Prioridade resolvida nesta rodada;** fotografia não representa eleitas em 2027; edição continua com data de corte de 04/11 |
+| Reportagens (índice) | **Feito no PR #25:** foto de contexto ligada a igualdade salarial | Fontes da reportagem e pronunciamentos | Placar de seis votações | **Feito:** foto não retrata as seis votações; legenda explicita |
+| Sobre | Dispensa | Documentação de método e projeto | Identidade editorial | **P2:** imagem institucional só se houver arquivo efetivo de bastidor/documento do observatório |
+| Tema individual (6 variantes) | Feito somente em Memória e Agenda | Provas e fontes por tema | Cards e objetos de dados | **P1:** não forçar a mesma fotografia nos seis temas; os outros pedem evidências específicas |
+| Temas (índice) | Feito: fotografias documentais localizadas | Fontes nas páginas | Capas editoriais | **P2:** preservar distinção entre fotografia histórica e ilustração |
+| Votos | Dispensa foto genérica | Feito: arquivo de votação e cadastro | Barras por universo, gênero e cor/raça | **Feito:** incluir somente voto nominal válido; categorias de voto e eleita não são equivalentes |
+
+## Documentos e licenças consultados para esta decisão
+
+- **Fotografia da Câmara:** acervo institucional sob Creative Commons BY; atribuir nome do fotógrafo/Câmara dos Deputados. Fonte: https://www2.camara.leg.br/a-camara/documentos-e-pesquisa/arquivo/acervo-por-tipo/fotos .
+- **Dados de contas 2026:** portal TSE, conjunto Prestação de Contas Eleitorais 2026, licença Creative Commons Attribution para os **dados**. Fonte: https://dadosabertos.tse.jus.br/pt_BR/dataset/prestacao-de-contas-eleitorais-2026 . A licença dos arquivos não autoriza presumir a licença do layout do portal.
+- **Candidaturas 2026:** https://dadosabertos.tse.jus.br/dataset/candidatos-2026 . Captura de interface recuperada do PR #8 com nota de procedência de 15/11/2026.
+- **Resultados 2026:** https://dadosabertos.tse.jus.br/dataset/resultados-2026 .
+- **Foto da posse de Bertha Lutz (1936):** Arquivo Nacional / Commons, ficha identificada em src/data/fotos.ts.
+- **Retrato de Lélia Gonzalez (Cezar Loureiro):** https://commons.wikimedia.org/wiki/File:L%C3%A9lia_Gonzalez_by_Cezar_Loureiro.jpg . Há uma indicação de domínio público na ficha; a aplicabilidade e a cadeia de direitos para publicação editorial no Brasil **não foram verificadas suficientemente**. Não baixar nem publicar esta imagem nesta rodada.
+- **Retrato de Pagu:** https://commons.wikimedia.org/wiki/File:Patricia_Galvao.jpg . Cadastro local continua em verificacao-pendente, sem reprodução pública.
+
+## Intervenção efetivamente realizada no PR #25
+
+1. `comparar.tsx` — novo gráfico de duas etapas, atualizado pelos filtros existentes; bases inferiores a 20 aparecem como contagem sem barras.
+2. `dados.tsx` — captura real do portal Candidatos 2026 no capítulo de proveniência, com legenda que distingue portal, CSV e prestação de contas.
+3. `dinheiro.tsx` — ficha visual de metadados reais: data da extração, linhas processadas, duplicatas removidas e acesso ao conjunto oficial de contas; **rotulada como construção do observatório**.
+4. `relatorio-2026.tsx` — síntese gráfica de mulheres eleitas para cargos de deputado, fotografia licenciada da Câmara com data e limites, e arquivo de fontes TSE/Câmara.
+5. `reportagens.tsx` — fotografia contextual da tramitação da igualdade salarial em 2023, explicitamente não usada como prova dos seis votos.
+6. `EvidenciasGrafadas2026.tsx` — módulo de figuras com rótulos, fontes e denominadores; nenhuma imagem gerada.
+
+## Verificações obrigatórias antes de publicar
+
+Testes automatizados de build, URLs, imagens e largura não substituem: revisão humana de captura integral, leitura em tamanho real da legenda, conferência de destino dos documentos, atribuição/licença da fotografia, navegação por teclado, semântica dos gráficos, contraste e auditoria de acessibilidade. Para publicação, registrar data de corte de cada base e situação do contraditório nas reportagens que nomeiam parlamentares.
+
+**Estado:** PR #25 é prévia. Nada nesta matriz constitui autorização para incorporar à main, substituir arquivos originais ou publicar imagens com direitos pendentes.
