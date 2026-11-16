@@ -1,0 +1,100 @@
+name: QA editorial lote 5 — páginas de dados
+on:
+  push:
+    branches:
+      - revista-lote5-dados-16nov2026
+    paths:
+      - 'src/**'
+      - '.github/workflows/qa-lote5-dados.yml'
+permissions:
+  contents: read
+jobs:
+  revisar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Compilar e conferir tipos
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Conferir escopo protegido
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin main
+          test -z "$(git diff --name-only origin/main...HEAD -- public/dados public/fotos public/materiais src/styles.css src/routes/index.tsx src/components/home/CapaEditorialV3.tsx src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
+          test -z "$(git diff --name-only origin/main...HEAD -- src/data)"
+          echo 'Homepage, marca, arquivos de dados e acervo preservados.'
+      - name: Preparar navegador
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Testar navegação e fotografar páginas completas
+        run: |
+          set -euo pipefail
+          mkdir -p qa-lote5
+          python3 -m http.server 4173 --directory dist/client > /tmp/site-http.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          from playwright.sync_api import sync_playwright
+          rotas=[('/','homepage'),('/partidos','partidos'),('/funil','funil'),('/historico','historico'),('/monitor','monitor')]
+          resultado=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for dispositivo,largura,altura in [('desktop',1440,900),('celular',390,844)]:
+              context=browser.new_context(viewport={'width':largura,'height':altura},device_scale_factor=1)
+              for rota,nome in rotas:
+                page=context.new_page()
+                errors=[]
+                page.on('pageerror',lambda e,errors=errors:errors.append(str(e)))
+                response=page.goto('http://127.0.0.1:4173'+rota,wait_until='domcontentloaded',timeout=45000)
+                page.wait_for_timeout(500)
+                assert response and response.status==200,(dispositivo,rota,'status')
+                assert not errors,(dispositivo,rota,'javascript',errors)
+                assert page.locator('main h1').count()==1,(dispositivo,rota,'h1')
+                width=page.evaluate('document.body.scrollWidth')
+                assert width<=largura+3,(dispositivo,rota,'horizontal',width)
+                if nome=='partidos':
+                  nav=page.locator('nav[aria-label="Ir para os quatro recortes por partido"]')
+                  assert nav.locator('a').count()==4,(dispositivo,'index')
+                  assert page.locator('#fundo').count()==1,(dispositivo,'fundo')
+                  assert 'não demonstra, isoladamente, descumprimento' in page.locator('#fundo').inner_text(),(dispositivo,'limite do indicador')
+                if nome=='funil':
+                  assert page.locator('#contexto').count()==1
+                  assert 'Como funcionam as cadeiras' in page.locator('#chapas').inner_text()
+                  assert 'proporcionais' in page.locator('main').inner_text().lower()
+                if nome=='historico':
+                  nav=page.locator('nav[aria-label="Navegar pelas séries históricas"]')
+                  assert nav.locator('a').count()==6,(dispositivo,'series index')
+                  assert page.locator('#cargo-uf').count()==1
+                if nome=='monitor':
+                  main=page.locator('main')
+                  assert 'Coleta:' in main.inner_text()
+                  assert '04/11/2026' in main.inner_text()
+                  assert 'fora do exercício hoje' not in main.inner_text()
+                  assert page.locator('table tbody tr').count()>0,(dispositivo,'dados')
+                page.evaluate('window.scrollTo(0,0)')
+                page.screenshot(path=f'qa-lote5/{dispositivo}-{nome}-abertura.jpg',type='jpeg',quality=81)
+                page.screenshot(path=f'qa-lote5/{dispositivo}-{nome}-completa.jpg',type='jpeg',quality=70,full_page=True)
+                resultado.append({'rota':rota,'dispositivo':dispositivo,'largura_body':width,'erros_js':errors,'h1':page.locator('main h1').inner_text()})
+                page.close()
+              context.close()
+            browser.close()
+          Path('qa-lote5/resultado.json').write_text(json.dumps(resultado,ensure_ascii=False,indent=2)+'\n')
+          print('PASSOU',len(resultado),'renderizacoes')
+          PY
+      - name: Guardar capturas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-lote5-dados-previsuais
+          path: qa-lote5/
+          if-no-files-found: warn
+          retention-days: 14
