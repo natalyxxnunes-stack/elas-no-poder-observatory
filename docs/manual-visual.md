@@ -339,3 +339,17 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 **Monitor:** preservar coleta de 04/11 e período 01/01–03/11/2026, bem como distinção entre voto registrado e presidência de sessão, proposições com coautoria e discursos. Proposta: experiência móvel de consulta individual progressiva, pré-registro de 2027 como documento metodológico e possível foto real do plenário de 30/06/2026 **com legenda que a dissocie do conjunto das votações**.
 
 **Direção preservada:** fontes, créditos, licenças, fotografia/documento apenas com pertinência; paleta editorial adulta e roxo estrutural; convenções das categorias raciais e das barras de dados; homepage e logo protegidas. **Nenhum novo desenho aprovado por este registro**. O procedimento próximo é revisão **por página integral**, na ordem proposta Partidos → Histórico → Monitor → Funil, com aprovação explícita posterior.
+
+## Partidos — prévia da página completa (16/11/2026)
+
+**Estado:** implementação **não aprovada** no [PR #13](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/pull/13), branch `revista-partidos-pagina-integral-16nov2026`, dependente do PR #12. Não houve publicação/merge. A auditoria de páginas completas anterior continua a fundamentação da intervenção.
+
+- **Abertura:** composição própria em tinta e roxo, tipografia clara e universo do TSE, sem alterar a homepage ou o componente global de abertura.
+- **Eleitas:** manter o gráfico por cor/raça e as cinco categorias originais, incluindo coluna específica para amarelas; tabela completa em painel sob demanda no desktop e consulta por sigla no celular.
+- **Candidaturas/eleição:** dar protagonismo às taxas nacionais e permitir seleção de partido sem eliminar a tabela auditável; bases inferiores a 20 em contagens absolutas.
+- **Fotografia documental:** acervo registrado `bancada-feminina-camara-marco-2026.jpg`, Vinicius Loures/Câmara, 04/03/2026, CC BY. Legenda explícita: arquivo anterior à eleição, não retrato de eleitas em 2026. **Verificar duplicidade** com fotografia da proposta Método, antes de aprovar.
+- **Documento primário:** no capítulo FEFC, documentos reais publicados pelo TSE, identificados por processo PJe e link ao inteiro teor quando disponível. Amostra de PL, PT e União Brasil apenas para dar acesso ao acervo, sem alegar análise de mérito dos critérios.
+- **FEFC:** distinguir critérios publicados, verba destinada a siglas e receitas declaradas a candidaturas; o recorte é exclusivamente deputado federal/estadual/distrital. **Não realçar percentuais abaixo de 30% como infração.** Fundo na base de **15/11/2026**, conforme código do projeto; removida menção antiga a 04/11 e a 343 contas ainda parciais.
+- **Votações:** seletor por deliberação e bancada, voto literal Sim/Não, maioria observada e tabela integral. A maioria do partido não é orientação formal de bancada.
+
+**Critério de aceite:** captura **integral** das seções no desktop e celular, tabela expansível testada, contraste e QA. Nenhum arquivo em `src/data`, `public/fotos`, homepage, logo ou CSS global alterado. O manual editável de continuidade recebeu o registro na **seção 14.15**. A proposta não se torna padrão reutilizável para as demais páginas.
