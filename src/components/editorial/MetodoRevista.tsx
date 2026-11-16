@@ -233,7 +233,7 @@ export function MetodoFotoContextualizada() {
   return (
     <section aria-labelledby="metodo-representacao-titulo" className="relative left-1/2 -ml-[50vw] w-screen">
       <div className="grid lg:grid-cols-[56fr_44fr]">
-        <figure className="min-w-0 bg-[var(--art-coral)] px-5 py-9 text-ink md:px-8 md:py-11 lg:pl-[max(2rem,calc((100vw-80rem)/2))] lg:pr-10">
+        <figure className="min-w-0 bg-[#c53f22] px-5 py-9 text-paper md:px-8 md:py-11 lg:pl-[max(2rem,calc((100vw-80rem)/2))] lg:pr-10">
           <img
             src={FOTO_BANCADA.src}
             alt={FOTO_BANCADA.alt}
@@ -242,12 +242,12 @@ export function MetodoFotoContextualizada() {
             loading="lazy"
             className="aspect-[3/2] w-full border-[8px] border-paper object-cover md:border-[11px]"
           />
-          <figcaption className="mt-3 max-w-2xl text-[12px] leading-relaxed text-ink">
+          <figcaption className="mt-3 max-w-2xl text-[13px] leading-relaxed text-paper">
             Fotografia documental: bancada feminina da Câmara, março de 2026.
             Foto: {FOTO_BANCADA.credito}. Esta fotografia é anterior à eleição
             de 2026 e não identifica quais mulheres foram eleitas no pleito.
             {" "}
-            <a href={FOTO_BANCADA.licencaUrl} target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">
+            <a href={FOTO_BANCADA.licencaUrl} target="_blank" rel="noreferrer" className="font-semibold text-paper underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2">
               Origem e condições de uso ↗
             </a>
           </figcaption>
