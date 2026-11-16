@@ -447,6 +447,8 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 
 **FEFC e cotas:** em `src/components/editorial/FefcPartidos.tsx`, retirada a marcação que sugeria infração a partir de percentuais inferiores a 30% num recorte que exclui candidaturas majoritárias. O quadro permanece **descritivo**, com contagens, grupos raciais separados e agregado preta+parda explicitamente identificado; nenhum valor recalculado. **Infringência legal exige análise do universo pertinente, lançamentos, legislação e situação processual.**
 
+**Nota de leitura numérica:** a manchete de Dinheiro tem denominador monetário restrito ao FEFC recebido por candidaturas de mulheres, enquanto os achados de receita total consideram outras fontes. O novo aviso editorial no corpo evita a aparência de divergência entre percentuais que medem objetos diferentes. Nenhum indicador foi recalculado.
+
 **Design de página completa:** abertura existente preservada; cargo em capítulo roxo com gráficos legíveis, cor/raça em creme, **caderno documental dourado no corpo da página** com links TSE, FEFC em fundo tinta com tabela integral acessível em papel, regra eleitoral em roxo e consulta territorial em creme. Fotografia só quando documentalmente pertinente; nenhum fac-símile simulado ou imagem artificial. Evitar excesso de painéis brancos/lilases e repetição mecânica.
 
 **Escopo protegido:** arquivos numéricos e scripts de `src/data`, fotos, homepage, logo, CSS global e HostGator. A única alteração em `src/data` foi o texto editorial de `temas.ts`. Verificação por QA específico em desktop/celular, com a rota temática e a rota de dados; resultado ainda exige aprovação editorial.
