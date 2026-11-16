@@ -82,8 +82,8 @@ jobs:
                     const blend=fg=>{let [r,g,bl,a=1]=rgba(fg);return [r*a+b[0]*(1-a),g*a+b[1]*(1-a),bl*a+b[2]*(1-a)]};
                     const L=rgb=>rgb.map(n=>{let c=n/255;return c<=0.04045?c/12.92:((c+0.055)/1.055)**2.4}).reduce((v,c,i)=>v+c*[.2126,.7152,.0722][i],0);
                     const l=L(b);
-                    const ratios=[...e.querySelectorAll('h2,h3,p,a')].map(node=>{const z=L(blend(getComputedStyle(node).color));return (Math.max(z,l)+.05)/(Math.min(z,l)+.05)});
-                    return {bg,minimum:Math.min(...ratios),count:ratios.length};
+                    const items=[...e.querySelectorAll('h2,h3,p,a')].map(node=>{const fg=getComputedStyle(node).color;const z=L(blend(fg));return {tag:node.tagName,text:node.textContent.trim().slice(0,36),fg,ratio:(Math.max(z,l)+.05)/(Math.min(z,l)+.05)};});
+                    return {bg,minimum:Math.min(...items.map(i=>i.ratio)),count:items.length,items:items.filter(i=>i.ratio<4.5)};
                   }''')
                   assert contrast['bg']=='rgb(197, 63, 34)',(rota,dispositivo,contrast)
                   assert contrast['count']>=10 and contrast['minimum']>=4.5,(rota,dispositivo,'coral text contrast',contrast)
