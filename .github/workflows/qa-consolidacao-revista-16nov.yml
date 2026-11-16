@@ -115,5 +115,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: qse-pr23-consolidacao-13-paginas
-          path: capturas-23/
+          path: |
+            capturas-23/
+            Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md
+            docs/manual-visual.md
           retention-days: 14
