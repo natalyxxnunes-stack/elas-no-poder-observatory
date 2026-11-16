@@ -66,6 +66,20 @@ jobs:
                 if page.evaluate('document.body.scrollWidth')>w+3:
                   offending=page.evaluate('''(w) => [...document.querySelectorAll('body *')].map(el => {let r=el.getBoundingClientRect();return {tag:el.tagName,cls:String(el.className).slice(0,140),width:Math.round(r.width),left:Math.round(r.left),right:Math.round(r.right),text:el.textContent?.trim().slice(0,65)}}).filter(o=>o.right>w+5).sort((a,b)=>b.right-a.right).slice(0,14)''',w)
                   print('DIAGNOSTICO OVERFLOW',url,device,page.evaluate('document.body.scrollWidth'),json.dumps(offending,ensure_ascii=False),flush=True)
+                  detail=page.evaluate('''() => {
+                    const main=document.querySelector('main'),body=document.body;
+                    const nodes=[...main.children];
+                    const original=body.scrollWidth;
+                    const segments=nodes.map((e,i)=>{
+                      const d=getComputedStyle(e).display;
+                      e.style.display='none';
+                      const reduced=body.scrollWidth;
+                      e.style.display=d;
+                      return {tag:e.tagName,cls:String(e.className).slice(0,90),id:e.id,whenHidden:reduced};
+                    });
+                    return {width:original, main:main.scrollWidth, html:document.documentElement.scrollWidth, segments};
+                  }''')
+                  print('DIAGNOSTICO SEGMENTOS',json.dumps(detail,ensure_ascii=False),flush=True)
                   page.screenshot(path=f'evidencias/{device}-{name}-erro-largura.jpg',type='jpeg',quality=75,full_page=True)
                 assert page.evaluate('document.body.scrollWidth')<=w+3,(url,device,'overflow',page.evaluate('document.body.scrollWidth'))
                 if name=='biblioteca':
