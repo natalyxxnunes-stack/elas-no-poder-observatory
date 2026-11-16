@@ -24,6 +24,17 @@ export type Foto = {
 };
 
 export const FOTOS: Record<string, Foto> = {
+  "posse-bertha-lutz-1936": {
+    src: "/fotos/posse-bertha-lutz-camara-1936.jpg",
+    alt: "Grupo de familiares, feministas e outras pessoas nas escadarias da Câmara dos Deputados, no Rio de Janeiro, após a posse de Bertha Lutz em 28 de julho de 1936.",
+    credito: "Domínio público / Acervo Arquivo Nacional",
+    acervo: "Fundo Federação Brasileira pelo Progresso Feminino, BR_RJANRIO_Q0_BLZ_DEU_CLE_FOT_0001",
+    licenca: "dominio-publico",
+    licencaUrl: "https://commons.wikimedia.org/wiki/File:Posse_de_Bertha_Lutz_como_Deputada_na_C%C3%A2mara_Federal.jpg",
+    data: "28/07/1936",
+    proporcao: "3/2",
+    fornecidaPor: "acervo-verificado",
+  },
   "plenario-camara-junho-2026": {
     src: "/fotos/plenario-camara-junho-2026.jpg",
     alt: "Vista ampla do plenário da Câmara dos Deputados durante sessão deliberativa, em 30 de junho de 2026.",
