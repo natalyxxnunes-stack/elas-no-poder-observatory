@@ -37,7 +37,7 @@ export function Secao({
       >
         {nome}
       </span>
-      {tipo ? <span className={`text-[14px] ${claro ? "text-paper/80" : "text-ink/65"}`}>{tipo}</span> : null}
+      {tipo ? <span className={`text-[14px] ${claro ? "text-paper" : "text-ink/65"}`}>{tipo}</span> : null}
     </p>
   );
 }
