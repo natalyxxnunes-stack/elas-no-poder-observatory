@@ -104,6 +104,83 @@ function BarreirasPage() {
         }
       />
 
+      <section
+        aria-labelledby="barreiras-documentos"
+        className="relative left-1/2 -ml-[50vw] w-screen bg-[#c53f22] text-paper"
+      >
+        <div className="mx-auto max-w-7xl px-5 py-11 md:px-8 md:py-14">
+          <p className="text-[13px] font-semibold text-paper/90">
+            Documentos originais · Proteção e apuração
+          </p>
+          <h2 id="barreiras-documentos" className="mt-4 max-w-4xl font-display text-[clamp(2.15rem,4vw,4rem)] leading-[1.1] text-paper">
+            Uma lei, um painel e registros processuais.
+          </h2>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-paper">
+            Os três documentos tratam de etapas diferentes. A lei define a
+            conduta criminosa; o painel TSE/MPF informa processos agregados;
+            as representações listadas pelo MPF documentam atuações específicas.
+            Nenhum desses conjuntos é, isoladamente, uma contagem de vítimas.
+          </p>
+          <ul className="mt-8 grid gap-4 md:grid-cols-3">
+            <li className="min-w-0 border-t-2 border-paper/80 pt-4">
+              <p className="font-mono text-[13px] text-paper/90">01 · LEGISLAÇÃO</p>
+              <h3 className="mt-2 font-display text-2xl leading-tight text-paper">
+                Lei nº 14.192/2021
+              </h3>
+              <p className="mt-3 text-[14px] leading-relaxed text-paper">
+                Norma que introduziu o crime de violência política contra a mulher
+                no Código Eleitoral. Texto normativo, não registro de ocorrência.
+              </p>
+              <a
+                href="https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14192.htm"
+                target="_blank" rel="noreferrer"
+                className="mt-4 inline-flex min-h-11 items-center font-semibold text-paper underline underline-offset-4 focus-visible:outline-2"
+              >
+                Consultar texto legal ↗
+              </a>
+            </li>
+            <li className="min-w-0 border-t-2 border-paper/80 pt-4">
+              <p className="font-mono text-[13px] text-paper/90">02 · PAINEL PÚBLICO</p>
+              <h3 className="mt-2 font-display text-2xl leading-tight text-paper">
+                Processos autuados
+              </h3>
+              <p className="mt-3 text-[14px] leading-relaxed text-paper">
+                Fonte da série agregada usada abaixo: extração registrada pelo
+                TSE em {VPG_META.extraidoEm}; consulta pelo observatório em
+                {VPG_META.lidoEm}. A soma por ano não confere com o total do acervo.
+              </p>
+              <a href={VPG_META.url} target="_blank" rel="noreferrer"
+                className="mt-4 inline-flex min-h-11 items-center font-semibold text-paper underline underline-offset-4 focus-visible:outline-2">
+                Abrir painel original ↗
+              </a>
+            </li>
+            <li className="min-w-0 border-t-2 border-paper/80 pt-4">
+              <p className="font-mono text-[13px] text-paper/90">03 · ATUAÇÃO INSTITUCIONAL</p>
+              <h3 className="mt-2 font-display text-2xl leading-tight text-paper">
+                Representações do MPF
+              </h3>
+              <p className="mt-3 text-[14px] leading-relaxed text-paper">
+                Página com representações e dados estatísticos. A existência
+                de uma representação não comprova a prática do crime nem o
+                resultado do julgamento.
+              </p>
+              <a
+                href="https://www.mpf.mp.br/atuacao/fiscalizacao-do-processo-eleitoral/atuacao/gt-violencia-de-genero/representacoes-editadas"
+                target="_blank" rel="noreferrer"
+                className="mt-4 inline-flex min-h-11 items-center font-semibold text-paper underline underline-offset-4 focus-visible:outline-2"
+              >
+                Consultar arquivo do MPF ↗
+              </a>
+            </li>
+          </ul>
+          <p className="mt-7 max-w-4xl border-t border-paper/40 pt-4 text-[13px] leading-relaxed text-paper/90">
+            Este é um índice de fontes oficiais, não uma reprodução das telas
+            nem uma colagem de documentos. As bases permanecem com seus
+            recortes e limitações declarados.
+          </p>
+        </div>
+      </section>
+
       <ManchetesStrip items={[M_FEMINICIDIO]} label="Violência contra mulheres" />
 
       <SectionBlock
