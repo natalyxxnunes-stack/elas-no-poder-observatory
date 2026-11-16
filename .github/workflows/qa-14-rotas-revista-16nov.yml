@@ -47,7 +47,7 @@ jobs:
           from playwright.sync_api import sync_playwright
           routes = [
             ('/', 'homepage-controle'),
-            ('/achados/cor-raca', 'achado-individual'),
+            ('/achados/quanto-mais-alto-mais-brancas', 'achado-individual'),
             ('/busca?q=mulheres', 'busca-com-termo'),
             ('/calendario', 'calendario'),
             ('/coautoria', 'coautoria'),
