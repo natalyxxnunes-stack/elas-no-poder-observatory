@@ -154,22 +154,43 @@ function DownloadsPage() {
               Explorar os materiais <span aria-hidden="true" className="ml-2">↘</span>
             </a>
           </div>
-          <div className="grid grid-cols-2 gap-3" aria-label="Prévia de publicações reais do observatório">
-            <figure>
-              <div className="flex aspect-[3/4] items-center justify-center overflow-hidden bg-paper/10">
-                <img src="/materiais/cartilha-cota-miniatura.png"
-                  alt="Capa original da cartilha sobre cotas de gênero"
-                  loading="eager" className="h-full w-full object-contain" />
-              </div>
-              <figcaption className="mt-2 text-xs text-paper/75">Cartilha · PDF</figcaption>
+          <div className="grid min-w-0 grid-cols-2 items-end gap-3" aria-label="Prévia dos arquivos publicados do observatório">
+            <figure className="col-span-2 grid min-w-0 grid-cols-[.9fr_1.1fr] items-center gap-4 bg-[var(--art-plum)] p-4 text-paper md:p-5">
+              <img
+                src="/materiais/infografico-universos-vertical.png"
+                alt="Infográfico original do Quem são elas? sobre os dois universos eleitorais: proporcional e majoritário"
+                loading="eager"
+                className="max-h-[320px] w-full object-contain"
+              />
+              <figcaption className="text-[13px] leading-relaxed text-paper/90">
+                <strong className="block font-display text-xl leading-tight text-paper">
+                  Dados desenhados para circular
+                </strong>
+                <span className="mt-2 block">
+                  Infográfico vertical original, disponível também em formato
+                  quadrado. Não é uma imagem gerada para preencher o layout.
+                </span>
+                <a
+                  href="/materiais/infografico-universos-vertical.png"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-flex min-h-11 items-center font-semibold text-paper underline underline-offset-4"
+                >
+                  Ver peça completa ↗
+                </a>
+              </figcaption>
             </figure>
-            <figure>
-              <div className="flex aspect-[3/4] items-center justify-center overflow-hidden bg-paper/10">
-                <img src="/materiais/oficina-funil-miniatura.png"
-                  alt="Primeira página original do material de oficina sobre o funil eleitoral"
-                  loading="eager" className="h-full w-full object-contain" />
-              </div>
-              <figcaption className="mt-2 text-xs text-paper/75">Oficina · PDF</figcaption>
+            <figure className="min-w-0">
+              <img src="/materiais/cartilha-cota-miniatura.png"
+                alt="Primeira página da cartilha original sobre cotas de gênero"
+                loading="eager" className="aspect-[3/4] w-full bg-paper/10 object-contain"/>
+              <figcaption className="mt-2 text-[13px] text-paper/85">Cartilha · PDF original</figcaption>
+            </figure>
+            <figure className="min-w-0">
+              <img src="/materiais/oficina-funil-miniatura.png"
+                alt="Primeira página original do roteiro de oficina sobre o funil eleitoral"
+                loading="eager" className="aspect-[3/4] w-full bg-paper/10 object-contain"/>
+              <figcaption className="mt-2 text-[13px] text-paper/85">Oficina · PDF original</figcaption>
             </figure>
           </div>
         </header>
@@ -187,11 +208,14 @@ function DownloadsPage() {
           </p>
         }
       >
-        <ul className="grid gap-4 md:grid-cols-2">
+        <ul className="grid gap-5 md:grid-cols-2">
           {MATERIALS.map((m) => (
-            <li key={m.id} className="editorial-card flex h-full flex-col p-5">
+            <li
+              key={m.id}
+              className={`flex min-w-0 h-full flex-col border border-rule bg-paper p-5 md:p-7 ${m.id === "cartilha-cota" ? "md:row-span-2" : ""}`}
+            >
               <div className="flex items-start justify-between gap-3">
-                <p className="text-[13px] text-muted-foreground font-semibold">
+                <p className="text-[13px] text-plum font-semibold">
                   {m.kind}
                 </p>
               </div>
