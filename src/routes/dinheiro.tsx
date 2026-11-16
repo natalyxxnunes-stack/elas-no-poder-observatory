@@ -130,6 +130,17 @@ function DinheiroPage() {
 
       <LeituraDoTema slug="dinheiro" />
 
+      <aside aria-label="Diferença entre as medidas de fundo eleitoral e receita total"
+        className="mt-4 max-w-4xl border-l-4 border-plum bg-cream px-5 py-4 text-ink">
+        <p className="font-semibold">Como ler os percentuais desta página</p>
+        <p className="mt-2 text-sm leading-relaxed text-ink/80">
+          A manchete considera apenas a distribuição do Fundo Especial de Financiamento
+          de Campanha (FEFC) entre candidaturas de mulheres. Os indicadores de
+          <strong> receita total declarada</strong> incluem outras fontes de financiamento.
+          As participações podem ser diferentes, mesmo quando o recorte eleitoral é o mesmo.
+        </p>
+      </aside>
+
       <AchadosDaPagina temas={["dinheiro"]} max={3} />
 
       <SectionBlock
@@ -259,8 +270,9 @@ function DinheiroPage() {
               9,5%. Candidaturas de pessoas brancas são 49,8% e receberam 60,8%.
             </p>
             <p className="mt-3">
-              Na conta restrita a deputadas e deputados, três partidos ficaram abaixo de 30%
-              do FEFC declarado recebido por candidaturas pretas e pardas: PL (26,7%), NOVO (25,6%)
+              Na conta restrita a deputadas e deputados, três partidos tiveram percentuais
+              inferiores a 30% do FEFC declarado recebido por candidaturas pretas e pardas.
+              Trata-se de uma comparação descritiva, não de constatação de infração: PL (26,7%), NOVO (25,6%)
               e PCO (24,7%). Incluindo os titulares dos seis cargos, são seis: PL (22,3%),
               NOVO (26,4%), MDB (28,2%), Cidadania (29,4%), PSD (29,4%) e PRTB (14,1%).
               O PRTB tem somente seis candidaturas titulares neste recorte, quatro com FEFC;
