@@ -18,6 +18,7 @@ const BINARIOS = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".ico", ".pd
 // Na build de revisão autorizada pelo workflow, a imagem pode ser examinada.
 const FOTOS_BLOQUEADAS = new Map([
   ["fotos/pagu-patricia-galvao-anos-1920.jpg", "VITE_QSE_PREVIEW_PAGU_FOTO"],
+  ["fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg", "VITE_QSE_PREVIEW_LELIA_FOTO"],
 ]);
 
 async function* percorrer(dir) {

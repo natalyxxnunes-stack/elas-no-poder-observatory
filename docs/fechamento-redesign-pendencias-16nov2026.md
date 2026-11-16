@@ -48,3 +48,8 @@ Redesign considerado pronto **após** aceite de página inteira das composiçõe
 Foi concluído um ensaio adicional em nove rotas: 27 cenários de layout, três controles por teclado, zero falhas detectadas. GitHub Actions #43980902610. O modo de 640 CSS px/DPR2 aproxima reflow a 200%; ainda faltam zoom nativo e leitores de tela humanos.
 
 A triagem documental confirmou licenciamento institucional com crédito para fotografias da Câmara, mas **não resolveu automaticamente** os sete itens listados acima. Matriz jurídica e fontes oficiais: docs/triagem-direitos-e-a11y-final-16nov2026.md. Não remover o bloqueio das fotos Pagu/Lélia, não liberar os fac-símiles sem decisão específica, não publicar sem aceite.
+
+
+## Registro de fechamento — bloqueio de acervo pendente (16/11/2026)
+
+A inspeção das páginas completas de Barreiras, Histórico, Direitos, Achados, Quem chega, Sobre, Votos, Materiais e Pioneiras foi realizada no PR #33; nenhuma mudança desnecessária de paleta, logo, homepage, fonte ou dado foi feita nesta rodada. Falha real: fotografia de Pagu ocultada pelo componente ainda era copiada como arquivo acessível na pasta estática da HostGator. Corrigido no restaurador de binários, com regra também para Lélia: build normal sem arquivos, build especial de prévia com arquivos sob flags. Workflow [#43983013191](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43983013191) aprovado. **Os originais no GitHub público não foram removidos.** Aprovação jurídica e humana permanece pendente para publicação.

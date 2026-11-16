@@ -173,3 +173,10 @@ Os **35 modelos** de rota haviam recebido uma amostra de auditoria; a rodada de 
 Fotografias do Banco de Imagens da Câmara podem ser reutilizadas com crédito, conforme https://www.camara.leg.br/banco-imagens ; não presumir essa licença para processos do TSE, interfaces e retratos históricos. **Sete itens** ainda precisam de decisão individual, sem liberação automática: Pagu, Lélia, interface TSE, União Brasil, Federação Brasil da Esperança, capa PJe PL e linha SITAQ. Veja docs/triagem-direitos-e-a11y-final-16nov2026.md .
 
 [QA #43980902610](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43980902610): 27 cenários de nove rotas em desktop/reflow equivalente de 200%/texto reespaçado no celular, três controles testados pelo teclado, sem falhas. Reflow equivalente não comprova zoom nativo, leitores de tela nem usabilidade em todas as seções.
+
+
+## PR #33 — imagens exibidas versus arquivos efetivamente distribuídos (16/11/2026)
+
+Após a conferência de screenshots integrais, foi reafirmada a composição de Barreiras (fotografia real de Renilce Nicodemos, PL 1446/2025) e Histórico (foto de votação de 2026, não retrato das eleições anteriores), com documentos e gráficos distribuídos pelo texto. A seção Direitos usa cronologias e transcrições verificadas, que não são fotografias de documentos.
+
+O arquivo da foto de Pagu estava oculto na página por direitos pendentes, mas presente no pacote estático. O restaurador scripts/hostgator-public-binaries.mjs agora exclui Pagu e preventivamente Lélia do build normal HostGator, preservando ambos somente em build de prévia com flags explícitas. [Actions #43983013191](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43983013191) verifica presença no preview e ausência no pacote normal. Os originais continuam no repositório GitHub público. Ocultar uma imagem no DOM não basta para impedir sua distribuição física.
