@@ -16,9 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with: { bun-version: latest }
-      - name: TypeScript e compilação HostGator
-        env:
-          VITE_QSE_PREVIEW_PAGU_FOTO: "true"
+      - name: TypeScript e compilação HostGator sem foto pendente
         run: |
           set -euo pipefail
           bun install --frozen-lockfile
@@ -29,6 +27,31 @@ jobs:
           python3 -m pip install --quiet --break-system-packages playwright
           curl --fail --location --silent --show-error https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js -o /tmp/axe.min.js
           test "$(wc -c </tmp/axe.min.js)" -gt 100000
+      - name: Confirmar bloqueio da foto pendente no build normal
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-foto-producao.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 2
+          python3 - <<'PY'
+          from playwright.sync_api import sync_playwright
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            page=browser.new_page(viewport={'width':1440,'height':900})
+            page.goto('http://127.0.0.1:4173/pioneiras/pagu',wait_until='domcontentloaded')
+            assert page.locator('main header figure img').count()==0,'Foto pendente apareceu no build normal'
+            assert page.locator('main header figure').count()==1,'Fallback documental de Pagu ausente'
+            page.goto('http://127.0.0.1:4173/pioneiras/lelia-gonzalez',wait_until='domcontentloaded')
+            assert page.locator('main header figure img').count()==0,'Retrato de Lélia sem autorização no build normal'
+            print('Build normal: duas fotos pendentes bloqueadas, fichas editoriais preservadas')
+            browser.close()
+          PY
+      - name: Compilar imagem de Pagu somente para a previa editorial
+        env:
+          VITE_QSE_PREVIEW_PAGU_FOTO: "true"
+        run: bun run build:hostgator
       - name: Auditar sete paginas revistas e duas ancoras em tres larguras
         run: |
           set -euo pipefail
