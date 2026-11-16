@@ -1,0 +1,216 @@
+name: QA acessibilidade — quarto lote e cobertura dos 35 modelos
+on:
+  push:
+    branches: [revista-acessibilidade-lote4-16nov2026]
+  workflow_dispatch:
+concurrency:
+  group: qse-a11y-lote4-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  diagnostico:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: latest }
+      - name: TypeScript e compilação HostGator
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Preparar Playwright e axe-core
+        run: |
+          python3 -m pip install --quiet --break-system-packages playwright
+          curl --fail --location --silent --show-error https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js -o /tmp/axe.min.js
+          test "$(wc -c </tmp/axe.min.js)" -gt 100000
+      - name: Auditar seis modelos finais e três controles em três larguras
+        run: |
+          set -euo pipefail
+          mkdir -p relatorios-a11y-lote4
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-lote4-http.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          routes=[
+            ('/pioneiras/lelia-gonzalez','perfil-lelia'),
+            ('/pioneiras/pagu','perfil-pagu'),
+            ('/quem-chega','quem-chega'),
+            ('/quem-sao-elas','candidatas'),
+            ('/sobre','sobre'),
+            ('/votos','votos'),
+            ('/','homepage-controle'),
+            ('/relatorio-2026','relatorio-controle'),
+            ('/pioneiras','pioneiras-controle')
+          ]
+          out=[];hard=[];violations=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for device,w,h in [('desktop',1440,900),('celular',390,844),('reflow_320',320,720)]:
+              ctx=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=1)
+              for route,name in routes:
+                page=ctx.new_page()
+                js=[]
+                page.on('pageerror',lambda e:js.append(str(e)))
+                try:
+                  response=page.goto('http://127.0.0.1:4173'+route,wait_until='domcontentloaded',timeout=30000)
+                  page.evaluate("""async() => {
+                    const images=Array.from(document.images);
+                    images.forEach(img=>img.loading='eager');
+                    await Promise.all(images.map(img=>img.decode().catch(()=>{})));
+                  }""")
+                  page.add_script_tag(path='/tmp/axe.min.js')
+                  axe=page.evaluate("""async() => {
+                    const result=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}});
+                    return result.violations.map(v=>({
+                      id:v.id,impact:v.impact,description:v.description,
+                      help:v.help,helpUrl:v.helpUrl,
+                      nodes:v.nodes.slice(0,16).map(n=>({
+                        target:n.target,summary:n.failureSummary,
+                        snippet:n.html.slice(0,260)
+                      })),
+                      totalNodes:v.nodes.length
+                    }));
+                  }""")
+                  if device in ['desktop','celular']:
+                    page.screenshot(path='relatorios-a11y-lote4/'+name+'-'+device+'.png',full_page=True,animations='disabled')
+                  # Amostra de navegação por teclado e presença de indicadores.
+                  keyboard=[]
+                  for i in range(12):
+                    page.keyboard.press('Tab')
+                    f=page.evaluate("""() => {
+                      const e=document.activeElement;
+                      if (!e || e===document.body)return null;
+                      const s=getComputedStyle(e),r=e.getBoundingClientRect();
+                      return {tag:e.tagName,role:e.getAttribute('role'),text:(e.innerText||e.getAttribute('aria-label')||'').trim().slice(0,100),
+                        href:e.getAttribute('href'),outlineStyle:s.outlineStyle,outlineWidth:s.outlineWidth,
+                        boxShadow:s.boxShadow,rect:{x:r.x,y:r.y,width:r.width,height:r.height},overflow:e.scrollWidth>e.clientWidth};
+                    }""")
+                    if f: keyboard.append(f)
+                  # Auditoria simples de imagens documentais e legendas.
+                  docs=page.evaluate("""() => Array.from(document.querySelectorAll('img[src^="/documentos/"]')).map(img => ({
+                    src:img.getAttribute('src'),alt:img.getAttribute('alt'),
+                    inFigure:!!img.closest('figure'),hasCaption:!!img.closest('figure')?.querySelector('figcaption'),
+                    width:img.naturalWidth,height:img.naturalHeight,renderedWidth:img.getBoundingClientRect().width
+                  }))""")
+                  semantica=page.evaluate("""() => ({
+                    h1:Array.from(document.querySelectorAll('main h1')).map(n=>n.innerText.trim().slice(0,100)),
+                    main:!!document.querySelector('main'),
+                    imagens:Array.from(document.querySelectorAll('main img')).map(n=>({
+                      src:n.getAttribute('src'),alt:n.getAttribute('alt'),carregada:n.complete&&n.naturalWidth>0,
+                      legenda:!!n.closest('figure')?.querySelector('figcaption')
+                    }))
+                  })""")
+                  widths=page.evaluate("""() => ({scroll:document.documentElement.scrollWidth,visible:window.innerWidth})""")
+                  record={'rota':route,'dispositivo':device,'http':response.status if response else None,
+                          'violacoes':axe,'foco_primeiros_12':keyboard,'documentos':docs,
+                          'largura':widths,'semantica':semantica,'erros_js':js}
+                  out.append(record)
+                  violations.extend([{'rota':route,'dispositivo':device,'id':v['id'],'impacto':v['impact'],'ocorrencias':v['totalNodes']}
+                    for v in axe])
+                  if not response or response.status!=200 or js or not semantica['main'] or not semantica['h1'] or widths['scroll']>w+2:hard.append(record)
+                except Exception as e:
+                  hard.append({'rota':route,'dispositivo':device,'erro':str(e)})
+                finally:page.close()
+              ctx.close()
+            browser.close()
+          Path('relatorios-a11y-lote4/diagnostico.json').write_text(json.dumps({'paginas':out,'erros_execucao':hard},ensure_ascii=False,indent=2))
+          Path('relatorios-a11y-lote4/resumo.json').write_text(json.dumps({'total_paginas':len(out),'violacoes':violations,'erros_execucao':hard},ensure_ascii=False,indent=2))
+          print('Páginas',len(out),'regras com violações',len(violations),'erros de execução',len(hard))
+          for v in violations[:35]: print(v)
+          assert not hard,'Falha estrutural, JS ou largura nas páginas: ver diagnostico.json'
+          assert not violations,'Axe detectou violações WCAG nas páginas: ver diagnostico.json'
+          PY
+      - name: Verificar as navegacoes e controles dos seis modelos
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-lote4-interacoes-http.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 2
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          records=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for dev,w,h in [('desktop',1440,900),('celular',390,844)]:
+              ctx=browser.new_context(viewport={'width':w,'height':h})
+              page=ctx.new_page()
+              try:
+                for slug in ('lelia-gonzalez','pagu'):
+                  page.goto(f'http://127.0.0.1:4173/pioneiras/{slug}',wait_until='domcontentloaded')
+                  links=page.locator('nav[aria-label="Neste perfil"] a[href^="#"]')
+                  assert links.count()>=3, f'Índice do perfil {slug} incompleto'
+                  target=links.first.get_attribute('href')
+                  assert target and page.locator(target).count()==1, f'Âncora {target} não existe no perfil {slug}'
+                  links.first.click()
+                  assert page.evaluate('location.hash')==target, f'Âncora inoperante em {slug}'
+                  # Não usar retrato sem direitos verificados.
+                  assert page.locator('main img').count()==0, f'Imagem inesperada no perfil {slug}: conferir licença'
+                  records.append({'dispositivo':dev,'controle':f'indice-e-bloqueio-de-foto-{slug}','resultado':'aprovado'})
+                page.goto('http://127.0.0.1:4173/quem-sao-elas',wait_until='domcontentloaded')
+                # As ferramentas inteiras ficam recolhidas numa camada editorial.
+                outer=page.locator('details').filter(has=page.locator('section#partidos')).first
+                assert outer.count()==1, 'Camada de ferramentas de consulta não localizada'
+                outer_summary=outer.locator('summary').first
+                outer_summary.focus()
+                page.keyboard.press('Enter')
+                assert outer.evaluate('(e)=>e.open'), 'Camada externa de dados não abriu via teclado'
+                section=page.locator('section#partidos')
+                details=section.locator('details').first
+                summary=details.locator('summary').first
+                summary.wait_for()
+                assert not details.evaluate('(e)=>e.open'),'Explorador de partidos deve iniciar fechado'
+                summary.focus()
+                assert summary.evaluate('(e)=>e===document.activeElement'),'Explorador não recebe foco'
+                page.keyboard.press('Enter')
+                assert details.evaluate('(e)=>e.open'),'Explorador não abre com Enter'
+                page.keyboard.press('Enter')
+                assert not details.evaluate('(e)=>e.open'),'Explorador não fecha com Enter'
+                records.append({'dispositivo':dev,'controle':'explorador-de-candidatas','resultado':'aprovado'})
+                page.goto('http://127.0.0.1:4173/votos',wait_until='domcontentloaded')
+                details=page.locator('section#raca details').first
+                summary=details.locator('summary').first
+                summary.wait_for()
+                assert not details.evaluate('(e)=>e.open'),'Tabela estadual deveria iniciar recolhida'
+                summary.focus()
+                page.keyboard.press('Enter')
+                assert details.evaluate('(e)=>e.open'),'Tabela estadual de votos não abre pelo teclado'
+                records.append({'dispositivo':dev,'controle':'tabela-de-votos','resultado':'aprovado'})
+                page.goto('http://127.0.0.1:4173/sobre',wait_until='domcontentloaded')
+                link=page.locator('header a[href="#correcoes"]')
+                assert link.count()==1 and page.locator('#correcoes').count()==1,'Âncora da política de correções sem destino'
+                link.click()
+                assert page.evaluate('location.hash')=='#correcoes','Âncora de correções não navegou'
+                records.append({'dispositivo':dev,'controle':'politica-de-correcoes','resultado':'aprovado'})
+                page.goto('http://127.0.0.1:4173/quem-chega',wait_until='domcontentloaded')
+                assert page.locator('a[href="/eleitas"]').count()>0,'Falta acesso a fichas de eleitas'
+                assert page.locator('#cargos').count()==1,'Seção de cargos não foi identificada'
+                images=page.locator('main img')
+                assert images.count()>0,'Foto contextual de 2026 ausente'
+                assert images.first.evaluate('async(e)=>{try{await e.decode();return e.naturalWidth>0 && Boolean(e.alt)}catch{return false}}'),'Foto de plenário não carrega ou não tem alt'
+                records.append({'dispositivo':dev,'controle':'fichas-e-fotografia-contextual-quem-chega','resultado':'aprovado'})
+              finally:
+                page.close()
+                ctx.close()
+            browser.close()
+          Path('relatorios-a11y-lote4/interacoes.json').write_text(json.dumps(records,ensure_ascii=False,indent=2))
+          print('Interações validadas:',len(records))
+          PY
+      - name: Arquivar relatório
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-lote4-a11y-e-capturas
+          path: relatorios-a11y-lote4/
+          retention-days: 14
