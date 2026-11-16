@@ -22,6 +22,8 @@ jobs:
           bun install --frozen-lockfile
           bunx tsc --noEmit
           bun run build:hostgator
+          test ! -e dist/client/fotos/pagu-patricia-galvao-anos-1920.jpg
+          test ! -e dist/client/fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg
       - name: Preparar Playwright e axe-core
         run: |
           python3 -m pip install --quiet --break-system-packages playwright
@@ -55,6 +57,8 @@ jobs:
         run: |
           cp docs/acervo-em-revisao/lelia-gonzalez-cezar-loureiro-referencia.jpg public/fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg
           bun run build:hostgator
+          test -s dist/client/fotos/pagu-patricia-galvao-anos-1920.jpg
+          test -s dist/client/fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg
       - name: Auditar sete paginas revistas e duas ancoras em tres larguras
         run: |
           set -euo pipefail
