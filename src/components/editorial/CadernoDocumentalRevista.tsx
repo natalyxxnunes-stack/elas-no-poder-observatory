@@ -56,14 +56,14 @@ export function PortalTSEEmContexto({ recorte }: { recorte: string }) {
   return (
     <section aria-labelledby="portal-tse-documental" className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-gold)] text-ink">
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[1fr_1fr] lg:gap-12">
-        <div className="min-w-0 bg-ink p-3 md:p-5">
+        <figure className="min-w-0 bg-ink p-3 md:p-5">
           <a href="/documentos/tse-candidatos-2026-portal.png" target="_blank" rel="noreferrer" aria-label="Ampliar captura da página oficial Candidatos 2026 do TSE">
-            <img src="/documentos/tse-candidatos-2026-portal.png" alt="Captura documental da página Candidatos — 2026 do portal de Dados Abertos do TSE" loading="lazy" className="aspect-[11/8] w-full object-cover object-top" />
+            <img src="/documentos/tse-candidatos-2026-portal.png" alt="Captura documental da página Candidatos — 2026 do portal de Dados Abertos do TSE" loading="lazy" className="block aspect-[11/8] w-full object-cover object-top" />
           </a>
-          <p className="mt-3 font-mono text-[12px] leading-relaxed text-paper/85">
-            Captura do portal do TSE · 15/11/2026 · arquivo de origem identificado. A imagem mostra a página de disponibilização, não o CSV.
-          </p>
-        </div>
+          <figcaption className="mt-3 font-mono text-[12px] leading-relaxed text-paper/85">
+            Captura do portal do TSE · 15/11/2026 · arquivo de origem identificado. A imagem mostra a página de disponibilização, não o CSV. A utilização da interface ainda requer validação específica de direitos.
+          </figcaption>
+        </figure>
         <div className="flex flex-col justify-center">
           <p className="text-[13px] font-semibold">Documento de origem · 2026</p>
           <h2 id="portal-tse-documental" className="mt-4 max-w-lg font-display text-[clamp(2rem,3.6vw,3.55rem)] leading-[1.08]">
