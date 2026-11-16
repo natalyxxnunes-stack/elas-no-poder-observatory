@@ -238,3 +238,16 @@ O arquivo editável permanente `Quem_sao_elas_Manual_Identidade_Editorial_Contin
 **Homepage:** não alterada nem reaberta. As miniaturas muito claras de `Materiais` na captura exigem verificação separada antes de atribuir causa técnica ou estética.
 
 **Critério de conclusão:** a editora aprova ou solicita ajustes **por página**; só após esse aceite e a auditoria jornalística/técnica haverá integração à `main` e publicação. O documento editável `Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md` foi atualizado na seção **14.7**, com estes mesmos estados. Não tratar parecer, conformidade de contraste ou sucesso de CI como autorização de merge.
+
+
+### Refinamentos objetivos de leitura e acesso — 15/11/2026 (PR #8)
+
+**Situação:** correções restritas de legibilidade e navegação nos três pilotos, ainda **sem aprovação estética final**. Não constitui uma nova paleta ou template. O arquivo editável único `Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md` recebeu a mesma decisão na seção **14.8**.
+
+- **Quem entrou?:** o atlas conserva contagens **absolutas** por UF e a abertura em coral profundo com texto claro já aprovada. Botões de UF passaram a indicar `aria-controls` e a seleção leva foco ao título **Nomes e fichas**; campos de busca ganharam foco visível. Bases e denominadores inalterados.
+- **Método:** a chamada principal leva diretamente ao conjunto **Candidatos 2026** no TSE; a captura real do portal pode ser **ampliada**; legenda documental passou a **13 px** e ganhou contraste; acesso ao caderno técnico disponível na abertura, com recolhimento nativo e âncoras. A captura não é o CSV nem estabelece licença automática da interface.
+- **Reportagens:** nota contextual sobre **Sim/Não** e a categoria residual imediatamente após a legenda das seis votações, com `aria-describedby`; rótulos numéricos ampliados de **11 para 13 px** e datas de **12 para 13 px**. Nenhum voto ou universo foi alterado.
+- **Validação concluída:** [GitHub Actions #43782725785](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43782725785), commit `3034e721e085a42832aa18de455862caddfb8880`, **success**: compilação, TypeScript, verificação financeira, foco após seleção de UF, filtros com rótulos acessíveis, link e ampliação da fonte TSE, abertura/fechamento do caderno por teclado, âncora `#correcoes`, nota da legenda, fonte 13 px e capturas completas em desktop e celular. Esse resultado **não substitui testes com leitores de tela ou revisão editorial humana**.
+- **Preservado:** `main` visual, homepage fotográfica, logo, CSS global, `src/data/`, fotografias e fontes originais. As alterações de interface seguem **somente no PR #8 em rascunho**, sem publicação HostGator.
+
+**Próxima decisão:** aprovação ou pedidos de ajustes **por página**, após examinar as capturas mais recentes. Nenhum resultado de QA autoriza integração automática.
