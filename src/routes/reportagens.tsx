@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
+import { FotografiaEmContexto } from "@/components/editorial/CadernoDocumentalRevista";
 import { PROXIMAS, REPORTAGENS, REPORTAGENS_REGRA } from "@/data/reportagens";
 import { PERFIS_PIONEIRAS } from "@/data/perfis-pioneiras";
 import { VOTACOES, VOTACOES_META } from "@/data/votacoes-camara";
@@ -193,6 +194,14 @@ function ReportagensPage() {
           </div>
         </div>
       </section>
+
+      <FotografiaEmContexto
+        fotoId="plenario-igualdade-salarial-2023"
+        editoria="Fotografia de arquivo · Câmara dos Deputados"
+        titulo="Uma sessão registrada em imagem. Seis votações, em documentos."
+        contexto="Plenário da Câmara em maio de 2023, no contexto do projeto sobre igualdade salarial. A fotografia não retrata as seis votações da reportagem nem identifica como cada deputada votou. Esses dados vêm das votações nominais documentadas no caderno."
+        tom="ink"
+      />
 
       <section
         aria-labelledby="reportagem-falas"
