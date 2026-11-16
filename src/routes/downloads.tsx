@@ -277,16 +277,16 @@ function DownloadsPage() {
       >
         <ul className="divide-y divide-rule border-y border-rule">
           {BASE_PUBLICA.map((b) => (
-            <li key={b.arquivo} className="grid gap-3 py-5 md:grid-cols-[1fr_auto] md:gap-8">
-              <div>
+            <li key={b.arquivo} className="grid min-w-0 gap-3 py-5 md:grid-cols-[minmax(0,1fr)_auto] md:gap-8">
+              <div className="min-w-0">
                 <h3 className="font-display text-xl leading-snug text-ink">{b.titulo}</h3>
                 <p className="mt-1 max-w-3xl text-[15px] leading-relaxed text-ink/80">{b.descricao}</p>
                 <p className="mt-2 text-[13px] leading-relaxed text-ink/70">
                   {formatInt(b.linhas)} linhas · Fonte: {b.fonte}
                 </p>
-                <details className="mt-2 text-[13px] text-ink/75">
+                <details className="mt-2 min-w-0 text-[13px] text-ink/75">
                   <summary className="min-h-11 cursor-pointer py-2 font-semibold text-ink">Colunas e SHA-256</summary>
-                  <p className="font-mono">{b.colunas.join(", ")}</p>
+                  <p className="break-words [overflow-wrap:anywhere] font-mono">{b.colunas.join(", ")}</p>
                   <p className="mt-1 break-all font-mono">SHA-256 {b.sha256}</p>
                 </details>
               </div>
