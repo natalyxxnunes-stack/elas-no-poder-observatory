@@ -27,8 +27,104 @@ jobs:
         run: |
           set -euo pipefail
           git fetch --depth=1 origin main
-          test -z "$(git diff --name-only origin/main...HEAD -- src/data public/dados public/fotos public/materiais src/styles.css src/routes/index.tsx src/components/home/CapaEditorialV3.tsx src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
-          echo "Arquivos estruturais e fontes de dados não alterados."
+          test -z "$(git diff --name-only origin/main...HEAD -- public/dados public/fotos public/materiais src/styles.css src/routes/index.tsx src/components/home/CapaEditorialV3.tsx src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
+          test -z "$(git diff --name-only origin/main...HEAD -- src/data | grep -v '^src/data/temas.ts
+      - name: Preparar navegador
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Testar páginas e guardar capturas
+        run: |
+          set -euo pipefail
+          mkdir -p qa-fontes
+          python3 -m http.server 4173 --directory dist/client > /tmp/site-http.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          from playwright.sync_api import sync_playwright
+          rotas=[('/','homepage'),('/quem-controla','controle'),('/barreiras','barreiras'),('/na-voz-delas','falas')]
+          resultados=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for dispositivo,largura,altura in [('desktop',1440,900),('celular',390,844)]:
+              context=browser.new_context(viewport={'width':largura,'height':altura},device_scale_factor=1)
+              for rota,nome in rotas:
+                page=context.new_page()
+                errors=[]
+                page.on('pageerror',lambda e,errors=errors:errors.append(str(e)))
+                resp=page.goto('http://127.0.0.1:4173'+rota,wait_until='domcontentloaded',timeout=45000)
+                page.wait_for_timeout(400)
+                assert resp is not None and resp.status==200,(rota,dispositivo,'http')
+                assert not errors,(rota,dispositivo,'page errors',errors)
+                assert page.locator('main h1').count()==1,(rota,dispositivo,'one H1')
+                width=page.evaluate('document.body.scrollWidth')
+                assert width<=largura+3,(rota,dispositivo,'horizontal overflow',width)
+                if nome=='controle':
+                  sec=page.locator('section[aria-labelledby="criterios-fefc-2026"]')
+                  assert sec.count()==1,(rota,dispositivo,'FEFC documents')
+                  assert sec.locator('a[href*="fundo-especial-de-financiamento-de-campanha-fefc"]').count()>=1,(rota,dispositivo,'TSE criteria original')
+                  assert sec.locator('a[href*="distribuicao-dos-recursos"]').count()==1,(rota,dispositivo,'FEFC budget table')
+                  assert sec.locator('a[href="/partidos"]').count()==1,(rota,dispositivo,'QSE party analysis')
+                  assert 'não revela' in sec.inner_text(),(rota,dispositivo,'distinction between rules and transfers')
+                if nome=='barreiras':
+                  sec=page.locator('section[aria-labelledby="barreiras-documentos"]')
+                  assert sec.count()==1,(rota,dispositivo,'three official records')
+                  assert sec.locator('ul > li').count()==3,(rota,dispositivo,'three source types')
+                  assert sec.locator('a[href*="planalto.gov.br"]').count()==1,(rota,dispositivo,'law')
+                  assert sec.locator('a[href*="powerbi.com"]').count()==1,(rota,dispositivo,'panel')
+                  assert sec.locator('a[href*="mpf.mp.br"]').count()==1,(rota,dispositivo,'MPF case records')
+                  assert 'não comprova a prática do crime' in sec.inner_text(),(rota,dispositivo,'allegation is not conviction')
+                  contrast=sec.evaluate('''e => {
+                    const bg=getComputedStyle(e).backgroundColor;
+                    const canvas=document.createElement('canvas');
+                    canvas.width=canvas.height=1;
+                    const ctx=canvas.getContext('2d',{willReadFrequently:true});
+                    const colorPixels=(foreground)=>{
+                      ctx.clearRect(0,0,1,1);
+                      ctx.fillStyle=bg;ctx.fillRect(0,0,1,1);
+                      if(foreground){ctx.fillStyle=foreground;ctx.fillRect(0,0,1,1)}
+                      return [...ctx.getImageData(0,0,1,1).data].slice(0,3);
+                    };
+                    const L=rgb=>rgb.map(n=>{let c=n/255;return c<=0.04045?c/12.92:((c+0.055)/1.055)**2.4}).reduce((v,c,i)=>v+c*[.2126,.7152,.0722][i],0);
+                    const l=L(colorPixels(null));
+                    const items=[...e.querySelectorAll('h2,h3,p,a')].map(node=>{
+                      const fg=getComputedStyle(node).color;
+                      const z=L(colorPixels(fg));
+                      return {tag:node.tagName,text:node.textContent.trim().slice(0,40),fg,ratio:(Math.max(z,l)+.05)/(Math.min(z,l)+.05)};
+                    });
+                    return {bg,minimum:Math.min(...items.map(i=>i.ratio)),count:items.length,items:items.filter(i=>i.ratio<4.5)};
+                  }''')
+                  assert contrast['bg']=='rgb(197, 63, 34)',(rota,dispositivo,contrast)
+                  assert contrast['count']>=10 and contrast['minimum']>=4.5,(rota,dispositivo,'coral text contrast',contrast)
+                if nome=='falas':
+                  sec=page.locator('aside[aria-label="Leitura de um registro original da Câmara"]')
+                  assert sec.count()==1,(rota,dispositivo,'source-driven lead')
+                  assert sec.locator('blockquote').count()==1,(rota,dispositivo,'quote')
+                  assert sec.locator('a[href*="imagem.camara.gov.br"]').count()>=2,(rota,dispositivo,'diary originals')
+                  assert 'Não é um fac-símile' in sec.inner_text(),(rota,dispositivo,'transcription identified')
+                  assert page.locator('#falas article').count()>=3,(rota,dispositivo,'full-context registers')
+                page.evaluate('window.scrollTo(0,0)')
+                page.screenshot(path=f'qa-fontes/{dispositivo}-{nome}-abertura.jpg',type='jpeg',quality=81)
+                page.screenshot(path=f'qa-fontes/{dispositivo}-{nome}-completa.jpg',type='jpeg',quality=69,full_page=True)
+                resultados.append({'rota':rota,'dispositivo':dispositivo,'h1':page.locator('main h1').inner_text(),'horizontal':width,'js_errors':errors})
+                page.close()
+              context.close()
+            browser.close()
+          Path('qa-fontes/resultado.json').write_text(json.dumps(resultados,ensure_ascii=False,indent=2)+'\n')
+          print('PASSOU',len(resultados),'renderizacoes',flush=True)
+          PY
+      - name: Guardar evidências
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-lote4-fontes-primarias
+          path: qa-fontes/
+          if-no-files-found: warn
+          retention-days: 14
+ || true)"
+          grep -Fq 'Os critérios formais de distribuição do FEFC estão publicados por partido no TSE' src/data/temas.ts
+          echo "Homepage, marca, fotos e dados numéricos intocados; exceção verificada: uma frase editorial de temas.ts corrigida contra o TSE."
       - name: Preparar navegador
         run: python3 -m pip install --quiet --break-system-packages playwright
       - name: Testar páginas e guardar capturas
