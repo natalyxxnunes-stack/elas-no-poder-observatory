@@ -8,6 +8,7 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
+import { ArquivoDocumentalFEFC } from "@/components/editorial/ArquivoDocumentalFEFC";
 import { QUOTA_RULE } from "@/data/election-2026";
 
 /**
@@ -62,8 +63,8 @@ const CONTROL_LEVERS = [
   },
   {
     lever: "Quem recebe recursos",
-    what: "Os partidos distribuem recursos de campanha entre suas candidaturas, dentro das regras de destinação mínima. O fundo eleitoral por partido já está publicado em Partido por partido, cruzado com gênero e cor/raça. Falta a despesa.",
-    needs: "Critérios de distribuição do FEFC publicados no TSE; transferências declaradas em /partidos; despesas contratadas e pagas exigem análise própria",
+    what: "Os partidos distribuem recursos de campanha entre suas candidaturas, dentro das regras de destinação mínima. O fundo eleitoral por partido e parte das despesas declaradas já foram analisados, com recortes diferentes. A vinculação entre cada regra interna, a decisão sobre o repasse e a execução financeira ainda exige investigação.",
+    needs: "Critérios do FEFC registrados no TSE; transferências e despesas declaradas, com recortes e datas compatíveis; identificação do ato de distribuição quando disponível",
     ready: "partial",
   },
   {
@@ -101,61 +102,7 @@ function QuemControlaPage() {
       />
 
 
-      {/* Fonte primária real, não um documento simulado nem repasse individual. */}
-      <section
-        aria-labelledby="criterios-fefc-2026"
-        className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-gold)] text-ink"
-      >
-        <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-12">
-          <p className="text-[13px] font-semibold">
-            Arquivo eleitoral · Tribunal Superior Eleitoral · 2026
-          </p>
-          <div className="mt-4 grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,.75fr)] lg:gap-16">
-            <div>
-              <h2 id="criterios-fefc-2026" className="max-w-3xl font-display text-[clamp(2rem,3.8vw,3.7rem)] leading-[1.1]">
-                Os partidos precisam publicar como pretendem distribuir o fundo.
-              </h2>
-              <p className="mt-5 max-w-2xl text-[16px] leading-relaxed">
-                O TSE reúne, por partido, os critérios aprovados pelas direções
-                nacionais para repartir o Fundo Especial de Financiamento de
-                Campanha (FEFC) de 2026. A página oficial identifica a sigla,
-                o processo no PJe, o inteiro teor do documento e a data de
-                liberação dos recursos, quando disponíveis.
-              </p>
-              <p className="mt-4 max-w-2xl text-[14px] leading-relaxed">
-                Ter acesso à regra declarada não revela, por si só, quanto cada
-                candidata recebeu. Essa comparação exige examinar receitas,
-                despesas e os registros das candidaturas no mesmo universo.
-              </p>
-            </div>
-            <nav aria-label="Documentos oficiais sobre a distribuição do FEFC" className="min-w-0 self-end border-t-2 border-ink">
-              <p className="py-4 text-[13px] font-semibold">Documentos para conferir</p>
-              <a
-                href="https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/fundo-especial-de-financiamento-de-campanha-fefc"
-                target="_blank"
-                rel="noreferrer"
-                className="flex min-h-14 items-center justify-between gap-4 border-t border-ink/30 py-3 text-[14px] font-semibold text-ink underline-offset-4 hover:underline focus-visible:outline-2"
-              >
-                Critérios e íntegra das decisões dos partidos · TSE
-                <span aria-hidden="true">↗</span>
-              </a>
-              <a
-                href="https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/distribuicao-dos-recursos-do-fundo-especial-de-financiamento-de-campanha-fefc-eleicoes-2026"
-                target="_blank"
-                rel="noreferrer"
-                className="flex min-h-14 items-center justify-between gap-4 border-t border-ink/30 py-3 text-[14px] font-semibold text-ink underline-offset-4 hover:underline focus-visible:outline-2"
-              >
-                Cálculo do FEFC destinado a cada partido · TSE
-                <span aria-hidden="true">↗</span>
-              </a>
-              <a href="/partidos" className="flex min-h-14 items-center justify-between gap-4 border-t border-ink/30 py-3 text-[14px] font-semibold text-ink underline-offset-4 hover:underline focus-visible:outline-2">
-                Analisar os resultados do observatório
-                <span aria-hidden="true">↗</span>
-              </a>
-            </nav>
-          </div>
-        </div>
-      </section>
+      <ArquivoDocumentalFEFC id="criterios-fefc-2026" variante="tinta" />
 
       <div className="pb-4">
         <InBrief
@@ -175,8 +122,8 @@ function QuemControlaPage() {
           }
           unknown={
             <>
-              Como cada partido distribuiu recursos e propaganda em 2026, e a quais mulheres (por
-              cor/raça, cargo e território): parte disso ainda depende das bases de prestação de contas e propaganda.
+              Como as regras declaradas se traduziram em decisões concretas de transferência e de propaganda em 2026, por
+              cor/raça, cargo e território: parte pode ser recontada nas contas, enquanto o tempo de propaganda ainda não foi integrado.
             </>
           }
         />

@@ -4,6 +4,7 @@ import { PageShell } from "@/components/PageShell";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { GapNote } from "@/components/GapNote";
 import { FALAS, FALAS_PEDIDO_ENVIADO_EM, type Fala } from "@/data/falas";
+import { IndiceDiariosCamara } from "@/components/editorial/IndicesDocumentaisCamara";
 
 export const Route = createFileRoute("/na-voz-delas")({
   head: () => ({
@@ -244,6 +245,8 @@ function NaVozDelasPage() {
           </details>
         ) : null}
       </section>
+
+      <IndiceDiariosCamara falas={pub} />
 
       <ComoSabemos
         fonte="Câmara dos Deputados, Dados Abertos (transcrição dos discursos) e Diário da Câmara; Fórum Brasileiro de Segurança Pública, Anuário 2026"

@@ -1,0 +1,118 @@
+name: QA — documentos primários PJe, Diário e votações
+on:
+  push:
+    branches: [revista-documentos-originais-17nov2026]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  documentos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: TypeScript, build e proteção de dados
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+          git fetch --depth=1 origin revista-evidencias-visuais-documentais-16nov2026
+          test -z "$(git diff --name-only origin/revista-evidencias-visuais-documentais-16nov2026...HEAD -- src/data/votacoes-camara.ts src/data/falas.ts src/data/partidos-votos.ts src/data/resultado-2026.ts src/data/tse-finance-snapshot.ts public/dados public/fotos public/documentos src/routes/index.tsx src/styles.css src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
+          echo "Fontes de dados e identidade intactas."
+      - name: Playwright
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Verificar cadernos documentais, links e layout completo
+        run: |
+          set -euo pipefail
+          mkdir -p capturas-documentos
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-qa26.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          rotas=[
+            ('/partidos','partidos'),('/quem-controla','quem-controla'),
+            ('/na-voz-delas','na-voz-delas'),('/como-votaram','como-votaram'),
+            ('/reportagens','reportagens'),('/dinheiro','dinheiro'),('/','home-controle')
+          ]
+          errors=[]
+          results=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for device,w,h in [('desktop',1440,900),('celular',390,844)]:
+              context=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=1)
+              for url,name in rotas:
+                page=context.new_page()
+                page_errors=[]
+                page.on('pageerror',lambda err:page_errors.append(str(err)))
+                try:
+                  res=page.goto('http://127.0.0.1:4173'+url,wait_until='domcontentloaded',timeout=30000)
+                  page.evaluate("""async () => {
+                    const images=Array.from(document.images);
+                    images.forEach(img=>{img.loading='eager'});
+                    await Promise.all(images.map(img=>img.decode().catch(()=>{})));
+                  }""")
+                  page.wait_for_timeout(240)
+                  vals=page.evaluate("""() => ({
+                    width:document.documentElement.scrollWidth,
+                    h1:Array.from(document.querySelectorAll('main h1')).map(n=>n.textContent.trim()),
+                    hasMain:!!document.querySelector('#conteudo'),
+                    imagesBroken:Array.from(document.images).filter(n=>n.complete&&n.naturalWidth===0).map(n=>n.getAttribute('src')),
+                    anchors:Array.from(document.querySelectorAll('main a[href]')).map(a=>a.getAttribute('href'))
+                  })""")
+                  links=vals['anchors']
+                  if name in ('partidos','quem-controla'):
+                    pje=[v for v in links if v and 'petciv_060' in v]
+                    if len(set(pje))!=3: page_errors.append('Esperados 3 links únicos para documentos originais PJe')
+                    if page.get_by_text('As três camadas dos documentos').count(): pass
+                    if page.get_by_text('Os critérios estão num processo.').count()<1:
+                      page_errors.append('Arquivo visual de PJe ausente')
+                    if page.get_by_text('Fichas de identificação produzidas pelo observatório.').count()<1:
+                      page_errors.append('Ressalva contra fac-símile simulado ausente')
+                  if name=='na-voz-delas':
+                    if page.locator('#arquivo-dos-diarios li').count()!=7:
+                      page_errors.append('Índice de 7 falas publicadas não corresponde à base')
+                    if not any('dc_20b.asp' in (v or '') for v in links):
+                      page_errors.append('Links originais do Diário ausentes')
+                  if name=='como-votaram':
+                    if page.locator('#fontes-nominais li').count()!=6:
+                      page_errors.append('Esperados os seis identificadores da votação')
+                    orig=[v for v in links if v and '/api/v2/votacoes/' in v and '/votos' in v]
+                    if len(set(orig))!=6: page_errors.append('Faltam links de votos individuais para as seis votações')
+                  shot='capturas-documentos/'+name+'-'+device+'.png'
+                  page.screenshot(path=shot,full_page=True,animations='disabled',timeout=30000)
+                  rec={'url':url,'dispositivo':device,'status':res.status if res else None,
+                       'largura':vals['width'],'viewport':w,'imagens_quebradas':vals['imagesBroken'],
+                       'erros_js':page_errors,'captura':shot}
+                  results.append(rec)
+                  if rec['status']!=200 or vals['width']>w+2 or not vals['hasMain'] or not vals['h1'] or vals['imagesBroken'] or page_errors:
+                    errors.append(rec)
+                except Exception as e:
+                  errors.append({'url':url,'dispositivo':device,'erro':str(e)})
+                finally:
+                  page.close()
+              context.close()
+            browser.close()
+          Path('capturas-documentos/qa.json').write_text(json.dumps({'registros':results,'erros':errors},indent=2,ensure_ascii=False))
+          print('Capturas completas:',len(results),'Falhas:',len(errors))
+          for e in errors[:8]: print(json.dumps(e,ensure_ascii=False))
+          assert not errors, 'Falhas na auditoria documental: veja qa.json'
+          PY
+      - name: Arquivar capturas, manuais e matriz
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-pr26-cadernos-documentais
+          path: |
+            capturas-documentos/
+            docs/manual-visual.md
+            docs/matriz-fotografias-documentos-graficos-16nov2026.md
+            Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md
+          retention-days: 14

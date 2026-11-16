@@ -5,6 +5,7 @@ import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { ReportagemOpening } from "@/components/editorial/ReportagemOpening";
 import { CadernoDeFontes } from "@/components/editorial/CadernoDocumentalRevista";
+import { DossieVotacoesCamara } from "@/components/editorial/IndicesDocumentaisCamara";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ConsultationPanel } from "@/components/editorial/ConsultationPanel";
 import { InBrief } from "@/components/editorial/InBrief";
@@ -919,6 +920,8 @@ function ComoVotaramPage() {
           { rotulo: "Quem são elas? · Metodologia", titulo: "Critério, exclusões e histórico de correções", url: "/metodo", descricao: "Entenda os denominadores, a atualização da sexta votação e os limites de interpretação." },
         ]}
       />
+
+      <DossieVotacoesCamara />
 
       <ConsultationPanel
         id="votos"
