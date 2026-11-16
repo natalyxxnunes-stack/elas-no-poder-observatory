@@ -88,3 +88,30 @@ Testes automatizados de build, URLs, imagens e largura não substituem: revisão
 **Ajuste feito na branch de prévia:** texto de `src/routes/quem-chega.tsx` reconciliado em **29 de 81**, com observação da correção, link oficial e a contagem de 19 eleitos em 2026 + 10 dos mandatos que se estendem a 2031. A ficha metodológica do gráfico em `src/components/editorial/Senado2027.tsx` passou a citar expressamente a Agência Senado e o uso da confirmação de partido do suplente, suprindo a lacuna da API. A estrutura da base e seus números **não foram alterados**. Incluído teste para evitar regressão do “29 das 81”. A informação segue sujeita a mudanças de filiação, judicialização ou substituições antes da posse.
 
 **Lição da auditoria:** comparar manchetes, textos, gráficos e referências de data entre páginas é parte da verificação jornalística de um produto visual. Build e capturas não detectam inconsistências desse tipo sem conferência de conteúdo.
+
+
+---
+
+## 18. Cadernos de fontes primárias, PR #26 — 16 de novembro de 2026
+
+**Branch técnica:** revista-documentos-originais-17nov2026 (nome de branch antecipado, intervenção realizada em 16/11/2026). **Base:** PR #25. PR de prévia, sem merge, deploy, alteração das bases eleitorais, troca de logo, CSS global ou mídias locais.
+
+**Decisão editorial:** dar visibilidade aos documentos originais sem produzir simulações de páginas escaneadas. A peça criada pelo observatório deve declarar sua natureza de **ficha de identificação ou índice**, com link inequívoco ao documento público. Documentos mais sensíveis, com dados pessoais, não devem ser reproduzidos sem revisão. Cores da revista permanecem estruturais: tinta, roxo, dourado, creme e coral profundo com texto claro.
+
+**Páginas efetivamente alteradas:**
+
+1. **Partidos** e **Quem controla:** um caderno compartilhado `src/components/editorial/ArquivoDocumentalFEFC.tsx`, baseado no índice oficial do FEFC 2026, separa critério interno declarado, cota destinada pelo TSE e receitas declaradas por cada candidatura. Três registros individuais: **PL, PJe 0600974-71.2026.6.00.0000, liberação 20/08/2026; PT, PJe 0601252-72.2026.6.00.0000, 21/08/2026; União Brasil, PJe 0601251-87.2026.6.00.0000, 21/08/2026**. Os links foram extraídos da tabela oficial, não gerados como supostas cópias. Os identificadores ficam em `src/data/documentos-eleitorais-2026.ts`. A seleção é amostra de acesso, não julgamento comparativo de mérito. O TSE ressalva que não faz juízo de mérito dos critérios, exceto quanto aos destaques de cotas de gênero e raça. Nenhum registro comprova individualmente repasse, aprovação de contas ou irregularidade.
+2. **Como votaram:** caderno `DossieVotacoesCamara`, baseado nos seis IDs preservados em `src/data/votacoes-camara.ts`, oferece acesso à ficha e aos votos individuais via caminhos documentados da API v2 da Câmara. Exibe proposição, etapa e data, mas **não interpreta uma resposta JSON como ata em PDF**. A existência dos endpoints foi documentada pela Câmara; a abertura efetiva dos links individuais no navegador ainda exige checagem em dispositivo final, pois as URLs da API não puderam ser abertas pelo buscador desta sessão.
+3. **Na voz delas:** `IndiceDiariosCamara` organiza **sete falas com `publicar: true`** por nome, data do discurso, edição e página da publicação oficial, com o endereço de consulta já guardado na base e link de retorno à contextualização. A oitava fala (entrevista de Eduarda Campopiano), marcada `publicar: false` por verificação pendente do áudio e da resposta, permanece **fora da página**. O antigo mecanismo de Diários pode requerer compatibilidade específica; oferecer o portal geral como rota alternativa. Uma fala registrada literalmente não deve ser confundida com posicionamento atual da pessoa.
+4. **Quem controla:** trecho legado que dizia faltar análise de despesas foi atualizado para reconhecer que a página Dinheiro já examina parte delas, enquanto a correspondência entre regras internas, decisões e recebimento individual ainda demanda investigação.
+
+**Fotografias e documentos visuais:** nesta rodada, a fonte relevante é o ato, não uma foto de pessoas em plenário. Não foi adicionada imagem nova nem fac-símile sintético. A incorporação da *página real* de um processo em PNG/PDF, quando viável e útil, requer controle de licença, data, versão e eventual exposição de dados pessoais; só depois deve ser embutida no site. O mesmo vale para capturas de transcrição do Diário. Para voto nominal, são preferíveis figuras originais da contagem e links à API auditável.
+
+**Verificação técnica:** workflow `.github/workflows/qa-documentos-originais-17nov.yml` compilando TypeScript/build e fotografando quatro páginas alteradas, Reportagens, Dinheiro e homepage de controle em 1440 e 390 px. Checa no DOM três PJe distintos, seis registros de votos e sete falas, além de imagem quebrada/erro JS/transbordamento. Consultar o resultado real antes de afirmar aprovação. Acessibilidade WCAG ampla, leitura das fontes na origem e validação legal das mídias seguem pendentes.
+
+**Fontes:**
+- TSE FEFC 2026: https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/fundo-especial-de-financiamento-de-campanha-fefc
+- Câmara, API v2: https://dadosabertos.camara.leg.br/swagger/api.html
+- Câmara, Diários: https://www2.camara.leg.br/a-camara/documentos-e-pesquisa/diariosdacamara
+
+**Próximo passo:** conferir as capturas inteiras e o contraste das fichas, validar endpoints específicos e, apenas se justificável e autorizado, inserir imagens de **documentos autênticos** com crédito, identificação e tratamento de dados pessoais. Manter todo o histórico editorial; nenhuma publicação antecipada.
