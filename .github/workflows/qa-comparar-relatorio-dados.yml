@@ -9,6 +9,7 @@ on:
       - 'src/routes/comparar.tsx'
       - 'src/routes/relatorio-2026.tsx'
       - 'src/routes/dados.tsx'
+      - 'docs/manual-visual.md'
       - '.github/workflows/qa-comparar-relatorio-dados.yml'
 permissions:
   contents: read
@@ -76,6 +77,31 @@ jobs:
                           assert page.locator('main section').count()>4
                       if name=='dados':
                           assert page.locator('main a[href="/comparar"]').count()>0
+                      if name in ('comparar','relatorio','dados'):
+                          samples=page.locator('main section, main section > div').evaluate_all("""(els) => {
+                            const canvas=document.createElement('canvas'); canvas.width=1; canvas.height=1;
+                            const ctx=canvas.getContext('2d',{willReadFrequently:true});
+                            const sample=(color) => {
+                              ctx.clearRect(0,0,1,1);
+                              ctx.fillStyle=color; ctx.fillRect(0,0,1,1);
+                              return Array.from(ctx.getImageData(0,0,1,1).data).slice(0,3);
+                            };
+                            return els.map(el=>{
+                              const cs=getComputedStyle(el);
+                              return {background:sample(cs.backgroundColor),foreground:sample(cs.color)};
+                            });
+                          }""")
+                          def luminosidade(rgb):
+                              def linear(channel):
+                                  c=channel/255
+                                  return c/12.92 if c<=.04045 else ((c+.055)/1.055)**2.4
+                              return sum(weight*linear(ch) for weight,ch in zip([.2126,.7152,.0722],rgb))
+                          coral=[x for x in samples if x['background'][0]>155 and x['background'][1]<130 and x['background'][2]<125 and x['background'][0]>x['background'][1]*1.8]
+                          assert coral,(name,device,'coral missing')
+                          for swatch in coral:
+                              a,b=sorted([luminosidade(swatch['background']),luminosidade(swatch['foreground'])])
+                              ratio=(b+.05)/(a+.05)
+                              assert ratio>=4.5,(name,device,'coral contrast',round(ratio,2),swatch)
                       page.evaluate('window.scrollTo(0,0)')
                       page.screenshot(path=f'qa-revista-proximas/{device}-{name}-abertura.jpg',type='jpeg',quality=79)
                       page.screenshot(path=f'qa-revista-proximas/{device}-{name}-completa.jpg',type='jpeg',quality=65,full_page=True)
@@ -91,6 +117,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: qse-comparar-relatorio-dados-integrais
-          path: qa-revista-proximas/
+          path: |
+            qa-revista-proximas/
+            docs/manual-visual.md
           if-no-files-found: warn
           retention-days: 14
