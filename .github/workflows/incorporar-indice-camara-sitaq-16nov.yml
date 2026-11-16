@@ -1,0 +1,56 @@
+name: Registrar linha autêntica do índice de discursos da Câmara (prévia)
+on:
+  push:
+    branches: [revista-facsimiles-verificados-16nov2026]
+    paths:
+      - .github/workflows/incorporar-indice-camara-sitaq-16nov.yml
+permissions: {contents: write}
+jobs:
+  registrar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: true}
+      - name: Playwright
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Capturar uma linha sem alterar o conteúdo público
+        run: |
+          set -euo pipefail
+          mkdir -p public/documentos
+          python3 - <<'PY'
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          url='https://www.camara.leg.br/internet/SitaqWeb/ResultadoPesquisaDiscursos.asp?BasePesq=plenario&CampoOrdenacao=dtSessao&PageSize=50&TipoOrdenacao=DESC&btnPesqAvan=Pesquisar&dtFim=31%2F12%2F2026&dtInicio=01%2F01%2F2026&txOrador=Julia+Zanatta'
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            page=browser.new_page(viewport={'width':1365,'height':900},device_scale_factor=1)
+            response=page.goto(url,wait_until='domcontentloaded',timeout=30000)
+            assert response and response.status==200
+            chosen=None
+            for row in page.locator('tr').all():
+              txt=row.inner_text()
+              if '10/03/2026' in txt and 'PAG. 163' in txt and 'Julia Zanatta' in txt:
+                chosen=row
+                break
+            assert chosen is not None, 'Linha oficial do Diário 11/03/2026, pág. 163 não localizada'
+            print('Conferidos: data do discurso 10/03/2026, Julia Zanatta, Diário 11/03/2026 página 163')
+            chosen.screenshot(path='public/documentos/camara-sitaq-julia-zanatta-2026-03-10-p163.png')
+            browser.close()
+          PY
+      - name: Incorporar recorte autêntico apenas no ramo de prévia
+        run: |
+          set -euo pipefail
+          git config user.name 'qse-documentos-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/documentos/camara-sitaq-julia-zanatta-2026-03-10-p163.png
+          git diff --cached --quiet && exit 0
+          git commit -m 'feat(arquivo): incorporar linha original de pesquisa de discursos da Câmara como evidência'
+          git push origin HEAD:revista-facsimiles-verificados-16nov2026
+      - name: Arquivar imagem original para inspeção
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-linha-original-camara-sitaq-2026
+          path: public/documentos/camara-sitaq-julia-zanatta-2026-03-10-p163.png
+          retention-days: 14
