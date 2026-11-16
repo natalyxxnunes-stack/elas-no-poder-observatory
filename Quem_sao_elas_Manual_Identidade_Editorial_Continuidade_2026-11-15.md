@@ -679,3 +679,11 @@ A rotina .github/workflows/qa-14-rotas-revista-16nov.yml compila TypeScript e a 
 **Ainda pendente:** inspeção humana de todas as capturas de página inteira, verificação ponto a ponto de licenças/créditos e acessibilidade WCAG integral; aprovar estas páginas significa analisar o conteúdo e as imagens, e não apenas a compilação. A página publicada não reflete automaticamente a branch nem o PR.
 
 **Prioridade depois desta rodada:** reconciliação visual e documental da revista inteira (inclusive páginas PRs #12–#22), correção de problemas identificados nas prévias e integração editorial controlada. Manter a separação entre candidata, eleita, diplomada e ocupante efetiva. Não publicar nem mesclar sem autorização.
+
+
+### Fechamento da QA das 14 rotas — 16/11/2026
+**Resultado real:** execução GitHub Actions #43896345250 concluída com sucesso (commit 3ba5205af50fbebdae5f157341f201f3952f4f25). TypeScript, build HostGator, proteção de homepage, logo, fontes eleitorais e arquivos documentais aprovados. O script abriu 20 variações de URL, cobrindo 14 modelos de conteúdo, seis temas, perfil de eleita, busca e uma homepage de controle, em desktop 1440 × 900 e celular 390 × 844: **40 capturas completas, nenhuma falha registrada**. O teste conferiu respostas HTTP, título H1, largura, erros de execução e carregamento efetivo das imagens, inclusive as lazy. A imagem de Pagu com direitos pendentes não apareceu no DOM.
+
+**Artefato de prova:** https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43896345250 (artefato qse-14-rotas-revista-integrais, ID 14239282143), incluindo capturas, relatório JSON e os dois manuais. Foram montadas e **visualmente examinadas folhas de contato** com o início, um ponto intermediário e o final das 20 páginas em cada viewport. Nesta leitura de conjunto, preservaram-se contrastes estruturais, bandas de revista e fontes destacadas; trata-se de uma inspeção de panorama, que não substitui revisão individual em escala real, de todas as imagens, links ou controles por teclado.
+
+**Pendente antes de publicar:** revisão editorial final das 35 rotas de conteúdo no conjunto integrado, auditoria WCAG completa, direitos/licenças e verificação documental específica. Nenhum PR foi mesclado nem foi executado deploy.
