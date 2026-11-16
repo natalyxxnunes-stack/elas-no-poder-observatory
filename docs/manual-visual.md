@@ -368,3 +368,5 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 - Preservados números, snapshots, scripts, lacuna de 2018 no Senado, dados raciais, datas e metadados de extração. Nenhuma alteração no CSS global, fotos, dados, logo ou homepage.
 
 **Validação:** workflow independente com TypeScript, build, proteção de arquivos, consultas e capturas integrais em desktop 1440 px/celular 390 px. Capturas ainda exigem inspeção humana antes de aceite.
+
+**QA confirmado para Histórico:** [execução #43803631665](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43803631665), concluída com sucesso. Renderizações desktop 1440 px e celular 390 px, navegação pelas séries, quatro links a conjuntos TSE, consulta por UF, tabela integral, proteção dos dados e da homepage; sem overflow ou erros de JavaScript. Capturas integrais arquivadas como `qse-historico-pagina-integral`. **Ressalva editorial:** a página continua extensa no celular (cerca de 19,5 mil px de altura na captura); o êxito técnico não a aprova em termos de ritmo e densidade de leitura.
