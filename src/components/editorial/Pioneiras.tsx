@@ -122,7 +122,7 @@ export function PerfilHero({
           </div>
           <div>
             <p className={`font-display text-lg leading-snug ${fundoEscuro ? "text-paper" : "text-ink"}`}>{ancora.tensao}</p>
-            <div className={pagu ? "mt-4 bg-paper p-4 text-ink" : "mt-4"}><Regua a={ancora} /></div>
+            <div className={fundoEscuro ? "mt-4 bg-paper p-4 text-ink" : "mt-4"}><Regua a={ancora} /></div>
           </div>
         </div>
       </div>
