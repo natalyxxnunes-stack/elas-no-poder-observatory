@@ -199,22 +199,22 @@ function ReportagensPage() {
         className="relative left-1/2 -ml-[50vw] w-screen"
       >
         <div className="grid lg:grid-cols-2">
-          <article className="bg-[var(--art-coral)] px-5 py-10 text-ink md:px-8 md:py-12 lg:pl-[max(2rem,calc((100vw-80rem)/2))] lg:pr-12">
-            <p className="text-[13px] font-semibold text-ink">Falas públicas · Apuração</p>
-            <h2 id="reportagem-falas" className="mt-4 font-display text-[clamp(2.3rem,4vw,4rem)] leading-tight text-plum-deep">
+          <article className="bg-[#c53f22] px-5 py-10 text-paper md:px-8 md:py-12 lg:pl-[max(2rem,calc((100vw-80rem)/2))] lg:pr-12">
+            <p className="text-[13px] font-semibold text-paper">Falas públicas · Apuração</p>
+            <h2 id="reportagem-falas" className="mt-4 font-display text-[clamp(2.3rem,4vw,4rem)] leading-tight text-paper">
               {FALAS_REPORTAGEM?.titulo ?? "Na voz delas"}
             </h2>
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-ink/95">
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-paper">
               {FALAS_REPORTAGEM?.linhaFina}
             </p>
             <Link
               to="/na-voz-delas"
-              className="mt-6 inline-flex min-h-11 items-center font-semibold text-ink underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
+              className="mt-6 inline-flex min-h-11 items-center font-semibold text-paper underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
             >
               Ler a reportagem ↗
             </Link>
             {FALAS_REPORTAGEM && (
-              <p className="mt-5 text-[13px] text-ink/95">
+              <p className="mt-5 text-[13px] text-paper">
                 {FALAS_REPORTAGEM.autora} · {formatDateBR(FALAS_REPORTAGEM.data)}
               </p>
             )}
