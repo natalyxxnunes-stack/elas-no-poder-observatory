@@ -110,7 +110,7 @@ function EleitasPage() {
     .filter(([, v]) => v);
   const chip = (ativo: boolean) =>
     `min-h-11 border px-3 py-1 text-[14px] font-semibold ${ativo ? "border-ink bg-ink text-cream" : "border-rule bg-card text-ink hover:border-ink"}`;
-  const sel = "min-h-11 border border-rule bg-card px-3 text-[15px] text-ink";
+  const sel = "min-h-11 border border-rule bg-card px-3 text-[15px] text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum";
 
   return (
     <PageShell breadcrumb={[{ label: "Eleições 2026", to: "/quem-chega" }, { label: "Quem entrou" }]}>
@@ -327,7 +327,11 @@ function EleitasPage() {
         selecionada={uf}
         selecionar={(selecionada) => {
           set("uf")(selecionada);
-          document.getElementById("lista-eleitas")?.scrollIntoView({ block: "start" });
+          window.requestAnimationFrame(() => {
+            const heading = document.getElementById("lista-eleitas");
+            heading?.scrollIntoView({ block: "start" });
+            heading?.focus({ preventScroll: true });
+          });
         }}
         corte={ELEITAS_META.baseGeneratedAt}
       />
@@ -341,7 +345,7 @@ function EleitasPage() {
             <p className="text-[13px] font-semibold text-[var(--art-gold)]">
               Arquivo nominal · TSE 2026
             </p>
-            <h2 id="lista-eleitas" className="mt-3 scroll-mt-24 font-display text-3xl leading-tight md:text-4xl">
+            <h2 id="lista-eleitas" tabIndex={-1} className="mt-3 scroll-mt-24 font-display text-3xl leading-tight focus-visible:outline-2 focus-visible:outline-[var(--art-gold)] md:text-4xl">
               Nomes e fichas
             </h2>
             <p className="mt-5 text-sm leading-relaxed text-paper/80" aria-live="polite">
