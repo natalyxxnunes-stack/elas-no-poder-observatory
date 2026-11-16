@@ -77,12 +77,22 @@ jobs:
                   assert 'não comprova a prática do crime' in sec.inner_text(),(rota,dispositivo,'allegation is not conviction')
                   contrast=sec.evaluate('''e => {
                     const bg=getComputedStyle(e).backgroundColor;
-                    const rgba=s=>(s.match(/[\\d.]+/g)||[]).slice(0,4).map(Number);
-                    const b=rgba(bg);
-                    const blend=fg=>{let [r,g,bl,a=1]=rgba(fg);return [r*a+b[0]*(1-a),g*a+b[1]*(1-a),bl*a+b[2]*(1-a)]};
+                    const canvas=document.createElement('canvas');
+                    canvas.width=canvas.height=1;
+                    const ctx=canvas.getContext('2d',{willReadFrequently:true});
+                    const colorPixels=(foreground)=>{
+                      ctx.clearRect(0,0,1,1);
+                      ctx.fillStyle=bg;ctx.fillRect(0,0,1,1);
+                      if(foreground){ctx.fillStyle=foreground;ctx.fillRect(0,0,1,1)}
+                      return [...ctx.getImageData(0,0,1,1).data].slice(0,3);
+                    };
                     const L=rgb=>rgb.map(n=>{let c=n/255;return c<=0.04045?c/12.92:((c+0.055)/1.055)**2.4}).reduce((v,c,i)=>v+c*[.2126,.7152,.0722][i],0);
-                    const l=L(b);
-                    const items=[...e.querySelectorAll('h2,h3,p,a')].map(node=>{const fg=getComputedStyle(node).color;const z=L(blend(fg));return {tag:node.tagName,text:node.textContent.trim().slice(0,36),fg,ratio:(Math.max(z,l)+.05)/(Math.min(z,l)+.05)};});
+                    const l=L(colorPixels(null));
+                    const items=[...e.querySelectorAll('h2,h3,p,a')].map(node=>{
+                      const fg=getComputedStyle(node).color;
+                      const z=L(colorPixels(fg));
+                      return {tag:node.tagName,text:node.textContent.trim().slice(0,40),fg,ratio:(Math.max(z,l)+.05)/(Math.min(z,l)+.05)};
+                    });
                     return {bg,minimum:Math.min(...items.map(i=>i.ratio)),count:items.length,items:items.filter(i=>i.ratio<4.5)};
                   }''')
                   assert contrast['bg']=='rgb(197, 63, 34)',(rota,dispositivo,contrast)
