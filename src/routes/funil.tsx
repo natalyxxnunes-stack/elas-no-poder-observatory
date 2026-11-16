@@ -11,6 +11,7 @@ import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 import { FunnelStages2026 } from "@/components/funnel/FunnelStages2026";
 import { PastStrip } from "@/components/funnel/PastStrip";
 import { CompetitionByUf } from "@/components/editorial/CompetitionByUf";
+import { FunnelSourceFiles } from "@/components/funnel/FunnelSourceFiles";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { FUNNEL_READING_RULE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
@@ -139,15 +140,15 @@ function FunilPage() {
       </div>
 
       <SectionBlock id="etapas"
-        kicker="Etapa por etapa"
-        question="Quantas são, em cada porta de entrada"
+        kicker="Universos da eleição"
+        question="A presença feminina muda conforme o universo observado"
         align="wide"
         lead={
           <p>
-            Comece pelo número que organiza a página: a participação de mulheres
-            nas candidaturas proporcionais. Depois compare com as majoritárias,
-            que têm outro denominador, e veja quem são essas mulheres por
-            cor/raça declarada.
+            Compare as candidaturas proporcionais e majoritárias, que têm
+            denominadores separados. As cadeiras preenchidas formam um
+            terceiro universo. Dentro das candidaturas de mulheres,
+            preserve as categorias de cor/raça declaradas.
           </p>
         }
         source={
@@ -160,7 +161,7 @@ function FunilPage() {
         <FunnelStages2026 snapshot={snapshot} />
       </SectionBlock>
 
-      <SectionBlock id="disputa" tone="lilac"
+      <SectionBlock id="disputa" tone="butter"
         kicker="Tamanho da disputa"
         question="Quantas candidaturas existem para cada vaga?"
         align="wide"
@@ -180,6 +181,7 @@ function FunilPage() {
           </>
         }
       >
+        <FunnelSourceFiles />
         <CompetitionByUf snapshot={snapshot} />
       </SectionBlock>
 
@@ -195,7 +197,7 @@ function FunilPage() {
         <PastStrip series={feminineSeries} />
       </SectionBlock>
 
-      <SectionBlock id="chapas" tone="lilac"
+      <SectionBlock id="chapas" tone="butter"
         kicker="Como funcionam as cadeiras"
         question="Na disputa proporcional, ninguém concorre isoladamente"
       >
@@ -223,7 +225,7 @@ function FunilPage() {
         limites={[
           "Candidaturas e resultado de 2026 vêm do mesmo arquivo do TSE, de 27/10/2026; o resultado é lido sobre o total de cadeiras.",
           "Governos e Presidência decididos em 2º turno valem pelo resultado de 25/10 (linha do 2º turno no arquivo do TSE); deputadas, deputados e Senado têm turno único.",
-          "Cada etapa é o retrato de um universo, e não o rastro das mesmas pessoas de um degrau para o outro.",
+          "Proporcionais, majoritárias e cadeiras preenchidas são universos diferentes, não uma sequência de pessoas que passam entre degraus.",
         ]}
       />
 
