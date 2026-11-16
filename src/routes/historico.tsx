@@ -95,6 +95,20 @@ function HistoricoPage() {
         years={["2014", "2018", "2022", "2026"]}
       />
 
+      <nav aria-label="Navegar pelas séries históricas" className="my-6 border-y border-rule py-5">
+        <p className="font-mono text-xs font-semibold uppercase tracking-wide text-plum">
+          Índice das séries · cada gráfico informa seu próprio universo
+        </p>
+        <div className="mt-3 flex flex-wrap gap-x-7 gap-y-3 text-sm font-semibold">
+          <a href="#genero" className="text-plum underline decoration-plum/40 underline-offset-4 hover:decoration-plum">Candidaturas</a>
+          <a href="#raca" className="text-plum underline decoration-plum/40 underline-offset-4 hover:decoration-plum">Cor e raça</a>
+          <a href="#genero-raca" className="text-plum underline decoration-plum/40 underline-offset-4 hover:decoration-plum">Gênero × cor/raça</a>
+          <a href="#eleitas" className="text-plum underline decoration-plum/40 underline-offset-4 hover:decoration-plum">Eleitas</a>
+          <a href="#cargo-uf" className="text-plum underline decoration-plum/40 underline-offset-4 hover:decoration-plum">Cargos e estados</a>
+          <a href="#bases" className="text-plum underline decoration-plum/40 underline-offset-4 hover:decoration-plum">Bases e lacunas</a>
+        </div>
+      </nav>
+
       <div className="pb-4">
         <InBrief
           foundLabel="O achado"
