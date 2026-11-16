@@ -270,10 +270,11 @@ function DinheiroPage() {
               9,5%. Candidaturas de pessoas brancas são 49,8% e receberam 60,8%.
             </p>
             <p className="mt-3">
-              Na conta restrita a deputadas e deputados, três partidos tiveram percentuais
-              inferiores a 30% do FEFC declarado recebido por candidaturas pretas e pardas.
-              Trata-se de uma comparação descritiva, não de constatação de infração: PL (26,7%), NOVO (25,6%)
-              e PCO (24,7%). Incluindo os titulares dos seis cargos, são seis: PL (22,3%),
+              No recorte das candidaturas a deputado, a participação de pretas e pardas
+              somadas no FEFC declarado ficou abaixo de 30% em três siglas:
+              PL (26,7%), NOVO (25,6%) e PCO (24,7%). Esses percentuais
+              descrevem apenas o recorte, sem estabelecer infração legal.
+              Incluindo titulares dos seis cargos, são seis: PL (22,3%),
               NOVO (26,4%), MDB (28,2%), Cidadania (29,4%), PSD (29,4%) e PRTB (14,1%).
               O PRTB tem somente seis candidaturas titulares neste recorte, quatro com FEFC;
               percentuais de universos tão pequenos exigem cautela. A conta com todos os cargos
