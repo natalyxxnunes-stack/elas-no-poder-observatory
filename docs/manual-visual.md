@@ -219,3 +219,22 @@ O arquivo editável permanente `Quem_sao_elas_Manual_Identidade_Editorial_Contin
 **Decisão pendente:** aceitar ou ajustar a **escala da área coral** na composição geral depois de conferir as capturas de página inteira, sem voltar a texto preto nessa abertura.
 
 **Registro complementar:** arquivo editável único `Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md`, seção 14.6. Toda nova decisão deve atualizar este mesmo arquivo e o manual da `main`, sem criar documentos concorrentes.
+
+
+### Parecer de aceitação integrada das páginas-piloto — 15/11/2026
+
+**Estado:** avaliação visual concluída, **sem aprovação final das composições**. Confrontaram-se capturas reais da primeira dobra e de páginas completas, em desktop (1440 px) e celular (390 px), com o código do PR [#8](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/pull/8) e a homepage fotográfica aprovada. Referência: [Actions #43776806314](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43776806314).
+
+**Achado:** as páginas agora apresentam tratamentos distintos, com finalidade jornalística. `Quem entrou?` usa manchete transversal coral com texto claro, dados por cargo, atlas absoluto por UF e arquivo nominal; `Método` usa página real do portal TSE, esquema original do processo, foto da bancada devidamente identificada e conta financeira, preservando 16 capítulos no arquivo técnico; `Reportagens` usa manchete em ameixa e placar das seis votações, com fontes literais do Diário da Câmara. Não há mais a repetição da mesma hero bipartida nos três pilotos; o branco fica principalmente nos trechos de leitura/consulta. Isso **não significa aprovação editorial automática**.
+
+| Página | Recomendação para deliberação | Pendências de aceitação |
+| --- | --- | --- |
+| **Quem entrou?** | Conservar **coral profundo com letras claras**, princípio aprovado pela editora, e a estrutura de consulta com denominadores por cargo e atlas das UFs. | Testar navegação por leitor de tela/teclado e reconciliação de bases eleitorais quando aplicável; as barras do atlas representam números absolutos, não proporções de vagas. |
+| **Método** | Conservar a abertura documental e o caderno técnico recolhível com acesso por âncoras. | Garantir leitura de fonte/caption e acesso ao TSE em telas pequenas; conferir anúncio e descobribilidade da documentação recolhida. |
+| **Reportagens** | Conservar manchete transversal, o placar dos votos e o contraste entre coral e tinta. | Aproximar da legenda a ressalva de que **Sim/Não** se referem ao texto votado; rever rótulos de **11 px** do placar em telas pequenas. |
+
+**Correção objetiva incorporada apenas ao PR #8:** a seção coral `Na voz delas` tinha textos em `text-plum`, `text-ink/85` e `text-ink/70`, combinações de contraste insuficiente para texto comum sobre `--art-coral`. Foram substituídas por `text-ink` e `text-ink/95`, mantendo a composição e o mesmo coral. A [execução de QA #43780301901](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43780301901), no commit `82be2036a9ecdad810ae95fad9842090affd07bb`, **passou**: Chromium verificou contraste composto de **pelo menos 4,5:1** dos textos sobre coral no desktop/celular, além de build, TypeScript e testes funcionais. A combinação aprovada **coral mais profundo e tipografia clara** de `Quem entrou?` continua intacta.
+
+**Homepage:** não alterada nem reaberta. As miniaturas muito claras de `Materiais` na captura exigem verificação separada antes de atribuir causa técnica ou estética.
+
+**Critério de conclusão:** a editora aprova ou solicita ajustes **por página**; só após esse aceite e a auditoria jornalística/técnica haverá integração à `main` e publicação. O documento editável `Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md` foi atualizado na seção **14.7**, com estes mesmos estados. Não tratar parecer, conformidade de contraste ou sucesso de CI como autorização de merge.
