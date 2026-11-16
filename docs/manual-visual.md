@@ -310,3 +310,16 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 **Validação:** [GitHub Actions #43794329151](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43794329151), commit `74d1c234a23ce626e1611e251803fdd4d642da84`, **success**. TypeScript, build, proteção das bases numéricas, links documentais, explicitação de limites probatórios, medição de contraste real a partir de cores renderizadas (inclusive OKLCH) e capturas da homepage e três investigações em desktop 1440 px e celular 390 px. Sem overflow horizontal nem erros de JavaScript no roteiro automatizado.
 
 **Nota cromática:** o coral original continua destinado a acentos e gráficos. Nas grandes áreas com texto claro, usar o **coral profundo aprovado** e confirmar contraste. Cores não substituem material factual; cada página necessita linguagem própria. **Teste concluído não significa aprovação visual**, ainda pendente.
+
+## Registro de prévia — lote 5 de páginas de dados (16/11/2026)
+
+**Situação:** proposta isolada na branch `revista-lote5-dados-16nov2026`, ainda **sem aprovação editorial, merge ou deploy**. O arquivo editável de continuidade `Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md` recebeu o registro detalhado na seção 14.13; preserva as decisões normativas anteriores.
+
+- **Partidos:** índice para eleitas, candidaturas/eleição, FEFC e votação. A marcação coral de percentuais abaixo de 30% refere-se apenas às candidaturas a deputado e não permite concluir descumprimento dos pisos constitucionais, que cobrem universo maior. Referência: Constituição Federal, art. 17, §§ 8º e 9º.
+- **Funil:** seção de contexto histórico no roxo estrutural, com microedição para retirar rótulo temporal anacrônico; os universos das etapas permanecem separados.
+- **Histórico:** índice textual de seis áreas da série, sem mexer nos pontos e denominadores. Confrontar futuramente a menção a “27/09” nas fontes com “27/10” de outros componentes, **sem corrigi-la por suposição**.
+- **Monitor:** abertura em tinta com período de 01/01 a 03/11/2026 e coleta de 04/11/2026; substituir a indicação “fora do exercício hoje” por “na coleta”. Sem alteração dos dados de atividade parlamentar.
+
+**QA:** workflow próprio do lote 5 em `.github/workflows/qa-lote5-dados.yml`, com capturas integrais (1440 px e 390 px). A aprovação técnica não valida automaticamente cor, ritmo ou leitura e nenhuma versão foi publicada.
+
+**Escopo protegido:** `main`, homepage, logo, `src/data`, arquivos de base, fotos, documentos e `src/styles.css`. As quatro soluções não se tornam templates obrigatórios para outras rotas.
