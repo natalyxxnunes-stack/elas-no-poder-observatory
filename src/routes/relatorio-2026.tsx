@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { Secao } from "@/components/editorial/Secao";
+import { ProporcaoCadeirasRelatorio, FotoPlenarioRelatorio } from "@/components/editorial/EvidenciasGrafadas2026";
+import { CadernoDeFontes } from "@/components/editorial/CadernoDocumentalRevista";
 import {
   M_BRANCAS,
   M_CADEIRAS,
@@ -200,11 +202,25 @@ function RelatorioPage() {
                     </li>
                   ))}
                 </ol>
+                {i === 0 ? <ProporcaoCadeirasRelatorio /> : null}
+                {i === 3 ? <FotoPlenarioRelatorio /> : null}
               </div>
             </section>
           );
         })}
       </div>
+
+      <CadernoDeFontes
+        editoria="Transparência da edição · Fontes primárias"
+        titulo="As cinco partes vêm de arquivos diferentes."
+        nota="Esta edição foi fechada em 4 de novembro de 2026. Os registros eleitorais, as contas de campanha e os atos da Câmara são conjuntos distintos, com datas de geração e universos próprios. O caderno documental aponta suas fontes; não reproduz documentos alterados ou simulados."
+        documentos={[
+          { rotulo: "Tribunal Superior Eleitoral · Candidaturas", titulo: "Candidatos 2026", url: "https://dadosabertos.tse.jus.br/dataset/candidatos-2026", descricao: "Registro de candidaturas, situação eleitoral e categorias declaradas. Confira a geração dos arquivos usados na edição." },
+          { rotulo: "Tribunal Superior Eleitoral · Resultado", titulo: "Resultados 2026", url: "https://dadosabertos.tse.jus.br/dataset/resultados-2026", descricao: "Votação e totalização, consultadas por cargo e data de corte." },
+          { rotulo: "Tribunal Superior Eleitoral · Contas", titulo: "Prestação de Contas Eleitorais 2026", url: "https://dadosabertos.tse.jus.br/pt_BR/dataset/prestacao-de-contas-eleitorais-2026", descricao: "Recursos declarados pelas campanhas, distintos dos critérios de distribuição do FEFC." },
+          { rotulo: "Câmara dos Deputados · Atuação parlamentar", titulo: "Dados Abertos da Câmara", url: "https://dadosabertos.camara.leg.br/", descricao: "Votações e autoria de proposições de quem estava em exercício no período observado, e não das eleitas ainda sem posse." },
+        ]}
+      />
 
       <section aria-label="Questões abertas e calendário" className="relative left-1/2 -ml-[50vw] w-screen">
         <div className="grid lg:grid-cols-2">

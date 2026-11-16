@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { TEMAS } from "@/data/temas";
+import { CapturaPortalDados } from "@/components/editorial/EvidenciasGrafadas2026";
 
 /**
  * Dados (13/11/2026): a seção de consulta, separada da leitura.
@@ -156,6 +157,7 @@ function DadosPage() {
           <div>
             <p className="text-[13px] font-semibold">Documento de origem · Transparência</p>
             <h2 id="dados-origem-titulo" className="mt-3 font-display text-3xl leading-tight md:text-4xl">A consulta começa nas fontes</h2>
+            <CapturaPortalDados />
           </div>
           <div>
             <p className="max-w-2xl text-[15px] leading-relaxed">

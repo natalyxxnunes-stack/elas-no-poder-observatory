@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { Secao } from "@/components/editorial/Secao";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
+import { DuasEtapasComparador } from "@/components/editorial/EvidenciasGrafadas2026";
 import { PILOT_CORAL } from "@/lib/editorial-pilot-colors";
 import { RECORTE_META, RECORTE_PARTIDOS, RECORTE_TOTAL, RECORTE_UFS, type Recorte } from "@/data/partido-uf-2026";
 import { FEFC_META, FEFC_PARTIDOS, FEFC_TOTAL, type FefcPartido } from "@/data/fefc-partidos-2026";
@@ -165,8 +166,9 @@ function CompararPage() {
       <nav aria-label="Etapas da comparação" className="flex flex-wrap gap-x-8 gap-y-2 border-b border-rule py-5 text-[14px] font-semibold text-plum">
         <a href="#escolhas-comparar" className="min-h-9 underline-offset-4 hover:underline">01 · Escolher</a>
         <a href="#leitura-comparativa" className="min-h-9 underline-offset-4 hover:underline">02 · Ler proporções</a>
-        <a href="#tabela-comparativa" className="min-h-9 underline-offset-4 hover:underline">03 · Conferir todos os indicadores</a>
-        <a href="#documentos-comparar" className="min-h-9 underline-offset-4 hover:underline">04 · Ver fontes</a>
+        <a href="#comparar-distancia" className="min-h-9 underline-offset-4 hover:underline">03 · Da candidatura à cadeira</a>
+        <a href="#tabela-comparativa" className="min-h-9 underline-offset-4 hover:underline">04 · Conferir todos os indicadores</a>
+        <a href="#documentos-comparar" className="min-h-9 underline-offset-4 hover:underline">05 · Ver fontes</a>
       </nav>
 
       <section id="escolhas-comparar" aria-label="Escolha o que comparar" className="scroll-mt-24 space-y-5 bg-paper py-9">
@@ -241,6 +243,11 @@ function CompararPage() {
           </ol>
         </div>
       </section>
+
+      <DuasEtapasComparador linhas={[
+        ...colunas.map((v) => ({ id: v, titulo: nome(v), registro: dados(v) })),
+        { id: "brasil", titulo: "Brasil", registro: RECORTE_TOTAL },
+      ]} />
 
       <section aria-label="Limite jurídico da comparação do financiamento" className="relative left-1/2 -ml-[50vw] w-screen text-paper" style={{ background: PILOT_CORAL }}>
         <div className="mx-auto grid max-w-7xl gap-5 px-5 py-7 md:grid-cols-[.38fr_.62fr] md:items-start md:gap-10 md:px-8">
