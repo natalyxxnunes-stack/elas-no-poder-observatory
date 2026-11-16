@@ -3,6 +3,7 @@ import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { FOTOS } from "@/data/fotos";
 import { ArquivoDocumentalFEFC } from "@/components/editorial/ArquivoDocumentalFEFC";
+import { DuasResolucoesFEFC } from "@/components/editorial/FacsimilesFEFC2026";
 import { PILOT_CORAL } from "@/lib/editorial-pilot-colors";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
@@ -771,6 +772,7 @@ function PartidosPage() {
       >
         <div className="space-y-6">
           <ArquivoFEFC />
+          <DuasResolucoesFEFC />
           <FundoEmFoco />
           <details className="group border border-plum bg-paper px-4 py-3 md:px-5">
             <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-3 text-base font-semibold text-plum">

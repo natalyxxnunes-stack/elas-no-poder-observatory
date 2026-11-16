@@ -1,0 +1,67 @@
+name: Incorporar imagens verificadas de páginas originais (somente na prévia)
+on:
+  push:
+    branches: [revista-facsimiles-verificados-16nov2026]
+    paths:
+      - .github/workflows/incorporar-facsimiles-verificados-16nov.yml
+permissions:
+  contents: write
+jobs:
+  incorporar-paginas-auditadas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Renderizar páginas inspecionadas dos documentos originais
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -qq -y poppler-utils
+          python3 -m pip install --quiet --break-system-packages requests
+          mkdir -p /tmp/qse-fefc originais-publicos
+          python3 - <<'PY'
+          from pathlib import Path
+          import requests,hashlib,re,subprocess,json
+          # Exatamente as três fontes que foram baixadas e examinadas manualmente.
+          fontes=[
+            ('uniao','https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0601251_87-2026-6-00-0000___uniao_brasil_nacional___criterios_fefc','8029faf019b1c4412c56181c54c3053f8c028282922a77062b7ecd1d4b716e7b',24,'tse-uniao-brasil-resolucao-cen043-2026.png'),
+            ('pt','https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0601252_72-2026-6-00-0000___pt_nacional___criterios_fefc','6b1820fbb97f35cc09c40ad2c58c5a79824286122d11f3e9d72eae8e59c8984e',10,'tse-fe-brasil-resolucao-14-2026.png'),
+            ('pl','https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0600974_71-2026-6-00-0000___pl_nacional___criterios_fefc','d34dbd51e72797e92ff1543999ac9564b017317330715a4679bca4c82d7ea159',1,'tse-pl-processo-fefc-capa-2026.png'),
+          ]
+          report=[]
+          for name,url,sha,page,outname in fontes:
+            res=requests.get(url,headers={'User-Agent':'Mozilla/5.0 (compatible; QSE-Jornalismo-Dados/1.0)'},timeout=50)
+            data=res.content
+            assert res.status_code==200 and data.startswith(b'%PDF-'), name+': não recebido documento PDF original'
+            assert hashlib.sha256(data).hexdigest()==sha,name+': o PDF mudou; exige nova revisão antes de gerar imagem'
+            pdf=Path('/tmp/qse-fefc')/(name+'.pdf');pdf.write_bytes(data)
+            txt=subprocess.check_output(['pdftotext','-f',str(page),'-l',str(page),str(pdf),'-'],text=True)
+            assert not re.search(r'\b\d{3}\.\d{3}\.\d{3}-\d{2}\b',txt),name+': CPF visível; interrompido'
+            assert not re.search(r'\b\d{3}\.\d{3}\.\d{4}\b',txt),name+': telefone ou identificador não previsto'
+            stem='originais-publicos/'+outname[:-4]
+            subprocess.run(['pdftoppm','-f',str(page),'-l',str(page),'-scale-to','1600','-png','-singlefile',str(pdf),stem],check=True)
+            assert Path(stem+'.png').is_file()
+            report.append({'arquivo':outname,'pdf_origem_sha256':sha,'pagina_no_pdf':page,'imagem_sha256':hashlib.sha256(Path(stem+'.png').read_bytes()).hexdigest()})
+          Path('originais-publicos/relatorio_hash.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          print('Páginas originais examinadas por pessoa: 3; imagens prontas:',[a['arquivo'] for a in report])
+          PY
+      - name: Incorporar só imagens no ramo de prévia
+        run: |
+          set -euo pipefail
+          mkdir -p public/documentos
+          cp originais-publicos/*.png public/documentos/
+          git config user.name 'qse-documentos-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/documentos/tse-*.png
+          git diff --cached --quiet && exit 0
+          git commit -m 'feat(arquivo): incorporar 3 reproduções literais auditadas de páginas do TSE FEFC 2026'
+          git push origin HEAD:revista-facsimiles-verificados-16nov2026
+      - name: Guardar hashes e comprovação da proveniência
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-paginas-originais-hashes
+          path: originais-publicos/relatorio_hash.json
+          retention-days: 14

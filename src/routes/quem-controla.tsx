@@ -9,6 +9,7 @@ import { NextAxes } from "@/components/editorial/NextAxes";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { ArquivoDocumentalFEFC } from "@/components/editorial/ArquivoDocumentalFEFC";
+import { CapaProcessoPLFEFC } from "@/components/editorial/FacsimilesFEFC2026";
 import { QUOTA_RULE } from "@/data/election-2026";
 
 /**
@@ -103,6 +104,7 @@ function QuemControlaPage() {
 
 
       <ArquivoDocumentalFEFC id="criterios-fefc-2026" variante="tinta" />
+      <CapaProcessoPLFEFC />
 
       <div className="pb-4">
         <InBrief

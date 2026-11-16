@@ -1,0 +1,138 @@
+name: QA — reproduções documentais originais TSE/Câmara (PR27)
+on:
+  push:
+    branches: [revista-facsimiles-verificados-16nov2026]
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: {bun-version: latest}
+      - name: Compilar e proteger marca e bases
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+          git fetch --depth=1 origin revista-documentos-originais-17nov2026
+          test -z "$(git diff --name-only origin/revista-documentos-originais-17nov2026...HEAD -- src/data public/dados public/fotos public/materiais src/styles.css src/routes/index.tsx src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
+          test -s public/documentos/tse-uniao-brasil-resolucao-cen043-2026.png
+          test -s public/documentos/tse-fe-brasil-resolucao-14-2026.png
+          test -s public/documentos/tse-pl-processo-fefc-capa-2026.png
+          test -s public/documentos/camara-sitaq-julia-zanatta-2026-03-10-p163.png
+          echo "Marca, home, estilo e dados preservados. Quatro imagens de fonte oficial disponíveis."
+      - name: Preparar Playwright
+        run: python3 -m pip install --quiet --break-system-packages playwright pillow
+      - name: Conferir fontes, contexto, privacidade e página inteira
+        run: |
+          set -euo pipefail
+          mkdir -p capturas-facsimiles
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-qa27.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          import json,math
+          from playwright.sync_api import sync_playwright
+          sources={
+            'tse-uniao-brasil-resolucao-cen043-2026.png':(1000,1400),
+            'tse-fe-brasil-resolucao-14-2026.png':(1000,1400),
+            'tse-pl-processo-fefc-capa-2026.png':(1000,1400),
+            'camara-sitaq-julia-zanatta-2026-03-10-p163.png':(700,20),
+          }
+          for name,(w,h) in sources.items():
+            with Image.open('public/documentos/'+name) as im:
+              assert im.format=='PNG' and im.width>=w and im.height>=h,(name,im.size)
+          routes=[
+            ('/partidos','partidos'),('/quem-controla','quem-controla'),
+            ('/na-voz-delas','na-voz-delas'),('/como-votaram','como-votaram'),
+            ('/reportagens','reportagens'),('/dados','dados'),('/','homepage-controle')
+          ]
+          failed=[]; report=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for device,w,h in [('desktop',1440,900),('celular',390,844)]:
+              context=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=1)
+              for path,name in routes:
+                page=context.new_page()
+                errors=[]
+                page.on('pageerror',lambda e: errors.append(str(e)))
+                try:
+                  res=page.goto('http://127.0.0.1:4173'+path,wait_until='domcontentloaded',timeout=30000)
+                  page.evaluate("""async () => {
+                    const imgs=Array.from(document.images);
+                    imgs.forEach(img=>img.loading='eager');
+                    await Promise.all(imgs.map(img=>img.decode().catch(()=>{})));
+                  }""")
+                  page.wait_for_timeout(180)
+                  facts=page.evaluate("""() => ({
+                    width:document.documentElement.scrollWidth,
+                    hasMain:!!document.querySelector('#conteudo'),
+                    h1:Array.from(document.querySelectorAll('main h1')).map(x=>x.textContent.trim().slice(0,100)),
+                    broken:Array.from(document.images).filter(i=>i.complete&&i.naturalWidth===0).map(i=>i.getAttribute('src')),
+                    imgs:Array.from(document.images).map(i=>i.getAttribute('src')),
+                    coral:(() => {let s=document.querySelector('#capa-original-pje'); if(!s)return null;
+                      let h=s.querySelector('h2');return {bg:getComputedStyle(s).backgroundColor,fg:getComputedStyle(h).color}})()
+                  })""")
+                  pics=facts['imgs']
+                  if name=='partidos':
+                    for key in ('tse-uniao-brasil-resolucao-cen043-2026.png','tse-fe-brasil-resolucao-14-2026.png'):
+                      if not any((u or '').endswith(key) for u in pics): errors.append('Falta documento original: '+key)
+                    if page.get_by_text('Os critérios estão num processo.').count()<1: errors.append('Caderno de PJe anterior desapareceu')
+                  if name=='quem-controla':
+                    if not any((u or '').endswith('tse-pl-processo-fefc-capa-2026.png') for u in pics):
+                      errors.append('Capa original do PJe PL ausente')
+                    co=facts['coral']
+                    if not co or co['bg']!='rgb(197, 63, 34)':
+                      errors.append('Coral de fundo divergente da identidade de revista')
+                    if co:
+                      color=co['fg']
+                      if color.startswith('oklch('):
+                        lightness=float(color[len('oklch('):].split()[0])
+                        if lightness<0.8:
+                          errors.append('Texto sobre coral não é claro: '+color)
+                      elif color.startswith('rgb('):
+                        channels=[int(v.strip()) for v in color.replace('rgb(', '').replace(')', '').split(',') if v.strip().isdigit()]
+                        if len(channels)<3 or min(channels)<185:
+                          errors.append('Texto sobre coral não é claro: '+color)
+                      else: errors.append('Formato de cor desconhecido para revisão: '+color)
+                  if name=='na-voz-delas':
+                    if not any((u or '').endswith('camara-sitaq-julia-zanatta-2026-03-10-p163.png') for u in pics):
+                      errors.append('Registro original da pesquisa Câmara ausente')
+                    if page.locator('#arquivo-dos-diarios li').count()!=7:
+                      errors.append('A base de sete falas publicadas mudou')
+                  if name=='como-votaram' and page.locator('#fontes-nominais li').count()!=6:
+                    errors.append('Seis registros de votação não encontrados')
+                  file='capturas-facsimiles/'+name+'-'+device+'.png'
+                  page.screenshot(path=file,full_page=True,animations='disabled',timeout=30000)
+                  rec={'pagina':path,'device':device,'http':res.status if res else None,'viewport':w,
+                    'docWidth':facts['width'],'imagensFalhas':facts['broken'],'erros':errors,'captura':file}
+                  report.append(rec)
+                  if rec['http']!=200 or not facts['hasMain'] or not facts['h1'] or facts['width']>w+2 or facts['broken'] or errors:
+                    failed.append(rec)
+                except Exception as ex:failed.append({'pagina':path,'device':device,'erro':str(ex)})
+                finally:page.close()
+              context.close()
+            browser.close()
+          Path('capturas-facsimiles/relatorio.json').write_text(json.dumps({'registros':report,'falhas':failed},ensure_ascii=False,indent=2))
+          print('Capturas completas',len(report),'erros',len(failed))
+          for e in failed[:8]:print(e)
+          assert not failed,'Falhas: ver relatorio.json'
+          PY
+      - name: Arquivar capturas e documentação de continuidade
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-pr27-paginas-primarias-auditadas
+          path: |
+            capturas-facsimiles/
+            docs/manual-visual.md
+            docs/matriz-fotografias-documentos-graficos-16nov2026.md
+            Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md
+          retention-days: 14

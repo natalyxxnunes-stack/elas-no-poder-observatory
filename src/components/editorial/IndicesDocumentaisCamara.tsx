@@ -116,7 +116,32 @@ export function IndiceDiariosCamara({ falas }: { falas: readonly Fala[] }) {
               Acessar o acervo oficial de Diários ↗
             </a>
           </div>
-          <ol className="grid gap-3 sm:grid-cols-2">
+          <div className="min-w-0">
+            <figure className="mb-5 border-t-[5px] border-ink bg-paper p-4 text-ink md:p-5">
+              <p className="font-mono text-[12px] font-semibold text-plum">
+                Recorte original · Índice de discursos da Câmara
+              </p>
+              <a href="/documentos/camara-sitaq-julia-zanatta-2026-03-10-p163.png"
+                target="_blank" rel="noreferrer"
+                className="mt-3 block border border-ink/20 bg-white focus-visible:outline-2"
+                aria-label="Ampliar o recorte original da linha do catálogo da Câmara">
+                <img src="/documentos/camara-sitaq-julia-zanatta-2026-03-10-p163.png"
+                  loading="lazy" className="block h-auto w-full"
+                  alt="Linha da tabela de discursos da Câmara: 10/03/2026, sessão 21.2026, Julia Zanatta, PL-SC, 19h20, DCD de 11/03/2026, página 163" />
+              </a>
+              <figcaption className="mt-3 text-[13px] leading-relaxed text-ink/85">
+                Captura fiel de <strong>uma linha</strong> do resultado de pesquisa da Câmara
+                (consulta de 16/11/2026). Localiza o discurso de Julia Zanatta de 10/03/2026
+                na edição do Diário de 11/03/2026, p. 163. Este recorte <strong>não</strong> é
+                reprodução da página do Diário nem comprova isoladamente o teor integral da fala.
+                <a href="https://www.camara.leg.br/internet/SitaqWeb/ResultadoPesquisaDiscursos.asp?BasePesq=plenario&CampoOrdenacao=dtSessao&PageSize=50&TipoOrdenacao=DESC&btnPesqAvan=Pesquisar&dtFim=31%2F12%2F2026&dtInicio=01%2F01%2F2026&txOrador=Julia+Zanatta"
+                  target="_blank" rel="noreferrer"
+                  className="mt-2 block font-semibold text-plum underline underline-offset-4">
+                  Abrir a pesquisa no portal da Câmara ↗
+                </a>
+              </figcaption>
+            </figure>
+            <ol className="grid gap-3 sm:grid-cols-2">
             {registradas.map((f, i) => (
               <li key={f.id}
                 className={"min-w-0 border-t-[5px] px-5 py-5 " +
@@ -141,7 +166,8 @@ export function IndiceDiariosCamara({ falas }: { falas: readonly Fala[] }) {
                 </a>
               </li>
             ))}
-          </ol>
+            </ol>
+          </div>
         </div>
         <p className="mt-6 max-w-4xl border-t border-ink/30 pt-4 text-[13px] leading-relaxed text-ink/80">
           Fichas de localização produzidas pelo observatório. São links para
