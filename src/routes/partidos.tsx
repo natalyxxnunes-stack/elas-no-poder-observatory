@@ -210,6 +210,7 @@ function LinhaPartido({ r }: { r: Linha }) {
         {n(pretas)}
       </td>
       <td className={td}>{n(r.raca["INDÍGENA"] ?? 0)}</td>
+      <td className={td}>{n(r.raca["AMARELA"] ?? 0)}</td>
       <td className={td}>{r.senado > 0 ? `${n(r.senadoras)} de ${n(r.senado)}` : "—"}</td>
       <td className={td}>{r.governadoras > 0 ? n(r.governadoras) : "—"}</td>
     </tr>
@@ -262,6 +263,7 @@ function TabelaPartidos({ rows }: { rows: Linha[] }) {
               <th className={th}>Pardas</th>
               <th className={th}>Pretas</th>
               <th className={th}>Indígenas</th>
+              <th className={th}>Amarelas</th>
               <th className={th}>Senado 2027</th>
               <th className={th}>Governadoras</th>
             </tr>
@@ -317,21 +319,32 @@ function EleitasTable() {
       </div>
 
       <div className="hidden md:block">
-        <TabelaPartidos rows={grandes} />
-        {outros.length > 0 && (
-          <details className="group mt-5 border border-rule bg-card">
-            <summary className="flex min-h-12 cursor-pointer items-center justify-between px-4 font-medium text-plum">
-              Ver os outros {n(outros.length)} partidos, com menos de {GRANDES} cadeiras
-              <span aria-hidden="true" className="transition-transform group-open:rotate-180">↓</span>
-            </summary>
-            <div className="border-t border-rule p-3 md:p-0"><TabelaPartidos rows={outros} /></div>
-          </details>
-        )}
+        <details className="group border border-plum bg-card px-4 py-3 md:px-5">
+          <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-4 text-base font-semibold text-plum">
+            Abrir a tabela de eleitas por partido e cor/raça
+            <span aria-hidden="true" className="group-open:rotate-180">↓</span>
+          </summary>
+          <div className="mt-5">
+            <TabelaPartidos rows={grandes} />
+            {outros.length > 0 && (
+              <details className="group mt-5 border border-rule bg-card">
+                <summary className="flex min-h-12 cursor-pointer items-center justify-between px-4 font-medium text-plum">
+                  Ver os outros {n(outros.length)} partidos, com menos de {GRANDES} cadeiras
+                  <span aria-hidden="true" className="transition-transform group-open:rotate-180">↓</span>
+                </summary>
+                <div className="border-t border-rule p-3 md:p-0">
+                  <TabelaPartidos rows={outros} />
+                </div>
+              </details>
+            )}
+          </div>
+        </details>
       </div>
 
       <p className="text-[13px] leading-relaxed text-muted-foreground">
         Cadeiras de deputado federal, estadual e distrital eleitas em 2026, pelo partido do registro.
-        Cor/raça declarada ao TSE, categorias originais; amarelas aparecem no total de mulheres. Fio
+        Cor/raça declarada ao TSE nas categorias originais, incluindo amarelas, agora
+        identificadas nas fichas e no quadro de consulta. Fio
         laranja: partido com {GRANDES} ou mais deputadas eleitas e nenhuma preta. Senado 2027:
         senadoras sobre o total previsto de cadeiras do partido (eleitas em 2026 e mandatos até
         2031). Base de {n(RESULT_2026_PARTIDOS.seats)} cadeiras e {n(RESULT_2026_PARTIDOS.feminine)}{" "}
@@ -660,7 +673,7 @@ function VotacaoEmFoco() {
   const [votoId, setVotoId] = useState<string>(VOTE_IDS[0]!);
   const partidos = Object.keys(PARTIDOS_VOTOS[votoId] ?? {}).sort();
   const [sigla, setSigla] = useState("");
-  const partido = partidos.includes(sigla) ? sigla : (partidos[0] ?? "");
+  const partido = partidos.includes(sigla) ? sigla : (partidos.includes("PL") ? "PL" : (partidos[0] ?? ""));
   const d = PARTIDOS_VOTOS[votoId]?.[partido];
   const fonte = VOTACOES.find((v) => v.id === votoId);
   return (
