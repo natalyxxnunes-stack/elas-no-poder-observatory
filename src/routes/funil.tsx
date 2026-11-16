@@ -143,16 +143,16 @@ function FunilPage() {
       <section aria-label="Como ler os três universos da eleição" className="relative left-1/2 -ml-[50vw] w-screen bg-coral-ink text-white" style={{ backgroundColor: PILOT_CORAL }}>
         <div className="mx-auto grid max-w-7xl gap-7 px-5 py-9 md:grid-cols-[.85fr_1.15fr] md:px-8 md:py-12">
           <div>
-            <p className="font-mono text-xs font-semibold uppercase tracking-wide text-white/85">Chave de leitura · TSE 2026</p>
+            <p className="font-mono text-xs font-semibold uppercase tracking-wide text-white">Chave de leitura · TSE 2026</p>
             <h2 className="mt-3 font-display text-[clamp(2rem,3.4vw,3.4rem)] leading-[1.08] text-white">
               Três universos. Não são três degraus.
             </h2>
           </div>
           <div className="grid gap-3 border-t border-white/35 pt-5 text-base leading-relaxed md:grid-cols-3">
-            <div><strong className="block font-display text-2xl text-white">01</strong><p className="mt-2 text-white/90">Candidaturas proporcionais</p></div>
-            <div><strong className="block font-display text-2xl text-white">02</strong><p className="mt-2 text-white/90">Candidaturas majoritárias</p></div>
-            <div><strong className="block font-display text-2xl text-white">03</strong><p className="mt-2 text-white/90">Cadeiras proporcionais</p></div>
-            <p className="border-t border-white/30 pt-3 text-sm text-white/90 md:col-span-3">
+            <div><strong className="block font-display text-2xl text-white">01</strong><p className="mt-2 text-white">Candidaturas proporcionais</p></div>
+            <div><strong className="block font-display text-2xl text-white">02</strong><p className="mt-2 text-white">Candidaturas majoritárias</p></div>
+            <div><strong className="block font-display text-2xl text-white">03</strong><p className="mt-2 text-white">Cadeiras proporcionais</p></div>
+            <p className="border-t border-white/30 pt-3 text-sm text-white md:col-span-3">
               Cada conjunto tem o próprio total. Eles não acompanham as mesmas pessoas
               ao longo de uma trajetória individual.
             </p>
