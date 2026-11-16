@@ -1,0 +1,98 @@
+name: QA revista — Dinheiro página integral e FEFC documental
+on:
+  push:
+    branches: [revista-dinheiro-documentos-estilo-16nov2026]
+    paths:
+      - 'src/routes/dinheiro.tsx'
+      - 'src/data/temas.ts'
+      - 'src/components/editorial/FefcPartidos.tsx'
+      - '.github/workflows/qa-dinheiro-integral.yml'
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: {bun-version: latest}
+      - name: Teste de tipos e build
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Proteger bases eleitorais, logo e página principal
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin main
+          test -z "$(git diff --name-only origin/main...HEAD -- public/dados public/fotos public/materiais src/styles.css src/routes/index.tsx src/components/home/CapaEditorialV3.tsx src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
+          alterados="$(git diff --name-only origin/main...HEAD -- src/data | grep -v '^src/data/temas.ts$' || true)"
+          test -z "$alterados"
+          echo 'Só houve edição de conteúdo textual em src/data/temas.ts; bases numéricas intactas.'
+      - name: Preparar Playwright
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Conferir documentos, capítulos, valores e versão móvel
+        run: |
+          set -euo pipefail
+          mkdir -p qa-dinheiro
+          python3 -m http.server 4173 --directory dist/client > /tmp/site.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          report=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for device,w,h in [('desktop',1440,900),('celular',390,844)]:
+              ctx=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=1)
+              for route,name in [('/','home'),('/dinheiro','dinheiro'),('/temas/dinheiro','tema-dinheiro')]:
+                page=ctx.new_page()
+                errors=[]
+                page.on('pageerror',lambda e,arr=errors:arr.append(str(e)))
+                resp=page.goto('http://127.0.0.1:4173'+route,wait_until='domcontentloaded',timeout=45000)
+                page.wait_for_timeout(600)
+                assert resp and resp.status==200,(device,route,'HTTP')
+                assert not errors,(device,route,'JS',errors)
+                assert page.locator('main h1').count()==1,(device,route,'h1')
+                width=page.evaluate('document.body.scrollWidth')
+                assert width<=w+3,(device,route,'horizontal',width)
+                text=page.locator('main').inner_text()
+                if name=='tema-dinheiro':
+                  assert 'critérios internos não são públicos' not in text.lower(),(device,'old claim')
+                  assert 'critérios formais do FEFC, publicados pelo TSE' in text,(device,'corrected public criteria')
+                if name=='dinheiro':
+                  main=page.locator('main')
+                  assert main.locator('#criterios-fefc').count()==1,(device,'document chapter')
+                  assert main.locator('a[href*="fundo-especial-de-financiamento-de-campanha-fefc"]').count()==1,(device,'TSE criteria')
+                  assert main.locator('a[href*="distribuicao-dos-recursos-do-fundo"]').count()==1,(device,'TSE quotes')
+                  assert main.locator('#fundo-eleitoral').count()==1 and main.locator('#despesas').count()==1
+                  assert 'Os critérios são públicos' in text
+                  assert 'Esta tabela não verifica, isoladamente, cumprimento ou infração' in text
+                  assert 'piso vale para o total do partido' not in text,(device,'old legend with warning')
+                  main.locator('summary').filter(has_text='Ver a tabela íntegra').click()
+                  assert main.locator('#fundo-eleitoral table tbody tr').count()>10,(device,'full FEFC table')
+                  page.reload(wait_until='domcontentloaded')
+                  page.wait_for_timeout(400)
+                page.evaluate('window.scrollTo(0,0)')
+                page.screenshot(path=f'qa-dinheiro/{device}-{name}-abertura.jpg',type='jpeg',quality=81)
+                page.screenshot(path=f'qa-dinheiro/{device}-{name}-completa.jpg',type='jpeg',quality=66,full_page=True)
+                report.append({'device':device,'route':route,'width':width,'height':page.evaluate('document.body.scrollHeight'),'jsErrors':errors})
+                page.close()
+              ctx.close()
+            browser.close()
+          Path('qa-dinheiro/resultado.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+          print('PASSOU',report)
+          PY
+      - name: Guardar fotografias e resultados
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-dinheiro-pagina-integral
+          path: qa-dinheiro/
+          if-no-files-found: warn
+          retention-days: 14
