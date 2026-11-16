@@ -24,9 +24,6 @@ const GRUPOS: { key: string; label: string; get: (p: FefcPartido) => FefcGrupo }
   { key: "AMARELA", label: "Amarelas e amarelos", get: (p) => p.raca["AMARELA"] ?? ZERO },
 ];
 
-/** Pisos constitucionais: mulheres (EC 117/2022) e pretas e pardos somados (EC 133/2024). */
-const PISO: Record<string, number> = { mulheres: 30, soma: 30 };
-
 function Cell({ g, p, k }: { g: FefcGrupo; p: FefcPartido; k: string }) {
   if (p.candidaturas < SMALL || p.comFefc < SMALL) {
     return (
@@ -38,15 +35,11 @@ function Cell({ g, p, k }: { g: FefcGrupo; p: FefcPartido; k: string }) {
   const cand = (g.candidaturas / p.candidaturas) * 100;
   const fundo = p.fefc > 0 ? (g.fefc / p.fefc) * 100 : 0;
   const diff = fundo - cand;
-  const piso = PISO[k];
-  const abaixoDoPiso = piso !== undefined && fundo < piso;
   return (
     <span className="block font-mono text-[13px] leading-tight">
       <span className="text-muted-foreground">{formatPct(cand)}</span>
       <span className="text-muted-foreground"> → </span>
-      <span className={abaixoDoPiso ? "border-b-2 border-coral font-semibold text-ink" : "text-ink"}>
-        {formatPct(fundo)}
-      </span>
+      <span className="font-semibold text-ink">{formatPct(fundo)}</span>
       <span className="block text-muted-foreground">
         {diff >= 0 ? "+" : "−"}
         {formatDecimal(Math.abs(diff))} p.p.
@@ -65,10 +58,10 @@ export function FefcPartidos() {
         <>
           Cada célula: fatia do grupo entre as candidaturas do partido → fatia do grupo no FEFC
           recebido pelas candidaturas do partido, e a diferença em pontos percentuais. Fundo em
-          laranja: abaixo de 30% nas candidaturas a deputado, a referência dos pisos constitucionais
-          para mulheres (EC 117/2022) e para candidaturas pretas e pardas somadas (EC 133/2024). O
-          piso vale para o total do partido em todos os cargos, por isso o laranja marca o que merece
-          apuração. Partidos com menos de 20 candidaturas, ou com fundo em menos de
+          apresentado neste quadro, sem sinalização de infração. O piso constitucional de financiamento
+          exige exame do conjunto dos recursos partidários e das campanhas abrangidas pelas normas,
+          inclusive disputas majoritárias; percentuais inferiores a 30% neste recorte proporcional
+          não demonstram, por si, descumprimento. Partidos com menos de 20 candidaturas, ou com fundo em menos de
           20 delas, mostram só o número absoluto de candidaturas do grupo: ali uma única campanha
           muda o percentual inteiro. Ordem pelo total de FEFC, sem classificar mérito.
           {FEFC_PARTIDOS_SEM_FUNDO.length > 0
@@ -87,7 +80,7 @@ export function FefcPartidos() {
         fonte:
           "TSE, Prestação de Contas Eleitorais 2026 (receitas, fonte Fundo Especial) e Candidatos 2026",
         limitacao:
-          "O piso de 30% vale para o total que cada partido distribui, somando todos os cargos; esta tabela mostra só as candidaturas a deputado, onde não há vice nem suplente. Nas chapas de governo e Senado, partidos e procuradorias eleitorais divergem sobre contar o dinheiro de chapas com vice ou suplente mulher. Mede o fundo que chegou às candidaturas, na declarações disponíveis até a geração da base (195 candidaturas com prestação parcial e 102 com relatório financeiro). Por isso a tabela descreve a distribuição e não verifica cumprimento da lei. A soma pretas e pardos segue o critério legal de candidaturas negras e aparece ao lado das categorias separadas.",
+          "O piso de financiamento incide sobre o universo partidário pertinente, que também abrange disputas majoritárias; esta tabela restringe-se a candidaturas a deputado. A atribuição de recursos às chapas majoritárias exige exame próprio da prestação de contas, da legislação e das decisões aplicáveis. A tabela contabiliza o FEFC declarado recebido até a geração da base, sujeita a retificações e julgamento, sem demonstrar cumprimento ou infração legal. Pretas e pardas são somadas apenas no campo identificado como candidaturas negras, preservando as categorias separadas nas demais colunas.",
       }}
     >
       <p className="mb-3 text-[13px] leading-relaxed text-muted-foreground md:hidden">
