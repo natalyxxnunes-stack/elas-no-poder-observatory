@@ -76,3 +76,15 @@ O gráfico é preferível à fotografia quando a pergunta trata de **proporção
 Testes automatizados de build, URLs, imagens e largura não substituem: revisão humana de captura integral, leitura em tamanho real da legenda, conferência de destino dos documentos, atribuição/licença da fotografia, navegação por teclado, semântica dos gráficos, contraste e auditoria de acessibilidade. Para publicação, registrar data de corte de cada base e situação do contraditório nas reportagens que nomeiam parlamentares.
 
 **Estado:** PR #25 é prévia. Nada nesta matriz constitui autorização para incorporar à main, substituir arquivos originais ou publicar imagens com direitos pendentes.
+
+---
+
+### Correção factual transversal — Senado projetado para 2027 (16/11/2026)
+
+**Achado na inspeção visual:** a manchete do Relatório 2026 e o gráfico de Senado já projetavam **29 das 81 cadeiras para o PL**, enquanto o texto de `quem-chega.tsx` ainda indicava **28**. A base local `src/data/senado-2027.ts` já registra Luís Felipe Cunha (PL), primeiro suplente de Sergio Moro, e Alex Diniz (PL), primeiro suplente de Cleitinho. A edição da rota ficou defasada em relação à própria base.
+
+**Fonte institucional conferida:** Agência Senado, 25/10/2026, “Fim da eleição define composição do Senado em 2027, com 13 partidos” — https://www12.senado.leg.br/noticias/materias/2026/10/25/fim-da-eleicao-define-composicao-do-senado-em-2027-com-13-partidos . A Agência Senado projeta **29 cadeiras do PL** e identifica Luís Felipe Cunha como suplente do Paraná pelo PL e Alex Diniz em Minas. A filiação de Luís Felipe Cunha ao PL em **08/10/2026** está documentada também em https://www.cnnbrasil.com.br/eleicoes/senador-que-ocupara-cadeira-deixada-por-moro-se-filia-ao-pl/ . Número **projetado**, não fotografia de cadeiras já ocupadas em 2027.
+
+**Ajuste feito na branch de prévia:** texto de `src/routes/quem-chega.tsx` reconciliado em **29 de 81**, com observação da correção, link oficial e a contagem de 19 eleitos em 2026 + 10 dos mandatos que se estendem a 2031. A ficha metodológica do gráfico em `src/components/editorial/Senado2027.tsx` passou a citar expressamente a Agência Senado e o uso da confirmação de partido do suplente, suprindo a lacuna da API. A estrutura da base e seus números **não foram alterados**. Incluído teste para evitar regressão do “29 das 81”. A informação segue sujeita a mudanças de filiação, judicialização ou substituições antes da posse.
+
+**Lição da auditoria:** comparar manchetes, textos, gráficos e referências de data entre páginas é parte da verificação jornalística de um produto visual. Build e capturas não detectam inconsistências desse tipo sem conferência de conteúdo.
