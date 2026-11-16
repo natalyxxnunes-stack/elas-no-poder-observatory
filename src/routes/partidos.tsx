@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { FOTOS } from "@/data/fotos";
+import { PILOT_CORAL } from "@/lib/editorial-pilot-colors";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { GapNote } from "@/components/GapNote";
@@ -728,28 +729,28 @@ function PartidosPage() {
         { label: "Partido por partido" },
       ]}
     >
-      <header className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-ink)] text-cream">
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-coral-ink text-white" style={{ backgroundColor: PILOT_CORAL }}>
         <div className="mx-auto grid max-w-7xl gap-9 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[1.15fr_.85fr] lg:gap-16">
           <div>
-            <p className="font-display text-xl italic text-[var(--art-gold)]">Partido por partido</p>
-            <h1 className="mt-5 max-w-3xl text-balance font-display text-[clamp(2rem,4.6vw,4.15rem)] font-semibold leading-[1.06] text-cream">
+            <p className="font-display text-xl italic text-white/90">Partido por partido</p>
+            <h1 className="mt-5 max-w-3xl text-balance font-display text-[clamp(2.25rem,5vw,4.6rem)] font-semibold leading-[1.06] text-white">
               {M_PL_PRETAS.texto}
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-cream/85 md:text-lg">
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/90 md:text-lg">
               A lei estabelece pisos. Os partidos decidem candidaturas e distribuem
               recursos segundo regras próprias. Comparamos eleitas, financiamento
               declarado e votos efetivamente registrados pelas bancadas, sem
               confundir a eleição de 2026 com votações ocorridas em 2023–2025.
             </p>
           </div>
-          <aside aria-label="Universo da investigação" className="self-end border-t border-cream/40 pt-5 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
-            <p className="font-mono text-[12px] uppercase tracking-wide text-cream/75">Eleições 2026 · TSE</p>
-            <p className="mt-4 font-display text-[clamp(3rem,6vw,5rem)] leading-none text-cream">{n(RESULT_2026_PARTIDOS.feminine)}</p>
-            <p className="mt-2 max-w-sm text-sm leading-relaxed text-cream/85">
+          <aside aria-label="Universo da investigação" className="self-end bg-[var(--art-ink)] px-6 py-7 text-[var(--art-cream)] md:px-8 md:py-9">
+            <p className="font-mono text-[12px] uppercase tracking-wide text-[var(--art-cream)]/80">Eleições 2026 · TSE</p>
+            <p className="mt-4 font-display text-[clamp(3rem,6vw,5rem)] leading-none text-[var(--art-gold)]">{n(RESULT_2026_PARTIDOS.feminine)}</p>
+            <p className="mt-2 max-w-sm text-sm leading-relaxed text-[var(--art-cream)]">
               deputadas federais, estaduais e distritais eleitas entre
               {" "}{n(RESULT_2026_PARTIDOS.seats)} cadeiras.
             </p>
-            <p className="mt-5 border-t border-cream/30 pt-4 font-mono text-[12px] leading-relaxed text-cream/70">
+            <p className="mt-5 border-t border-[var(--art-cream)]/30 pt-4 font-mono text-[12px] leading-relaxed text-[var(--art-cream)]/85">
               Resultado: base TSE de {RESULT_2026_META.baseGeneratedAt}. Financiamento e votação
               usam outras fontes e datas, indicadas em cada capítulo.
             </p>
@@ -783,13 +784,31 @@ function PartidosPage() {
         id="eleitas"
         kicker="Eleitas"
         question="Quantas mulheres cada partido elegeu, e quem são elas"
+        tone="ink"
         align="wide"
       >
-        <EleitasTable />
+        <div className="bg-paper p-4 text-ink md:p-7">
+          <EleitasTable />
+        </div>
       </SectionBlock>
+      
+      <section aria-label="Como interpretar as comparações" className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-violet)] text-white">
+        <div className="mx-auto grid max-w-7xl items-center gap-5 px-5 py-8 md:grid-cols-[.25fr_.75fr] md:gap-8 md:px-8 md:py-11">
+          <p className="font-display text-7xl leading-none text-[var(--art-gold)]" aria-hidden="true">04</p>
+          <div>
+            <h2 className="font-display text-2xl leading-tight text-white md:text-3xl">Quatro recortes. Quatro perguntas diferentes.</h2>
+            <p className="mt-3 max-w-3xl text-base leading-relaxed text-white/90">
+              Cadeiras conquistadas, candidaturas registradas, recursos recebidos e votos de bancada
+              têm períodos e universos próprios. As tabelas se complementam, mas não permitem
+              reconstituir sozinhas a trajetória de uma candidata.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <SectionBlock
         id="lanca-elege"
+        tone="butter"
         kicker="Quem o partido lança e quem ele elege"
         question="Dentro do mesmo partido, quem se elege: a taxa por gênero e cor/raça"
         align="wide"
@@ -801,7 +820,6 @@ function PartidosPage() {
 
       <SectionBlock
         id="fundo"
-        tone="butter"
         kicker="Dinheiro"
         question="Os critérios que os partidos publicaram e o fundo que chegou às candidaturas"
         align="wide"
