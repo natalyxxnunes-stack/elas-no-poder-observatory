@@ -24,7 +24,7 @@ const paginaFederacao = {
   leitura: "O texto distingue a competência de cada partido associado para fixar seus critérios e determina a observância dos pisos para candidaturas de mulheres, pessoas negras e indígenas. Não deve ser descrito como a regra exclusiva do PT.",
 };
 
-function DocumentoReproduzido({ item }: { item: typeof paginaUniao }) {
+function DocumentoReproduzido({ item }: { item: { src: string; href: string; alt: string; rotulo: string; local: string; leitura: string } }) {
   return (
     <figure className="min-w-0 border-t-[5px] border-[var(--art-gold)] bg-paper p-4 text-ink md:p-6">
       <p className="font-mono text-[12px] font-semibold uppercase tracking-wide text-plum">
