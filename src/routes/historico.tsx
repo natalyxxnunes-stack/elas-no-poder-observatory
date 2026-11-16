@@ -258,7 +258,7 @@ function HistoricoPage() {
         <section aria-label="Contraste histórico das candidaturas proporcionais" className="relative left-1/2 -ml-[50vw] w-screen bg-coral-ink text-white" style={{ backgroundColor: PILOT_CORAL }}>
           <div className="mx-auto grid max-w-7xl gap-6 px-5 py-10 md:grid-cols-[.9fr_1.1fr] md:px-8 md:py-14">
             <div>
-              <p className="font-mono text-xs font-semibold uppercase tracking-wide text-white/85">Uma série · dois pontos</p>
+              <p className="font-mono text-xs font-semibold uppercase tracking-wide text-white">Uma série · dois pontos</p>
               <h2 className="mt-3 max-w-lg font-display text-3xl leading-tight text-white md:text-4xl">
                 A presença cresceu nas listas. A distribuição das cadeiras pede outra conta.
               </h2>
@@ -266,13 +266,13 @@ function HistoricoPage() {
             <div className="grid grid-cols-2 gap-5 self-end border-t border-white/40 pt-5">
               <div>
                 <p className="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-none text-white">{formatPct(firstProp.value)}</p>
-                <p className="mt-3 font-mono text-sm text-white/90">2014 · candidaturas proporcionais de mulheres</p>
+                <p className="mt-3 font-mono text-sm text-white">2014 · candidaturas proporcionais de mulheres</p>
               </div>
               <div>
                 <p className="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-none text-white">{formatPct(lastProp.value)}</p>
-                <p className="mt-3 font-mono text-sm text-white/90">2026 · mesmo universo, outra eleição</p>
+                <p className="mt-3 font-mono text-sm text-white">2026 · mesmo universo, outra eleição</p>
               </div>
-              <p className="col-span-2 border-t border-white/30 pt-3 text-sm leading-relaxed text-white/85">
+              <p className="col-span-2 border-t border-white/30 pt-3 text-sm leading-relaxed text-white">
                 Cada percentual divide mulheres candidatas pelo total de candidaturas do seu ano.
                 Não informa a taxa de eleição dessas pessoas nem a causa da mudança.
               </p>
