@@ -78,7 +78,7 @@ jobs:
                       if name=='dados':
                           assert page.locator('main a[href="/comparar"]').count()>0
                       if name in ('comparar','relatorio','dados'):
-                          samples=page.locator('main section').evaluate_all("""(els) => {
+                          samples=page.locator('main section, main section > div').evaluate_all("""(els) => {
                             const canvas=document.createElement('canvas'); canvas.width=1; canvas.height=1;
                             const ctx=canvas.getContext('2d',{willReadFrequently:true});
                             const sample=(color) => {
