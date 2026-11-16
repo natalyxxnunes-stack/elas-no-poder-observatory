@@ -165,7 +165,7 @@ function HistoricoPage() {
           </div>
           <figure className="min-w-0">
             <img src="/fotos/local-votacao-2026-agencia-senado.jpg"
-              alt="Eleitoras caminhando junto ao painel de informações de um local de votação em Brasília no primeiro turno de 2026."
+              alt="Duas pessoas caminham junto ao painel de informações de um local de votação em Brasília no primeiro turno de 2026."
               loading="lazy" className="block aspect-[3/2] w-full object-cover" />
             <figcaption className="mt-3 text-[13px] leading-relaxed text-paper">
               Local de votação no UniCEUB Asa Norte, Brasília, 4 de outubro de 2026. Foto: Saulo Cruz/Agência Senado. Licença CC BY-SA 4.0. Não é registro dos pleitos de 2014, 2018 ou 2022.{" "}
@@ -267,7 +267,7 @@ function HistoricoPage() {
           <SeriesChart series={byId("serie-mulheres-negras-sobre-total")} mobileSelectable />
           <SeriesChart series={byId("serie-mulheres-negras-entre-mulheres")} mobileSelectable />
         </div>
-        <div className="mt-6">
+        <div className="mt-6 bg-paper p-4 text-ink md:p-6">
           <ContextBox variant="importa" title="Por que separar por cor muda a leitura">
             <p>
               Um mesmo aumento de candidaturas femininas pode se concentrar em um
