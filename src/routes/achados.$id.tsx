@@ -96,7 +96,7 @@ function AchadoPage() {
             >
               {a.linkLabel} →
             </Link>
-            <Link to="/metodo" className="inline-flex min-h-11 items-center py-2 text-[15px] font-semibold text-plum">
+            <Link to="/metodo" className="block min-h-11 py-2 text-[15px] font-semibold text-plum">
               Como contamos: o método →
             </Link>
           </div>
