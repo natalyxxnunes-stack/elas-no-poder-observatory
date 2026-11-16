@@ -93,7 +93,7 @@ jobs:
                       errors.append('Coral de fundo divergente da identidade de revista')
                     if co:
                       import re
-                      channels=[int(v) for v in re.findall(r'\\d+',co['fg'])[:3]]
+                      channels=[int(v.strip()) for v in co['fg'].replace('rgb(', '').replace(')', '').split(',') if v.strip().isdigit()]
                       if len(channels)<3 or min(channels)<185:
                         errors.append('Texto sobre coral não é claro: '+str(co['fg']))
                   if name=='na-voz-delas':
