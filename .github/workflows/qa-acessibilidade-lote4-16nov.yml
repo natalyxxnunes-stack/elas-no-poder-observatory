@@ -128,6 +128,78 @@ jobs:
           assert not hard,'Falha estrutural, JS ou largura nas páginas: ver diagnostico.json'
           assert not violations,'Axe detectou violações WCAG nas páginas: ver diagnostico.json'
           PY
+      - name: Verificar as navegacoes e controles dos seis modelos
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-lote4-interacoes-http.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 2
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          records=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for dev,w,h in [('desktop',1440,900),('celular',390,844)]:
+              ctx=browser.new_context(viewport={'width':w,'height':h})
+              page=ctx.new_page()
+              try:
+                for slug in ('lelia-gonzalez','pagu'):
+                  page.goto(f'http://127.0.0.1:4173/pioneiras/{slug}',wait_until='domcontentloaded')
+                  links=page.locator('nav[aria-label="Neste perfil"] a[href^="#"]')
+                  assert links.count()>=3, f'Índice do perfil {slug} incompleto'
+                  target=links.first.get_attribute('href')
+                  assert target and page.locator(target).count()==1, f'Âncora {target} não existe no perfil {slug}'
+                  links.first.click()
+                  assert page.evaluate('location.hash')==target, f'Âncora inoperante em {slug}'
+                  # Não usar retrato sem direitos verificados.
+                  assert page.locator('main img').count()==0, f'Imagem inesperada no perfil {slug}: conferir licença'
+                  records.append({'dispositivo':dev,'controle':f'indice-e-bloqueio-de-foto-{slug}','resultado':'aprovado'})
+                page.goto('http://127.0.0.1:4173/quem-sao-elas',wait_until='domcontentloaded')
+                section=page.locator('section#partidos')
+                details=section.locator('details').first
+                summary=details.locator('summary')
+                summary.wait_for()
+                assert not details.evaluate('(e)=>e.open'),'Explorador de partidos deve iniciar fechado'
+                summary.focus()
+                assert summary.evaluate('(e)=>e===document.activeElement'),'Explorador não recebe foco'
+                page.keyboard.press('Enter')
+                assert details.evaluate('(e)=>e.open'),'Explorador não abre com Enter'
+                page.keyboard.press('Enter')
+                assert not details.evaluate('(e)=>e.open'),'Explorador não fecha com Enter'
+                records.append({'dispositivo':dev,'controle':'explorador-de-candidatas','resultado':'aprovado'})
+                page.goto('http://127.0.0.1:4173/votos',wait_until='domcontentloaded')
+                details=page.locator('section#raca details').first
+                summary=details.locator('summary')
+                summary.wait_for()
+                assert not details.evaluate('(e)=>e.open'),'Tabela estadual deveria iniciar recolhida'
+                summary.focus()
+                page.keyboard.press('Enter')
+                assert details.evaluate('(e)=>e.open'),'Tabela estadual de votos não abre pelo teclado'
+                records.append({'dispositivo':dev,'controle':'tabela-de-votos','resultado':'aprovado'})
+                page.goto('http://127.0.0.1:4173/sobre',wait_until='domcontentloaded')
+                link=page.locator('header a[href="#correcoes"]')
+                assert link.count()==1 and page.locator('#correcoes').count()==1,'Âncora da política de correções sem destino'
+                link.click()
+                assert page.evaluate('location.hash')=='#correcoes','Âncora de correções não navegou'
+                records.append({'dispositivo':dev,'controle':'politica-de-correcoes','resultado':'aprovado'})
+                page.goto('http://127.0.0.1:4173/quem-chega',wait_until='domcontentloaded')
+                assert page.locator('a[href="/eleitas"]').count()>0,'Falta acesso a fichas de eleitas'
+                assert page.locator('#cargos').count()==1,'Seção de cargos não foi identificada'
+                images=page.locator('main img')
+                assert images.count()>0,'Foto contextual de 2026 ausente'
+                assert images.first.evaluate('async(e)=>{try{await e.decode();return e.naturalWidth>0 && Boolean(e.alt)}catch{return false}}'),'Foto de plenário não carrega ou não tem alt'
+                records.append({'dispositivo':dev,'controle':'fichas-e-fotografia-contextual-quem-chega','resultado':'aprovado'})
+              finally:
+                page.close()
+                ctx.close()
+            browser.close()
+          Path('relatorios-a11y-lote4/interacoes.json').write_text(json.dumps(records,ensure_ascii=False,indent=2))
+          print('Interações validadas:',len(records))
+          PY
       - name: Arquivar relatório
         if: always()
         uses: actions/upload-artifact@v4
