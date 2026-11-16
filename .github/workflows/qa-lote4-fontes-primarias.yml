@@ -28,7 +28,9 @@ jobs:
           set -euo pipefail
           git fetch --depth=1 origin main
           test -z "$(git diff --name-only origin/main...HEAD -- public/dados public/fotos public/materiais src/styles.css src/routes/index.tsx src/components/home/CapaEditorialV3.tsx src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
-          test -z "$(git diff --name-only origin/main...HEAD -- src/data | grep -v '^src/data/temas.ts
+          test -z "$(git diff --name-only origin/main...HEAD -- src/data | grep -v '^src/data/temas.ts$' || true)"
+          grep -Fq 'Os critérios formais de distribuição do FEFC estão publicados por partido no TSE' src/data/temas.ts
+          echo 'Homepage, marca e dados numéricos protegidos. Texto editorial de temas.ts conferido.'
       - name: Preparar navegador
         run: python3 -m pip install --quiet --break-system-packages playwright
       - name: Testar páginas e guardar capturas
