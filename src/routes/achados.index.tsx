@@ -22,7 +22,7 @@ export const Route = createFileRoute("/achados/")({
   component: AchadosPage,
 });
 
-const FUNDOS = ["bg-paper text-ink", "bg-ink text-paper", "bg-[var(--art-plum)] text-paper"] as const;
+const FUNDOS = ["bg-ink text-paper", "bg-[var(--art-violet)] text-paper", "bg-paper text-ink"] as const;
 
 function AchadosPage() {
   const ordem = [...ACHADOS].reverse();
@@ -95,14 +95,14 @@ function AchadosPage() {
         >
           <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
             <div className="flex flex-wrap items-end gap-5">
-              <span aria-hidden="true" className={`poster-figure text-5xl md:text-6xl ${i % FUNDOS.length === 0 ? "text-plum/70" : "text-[var(--art-gold)]"}`}>
+              <span aria-hidden="true" className={`poster-figure text-5xl md:text-6xl ${i % FUNDOS.length === 2 ? "text-plum/70" : "text-[var(--art-gold)]"}`}>
                 {String(i + 1).padStart(2, "0")}
               </span>
               <div>
                 <h2 id={`h-${t.id}`} className="font-display text-3xl leading-tight md:text-4xl">
                   {t.titulo}
                 </h2>
-                <p className={`mt-1 text-[15px] ${i % FUNDOS.length === 0 ? "text-ink/75" : "text-paper/85"}`}>{t.linha}</p>
+                <p className={`mt-1 text-[15px] ${i % FUNDOS.length === 2 ? "text-ink/75" : "text-paper"}`}>{t.linha}</p>
               </div>
             </div>
             <div className="mt-8 grid gap-5 md:grid-cols-2">
