@@ -185,6 +185,7 @@ function BarreirasPage() {
 
       <SectionBlock
         id="violencia-politica"
+        tone="ink"
         kicker="Violência política de gênero"
         question="Quantos processos chegaram à Justiça Eleitoral, ano a ano"
         align="wide"
@@ -253,14 +254,14 @@ function BarreirasPage() {
             <ChartScale max={200} unit="processos" />
           </ChartFrame>
         </div>
-        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-6 border-t border-paper/30 pt-4 text-sm leading-relaxed text-paper">
           Classes mais comuns no acervo:{" "}
           {VPG.porClasse.map((c) => `${c.classe.toLowerCase()} (${n(c.processos)})`).join(", ")}.{" "}
           <a
             href={VPG_META.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-plum underline-offset-4"
+            className="underline decoration-paper underline-offset-4"
           >
             Abrir o painel do TSE
           </a>
@@ -270,7 +271,7 @@ function BarreirasPage() {
 
       <SectionBlock
         id="feminicidio"
-        tone="butter"
+        tone="warm"
         kicker="Feminicídio"
         question="O que o Anuário de 2026 registra"
         align="wide"
@@ -322,10 +323,12 @@ function BarreirasPage() {
       </SectionBlock>
 
       <SectionBlock
+        tone="plum"
         kicker="Formas documentadas"
         question="O que investigamos — e o que cada coisa exigiria"
         align="wide"
       >
+        <div className="bg-paper p-5 text-ink md:p-8">
         <ul className="divide-y divide-rule border-y border-rule">
           {BARRIER_FORMS.map((b) => (
             <li key={b.form} className="py-5">
@@ -344,9 +347,11 @@ function BarreirasPage() {
             </li>
           ))}
         </ul>
+        </div>
       </SectionBlock>
 
       <SectionBlock
+        tone="warm"
         kicker="Critérios"
         question="Quando um caso vira dado"
         lead={

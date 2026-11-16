@@ -194,7 +194,7 @@ function HistoricoPage() {
         />
       </div>
 
-      <SectionBlock id="genero"
+      <SectionBlock id="genero" tone="warm"
         kicker="Gênero"
         question="Quantas candidaturas são de mulheres, em cada eleição?"
         align="wide"
@@ -345,7 +345,7 @@ function HistoricoPage() {
 
       <SectionBlock
         id="cargo-uf"
-        tone="butter"
+        tone="warm"
         kicker="Por cargo e por estado"
         question="Em que cargos e em que estados a presença de mulheres mudou"
         align="wide"
@@ -359,6 +359,15 @@ function HistoricoPage() {
       >
         <div className="space-y-6">
           <HistoryByOffice />
+          <div className="grid gap-4 bg-ink px-5 py-7 text-paper md:grid-cols-[.65fr_1fr] md:items-end md:gap-8 md:px-8 md:py-10">
+            <div>
+              <p className="text-[13px] font-semibold text-[var(--art-gold)]">Escala territorial · Câmara dos Deputados</p>
+              <p className="mt-3 font-display text-[clamp(2rem,3.5vw,3.2rem)] leading-tight text-paper">Uma UF, quatro eleições.</p>
+            </div>
+            <p className="max-w-xl text-[15px] leading-relaxed text-paper">
+              O próximo quadro permite escolher o estado e comparar suas cadeiras em 2014, 2018, 2022 e 2026. Cada percentual usa o total de vagas da própria UF. A tabela completa continua disponível para consulta.
+            </p>
+          </div>
           <HistoryByUf />
         </div>
       </SectionBlock>
