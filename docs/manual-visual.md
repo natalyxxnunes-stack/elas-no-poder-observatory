@@ -382,3 +382,18 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 - Pré-registro de indicadores de 2027 em destaque dourado, datado de 04/11/2026 e diferenciado dos resultados da legislatura observada em 2026. Não apresentar critérios a partir de fevereiro de 2027 como dados já coletados.
 
 **Proteções:** valores, fontes, datas, classificação de candidaturas, homepage, logo, CSS global, acervo e arquivos de dados preservados. QA específico em desktop/celular, com fonte fotográfica real, filtros, tabela, acessibilidade de leitura e revisão visual de página completa. Aceite editorial pendente.
+
+## Funil — prévia integral (16/11/2026)
+
+**Estado:** [PR #16](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/pull/16) em rascunho, baseado no PR #15, que depende dos PRs #14, #13 e #12. Sem merge, publicação ou aceite visual final. Seção 14.18 do manual editável de continuidade.
+
+**Questão metodológica central:** o nome histórico da editoria é “Funil”, mas os registros de candidaturas proporcionais, majoritárias e cadeiras preenchidas têm universos **diferentes**. A apresentação não deve simular uma sequência longitudinal de pessoas. Por isso, os quadros perderam sua numeração e ordem aparente de etapas, mantendo percentuais, numeradores e denominadores originais.
+
+**Intervenção em toda a página:**
+- Preservado o roxo da abertura e o gráfico central, com revisão do título do capítulo e das instruções de leitura.
+- Em candidaturas por vaga: fonte documental real dos arquivos **Candidatos 2026** (numerador) e **Vagas 2026** (denominador) do TSE, cada qual com link ao original e seu corte temporal. Não há fotografia genérica para insinuar exclusão.
+- Consulta territorial por unidade eleitoral, com contagens de candidaturas, vagas, candidaturas por vaga e candidaturas de mulheres no território selecionado; tabela integral com ordenação e filtros existentes preservada em expansão. Não usar essa razão como chance individual de eleição.
+- Alternância de planos cromáticos e preservação da comparação histórica e da explicação do quociente eleitoral, sem introduzir hipóteses novas nem alterar dados.
+- Preta e parda continuam distintas; agregação somente explicitada em texto e com denominador correto.
+
+**Restrições:** `main`, homepage, logo, `src/data`, fotos, scripts e CSS global permanecem protegidos. Proposta sujeita ao QA de desktop/celular, inspeção de página inteira e decisão editorial.
