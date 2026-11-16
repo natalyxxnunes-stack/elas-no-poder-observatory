@@ -22,7 +22,7 @@ export const Route = createFileRoute("/achados/")({
   component: AchadosPage,
 });
 
-const FUNDOS = ["bg-paper", "bg-cream", "bg-paper", "bg-muted", "bg-paper"] as const;
+const FUNDOS = ["bg-paper text-ink", "bg-ink text-paper", "bg-[var(--art-plum)] text-paper"] as const;
 
 function AchadosPage() {
   const ordem = [...ACHADOS].reverse();
@@ -39,36 +39,41 @@ function AchadosPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Achados" }]}>
-      <header className="grid gap-8 py-10 md:py-14 lg:grid-cols-[1.4fr_1fr] lg:items-end">
-        <div>
-          <p className="text-[13px] text-plum font-semibold">
-            {ACHADOS.length} achados · atualizado em {formatDateBR(ultima)}
-          </p>
-          <h1 className="mt-4 font-display text-5xl leading-[0.98] text-ink md:text-7xl">O que encontramos</h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink/80">
-            Notas curtas e datadas. Cada uma traz o número, a fonte e o caminho para a página com a conta completa.
-          </p>
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
+        <div className="mx-auto grid max-w-7xl gap-x-14 gap-y-8 px-5 py-11 md:grid-cols-[1.2fr_.8fr] md:items-end md:px-8 md:py-16">
+          <div>
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">
+              {ACHADOS.length} achados · atualizado em {formatDateBR(ultima)}
+            </p>
+            <h1 className="mt-4 font-display text-[clamp(3rem,5.5vw,6rem)] leading-[1.02]">
+              O que encontramos
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-paper/85">
+              Notas curtas e datadas. Cada uma apresenta um número, sua fonte
+              e um caminho para a página com a conta completa.
+            </p>
+          </div>
+          <nav aria-label="Temas dos achados" className="md:pb-1">
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">Navegar pelos achados</p>
+            <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+              {temas.map((t) => (
+                <li key={t.id}>
+                  <a
+                    href={`#tema-${t.id}`}
+                    className="inline-flex min-h-11 items-center border-b border-paper/60 text-sm font-semibold text-paper hover:text-[var(--art-gold)] focus-visible:outline-2"
+                  >
+                    {t.titulo} <span aria-hidden="true" className="ml-2">↓</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
-        <nav aria-label="Temas dos achados">
-          <p className="text-[13px] text-muted-foreground">Ir para o tema</p>
-          <ul className="mt-2 flex flex-wrap gap-2">
-            {temas.map((t) => (
-              <li key={t.id}>
-                <a
-                  href={`#tema-${t.id}`}
-                  className="inline-flex min-h-11 items-center border border-plum/40 bg-paper px-3 text-[15px] text-plum hover:border-plum"
-                >
-                  {t.titulo}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
       </header>
 
-      <section aria-labelledby="mais-recentes" className="relative left-1/2 -ml-[50vw] w-screen bg-cream">
+      <section aria-labelledby="mais-recentes" className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-plum)] text-paper">
         <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
-          <h2 id="mais-recentes" className="border-t-[5px] border-plum pt-3 font-display text-[1.35rem] font-medium italic text-plum md:text-2xl">
+          <h2 id="mais-recentes" className="font-display text-2xl leading-tight text-paper md:text-3xl">
             Mais recentes
           </h2>
           <div className="mt-5 grid gap-5 lg:grid-cols-12">
@@ -89,15 +94,15 @@ function AchadosPage() {
           className={`relative left-1/2 -ml-[50vw] w-screen scroll-mt-16 ${FUNDOS[i % FUNDOS.length]}`}
         >
           <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
-            <div className="flex items-end gap-5 border-t-2 border-ink pt-5">
-              <span aria-hidden="true" className="poster-figure text-5xl text-plum/60 md:text-6xl">
+            <div className="flex flex-wrap items-end gap-5">
+              <span aria-hidden="true" className={`poster-figure text-5xl md:text-6xl ${i % FUNDOS.length === 0 ? "text-plum/70" : "text-[var(--art-gold)]"}`}>
                 {String(i + 1).padStart(2, "0")}
               </span>
               <div>
-                <h2 id={`h-${t.id}`} className="font-display text-3xl leading-tight text-ink md:text-4xl">
+                <h2 id={`h-${t.id}`} className="font-display text-3xl leading-tight md:text-4xl">
                   {t.titulo}
                 </h2>
-                <p className="mt-1 text-[15px] text-ink/75">{t.linha}</p>
+                <p className={`mt-1 text-[15px] ${i % FUNDOS.length === 0 ? "text-ink/75" : "text-paper/85"}`}>{t.linha}</p>
               </div>
             </div>
             <div className="mt-8 grid gap-5 md:grid-cols-2">
