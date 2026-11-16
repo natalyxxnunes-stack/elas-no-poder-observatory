@@ -280,7 +280,7 @@ function HistoricoPage() {
         </section>
       )}
 
-      <SectionBlock id="eleitas"
+      <SectionBlock id="eleitas" tone="ink"
         kicker="Candidatas e eleitas"
         question="Entre candidatar-se e eleger-se, o que muda?"
         align="wide"
@@ -294,6 +294,7 @@ function HistoricoPage() {
         }
         source="Fonte: TSE · Candidatos (DS_SIT_TOT_TURNO). Proporcional: resultado do 1º turno, o único da eleição proporcional. Majoritário: resultado final, com 2º turno onde houve."
       >
+        <div className="bg-paper p-4 text-ink md:p-7">
         {historicalLatest?.elected && (
           <aside className="mb-7 grid gap-5 bg-[var(--art-ink)] px-5 py-7 text-cream md:grid-cols-2 md:px-8"
             aria-label="Dois denominadores da eleição de 2026">
@@ -337,6 +338,7 @@ function HistoricoPage() {
             eleitos, e as senadoras eleitas aparecem como 6 (o Senado registra 7).
             A lacuna é da base publicada e não é preenchida por estimativa.
           </GapNote>
+        </div>
         </div>
       </SectionBlock>
 
