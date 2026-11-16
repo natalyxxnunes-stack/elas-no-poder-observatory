@@ -128,6 +128,61 @@ jobs:
           assert not hard,'Falha estrutural, JS ou largura nas páginas: ver diagnostico.json'
           assert not violations,'Axe detectou violações WCAG nas páginas: ver diagnostico.json'
           PY
+      - name: Verificar teclado, busca e abertura de caderno
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-lote2-interacoes-http.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 2
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          records = []
+          with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True, executable_path='/usr/bin/google-chrome', args=['--no-sandbox','--disable-dev-shm-usage'])
+            for size,w,h in [('desktop',1440,900),('celular',390,844)]:
+              context = browser.new_context(viewport={'width':w,'height':h})
+              page = context.new_page()
+              try:
+                page.goto('http://127.0.0.1:4173/busca',wait_until='networkidle')
+                search = page.locator('form[role="search"] input[type="search"]')
+                assert search.count()==1, 'Input da busca não encontrado'
+                search.fill('igualdade')
+                page.wait_for_function("new URLSearchParams(location.search).get('q') === 'igualdade'")
+                status = page.locator('[aria-live="polite"]').first.inner_text()
+                assert 'resultado' in status.lower(), f'Status de resultado ausente: {status}'
+                assert page.locator('main a[href*="como-votaram"]').count()>0, 'Busca por igualdade não conduziu à fonte relacionada'
+                search.fill('')
+                page.wait_for_function("!new URLSearchParams(location.search).has('q')")
+                records.append({'dispositivo':size,'controle':'busca','resultado':'aprovado','status_apos_busca':status})
+                page.goto('http://127.0.0.1:4173/colecoes/antigenero-no-poder',wait_until='networkidle')
+                detail = page.locator('details').first
+                summary = detail.locator('summary')
+                assert summary.count()==1, 'Caderno sem summary'
+                assert not detail.evaluate('(e)=>e.open'), 'Caderno deveria começar fechado'
+                summary.focus()
+                assert summary.evaluate('(e)=>document.activeElement===e'), 'Summary não recebeu foco'
+                page.keyboard.press('Enter')
+                assert detail.evaluate('(e)=>e.open'), 'Enter não abriu o caderno'
+                page.keyboard.press('Enter')
+                assert not detail.evaluate('(e)=>e.open'), 'Enter não fechou o caderno'
+                records.append({'dispositivo':size,'controle':'caderno-da-colecao','resultado':'aprovado'})
+                page.goto('http://127.0.0.1:4173/achados',wait_until='networkidle')
+                anchors=page.locator('nav[aria-label="Temas dos achados"] a[href^="#tema-"]')
+                assert anchors.count()>0,'Não há âncoras dos achados'
+                first=anchors.first.get_attribute('href').lstrip('#')
+                assert page.locator('[id="'+first+'"]').count()==1,'Âncora do achado sem destino'
+                records.append({'dispositivo':size,'controle':'indice-de-achados','resultado':'aprovado'})
+              finally:
+                page.close()
+                context.close()
+            browser.close()
+          Path('relatorios-a11y-lote2/interacoes.json').write_text(json.dumps(records,ensure_ascii=False,indent=2))
+          print('Interações validadas:',len(records))
+          PY
       - name: Arquivar relatório
         if: always()
         uses: actions/upload-artifact@v4
