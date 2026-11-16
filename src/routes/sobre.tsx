@@ -178,7 +178,7 @@ function SobrePage() {
 
 
       {/* O acervo em números (30/10/2026): respiro visual no meio de texto institucional */}
-      <section aria-label="O acervo em números" className="relative left-1/2 -ml-[50vw] w-screen bg-muted">
+      <section aria-label="O acervo em números" className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-cream)]">
         <dl className="mx-auto grid max-w-7xl gap-8 px-5 py-12 sm:grid-cols-2 md:px-8 md:py-16 lg:grid-cols-4">
           {[
             [formatInt(CHANGE_TO.proporcional.total + CHANGE_TO.majoritario.total), "candidaturas titulares de 2026 recontadas a partir do arquivo do TSE"],
@@ -228,7 +228,7 @@ function SobrePage() {
         </div>
       </SectionBlock>
 
-      <SectionBlock id="por-que"
+      <SectionBlock id="por-que" tone="warm"
         kicker="Por que existe"
         question="Existe uma história inteira entre um número e outro"
         lead={
@@ -323,7 +323,7 @@ function SobrePage() {
         </div>
       </SectionBlock>
 
-      <SectionBlock id="compromisso" tone="lilac"
+      <SectionBlock id="compromisso" tone="warm"
         kicker="O compromisso"
         question="Os princípios editoriais que valem para toda página"
         align="wide"
@@ -345,10 +345,11 @@ function SobrePage() {
         </ul>
       </SectionBlock>
 
-      <SectionBlock id="correcoes"
+      <SectionBlock id="correcoes" tone="ink"
         kicker="Correções e erratas"
         question="Como avisar de um erro e o que acontece depois"
       >
+        <div className="bg-paper p-5 text-ink md:p-8">
         <div className="grid gap-4 md:grid-cols-2">
           <div className="poster-frame p-5 md:p-6">
             <h3 className="font-display text-xl text-ink">Como comunicar</h3>
@@ -390,6 +391,7 @@ function SobrePage() {
             identificada pela data da base, sem apagar o histórico.
           </li>
         </ul>
+        </div>
       </SectionBlock>
 
       <NextAxes ids={["dados-2026", "metodo", "funil"]} />

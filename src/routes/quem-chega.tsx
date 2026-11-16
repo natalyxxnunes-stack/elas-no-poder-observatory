@@ -527,7 +527,7 @@ function QuemChegaPage() {
 
       <SectionBlock
         id="raca"
-        tone="warm"
+        tone="paper"
         kicker="Gênero e cor/raça"
         question="Quais mulheres se elegeram"
         align="wide"
@@ -576,8 +576,10 @@ function QuemChegaPage() {
         </p>
       </SectionBlock>
 
-      <SectionBlock id="estados" kicker="Território" question="Por qual estado elas chegaram à Câmara" align="wide">
-        <UfGrid />
+      <SectionBlock id="estados" tone="plum" kicker="Território" question="Por qual estado elas chegaram à Câmara" align="wide">
+        <div className="bg-paper p-4 text-ink md:p-8">
+          <UfGrid />
+        </div>
       </SectionBlock>
 
       <SectionBlock id="partidos" tone="butter" kicker="Partido" question="Por quais partidos elas chegaram" align="wide">
@@ -586,6 +588,7 @@ function QuemChegaPage() {
 
       <SectionBlock
         id="poder"
+        tone="ink"
         kicker="Camada 2 · poder"
         question="Quem passou a decidir"
         align="wide"
@@ -596,6 +599,7 @@ function QuemChegaPage() {
           </p>
         }
       >
+        <div className="bg-paper p-5 text-ink md:p-8">
         <ul className="grid gap-4 md:grid-cols-2">
           {POWER_LAYERS.map((l) => (
             <li key={l.label} className="editorial-card p-5">
@@ -633,6 +637,7 @@ function QuemChegaPage() {
             Método
           </Link>
         </p>
+        </div>
       </SectionBlock>
 
 

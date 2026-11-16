@@ -198,6 +198,7 @@ function DownloadsPage() {
 
       <SectionBlock
         id="catalogo"
+        tone="warm"
         kicker="Catálogo"
         question="Materiais para baixar e circular"
         align="wide"
@@ -263,6 +264,7 @@ function DownloadsPage() {
       <div className="min-w-0 [overflow-wrap:anywhere]">
       <SectionBlock
         id="dados"
+        tone="ink"
         kicker="Base aberta"
         question="Os dados do observatório, em planilha"
         align="wide"
@@ -276,6 +278,7 @@ function DownloadsPage() {
           </p>
         }
       >
+        <div className="bg-paper p-4 text-ink md:p-8">
         <ul className="min-w-0 divide-y divide-rule border-y border-rule">
           {BASE_PUBLICA.map((b) => (
             <li key={b.arquivo} className="grid min-w-0 gap-3 py-5 md:grid-cols-[minmax(0,1fr)_auto] md:gap-8">
@@ -309,11 +312,12 @@ function DownloadsPage() {
           </Link>
           . Uso livre, com crédito ao Quem são elas? e à data da base.
         </p>
+        </div>
       </SectionBlock>
 
       </div>
 
-      <SectionBlock kicker="Uso" question="Como usar e como creditar">
+      <SectionBlock tone="warm" kicker="Uso" question="Como usar e como creditar">
         <div className="grid gap-4 md:grid-cols-2">
           <ContextBox variant="importa">
             <p>

@@ -352,11 +352,13 @@ function VotosPage() {
         </details>
       </SectionBlock>
 
-      <SectionBlock id="estados" kicker="Território" question="Em quais estados as candidatas receberam mais votos" align="wide">
-        <UfVotes />
+      <SectionBlock id="estados" tone="ink" kicker="Território" question="Em quais estados as candidatas receberam mais votos" align="wide">
+        <div className="bg-paper p-4 text-ink md:p-8">
+          <UfVotes />
+        </div>
       </SectionBlock>
 
-      <SectionBlock kicker="Quatro conceitos" question="O que esta página mede e o que ainda não mede" align="wide">
+      <SectionBlock tone="warm" kicker="Quatro conceitos" question="O que esta página mede e o que ainda não mede" align="wide">
         <ul className="divide-y divide-rule border-y border-rule">
           {CONCEPTS.map((c) => (
             <li key={c.term} className="py-5">
