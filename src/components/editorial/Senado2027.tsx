@@ -31,16 +31,16 @@ export function Senado2027Chart() {
         </>
       }
       note={`Régua de 0 a 30 cadeiras. ${n(mulheres.length)} mulheres em 81 cadeiras. Hoje, em ${SENADO_2027_META.consultaSenado}, o PL tem ${n(SENADO_2027_META.hoje.pl)} cadeiras e o Senado tem ${n(SENADO_2027_META.hoje.mulheres)} mulheres.`}
-      source={`Fonte: TSE, Candidatos 2026 (base de ${SENADO_2027_META.baseTse}), para as 54 vagas de 2026; Senado Federal, Dados Abertos (consulta de ${SENADO_2027_META.consultaSenado}), para os 27 mandatos até 2031.`}
+      source={`Fontes: TSE, Candidatos 2026 (base de ${SENADO_2027_META.baseTse}), para as 54 vagas de 2026; Senado Federal, Dados Abertos (consulta de ${SENADO_2027_META.consultaSenado}), para os mandatos até 2031; Agência Senado, projeção de ${SENADO_2027_META.revisaoProjecao}, para o partido de Luís Felipe Cunha.`}
       ficha={{
         vendo: "A bancada prevista de cada partido no Senado em 2027 e quantas mulheres há nela.",
         contados:
           "As 54 pessoas eleitas em 2026, pelo partido do registro, e as 27 que exercem mandato até 2031, pelo partido atual. Nas cadeiras de Omar Aziz e Sergio Moro, eleitos governadores, entra o 1º suplente.",
         denominador: "As 81 cadeiras do Senado.",
-        data: `Resultado do TSE de 27/10/2026; lista do Senado de ${SENADO_2027_META.consultaSenado}`,
-        fonte: "TSE, Candidatos 2026; Senado Federal, Dados Abertos",
+        data: `Resultado do TSE de 27/10/2026; lista do Senado de ${SENADO_2027_META.consultaSenado}; projeção da Agência Senado de ${SENADO_2027_META.revisaoProjecao}`,
+        fonte: "TSE, Candidatos 2026; Senado Federal, Dados Abertos; Agência Senado, 25/10/2026",
         limitacao:
-          "É uma previsão: senadores podem trocar de partido, e titulares licenciados podem voltar (Ana Paula Lobato e Jussara Lima exercem hoje o mandato como suplentes). A API do Senado não informa o partido do suplente de Sergio Moro.",
+          "É uma previsão: senadores podem trocar de partido e titulares licenciados podem voltar (Ana Paula Lobato e Jussara Lima exercem o mandato como suplentes). Como a API do Senado não informa o partido de Luís Felipe Cunha, suplente de Sergio Moro, sua filiação ao PL em 08/10/2026 foi conferida na projeção da Agência Senado de 25/10/2026.",
       }}
     >
       <div className="space-y-3">
