@@ -1,0 +1,101 @@
+name: QA revista — Monitor página integral
+on:
+  push:
+    branches: [revista-monitor-pagina-integral-16nov2026]
+    paths:
+      - 'src/routes/monitor.tsx'
+      - '.github/workflows/qa-monitor-integral.yml'
+permissions:
+  contents: read
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: {bun-version: latest}
+      - name: Tipos e compilação
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Proteger conteúdo publicado e dados
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin main
+          test -z "$(git diff --name-only origin/main...HEAD -- public/dados public/fotos public/materiais src/data src/styles.css src/routes/index.tsx src/components/home/CapaEditorialV3.tsx src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
+      - name: Preparar navegador
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Verificar interações e fotografar páginas completas
+        run: |
+          set -euo pipefail
+          mkdir -p qa-monitor
+          python3 -m http.server 4173 --directory dist/client > /tmp/site.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          import json
+          dados=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for tipo,w,h in [('desktop',1440,900),('celular',390,844)]:
+              context=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=1)
+              for rota,nome in [('/','home'),('/monitor','monitor')]:
+                page=context.new_page()
+                errors=[]
+                page.on('pageerror',lambda e,arr=errors:arr.append(str(e)))
+                resp=page.goto('http://127.0.0.1:4173'+rota,wait_until='domcontentloaded',timeout=45000)
+                page.wait_for_timeout(500)
+                assert resp and resp.status==200,(tipo,rota,'HTTP')
+                assert not errors,(tipo,rota,'JS',errors)
+                assert page.locator('main h1').count()==1,(tipo,rota,'h1')
+                width=page.evaluate('document.body.scrollWidth')
+                assert width<=w+3,(tipo,rota,'horizontal',width)
+                if nome=='monitor':
+                  main=page.locator('main')
+                  assert main.locator('#consultar-deputada').count()==1
+                  assert main.locator('#pre-registro').count()==1
+                  assert main.locator('a[href*="dadosabertos.camara.leg.br/api/v2/deputados/"]').count()>=1
+                  assert main.locator('img[src="/fotos/plenario-camara-junho-2026.jpg"]').count()==1
+                  assert "não representa o conjunto de votações" in main.inner_text()
+                  assert "04/11/2026" in main.inner_text()
+                  select=main.locator('section[aria-label="Ficha individual da deputada selecionada"] select')
+                  assert select.locator('option').count()>5
+                  primeiro=select.input_value()
+                  select.select_option(index=1)
+                  assert select.input_value()!=primeiro
+                  search=main.locator('input[type="search"]')
+                  search.fill('Nome que não existe xxzzzz')
+                  assert "Nenhuma deputada corresponde" in main.inner_text()
+                  search.fill('')
+                  main.locator('summary').filter(has_text='Abrir tabela integral de registros').click()
+                  assert main.locator('table tbody tr').count()>0
+                  foto=main.locator('img[src="/fotos/plenario-camara-junho-2026.jpg"]')
+                  foto.scroll_into_view_if_needed()
+                  page.wait_for_function('() => {const x=document.querySelector("img[src=\'/fotos/plenario-camara-junho-2026.jpg\']");return !!x && x.complete && x.naturalWidth>0}',timeout=10000)
+                  page.reload(wait_until='domcontentloaded')
+                  page.locator('img[src="/fotos/plenario-camara-junho-2026.jpg"]').scroll_into_view_if_needed()
+                  page.wait_for_function('() => {const x=document.querySelector("img[src=\'/fotos/plenario-camara-junho-2026.jpg\']");return !!x && x.complete && x.naturalWidth>0}',timeout=10000)
+                page.evaluate('window.scrollTo(0,0)')
+                page.screenshot(path=f'qa-monitor/{tipo}-{nome}-abertura.jpg',type='jpeg',quality=83)
+                page.screenshot(path=f'qa-monitor/{tipo}-{nome}-completa.jpg',type='jpeg',quality=70,full_page=True)
+                dados.append({'tipo':tipo,'rota':rota,'height':page.evaluate('document.body.scrollHeight'),'width':width,'errors':errors})
+                page.close()
+              context.close()
+            browser.close()
+          Path('qa-monitor/resultado.json').write_text(json.dumps(dados,ensure_ascii=False,indent=2)+'\n')
+          print('PASSOU',dados)
+          PY
+      - name: Guardar evidências
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-monitor-pagina-integral
+          path: qa-monitor/
+          if-no-files-found: warn
+          retention-days: 14
