@@ -97,11 +97,11 @@ function ColecaoPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Reportagens", to: "/reportagens" }, { label: titulo }]}>
-      <Faixa fundo="bg-ink text-ink">
+      <Faixa fundo="bg-ink text-paper">
         <div className="grid gap-9 py-12 md:grid-cols-[1.1fr_.9fr] md:items-center md:gap-12 md:py-16">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-[var(--art-gold)]">Coleção · Investigações e dados</p>
-            <h1 className="mt-4 max-w-2xl font-display text-[clamp(2.6rem,5vw,4.8rem)] font-semibold leading-[1.04] text-ink">
+            <h1 className="mt-4 max-w-2xl font-display text-[clamp(2.6rem,5vw,4.8rem)] font-semibold leading-[1.04] text-paper">
               {titulo}
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-paper/85">
@@ -109,7 +109,7 @@ function ColecaoPage() {
               norma do Conanda. {n(voltaram)} terão mandato em 2027.
             </p>
             <a href="#evidencias-colecao"
-              className="mt-5 inline-flex min-h-11 items-center font-semibold text-ink underline underline-offset-4">
+              className="mt-5 inline-flex min-h-11 items-center font-semibold text-paper underline underline-offset-4">
               Consultar as evidências ↘
             </a>
           </div>
@@ -119,7 +119,7 @@ function ColecaoPage() {
               O recorte parte de registros nominais da Câmara dos Deputados.
               A identificação da proposição não substitui o voto individual.
             </p>
-            <dl className="mt-6 divide-y divide-paper/25 border-y border-paper/25">
+            <dl className="mt-6 divide-y divide-ink/25 border-y border-ink/25">
               {ANTIGENERO_VOTACOES.map((x) => (
                 <div key={x.votacao.id} className="py-4">
                   <dt className="text-xs uppercase tracking-wide text-plum">{x.votacao.proposicao}</dt>
@@ -127,7 +127,7 @@ function ColecaoPage() {
                 </div>
               ))}
             </dl>
-            <Link to="/como-votaram" className="mt-5 inline-flex min-h-11 items-center font-semibold text-paper underline underline-offset-4">
+            <Link to="/como-votaram" className="mt-5 inline-flex min-h-11 items-center font-semibold text-ink underline underline-offset-4">
               Ver votos e contexto ↗
             </Link>
           </aside>
