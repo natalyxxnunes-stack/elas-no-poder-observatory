@@ -193,6 +193,33 @@ jobs:
                   assert 'Histórico de correções' in info['body'],(route,device,'correction history')
                 if route=='/reportagens/':
                   assert info['headings'][0]=='Reportagens',(route,device,'compact magazine header')
+                  contraste_coral=page.evaluate('''() => {
+                    const article=document.querySelector('article[class*="bg-[var(--art-coral)]"]');
+                    if (!article) return {erro:'bloco coral ausente'};
+                    const bg=getComputedStyle(article).backgroundColor;
+                    const canvas=document.createElement('canvas');canvas.width=1;canvas.height=1;
+                    const ctx=canvas.getContext('2d',{willReadFrequently:true});
+                    const pixel=(cor,anterior)=>{
+                      ctx.clearRect(0,0,1,1);
+                      ctx.fillStyle=bg;ctx.fillRect(0,0,1,1);
+                      if(cor!==bg){ctx.fillStyle=cor;ctx.fillRect(0,0,1,1)}
+                      return [...ctx.getImageData(0,0,1,1).data].slice(0,3);
+                    };
+                    const luminancia=rgb=>rgb.reduce((total,val,i)=>{
+                      let c=val/255;c=c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4);
+                      return total+c*[0.2126,0.7152,0.0722][i];
+                    },0);
+                    const base=luminancia(pixel(bg));
+                    const items=[...article.querySelectorAll('p,h2,a')].map(el=>{
+                      const c=getComputedStyle(el).color;
+                      const fore=luminancia(pixel(c));
+                      return {tag:el.tagName,text:el.textContent.trim().slice(0,36),razao:(Math.max(base,fore)+0.05)/(Math.min(base,fore)+0.05)};
+                    });
+                    return {fundo:bg,items};
+                  }''')
+                  assert contraste_coral.get('items'),(route,device,'coral contrast extraction',contraste_coral)
+                  assert all(z['razao']>=4.5 for z in contraste_coral['items']),(route,device,'AA contrast on all coral text',contraste_coral)
+
                   assert page.locator('section[aria-labelledby="reportagem-destaque"] > article').count()==1,(route,device,'fullwidth editorial headline')
                   assert page.locator('section[aria-labelledby="reportagem-destaque"] > div').count()==1,(route,device,'fullwidth documentary figure')
                   assert page.locator('article[class*="bg-[var(--art-coral)]"]').count()>=1,(route,device,'coral editorial treatment')
