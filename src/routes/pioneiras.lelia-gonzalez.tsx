@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Registro } from "@/components/editorial/Registro";
 import { PageShell } from "@/components/PageShell";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
+import { CadernoDeFontes } from "@/components/editorial/CadernoDocumentalRevista";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { FichaGrafico } from "@/components/editorial/ChartFrame";
 import { Conferencia, FichaVotacao, Lide, LinhaDoTempo, PerfilHero, PerfilNav, PerfilSumario } from "@/components/editorial/Pioneiras";
@@ -92,6 +93,19 @@ function LeliaPage() {
           { id: "reputacao", rotulo: "O que o documento mostra" },
         ]}
       />
+
+
+      <section className="relative left-1/2 -ml-[50vw] w-screen bg-plum text-paper">
+        <div className="mx-auto grid max-w-7xl gap-7 px-5 py-10 md:grid-cols-[1fr_1fr] md:px-8 md:py-14">
+          <div>
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">Arquivo eleitoral · Rio de Janeiro</p>
+            <h2 className="mt-3 font-display text-2xl leading-tight md:text-3xl">Duas eleições, dois cargos diferentes.</h2>
+          </div>
+          <p className="text-[15px] leading-relaxed text-paper/85">
+            As candidaturas de 1982 e 1986 aparecem em arquivos históricos do TSE. As bases não registram gênero nem cor/raça; a conferência dos campos e das grafias do nome é parte da investigação.
+          </p>
+        </div>
+      </section>
 
       <SectionBlock id="quem-foi" kicker="Quem foi" question="De Belo Horizonte à Constituinte">
         <Lide>
@@ -280,7 +294,7 @@ function LeliaPage() {
 
       <SectionBlock
         id="reputacao"
-        tone="lilac"
+        tone="warm"
         kicker="O que se sabe e o que é reputação"
         question="O que circula sobre Lélia, e o que o documento mostra"
       >
@@ -312,6 +326,17 @@ function LeliaPage() {
           ]}
         />
       </SectionBlock>
+
+
+      <CadernoDeFontes
+        editoria="Fontes primárias · O registro de Lélia"
+        titulo="O arquivo corrige uma biografia repetida."
+        nota="Em 1986, o registro consultado aponta a disputa por vaga de deputada estadual, não federal. A conta e a diferença de grafia são apresentadas no perfil, com identificação dos arquivos originais e suas limitações."
+        documentos={[
+          { rotulo: "TSE · Eleições 1982", titulo: "Resultados 1982", url: "https://dadosabertos.tse.jus.br/dataset/resultados-1982", descricao: "Votação nominal no Rio de Janeiro; conferir o cargo e a grafia registrada." },
+          { rotulo: "TSE · Eleições 1986", titulo: "Resultados 1986", url: "https://dadosabertos.tse.jus.br/dataset/resultados-1986", descricao: "Arquivo histórico que identifica a candidatura de Lélia ao cargo de deputada estadual." },
+        ]}
+      />
 
       <PerfilNav atual="lelia-gonzalez" />
 

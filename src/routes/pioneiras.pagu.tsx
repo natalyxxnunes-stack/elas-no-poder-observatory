@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Registro } from "@/components/editorial/Registro";
 import { PageShell } from "@/components/PageShell";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
+import { CadernoDeFontes } from "@/components/editorial/CadernoDocumentalRevista";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { FichaGrafico } from "@/components/editorial/ChartFrame";
 import {
@@ -84,6 +85,19 @@ function PaguPage() {
           { id: "reputacao", rotulo: "O que o documento mostra" },
         ]}
       />
+
+
+      <section className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
+        <div className="mx-auto grid max-w-7xl gap-7 px-5 py-10 md:grid-cols-[1fr_1fr] md:px-8 md:py-14">
+          <div>
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">Arquivo eleitoral · São Paulo · 1950</p>
+            <h2 className="mt-3 font-display text-2xl leading-tight md:text-3xl">O registro é anterior às categorias de hoje.</h2>
+          </div>
+          <p className="text-[15px] leading-relaxed text-paper/85">
+            A fonte histórica registra a votação nominal de Pagu, mas não classifica por gênero as candidaturas. Por isso o levantamento identifica um mínimo verificável de mulheres, e as lacunas permanecem explicitadas.
+          </p>
+        </div>
+      </section>
 
       <SectionBlock id="quem-foi" kicker="Quem foi" question="Da antropofagia à Assembleia">
         <Lide>
@@ -261,7 +275,7 @@ function PaguPage() {
 
       <SectionBlock
         id="reputacao"
-        tone="lilac"
+        tone="warm"
         kicker="O que se sabe e o que é reputação"
         question="O que circula sobre Pagu, e o que o documento mostra"
       >
@@ -294,6 +308,17 @@ function PaguPage() {
           ]}
         />
       </SectionBlock>
+
+
+      <CadernoDeFontes
+        editoria="Arquivo histórico · Candidatura de Patrícia Galvão"
+        titulo="O registro de 1950, candidato por candidato."
+        nota="A identificação de mulheres no arquivo exige apuração nominal, porque o campo de gênero não existia nessa série. A ficha tipográfica do perfil é uma reconstrução informativa de campos públicos, não uma imagem do documento original."
+        documentos={[
+          { rotulo: "TSE · Eleições 1950", titulo: "Resultados 1950", url: "https://dadosabertos.tse.jus.br/dataset/resultados-1950", descricao: "Arquivo da votação nominal paulista usado na recontagem de candidaturas e votos." },
+          { rotulo: "Quem são elas? · Método", titulo: "Critérios e limites de recontagem", url: "/metodo", descricao: "Registros ambíguos não foram classificados como mulheres sem evidências adicionais." },
+        ]}
+      />
 
       <PerfilNav atual="pagu" />
 
