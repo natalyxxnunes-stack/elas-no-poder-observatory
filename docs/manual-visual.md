@@ -397,3 +397,7 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 - Preta e parda continuam distintas; agregação somente explicitada em texto e com denominador correto.
 
 **Restrições:** `main`, homepage, logo, `src/data`, fotos, scripts e CSS global permanecem protegidos. Proposta sujeita ao QA de desktop/celular, inspeção de página inteira e decisão editorial.
+
+**QA integral do Funil confirmado:** [execução #43804651700](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43804651700) concluída com sucesso. Tipos, compilação, proteção de arquivos, fontes oficiais Candidatos/Vagas, navegação, seleção de UF, tabela completa e dezena de testes em dois tamanhos; capturas de homepage e Funil inteiros em 1440 px e 390 px. Sem transbordamento horizontal ou erro JS. Altura da versão móvel da página: aproximadamente 11,5 mil px, ainda exigindo avaliação editorial do percurso de leitura. Artefato `qse-funil-pagina-integral`. Nenhum aceite de direção de arte foi inferido do QA.
+
+**QA integral do Monitor confirmado:** [execução #43804158199](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43804158199), concluída com sucesso. A ficha individual, filtros, tabela integral expansível, foto contextualizada e pré-registro foram verificados no desktop e no celular. O comprimento móvel padrão diminuiu para aproximadamente 6,6 mil px com a tabela disponível em segundo nível. Artefato `qse-monitor-pagina-integral`, ainda sem aprovação editorial.
