@@ -260,6 +260,7 @@ function DownloadsPage() {
         </ul>
       </SectionBlock>
 
+      <div className="min-w-0 [overflow-wrap:anywhere]">
       <SectionBlock
         id="dados"
         kicker="Base aberta"
@@ -275,7 +276,7 @@ function DownloadsPage() {
           </p>
         }
       >
-        <ul className="divide-y divide-rule border-y border-rule">
+        <ul className="min-w-0 divide-y divide-rule border-y border-rule">
           {BASE_PUBLICA.map((b) => (
             <li key={b.arquivo} className="grid min-w-0 gap-3 py-5 md:grid-cols-[minmax(0,1fr)_auto] md:gap-8">
               <div className="min-w-0">
@@ -309,6 +310,8 @@ function DownloadsPage() {
           . Uso livre, com crédito ao Quem são elas? e à data da base.
         </p>
       </SectionBlock>
+
+      </div>
 
       <SectionBlock kicker="Uso" question="Como usar e como creditar">
         <div className="grid gap-4 md:grid-cols-2">
