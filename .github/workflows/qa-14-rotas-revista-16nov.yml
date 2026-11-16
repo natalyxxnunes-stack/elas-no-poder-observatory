@@ -1,0 +1,130 @@
+name: QA — 14 rotas restantes, revista integral
+on:
+  push:
+    branches: [revista-14-rotas-integral-16nov2026]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  quatorze-rotas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Instalar, conferir TypeScript e compilar
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Proteger identidade visual e bases públicas
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin revista-consolidacao-previews-acervo-16nov2026
+          test -z "$(git diff --name-only origin/revista-consolidacao-previews-acervo-16nov2026...HEAD -- src/data public/dados public/fotos public/documentos public/materiais src/styles.css src/routes/index.tsx src/components/home/CapaEditorialV3.tsx src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
+          test -s public/documentos/tse-candidatos-2026-portal.png
+          test -s public/fotos/posse-bertha-lutz-camara-1936.jpg
+          grep -Fq 'verificacao-pendente' src/components/editorial/Pioneiras.tsx
+          grep -Fq 'verificacao-pendente' src/components/editorial/CadernoDocumentalRevista.tsx
+          echo "Homepage, identidade, dados e imagens originais protegidos. Fotos sem licença verificada bloqueadas."
+      - name: Preparar Playwright
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: QA das 14 rotas e variações dinâmicas no desktop e celular
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p capturas-14
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-14-rotas.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          routes = [
+            ('/', 'homepage-controle'),
+            ('/achados/cor-raca', 'achado-individual'),
+            ('/busca?q=mulheres', 'busca-com-termo'),
+            ('/calendario', 'calendario'),
+            ('/coautoria', 'coautoria'),
+            ('/colecoes/antigenero-no-poder', 'colecao-antigenero'),
+            ('/como-votaram', 'como-votaram'),
+            ('/eleitas/perpetua-almeida-ac', 'ficha-eleita'),
+            ('/em-disputa', 'regras'),
+            ('/pioneiras/lelia-gonzalez', 'lelia'),
+            ('/pioneiras/pagu', 'pagu'),
+            ('/quem-chega', 'quem-chega'),
+            ('/quem-sao-elas', 'candidatas'),
+            ('/temas/memoria', 'tema-memoria'),
+            ('/temas/agenda', 'tema-agenda'),
+            ('/temas/presenca', 'tema-presenca'),
+            ('/temas/poder', 'tema-poder'),
+            ('/temas/dinheiro', 'tema-dinheiro'),
+            ('/temas/violencia', 'tema-violencia'),
+            ('/votos', 'votos'),
+          ]
+          output=[]
+          fail=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for device,w,h in [('desktop',1440,900),('celular',390,844)]:
+              ctx=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=1)
+              for route,name in routes:
+                page=ctx.new_page()
+                errors=[]
+                page.on('pageerror', lambda err: errors.append(str(err)))
+                try:
+                  res=page.goto('http://127.0.0.1:4173'+route,wait_until='domcontentloaded',timeout=30000)
+                  page.evaluate("""async () => {
+                    const images = Array.from(document.images);
+                    images.forEach(img => { img.loading='eager'; });
+                    await Promise.all(images.map(img => img.decode().catch(() => {})));
+                  }""")
+                  page.wait_for_timeout(250)
+                  measurements=page.evaluate("""() => ({
+                    width: document.documentElement.scrollWidth,
+                    viewport: innerWidth,
+                    hasMain: Boolean(document.querySelector('#conteudo')),
+                    h1: Array.from(document.querySelectorAll('main h1')).map(e => e.textContent.trim().slice(0,100)),
+                    images: Array.from(document.images).map(img=>({
+                      src: img.getAttribute('src'),
+                      loaded: img.complete && img.naturalWidth > 0
+                    })),
+                    sourceLinks: document.querySelectorAll('main a[href*="tse.jus.br"],main a[href*="camara.leg.br"]').length
+                  })""")
+                  path='capturas-14/'+name+'-'+device+'.png'
+                  page.screenshot(path=path,full_page=True,animations='disabled')
+                  badImgs=[i['src'] for i in measurements['images'] if not i['loaded']]
+                  if name=='pagu' and any('pagu-patricia' in str(i['src']) for i in measurements['images']):
+                    errors.append('Fotografia de Pagu sem licença validada apareceu no DOM')
+                  record={'rota':route,'dispositivo':device,'http':res.status if res else None,'largura':measurements['width'],
+                    'viewport':w,'h1':measurements['h1'],'imagens_com_erro':badImgs,'erros_js':errors,
+                    'sourceLinks':measurements['sourceLinks'],'captura':path}
+                  output.append(record)
+                  if record['http']!=200 or not measurements['hasMain'] or not measurements['h1'] or errors or badImgs or measurements['width']>w+2:
+                    fail.append(record)
+                except Exception as e:
+                  fail.append({'rota':route,'dispositivo':device,'erro':str(e)})
+                finally:
+                  page.close()
+              ctx.close()
+            browser.close()
+          Path('capturas-14/qa-resultados.json').write_text(json.dumps({'resultados':output,'falhas':fail},ensure_ascii=False,indent=2))
+          print('Total de capturas:',len(output),'Falhas:',len(fail))
+          for error in fail[:7]: print('FALHA',json.dumps(error,ensure_ascii=False))
+          assert not fail, 'Ver capturas-14/qa-resultados.json'
+          PY
+      - name: Arquivar páginas completas e manuais de continuidade
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-14-rotas-revista-integrais
+          path: |
+            capturas-14/
+            docs/manual-visual.md
+            Quem_sao_elas_Manual_Identidade_Editorial_Continuidade_2026-11-15.md
+          retention-days: 14
