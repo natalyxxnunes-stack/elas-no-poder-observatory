@@ -63,6 +63,10 @@ jobs:
                 if name=='temas':
                   assert page.locator('section[aria-labelledby="temas-indice-titulo"] ol > li').count()==6,(route,device,'6 themes')
                   assert page.locator('section[aria-labelledby="temas-indice-titulo"] img').count()==1,(route,device,'historical photo in memory')
+                  imagem=page.locator('section[aria-labelledby="temas-indice-titulo"] img')
+                  if device=='desktop':
+                    caixa=imagem.bounding_box()
+                    assert caixa and caixa['x']>w*0.55 and caixa['width']>120,(route,device,'Bertha image should be in right-hand memory column',caixa)
                   assert page.get_by_role('link',name='Explorar o tema').count()==6,(route,device,'links to six themes')
                 if name=='investigacoes':
                   assert page.locator('h2[id^="grupo-"]').count()==3,(route,device,'three editorial group headings')
