@@ -663,3 +663,18 @@ Os quatro recortes de documentos incluídos no PR #27 seguem **com pendência ed
 A frase “declarações já autorizadas à publicação editorial” foi corrigida para “declarações selecionadas para publicação editorial”. A flag interna `publicar: true` não é sinônimo de autorização concedida pelas parlamentares. A oitava fala pendente continua fora do material publicado na prévia.
 
 **Diretriz para continuidade:** preservar design, marca, fotografias e documentos já auditados; corrigir violações demonstradas, sem retomar o visual branco/lilás genérico. Continuar a auditoria de acessibilidade na revista inteira, com contrastes calculados e estrutura HTML semântica, e manter revisão de direitos separada da verificação técnica.
+
+
+## 21. Auditoria de acessibilidade do primeiro lote restante — PR #29, 16/11/2026
+
+O PR #29 continua a partir do **head efetivo do PR #28**, sem mesclar ou publicar. A rotina `.github/workflows/qa-acessibilidade-lote1-16nov.yml` acrescenta sete modelos de conteúdo (Método, Quem entrou?, Funil, Histórico, Dinheiro, Monitor, Temas) e duas variações dinâmicas (ficha de eleita e tema Dinheiro) em **1440, 390 e 320 px**, com **27 verificações** e 18 capturas integrais desktop/celular.
+
+**Antes:** a execução [#43930579720](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43930579720) detectou contraste insuficiente em Funil, Histórico, Monitor, Temas e Tema Dinheiro, e uma lista de definições inválida em Monitor; foram 18 grupos de violações nos três viewports (repetições dos mesmos elementos, não 18 falhas independentes). O primeiro ensaio #43930178877 teve falha de gravação do relatório, corrigida e não computada como auditoria do site.
+
+**Correções mínimas:** branco opaco sobre o coral profundo em Funil, Histórico e Monitor; papel opaco no capítulo Memória de Temas e nas lacunas de Tema Dinheiro; rótulos do componente `Secao` com opacidade adequada sobre fundos escuros/dourados; nota quantitativa de Monitor deslocada de `p` indevido como filho de `dl` para dentro do seu `dd`. O fundo coral, o roxo estrutural, o dourado, as fotografias, documentos, gráficos, números e estrutura de revista não foram substituídos.
+
+**Depois:** execução [#43931907301](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43931907301) aprovada: **27 verificações, zero violações axe-core 4.10.3 nas regras selecionadas, zero erros JS/estruturais/transbordamentos**. Nove URLs com HTTP 200, `main` e `h1`. A comparação das capturas de páginas inteiras não mostrou alterações nas dimensões; as mudanças visuais são localizadas.
+
+**Imagens:** a captura original do portal TSE e a foto da bancada em Método, a foto contextual do plenário em Monitor e a fotografia histórica de Bertha Lutz em Temas permanecem carregadas e legendadas. Não se acrescentaram documentos nem fotos decorativas; a matriz de evidências continua vigente. Direitos/privacidade e aprovação de fac-símiles do PR #27 seguem como pendência independente.
+
+**Limites:** não se realizou teste efetivo de NVDA/VoiceOver, zoom real 200%, espaçamento de texto, operação exaustiva de filtros/teclado ou avaliação com pessoas usuárias. Uma ficha de eleita e um tema são amostras, não validação de todas as rotas dinâmicas. **Nenhuma certificação global de WCAG**. Relatório, metodologia, lista de arquivos, capturas e pendências em `docs/qa-acessibilidade-lote1-16nov2026.md`. Manter PR #29 como rascunho e não fazer merge nem deploy.

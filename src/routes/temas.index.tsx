@@ -64,7 +64,7 @@ function TemasPage() {
             return (
               <li key={t.slug} className={TRATAMENTO[t.slug]}>
                 <div className={`mx-auto grid max-w-7xl gap-x-10 gap-y-5 px-5 py-8 md:grid-cols-[5rem_minmax(0,.9fr)_minmax(0,1.1fr)] md:items-start md:px-8 md:py-11 ${isMemoria ? "lg:grid-cols-[5rem_.8fr_1fr_15rem]" : ""}`}>
-                  <span aria-label={`Tema ${t.ordem}`} className={`font-mono text-lg font-semibold ${clareado ? "text-plum" : "text-paper/80"}`}>
+                  <span aria-label={`Tema ${t.ordem}`} className={`font-mono text-lg font-semibold ${clareado ? "text-plum" : isMemoria ? "text-paper" : "text-paper/80"}`}>
                     {t.ordem}
                   </span>
                   <div>
@@ -81,7 +81,7 @@ function TemasPage() {
                     </p>
                   </div>
                   <div className="md:pt-1">
-                    <p className={`max-w-xl text-[15px] leading-relaxed ${clareado ? "text-ink/85" : "text-paper/85"}`}>
+                    <p className={`max-w-xl text-[15px] leading-relaxed ${clareado ? "text-ink/85" : isMemoria ? "text-paper" : "text-paper/85"}`}>
                       {t.linha}
                     </p>
                     <a
@@ -99,7 +99,7 @@ function TemasPage() {
                         loading="lazy"
                         className="aspect-[4/3] w-full object-cover"
                       />
-                      <figcaption className="mt-2 max-w-xs text-[12px] leading-relaxed text-paper/85">
+                      <figcaption className="mt-2 max-w-xs text-[12px] leading-relaxed text-paper">
                         Bertha Lutz, 1927. Fotografia histórica do Arquivo Nacional,
                         associada ao tema Memória; não ilustra as eleições de 2026.
                       </figcaption>

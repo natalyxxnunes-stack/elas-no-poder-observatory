@@ -215,7 +215,7 @@ function TemaPage() {
         <Secao nome="O que ainda não sabemos" tipo="lacunas declaradas" claro />
         <ul className="mt-6 grid gap-6 md:grid-cols-2 md:gap-10">
           {tema.naoSabemos.map((x) => (
-            <li key={x} className="border-l-[3px] border-paper pl-5 text-[16px] leading-relaxed text-paper/90">
+            <li key={x} className="border-l-[3px] border-paper pl-5 text-[16px] leading-relaxed text-paper">
               {x}
             </li>
           ))}

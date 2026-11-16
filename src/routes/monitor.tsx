@@ -116,7 +116,7 @@ function MonitorPage() {
           <h2 className="font-display text-2xl leading-snug text-white md:text-3xl">
             O que aconteceu na eleição de 2026
           </h2>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-white/90">
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-white">
             Situação eleitoral das deputadas que passaram pela Câmara durante o período observado.
             A classificação descreve o resultado eleitoral, não a atuação parlamentar.
           </p>
@@ -124,7 +124,7 @@ function MonitorPage() {
             {res2026.map(([r, v]) => (
               <div key={r} className="bg-coral-ink px-4 py-4" style={{ backgroundColor: PILOT_CORAL }}> 
                 <dd className="font-display text-5xl leading-none text-white">{n(v)}</dd>
-                <dt className="mt-2 text-[14px] leading-relaxed text-white/90">
+                <dt className="mt-2 text-[14px] leading-relaxed text-white">
                   {r === "não concorreu" ? "não concorreram em 2026" : `${r}${v > 1 ? "s" : ""} em 2026`}
                 </dt>
               </div>
@@ -255,16 +255,18 @@ function MonitorPage() {
             <dl className="mt-7 grid gap-4 sm:grid-cols-3">
               <div className="border-t border-cream/30 pt-3">
                 <dt className="text-[13px] leading-snug text-cream/75">Registro de voto ou presidência de sessão</dt>
-                <dd className="mt-2 font-display text-4xl text-cream">
+                <dd className="mt-2 text-cream">
+                  <span className="block font-display text-4xl">
                   {destaque.votacoesEmExercicio > 0 && presenca(destaque) !== null
                     ? destaque.votacoesEmExercicio >= MIN_VOTACOES
                       ? formatPct((presenca(destaque) ?? 0) * 100)
                       : `${n(destaque.votosRegistrados)} de ${n(destaque.votacoesEmExercicio)}`
                     : "—"}
+                </span>
+                  <p className="mt-2 font-mono text-[12px] text-cream/75">
+                    {n(destaque.votosRegistrados)} de {n(destaque.votacoesEmExercicio)} votações em exercício
+                  </p>
                 </dd>
-                <p className="mt-2 font-mono text-[12px] text-cream/75">
-                  {n(destaque.votosRegistrados)} de {n(destaque.votacoesEmExercicio)} votações em exercício
-                </p>
               </div>
               <div className="border-t border-cream/30 pt-3">
                 <dt className="text-[13px] leading-snug text-cream/75">Assinaturas em proposições (inclui coautoria)</dt>
