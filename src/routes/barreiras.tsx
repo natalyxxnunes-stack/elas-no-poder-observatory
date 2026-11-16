@@ -181,6 +181,35 @@ function BarreirasPage() {
         </div>
       </section>
 
+
+      <section aria-label="Fotografia documental sobre a discussão da proteção à pré-candidatura" className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-ink)] text-paper">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:grid-cols-[1.12fr_.88fr] md:items-center md:gap-12 md:px-8 md:py-16">
+          <figure className="min-w-0">
+            <img src="/fotos/renilce-nicodemos-pl1446-camara.jpg"
+              alt="A deputada Renilce Nicodemos fala ao microfone em fotografia de arquivo da Câmara dos Deputados."
+              className="block aspect-[3/2] w-full object-cover"
+              loading="lazy" />
+            <figcaption className="mt-3 text-[13px] leading-relaxed text-paper">
+              Renilce Nicodemos em imagem de arquivo usada pela Agência Câmara na reportagem de 01/07/2026 sobre o PL 1446/25. Foto: Kayo Magalhães/Câmara dos Deputados. A fotografia não documenta episódio de violência nem votação do projeto.{" "}
+              <a href="https://www.camara.leg.br/noticias/1286346-PROJETO-AMPLIA-PROTECAO-CONTRA-VIOLENCIA-POLITICA-DE-GENERO-NA-PRE-CANDIDATURA"
+                target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-2">Ver reportagem original</a>.
+            </figcaption>
+          </figure>
+          <div>
+            <p className="text-[13px] font-semibold uppercase tracking-wide text-[var(--art-gold)]">Debate legislativo · Julho de 2026</p>
+            <h2 className="mt-4 max-w-xl font-display text-[clamp(2.2rem,4vw,4rem)] leading-tight text-paper">
+              A proteção também está em discussão antes da candidatura.
+            </h2>
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-paper">
+              Em reportagem de julho de 2026, a Câmara apresentou a proposta de ampliar a proteção contra violência política de gênero à fase de pré-candidatura, prevista no PL 1446/2025. O projeto é uma proposta legislativa, não uma norma em vigor por força de sua apresentação.
+            </p>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-paper">
+              A existência da proposta e dessa fotografia não informa quantas mulheres sofreram violência. Os registros do TSE e do MPF, apresentados a seguir, usam outros critérios e universos.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <ManchetesStrip items={[M_FEMINICIDIO]} label="Violência contra mulheres" />
 
       <SectionBlock
@@ -271,11 +300,12 @@ function BarreirasPage() {
 
       <SectionBlock
         id="feminicidio"
-        tone="warm"
+        tone="plum"
         kicker="Feminicídio"
         question="O que o Anuário de 2026 registra"
         align="wide"
       >
+        <div className="bg-paper p-5 text-ink md:p-8">
         <div className="grid gap-4 md:grid-cols-3">
           <div className="border-t-2 border-ink pt-3">
             <p className="font-display text-4xl text-ink">{n(FEMINICIDIO_2025.vitimas)}</p>
@@ -320,6 +350,7 @@ function BarreirasPage() {
           </Link>
           .
         </p>
+        </div>
       </SectionBlock>
 
       <SectionBlock
@@ -351,7 +382,7 @@ function BarreirasPage() {
       </SectionBlock>
 
       <SectionBlock
-        tone="warm"
+        tone="ink"
         kicker="Critérios"
         question="Quando um caso vira dado"
         lead={
@@ -361,6 +392,7 @@ function BarreirasPage() {
           </p>
         }
       >
+        <div className="bg-paper p-5 text-ink md:p-8">
         <div className="grid gap-4 md:grid-cols-3">
           <ContextBox variant="significa">
             <p>
@@ -387,6 +419,7 @@ function BarreirasPage() {
             Anuário, este eixo segue sem indicador até que exista fonte comparável. Nenhum relato
             individual é transformado em estatística.
           </GapNote>
+        </div>
         </div>
       </SectionBlock>
 

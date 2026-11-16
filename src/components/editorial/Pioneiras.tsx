@@ -62,7 +62,8 @@ export function PerfilHero({
   const fundoEscuro = pagu || lelia;
   // Somente para imagens de avaliação. O build normal mantém o bloqueio jurídico.
   const previaPagu = pagu && import.meta.env["VITE_QSE_PREVIEW_PAGU_FOTO"] === "true";
-  const temFoto = Boolean(fotoId && FOTOS[fotoId] && (FOTOS[fotoId]?.licenca !== "verificacao-pendente" || previaPagu));
+  const previaLelia = lelia && import.meta.env["VITE_QSE_PREVIEW_LELIA_FOTO"] === "true";
+  const temFoto = Boolean(fotoId && FOTOS[fotoId] && (FOTOS[fotoId]?.licenca !== "verificacao-pendente" || previaPagu || previaLelia));
   return (
     <header className={`relative left-1/2 -ml-[50vw] w-screen ${pagu ? "bg-ink text-paper" : lelia ? "bg-[var(--art-plum)] text-paper" : "bg-cream text-ink"}`}>
       <div className="mx-auto max-w-7xl px-5 py-11 md:px-8 md:py-16">
@@ -79,17 +80,19 @@ export function PerfilHero({
             </p>
           </div>
           <div className="min-w-0">
-            {pagu && temFoto && fotoId && FOTOS[fotoId] ? (
-              <figure className="mx-auto max-w-[390px] bg-[var(--art-coral)] p-3 sm:p-4 lg:mx-0">
+            {fundoEscuro && temFoto && fotoId && FOTOS[fotoId] ? (
+              <figure className={`mx-auto w-full ${lelia ? "max-w-[560px] bg-[var(--art-gold)]" : "max-w-[390px] bg-[var(--art-coral)]"} p-3 sm:p-4 lg:mx-0`}>
                 <img src={FOTOS[fotoId]!.src} alt={FOTOS[fotoId]!.alt}
                   loading="eager" fetchPriority="high"
-                  className="block aspect-[3/4] w-full object-cover object-center"/>
-                <figcaption className="mt-3 bg-ink px-3 py-3 text-xs leading-relaxed text-paper/85">
-                  Pagu, retrato atribuído ao fim dos anos 1920. Autoria não identificada.{" "}
-                  <a href={FOTOS[fotoId]!.licencaUrl} target="_blank" rel="noreferrer"
-                    className="font-semibold underline underline-offset-2">
-                    Wikimedia Commons (domínio público indicado na ficha)
-                  </a>. {previaPagu ? "Reprodução apenas na prévia editorial, com direitos ainda em verificação; não liberar para publicação." : ""}
+                  className={`block w-full object-cover object-center ${lelia ? "aspect-[3/2]" : "aspect-[3/4]"}`}/>
+                <figcaption className="mt-3 bg-ink px-3 py-3 text-[13px] leading-relaxed text-paper">
+                  {lelia ? "Lélia Gonzalez, retrato atribuído a Cezar Loureiro. Autoria indicada na ficha do acervo." : "Pagu, retrato atribuído ao fim dos anos 1920. Autoria não identificada."}{" "}
+                  {FOTOS[fotoId]!.licencaUrl && (
+                    <a href={FOTOS[fotoId]!.licencaUrl} target="_blank" rel="noreferrer"
+                      className="font-semibold underline underline-offset-2">
+                      Consultar ficha da fotografia
+                    </a>
+                  )}. {(previaPagu || previaLelia) ? "Reprodução exclusiva desta prévia editorial. Direitos sob verificação; não liberar para publicação." : ""}
                 </figcaption>
               </figure>
             ) : temFoto && fotoId ? (

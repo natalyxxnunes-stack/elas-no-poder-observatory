@@ -46,6 +46,39 @@ export const FOTOS: Record<string, Foto> = {
     proporcao: "3/2",
     fornecidaPor: "acervo-verificado",
   },
+  "pl1446-protecao-pre-candidatura": {
+    src: "/fotos/renilce-nicodemos-pl1446-camara.jpg",
+    alt: "Deputada Renilce Nicodemos fala ao microfone na Câmara dos Deputados, diante da bandeira brasileira.",
+    credito: "Kayo Magalhães/Câmara dos Deputados",
+    acervo: "Agência Câmara, reportagem sobre o PL 1446/2025 publicada em 01/07/2026; fotografia de arquivo, data original não confirmada",
+    licenca: "CC-BY",
+    licencaUrl: "https://www2.camara.leg.br/comunicacao/assessoria-de-imprensa/guia-para-jornalistas/noticias-e-fotografias",
+    data: "Fotografia de arquivo (data não confirmada)",
+    proporcao: "3/2",
+    fornecidaPor: "acervo-verificado",
+  },
+  "local-votacao-primeiro-turno-2026": {
+    src: "/fotos/local-votacao-2026-agencia-senado.jpg",
+    alt: "Duas pessoas caminham diante de painel de informações na entrada do local de votação do UniCEUB Asa Norte, em Brasília, no primeiro turno de 2026.",
+    credito: "Saulo Cruz/Agência Senado",
+    acervo: "Flickr da Agência Senado, fotografia de 04/10/2026, arquivo verificado no Wikimedia Commons",
+    licenca: "CC-BY-SA-4.0",
+    licencaUrl: "https://commons.wikimedia.org/wiki/File:Elei%C3%A7%C3%B5es_2026_-_Primeiro_turno_(55567948757).jpg",
+    data: "04/10/2026",
+    proporcao: "3/2",
+    fornecidaPor: "acervo-verificado",
+  },
+  "lelia-gonzalez": {
+    src: "/fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg",
+    alt: "Retrato histórico de Lélia Gonzalez atribuído ao fotógrafo Cezar Loureiro, em imagem horizontal.",
+    credito: "Cezar Loureiro / Wikimedia Commons (origem informada: revista Cult)",
+    acervo: "Cópia armazenada somente em docs/acervo-em-revisao para avaliação editorial e jurídica; versão pública bloqueada",
+    licenca: "verificacao-pendente",
+    licencaUrl: "https://commons.wikimedia.org/wiki/File:L%C3%A9lia_Gonzalez_by_Cezar_Loureiro.jpg",
+    data: "Anterior a 1994, segundo a ficha do Commons; primeira publicação por verificar",
+    proporcao: "3/2",
+    fornecidaPor: "acervo-verificado",
+  },
   "pagu": {
     src: "/fotos/pagu-patricia-galvao-anos-1920.jpg",
     alt: "Retrato histórico de Patrícia Galvão, Pagu, olhando para a esquerda, com cabelo escuro e casaco de pele.",
@@ -90,7 +123,6 @@ export const FOTOS: Record<string, Foto> = {
     proporcao: "3/2",
     fornecidaPor: "acervo-verificado",
   },
-  // "lelia-gonzalez": { src: "/fotos/...", alt: "...", credito: "...", acervo: "...", licenca: "...", proporcao: "4/5", fornecidaPor: "editora" },
 };
 
 export const LICENCA_ROTULO: Record<Licenca, string> = {

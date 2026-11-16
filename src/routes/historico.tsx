@@ -152,6 +152,30 @@ function HistoricoPage() {
         </div>
       </nav>
 
+
+      <section aria-label="Fotografia documental do primeiro turno de 2026" className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-ink)] text-paper">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 md:grid-cols-[.68fr_1.32fr] md:items-center md:gap-12 md:px-8 md:py-14">
+          <div>
+            <p className="text-[13px] font-semibold uppercase tracking-wide text-[var(--art-gold)]">Registro de uma eleição · 04/10/2026</p>
+            <p className="mt-4 font-display text-[clamp(3.5rem,7vw,6rem)] leading-none text-paper">2026</p>
+            <h2 className="mt-5 max-w-lg font-display text-[clamp(1.9rem,3.3vw,3rem)] leading-tight text-paper">O último ponto desta série histórica.</h2>
+            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-paper">
+              Um local de votação em Brasília, fotografado no primeiro turno de 2026. A imagem documenta essa eleição, enquanto os gráficos comparam os arquivos oficiais de 2014, 2018, 2022 e 2026.
+            </p>
+          </div>
+          <figure className="min-w-0">
+            <img src="/fotos/local-votacao-2026-agencia-senado.jpg"
+              alt="Eleitoras caminhando junto ao painel de informações de um local de votação em Brasília no primeiro turno de 2026."
+              loading="lazy" className="block aspect-[3/2] w-full object-cover" />
+            <figcaption className="mt-3 text-[13px] leading-relaxed text-paper">
+              Local de votação no UniCEUB Asa Norte, Brasília, 4 de outubro de 2026. Foto: Saulo Cruz/Agência Senado. Licença CC BY-SA 4.0. Não é registro dos pleitos de 2014, 2018 ou 2022.{" "}
+              <a href="https://commons.wikimedia.org/wiki/File:Elei%C3%A7%C3%B5es_2026_-_Primeiro_turno_(55567948757).jpg"
+                target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-2">Fotografia e condições de uso</a>.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
       <div className="pb-4">
         <InBrief
           foundLabel="O achado"
@@ -194,7 +218,7 @@ function HistoricoPage() {
         />
       </div>
 
-      <SectionBlock id="genero" tone="warm"
+      <SectionBlock id="genero"
         kicker="Gênero"
         question="Quantas candidaturas são de mulheres, em cada eleição?"
         align="wide"
@@ -226,7 +250,7 @@ function HistoricoPage() {
         <SeriesChart series={byId("serie-negras-negros-candidaturas")} mobileSelectable />
       </SectionBlock>
 
-      <SectionBlock id="genero-raca" tone="butter"
+      <SectionBlock id="genero-raca" tone="ink"
         kicker="Gênero × cor/raça"
         question="A composição das candidaturas femininas mudou?"
         align="wide"
@@ -345,7 +369,7 @@ function HistoricoPage() {
 
       <SectionBlock
         id="cargo-uf"
-        tone="warm"
+        tone="plum"
         kicker="Por cargo e por estado"
         question="Em que cargos e em que estados a presença de mulheres mudou"
         align="wide"
