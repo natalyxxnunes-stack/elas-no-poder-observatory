@@ -401,3 +401,19 @@ Os quatro tratamentos são **propostas específicas por função**, não um novo
 **QA integral do Funil confirmado:** [execução #43804651700](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43804651700) concluída com sucesso. Tipos, compilação, proteção de arquivos, fontes oficiais Candidatos/Vagas, navegação, seleção de UF, tabela completa e dezena de testes em dois tamanhos; capturas de homepage e Funil inteiros em 1440 px e 390 px. Sem transbordamento horizontal ou erro JS. Altura da versão móvel da página: aproximadamente 11,5 mil px, ainda exigindo avaliação editorial do percurso de leitura. Artefato `qse-funil-pagina-integral`. Nenhum aceite de direção de arte foi inferido do QA.
 
 **QA integral do Monitor confirmado:** [execução #43804158199](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43804158199), concluída com sucesso. A ficha individual, filtros, tabela integral expansível, foto contextualizada e pré-registro foram verificados no desktop e no celular. O comprimento móvel padrão diminuiu para aproximadamente 6,6 mil px com a tabela disponível em segundo nível. Artefato `qse-monitor-pagina-integral`, ainda sem aprovação editorial.
+
+## Recuperação da direção de arte das páginas-piloto — 16/11/2026
+
+**Referência vinculante:** screenshot fornecido pela editora da comparação “Quem entrou? / Método / Reportagens”. A formalização visual completa, a diferença entre as três soluções e as decisões para as páginas de dados estão em [`docs/design/ANCORA-EDITORIAL-PILOTOS-16NOV2026.md`](design/ANCORA-EDITORIAL-PILOTOS-16NOV2026.md). Atualizado também no arquivo editável de continuidade, seção **14.19**.
+
+**Diagnóstico:** as páginas Partidos, Histórico, Monitor e Funil haviam ganho clareza e consulta de dados, mas o corpo inteiro perdeu a alternância de planos cromáticos, intensidade de títulos/números, registro visual de documentos e ritmo jornalístico presente nas páginas-piloto. A correção adota a **direção de arte já aprovada como âncora**, sem transformar os pilotos em templates.
+
+**PR #17 (prévia):**
+- **Partidos:** capa coral profunda com texto claro; painel roxo/tinta com universo e fonte; eleitas sobre tinta com gráfico em papel; pausa violeta distinguindo quatro bases; FEFC documental em dourado; votação em tinta. Preservadas as ressalvas legais, as contas e as categorias raciais.
+- **Histórico:** abertura roxa com cronologia, interlúdio coral de 2014/2026 com denominador declarado, quatro bases TSE em caderno de tinta/dourado; cor/raça no roxo. Não usar fotografia anacrônica.
+- **Monitor:** capa roxa, resultados de eleição em coral profundo, fotografia do plenário datada e creditada, consulta em creme e tinta e pré-registro de 2027 dourado. Sem transformar registros em mérito parlamentar.
+- **Funil:** início roxo preservado; explicação coral “três universos, não três degraus”, dados em tinta com painel claro; documentos TSE e filtros mantidos, regras eleitorais em tinta; nunca sugerir coorte longitudinal.
+
+**Acessibilidade:** texto claro (branco ou creme) sobre coral profundo. **Nunca preto sobre coral.** Contraste mínimo AA verificado por QA; não mudar as cores semânticas das visualizações. Escolhas cromáticas autorais não se confundem com codificações de dados.
+
+**Restrições:** PR rascunho baseado no PR #16 e dependente da cadeia #12→#16; sem mudança de homepage, marca, arquivos de dados, fotografias, scripts ou CSS global; sem publicação na HostGator. Avaliar **página integral** em desktop e celular, incluindo consulta e rodapés. Sucesso técnico **não é aprovação estética**.
