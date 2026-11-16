@@ -1,0 +1,32 @@
+name: Incorporar documento fotográfico histórico verificado (rascunho)
+on:
+  push:
+    branches: [revista-lote3-acervo-documental-15nov2026]
+    paths: [.github/workflows/incorporar-bertha-1936-temporario.yml]
+permissions:
+  contents: write
+jobs:
+  photo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Baixar fotografia original do Arquivo Nacional via Wikimedia Commons
+        run: |
+          set -euo pipefail
+          mkdir -p public/fotos
+          curl --fail --location --retry 3 --user-agent 'QSE-acervo-editorial/1.0 (fonte documentada)' \
+            'https://upload.wikimedia.org/wikipedia/commons/a/a2/Posse_de_Bertha_Lutz_como_Deputada_na_C%C3%A2mara_Federal.jpg' \
+            -o public/fotos/posse-bertha-lutz-camara-1936.jpg
+          file public/fotos/posse-bertha-lutz-camara-1936.jpg
+          test $(wc -c < public/fotos/posse-bertha-lutz-camara-1936.jpg) -gt 100000
+          echo 'Arquivo original: Commons / Arquivo Nacional' > /tmp/proveniencia.txt
+          sha256sum public/fotos/posse-bertha-lutz-camara-1936.jpg >> /tmp/proveniencia.txt
+          cat /tmp/proveniencia.txt
+      - name: Registrar imagem somente no ramo de prévia
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/fotos/posse-bertha-lutz-camara-1936.jpg
+          git commit -m "acervo: preservar fotografia original da posse de Bertha Lutz em 1936"
+          git push origin HEAD:revista-lote3-acervo-documental-15nov2026
