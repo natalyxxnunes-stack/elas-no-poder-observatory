@@ -194,7 +194,7 @@ jobs:
                   assert page.locator('section[aria-labelledby="metodo-fluxo-titulo"] ol > li').count()==4,(route,device,'authored methodological infographic')
                   assert page.locator('section[aria-label="Documentação técnica do observatório"] section[id]').count()>=15,(route,device,'method archive preserved')
                   assert page.locator('a[href="https://dadosabertos.tse.jus.br/dataset/candidatos-2026"]').count()>=1,(route,device,'primary source link')
-                  assert page.locator('header a[href="https://dadosabertos.tse.jus.br/dataset/candidatos-2026"]').count()==1,(route,device,'intro directly links to official TSE')
+                  assert page.get_by_role('link',name='Abrir a fonte original no TSE').count()==1,(route,device,'intro directly links to official TSE')
                   assert page.locator('header a[href="#metodo-arquivo-tecnico"]').count()==1,(route,device,'intro technical archive link')
                   assert page.locator('figure#metodo-documento-original a[aria-label^="Ampliar a captura documental"]').count()==1,(route,device,'zoom screenshot link')
                   assert page.locator('figure#metodo-documento-original figcaption p').last.evaluate('(e) => parseFloat(getComputedStyle(e).fontSize)')>=13,(route,device,'source caption readable')
