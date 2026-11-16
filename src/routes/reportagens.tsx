@@ -54,6 +54,7 @@ function PlacarSeisVotacoes() {
   return (
     <figure
       aria-label="Visualização documental dos votos de deputadas nas seis votações"
+      aria-describedby="placar-como-ler"
       className="min-w-0 bg-ink p-5 text-paper md:p-7 lg:p-9"
     >
       <figcaption className="flex flex-wrap items-end justify-between gap-5 border-b border-paper/25 pb-5">
@@ -74,6 +75,12 @@ function PlacarSeisVotacoes() {
         <span className="inline-flex items-center gap-2"><span className="h-3 w-3 bg-[var(--art-coral)]" />Não</span>
         <span className="inline-flex items-center gap-2"><span className="h-3 w-3 bg-paper/35" />Ausências e outros registros</span>
       </div>
+      <p id="placar-como-ler" className="mt-3 max-w-3xl text-[13px] leading-relaxed text-paper/85">
+        <strong className="font-semibold text-paper">Como ler:</strong> “Sim” e “Não”
+        registram votos sobre o texto colocado em votação, sem indicar
+        isoladamente uma posição favorável ou contrária aos direitos das mulheres.
+        “Ausências e outros registros” reúne ausências, abstenções e demais situações.
+      </p>
       <ol className="mt-5 grid gap-x-9 border-t border-paper/20 md:grid-cols-2">
         {VOTACOES.map((v) => {
           const base = v.porSexo.F.total;
@@ -87,7 +94,7 @@ function PlacarSeisVotacoes() {
                 <span className="max-w-[30ch] text-[14px] font-semibold leading-snug">
                   {v.titulo}
                 </span>
-                <span className="shrink-0 font-mono text-[12px] tabular-nums text-paper/70">
+                <span className="shrink-0 font-mono text-[13px] tabular-nums text-paper/85">
                   {formatDateBR(v.data)}
                 </span>
               </div>
@@ -100,7 +107,7 @@ function PlacarSeisVotacoes() {
                 <span className="h-full bg-[var(--art-coral)]" style={{ width: largura(nao) }} />
                 <span className="h-full bg-paper/35" style={{ width: largura(demais) }} />
               </div>
-              <p className="mt-1.5 font-mono text-[11px] leading-relaxed text-paper/80">
+              <p className="mt-1.5 font-mono text-[13px] leading-relaxed text-paper/85">
                 {sim} Sim · {nao} Não · {demais} outros/ausentes · {base} em exercício
               </p>
             </li>
