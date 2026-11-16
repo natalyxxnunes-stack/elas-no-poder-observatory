@@ -117,3 +117,8 @@ Testes automatizados de build, URLs, imagens e largura não substituem: revisão
 **Próximo passo:** conferir as capturas inteiras e o contraste das fichas, validar endpoints específicos e, apenas se justificável e autorizado, inserir imagens de **documentos autênticos** com crédito, identificação e tratamento de dados pessoais. Manter todo o histórico editorial; nenhuma publicação antecipada.
 
 **Atualização documental (PR #27, 16/11/2026):** quatro imagens originais incorporadas como recortes identificados, após seleção e inspeção de informações pessoais. Inventário e hashes: `docs/acervo-facsimiles-tse-camara-16nov2026.md`. Direitos, contraste e apuração final precisam ser confirmados antes do merge.
+
+
+## Nota de verificação de imagens — PR #31, 16/11/2026
+
+A auditoria específica de Coautoria, Comparar, Direitos, Downloads, Em disputa, Pioneiras e Relatório 2026, com homepage/Método como controles, confirmou o carregamento das imagens presentes em 1440, 390 e 320 CSS px. Em Coautoria e Relatório, a fotografia de plenário funciona como contexto identificado; em Pioneiras, a imagem de Bertha Lutz é documento histórico; em Downloads, miniaturas de publicações não devem ser apresentadas como reproduções de atos eleitorais; em Método, a captura do TSE não equivale à extração integral de dados. A revisão de imagem e a comparação das páginas inteiras **não exigiram fotografia nova** em Direitos, Em disputa e Comparar. A autorização de reprodução continua dependendo de revisão específica; ausência de imagem quebrada não prova licença. Ver `docs/qa-acessibilidade-lote3-16nov2026.md` e as capturas de [#43940312286](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43940312286).
