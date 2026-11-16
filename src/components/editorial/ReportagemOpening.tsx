@@ -23,7 +23,8 @@ export function ReportagemOpening({
   photoSourceUrl: string;
   credits: ReactNode;
 }) {
-  const photo = FOTOS[photoId];
+  const candidate = FOTOS[photoId];
+  const photo = candidate?.licenca === "verificacao-pendente" ? undefined : candidate;
   return (
     <section
       aria-label="Abertura da reportagem"
