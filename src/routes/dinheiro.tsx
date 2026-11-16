@@ -210,8 +210,9 @@ function DinheiroPage() {
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-relaxed">
               Os partidos entregaram ao TSE os critérios formais para repartir o Fundo Especial
-              de Financiamento de Campanha. A Justiça Eleitoral publica os processos e documentos
-              apresentados por sigla. O registro desses critérios, a cota destinada a cada
+              de Financiamento de Campanha. O TSE identifica os processos por sigla e
+              disponibiliza os respectivos documentos quando presentes em sua página.
+              O registro desses critérios, a cota destinada a cada
               partido e as receitas declaradas pelas candidaturas são três camadas diferentes.
               A existência do documento não explica, por si, a decisão concreta sobre cada repasse.
             </p>
