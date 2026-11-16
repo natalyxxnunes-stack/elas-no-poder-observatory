@@ -973,3 +973,14 @@ Esta decisão é aditiva e **não reinicia o redesign**. PR #33 permanece em ras
 3. **Acessibilidade humana e publicação:** navegação real por teclado, leitores de tela NVDA/VoiceOver, zoom de 200% e reespaçamento; revisão do diff integral do PR #33 contra `main`, aceite explícito da editora e integração/deploy supervisionado na HostGator. **Nenhuma mesclagem, publicação, mudança da homepage ou redefinição da paleta foi autorizada nesta rodada.**
 
 Registro completo em `docs/fechamento-redesign-pendencias-16nov2026.md`. Decisões visuais anteriores (roxo estrutural, tinta, coral profundo com texto claro, dourado, imagem factual, leitura em papel pontual, logo original) seguem vinculantes.
+
+
+## 31. Fechamento: reflow e direitos de reprodução — 16/11/2026
+
+**Escopo:** PR #33, sem merge/deploy. Permanecem intactas a logo, a homepage, a paleta roxo estrutural/tinta/coral profundo com texto claro/dourado e os critérios de prova visual. Não recolorir páginas indiscriminadamente.
+
+**Teste novo:** scripts/qa/reflow-teclado-fechamento.py e .github/workflows/qa-fechamento-reflow-teclado-16nov.yml. [GitHub Actions #43980902610](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/43980902610) aprovado: 27 cenários de nove rotas (desktop, reflow com 640 CSS px/DPR2 e texto reespaçado no celular), nenhum transbordamento detectado e três interações por teclado funcionais. Esse reflow é **equivalente e simulado**, não zoom nativo 200% nem teste NVDA/VoiceOver. A avaliação humana continua necessária.
+
+**Direitos com fonte institucional:** a Câmara permite uso de fotografias do Banco de Imagens com crédito, em regra CC BY; outras imagens e documentos não herdaram automaticamente essa licença. Fotos Pagu e Lélia continuam bloqueadas em produção, por incertezas de autoria, primeira publicação ou enquadramento da ficha Commons. A captura de interface TSE, a resolução interna do União Brasil, a resolução da Federação Brasil da Esperança, a capa PJe do PL e uma linha do catálogo de discursos da Câmara continuam **com avaliação individual pendente**. Lei 9.610/1998, arts. 8º e 46; nenhuma liberação tácita.
+
+**Registro analítico:** docs/triagem-direitos-e-a11y-final-16nov2026.md, com fontes, sete decisões pendentes e limites metodológicos. O PR continua draft; o aceite visual de páginas inteiras e documentos em tamanho legível precede o encerramento.

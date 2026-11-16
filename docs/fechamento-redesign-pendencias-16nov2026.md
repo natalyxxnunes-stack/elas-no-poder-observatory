@@ -41,3 +41,10 @@
 ## Critério de encerramento
 
 Redesign considerado pronto **após** aceite de página inteira das composições, solução dos direitos para cada item efetivamente publicado, acessibilidade humana essencial, aprovação do diff e deploy conferido. Não acrescentar porcentagem arbitrária de progresso ou prazo presumido. Continuar exclusivamente no PR #33 e registrar decisões no mesmo manual, respeitando a âncora dos pilotos e sem substituir a paleta aprovada.
+
+
+## Atualização de 16/11/2026: ampliação e direitos
+
+Foi concluído um ensaio adicional em nove rotas: 27 cenários de layout, três controles por teclado, zero falhas detectadas. GitHub Actions #43980902610. O modo de 640 CSS px/DPR2 aproxima reflow a 200%; ainda faltam zoom nativo e leitores de tela humanos.
+
+A triagem documental confirmou licenciamento institucional com crédito para fotografias da Câmara, mas **não resolveu automaticamente** os sete itens listados acima. Matriz jurídica e fontes oficiais: docs/triagem-direitos-e-a11y-final-16nov2026.md. Não remover o bloqueio das fotos Pagu/Lélia, não liberar os fac-símiles sem decisão específica, não publicar sem aceite.
