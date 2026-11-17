@@ -10,6 +10,8 @@ import re
 import subprocess
 import time
 from pathlib import Path
+from PIL import Image, ImageStat
+from mss import mss
 from playwright.sync_api import sync_playwright
 
 OUT=Path("relatorios-zoom-nativo-200-pr33")
@@ -35,6 +37,52 @@ def chrome_window():
                 return r.stdout.strip().splitlines()[-1]
         time.sleep(.3)
     raise AssertionError("Janela visível do Chrome não encontrada: zoom nativo não testado")
+
+def capturar_tela_x11(nome, window):
+    # Captura de pixels da janela X11: independente de page.screenshot/CDP.
+    geom=xdo("getwindowgeometry","--shell",window)
+    dims={}
+    for item in geom.splitlines():
+        if "=" in item:
+            k,v=item.split("=",1)
+            if k in ("X","Y","WIDTH","HEIGHT"):
+                dims[k]=int(v)
+    with mss() as capture:
+        width=min(dims["WIDTH"],1600-dims["X"])
+        height=min(dims["HEIGHT"],1100-dims["Y"])
+        snap=capture.grab({"left":max(0,dims["X"]),"top":max(0,dims["Y"]),
+                           "width":width,"height":height})
+        img=Image.frombytes("RGB",snap.size,snap.rgb)
+        img.save(OUT/(nome+"-x11.png"))
+        # Recorte central exclui barra do navegador e bordas do desktop.
+        center=img.crop((int(width*.30),int(height*.35),
+                         int(width*.70),int(height*.70)))
+        stat=ImageStat.Stat(center)
+        result={"image":nome,"geometry":dims,
+                "pixel_central":center.getpixel((center.width//2,center.height//2)),
+                "mean":list(map(lambda x:round(x,1),stat.mean)),
+                "stddev":list(map(lambda x:round(x,1),stat.stddev))}
+        print("CAPTURA X11",json.dumps(result,ensure_ascii=False),flush=True)
+        return result
+
+def inspetor_visibilidade(page,etapa):
+    vals=page.evaluate("""() => {
+      const nodes=[[innerWidth*.5,120],[innerWidth*.5,innerHeight*.5],
+                   [innerWidth*.5,innerHeight*.82]].map(([x,y])=>{
+        const e=document.elementFromPoint(x,y);
+        const c=e ? getComputedStyle(e) : null;
+        return {x,y,tag:e?.tagName,cls:e?.className?.toString().slice(0,125),
+          text:e?.textContent?.trim().slice(0,90),background:c?.backgroundColor,
+          color:c?.color,visibility:c?.visibility,opacity:c?.opacity};
+      });
+      const img=document.querySelector('main img[src*=camara-sitaq-julia-zanatta]');
+      const rect=img?.getBoundingClientRect();
+      return {scrollY,viewport:innerHeight,imgRect:rect&&
+        {x:rect.x,y:rect.y,w:rect.width,h:rect.height},
+        nodes};
+    }""")
+    print("DOM NO SCROLL",etapa,json.dumps(vals,ensure_ascii=False),flush=True)
+    return vals
 
 def metrics(page):
     return page.evaluate("""() => ({
@@ -89,6 +137,8 @@ with sync_playwright() as pw:
                     before_png=page.screenshot(path=str(OUT/"na-voz-antes-rolagem-200.png"),animations="disabled")
                     print("DEBUG SITAQ screenshot antes rolagem",len(before_png),
                           "scrollY",page.evaluate("scrollY"))
+                    inspetor_visibilidade(page,"antes")
+                    capturar_tela_x11("na-voz-antes",window)
                 # Imagens com loading=lazy só carregam quando entram na área de
                 # leitura. Rolá-las e esperar o decode separa atraso normal de
                 # erro de origem, sem mascarar uma imagem realmente quebrada.
@@ -149,11 +199,14 @@ with sync_playwright() as pw:
                         print("DEBUG SITAQ screenshot durante rolagem",len(shot),
                               "scrollY",page.evaluate("scrollY"),
                               "docHeight",page.evaluate("document.documentElement.scrollHeight"))
+                        inspetor_visibilidade(page,"no-sitaq")
+                        capturar_tela_x11("sitaq-durante",window)
                         page.evaluate("window.scrollTo(0,0)")
                         page.wait_for_timeout(600)
                         after_png=page.screenshot(path=str(OUT/"na-voz-depois-topo-200.png"),animations="disabled")
                         print("DEBUG SITAQ screenshot depois topo",len(after_png),
                               "scrollY",page.evaluate("scrollY"))
+                        capturar_tela_x11("na-voz-depois-topo",window)
                         if len(after_png)<12000:issues.append("página permanece vazia após voltar ao topo")
                 if route=="/eleitas":
                     page.wait_for_load_state("networkidle",timeout=15000)
