@@ -16,7 +16,8 @@ const BINARIOS = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".ico", ".pd
 // arquivo em public/ era copiado pelo Vite e continuava acessível pela URL.
 // A exclusão é deliberadamente explícita; só retirar após decisão de direitos.
 // Na build de revisão autorizada pelo workflow, a imagem pode ser examinada.
-const FOTOS_BLOQUEADAS = new Map([
+const ARQUIVOS_BLOQUEADOS = new Map([
+  ["documentos/tse-candidatos-2026-portal.png", null],
   ["fotos/pagu-patricia-galvao-anos-1920.jpg", "VITE_QSE_PREVIEW_PAGU_FOTO"],
   ["fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg", "VITE_QSE_PREVIEW_LELIA_FOTO"],
 ]);
@@ -50,8 +51,8 @@ for await (const source of percorrer(PUBLIC)) {
   const rel = path.relative(PUBLIC, source);
   const urlRel = rel.split(path.sep).join("/");
   const target = path.join(DIST, rel);
-  const autorizacaoPrevia = FOTOS_BLOQUEADAS.get(urlRel);
-  if (autorizacaoPrevia && process.env[autorizacaoPrevia] !== "true") {
+  const controlePublicacao = ARQUIVOS_BLOQUEADOS.get(urlRel);
+  if (ARQUIVOS_BLOQUEADOS.has(urlRel) && (!controlePublicacao || process.env[controlePublicacao] !== "true")) {
     // O Vite pode ter copiado a imagem antes: remover mesmo quando já existe.
     await rm(target, { force: true });
     excluidos++;
