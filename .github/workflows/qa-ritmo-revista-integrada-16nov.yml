@@ -1,4 +1,4 @@
-name: QA revista — fotos documentais e perfis históricos em prévia
+name: QA revista — perfis históricos sem imagens e documentação
 on:
   push:
     branches: [revista-consolidada-ajustes-de-ritmo-16nov2026]
@@ -42,28 +42,13 @@ jobs:
           with sync_playwright() as p:
             browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
             page=browser.new_page(viewport={'width':1440,'height':900})
-            for slug,arquivo in [('pagu','pagu-colagem-tipografica.svg'),('lelia-gonzalez','lelia-colagem-tipografica.svg')]:
+            for slug in ['pagu','lelia-gonzalez']:
               page.goto('http://127.0.0.1:4173/pioneiras/'+slug,wait_until='domcontentloaded')
-              assert page.locator('main header img[src*="/fotos/pagu-patricia-galvao"],main header img[src*="/fotos/lelia-gonzalez-cezar-loureiro"]').count()==0,slug+': retrato sob restrição no build normal'
-              arte=page.locator('main header figure img[src="/arte-editorial/'+arquivo+'"]')
-              assert arte.count()==1,slug+': colagem editorial ausente'
-              assert arte.first.evaluate('(e)=>e.complete && e.naturalWidth>0'),slug+': colagem não carregou'
-              assert arte.first.get_attribute('alt'),slug+': texto alternativo ausente'
-              legenda=arte.first.locator('xpath=ancestor::figure[1]').locator('figcaption')
-              assert legenda.count()==1 and 'não é retrato' in legenda.inner_text(),slug+': natureza ilustrativa sem legenda'
-              assert page.locator('main header figure').count()>=2,slug+': ficha tipográfica de votação ausente'
-            print('Build normal: retratos restritos bloqueados, colagens identificadas e fichas preservadas')
+              assert page.locator('main header img').count()==0,slug+': abertura deveria estar sem imagem'
+              assert page.locator('main header section[aria-label="Ficha eleitoral da pioneira"]').count()==1,slug+': ficha tipográfica ausente'
+            print('Build normal: Pagu e Lélia sem imagens e com fichas preservadas')
             browser.close()
           PY
-      - name: Compilar retratos de Pagu e Lelia somente na previa editorial
-        env:
-          VITE_QSE_PREVIEW_PAGU_FOTO: "true"
-          VITE_QSE_PREVIEW_LELIA_FOTO: "true"
-        run: |
-          cp docs/acervo-em-revisao/lelia-gonzalez-cezar-loureiro-referencia.jpg public/fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg
-          bun run build:hostgator
-          test -s dist/client/fotos/pagu-patricia-galvao-anos-1920.jpg
-          test -s dist/client/fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg
       - name: Auditar sete paginas revistas e duas ancoras em tres larguras
         run: |
           set -euo pipefail
@@ -78,7 +63,7 @@ jobs:
           from playwright.sync_api import sync_playwright
           routes=[
             ('/pioneiras/lelia-gonzalez','lelia'),
-            ('/pioneiras/pagu','pagu-previa-foto'),
+            ('/pioneiras/pagu','pagu'),
             ('/direitos','direitos'),
             ('/quem-chega','quem-chega'),
             ('/votos','votos'),
@@ -145,19 +130,11 @@ jobs:
                       legenda:!!n.closest('figure')?.querySelector('figcaption')
                     }))
                   })""")
-                  if route == '/pioneiras/pagu':
-                    fotos = page.locator('main header figure img')
-                    if fotos.count() != 1: hard.append({'rota':route,'dispositivo':device,'erro':'Fotografia de Pagu ausente na compilação exclusiva de prévia'})
-                    else:
-                      alt=fotos.first.get_attribute('alt')
-                      if not alt or not page.locator('main header figure figcaption').count():hard.append({'rota':route,'dispositivo':device,'erro':'Retrato em prévia sem alternativa ou legenda'})
-                  if route == '/pioneiras/lelia-gonzalez':
-                    retrato = page.locator('main header figure img')
-                    if retrato.count() != 1 or not retrato.first.get_attribute('alt') or not page.locator('main header figure figcaption').count():
-                      hard.append({'rota':route,'dispositivo':device,'erro':'Retrato de Lélia não aparece adequadamente no build explícito de prévia'})
-                    else:
-                      imagem_ok = retrato.first.evaluate('(img)=>img.complete && img.naturalWidth > 500')
-                      if not imagem_ok: hard.append({'rota':route,'dispositivo':device,'erro':'Arquivo fotográfico de Lélia não carrega na prévia'})
+                  if route in ['/pioneiras/pagu','/pioneiras/lelia-gonzalez']:
+                    if page.locator('main header img').count()!=0:
+                      hard.append({'rota':route,'dispositivo':device,'erro':'Imagem presente na abertura sem imagem aprovada'})
+                    if page.locator('main header section[aria-label="Ficha eleitoral da pioneira"]').count()!=1:
+                      hard.append({'rota':route,'dispositivo':device,'erro':'Ficha eleitoral ausente'})
                   widths=page.evaluate("""() => ({scroll:document.documentElement.scrollWidth,visible:window.innerWidth})""")
                   record={'rota':route,'dispositivo':device,'http':response.status if response else None,
                           'violacoes':axe,'foco_primeiros_12':keyboard,'documentos':docs,
