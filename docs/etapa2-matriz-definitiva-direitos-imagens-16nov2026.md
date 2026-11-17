@@ -30,3 +30,7 @@ Fontes: https://www2.camara.leg.br/legin/fed/lei/1998/lei-9610-19-fevereiro-1998
 - União Brasil: https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0601251_87-2026-6-00-0000___uniao_brasil_nacional___criterios_fefc
 - Federação Brasil da Esperança, em processo do PT: https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0601252_72-2026-6-00-0000___pt_nacional___criterios_fefc
 - PL: https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0600974_71-2026-6-00-0000___pl_nacional___criterios_fefc
+
+
+## Atualização editorial de 17/11/2026 — prevalece sobre referências a imagens gráficas
+Por decisão expressa da editora, os perfis Pagu e Lélia Gonzalez **não exibem nem fotografia histórica nem colagem ilustrativa**. A retirada das duas peças e dos dois binários fotográficos da árvore atual do PR **não implica autorização, domínio público ou limpeza do histórico público**. Manter metadados de procedência, restrições, links para os acervos e exigência de licença antes de qualquer futura incorporação. A matriz dos outros cinco itens e as cautelas de reprodução proporcional dos documentos oficiais/partidários continuam válidas.
