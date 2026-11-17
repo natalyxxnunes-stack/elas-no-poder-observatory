@@ -124,6 +124,18 @@ with sync_playwright() as pw:
                     if page.locator("main img").count():issues.append("imagem em perfil sem imagem")
                     if page.locator('main section[aria-label="Ficha eleitoral da pioneira"]').count()!=1:
                         issues.append("ficha eleitoral ausente")
+                if route=="/na-voz-delas":
+                    # Regressão de 200% em novembro: imagem de SITAQ sem
+                    # dimensões era invisível/altura zero ao carregar sob zoom.
+                    sita=page.locator('main img[src="/documentos/camara-sitaq-julia-zanatta-2026-03-10-p163.png"]').first
+                    if not sita.count():
+                        issues.append("recorte SITAQ ausente")
+                    else:
+                        sita.scroll_into_view_if_needed(timeout=10000)
+                        page.wait_for_function(
+                          "()=>{let i=document.querySelector('main img[src*=camara-sitaq-julia-zanatta]');return !!i&&i.complete&&i.naturalWidth>0&&i.getBoundingClientRect().height>0;}",
+                          timeout=12000)
+                        sita.screenshot(path=str(OUT/"sitaq-recorte-200-nativo.png"))
                 if route=="/eleitas":
                     page.wait_for_load_state("networkidle",timeout=15000)
                     control=page.locator("#filtros-eleitas select").first
