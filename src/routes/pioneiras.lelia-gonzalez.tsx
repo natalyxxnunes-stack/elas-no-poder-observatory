@@ -25,7 +25,7 @@ export const Route = createFileRoute("/pioneiras/lelia-gonzalez")({
           "Perfil com a votação oficial de Lélia Gonzalez em 1982 e 1986, recontada a partir dos arquivos do TSE.",
       },
       { property: "og:type", content: "article" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: LeliaPage,
