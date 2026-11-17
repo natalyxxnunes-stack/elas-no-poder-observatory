@@ -97,6 +97,40 @@ export function PerfilHero({
               </figure>
             ) : temFoto && fotoId ? (
               <FotoDocumental id={fotoId} />
+            ) : ficha && pagu ? (
+              <div className="space-y-4">
+                <figure className="overflow-hidden border-[6px] border-[var(--art-coral)] bg-[var(--art-gold)] text-ink">
+                  <div className="relative isolate min-h-[270px] overflow-hidden p-6 sm:min-h-[315px] sm:p-8">
+                    <div aria-hidden="true" className="absolute -left-12 -top-16 h-48 w-60 -rotate-12 bg-[var(--art-plum)]" />
+                    <div aria-hidden="true" className="absolute -right-14 -top-8 h-56 w-56 rounded-full bg-[#c53f22]" />
+                    <div aria-hidden="true" className="absolute -bottom-20 -left-12 h-52 w-72 rotate-[-12deg] bg-ink" />
+                    <div aria-hidden="true" className="absolute bottom-8 right-5 grid w-32 rotate-[7deg] grid-cols-6 gap-1 opacity-80 sm:w-40">
+                      {Array.from({ length: 48 }, (_, i) => (
+                        <span key={i} className="aspect-square rounded-full bg-ink" />
+                      ))}
+                    </div>
+                    <div className="relative z-10">
+                      <p className="inline-block bg-paper px-3 py-2 font-mono text-[11px] font-semibold uppercase tracking-wider">Pioneiras · composição editorial</p>
+                      <p className="mt-7 max-w-[6ch] font-display text-[clamp(4rem,8vw,6.4rem)] font-black leading-[.82] tracking-[-.065em] text-paper [text-shadow:3px_4px_0_#241326]">
+                        PAGU
+                      </p>
+                      <div className="mt-8 flex max-w-xs flex-wrap gap-2">
+                        <span className="bg-paper px-3 py-1 font-mono text-xs font-bold">Jornalismo</span>
+                        <span className="bg-paper px-3 py-1 font-mono text-xs font-bold">Literatura</span>
+                        <span className="bg-paper px-3 py-1 font-mono text-xs font-bold">Política</span>
+                      </div>
+                    </div>
+                  </div>
+                  <figcaption className="bg-ink px-4 py-3 text-[12px] leading-relaxed text-paper">
+                    Composição gráfica original do observatório, feita com formas e tipografia.
+                    Não é retrato de Pagu nem reprodução de documento histórico.
+                  </figcaption>
+                </figure>
+                <div className="border border-rule bg-paper p-5 md:p-6">
+                  <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-plum">Arquivo eleitoral · Reprodução tipográfica</p>
+                  {ficha}
+                </div>
+              </div>
             ) : ficha ? (
               <div className="border border-rule bg-paper p-5 md:p-6">
                 <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-plum">Arquivo eleitoral · Reprodução tipográfica</p>
