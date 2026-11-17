@@ -56,14 +56,24 @@ export function PortalTSEEmContexto({ recorte }: { recorte: string }) {
   return (
     <section aria-labelledby="portal-tse-documental" className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-gold)] text-ink">
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[1fr_1fr] lg:gap-12">
-        <figure className="min-w-0 bg-ink p-3 md:p-5">
-          <a href="/documentos/tse-candidatos-2026-portal.png" target="_blank" rel="noreferrer" aria-label="Ampliar captura da página oficial Candidatos 2026 do TSE">
-            <img src="/documentos/tse-candidatos-2026-portal.png" alt="Captura documental da página Candidatos — 2026 do portal de Dados Abertos do TSE" loading="lazy" className="block aspect-[11/8] w-full object-cover object-top" />
+        <div className="flex min-w-0 flex-col justify-center border-t-[5px] border-ink bg-ink p-6 text-paper md:p-9">
+          <p className="font-mono text-[12px] font-semibold uppercase tracking-wide text-[var(--art-gold)]">
+            Fonte primária · Tribunal Superior Eleitoral
+          </p>
+          <p className="mt-5 font-display text-[clamp(1.8rem,3vw,3rem)] leading-tight">
+            Candidatos 2026
+          </p>
+          <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-paper/85">
+            Conjunto de dados publicado pelo TSE. A referência identifica a fonte,
+            sem reproduzir a interface do portal enquanto seus direitos gráficos
+            permanecem sem autorização específica documentada.
+          </p>
+          <a href="https://dadosabertos.tse.jus.br/dataset/candidatos-2026"
+            target="_blank" rel="noreferrer"
+            className="mt-6 inline-flex min-h-11 items-center self-start font-semibold text-paper underline underline-offset-4">
+            Consultar a página original no TSE ↗
           </a>
-          <figcaption className="mt-3 font-mono text-[12px] leading-relaxed text-paper/85">
-            Captura do portal do TSE · 15/11/2026 · arquivo de origem identificado. A imagem mostra a página de disponibilização, não o CSV. A utilização da interface ainda requer validação específica de direitos.
-          </figcaption>
-        </figure>
+        </div>
         <div className="flex flex-col justify-center">
           <p className="text-[13px] font-semibold">Documento de origem · 2026</p>
           <h2 id="portal-tse-documental" className="mt-4 max-w-lg font-display text-[clamp(2rem,3.6vw,3.55rem)] leading-[1.08]">
@@ -71,7 +81,7 @@ export function PortalTSEEmContexto({ recorte }: { recorte: string }) {
           </h2>
           <p className="mt-5 max-w-xl text-[16px] leading-relaxed">{recorte}</p>
           <p className="mt-3 text-[14px] leading-relaxed text-ink/80">
-            A licença do conjunto de dados não se aplica automaticamente à interface capturada. A origem, a data de geração e a metodologia devem ser verificadas separadamente.
+            Os arquivos eleitorais são utilizados como fonte primária; a fotografia da interface foi retirada desta apresentação por ausência de comprovação específica dos direitos gráficos.
           </p>
           <a href="https://dadosabertos.tse.jus.br/dataset/candidatos-2026" target="_blank" rel="noreferrer" className="mt-6 inline-flex min-h-11 items-center self-start border-b-2 border-ink text-[15px] font-semibold text-ink">
             Abrir conjunto Candidatos 2026 no TSE ↗
