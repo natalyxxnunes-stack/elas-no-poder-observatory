@@ -1,0 +1,82 @@
+name: Auditoria TSE 2026 — coleta isolada
+
+on:
+  push:
+    branches:
+      - auditoria-tse-2026-11-17
+    paths:
+      - .github/workflows/auditoria-tse-2026.yml
+
+permissions:
+  contents: write
+
+jobs:
+  auditoria:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Baixar dois arquivos diretamente da CDN oficial do TSE
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/tse"
+          curl --fail --location --silent --show-error --retry 3 --connect-timeout 30 --max-time 900 \
+            "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2026.zip" \
+            -o "$RUNNER_TEMP/tse/consulta_cand_2026.zip"
+          curl --fail --location --silent --show-error --retry 3 --connect-timeout 30 --max-time 900 \
+            "https://cdn.tse.jus.br/estatistica/sead/odsele/prestacao_contas/prestacao_de_contas_eleitorais_candidatos_2026.zip" \
+            -o "$RUNNER_TEMP/tse/prestacao_de_contas_eleitorais_candidatos_2026.zip"
+          unzip -tqq "$RUNNER_TEMP/tse/consulta_cand_2026.zip"
+          unzip -tqq "$RUNNER_TEMP/tse/prestacao_de_contas_eleitorais_candidatos_2026.zip"
+      - name: Recontar e produzir diferenças contra base de 15/11
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/auditoria/tse_2026_rodada.py \
+            "$RUNNER_TEMP/tse/consulta_cand_2026.zip" \
+            "$RUNNER_TEMP/tse/prestacao_de_contas_eleitorais_candidatos_2026.zip" \
+            "docs/auditorias/tse-2026-11-17/execucao-github"
+      - name: Classificar cortes e registrar ressalvas antes de integrar
+        shell: bash
+        run: |
+          python - <<'PY'
+          import datetime, json, pathlib
+          p=pathlib.Path("docs/auditorias/tse-2026-11-17/execucao-github/manifest.json")
+          d=json.loads(p.read_text(encoding="utf-8"))
+          cortes={"candidaturas": d["candidaturas"].get("gerado_em",""),
+                  "receitas": d["contas"].get("receitas",{}).get("gerado_em","")}
+          ins=[]
+          for nome, txt in cortes.items():
+              try:
+                  data=datetime.datetime.strptime(txt.split()[0],"%d/%m/%Y").date()
+                  if data<=datetime.date(2026,11,16):
+                      ins.append(f"{nome} gerado até 16/11/2026: {txt}; precisa de corte mais recente")
+              except Exception:
+                  ins.append(f"{nome}: data de geração ilegível {txt!r}")
+          d["pendencias_corte"]=ins
+          d["status"]="CORTE_ANTIGO_OU_INDETERMINADO" if ins else "BASES_POSTERIORES_A_16_11_PENDENTES_DE_HOMOLOGACAO"
+          p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          report=pathlib.Path("docs/auditorias/tse-2026-11-17/execucao-github/relatorio.md")
+          report.write_text("# Auditoria TSE 2026 — coleta automatizada no GitHub\n\n"+
+              "**Status: "+d["status"]+"**. Nenhum indicador do site foi alterado.\n\n"+
+              "Candidaturas: "+cortes["candidaturas"]+"\n\nReceitas: "+cortes["receitas"]+"\n\n"+
+              ("\n".join("- "+v for v in ins) if ins else "Cortes posteriores a 16/11 identificados.")+
+              "\n\nVer manifest.json, indicadores.json e deltas.json para reprodução.\n",encoding="utf-8")
+          PY
+      - name: Registrar apenas agregados no ramo de auditoria
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add docs/auditorias/tse-2026-11-17/execucao-github/
+          if ! git diff --staged --quiet; then
+            git commit -m "audit(tse): registrar hashes e agregados da coleta oficial sem publicar"
+            git push origin HEAD:auditoria-tse-2026-11-17
+          fi
