@@ -81,7 +81,7 @@ with sync_playwright() as pw:
                 details=page.locator("main details:visible")
                 if details.count():
                     d=details.first
-                    d.locator("summary").focus()
+                    d.locator("summary").first.focus()
                     before=d.get_attribute("open")
                     page.keyboard.press("Enter")
                     after=d.get_attribute("open")
