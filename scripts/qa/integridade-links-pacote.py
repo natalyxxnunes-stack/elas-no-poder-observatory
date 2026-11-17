@@ -130,5 +130,10 @@ summary={
 (OUT/"resumo.json").write_text(json.dumps(summary,ensure_ascii=False,indent=2))
 (OUT/"todos-os-achados.json").write_text(json.dumps({"errors":errors,"warnings":warnings},ensure_ascii=False,indent=2))
 print(json.dumps(summary,ensure_ascii=False,indent=2))
-# A varredura inicial não altera conteúdo, nem marca falha até que os
-# resultados sejam revisados editorialmente e falsos positivos descartados.
+# A varredura diagnóstica inicial foi revisada em 16/11/2026:
+# 399 páginas, zero links/fragmentos/mídias locais quebrados e duas fotos
+# bloqueadas corretamente fora do pacote. Daqui em diante, erros reais
+# de integridade interrompem o QA antes de uma publicação futura.
+assert len(all_docs) >= 390, "Regressão: número inesperadamente pequeno de páginas pré-renderizadas"
+assert not errors, "Erro interno de link, mídia ou acervo bloqueado; consultar relatório JSON"
+assert not warnings, "Âncora ou link incompleto; consultar relatório JSON"
