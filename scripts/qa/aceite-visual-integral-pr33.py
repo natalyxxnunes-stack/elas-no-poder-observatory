@@ -89,4 +89,6 @@ with sync_playwright() as p:
 print("Rotas:",len(ROUTES),"Capturas:",len(records),"Falhas:",len(failures),flush=True)
 for item in failures[:10]:print(item,flush=True)
 assert len(records)==len(ROUTES)*2,"Capturas incompletas"
-# Diagnostico visual: aviso nao implica reprovar automaticamente um documento.
+# Falhas objetivas (HTTP, imagem, H1, JS e largura) impedem aprovar a integridade.
+# O juízo estético das páginas inteiras continua humano.
+assert not failures,"Falhas objetivas de página: consultar capturas-aceite-editorial-pr33/resumo.json"
