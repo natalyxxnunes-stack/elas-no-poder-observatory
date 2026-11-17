@@ -93,23 +93,30 @@ export function DuasEtapasComparador({ linhas }: { linhas: readonly LinhaCompara
   );
 }
 
+/** Referência documental sem captura de interface: direito gráfico não comprovado. */
 export function CapturaPortalDados() {
   return (
     <figure className="mt-7 max-w-xl border-2 border-ink bg-paper p-3 md:p-4">
-      <a href="/documentos/tse-candidatos-2026-portal.png" target="_blank" rel="noreferrer"
-        aria-label="Ampliar captura da página Candidatos 2026 do portal do TSE">
-        <img src="/documentos/tse-candidatos-2026-portal.png"
-          alt="Captura da página Candidatos 2026 no portal de Dados Abertos do TSE"
-          loading="lazy" className="block aspect-[11/8] w-full object-cover object-top" />
-      </a>
+      <div className="flex min-h-[210px] flex-col justify-center bg-ink p-5 text-paper md:min-h-[245px] md:p-7">
+        <p className="font-mono text-[12px] font-semibold uppercase tracking-wide text-[var(--art-gold)]">
+          Fonte primária · TSE · 2026
+        </p>
+        <strong className="mt-4 font-display text-3xl leading-tight md:text-4xl">
+          Candidatos 2026
+        </strong>
+        <p className="mt-4 max-w-md text-[14px] leading-relaxed text-paper/85">
+          Acesse a página original do conjunto de dados eleitorais.
+          A captura da interface está reservada ao acervo de pesquisa.
+        </p>
+      </div>
       <figcaption className="mt-3 font-mono text-[12px] leading-relaxed text-ink/80">
-        Captura da interface em 15/11/2026 · TSE, Dados Abertos. Mostra a página
-        de disponibilização, não o arquivo CSV, nem a prestação de contas.
-        A licença da base de dados não se aplica automaticamente à interface.
+        Referência documental ao Portal de Dados Abertos do TSE, consulta registrada
+        em 15/11/2026. A análise utiliza os arquivos do conjunto, não uma imagem
+        da página. A licença dos dados não foi estendida ao desenho do portal.
         <a href="https://dadosabertos.tse.jus.br/dataset/candidatos-2026"
           target="_blank" rel="noreferrer"
-          className="mt-2 block font-semibold text-plum underline underline-offset-4">
-          Abrir a página original ↗
+          className="mt-2 block min-h-10 font-semibold text-plum underline underline-offset-4">
+          Abrir o conjunto original no TSE ↗
         </a>
       </figcaption>
     </figure>
