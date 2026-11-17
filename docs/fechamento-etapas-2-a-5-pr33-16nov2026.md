@@ -31,3 +31,10 @@
 
 ## Governança e memória visual
 O redesign continua guiado pela âncora `docs/design/ANCORA-EDITORIAL-PILOTOS-16NOV2026.md`: roxo estrutural, tinta, coral profundo com texto claro, dourado e creme apenas onde a leitura pede. Logo e home preservadas. Fotografias documentais com direitos comprovados, documentos originais e gráficos de dados mantêm precedência jornalística sobre colagens. A colagem autoral serve a páginas específicas e não vira template universal.
+
+
+## Complemento da revisão de acessibilidade e regressão
+
+- No roteiro `scripts/qa/reflow-teclado-fechamento.py`, Pagu e Lélia passaram a integrar as rotas cobertas nas três configurações simuladas (desktop, reflow equivalente e espaçamento ampliado). Foram incorporadas verificações de carregamento dos SVGs, texto alternativo, legenda com identificação de ilustração e ausência dos retratos bloqueados na interface normal. **Essas verificações foram programadas, não há resultado de execução certificado neste registro.**
+- O teste de variantes foi atualizado porque a antiga asserção exigia a captura do TSE que a decisão de direitos retirou da interface. O controle atual requer link ao conjunto de dados e ausência da imagem restrita.
+- **Limitação da consulta à automação:** a ação conectada ao GitHub para listar execuções por commit retorna somente workflows associados a evento de pull request; os workflows existentes usam `push` e `workflow_dispatch`. Assim, resposta vazia não prova que não rodaram; tampouco autoriza afirmar aprovação. Conferir a aba Actions e anexar IDs dos runs antes de encerrar a etapa 3.
