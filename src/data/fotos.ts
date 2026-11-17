@@ -72,7 +72,7 @@ export const FOTOS: Record<string, Foto> = {
     src: "/fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg",
     alt: "Retrato histórico de Lélia Gonzalez atribuído ao fotógrafo Cezar Loureiro, em imagem horizontal.",
     credito: "Cezar Loureiro / Wikimedia Commons (origem informada: revista Cult)",
-    acervo: "Cópia armazenada somente em docs/acervo-em-revisao para avaliação editorial e jurídica; versão pública bloqueada",
+    acervo: "Referência documental mantida; binário removido da árvore ativa do PR #33 por direitos pendentes. Cópias de commits antigos requerem exame separado",
     licenca: "verificacao-pendente",
     licencaUrl: "https://commons.wikimedia.org/wiki/File:L%C3%A9lia_Gonzalez_by_Cezar_Loureiro.jpg",
     data: "Anterior a 1994, segundo a ficha do Commons; primeira publicação por verificar",
@@ -133,5 +133,5 @@ export const LICENCA_ROTULO: Record<Licenca, string> = {
   CC0: "CC0",
   "dominio-publico": "domínio público",
   "cessao-autorizada": "uso autorizado",
-  "verificacao-pendente": "Wikimedia Commons indica domínio público; validação documental pendente",
+  "verificacao-pendente": "Verificação de autoria, licença e direitos pendente — reprodução não autorizada",
 };
