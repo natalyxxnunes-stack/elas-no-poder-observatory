@@ -1,0 +1,32 @@
+name: QA PR33 — pacote para verificacao independente do navegador
+on:
+  push:
+    branches:
+      - qa-pr33-renderizacao-independente-17nov2026
+permissions:
+  contents: read
+jobs:
+  pacote-de-verificacao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Instalar e compilar o mesmo codigo do PR 33
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Compactar o site estatico apenas para verificacao
+        run: |
+          set -euo pipefail
+          cd dist/client
+          zip -q -r ../../qse-pr33-preview-interno.zip .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qse-pr33-preview-interno
+          path: qse-pr33-preview-interno.zip
+          retention-days: 3
