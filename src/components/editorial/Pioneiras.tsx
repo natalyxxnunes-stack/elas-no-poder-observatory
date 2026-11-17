@@ -60,14 +60,13 @@ export function PerfilHero({
   const pagu = fotoId === "pagu";
   const lelia = fotoId === "lelia-gonzalez";
   const fundoEscuro = pagu || lelia;
-  // Somente para imagens de avaliação. O build normal mantém o bloqueio jurídico.
-  const previaPagu = pagu && import.meta.env["VITE_QSE_PREVIEW_PAGU_FOTO"] === "true";
-  const previaLelia = lelia && import.meta.env["VITE_QSE_PREVIEW_LELIA_FOTO"] === "true";
-  const temFoto = Boolean(fotoId && FOTOS[fotoId] && (FOTOS[fotoId]?.licenca !== "verificacao-pendente" || previaPagu || previaLelia));
+  // Pagu e Lélia: decisão editorial de 17/11/2026 — sem imagem, inclusive em prévias.
+  // Os retratos históricos seguem sob restrição de direitos.
+  const temFoto = Boolean(fotoId && !(pagu || lelia) && FOTOS[fotoId] && FOTOS[fotoId]?.licenca !== "verificacao-pendente");
   return (
     <header className={`relative left-1/2 -ml-[50vw] w-screen ${pagu ? "bg-ink text-paper" : lelia ? "bg-[var(--art-plum)] text-paper" : "bg-cream text-ink"}`}>
       <div className="mx-auto max-w-7xl px-5 py-11 md:px-8 md:py-16">
-        <div className="grid items-start gap-8 lg:grid-cols-[1fr_.9fr] lg:gap-12">
+        <div className={(pagu || lelia) ? "max-w-4xl" : "grid items-start gap-8 lg:grid-cols-[1fr_.9fr] lg:gap-12"}>
           <div>
             <p className={`text-xs font-semibold uppercase tracking-wide ${fundoEscuro ? "text-[var(--art-gold)]" : "text-plum"}`}>Série Pioneiras · {years}</p>
             <h1 className={`mt-4 max-w-2xl font-display text-[clamp(2.7rem,5vw,4.7rem)] font-semibold leading-[1.03] ${fundoEscuro ? "text-paper" : "text-ink"}`}>
@@ -75,56 +74,25 @@ export function PerfilHero({
             </h1>
             <p className={`mt-6 max-w-xl text-lg leading-relaxed ${fundoEscuro ? "text-paper/90" : "text-ink/85"}`}>{quemFoi}</p>
             <p className={`mt-6 max-w-lg text-xs leading-relaxed ${fundoEscuro ? "text-paper/85" : "text-ink/75"}`}>
-              Perfil documental: imagem histórica apenas com procedência e direitos identificados.
               Os resultados eleitorais são registrados na ficha do TSE.
             </p>
           </div>
-          <div className="min-w-0">
-            {fundoEscuro && temFoto && fotoId && FOTOS[fotoId] ? (
-              <figure className={`mx-auto w-full ${lelia ? "max-w-[560px] bg-[var(--art-gold)]" : "max-w-[390px] bg-[var(--art-coral)]"} p-3 sm:p-4 lg:mx-0`}>
-                <img src={FOTOS[fotoId]!.src} alt={FOTOS[fotoId]!.alt}
-                  loading="eager" fetchPriority="high"
-                  className={`block w-full object-cover object-center ${lelia ? "aspect-[3/2]" : "aspect-[3/4]"}`}/>
-                <figcaption className="mt-3 bg-ink px-3 py-3 text-[13px] leading-relaxed text-paper">
-                  {lelia ? "Lélia Gonzalez, retrato atribuído a Cezar Loureiro. Autoria indicada na ficha do acervo." : "Pagu, retrato atribuído ao fim dos anos 1920. Autoria não identificada."}{" "}
-                  {FOTOS[fotoId]!.licencaUrl && (
-                    <a href={FOTOS[fotoId]!.licencaUrl} target="_blank" rel="noreferrer"
-                      className="font-semibold underline underline-offset-2">
-                      Consultar ficha da fotografia
-                    </a>
-                  )}. {(previaPagu || previaLelia) ? "Reprodução exclusiva desta prévia editorial. Direitos sob verificação; não liberar para publicação." : ""}
-                </figcaption>
-              </figure>
-            ) : temFoto && fotoId ? (
-              <FotoDocumental id={fotoId} />
-            ) : ficha && (pagu || lelia) ? (
-              <figure className={`overflow-hidden border-[6px] ${pagu ? "border-[var(--art-coral)]" : "border-[var(--art-gold)]"} bg-ink`}>
-                <img
-                  src={pagu ? "/arte-editorial/pagu-colagem-tipografica.svg" : "/arte-editorial/lelia-colagem-tipografica.svg"}
-                  alt={pagu
-                    ? "Colagem tipográfica editorial com o nome Pagu, referências abstratas à imprensa e à escrita, nas cores roxo, coral e dourado."
-                    : "Colagem tipográfica editorial com o nome Lélia Gonzalez, referências abstratas à escrita e ao pensamento político, nas cores roxo, dourado e coral."}
-                  width={960}
-                  height={720}
-                  loading="eager"
-                  className="block h-auto w-full"
-                />
-                <figcaption className="bg-ink px-4 py-3 text-[12px] leading-relaxed text-paper">
-                  Composição gráfica original do observatório. A imagem é ilustrativa:
-                  não é retrato da pessoa nem reprodução de documento histórico.
-                </figcaption>
-              </figure>
-            ) : ficha ? (
-              <div className="border border-rule bg-paper p-5 md:p-6">
-                <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-plum">Arquivo eleitoral · Reprodução tipográfica</p>
-                {ficha}
-              </div>
-            ) : (
-              <p className="border border-rule bg-paper p-5 text-sm text-ink/75">
-                Fotografia não disponível com procedência e direitos verificados.
-              </p>
-            )}
-          </div>
+          {!(pagu || lelia) && (
+            <div className="min-w-0">
+              {temFoto && fotoId ? (
+                <FotoDocumental id={fotoId} />
+              ) : ficha ? (
+                <div className="border border-rule bg-paper p-5 md:p-6">
+                  <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-plum">Arquivo eleitoral · Reprodução tipográfica</p>
+                  {ficha}
+                </div>
+              ) : (
+                <p className="border border-rule bg-paper p-5 text-sm text-ink/75">
+                  Fotografia não disponível com procedência e direitos verificados.
+                </p>
+              )}
+            </div>
+          )}
         </div>
         {ficha && (pagu || lelia) && !temFoto && (
           <section aria-label="Ficha eleitoral da pioneira" className="mt-8 grid items-start gap-5 bg-paper p-5 text-ink md:grid-cols-[.7fr_1fr] md:gap-8 md:p-7">
