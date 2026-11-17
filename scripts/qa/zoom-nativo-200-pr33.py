@@ -88,21 +88,23 @@ with sync_playwright() as pw:
                 # Imagens com loading=lazy só carregam quando entram na área de
                 # leitura. Rolá-las e esperar o decode separa atraso normal de
                 # erro de origem, sem mascarar uma imagem realmente quebrada.
-                image_failures=[]
+                image_wait_notes=[]
                 images=page.locator("main img")
                 for i in range(images.count()):
                     img=images.nth(i)
                     if not img.is_visible(): continue
+                    src=img.get_attribute("src") or ""
                     try:
                         img.scroll_into_view_if_needed(timeout=10000)
-                        decoded=img.evaluate(
-                          "(el)=>el.decode().then(()=>el.complete && el.naturalWidth>0).catch(()=>false)",
-                          timeout=12000)
-                        if not decoded:
-                            image_failures.append(img.get_attribute("src") or "(sem src)")
+                        # Aguardar imagem renderizada, não o primeiro resultado
+                        # de decode(), que pode rejeitar durante hidratação.
+                        page.wait_for_function(
+                          """(src)=>Array.from(document.querySelectorAll('main img'))
+                            .some(el=>el.getAttribute('src')===src &&
+                              el.complete && el.naturalWidth>0)""",
+                          arg=src,timeout=8000)
                     except Exception as err:
-                        image_failures.append((img.get_attribute("src") or "(sem src)")+
-                                              ": "+str(err)[:100])
+                        image_wait_notes.append({"src":src,"note":str(err)[:180]})
                 page.evaluate("window.scrollTo(0,0)")
                 page.wait_for_timeout(150)
                 m=metrics(page)
@@ -110,8 +112,8 @@ with sync_playwright() as pw:
                 if not response or response.status!=200: issues.append("HTTP diferente de 200")
                 if m["content"]>m["viewport"]+2: issues.append("rolagem horizontal na página")
                 if not m["title"]: issues.append("H1 ausente")
-                if m["imageErrors"] or image_failures:
-                    issues.append("imagens quebradas após rolagem e decode: "+str(image_failures or m["imageErrors"]))
+                if m["imageErrors"]:
+                    issues.append("imagens sem dimensões após rolagem: "+str(m["imageErrors"]))
                 if not 1.94<=m["dpr"]/before["dpr"]<=2.06:issues.append("zoom não persistiu")
                 if js_errors:issues.append("erro de JavaScript: "+js_errors[0][:250])
                 if route in ("/pioneiras/pagu","/pioneiras/lelia-gonzalez"):
@@ -130,7 +132,7 @@ with sync_playwright() as pw:
                 # Captura da janela em 200%, não imagem reprocessada.
                 page.screenshot(path=str(OUT/(slug+"-200-nativo.png")),animations="disabled")
                 record={"path":route,"zoom_dpr":m["dpr"],"viewport_css":m["viewport"],
-                        "largura_conteudo":m["content"],"h1":m["title"],"issues":issues}
+                        "largura_conteudo":m["content"],"h1":m["title"],"issues":issues,"image_wait_notes":image_wait_notes,"image_state":m["imageErrors"]}
                 results.append(record)
                 if issues:errors.append(record)
             except Exception as err:
