@@ -12,14 +12,13 @@ const PUBLIC = path.join(process.cwd(), "public");
 const DIST = path.join(process.cwd(), "dist/client");
 const BINARIOS = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".ico", ".pdf", ".csv"]);
 
-// Prévia editorial ≠ pacote público: o código oculta Pagu em produção, mas o
-// arquivo em public/ era copiado pelo Vite e continuava acessível pela URL.
-// A exclusão é deliberadamente explícita; só retirar após decisão de direitos.
-// Na build de revisão autorizada pelo workflow, a imagem pode ser examinada.
+// A arte das duas pioneiras foi retirada; retratos históricos continuam sem
+// autorização documentada. Bloqueio incondicional, inclusive em prévias.
+// O filtro evita que arquivos recolocados por engano cheguem ao pacote público.
 const ARQUIVOS_BLOQUEADOS = new Map([
   ["documentos/tse-candidatos-2026-portal.png", null],
-  ["fotos/pagu-patricia-galvao-anos-1920.jpg", "VITE_QSE_PREVIEW_PAGU_FOTO"],
-  ["fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg", "VITE_QSE_PREVIEW_LELIA_FOTO"],
+  ["fotos/pagu-patricia-galvao-anos-1920.jpg", null],
+  ["fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg", null],
 ]);
 
 async function* percorrer(dir) {
