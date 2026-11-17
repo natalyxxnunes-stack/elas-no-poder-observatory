@@ -73,7 +73,7 @@ with sync_playwright() as p:
                 if errors:issues.append("browser_exception")
                 # JPEG integral para escala editorial. PNG do primeiro viewport mantem leitura fina.
                 page.screenshot(path=str(OUT/(slug+"-"+device+".jpg")),type="jpeg",quality=82,full_page=True,animations="disabled",timeout=60000)
-                if slug in {"home","eleitas-indice","metodo","reportagens","direitos","partidos","dinheiro","tema-memoria"}:
+                if slug in {"home","eleitas-indice","metodo","reportagens","direitos","partidos","dinheiro","tema-memoria","pioneira-pagu","pioneira-lelia"}:
                     page.screenshot(path=str(OUT/(slug+"-"+device+"-abertura.png")),full_page=False,animations="disabled")
                 rec={"url":url,"slug":slug,"device":device,"http":response.status if response else None,
                      "metrics":metrics,"issues":issues,"jsErrors":errors[:5]}
