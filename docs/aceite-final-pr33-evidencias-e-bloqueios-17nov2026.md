@@ -43,3 +43,12 @@
 **Nenhuma ação de merge, deploy HostGator ou modificação do site público nesta rodada.** Após decisões sobre os bloqueios e aceite expresso, conferir a versão integrada no domínio público com navegação, rotas, mídia/documentos, adaptação ao celular, dados e plano de rollback.
 
 Este registro substitui declarações pretéritas de `QA pendente` ou `peças gráficas candidatas à aprovação` no PR sem apagar o histórico de trabalho e suas datas.
+
+
+## 5. Reconciliação do indicador de financiamento (conferência do código, 17/11)
+
+No material versionado efetivamente utilizado pela aplicação, `src/data/tse-finance-snapshot.ts` importa `docs/auditorias/financiamento-2026-15nov/receitas-agregadas.json`, com fotografia financeira **gerada em 15/11/2026, 04h05min10s** e cadastro eleitoral gerado às 05h30min40s do mesmo dia; a proveniência e os hashes são identificados no [relatório de recontagem](auditorias/financiamento-2026-15nov/RELATORIO.md).
+
+Para **candidatas proporcionais com receitas declaradas** (deputadas federais, estaduais e distritais, sem suplentes ou vices): **3.203 candidatas autodeclaradas brancas com receita** somaram R$ 1.020.920.855,30; o total de receita das **6.836 candidatas proporcionais com receita**, de todas as categorias raciais, foi de R$ 1.819.706.552,93; resultado documentado **56,1036% = 56,1% com uma casa**. O denominador **não** é a receita de candidaturas de todos os gêneros, nem exclusivamente FEFC, nem gasto declarado. Cor/raça preta e parda permanecem separadas no relatório: 14,2% e 27,7%, respectivamente, no mesmo universo e período. Valores extraídos do relatório versionado; nesta rodada não foi feito novo download do TSE nem reprocessamento integral do CSV.
+
+A antiga divergência editorial **56,1% vs. 56,2%** não autoriza usar os dois números indistintamente. Para o recorte **atualmente integrado de 15/11** a forma sustentada é **56,1%**. Qualquer menção histórica a **56,2%** deve explicitar base, corte, universo e método distintos ou ser retirada; a origem exata do valor antigo não foi demonstrada nesta conferência.
