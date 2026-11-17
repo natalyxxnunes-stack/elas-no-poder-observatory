@@ -175,6 +175,18 @@ jobs:
                   assert img.get_attribute('alt') and img.evaluate('(e)=>e.naturalWidth>0'),slug+': imagem ausente ou sem alt'
                 if slug in ['agenda','memoria']:
                   assert page.locator('main figure img[src^="/fotos/"]').count()>=1,slug+': fotografia documental não localizada'
+                if slug in ['memoria','violencia']:
+                  # O único achado ocupa a largura de destaque, sem coluninha
+                  # isolada numa grade de três colunas ou texto excessivamente longo.
+                  cards=page.locator('#provas article[id^="achado-"]')
+                  assert cards.count()==1, slug+': número inesperado de achados'
+                  width=cards.first.evaluate('(e)=>e.getBoundingClientRect().width')
+                  section=page.locator('#provas').evaluate('(e)=>e.getBoundingClientRect().width')
+                  ratio=width/section
+                  minimo=.72 if device=='desktop' else .92
+                  assert ratio>=minimo,slug+': card isolado ocupa só '+str(round(ratio*100))+'% da seção'
+                  cards.first.screenshot(path='relatorios-variantes/prova-destaque-'+slug+'-'+device+'.png',animations='disabled')
+                  checks.append({'rota':'/temas/'+slug,'dispositivo':device,'status':'destaque-'+str(round(ratio,3))})
                 checks.append({'rota':'/temas/'+slug,'dispositivo':device,'status':'ok'})
               for slug in ['perpetua-almeida-ac','raquel-lyra-pe']:
                 page.goto('http://127.0.0.1:4173/eleitas/'+slug,wait_until='domcontentloaded',timeout=30000)

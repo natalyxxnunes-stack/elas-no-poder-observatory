@@ -118,9 +118,15 @@ function TemaPage() {
               nome="As provas"
               tipo={`${n(achados.length)} achados · cada um tem endereço próprio`}
             />
-            <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {/* Um único achado é abertura de reportagem: não ocupar só 1/3
+                da largura e obrigar a leitora a percorrer uma coluna extensa. */}
+            <div className={`mt-8 grid gap-6 ${achados.length === 1
+              ? "md:max-w-5xl"
+              : achados.length === 2
+                ? "md:grid-cols-2"
+                : "md:grid-cols-2 xl:grid-cols-3"}`}>
               {achados.map((a) => (
-                <AchadoCard key={a.id} achado={a} />
+                <AchadoCard key={a.id} achado={a} grande={achados.length === 1} />
               ))}
             </div>
           </div>
