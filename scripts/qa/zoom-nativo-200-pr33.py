@@ -135,7 +135,13 @@ with sync_playwright() as pw:
                         page.wait_for_function(
                           "()=>{let i=document.querySelector('main img[src*=camara-sitaq-julia-zanatta]');return !!i&&i.complete&&i.naturalWidth>0&&i.getBoundingClientRect().height>0;}",
                           timeout=12000)
-                        sita.screenshot(path=str(OUT/"sitaq-recorte-200-nativo.png"))
+                        # Capturar a janela (não o elemento isolado): a chamada
+                        # locator.screenshot produziu quadro branco no Chrome X11.
+                        # O teste passa somente se houver pintura real.
+                        page.wait_for_timeout(500)
+                        shot=page.screenshot(path=str(OUT/"sitaq-contexto-200-nativo.png"),animations="disabled")
+                        if len(shot)<12000:
+                            issues.append("captura visual SITAQ parece vazia: "+str(len(shot))+" bytes")
                 if route=="/eleitas":
                     page.wait_for_load_state("networkidle",timeout=15000)
                     control=page.locator("#filtros-eleitas select").first
@@ -146,7 +152,9 @@ with sync_playwright() as pw:
                     page.wait_for_timeout(350)
                     if control.input_value()==old:issues.append("filtro de UF não responde a seta no zoom")
                 # Captura da janela em 200%, não imagem reprocessada.
-                page.screenshot(path=str(OUT/(slug+"-200-nativo.png")),animations="disabled")
+                screenshot=page.screenshot(path=str(OUT/(slug+"-200-nativo.png")),animations="disabled")
+                if len(screenshot)<10000:
+                    issues.append("captura de página aparentemente vazia: "+str(len(screenshot))+" bytes")
                 record={"path":route,"zoom_dpr":m["dpr"],"viewport_css":m["viewport"],
                         "largura_conteudo":m["content"],"h1":m["title"],"issues":issues,"images_checked_in_view":images_checked_in_view,"image_wait_notes":image_wait_notes,"image_state_after_scroll_top":m["imageErrors"]}
                 results.append(record)
