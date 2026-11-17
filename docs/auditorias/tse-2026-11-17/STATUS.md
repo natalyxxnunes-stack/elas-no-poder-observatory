@@ -30,3 +30,10 @@ O recurso HTML do TSE não expõe a data atual de geração; o portal informa qu
 - [ ] Validar as diferenças e registrar aprovação editorial antes de alterar indicadores do site.
 
 **Repositório em produção (`main`) preservado.**
+## Continuação de 17/11 — tentativa de execução automatizada
+
+- O download direto de arquivos ZIP pelo contêiner falhou por DNS. O Portal de Dados Abertos do TSE foi consultado; a data oficial da base só pode ser extraída de dentro dos arquivos.
+- Criado o script \`scripts/auditoria/tse_2026_rodada.py\`: prepara agregado de candidaturas/resultados/receitas/FEFC/despesas contratadas e pagas por gênero, cor/raça, cargo, UF e partido. Compara receita e FEFC com as fotografias de 15/11/2026.
+- Criado o workflow \`.github/workflows/auditoria-tse-2026.yml\` restrito à branch \`auditoria-tse-2026-11-17\`; ele deve obter diretamente os ZIPs oficiais em runner GitHub, registrar hashes, datas, agregados e deltas, e não incorporar arquivos com CPF.
+- **Status da execução não verificado.** A presença do script e workflow não prova sucesso do processamento. Não foi localizado ainda o arquivo \`execucao-github/manifest.json\`.
+- Quando houver \`execucao-github/manifest.json\`, conferir datas de geração, hashes, recontagem por universo e diferenças antes de aplicar qualquer alteração ao \`main\` ou à HostGator.
