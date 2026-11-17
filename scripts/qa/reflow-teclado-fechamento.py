@@ -5,7 +5,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 OUT=Path("relatorios-fechamento-a11y")
 OUT.mkdir(exist_ok=True)
-ROUTES=[("/","home"),("/eleitas","quem-entrou"),("/eleitas/raquel-lyra-pe","ficha-governadora"),("/dinheiro","dinheiro"),("/metodo","metodo"),("/na-voz-delas","na-voz-delas"),("/partidos","partidos"),("/quem-controla","quem-controla"),("/reportagens","reportagens")]
+ROUTES=[("/","home"),("/eleitas","quem-entrou"),("/eleitas/raquel-lyra-pe","ficha-governadora"),("/dinheiro","dinheiro"),("/metodo","metodo"),("/na-voz-delas","na-voz-delas"),("/partidos","partidos"),("/quem-controla","quem-controla"),("/reportagens","reportagens"),("/pioneiras/pagu","pagu"),("/pioneiras/lelia-gonzalez","lelia")]
 MODES=[("desktop",1280,900,1,False),("equivalente-200",640,450,2,False),("espacamento-mobile",390,844,1,True)]
 CSS="""html *:not(svg):not(path):not(rect):not(circle){letter-spacing:.12em!important;word-spacing:.16em!important}html p,html li{line-height:1.5!important}html p{margin-bottom:2em!important}"""
 records=[];failures=[];keyboard=[]
@@ -28,6 +28,18 @@ with sync_playwright() as p:
         if not metrics["main"] or not metrics["title"]:issues.append("conteudo principal ausente")
         if errors:issues.append("erro JavaScript: "+errors[0])
         if route=="/eleitas/raquel-lyra-pe" and "Raquel Lyra" not in metrics["title"]:issues.append("nome da ficha incorreto")
+        if route.startswith("/pioneiras/"):
+          slug="pagu" if route.endswith("/pagu") else "lelia"
+          expected="/arte-editorial/"+("pagu-colagem-tipografica.svg" if slug=="pagu" else "lelia-colagem-tipografica.svg")
+          art=page.locator('main figure img[src="'+expected+'"]')
+          if art.count()!=1: issues.append("colagem editorial ausente")
+          else:
+            alt=art.get_attribute("alt")
+            loaded=art.evaluate("(el)=>el.complete && el.naturalWidth>0")
+            caption=art.locator("xpath=ancestor::figure[1]").locator("figcaption")
+            if not loaded or not alt or caption.count()!=1 or "não é retrato" not in caption.inner_text():issues.append("colagem sem legenda, texto alternativo ou carregamento")
+          if page.locator('main img[src*="pagu-patricia-galvao"],main img[src*="lelia-gonzalez-cezar-loureiro"]').count()>0:
+            issues.append("retratos sob restrição visíveis no pacote normal")
         if mode=="desktop" and route=="/eleitas":
           control=page.locator("#filtros-eleitas select").first
           control.focus()
@@ -49,7 +61,7 @@ with sync_playwright() as p:
         record={"route":route,"mode":mode,"dpr":dpr,"viewport":w,"spacing":spacing,"metrics":metrics,"issues":issues}
         records.append(record)
         if issues:failures.append(record)
-        if route in ["/","/eleitas","/dinheiro","/na-voz-delas"]:
+        if route in ["/","/eleitas","/dinheiro","/na-voz-delas","/pioneiras/pagu","/pioneiras/lelia-gonzalez"]:
           page.screenshot(path=str(OUT/(label+"-"+mode+".png")),animations="disabled")
       except Exception as err:failures.append({"route":route,"mode":mode,"exception":str(err)})
       finally:page.close()
