@@ -29,17 +29,11 @@ with sync_playwright() as p:
         if errors:issues.append("erro JavaScript: "+errors[0])
         if route=="/eleitas/raquel-lyra-pe" and "Raquel Lyra" not in metrics["title"]:issues.append("nome da ficha incorreto")
         if route.startswith("/pioneiras/"):
-          slug="pagu" if route.endswith("/pagu") else "lelia"
-          expected="/arte-editorial/"+("pagu-colagem-tipografica.svg" if slug=="pagu" else "lelia-colagem-tipografica.svg")
-          art=page.locator('main figure img[src="'+expected+'"]')
-          if art.count()!=1: issues.append("colagem editorial ausente")
-          else:
-            alt=art.get_attribute("alt")
-            loaded=art.evaluate("(el)=>el.complete && el.naturalWidth>0")
-            caption=art.locator("xpath=ancestor::figure[1]").locator("figcaption")
-            if not loaded or not alt or caption.count()!=1 or "não é retrato" not in caption.inner_text():issues.append("colagem sem legenda, texto alternativo ou carregamento")
-          if page.locator('main img[src*="pagu-patricia-galvao"],main img[src*="lelia-gonzalez-cezar-loureiro"]').count()>0:
-            issues.append("retratos sob restrição visíveis no pacote normal")
+          # A editora rejeitou as peças de Pagu e Lélia; abertura sem imagem.
+          if page.locator('main header img').count()>0:
+            issues.append("abertura das pioneiras contém imagem")
+          if page.locator('main header section[aria-label="Ficha eleitoral da pioneira"]').count()!=1:
+            issues.append("ficha eleitoral em faixa própria ausente")
         if mode=="desktop" and route=="/eleitas":
           # O H1 vem do SSR: aguardar hidratação antes de acionar o select controlado por React.
           page.wait_for_load_state("networkidle",timeout=15000)
