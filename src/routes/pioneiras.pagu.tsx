@@ -33,7 +33,7 @@ export const Route = createFileRoute("/pioneiras/pagu")({
           "Perfil com a votação oficial de Pagu na eleição de 1950, recontada a partir do arquivo do TSE.",
       },
       { property: "og:type", content: "article" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: PaguPage,
