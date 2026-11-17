@@ -89,10 +89,12 @@ with sync_playwright() as pw:
                 # leitura. Rolá-las e esperar o decode separa atraso normal de
                 # erro de origem, sem mascarar uma imagem realmente quebrada.
                 image_wait_notes=[]
+                images_checked_in_view=0
                 images=page.locator("main img")
                 for i in range(images.count()):
                     img=images.nth(i)
                     if not img.is_visible(): continue
+                    images_checked_in_view+=1
                     src=img.get_attribute("src") or ""
                     try:
                         img.scroll_into_view_if_needed(timeout=10000)
@@ -112,8 +114,10 @@ with sync_playwright() as pw:
                 if not response or response.status!=200: issues.append("HTTP diferente de 200")
                 if m["content"]>m["viewport"]+2: issues.append("rolagem horizontal na página")
                 if not m["title"]: issues.append("H1 ausente")
-                if m["imageErrors"]:
-                    issues.append("imagens sem dimensões após rolagem: "+str(m["imageErrors"]))
+                # Imagens lazy podem ser descarregadas após saírem da viewport;
+                # vale o carregamento constatado quando a imagem estava visível.
+                if image_wait_notes:
+                    issues.append("imagens não carregadas quando visíveis: "+str(image_wait_notes))
                 if not 1.94<=m["dpr"]/before["dpr"]<=2.06:issues.append("zoom não persistiu")
                 if js_errors:issues.append("erro de JavaScript: "+js_errors[0][:250])
                 if route in ("/pioneiras/pagu","/pioneiras/lelia-gonzalez"):
@@ -132,7 +136,7 @@ with sync_playwright() as pw:
                 # Captura da janela em 200%, não imagem reprocessada.
                 page.screenshot(path=str(OUT/(slug+"-200-nativo.png")),animations="disabled")
                 record={"path":route,"zoom_dpr":m["dpr"],"viewport_css":m["viewport"],
-                        "largura_conteudo":m["content"],"h1":m["title"],"issues":issues,"image_wait_notes":image_wait_notes,"image_state":m["imageErrors"]}
+                        "largura_conteudo":m["content"],"h1":m["title"],"issues":issues,"images_checked_in_view":images_checked_in_view,"image_wait_notes":image_wait_notes,"image_state_after_scroll_top":m["imageErrors"]}
                 results.append(record)
                 if issues:errors.append(record)
             except Exception as err:
