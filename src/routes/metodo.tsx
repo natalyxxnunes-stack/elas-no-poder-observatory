@@ -225,7 +225,7 @@ function MetodoPage() {
               { href: "#correcoes", label: "Histórico de correções" },
             ].map((item) => (
               <li key={item.href} className="border-b border-ink/20">
-                <a href={item.href} className="flex min-h-12 items-center justify-between gap-4 text-sm font-semibold text-plum hover:underline hover:underline-offset-4 focus-visible:outline-2">
+                <a href={item.href} className="flex min-h-14 items-center justify-between gap-4 text-sm sm:min-h-12 font-semibold text-plum hover:underline hover:underline-offset-4 focus-visible:outline-2">
                   <span>{item.label}</span>
                   <span aria-hidden="true">↗</span>
                 </a>
