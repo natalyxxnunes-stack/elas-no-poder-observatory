@@ -110,7 +110,8 @@ with sync_playwright() as pw:
                 if not response or response.status!=200: issues.append("HTTP diferente de 200")
                 if m["content"]>m["viewport"]+2: issues.append("rolagem horizontal na página")
                 if not m["title"]: issues.append("H1 ausente")
-                if m["imageErrors"] or image_failures:\n                    issues.append("imagens quebradas após rolagem e decode: "+str(image_failures or m["imageErrors"]))
+                if m["imageErrors"] or image_failures:
+                    issues.append("imagens quebradas após rolagem e decode: "+str(image_failures or m["imageErrors"]))
                 if not 1.94<=m["dpr"]/before["dpr"]<=2.06:issues.append("zoom não persistiu")
                 if js_errors:issues.append("erro de JavaScript: "+js_errors[0][:250])
                 if route in ("/pioneiras/pagu","/pioneiras/lelia-gonzalez"):
