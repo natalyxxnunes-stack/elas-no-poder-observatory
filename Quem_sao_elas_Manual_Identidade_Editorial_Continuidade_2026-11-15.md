@@ -1062,3 +1062,14 @@ A editora rejeitou expressamente **as duas colagens tipográficas e as propostas
 **Alterações realizadas na branch do PR #33:** removidos `public/arte-editorial/pagu-colagem-tipografica.svg` e `public/arte-editorial/lelia-colagem-tipografica.svg`; removido o render condicional de arte e fotografia em `src/components/editorial/Pioneiras.tsx`; removida a prévia com fotos dos workflows; testes reorientados para **ausência de imagens** e presença das fichas. Os binários fotográficos sem licença comprovada foram retirados da **árvore atual da branch** (`public/fotos/pagu-patricia-galvao-anos-1920.jpg` e `docs/acervo-em-revisao/lelia-gonzalez-cezar-loureiro-referencia.jpg`). As fichas textuais de procedência e restrição permanecem.
 
 **Limites:** remover do HEAD não elimina binários de commits anteriores ou da main ainda publicada no GitHub, que é público. Sem reescrita do histórico nem publicação; exigir avaliação específica do histórico público antes de considerar encerrado o risco autoral. Nenhum dado jornalístico, arquivo oficial, cor estrutural, logo ou página não relacionada foi modificado. Estas decisões **substituem os capítulos anteriores que tratavam colagens como peças candidatas ao aceite**.
+
+
+## 37. Encerramento de fontes e páginas de Pagu e Lélia — 17/11/2026
+
+Mantém-se a decisão da editora: **Pagu e Lélia ficam sem qualquer imagem**. Os metadados de compartilhamento dessas duas páginas agora pedem cartão `summary`, sem fotografia grande inexistente. Não reinserir colagem, retrato ou qualquer arte durante o fechamento. Biografia, dados eleitorais e ficha do TSE foram mantidos.
+
+A conferência de fontes primárias em 17/11 confirmou a tabela de FEFC 2026 do TSE, processos e datas de PL/PT/União Brasil, a página 24/33 da Resolução CEN 043/2026 do União Brasil, e a referência SITAQ ao discurso de Julia Zanatta (10/03/2026, 19h20; Diário 11/03/2026, p. 163). O conjunto Candidatos 2026 mantém link oficial, sem captura de interface. Os PDFs maiores de PL e PT excederam a capacidade de reabertura integral nesta rodada; seu inventário e hashes anteriores foram preservados, mas não constituem nova conferência.
+
+Corrigida a descrição de licença pendente em `src/data/fotos.ts` e o status de arquivos em repositório **público** no inventário. Remover retratos da árvore atual não apaga as cópias históricas no GitHub. A matriz de direitos mantém restrições aos quatro fac-símiles. Acessibilidade humana, zoom nativo 200%, leitor de tela e autorização de publicação seguem pendentes.
+
+Referência consolidada: `docs/aceite-final-pr33-evidencias-e-bloqueios-17nov2026.md`. A identidade, o logo e os dados centrais não foram alterados nesta etapa.

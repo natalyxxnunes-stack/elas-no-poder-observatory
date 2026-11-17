@@ -64,3 +64,7 @@ A editora rejeitou todas as colagens propostas para Pagu e Lélia e determinou *
 **Risco residual de distribuição:** o repositório é público; históricos anteriores, e o arquivo da fotografia de Pagu ainda acessível em main até eventual integração, não são apagados pela remoção na branch. Não há autorização para reescrever histórico ou fazer merge, e não se deve declarar que a pendência legal foi totalmente resolvida.
 
 **Continuam necessários para liberação final:** resultados dos workflows do HEAD, revisão de crédito/legendas/links das quatro reproduções documentais fundamentadas, teste humano com zoom nativo 200%, teclado integral e leitor de tela, aceite editorial do design sem imagens e autorização expressa para publicação.
+
+
+## Documento de fechamento e evidências do 17/11/2026
+A referência vigente para as sete decisões de mídia, links oficiais reabertos, créditos, restrições e critérios de aprovação é `docs/aceite-final-pr33-evidencias-e-bloqueios-17nov2026.md`. Ajustes pontuais: cartão social `summary` sem imagem em Pagu/Lélia; metadados da fotografia restrita de Lélia corrigidos; inventário do acervo agora informa que o GitHub é público. O PR permanece draft. Não interpretar sucesso de QA como liberação jurídica, zoom nativo 200% ou aprovação da editora.
