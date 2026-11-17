@@ -11,6 +11,9 @@ on:
       - "src/components/editorial/**"
       - "src/data/fotos.ts"
       - "public/arte-editorial/**"
+      - "public/documentos/**"
+      - "public/fotos/**"
+      - "docs/acervo-em-revisao/**"
   workflow_dispatch:
 concurrency:
   group: qse-integridade-links-${{ github.ref }}
@@ -23,6 +26,22 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+      - name: Bloquear mídias restritas na própria árvore Git pública
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          denied = [
+              "public/fotos/pagu-patricia-galvao-anos-1920.jpg",
+              "docs/acervo-em-revisao/lelia-gonzalez-cezar-loureiro-referencia.jpg",
+              "public/fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg",
+              "public/documentos/tse-candidatos-2026-portal.png",
+              "public/arte-editorial/pagu-colagem-tipografica.svg",
+              "public/arte-editorial/lelia-colagem-tipografica.svg",
+          ]
+          present = [p for p in denied if Path(p).exists()]
+          assert not present, "Mídias restritas/rejeitadas na árvore pública: " + ", ".join(present)
+          print("Árvore atual livre dos seis caminhos sob bloqueio editorial/jurídico")
+          PY
       - uses: oven-sh/setup-bun@v2
         with: { bun-version: latest }
       - name: Compilar o pacote de publicacao
