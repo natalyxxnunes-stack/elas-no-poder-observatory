@@ -125,7 +125,7 @@ export function IndiceDiariosCamara({ falas, incluirRecorte = true }: { falas: r
                 target="_blank" rel="noreferrer"
                 className="mt-3 block border border-ink/20 bg-white focus-visible:outline-2"
                 aria-label="Ampliar o recorte original da linha do catálogo da Câmara">
-                <img src="/documentos/camara-sitaq-julia-zanatta-2026-03-10-p163.png"
+                <img src="/documentos/camara-sitaq-julia-zanatta-2026-03-10-p163.png" width={1109} height={64}
                   loading="lazy" className="block h-auto w-full"
                   alt="Linha da tabela de discursos da Câmara: 10/03/2026, sessão 21.2026, Julia Zanatta, PL-SC, 19h20, DCD de 11/03/2026, página 163" />
               </a>
