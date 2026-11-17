@@ -85,6 +85,10 @@ with sync_playwright() as pw:
                 response=page.goto(BASE+route,wait_until="domcontentloaded",timeout=50000)
                 page.locator("main h1").wait_for(timeout=15000)
                 page.wait_for_timeout(250)
+                if route=="/na-voz-delas":
+                    before_png=page.screenshot(path=str(OUT/"na-voz-antes-rolagem-200.png"),animations="disabled")
+                    print("DEBUG SITAQ screenshot antes rolagem",len(before_png),
+                          "scrollY",page.evaluate("scrollY"))
                 # Imagens com loading=lazy só carregam quando entram na área de
                 # leitura. Rolá-las e esperar o decode separa atraso normal de
                 # erro de origem, sem mascarar uma imagem realmente quebrada.
@@ -142,6 +146,15 @@ with sync_playwright() as pw:
                         shot=page.screenshot(path=str(OUT/"sitaq-contexto-200-nativo.png"),animations="disabled")
                         if len(shot)<12000:
                             issues.append("captura visual SITAQ parece vazia: "+str(len(shot))+" bytes")
+                        print("DEBUG SITAQ screenshot durante rolagem",len(shot),
+                              "scrollY",page.evaluate("scrollY"),
+                              "docHeight",page.evaluate("document.documentElement.scrollHeight"))
+                        page.evaluate("window.scrollTo(0,0)")
+                        page.wait_for_timeout(600)
+                        after_png=page.screenshot(path=str(OUT/"na-voz-depois-topo-200.png"),animations="disabled")
+                        print("DEBUG SITAQ screenshot depois topo",len(after_png),
+                              "scrollY",page.evaluate("scrollY"))
+                        if len(after_png)<12000:issues.append("página permanece vazia após voltar ao topo")
                 if route=="/eleitas":
                     page.wait_for_load_state("networkidle",timeout=15000)
                     control=page.locator("#filtros-eleitas select").first
