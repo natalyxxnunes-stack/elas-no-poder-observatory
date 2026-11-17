@@ -106,12 +106,13 @@ for origin, (file, page) in all_docs.items():
 blocked=[
     "fotos/pagu-patricia-galvao-anos-1920.jpg",
     "fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg",
+    "documentos/tse-candidatos-2026-portal.png",
 ]
 for path in blocked:
     if (DIST/path).exists():
-        errors.append({"kind":"restricted_photo_in_public_package","target":path})
+        errors.append({"kind":"restricted_media_in_public_package","target":path})
     else:
-        counts["restricted_photos_excluded"]+=1
+        counts["restricted_media_excluded"]+=1
 
 # Relatório mantém até milhares de ocorrências, e um resumo compacto.
 unique=defaultdict(set)
