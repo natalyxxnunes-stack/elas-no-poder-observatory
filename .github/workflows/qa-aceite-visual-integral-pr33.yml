@@ -5,6 +5,11 @@ on:
     paths:
       - ".github/workflows/qa-aceite-visual-integral-pr33.yml"
       - "scripts/qa/aceite-visual-integral-pr33.py"
+      - "src/components/editorial/Pioneiras.tsx"
+      - "public/arte-editorial/**"
+      - "src/components/editorial/MetodoRevista.tsx"
+      - "src/components/editorial/CadernoDocumentalRevista.tsx"
+      - "scripts/hostgator-public-binaries.mjs"
   workflow_dispatch:
 concurrency:
   group: qse-aceite-visual-${{ github.ref }}
@@ -25,6 +30,23 @@ jobs:
           bun install --frozen-lockfile
           bunx tsc --noEmit
           bun run build:hostgator
+      - name: Verificar direitos de distribuicao e integridade das colagens
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          root=Path('dist/client')
+          for name in ['pagu-colagem-tipografica.svg','lelia-colagem-tipografica.svg']:
+              source=Path('public/arte-editorial')/name
+              published=root/'arte-editorial'/name
+              assert source.is_file() and published.is_file(), name+' não distribuído'
+              ET.parse(source)
+              ET.parse(published)
+              assert b'<image' not in published.read_bytes(),name+' contém mídia raster externa'
+          for name in ['documentos/tse-candidatos-2026-portal.png','fotos/pagu-patricia-galvao-anos-1920.jpg','fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg']:
+              assert not (root/name).exists(),name+' com direitos pendentes foi copiado para produção'
+          print('Colagens e bloqueios autorais: verificação estrutural aprovada')
+          PY
       - name: Capturar paginas completas em desktop e celular
         run: |
           set -euo pipefail
