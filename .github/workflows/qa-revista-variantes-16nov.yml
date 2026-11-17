@@ -46,7 +46,7 @@ jobs:
           python3 -m pip install --quiet --break-system-packages playwright
           curl --fail --location --silent --show-error https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js -o /tmp/axe.min.js
           test "$(wc -c </tmp/axe.min.js)" -gt 100000
-      - name: Auditar seis temas, duas eleitas e captura oficial TSE em tres larguras
+      - name: Auditar seis temas, duas eleitas e referencia oficial TSE em tres larguras
         run: |
           set -euo pipefail
           mkdir -p relatorios-variantes
@@ -194,14 +194,12 @@ jobs:
                 assert page.locator('main header aside[aria-label="Identificação do registro eleitoral"]').count()==1,slug+': esperado registro, não retrato sem autorização'
                 checks.append({'rota':'/eleitas/'+slug,'dispositivo':device,'status':'ok'})
               page.goto('http://127.0.0.1:4173/quem-sao-elas',wait_until='domcontentloaded',timeout=30000)
-              img=page.locator('img[src="/documentos/tse-candidatos-2026-portal.png"]')
-              assert img.count()==1,'captura portal TSE não localizada'
-              img.scroll_into_view_if_needed(timeout=6000)
-              img.evaluate('async(e)=>{e.loading="eager";await e.decode()}')
-              assert img.evaluate('(e)=>e.naturalWidth>0')
-              cap=img.locator('xpath=ancestor::figure[1]').locator('figcaption')
-              assert cap.count()==1 and 'não o CSV' in cap.first.inner_text(),'Imagem sem legenda e limitação de prova'
-              checks.append({'rota':'/quem-sao-elas','dispositivo':device,'status':'ok'})
+              # Etapa 2: a imagem da interface não tem licença gráfica específica.
+              # A referência documental com link oficial substituiu a captura.
+              assert page.locator('img[src="/documentos/tse-candidatos-2026-portal.png"]').count()==0, 'captura restrita ainda visível'
+              link=page.locator('a[href="https://dadosabertos.tse.jus.br/dataset/candidatos-2026"]')
+              assert link.count()>=1,'referência ao conjunto Candidatos 2026 do TSE ausente'
+              checks.append({'rota':'/quem-sao-elas','dispositivo':device,'status':'fonte-oficial-sem-captura'})
               ctx.close()
             browser.close()
           Path('relatorios-variantes/interacoes.json').write_text(json.dumps(checks,ensure_ascii=False,indent=2))
