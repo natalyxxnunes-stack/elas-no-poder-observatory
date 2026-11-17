@@ -85,12 +85,32 @@ with sync_playwright() as pw:
                 response=page.goto(BASE+route,wait_until="domcontentloaded",timeout=50000)
                 page.locator("main h1").wait_for(timeout=15000)
                 page.wait_for_timeout(250)
+                # Imagens com loading=lazy só carregam quando entram na área de
+                # leitura. Rolá-las e esperar o decode separa atraso normal de
+                # erro de origem, sem mascarar uma imagem realmente quebrada.
+                image_failures=[]
+                images=page.locator("main img")
+                for i in range(images.count()):
+                    img=images.nth(i)
+                    if not img.is_visible(): continue
+                    try:
+                        img.scroll_into_view_if_needed(timeout=10000)
+                        decoded=img.evaluate(
+                          "(el)=>el.decode().then(()=>el.complete && el.naturalWidth>0).catch(()=>false)",
+                          timeout=12000)
+                        if not decoded:
+                            image_failures.append(img.get_attribute("src") or "(sem src)")
+                    except Exception as err:
+                        image_failures.append((img.get_attribute("src") or "(sem src)")+
+                                              ": "+str(err)[:100])
+                page.evaluate("window.scrollTo(0,0)")
+                page.wait_for_timeout(150)
                 m=metrics(page)
                 issues=[]
                 if not response or response.status!=200: issues.append("HTTP diferente de 200")
                 if m["content"]>m["viewport"]+2: issues.append("rolagem horizontal na página")
                 if not m["title"]: issues.append("H1 ausente")
-                if m["imageErrors"]: issues.append("imagens quebradas")
+                if m["imageErrors"] or image_failures:\n                    issues.append("imagens quebradas após rolagem e decode: "+str(image_failures or m["imageErrors"]))
                 if not 1.94<=m["dpr"]/before["dpr"]<=2.06:issues.append("zoom não persistiu")
                 if js_errors:issues.append("erro de JavaScript: "+js_errors[0][:250])
                 if route in ("/pioneiras/pagu","/pioneiras/lelia-gonzalez"):
