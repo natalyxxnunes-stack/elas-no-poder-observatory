@@ -42,12 +42,17 @@ jobs:
           with sync_playwright() as p:
             browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
             page=browser.new_page(viewport={'width':1440,'height':900})
-            page.goto('http://127.0.0.1:4173/pioneiras/pagu',wait_until='domcontentloaded')
-            assert page.locator('main header figure img').count()==0,'Foto pendente apareceu no build normal'
-            assert page.locator('main header figure').count()==1,'Fallback documental de Pagu ausente'
-            page.goto('http://127.0.0.1:4173/pioneiras/lelia-gonzalez',wait_until='domcontentloaded')
-            assert page.locator('main header figure img').count()==0,'Retrato de Lélia sem autorização no build normal'
-            print('Build normal: duas fotos pendentes bloqueadas, fichas editoriais preservadas')
+            for slug,arquivo in [('pagu','pagu-colagem-tipografica.svg'),('lelia-gonzalez','lelia-colagem-tipografica.svg')]:
+              page.goto('http://127.0.0.1:4173/pioneiras/'+slug,wait_until='domcontentloaded')
+              assert page.locator('main header img[src*="/fotos/pagu-patricia-galvao"],main header img[src*="/fotos/lelia-gonzalez-cezar-loureiro"]').count()==0,slug+': retrato sob restrição no build normal'
+              arte=page.locator('main header figure img[src="/arte-editorial/'+arquivo+'"]')
+              assert arte.count()==1,slug+': colagem editorial ausente'
+              assert arte.first.evaluate('(e)=>e.complete && e.naturalWidth>0'),slug+': colagem não carregou'
+              assert arte.first.get_attribute('alt'),slug+': texto alternativo ausente'
+              legenda=arte.first.locator('xpath=ancestor::figure[1]').locator('figcaption')
+              assert legenda.count()==1 and 'não é retrato' in legenda.inner_text(),slug+': natureza ilustrativa sem legenda'
+              assert page.locator('main header figure').count()>=2,slug+': ficha tipográfica de votação ausente'
+            print('Build normal: retratos restritos bloqueados, colagens identificadas e fichas preservadas')
             browser.close()
           PY
       - name: Compilar retratos de Pagu e Lelia somente na previa editorial
