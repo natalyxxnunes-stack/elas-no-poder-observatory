@@ -1,6 +1,6 @@
 # Acervo de documentos visuais, FEFC 2026 e Diário da Câmara
 
-**Data de apuração e incorporação na prévia:** 16/11/2026. **Status:** prévia não publicada em GitHub, sem merge em `main`.  
+**Data de apuração e incorporação na prévia:** 16/11/2026. **Status:** arquivos de trabalho acessíveis no repositório GitHub público e na branch do PR #33, ainda sem merge em `main` nem publicação no domínio do observatório. A disponibilidade no GitHub não comprova licença de reprodução.  
 **Objetivo:** mostrar evidência documental autêntica no corpo de Partidos, Quem controla e Na voz delas, preservando a documentação de origem e excluindo informações pessoais desnecessárias. As capturas não alteram nem reconstroem a redação dos documentos.
 
 ## Registro de origem, integridade e função jornalística
