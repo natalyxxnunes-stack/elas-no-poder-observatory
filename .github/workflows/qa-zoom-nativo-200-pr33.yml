@@ -1,0 +1,55 @@
+name: QA homologacao — zoom nativo 200% Chrome
+on:
+  push:
+    branches: [revista-consolidada-ajustes-de-ritmo-16nov2026]
+    paths:
+      - ".github/workflows/qa-zoom-nativo-200-pr33.yml"
+      - "scripts/qa/zoom-nativo-200-pr33.py"
+      - "src/**"
+      - "vite.config.static.ts"
+  workflow_dispatch:
+concurrency:
+  group: qse-zoom-nativo-200-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  chrome-zoom:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: latest }
+      - name: Build estatico da versao candidata
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Instalar ambiente real de interface grafica X11
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb xdotool openbox
+          python3 -m pip install --quiet --break-system-packages playwright
+          /usr/bin/google-chrome --version
+      - name: Testar zoom do Chrome acionado por atalhos do sistema
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-zoom-http.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 2
+          xvfb-run -a -s '-screen 0 1600x1100x24' bash -c '
+            openbox >/tmp/qse-zoom-openbox.log 2>&1 &
+            sleep 1
+            python3 scripts/qa/zoom-nativo-200-pr33.py
+          '
+      - name: Arquivar laudo e capturas do zoom nativo
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-zoom-nativo-200-pr33
+          path: relatorios-zoom-nativo-200-pr33/
+          retention-days: 14
