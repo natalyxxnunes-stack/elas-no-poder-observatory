@@ -78,7 +78,7 @@ with sync_playwright() as pw:
                         problems.append("perfil de pioneira contém imagem rejeitada")
                     if page.locator('main section[aria-label="Ficha eleitoral da pioneira"]').count()!=1:
                         problems.append("ficha eleitoral ausente")
-                details=page.locator("main details")
+                details=page.locator("main details:visible")
                 if details.count():
                     d=details.first
                     d.locator("summary").focus()
