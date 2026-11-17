@@ -33,7 +33,7 @@ function DocumentoReproduzido({ item }: { item: { src: string; href: string; alt
       <a href={item.src} target="_blank" rel="noreferrer"
         className="mt-4 block border border-ink/20 bg-white p-2 focus-visible:outline-2 focus-visible:outline-offset-4"
         aria-label={"Abrir reprodução integral da página: " + item.rotulo}>
-        <img src={item.src} alt={item.alt} loading="lazy"
+        <img src={item.src} alt={item.alt} width={1131} height={1600} loading="lazy"
           className="mx-auto block h-auto max-h-[590px] w-full object-contain object-top" />
       </a>
       <figcaption className="mt-5">
@@ -124,7 +124,7 @@ export function CapaProcessoPLFEFC() {
             target="_blank" rel="noreferrer"
             aria-label="Abrir a reprodução integral da primeira página do PJe do PL"
             className="block border border-ink/15 bg-white p-1">
-            <img src="/documentos/tse-pl-processo-fefc-capa-2026.png"
+            <img src="/documentos/tse-pl-processo-fefc-capa-2026.png" width={1131} height={1600}
               alt="Capa original do processo PJe 0600974-71.2026.6.00.0000 do Partido Liberal no TSE"
               loading="lazy" className="mx-auto block h-auto max-h-[650px] w-full object-contain object-top" />
           </a>
