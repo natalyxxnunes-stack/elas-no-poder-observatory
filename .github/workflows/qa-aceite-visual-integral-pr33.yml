@@ -30,22 +30,16 @@ jobs:
           bun install --frozen-lockfile
           bunx tsc --noEmit
           bun run build:hostgator
-      - name: Verificar direitos de distribuicao e integridade das colagens
+      - name: Conferir ausência de imagens rejeitadas e mídias restritas
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          import xml.etree.ElementTree as ET
           root=Path('dist/client')
           for name in ['pagu-colagem-tipografica.svg','lelia-colagem-tipografica.svg']:
-              source=Path('public/arte-editorial')/name
-              published=root/'arte-editorial'/name
-              assert source.is_file() and published.is_file(), name+' não distribuído'
-              ET.parse(source)
-              ET.parse(published)
-              assert b'<image' not in published.read_bytes(),name+' contém mídia raster externa'
+              assert not (root/'arte-editorial'/name).exists(),name+' não deveria estar no pacote'
           for name in ['documentos/tse-candidatos-2026-portal.png','fotos/pagu-patricia-galvao-anos-1920.jpg','fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg']:
-              assert not (root/name).exists(),name+' com direitos pendentes foi copiado para produção'
-          print('Colagens e bloqueios autorais: verificação estrutural aprovada')
+              assert not (root/name).exists(),name+' com direitos pendentes no pacote'
+          print('Artes rejeitadas e três mídias restritas ausentes do pacote')
           PY
       - name: Capturar paginas completas em desktop e celular
         run: |
