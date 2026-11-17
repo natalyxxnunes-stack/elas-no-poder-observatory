@@ -41,13 +41,24 @@ with sync_playwright() as p:
           if page.locator('main img[src*="pagu-patricia-galvao"],main img[src*="lelia-gonzalez-cezar-loureiro"]').count()>0:
             issues.append("retratos sob restrição visíveis no pacote normal")
         if mode=="desktop" and route=="/eleitas":
+          # O H1 vem do SSR: aguardar hidratação antes de acionar o select controlado por React.
+          page.wait_for_load_state("networkidle",timeout=15000)
           control=page.locator("#filtros-eleitas select").first
+          control.scroll_into_view_if_needed()
           control.focus()
+          focused=control.evaluate("(e)=>e===document.activeElement")
           before=control.input_value()
           page.keyboard.press("ArrowDown")
+          try:
+            page.wait_for_function(
+              "(before)=>document.querySelector('#filtros-eleitas select')?.value!==before",
+              arg=before,timeout=2500)
+          except Exception:
+            pass
           after=control.input_value()
-          keyboard.append({"route":route,"control":"filtro de UF","before":before,"after":after})
-          if before==after:issues.append("select nao alterou por teclado")
+          keyboard.append({"route":route,"control":"filtro de UF","before":before,"after":after,"focused":focused})
+          if not focused:issues.append("filtro de UF nao recebeu foco")
+          if before==after:issues.append("select nao alterou por teclado apos hidratacao")
         if mode=="desktop" and route in ["/dinheiro","/na-voz-delas"]:
           control=page.locator("main details summary").first
           if control.count():
