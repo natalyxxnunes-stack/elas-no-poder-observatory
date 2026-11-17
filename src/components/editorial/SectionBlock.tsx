@@ -42,7 +42,7 @@ const TONE_TITLE: Record<Tone, string> = {
 
 const TONE_LEAD: Record<Tone, string> = {
   paper: "text-muted-foreground",
-  plum: "text-cream/85",
+  plum: "text-cream",
   ink: "text-cream/85",
   lilac: "text-ink/80",
   butter: "text-ink/80",
