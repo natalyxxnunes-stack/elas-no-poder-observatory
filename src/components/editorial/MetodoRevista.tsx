@@ -58,37 +58,21 @@ export function MetodoCapaRevista({
               <span>Documento de origem · 01</span>
               <span className="font-mono">TSE / 2026</span>
             </div>
-            <a
-              href="/documentos/tse-candidatos-2026-portal.png"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Ampliar a captura documental da página Candidatos 2026 do TSE"
-              className="block focus-visible:outline-2 focus-visible:outline-offset-2"
-            >
-              <img
-                src="/documentos/tse-candidatos-2026-portal.png"
-                alt="Captura fiel da página Candidatos - 2026 do Portal de Dados Abertos do TSE, com o título do conjunto e a informação de licença visíveis"
-                width={1100}
-                height={850}
-                loading="eager"
-                className="aspect-[11/8] w-full object-cover object-top"
-              />
-            </a>
+            <div className="flex min-h-[260px] flex-col justify-center bg-ink px-6 py-8 text-paper md:min-h-[350px] md:px-9">
+              <p className="font-mono text-[13px] uppercase tracking-wide text-[var(--art-gold)]">Fonte primária · conjunto de dados</p>
+              <p className="mt-5 font-display text-[clamp(2rem,4vw,3.5rem)] leading-tight">Candidatos 2026</p>
+              <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-paper/85">
+                Registro publicado pelo Tribunal Superior Eleitoral. A interface gráfica
+                capturada anteriormente foi substituída por referência e acesso direto à fonte.
+              </p>
+            </div>
             <figcaption className="px-4 py-5 md:px-5">
               <strong className="block font-display text-2xl leading-tight">Candidatos — 2026</strong>
               <p className="mt-2 text-[13px] leading-relaxed text-ink/80">
-                Captura da página oficial que disponibiliza o conjunto de dados.
-                O arquivo CSV não está reproduzido na imagem.
+                Identificação do conjunto oficial consultado pelo observatório.
+                O acesso à fonte e os metadados permanecem disponíveis.
               </p>
               <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
-                <a
-                  href="/documentos/tse-candidatos-2026-portal.png"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex min-h-10 items-center text-[14px] font-semibold text-plum underline underline-offset-4"
-                >
-                  Ampliar a captura ↗
-                </a>
                 <a
                   href={TSE_DATASET}
                   target="_blank"
@@ -99,9 +83,8 @@ export function MetodoCapaRevista({
                 </a>
               </div>
               <p className="mt-3 text-[13px] leading-relaxed text-ink/80">
-                Fonte: Portal de Dados Abertos do TSE/AGEL; captura de 15/11/2026.
-                A classificação da licença do conjunto não é, por si só,
-                uma declaração de licença da interface reproduzida.
+                Fonte: Portal de Dados Abertos do TSE/AGEL; documentação de acesso registrada em 15/11/2026.
+                A reprodução da interface foi suspensa por ausência de licença gráfica específica.
                 Registro de candidaturas usado nesta página: arquivo gerado em {candidaturaGeradaEm}.
               </p>
             </figcaption>
