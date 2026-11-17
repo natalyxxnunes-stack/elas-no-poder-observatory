@@ -161,6 +161,18 @@ with sync_playwright() as pw:
                           arg=src,timeout=8000)
                     except Exception as err:
                         image_wait_notes.append({"src":src,"note":str(err)[:180]})
+                if route in ("/dinheiro","/partidos"):
+                    # Controle pareado: mesmas coordenadas e mesmo navegador,
+                    # mas em outras páginas longas do observatório.
+                    page.evaluate("window.scrollTo(0,1535)")
+                    page.wait_for_timeout(650)
+                    print("DEBUG COMPARAÇÃO",route,"scrollY",
+                          page.evaluate("scrollY"),flush=True)
+                    inspetor_visibilidade(page,"controle-"+slug)
+                    pix=page.screenshot(path=str(OUT/(slug+"-1535-cdp.png")),
+                                        animations="disabled")
+                    print("DEBUG COMPARAÇÃO CDP",route,len(pix),flush=True)
+                    capturar_tela_x11(slug+"-1535",window)
                 page.evaluate("window.scrollTo(0,0)")
                 page.wait_for_timeout(150)
                 m=metrics(page)
