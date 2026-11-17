@@ -1,0 +1,40 @@
+name: QA fechamento — rotas, referencias e pacote estatico
+on:
+  push:
+    branches: [revista-consolidada-ajustes-de-ritmo-16nov2026]
+    paths:
+      - "scripts/qa/integridade-links-pacote.py"
+      - ".github/workflows/qa-integridade-links-16nov.yml"
+      - "scripts/hostgator-public-binaries.mjs"
+      - "vite.config.static.ts"
+  workflow_dispatch:
+concurrency:
+  group: qse-integridade-links-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  varredura:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: latest }
+      - name: Compilar o pacote de publicacao
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Analisar todas as paginas HTML e os arquivos locais
+        run: |
+          set -euo pipefail
+          python3 scripts/qa/integridade-links-pacote.py
+      - name: Anexar relatorio completo
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-integridade-links-relatorio
+          path: relatorios-integridade-links/
+          retention-days: 14
