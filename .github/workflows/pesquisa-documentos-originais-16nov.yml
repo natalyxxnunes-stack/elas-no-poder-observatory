@@ -1,0 +1,101 @@
+name: Pesquisa documental — render de fontes primárias (não publica)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  examinar-documentos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 17
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparar leitor de PDF e navegador
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -qq -y poppler-utils
+          python3 -m pip install --quiet --break-system-packages playwright requests
+      - name: Obter e amostrar documentos públicos (sem exposição de texto pessoal nos logs)
+        run: |
+          mkdir -p /tmp/qse-fontes imagens-candidatas
+          python3 - <<'PY'
+          from pathlib import Path
+          import requests,subprocess,hashlib,re,json
+          urls = {
+            'uniao':'https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0601251_87-2026-6-00-0000___uniao_brasil_nacional___criterios_fefc',
+            'pl':'https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0600974_71-2026-6-00-0000___pl_nacional___criterios_fefc',
+            'pt':'https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0601252_72-2026-6-00-0000___pt_nacional___criterios_fefc',
+          }
+          report=[]
+          for name,url in urls.items():
+            record={'sigla':name.upper(),'origem':url}
+            try:
+              response=requests.get(url,timeout=45,headers={'User-Agent':'Mozilla/5.0 (compatible; QSE-Jornalismo-Dados/1.0)'})
+              record.update({'status':response.status_code,'tipo':response.headers.get('content-type',''),'bytes':len(response.content)})
+              content=response.content
+              record['sha256']=hashlib.sha256(content).hexdigest()
+              if content[:5]!=b'%PDF-':
+                record['erro']='Fonte retornou formato diferente de PDF; nenhuma imagem produzida'
+              else:
+                path=Path('/tmp/qse-fontes')/(name+'.pdf');path.write_bytes(content)
+                page_info=subprocess.run(['pdfinfo',str(path)],capture_output=True,text=True).stdout
+                record['paginas']=next((int(l.split(':')[1].strip()) for l in page_info.splitlines() if l.startswith('Pages:')),None)
+                page1=subprocess.run(['pdftotext','-f','1','-l','1',str(path),'-'],capture_output=True,text=True).stdout
+                record['palavras_primeira_pagina']=len(page1.split())
+                record['cpf_na_primeira_pagina']=bool(re.search(r'\b\d{3}\.\d{3}\.\d{3}-\d{2}\b',page1))
+                record['email_na_primeira_pagina']=bool(re.search(r'[\w.+-]+@[\w.-]+',page1))
+                record['conta_bancaria_na_primeira_pagina']=bool(re.search(r'conta\s*corrente|conta\s+banc[aá]ria',page1,re.I))
+                if not record['cpf_na_primeira_pagina'] and not record['conta_bancaria_na_primeira_pagina']:
+                  result=subprocess.run(['pdftoppm','-f','1','-l','1','-scale-to','1600','-png','-singlefile',str(path),'imagens-candidatas/tse_'+name+'_capa'],capture_output=True,text=True)
+                  record['capa_renderizada']=result.returncode==0
+                  if result.returncode:record['erro']=result.stderr[-300:]
+                else: record['restricao']='Página inicial contém possível dado pessoal; não renderizar'
+            except Exception as e: record['erro']=str(e)
+            report.append(record)
+          Path('imagens-candidatas/relatorio_fontes_pdf.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          for item in report:
+            print(item['sigla'],'HTTP',item.get('status'), 'PDF',item.get('paginas'), 'bytes',item.get('bytes'),'render',item.get('capa_renderizada'),'restricao',item.get('restricao'),'erro',item.get('erro'))
+          PY
+      - name: Capturar a tabela OFICIAL do TSE e o índice de discursos da Câmara
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          targets=[
+            ('tse_fefc_tabela','https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/fundo-especial-de-financiamento-de-campanha-fefc','Critérios fixados pelos partidos'),
+            ('camara_discursos_julia','https://www.camara.leg.br/internet/SitaqWeb/ResultadoPesquisaDiscursos.asp?BasePesq=plenario&CampoOrdenacao=dtSessao&PageSize=50&TipoOrdenacao=DESC&btnPesqAvan=Pesquisar&dtFim=31%2F12%2F2026&dtInicio=01%2F01%2F2026&txOrador=Julia+Zanatta','10/03/2026'),
+          ]
+          log=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for name,url,term in targets:
+              page=browser.new_page(viewport={'width':1365,'height':900},device_scale_factor=1)
+              record={'nome':name,'url':url}
+              try:
+                response=page.goto(url,wait_until='domcontentloaded',timeout=35000)
+                page.wait_for_timeout(1100)
+                record['http']=response.status if response else None
+                record['titulo']=page.title()
+                record['termo_encontrado']=term.lower() in page.locator('body').inner_text(timeout=12000).lower()
+                if name=='tse_fefc_tabela':
+                  table=page.locator('table').filter(has_text='PL').first
+                  if table.count(): table.screenshot(path='imagens-candidatas/tse_fefc_tabela.png',timeout=15000)
+                  else:page.screenshot(path='imagens-candidatas/tse_fefc_tabela.png',full_page=True,timeout=15000)
+                else:
+                  page.screenshot(path='imagens-candidatas/camara_discursos_julia.png',full_page=True,timeout=20000)
+                record['captura']=True
+              except Exception as e:record['erro']=str(e)
+              finally:
+                page.close()
+              log.append(record)
+            browser.close()
+          Path('imagens-candidatas/relatorio_fontes_html.json').write_text(json.dumps(log,ensure_ascii=False,indent=2))
+          print(log)
+          PY
+      - name: Guardar apenas imagens candidatas e hashes (não os PDFs integrais)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-fontes-originais-candidatas-inspecao
+          path: imagens-candidatas/
+          retention-days: 7

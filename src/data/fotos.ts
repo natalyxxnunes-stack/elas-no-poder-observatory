@@ -7,7 +7,7 @@
  * Enquanto uma página não tiver foto registrada, o lugar mostra a peça gráfica
  * da própria página.
  */
-export type Licenca = "CC-BY" | "CC-BY-4.0" | "CC-BY-SA-4.0" | "CC0" | "dominio-publico" | "cessao-autorizada" | "verificacao-pendente";
+export type Licenca = "CC-BY" | "CC-BY-4.0" | "CC-BY-SA-4.0" | "CC0" | "dominio-publico" | "uso-livre-com-credito" | "cessao-autorizada" | "verificacao-pendente";
 
 export type Foto = {
   /** caminho em /public, por exemplo "/fotos/lelia-gonzalez-1983.jpg" */
@@ -24,6 +24,17 @@ export type Foto = {
 };
 
 export const FOTOS: Record<string, Foto> = {
+  "posse-bertha-lutz-1936": {
+    src: "/fotos/posse-bertha-lutz-camara-1936.jpg",
+    alt: "Grupo de familiares, feministas e outras pessoas nas escadarias da Câmara dos Deputados, no Rio de Janeiro, após a posse de Bertha Lutz em 28 de julho de 1936.",
+    credito: "Domínio público / Acervo Arquivo Nacional",
+    acervo: "Fundo Federação Brasileira pelo Progresso Feminino, BR_RJANRIO_Q0_BLZ_DEU_CLE_FOT_0001",
+    licenca: "dominio-publico",
+    licencaUrl: "https://commons.wikimedia.org/wiki/File:Posse_de_Bertha_Lutz_como_Deputada_na_C%C3%A2mara_Federal.jpg",
+    data: "28/07/1936",
+    proporcao: "3/2",
+    fornecidaPor: "acervo-verificado",
+  },
   "plenario-camara-junho-2026": {
     src: "/fotos/plenario-camara-junho-2026.jpg",
     alt: "Vista ampla do plenário da Câmara dos Deputados durante sessão deliberativa, em 30 de junho de 2026.",
@@ -32,6 +43,39 @@ export const FOTOS: Record<string, Foto> = {
     licenca: "CC-BY",
     licencaUrl: "https://www.camara.leg.br/internet/bancoimagem/default.asp?data=30%2F06%2F2026",
     data: "30/06/2026",
+    proporcao: "3/2",
+    fornecidaPor: "acervo-verificado",
+  },
+  "pl1446-protecao-pre-candidatura": {
+    src: "/fotos/renilce-nicodemos-pl1446-camara.jpg",
+    alt: "Deputada Renilce Nicodemos fala ao microfone na Câmara dos Deputados, diante da bandeira brasileira.",
+    credito: "Kayo Magalhães/Câmara dos Deputados",
+    acervo: "Agência Câmara, reportagem sobre o PL 1446/2025 publicada em 01/07/2026; fotografia de arquivo, data original não confirmada",
+    licenca: "uso-livre-com-credito",
+    licencaUrl: "https://www2.camara.leg.br/comunicacao/assessoria-de-imprensa/guia-para-jornalistas/noticias-e-fotografias",
+    data: "Fotografia de arquivo (data não confirmada)",
+    proporcao: "3/2",
+    fornecidaPor: "acervo-verificado",
+  },
+  "local-votacao-primeiro-turno-2026": {
+    src: "/fotos/local-votacao-2026-agencia-senado.jpg",
+    alt: "Duas pessoas caminham diante de painel de informações na entrada do local de votação do UniCEUB Asa Norte, em Brasília, no primeiro turno de 2026.",
+    credito: "Saulo Cruz/Agência Senado",
+    acervo: "Flickr da Agência Senado, fotografia de 04/10/2026, arquivo verificado no Wikimedia Commons",
+    licenca: "CC-BY-SA-4.0",
+    licencaUrl: "https://commons.wikimedia.org/wiki/File:Elei%C3%A7%C3%B5es_2026_-_Primeiro_turno_(55567948757).jpg",
+    data: "04/10/2026",
+    proporcao: "3/2",
+    fornecidaPor: "acervo-verificado",
+  },
+  "lelia-gonzalez": {
+    src: "/fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg",
+    alt: "Retrato histórico de Lélia Gonzalez atribuído ao fotógrafo Cezar Loureiro, em imagem horizontal.",
+    credito: "Cezar Loureiro / Wikimedia Commons (origem informada: revista Cult)",
+    acervo: "Referência documental mantida; binário removido da árvore ativa do PR #33 por direitos pendentes. Cópias de commits antigos requerem exame separado",
+    licenca: "verificacao-pendente",
+    licencaUrl: "https://commons.wikimedia.org/wiki/File:L%C3%A9lia_Gonzalez_by_Cezar_Loureiro.jpg",
+    data: "Anterior a 1994, segundo a ficha do Commons; primeira publicação por verificar",
     proporcao: "3/2",
     fornecidaPor: "acervo-verificado",
   },
@@ -79,15 +123,15 @@ export const FOTOS: Record<string, Foto> = {
     proporcao: "3/2",
     fornecidaPor: "acervo-verificado",
   },
-  // "lelia-gonzalez": { src: "/fotos/...", alt: "...", credito: "...", acervo: "...", licenca: "...", proporcao: "4/5", fornecidaPor: "editora" },
 };
 
 export const LICENCA_ROTULO: Record<Licenca, string> = {
   "CC-BY": "Creative Commons BY (ver condições da fonte)",
+  "uso-livre-com-credito": "Livre utilização com crédito conforme regras da Câmara dos Deputados (sem licença CC individual indicada)",
   "CC-BY-4.0": "CC BY 4.0",
   "CC-BY-SA-4.0": "CC BY-SA 4.0",
   CC0: "CC0",
   "dominio-publico": "domínio público",
   "cessao-autorizada": "uso autorizado",
-  "verificacao-pendente": "Wikimedia Commons indica domínio público; validação documental pendente",
+  "verificacao-pendente": "Verificação de autoria, licença e direitos pendente — reprodução não autorizada",
 };

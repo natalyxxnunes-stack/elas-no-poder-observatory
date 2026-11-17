@@ -1,0 +1,50 @@
+name: QA final teclado e semantica PR33
+on:
+  push:
+    branches: [revista-consolidada-ajustes-de-ritmo-16nov2026]
+    paths:
+      - ".github/workflows/qa-teclado-semantica-pr33.yml"
+      - "scripts/qa/teclado-semantica-pr33.py"
+      - "src/**"
+      - "vite.config.static.ts"
+  workflow_dispatch:
+concurrency:
+  group: qse-teclado-semantica-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  teclado-e-axe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validar sintaxe do roteiro
+        run: python3 -m py_compile scripts/qa/teclado-semantica-pr33.py
+      - uses: oven-sh/setup-bun@v2
+      - name: Compilar versao estatica aprovada
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Instalar ferramentas e disponibilizar obra
+        run: |
+          python3 -m pip install --quiet --break-system-packages playwright
+          curl --fail --location --silent --show-error https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js -o /tmp/axe.min.js
+          test "$(wc -c </tmp/axe.min.js)" -gt 100000
+      - name: Testar teclado, foco, semantica e axe nas rotas
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-pr33-semantic-http.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 2
+          python3 scripts/qa/teclado-semantica-pr33.py
+      - name: Guardar o laudo para exame editorial
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-pr33-teclado-semantica
+          path: relatorios-aceite-teclado-pr33/
+          retention-days: 14

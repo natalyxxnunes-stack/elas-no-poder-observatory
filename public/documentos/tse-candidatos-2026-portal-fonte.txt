@@ -1,0 +1,9 @@
+Captura de tela documental: portal oficial de Dados Abertos do TSE.
+Recurso: Candidatos - 2026.
+Endereco: https://dadosabertos.tse.jus.br/dataset/candidatos-2026
+Origem do PNG: arquivo pagina-oficial-tse-2026.png, guardado no artefato
+materiais-documentais-para-previa da execucao GitHub Actions 43765673395.
+Captura verificada em 15 de novembro de 2026.
+Documento reproduzido: pagina do portal, nao arquivo CSV nem ficha individual.
+Nao aplicar a licenca do dataset automaticamente ao design da pagina.
+Fonte e data devem permanecer visiveis na legenda da interface.

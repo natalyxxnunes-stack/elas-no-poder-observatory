@@ -61,10 +61,7 @@ function StageBar({
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
           <span className="block text-[13px] text-muted-foreground font-semibold">
-            etapa{" "}
-            <span className="poster-figure align-middle text-3xl text-plum md:text-4xl">
-              0{step}
-            </span>
+            Universo da comparação · candidaturas
           </span>
           <h3 className="font-display text-xl text-ink md:text-2xl">
             {UNIVERSE_LABEL[universe]}
@@ -97,7 +94,7 @@ function StageBar({
           />
         </div>
         <p className="mt-2 text-[13px] text-muted-foreground">
-          barra lida dentro desta etapa
+          Barra lida sobre o total deste universo
         </p>
       </div>
 
@@ -133,7 +130,7 @@ function RaceStage({
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
           <span className="block text-[13px] text-muted-foreground">
-            recorte da etapa 0{step} · quem são as candidatas a deputada
+            Recorte interno das candidaturas de mulheres · deputadas
           </span>
           <h3 className="font-display text-xl text-ink md:text-2xl">
             Quem são essas mulheres
@@ -210,10 +207,7 @@ function ResultStage({ step }: { step: number }) {
       <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
         <div>
           <span className="block text-[13px] text-muted-foreground font-semibold">
-            etapa{" "}
-            <span className="poster-figure align-middle text-3xl text-plum md:text-4xl">
-              0{step}
-            </span>
+            Resultado eleitoral · universo das cadeiras
           </span>
           <h3 className="font-display text-xl text-ink md:text-2xl">
             Eleitas e eleitos · resultado final
@@ -343,11 +337,12 @@ export function FunnelStages2026({
           leitura do funil
         </span>
         <span className="mt-1 block font-display text-base italic leading-snug text-ink">
-          O tamanho de cada etapa não representa as mesmas pessoas. Representa
-          universos diferentes da disputa.
+          Os quadros comparam conjuntos diferentes: candidaturas proporcionais,
+          candidaturas majoritárias e cadeiras preenchidas. Não acompanham
+          as mesmas pessoas entre uma etapa e outra.
         </span>
       </p>
-      <ol className="space-y-4">
+      <ul className="space-y-4">
 
       {prop.total > 0 && (
         <StageBar
@@ -380,7 +375,7 @@ export function FunnelStages2026({
         />
       )}
       <ResultStage step={3} />
-      </ol>
+      </ul>
 
       {propShare !== null && majShare !== null && (
         <div className="mt-6 grid gap-5 md:grid-cols-3">

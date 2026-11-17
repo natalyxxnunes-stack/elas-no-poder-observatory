@@ -1,0 +1,63 @@
+name: QA fechamento — rotas, referencias e pacote estatico
+on:
+  push:
+    branches: [revista-consolidada-ajustes-de-ritmo-16nov2026]
+    paths:
+      - "scripts/qa/integridade-links-pacote.py"
+      - ".github/workflows/qa-integridade-links-16nov.yml"
+      - "scripts/hostgator-public-binaries.mjs"
+      - "vite.config.static.ts"
+      - "src/routes/**"
+      - "src/components/editorial/**"
+      - "src/data/fotos.ts"
+      - "public/arte-editorial/**"
+      - "public/documentos/**"
+      - "public/fotos/**"
+      - "docs/acervo-em-revisao/**"
+  workflow_dispatch:
+concurrency:
+  group: qse-integridade-links-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  varredura:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bloquear mídias restritas na própria árvore Git pública
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          denied = [
+              "public/fotos/pagu-patricia-galvao-anos-1920.jpg",
+              "docs/acervo-em-revisao/lelia-gonzalez-cezar-loureiro-referencia.jpg",
+              "public/fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg",
+              "public/documentos/tse-candidatos-2026-portal.png",
+              "public/arte-editorial/pagu-colagem-tipografica.svg",
+              "public/arte-editorial/lelia-colagem-tipografica.svg",
+          ]
+          present = [p for p in denied if Path(p).exists()]
+          assert not present, "Mídias restritas/rejeitadas na árvore pública: " + ", ".join(present)
+          print("Árvore atual livre dos seis caminhos sob bloqueio editorial/jurídico")
+          PY
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: latest }
+      - name: Compilar o pacote de publicacao
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Analisar todas as paginas HTML e os arquivos locais
+        run: |
+          set -euo pipefail
+          python3 scripts/qa/integridade-links-pacote.py
+      - name: Anexar relatorio completo
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-integridade-links-relatorio
+          path: relatorios-integridade-links/
+          retention-days: 14

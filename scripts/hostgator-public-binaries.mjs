@@ -4,13 +4,22 @@
  * Arquivos originais em public/ devem sair idênticos em dist/client/, inclusive CSVs financeiros.
  * Não interfere em HTML, JS, CSS, SVG nem arquivos criados no build.
  */
-import { readdir, mkdir, readFile, copyFile } from "node:fs/promises";
+import { readdir, mkdir, readFile, copyFile, rm } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import path from "node:path";
 
 const PUBLIC = path.join(process.cwd(), "public");
 const DIST = path.join(process.cwd(), "dist/client");
 const BINARIOS = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".ico", ".pdf", ".csv"]);
+
+// A arte das duas pioneiras foi retirada; retratos históricos continuam sem
+// autorização documentada. Bloqueio incondicional, inclusive em prévias.
+// O filtro evita que arquivos recolocados por engano cheguem ao pacote público.
+const ARQUIVOS_BLOQUEADOS = new Map([
+  ["documentos/tse-candidatos-2026-portal.png", null],
+  ["fotos/pagu-patricia-galvao-anos-1920.jpg", null],
+  ["fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg", null],
+]);
 
 async function* percorrer(dir) {
   for (const item of await readdir(dir, { withFileTypes: true })) {
@@ -34,11 +43,21 @@ function bytesValidos(name, bytes) {
 const sha = (bytes) => createHash("sha256").update(bytes).digest("hex");
 let verificados = 0;
 let restaurados = 0;
+let excluidos = 0;
 
 for await (const source of percorrer(PUBLIC)) {
   if (!BINARIOS.has(path.extname(source).toLowerCase())) continue;
   const rel = path.relative(PUBLIC, source);
+  const urlRel = rel.split(path.sep).join("/");
   const target = path.join(DIST, rel);
+  const controlePublicacao = ARQUIVOS_BLOQUEADOS.get(urlRel);
+  if (ARQUIVOS_BLOQUEADOS.has(urlRel) && (!controlePublicacao || process.env[controlePublicacao] !== "true")) {
+    // O Vite pode ter copiado a imagem antes: remover mesmo quando já existe.
+    await rm(target, { force: true });
+    excluidos++;
+    console.log("[hostgator-public] arquivo de acervo em revisão excluído do pacote: " + urlRel);
+    continue;
+  }
   const original = await readFile(source);
   if (!bytesValidos(source, original)) throw new Error("Binário original inválido: " + rel);
   let atual = null;
@@ -55,4 +74,4 @@ for await (const source of percorrer(PUBLIC)) {
   }
   verificados++;
 }
-console.log("[hostgator-public] " + verificados + " arquivos verificados, " + restaurados + " restaurados.");
+console.log("[hostgator-public] " + verificados + " arquivos verificados, " + restaurados + " restaurados, " + excluidos + " bloqueados.");

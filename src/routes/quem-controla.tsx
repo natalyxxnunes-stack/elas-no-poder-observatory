@@ -8,6 +8,8 @@ import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
 import { StatusTag } from "@/components/editorial/StatusTag";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
+import { ArquivoDocumentalFEFC } from "@/components/editorial/ArquivoDocumentalFEFC";
+import { CapaProcessoPLFEFC } from "@/components/editorial/FacsimilesFEFC2026";
 import { QUOTA_RULE } from "@/data/election-2026";
 
 /**
@@ -62,8 +64,8 @@ const CONTROL_LEVERS = [
   },
   {
     lever: "Quem recebe recursos",
-    what: "Os partidos distribuem recursos de campanha entre suas candidaturas, dentro das regras de destinação mínima. O fundo eleitoral por partido já está publicado em Partido por partido, cruzado com gênero e cor/raça. Falta a despesa.",
-    needs: "Fundo por partido já disponível em /partidos; despesa contratada e paga segue pendente",
+    what: "Os partidos distribuem recursos de campanha entre suas candidaturas, dentro das regras de destinação mínima. O fundo eleitoral por partido e parte das despesas declaradas já foram analisados, com recortes diferentes. A vinculação entre cada regra interna, a decisão sobre o repasse e a execução financeira ainda exige investigação.",
+    needs: "Critérios do FEFC registrados no TSE; transferências e despesas declaradas, com recortes e datas compatíveis; identificação do ato de distribuição quando disponível",
     ready: "partial",
   },
   {
@@ -101,6 +103,9 @@ function QuemControlaPage() {
       />
 
 
+      <ArquivoDocumentalFEFC id="criterios-fefc-2026" variante="tinta" />
+      <CapaProcessoPLFEFC />
+
       <div className="pb-4">
         <InBrief
           foundLabel="Quem decide"
@@ -119,22 +124,25 @@ function QuemControlaPage() {
           }
           unknown={
             <>
-              Como cada partido distribuiu recursos e propaganda em 2026, e a quais mulheres (por
-              cor/raça, cargo e território): parte disso ainda depende das bases de prestação de contas e propaganda.
+              Como as regras declaradas se traduziram em decisões concretas de transferência e de propaganda em 2026, por
+              cor/raça, cargo e território: parte pode ser recontada nas contas, enquanto o tempo de propaganda ainda não foi integrado.
             </>
           }
         />
       </div>
 
-      <SectionBlock id="alavancas"
+      <SectionBlock id="alavancas" tone="plum"
         kicker="Alavancas de controle"
         question="Cinco decisões que moldam a disputa"
         align="wide"
       >
-        <ul className="divide-y divide-rule border-y border-rule">
-          {CONTROL_LEVERS.map((l) => (
-            <li key={l.lever} className="py-5">
-              <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <ol className="grid gap-4 md:grid-cols-2">
+          {CONTROL_LEVERS.map((l, i) => (
+            <li key={l.lever} className="min-w-0 bg-paper p-5 text-ink md:p-7 last:md:col-span-2">
+              <p className="font-display text-[clamp(2.75rem,4vw,4rem)] leading-none text-plum" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </p>
+              <div className="mt-4 flex flex-wrap items-baseline justify-between gap-3">
                 <h3 className="font-display text-xl text-ink">{l.lever}</h3>
                 <StatusTag tone={l.ready === "yes" ? "ok" : l.ready === "partial" ? "limit" : "pending"}>
                   {l.ready === "yes" ? "disponível" : l.ready === "partial" ? "parcial" : "aguardando dado"}
@@ -144,10 +152,10 @@ function QuemControlaPage() {
               <p className="mt-2 font-mono text-[13px] text-muted-foreground">Exige: {l.needs}</p>
             </li>
           ))}
-        </ul>
+        </ol>
       </SectionBlock>
 
-      <SectionBlock id="regras" tone="lilac"
+      <SectionBlock id="regras" tone="ink"
         kicker="As regras que incidem"
         question="O que a regra alcança e o que ela deixa para o partido decidir"
         lead={<p>{QUOTA_RULE.scope}</p>}
@@ -158,13 +166,14 @@ function QuemControlaPage() {
               href={QUOTA_RULE.sourceUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-plum underline underline-offset-4"
+              className="text-paper underline underline-offset-4"
             >
               Lei 9.504/1997, art. 10, §3º
             </a>
           </>
         }
       >
+        <div className="bg-paper p-5 text-ink md:p-8">
         <div className="grid gap-4 md:grid-cols-2">
           <ContextBox variant="significa" title="O que a cota não alcança">
             <p>{QUOTA_RULE.outOfScope}</p>
@@ -172,6 +181,7 @@ function QuemControlaPage() {
           <ContextBox variant="importa" title="Onde entra o dinheiro">
             <p>{QUOTA_RULE.financingNote}</p>
           </ContextBox>
+        </div>
         </div>
       </SectionBlock>
 

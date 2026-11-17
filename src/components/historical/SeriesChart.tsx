@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Series } from "@/lib/tse/historical-compute";
 import type { UniverseId } from "@/lib/tse/compute";
 import { GapNote } from "@/components/GapNote";
@@ -19,7 +20,9 @@ const UNIVERSE_LABEL: Record<UniverseId, string> = {
 
 const fmt = (v: number) => formatDecimal(v);
 
-function UniverseColumn({ series, universe }: { series: Series; universe: UniverseId }) {
+function UniverseColumn({
+  series, universe, compactMobile = false,
+}: { series: Series; universe: UniverseId; compactMobile?: boolean }) {
   const points = series.points
     .filter((p) => p.universe === universe)
     .sort((a, b) => a.year - b.year);
@@ -42,7 +45,7 @@ function UniverseColumn({ series, universe }: { series: Series; universe: Univer
       <div className="mt-4 flex items-end gap-3">
         {points.map((p) => (
           <div key={p.year} className="flex flex-1 flex-col items-center">
-            <div className="flex h-40 w-full items-end justify-center">
+            <div className={`flex w-full items-end justify-center ${compactMobile && !isSplitRace ? "h-28 md:h-40" : "h-40"}`}>
               {p.value === null ? (
                 <div
                   className="flex h-full w-full items-end justify-center rounded-t-sm border-x border-t border-dashed border-rule"
@@ -121,13 +124,87 @@ function UniverseColumn({ series, universe }: { series: Series; universe: Univer
   );
 }
 
+
+/** No celular, quatro linhas por eleição substituem barras estreitas e grandes vazios.
+ * Os percentuais usam o mesmo denominador de cada ponto que a versão desktop.
+ * Pretas e pardas seguem separadas, com agregação somente no total da série.
+ */
+function MobileUniverseRows({ series, universe }: { series: Series; universe: UniverseId }) {
+  const points = series.points
+    .filter((p) => p.universe === universe)
+    .sort((a, b) => a.year - b.year);
+  const splitRace = [
+    "serie-negras-negros-candidaturas",
+    "serie-mulheres-negras-sobre-total",
+    "serie-mulheres-negras-entre-mulheres",
+    "serie-mulheres-negras-eleitas",
+  ].includes(series.id);
+
+  return (
+    <section aria-label={`Leitura por ano: ${UNIVERSE_LABEL[universe]}`}>
+      <h3 className="font-sans text-sm font-semibold text-plum">{UNIVERSE_LABEL[universe]}</h3>
+      <ol className="mt-2 divide-y divide-rule border-y border-rule">
+        {points.map((p) => {
+          const preta = splitRace && p.denominator && p.pretaNumerator !== undefined
+            ? (p.pretaNumerator / p.denominator) * 100 : null;
+          const parda = splitRace && p.denominator && p.pardaNumerator !== undefined
+            ? (p.pardaNumerator / p.denominator) * 100 : null;
+          return (
+            <li key={p.year} className="grid min-w-0 grid-cols-[3.5rem_minmax(0,1fr)] gap-2.5 py-2.5">
+              <p className={`font-display text-xl leading-tight ${p.year === 2026 ? "text-coral-ink" : "text-plum"}`}>
+                {p.year}
+              </p>
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
+                  <strong className="font-display text-xl leading-none text-ink">
+                    {p.value === null ? "Sem dado" : `${fmt(p.value)}%`}
+                  </strong>
+                  <span className="font-mono text-xs leading-snug text-ink/75">
+                    {p.numerator !== null && p.denominator !== null
+                      ? `${formatInt(p.numerator)} de ${formatInt(p.denominator)}`
+                      : p.unavailableReason ?? "Sem registro"}
+                  </span>
+                </div>
+                {p.value !== null && (
+                  <div className="mt-1.5 h-2 w-full bg-muted" aria-hidden="true">
+                    {preta !== null && parda !== null ? (
+                      <div className="flex h-full">
+                        <span className="h-full" style={{ width: `${Math.min(preta, 100)}%`, backgroundColor: RACE_COLORS.preta }} />
+                        <span className="h-full" style={{ width: `${Math.min(parda, 100)}%`, backgroundColor: RACE_COLORS.parda }} />
+                      </div>
+                    ) : (
+                      <div className={`h-full ${p.year === 2026 ? "bg-coral" : "bg-plum"}`}
+                        style={{ width: `${Math.max(0, Math.min(p.value, 100))}%` }} />
+                    )}
+                  </div>
+                )}
+                {preta !== null && parda !== null && (
+                  <p className="mt-1 font-mono text-xs leading-snug text-ink/80">
+                    Pretas {fmt(preta)}% · Pardas {fmt(parda)}%
+                  </p>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    </section>
+  );
+}
+
 export function SeriesChart({
   series,
   universes = ["proporcional", "majoritario"],
+  mobileSelectable = false,
 }: {
   series: Series | undefined;
   universes?: readonly UniverseId[];
+  /** Em Histórico, escolha de universo no celular; desktop exibe ambos lado a lado. */
+  mobileSelectable?: boolean;
 }) {
+  const [activeMobileUniverse, setActiveMobileUniverse] = useState<UniverseId>(
+    universes[0] ?? "proporcional",
+  );
   if (!series) {
     return (
       <GapNote label="Lacuna declarada">
@@ -162,11 +239,56 @@ export function SeriesChart({
       }
       source="Fonte: TSE, Candidatos 2014, 2018, 2022 e 2026"
     >
+      {mobileSelectable && universes.length > 1 && (
+        <div
+          role="group"
+          aria-label={`Universo eleitoral do gráfico: ${series.label}`}
+          className="mb-5 grid grid-cols-2 gap-1 border border-plum p-1 md:hidden"
+        >
+          {universes.map((u) => (
+            <button
+              type="button"
+              key={u}
+              aria-pressed={activeMobileUniverse === u}
+              onClick={() => setActiveMobileUniverse(u)}
+              className={`min-h-11 px-2 py-2 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum ${
+                activeMobileUniverse === u
+                  ? "bg-plum text-cream"
+                  : "bg-paper text-plum"
+              }`}
+            >
+              {UNIVERSE_LABEL[u]}
+            </button>
+          ))}
+        </div>
+      )}
       <div className="grid gap-8 md:grid-cols-2">
         {universes.map((u) => (
-          <UniverseColumn key={u} series={series} universe={u} />
+          <div
+            key={u}
+            className={
+              mobileSelectable && universes.length > 1 && activeMobileUniverse !== u
+                ? "hidden md:block"
+                : "block"
+            }
+          >
+            {mobileSelectable ? (
+              <>
+                <div className="md:hidden"><MobileUniverseRows series={series} universe={u} /></div>
+                <div className="hidden md:block"><UniverseColumn series={series} universe={u} /></div>
+              </>
+            ) : (
+              <UniverseColumn series={series} universe={u} />
+            )}
+          </div>
         ))}
       </div>
+      {mobileSelectable && universes.length > 1 && (
+        <p className="mt-5 border-t border-rule pt-3 text-[13px] leading-relaxed text-ink/75 md:hidden">
+          Os dois universos têm denominadores próprios. Selecione
+          “Majoritária” para consultar a outra série; nenhuma informação foi excluída.
+        </p>
+      )}
     </ChartFrame>
   );
 }

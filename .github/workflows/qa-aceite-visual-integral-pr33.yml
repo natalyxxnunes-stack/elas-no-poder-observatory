@@ -1,0 +1,59 @@
+name: PR33 — leitura editorial de todas as paginas inteiras
+on:
+  push:
+    branches: [revista-consolidada-ajustes-de-ritmo-16nov2026]
+    paths:
+      - ".github/workflows/qa-aceite-visual-integral-pr33.yml"
+      - "scripts/qa/aceite-visual-integral-pr33.py"
+      - "src/components/editorial/Pioneiras.tsx"
+      - "public/arte-editorial/**"
+      - "src/components/editorial/MetodoRevista.tsx"
+      - "src/components/editorial/CadernoDocumentalRevista.tsx"
+      - "scripts/hostgator-public-binaries.mjs"
+  workflow_dispatch:
+concurrency:
+  group: qse-aceite-visual-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  capturas-editoriais:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: latest }
+      - name: Compilar exatamente a previa da HostGator
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Conferir ausência de imagens rejeitadas e mídias restritas
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          root=Path('dist/client')
+          for name in ['pagu-colagem-tipografica.svg','lelia-colagem-tipografica.svg']:
+              assert not (root/'arte-editorial'/name).exists(),name+' não deveria estar no pacote'
+          for name in ['documentos/tse-candidatos-2026-portal.png','fotos/pagu-patricia-galvao-anos-1920.jpg','fotos/lelia-gonzalez-cezar-loureiro-referencia.jpg']:
+              assert not (root/name).exists(),name+' com direitos pendentes no pacote'
+          print('Artes rejeitadas e três mídias restritas ausentes do pacote')
+          PY
+      - name: Capturar paginas completas em desktop e celular
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet --break-system-packages playwright
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-aceite-visual.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 3
+          python3 scripts/qa/aceite-visual-integral-pr33.py
+      - name: Arquivar capturas para leitura editorial humana
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-pr33-aceite-editorial-paginas-inteiras
+          path: capturas-aceite-editorial-pr33/
+          retention-days: 14

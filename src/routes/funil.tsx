@@ -1,4 +1,5 @@
 import { M_GOVERNOS } from "@/data/manchetes";
+import { PILOT_CORAL } from "@/lib/editorial-pilot-colors";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
@@ -11,6 +12,7 @@ import { GlossaryTerm } from "@/components/editorial/GlossaryTerm";
 import { FunnelStages2026 } from "@/components/funnel/FunnelStages2026";
 import { PastStrip } from "@/components/funnel/PastStrip";
 import { CompetitionByUf } from "@/components/editorial/CompetitionByUf";
+import { FunnelSourceFiles } from "@/components/funnel/FunnelSourceFiles";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { FUNNEL_READING_RULE } from "@/data/architecture";
 import { getLatestTseSnapshot } from "@/lib/tse/snapshot.functions";
@@ -138,16 +140,36 @@ function FunilPage() {
         />
       </div>
 
-      <SectionBlock id="etapas"
-        kicker="Etapa por etapa"
-        question="Quantas são, em cada porta de entrada"
+      <section aria-label="Como ler os três universos da eleição" className="relative left-1/2 -ml-[50vw] w-screen bg-coral-ink text-white" style={{ backgroundColor: PILOT_CORAL }}>
+        <div className="mx-auto grid max-w-7xl gap-7 px-5 py-9 md:grid-cols-[.85fr_1.15fr] md:px-8 md:py-12">
+          <div>
+            <p className="font-mono text-xs font-semibold uppercase tracking-wide text-white">Chave de leitura · TSE 2026</p>
+            <h2 className="mt-3 font-display text-[clamp(2rem,3.4vw,3.4rem)] leading-[1.08] text-white">
+              Três universos. Não são três degraus.
+            </h2>
+          </div>
+          <div className="grid gap-3 border-t border-white/35 pt-5 text-base leading-relaxed md:grid-cols-3">
+            <div><strong className="block font-display text-2xl text-white">01</strong><p className="mt-2 text-white">Candidaturas proporcionais</p></div>
+            <div><strong className="block font-display text-2xl text-white">02</strong><p className="mt-2 text-white">Candidaturas majoritárias</p></div>
+            <div><strong className="block font-display text-2xl text-white">03</strong><p className="mt-2 text-white">Cadeiras proporcionais</p></div>
+            <p className="border-t border-white/30 pt-3 text-sm text-white md:col-span-3">
+              Cada conjunto tem o próprio total. Eles não acompanham as mesmas pessoas
+              ao longo de uma trajetória individual.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <SectionBlock id="etapas" tone="ink"
+        kicker="Universos da eleição"
+        question="A presença feminina muda conforme o universo observado"
         align="wide"
         lead={
           <p>
-            Comece pelo número que organiza a página: a participação de mulheres
-            nas candidaturas proporcionais. Depois compare com as majoritárias,
-            que têm outro denominador, e veja quem são essas mulheres por
-            cor/raça declarada.
+            Compare as candidaturas proporcionais e majoritárias, que têm
+            denominadores separados. As cadeiras preenchidas formam um
+            terceiro universo. Dentro das candidaturas de mulheres,
+            preserve as categorias de cor/raça declaradas.
           </p>
         }
         source={
@@ -157,10 +179,12 @@ function FunilPage() {
           </>
         }
       >
-        <FunnelStages2026 snapshot={snapshot} />
+        <div className="bg-paper p-4 text-ink md:p-7">
+          <FunnelStages2026 snapshot={snapshot} />
+        </div>
       </SectionBlock>
 
-      <SectionBlock id="disputa" tone="lilac"
+      <SectionBlock id="disputa" tone="butter"
         kicker="Tamanho da disputa"
         question="Quantas candidaturas existem para cada vaga?"
         align="wide"
@@ -180,11 +204,12 @@ function FunilPage() {
           </>
         }
       >
+        <FunnelSourceFiles />
         <CompetitionByUf snapshot={snapshot} />
       </SectionBlock>
 
 
-      <SectionBlock id="contexto"
+      <SectionBlock id="contexto" tone="plum"
         kicker="Contexto"
         question="Como isso se compara ao passado?"
         lead={
@@ -195,11 +220,11 @@ function FunilPage() {
         <PastStrip series={feminineSeries} />
       </SectionBlock>
 
-      <SectionBlock id="chapas" tone="lilac"
-        kicker="Antes do resultado"
+      <SectionBlock id="chapas" tone="ink"
+        kicker="Como funcionam as cadeiras"
         question="Na disputa proporcional, ninguém concorre isoladamente"
       >
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 bg-paper p-5 text-ink md:grid-cols-2 md:p-7">
           <ContextBox variant="significa" title="Na proporcional, a candidatura faz parte de uma disputa partidária">
             <p>
               Uma candidata a deputada disputa junto com o partido ou{" "}
@@ -223,7 +248,7 @@ function FunilPage() {
         limites={[
           "Candidaturas e resultado de 2026 vêm do mesmo arquivo do TSE, de 27/10/2026; o resultado é lido sobre o total de cadeiras.",
           "Governos e Presidência decididos em 2º turno valem pelo resultado de 25/10 (linha do 2º turno no arquivo do TSE); deputadas, deputados e Senado têm turno único.",
-          "Cada etapa é o retrato de um universo, e não o rastro das mesmas pessoas de um degrau para o outro.",
+          "Proporcionais, majoritárias e cadeiras preenchidas são universos diferentes, não uma sequência de pessoas que passam entre degraus.",
         ]}
       />
 

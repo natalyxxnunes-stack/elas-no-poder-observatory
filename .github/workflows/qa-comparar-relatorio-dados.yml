@@ -1,0 +1,124 @@
+name: QA revista — Comparar, Relatório e Dados em páginas completas
+on:
+  push:
+    branches:
+      - revista-comparar-integral-16nov2026
+      - revista-relatorio-integral-16nov2026
+      - revista-dados-integral-16nov2026
+    paths:
+      - 'src/routes/comparar.tsx'
+      - 'src/routes/relatorio-2026.tsx'
+      - 'src/routes/dados.tsx'
+      - 'docs/manual-visual.md'
+      - '.github/workflows/qa-comparar-relatorio-dados.yml'
+permissions:
+  contents: read
+jobs:
+  inspecionar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: {bun-version: latest}
+      - name: Testar tipos e gerar site estático
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Proteger o escopo frente ao PR 19
+        run: |
+          set -euo pipefail
+          git fetch origin revista-dinheiro-documentos-estilo-16nov2026
+          test -z "$(git diff --name-only origin/revista-dinheiro-documentos-estilo-16nov2026...HEAD -- src/data public/dados public/fotos public/materiais src/styles.css src/routes/index.tsx src/components/home/CapaEditorialV3.tsx src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
+          echo "Bases, homepage, logo, acervo e CSS global intactos."
+      - name: Preparar navegador
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Conferir navegação, contrastes e capturar páginas integrais
+        run: |
+          set -euo pipefail
+          mkdir -p qa-revista-proximas
+          python3 -m http.server 4173 --directory dist/client > /tmp/qse-http.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+
+          routes=[('/','home'),('/comparar','comparar'),('/relatorio-2026','relatorio'),('/dados','dados')]
+          report=[]
+          with sync_playwright() as p:
+              browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+              for device,w,h in [('desktop',1440,900),('celular',390,844)]:
+                  ctx=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=1)
+                  for route,name in routes:
+                      page=ctx.new_page()
+                      errors=[]
+                      page.on('pageerror',lambda e,errors=errors:errors.append(str(e)))
+                      resp=page.goto('http://127.0.0.1:4173'+route,wait_until='domcontentloaded',timeout=45000)
+                      page.wait_for_timeout(550)
+                      assert resp and resp.status==200,(name,device,'HTTP')
+                      assert page.locator('main h1').count()==1,(name,device,'h1')
+                      assert not errors,(name,device,'JS',errors)
+                      width=page.evaluate('document.body.scrollWidth')
+                      assert width<=w+3,(name,device,'overflow',width)
+                      if name=='comparar':
+                          assert page.locator('#leitura-comparativa').count()==1
+                          assert page.locator('#tabela-comparativa table').count()==1
+                          assert page.locator('#documentos-comparar a[href*="tse"]').count()>=2
+                          assert 'Pretas e pardas somadas (régua da lei)' not in page.locator('main').inner_text()
+                          page.locator('button[aria-pressed]').filter(has_text='Estados').first.click()
+                          assert page.locator('#leitura-comparativa').inner_text().find('São Paulo')>=0,(device,'state switch')
+                          page.reload(wait_until='domcontentloaded')
+                      if name=='relatorio':
+                          assert page.locator('main section').count()>4
+                      if name=='dados':
+                          assert page.locator('main a[href="/comparar"]').count()>0
+                      if name in ('comparar','relatorio','dados'):
+                          samples=page.locator('main section, main section > div').evaluate_all("""(els) => {
+                            const canvas=document.createElement('canvas'); canvas.width=1; canvas.height=1;
+                            const ctx=canvas.getContext('2d',{willReadFrequently:true});
+                            const sample=(color) => {
+                              ctx.clearRect(0,0,1,1);
+                              ctx.fillStyle=color; ctx.fillRect(0,0,1,1);
+                              return Array.from(ctx.getImageData(0,0,1,1).data).slice(0,3);
+                            };
+                            return els.map(el=>{
+                              const cs=getComputedStyle(el);
+                              return {background:sample(cs.backgroundColor),foreground:sample(cs.color)};
+                            });
+                          }""")
+                          def luminosidade(rgb):
+                              def linear(channel):
+                                  c=channel/255
+                                  return c/12.92 if c<=.04045 else ((c+.055)/1.055)**2.4
+                              return sum(weight*linear(ch) for weight,ch in zip([.2126,.7152,.0722],rgb))
+                          coral=[x for x in samples if x['background'][0]>155 and x['background'][1]<130 and x['background'][2]<125 and x['background'][0]>x['background'][1]*1.8]
+                          assert coral,(name,device,'coral missing')
+                          for swatch in coral:
+                              a,b=sorted([luminosidade(swatch['background']),luminosidade(swatch['foreground'])])
+                              ratio=(b+.05)/(a+.05)
+                              assert ratio>=4.5,(name,device,'coral contrast',round(ratio,2),swatch)
+                      page.evaluate('window.scrollTo(0,0)')
+                      page.screenshot(path=f'qa-revista-proximas/{device}-{name}-abertura.jpg',type='jpeg',quality=79)
+                      page.screenshot(path=f'qa-revista-proximas/{device}-{name}-completa.jpg',type='jpeg',quality=65,full_page=True)
+                      report.append({'device':device,'route':route,'bodyWidth':width,'bodyHeight':page.evaluate('document.body.scrollHeight'),'jsErrors':errors})
+                      page.close()
+                  ctx.close()
+              browser.close()
+          Path('qa-revista-proximas/resultados.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+          print('PASSOU',len(report),'renderizações')
+          PY
+      - name: Guardar capturas desktop e celular
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-comparar-relatorio-dados-integrais
+          path: |
+            qa-revista-proximas/
+            docs/manual-visual.md
+          if-no-files-found: warn
+          retention-days: 14

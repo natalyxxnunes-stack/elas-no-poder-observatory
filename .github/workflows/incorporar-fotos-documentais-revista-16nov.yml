@@ -1,0 +1,96 @@
+name: Acervo de duas fotos documentais e retrato de Lelia para previsualizacao
+on:
+  push:
+    branches: [revista-consolidada-ajustes-de-ritmo-16nov2026]
+    paths:
+      - .github/workflows/incorporar-fotos-documentais-revista-16nov.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  importar-fotografias:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Baixar somente imagens identificadas e verificar integridade
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet --break-system-packages requests Pillow
+          mkdir -p public/fotos
+          python3 - <<'PY'
+          import requests,hashlib,io,json,time
+          from pathlib import Path
+          from PIL import Image,ImageOps
+          s=requests.Session()
+          s.headers['User-Agent']='QuemSaoElasJornalismo/1.0 (curadoria editorial independente; contact: contato@quemsaoelas.com.br)'
+          def get(url):
+            for n in range(3):
+              try:
+                r=s.get(url,timeout=45)
+                r.raise_for_status()
+                if len(r.content)<12000: raise ValueError('imagem muito pequena')
+                return r.content,r.url
+              except Exception:
+                if n==2: raise
+                time.sleep(3)
+          rows=[
+            {
+              'file':'renilce-nicodemos-pl1446-camara.jpg',
+              'url':'https://www.camara.leg.br/midias/image/2026/07/img20250422155830167-768x473.jpg',
+              'source':'https://www.camara.leg.br/noticias/1286346-PROJETO-AMPLIA-PROTECAO-CONTRA-VIOLENCIA-POLITICA-DE-GENERO-NA-PRE-CANDIDATURA',
+              'credit':'Kayo Magalhães/Câmara dos Deputados',
+              'rights':'Uso editorial com crédito, segundo Câmara dos Deputados',
+              'context':'Foto de arquivo de Renilce Nicodemos usada em notícia de 01/07/2026 sobre o PL 1446/25; NÃO registra violência nem votação desse PL'
+            },
+            {
+              'file':'local-votacao-2026-agencia-senado.jpg',
+              'url':'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Elei%C3%A7%C3%B5es_2026_-_Primeiro_turno_%2855567948757%29.jpg/1280px-Elei%C3%A7%C3%B5es_2026_-_Primeiro_turno_%2855567948757%29.jpg',
+              'source':'https://commons.wikimedia.org/wiki/File:Elei%C3%A7%C3%B5es_2026_-_Primeiro_turno_(55567948757).jpg',
+              'credit':'Saulo Cruz/Agência Senado',
+              'rights':'CC BY-SA 4.0 (revisto FlickreviewR 05/10/2026)',
+              'context':'Entrada de local de votação no UniCEUB Asa Norte, Brasília, primeiro turno 04/10/2026; não representa 2014, 2018 ou 2022'
+            },
+            {
+              'file':'lelia-gonzalez-cezar-loureiro-referencia.jpg',
+              'url':'https://commons.wikimedia.org/wiki/Special:FilePath/L%C3%A9lia_Gonzalez_by_Cezar_Loureiro.jpg',
+              'source':'https://commons.wikimedia.org/wiki/File:L%C3%A9lia_Gonzalez_by_Cezar_Loureiro.jpg',
+              'credit':'Cezar Loureiro (segundo Wikimedia Commons; origem indicada: Revista Cult)',
+              'rights':'Wikimedia Commons indica domínio público; base jurídica e primeira publicação pendentes — somente prévia editorial',
+              'context':'Retrato atribuído a Cezar Loureiro, datado antes de 1994 no Commons; verificar edição e primeira publicação'
+            }
+          ]
+          result=[]
+          for row in rows:
+            data,final_url=get(row['url'])
+            im=Image.open(io.BytesIO(data))
+            assert im.format=='JPEG',(row['file'],im.format)
+            assert im.width>=500 and im.height>=300,(row['file'],im.size)
+            im.verify()
+            pasta=Path('docs/acervo-em-revisao') if row['file'].startswith('lelia-gonzalez-') else Path('public/fotos')
+            pasta.mkdir(parents=True,exist_ok=True)
+            p=pasta/row['file']
+            p.write_bytes(data)
+            result.append({**row,'resolved_url':final_url,'width':Image.open(io.BytesIO(data)).width,'height':Image.open(io.BytesIO(data)).height,'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data)})
+          Path('/tmp/relatorio-fotos-pr33.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
+          print('Imagens com origem e tamanho validados:',[(r['file'],r['bytes']) for r in result])
+          PY
+      - name: Guardar imagens apenas na branch de revisão PR33
+        run: |
+          set -euo pipefail
+          test "${GITHUB_REF_NAME}" = "revista-consolidada-ajustes-de-ritmo-16nov2026"
+          git config user.name 'qse-curadoria-imagens'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/fotos/renilce-nicodemos-pl1446-camara.jpg public/fotos/local-votacao-2026-agencia-senado.jpg docs/acervo-em-revisao/lelia-gonzalez-cezar-loureiro-referencia.jpg
+          git diff --cached --quiet && exit 0
+          git commit -m 'asset(fotos): inserir fonte Câmara e Senado, retrato de Lélia somente para revisão'
+          git push origin HEAD:revista-consolidada-ajustes-de-ritmo-16nov2026
+      - name: Arquivar origem e hashes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-origem-fotografias-16nov2026
+          path: /tmp/relatorio-fotos-pr33.json
+          retention-days: 30

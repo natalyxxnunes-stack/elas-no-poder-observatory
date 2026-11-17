@@ -104,10 +104,117 @@ function BarreirasPage() {
         }
       />
 
+      <section
+        aria-labelledby="barreiras-documentos"
+        className="relative left-1/2 -ml-[50vw] w-screen bg-[#c53f22] text-paper"
+      >
+        <div className="mx-auto max-w-7xl px-5 py-11 md:px-8 md:py-14">
+          <p className="text-[13px] font-semibold text-paper">
+            Documentos originais · Proteção e apuração
+          </p>
+          <h2 id="barreiras-documentos" className="mt-4 max-w-4xl font-display text-[clamp(2.15rem,4vw,4rem)] leading-[1.1] text-paper">
+            Uma lei, um painel e registros processuais.
+          </h2>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-paper">
+            Os três documentos tratam de etapas diferentes. A lei define a
+            conduta criminosa; o painel TSE/MPF informa processos agregados;
+            as representações listadas pelo MPF documentam atuações específicas.
+            Nenhum desses conjuntos é, isoladamente, uma contagem de vítimas.
+          </p>
+          <ul className="mt-8 grid gap-4 md:grid-cols-3">
+            <li className="min-w-0 border-t-2 border-paper/80 pt-4">
+              <p className="font-mono text-[13px] text-paper">01 · LEGISLAÇÃO</p>
+              <h3 className="mt-2 font-display text-2xl leading-tight text-paper">
+                Lei nº 14.192/2021
+              </h3>
+              <p className="mt-3 text-[14px] leading-relaxed text-paper">
+                Norma que introduziu o crime de violência política contra a mulher
+                no Código Eleitoral. Texto normativo, não registro de ocorrência.
+              </p>
+              <a
+                href="https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14192.htm"
+                target="_blank" rel="noreferrer"
+                className="mt-4 inline-flex min-h-11 items-center font-semibold text-paper underline underline-offset-4 focus-visible:outline-2"
+              >
+                Consultar texto legal ↗
+              </a>
+            </li>
+            <li className="min-w-0 border-t-2 border-paper/80 pt-4">
+              <p className="font-mono text-[13px] text-paper">02 · PAINEL PÚBLICO</p>
+              <h3 className="mt-2 font-display text-2xl leading-tight text-paper">
+                Processos autuados
+              </h3>
+              <p className="mt-3 text-[14px] leading-relaxed text-paper">
+                Fonte da série agregada usada abaixo: extração registrada pelo
+                TSE em {VPG_META.extraidoEm}; consulta pelo observatório em
+                {VPG_META.lidoEm}. A soma por ano não confere com o total do acervo.
+              </p>
+              <a href={VPG_META.url} target="_blank" rel="noreferrer"
+                className="mt-4 inline-flex min-h-11 items-center font-semibold text-paper underline underline-offset-4 focus-visible:outline-2">
+                Abrir painel original ↗
+              </a>
+            </li>
+            <li className="min-w-0 border-t-2 border-paper/80 pt-4">
+              <p className="font-mono text-[13px] text-paper">03 · ATUAÇÃO INSTITUCIONAL</p>
+              <h3 className="mt-2 font-display text-2xl leading-tight text-paper">
+                Representações do MPF
+              </h3>
+              <p className="mt-3 text-[14px] leading-relaxed text-paper">
+                Página com representações e dados estatísticos. A existência
+                de uma representação não comprova a prática do crime nem o
+                resultado do julgamento.
+              </p>
+              <a
+                href="https://www.mpf.mp.br/atuacao/fiscalizacao-do-processo-eleitoral/atuacao/gt-violencia-de-genero/representacoes-editadas"
+                target="_blank" rel="noreferrer"
+                className="mt-4 inline-flex min-h-11 items-center font-semibold text-paper underline underline-offset-4 focus-visible:outline-2"
+              >
+                Consultar arquivo do MPF ↗
+              </a>
+            </li>
+          </ul>
+          <p className="mt-7 max-w-4xl border-t border-paper/40 pt-4 text-[13px] leading-relaxed text-paper">
+            Este é um índice de fontes oficiais, não uma reprodução das telas
+            nem uma colagem de documentos. As bases permanecem com seus
+            recortes e limitações declarados.
+          </p>
+        </div>
+      </section>
+
+
+      <section aria-label="Fotografia documental sobre a discussão da proteção à pré-candidatura" className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-ink)] text-paper">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:grid-cols-[1.12fr_.88fr] md:items-center md:gap-12 md:px-8 md:py-16">
+          <figure className="min-w-0">
+            <img src="/fotos/renilce-nicodemos-pl1446-camara.jpg"
+              alt="A deputada Renilce Nicodemos fala ao microfone em fotografia de arquivo da Câmara dos Deputados."
+              className="block aspect-[3/2] w-full object-cover"
+              loading="lazy" />
+            <figcaption className="mt-3 text-[13px] leading-relaxed text-paper">
+              Renilce Nicodemos em imagem de arquivo usada pela Agência Câmara na reportagem de 01/07/2026 sobre o PL 1446/25. Foto: Kayo Magalhães/Câmara dos Deputados. A fotografia não documenta episódio de violência nem votação do projeto.{" "}
+              <a href="https://www.camara.leg.br/noticias/1286346-PROJETO-AMPLIA-PROTECAO-CONTRA-VIOLENCIA-POLITICA-DE-GENERO-NA-PRE-CANDIDATURA"
+                target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-2">Ver reportagem original</a>.
+            </figcaption>
+          </figure>
+          <div>
+            <p className="text-[13px] font-semibold uppercase tracking-wide text-[var(--art-gold)]">Debate legislativo · Julho de 2026</p>
+            <h2 className="mt-4 max-w-xl font-display text-[clamp(2.2rem,4vw,4rem)] leading-tight text-paper">
+              A proteção também está em discussão antes da candidatura.
+            </h2>
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-paper">
+              Em reportagem de julho de 2026, a Câmara apresentou a proposta de ampliar a proteção contra violência política de gênero à fase de pré-candidatura, prevista no PL 1446/2025. O projeto é uma proposta legislativa, não uma norma em vigor por força de sua apresentação.
+            </p>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-paper">
+              A existência da proposta e dessa fotografia não informa quantas mulheres sofreram violência. Os registros do TSE e do MPF, apresentados a seguir, usam outros critérios e universos.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <ManchetesStrip items={[M_FEMINICIDIO]} label="Violência contra mulheres" />
 
       <SectionBlock
         id="violencia-politica"
+        tone="ink"
         kicker="Violência política de gênero"
         question="Quantos processos chegaram à Justiça Eleitoral, ano a ano"
         align="wide"
@@ -176,14 +283,14 @@ function BarreirasPage() {
             <ChartScale max={200} unit="processos" />
           </ChartFrame>
         </div>
-        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-6 border-t border-paper/30 pt-4 text-sm leading-relaxed text-paper">
           Classes mais comuns no acervo:{" "}
           {VPG.porClasse.map((c) => `${c.classe.toLowerCase()} (${n(c.processos)})`).join(", ")}.{" "}
           <a
             href={VPG_META.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-plum underline-offset-4"
+            className="underline decoration-paper underline-offset-4"
           >
             Abrir o painel do TSE
           </a>
@@ -193,11 +300,12 @@ function BarreirasPage() {
 
       <SectionBlock
         id="feminicidio"
-        tone="butter"
+        tone="plum"
         kicker="Feminicídio"
         question="O que o Anuário de 2026 registra"
         align="wide"
       >
+        <div className="bg-paper p-5 text-ink md:p-8">
         <div className="grid gap-4 md:grid-cols-3">
           <div className="border-t-2 border-ink pt-3">
             <p className="font-display text-4xl text-ink">{n(FEMINICIDIO_2025.vitimas)}</p>
@@ -242,13 +350,16 @@ function BarreirasPage() {
           </Link>
           .
         </p>
+        </div>
       </SectionBlock>
 
       <SectionBlock
+        tone="plum"
         kicker="Formas documentadas"
         question="O que investigamos — e o que cada coisa exigiria"
         align="wide"
       >
+        <div className="bg-paper p-5 text-ink md:p-8">
         <ul className="divide-y divide-rule border-y border-rule">
           {BARRIER_FORMS.map((b) => (
             <li key={b.form} className="py-5">
@@ -267,9 +378,11 @@ function BarreirasPage() {
             </li>
           ))}
         </ul>
+        </div>
       </SectionBlock>
 
       <SectionBlock
+        tone="ink"
         kicker="Critérios"
         question="Quando um caso vira dado"
         lead={
@@ -279,6 +392,7 @@ function BarreirasPage() {
           </p>
         }
       >
+        <div className="bg-paper p-5 text-ink md:p-8">
         <div className="grid gap-4 md:grid-cols-3">
           <ContextBox variant="significa">
             <p>
@@ -305,6 +419,7 @@ function BarreirasPage() {
             Anuário, este eixo segue sem indicador até que exista fonte comparável. Nenhum relato
             individual é transformado em estatística.
           </GapNote>
+        </div>
         </div>
       </SectionBlock>
 

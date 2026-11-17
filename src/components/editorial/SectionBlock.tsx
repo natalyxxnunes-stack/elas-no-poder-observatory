@@ -11,7 +11,7 @@ import { Secao } from "@/components/editorial/Secao";
  * continuam aceitos por compatibilidade e caem nos claros próximos.
  * Só muda tratamento de fundo, nunca conteúdo.
  */
-type Tone = "paper" | "plum" | "ink" | "lilac" | "butter";
+type Tone = "paper" | "plum" | "ink" | "lilac" | "butter" | "warm";
 
 const TONE_WRAP: Record<Tone, string> = {
   paper: "",
@@ -19,6 +19,7 @@ const TONE_WRAP: Record<Tone, string> = {
   ink: "ink-panel",
   lilac: "bg-muted text-ink",
   butter: "bg-cream text-ink",
+  warm: "bg-[var(--art-cream)] text-ink",
 };
 
 const TONE_KICKER: Record<Tone, string> = {
@@ -27,6 +28,7 @@ const TONE_KICKER: Record<Tone, string> = {
   ink: "text-[13px] text-cream/80 font-semibold",
   lilac: "text-[13px] text-plum font-semibold",
   butter: "text-[13px] text-plum font-semibold",
+  warm: "text-[13px] text-plum font-semibold",
 };
 
 const TONE_TITLE: Record<Tone, string> = {
@@ -35,14 +37,16 @@ const TONE_TITLE: Record<Tone, string> = {
   ink: "text-cream",
   lilac: "text-ink",
   butter: "text-ink",
+  warm: "text-ink",
 };
 
 const TONE_LEAD: Record<Tone, string> = {
   paper: "text-muted-foreground",
-  plum: "text-cream/85",
+  plum: "text-cream",
   ink: "text-cream/85",
   lilac: "text-ink/80",
   butter: "text-ink/80",
+  warm: "text-ink/80",
 };
 
 export function SectionBlock({

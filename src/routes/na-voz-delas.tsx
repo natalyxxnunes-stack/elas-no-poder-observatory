@@ -4,6 +4,7 @@ import { PageShell } from "@/components/PageShell";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { GapNote } from "@/components/GapNote";
 import { FALAS, FALAS_PEDIDO_ENVIADO_EM, type Fala } from "@/data/falas";
+import { IndiceDiariosCamara } from "@/components/editorial/IndicesDocumentaisCamara";
 
 export const Route = createFileRoute("/na-voz-delas")({
   head: () => ({
@@ -46,27 +47,60 @@ function AberturaFalas({ publicadas }: { publicadas: Fala[] }) {
             Ler os registros ↘
           </a>
         </div>
-        <aside aria-label="Referências documentais das declarações" className="bg-paper p-5 text-ink md:p-7">
-          <p className="text-xs font-semibold uppercase tracking-wide text-plum">Fontes primárias · Seleção do acervo</p>
-          <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink/75">
-            As referências abaixo conduzem aos registros originais; são citações bibliográficas,
-            não reproduções gráficas das páginas.
+        <aside
+          aria-label="Leitura de um registro original da Câmara"
+          className="min-w-0 border-t-4 border-[var(--art-gold)] bg-paper p-5 text-ink md:p-7"
+        >
+          {publicadas[0] ? (
+            <div>
+              <p className="text-[13px] font-semibold text-plum">
+                Documento em destaque · Diário da Câmara
+              </p>
+              <p className="mt-3 font-mono text-[13px] text-ink/75">
+                {publicadas[0].data} · {publicadas[0].onde}
+              </p>
+              <blockquote className="mt-5 border-l-4 border-plum pl-4">
+                <p className="font-display text-[clamp(1.35rem,2.2vw,2rem)] leading-[1.24] text-ink">
+                  “{publicadas[0].fala}”
+                </p>
+                <footer className="mt-4 text-[14px] font-semibold text-plum">
+                  {publicadas[0].pessoa}
+                </footer>
+              </blockquote>
+              <p className="mt-5 text-[13px] leading-relaxed text-ink/80">
+                Reprodução textual de declaração publicada na fonte original.
+                Não é um fac-símile do Diário nem uma fotografia da parlamentar.
+                O contexto e o dado oficial, quando há, estão no registro completo
+                desta reportagem.
+              </p>
+              <a href={publicadas[0].fonteUrl} target="_blank" rel="noreferrer"
+                className="mt-4 inline-flex min-h-11 items-center font-semibold text-plum underline underline-offset-4 focus-visible:outline-2">
+                {publicadas[0].fonteRotulo} ↗
+              </a>
+            </div>
+          ) : null}
+          {fontes.length > 1 && (
+            <div className="mt-6 border-t border-rule pt-4">
+              <p className="text-[13px] font-semibold text-plum">
+                Outros registros primários no acervo
+              </p>
+              <ul className="mt-2 divide-y divide-rule">
+                {fontes.slice(1).map((f) => (
+                  <li key={f.id}>
+                    <a href={f.fonteUrl} target="_blank" rel="noreferrer"
+                      className="flex min-h-12 items-center justify-between gap-4 py-3 text-[13px] font-semibold text-ink underline-offset-4 hover:underline focus-visible:outline-2">
+                      <span>{f.pessoa} · {f.fonteRotulo}</span>
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <p className="mt-4 text-[13px] text-ink/75">
+            {publicadas.length} declarações com fontes conferidas, publicadas
+            nesta seleção editorial.
           </p>
-          <ul className="mt-4 divide-y divide-rule border-y border-rule">
-            {fontes.map((f) => (
-              <li key={f.id}>
-                <a href={f.fonteUrl} target="_blank" rel="noreferrer"
-                  className="group flex min-h-16 items-center justify-between gap-3 py-3 hover:text-plum">
-                  <span>
-                    <span className="block text-xs text-ink/65">{f.data} · {f.onde}</span>
-                    <span className="mt-1 block text-sm font-semibold">{f.fonteRotulo}</span>
-                  </span>
-                  <span className="shrink-0" aria-hidden="true">↗</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 text-xs text-ink/70">{publicadas.length} registros conferidos e publicados no índice.</p>
         </aside>
       </div>
     </section>
@@ -74,17 +108,17 @@ function AberturaFalas({ publicadas }: { publicadas: Fala[] }) {
 }
 
 function FalaCard({ f, i }: { f: Fala; i: number }) {
-  const escuro = i === 0;
+  const escuro = i % 3 !== 1;
   const posicionamento = f.posicionamento
     ? `Resposta de ${f.pessoa}: ${f.posicionamento.texto} (${f.posicionamento.data})`
     : FALAS_PEDIDO_ENVIADO_EM
       ? `Pedido enviado em ${FALAS_PEDIDO_ENVIADO_EM}; sem resposta até a última atualização`
       : "Registro público, publicado com data e link. Correção ou resposta: contato@quemsaoelas.com.br; entra aqui, com data";
   return (
-    <article id={f.id} className={`scroll-mt-24 relative left-1/2 -ml-[50vw] w-screen ${escuro ? "bg-plum-deep text-paper" : i % 2 === 0 ? "bg-cream" : "bg-paper"}`}>
+    <article id={f.id} className={`scroll-mt-24 relative left-1/2 -ml-[50vw] w-screen ${escuro ? (i % 3 === 0 ? "bg-ink text-paper" : "bg-plum text-paper") : "bg-paper text-ink"}`}>
       <div className="mx-auto grid max-w-7xl gap-6 px-5 py-9 md:px-8 md:py-12 lg:grid-cols-[1.1fr_.9fr] lg:gap-12">
         <div className="min-w-0">
-          <p className={`text-xs font-semibold ${escuro ? "text-lilac" : "text-plum"}`}>{f.data} · {f.onde}</p>
+          <p className={`text-xs font-semibold ${escuro ? "text-paper" : "text-plum"}`}>{f.data} · {f.onde}</p>
           <blockquote className="mt-4">
             <p className={`font-display leading-[1.2] ${escuro ? "text-[1.65rem] text-paper md:text-[2.3rem]" : "text-[1.55rem] text-ink md:text-[1.95rem]"}`}>
               “{f.fala}”
@@ -99,14 +133,14 @@ function FalaCard({ f, i }: { f: Fala; i: number }) {
         </div>
         <div className="min-w-0 space-y-4 lg:pt-1">
           {f.dado ? (
-            <div className="bg-butter px-5 py-4 text-ink">
+            <div className="bg-[var(--art-gold)] px-5 py-4 text-ink">
               <p className="text-xs font-semibold uppercase tracking-wide">O dado oficial</p>
               <p className="mt-2 text-base leading-relaxed">{f.dado.texto}</p>
               <p className="mt-2 text-xs text-ink/70">{f.dado.fonte}</p>
             </div>
           ) : null}
           <div className={escuro ? "bg-paper/10 p-5" : "bg-muted p-5"}>
-            <p className={`text-xs font-semibold uppercase tracking-wide ${escuro ? "text-lilac" : "text-plum"}`}>Contexto documental</p>
+            <p className={`text-xs font-semibold uppercase tracking-wide ${escuro ? "text-paper" : "text-plum"}`}>Contexto documental</p>
             <p className={`mt-2 text-sm leading-relaxed ${escuro ? "text-paper/90" : "text-ink/85"}`}>{f.contexto}</p>
             {f.versao ? (
               <p className={`mt-3 text-sm leading-relaxed ${escuro ? "text-paper/90" : "text-ink/85"}`}>
@@ -121,6 +155,57 @@ function FalaCard({ f, i }: { f: Fala; i: number }) {
         </div>
       </div>
     </article>
+  );
+}
+
+
+function EvidenciaCatalogoCamara() {
+  return (
+    <section aria-labelledby="caderno-registro-original"
+      className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-plum)] text-paper">
+      <div className="mx-auto grid max-w-7xl items-center gap-8 px-5 py-10 md:grid-cols-[.7fr_1.3fr] md:gap-12 md:px-8 md:py-14">
+        <div>
+          <p className="text-[13px] font-semibold text-[var(--art-gold)]">
+            Um documento do percurso de apuração
+          </p>
+          <h2 id="caderno-registro-original"
+            className="mt-4 font-display text-[clamp(2.2rem,3.8vw,3.9rem)] leading-tight text-paper">
+            A origem de uma fala também pode ser vista.
+          </h2>
+          <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-paper">
+            Este registro permite localizar a fala de Julia Zanatta, realizada em 10 de março de 2026,
+            na publicação oficial do dia seguinte. É uma linha do índice de discursos da Câmara:
+            a íntegra do pronunciamento está no Diário.
+          </p>
+          <p className="mt-5 font-display text-[clamp(3.5rem,7vw,6rem)] leading-none text-[var(--art-gold)]">
+            163
+          </p>
+          <p className="mt-2 text-[13px] text-paper">Página indicada para consulta no Diário da Câmara de 11/03/2026</p>
+        </div>
+        <figure className="min-w-0 bg-paper p-5 text-ink md:p-7">
+          <p className="text-[13px] font-semibold uppercase tracking-wide text-plum">
+            Captura original · Pesquisa de discursos da Câmara
+          </p>
+          <a href="/documentos/camara-sitaq-julia-zanatta-2026-03-10-p163.png"
+            target="_blank" rel="noreferrer"
+            className="mt-5 block border border-ink/20 bg-white p-2 focus-visible:outline-2 focus-visible:outline-offset-4"
+            aria-label="Ampliar a linha original do índice de discursos no portal da Câmara">
+            <img src="/documentos/camara-sitaq-julia-zanatta-2026-03-10-p163.png" width={1109} height={64}
+              alt="Linha da pesquisa original: 10/03/2026, Julia Zanatta, PL-SC, sessão da Câmara, publicação do Diário em 11/03/2026, página 163"
+              loading="lazy" className="block h-auto w-full" />
+          </a>
+          <figcaption className="mt-5 text-[14px] leading-relaxed text-ink/85">
+            Recorte literal de uma linha do catálogo oficial, consultado em 16/11/2026.
+            <strong> Não é uma imagem da página 163 do Diário</strong> e não substitui a conferência do discurso integral.
+          </figcaption>
+          <a href="https://www.camara.leg.br/internet/SitaqWeb/ResultadoPesquisaDiscursos.asp?BasePesq=plenario&CampoOrdenacao=dtSessao&PageSize=50&TipoOrdenacao=DESC&btnPesqAvan=Pesquisar&dtFim=31%2F12%2F2026&dtInicio=01%2F01%2F2026&txOrador=Julia+Zanatta"
+            target="_blank" rel="noreferrer"
+            className="mt-4 inline-flex min-h-11 items-center font-semibold text-plum underline underline-offset-4">
+            Abrir a pesquisa original da Câmara ↗
+          </a>
+        </figure>
+      </div>
+    </section>
   );
 }
 
@@ -147,6 +232,7 @@ function NaVozDelasPage() {
       breadcrumb={[{ label: "Reportagens", to: "/reportagens" }, { label: "Na voz delas" }]}
     >
       <AberturaFalas publicadas={pub} />
+      <EvidenciaCatalogoCamara />
 
       <div className="py-5">
         <details className="group border-b border-rule">
@@ -211,6 +297,8 @@ function NaVozDelasPage() {
           </details>
         ) : null}
       </section>
+
+      <IndiceDiariosCamara falas={pub} incluirRecorte={false} />
 
       <ComoSabemos
         fonte="Câmara dos Deputados, Dados Abertos (transcrição dos discursos) e Diário da Câmara; Fórum Brasileiro de Segurança Pública, Anuário 2026"

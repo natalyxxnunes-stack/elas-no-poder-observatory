@@ -1,0 +1,82 @@
+name: Pesquisa de páginas dos critérios — seleção sem dados pessoais
+on:
+  workflow_dispatch:
+permissions: { contents: read }
+jobs:
+  inspecao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparar
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -qq -y poppler-utils
+          python3 -m pip install --quiet --break-system-packages requests
+      - name: Renderizar páginas candidatas de resoluções e Diário oficial
+        run: |
+          mkdir -p /tmp/qsecriterios candidatos
+          python3 - <<'PY'
+          import requests,hashlib,re,subprocess,json
+          from pathlib import Path
+          targets={
+           'pl':('https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0600974_71-2026-6-00-0000___pl_nacional___criterios_fefc','d34dbd51e72797e92ff1543999ac9564b017317330715a4679bca4c82d7ea159'),
+           'pt':('https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0601252_72-2026-6-00-0000___pt_nacional___criterios_fefc','6b1820fbb97f35cc09c40ad2c58c5a79824286122d11f3e9d72eae8e59c8984e'),
+           'uniao':('https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/arquivos/petciv_0601251_87-2026-6-00-0000___uniao_brasil_nacional___criterios_fefc','8029faf019b1c4412c56181c54c3053f8c028282922a77062b7ecd1d4b716e7b'),
+          }
+          terms=[('resolução',4),('resolucao',4),('critério',3),('criterio',3),('distribuição',3),('distribuicao',3),('fundo especial',2),('cotas',2),('recursos',1),('mulher',1),('pretas',1),('pardas',1)]
+          report=[]
+          for name,(url,sha) in targets.items():
+            data=requests.get(url,timeout=45,headers={'User-Agent':'Mozilla/5.0 (compatible; QSE-Jornalismo-Dados/1.0)'}).content
+            if hashlib.sha256(data).hexdigest()!=sha:
+              report.append({'partido':name,'erro':'hash difere da leitura anterior; nenhum documento renderizado'});continue
+            file=Path('/tmp/qsecriterios')/(name+'.pdf');file.write_bytes(data)
+            info=subprocess.run(['pdfinfo',str(file)],capture_output=True,text=True).stdout
+            pages=int(re.search(r'Pages:\s*(\d+)',info).group(1))
+            candidates=[]
+            for page in range(1,min(pages,26)+1):
+              txt=subprocess.run(['pdftotext','-f',str(page),'-l',str(page),str(file),'-'],capture_output=True,text=True).stdout
+              t=txt.lower()
+              cpf=bool(re.search(r'\b\d{3}\.\d{3}\.\d{3}-\d{2}\b|\bcpf\b',t))
+              bank=bool(re.search(r'\b\d{4}[- ]\d\b.*\bconta\b|conta\s+corrente\s*n[ºo]?',t))
+              # Dados pessoais e bancários: vetar candidatos de reprodução.
+              score=sum(t.count(term)*weight for term,weight in terms)
+              if page>1 and score>=6 and len(t.split())>70 and not cpf and not bank:
+                candidates.append((score,page))
+            candidates.sort(reverse=True)
+            rec={'partido':name,'paginas':pages,'candidatas':[{'pagina':page,'score':score} for score,page in candidates[:4]]}
+            for score,page in candidates[:3]:
+              stem='candidatos/'+name+'_criterios_p'+str(page)
+              z=subprocess.run(['pdftoppm','-f',str(page),'-l',str(page),'-scale-to','1600','-png','-singlefile',str(file),stem],capture_output=True,text=True)
+              if z.returncode:rec.setdefault('erros_render',[]).append(str(page))
+            report.append(rec)
+          Path('candidatos/relatorio_paginacao.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          for r in report: print(r)
+          PY
+      - name: Conferir URL candidata do Diário da Câmara
+        run: |
+          python3 - <<'PY'
+          import requests,json,hashlib
+          from pathlib import Path
+          out=[]
+          urls=[
+            'https://imagem.camara.leg.br/Imagem/d/pdf/DCD0020260311000200000.PDF',
+            'https://imagem.camara.leg.br/dc_20b.asp?largura=&altura=&tipoForm=diarios&selCodColecaoCsv=D&Datain=11%2F3%2F2026&txPagina=163&txSuplemento=&enviar=Pesquisar'
+          ]
+          for url in urls:
+            try:
+              x=requests.get(url,timeout=27)
+              out.append({'url':url,'status':x.status_code,'type':x.headers.get('content-type'),'bytes':len(x.content),'pdf':x.content.startswith(b'%PDF-'),'sha256':hashlib.sha256(x.content).hexdigest()})
+              if x.content.startswith(b'%PDF-') and len(x.content)<30000000:
+                f=Path('/tmp/qsecriterios/diario-camara.pdf');f.write_bytes(x.content)
+            except Exception as e:out.append({'url':url,'erro':str(e)})
+          Path('candidatos/relatorio_diario.json').write_text(json.dumps(out,ensure_ascii=False,indent=2))
+          print(out)
+          PY
+      - name: Guardar candidatos apenas, não PDFs integrais
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-paginas-criterios-para-inspecao
+          path: candidatos/
+          retention-days: 7

@@ -1,0 +1,186 @@
+name: QA revista — Investigacoes e fontes documentais
+on:
+  push:
+    branches: [revista-consolidada-ajustes-de-ritmo-16nov2026]
+  workflow_dispatch:
+concurrency:
+  group: qse-investigacoes-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  diagnostico:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: latest }
+      - name: TypeScript e compilação HostGator
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Preparar Playwright e axe-core
+        run: |
+          python3 -m pip install --quiet --break-system-packages playwright
+          curl --fail --location --silent --show-error https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js -o /tmp/axe.min.js
+          test "$(wc -c </tmp/axe.min.js)" -gt 100000
+      - name: Auditar investigacoes e controles em tres larguras
+        run: |
+          set -euo pipefail
+          mkdir -p relatorios-investigacoes
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-investigacoes-http.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          routes=[
+            ('/quem-controla','quem-controla'),
+            ('/dinheiro','dinheiro'),
+            ('/na-voz-delas','na-voz-delas'),
+            ('/reportagens','reportagens'),
+            ('/','homepage-controle')
+          ]
+          out=[];hard=[];violations=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for device,w,h in [('desktop',1440,900),('celular',390,844),('reflow_320',320,720)]:
+              ctx=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=1)
+              for route,name in routes:
+                page=ctx.new_page()
+                js=[]
+                page.on('pageerror',lambda e:js.append(str(e)))
+                try:
+                  response=page.goto('http://127.0.0.1:4173'+route,wait_until='domcontentloaded',timeout=30000)
+                  page.evaluate("""async() => {
+                    const images=Array.from(document.images);
+                    images.forEach(img=>img.loading='eager');
+                    await Promise.all(images.map(img=>img.decode().catch(()=>{})));
+                  }""")
+                  page.add_script_tag(path='/tmp/axe.min.js')
+                  axe=page.evaluate("""async() => {
+                    const result=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}});
+                    return result.violations.map(v=>({
+                      id:v.id,impact:v.impact,description:v.description,
+                      help:v.help,helpUrl:v.helpUrl,
+                      nodes:v.nodes.slice(0,16).map(n=>({
+                        target:n.target,summary:n.failureSummary,
+                        snippet:n.html.slice(0,260)
+                      })),
+                      totalNodes:v.nodes.length
+                    }));
+                  }""")
+                  if device in ['desktop','celular']:
+                    page.screenshot(path='relatorios-investigacoes/'+name+'-'+device+'.png',full_page=True,animations='disabled')
+                  # Amostra de navegação por teclado e presença de indicadores.
+                  keyboard=[]
+                  for i in range(12):
+                    page.keyboard.press('Tab')
+                    f=page.evaluate("""() => {
+                      const e=document.activeElement;
+                      if (!e || e===document.body)return null;
+                      const s=getComputedStyle(e),r=e.getBoundingClientRect();
+                      return {tag:e.tagName,role:e.getAttribute('role'),text:(e.innerText||e.getAttribute('aria-label')||'').trim().slice(0,100),
+                        href:e.getAttribute('href'),outlineStyle:s.outlineStyle,outlineWidth:s.outlineWidth,
+                        boxShadow:s.boxShadow,rect:{x:r.x,y:r.y,width:r.width,height:r.height},overflow:e.scrollWidth>e.clientWidth};
+                    }""")
+                    if f: keyboard.append(f)
+                  # Auditoria simples de imagens documentais e legendas.
+                  docs=page.evaluate("""() => Array.from(document.querySelectorAll('img[src^="/documentos/"]')).map(img => ({
+                    src:img.getAttribute('src'),alt:img.getAttribute('alt'),
+                    inFigure:!!img.closest('figure'),hasCaption:!!img.closest('figure')?.querySelector('figcaption'),
+                    width:img.naturalWidth,height:img.naturalHeight,renderedWidth:img.getBoundingClientRect().width
+                  }))""")
+                  semantica=page.evaluate("""() => ({
+                    h1:Array.from(document.querySelectorAll('main h1')).map(n=>n.innerText.trim().slice(0,100)),
+                    main:!!document.querySelector('main'),
+                    imagens:Array.from(document.querySelectorAll('main img')).map(n=>({
+                      src:n.getAttribute('src'),alt:n.getAttribute('alt'),carregada:n.complete&&n.naturalWidth>0,
+                      legenda:!!n.closest('figure')?.querySelector('figcaption')
+                    }))
+                  })""")
+                  widths=page.evaluate("""() => ({scroll:document.documentElement.scrollWidth,visible:window.innerWidth})""")
+                  record={'rota':route,'dispositivo':device,'http':response.status if response else None,
+                          'violacoes':axe,'foco_primeiros_12':keyboard,'documentos':docs,
+                          'largura':widths,'semantica':semantica,'erros_js':js}
+                  out.append(record)
+                  violations.extend([{'rota':route,'dispositivo':device,'id':v['id'],'impacto':v['impact'],'ocorrencias':v['totalNodes']}
+                    for v in axe])
+                  if not response or response.status!=200 or js or not semantica['main'] or not semantica['h1'] or widths['scroll']>w+2:hard.append(record)
+                except Exception as e:
+                  hard.append({'rota':route,'dispositivo':device,'erro':str(e)})
+                finally:page.close()
+              ctx.close()
+            browser.close()
+          Path('relatorios-investigacoes/diagnostico.json').write_text(json.dumps({'paginas':out,'erros_execucao':hard},ensure_ascii=False,indent=2))
+          Path('relatorios-investigacoes/resumo.json').write_text(json.dumps({'total_paginas':len(out),'violacoes':violations,'erros_execucao':hard},ensure_ascii=False,indent=2))
+          print('Páginas',len(out),'regras com violações',len(violations),'erros de execução',len(hard))
+          for v in violations[:35]: print(v)
+          assert not hard,'Falha estrutural, JS ou largura nas páginas: ver diagnostico.json'
+          assert not violations,'Axe detectou violações WCAG nas páginas: ver diagnostico.json'
+          PY
+      - name: Conferir integridade das paginas e suas imagens documentais
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-investigacoes-figuras.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 2
+          python3 - <<'PY'
+          from playwright.sync_api import sync_playwright
+          import json
+          from pathlib import Path
+          checks=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for device,w,h in [('desktop',1440,900),('celular',390,844)]:
+              ctx=browser.new_context(viewport={'width':w,'height':h})
+              page=ctx.new_page()
+              page.goto('http://127.0.0.1:4173/quem-controla',wait_until='domcontentloaded')
+              cards=page.locator('section#alavancas ol > li')
+              assert cards.count()==5,'Alavancas ou documentação ausentes'
+              assert all('Exige:' in t for t in cards.all_inner_texts())
+              assert page.locator('section#regras a').count()>0
+              assert page.locator('img[src="/documentos/tse-pl-processo-fefc-capa-2026.png"]').count()==1
+              checks.append({'pagina':'quem-controla','dispositivo':device,'resultado':'ok'})
+              page.goto('http://127.0.0.1:4173/dinheiro',wait_until='domcontentloaded')
+              imgs=page.locator('section#resolucoes-fefc-originais figure img')
+              assert imgs.count()==2,'Resoluções TSE faltando'
+              for img in [imgs.nth(0),imgs.nth(1)]:
+                img.scroll_into_view_if_needed()
+                img.evaluate('async(e)=>{e.loading="eager";await e.decode()}')
+                assert img.get_attribute('alt') and img.evaluate('(e)=>e.naturalWidth>600')
+                assert img.locator('xpath=ancestor::figure[1]').locator('figcaption').count()==1
+              checks.append({'pagina':'dinheiro','dispositivo':device,'resultado':'ok'})
+              page.goto('http://127.0.0.1:4173/na-voz-delas',wait_until='domcontentloaded')
+              img=page.locator('img[src="/documentos/camara-sitaq-julia-zanatta-2026-03-10-p163.png"]')
+              assert img.count()==1,'Recorte do índice da Câmara ausente'
+              img.scroll_into_view_if_needed()
+              img.evaluate('async(e)=>{e.loading="eager";await e.decode()}')
+              assert img.evaluate('(e)=>e.naturalWidth>1000')
+              assert img.locator('xpath=ancestor::figure[1]').locator('figcaption').count()==1
+              links=page.locator('section#falas nav a[href^="#"]')
+              assert links.count()>3
+              link=links.last
+              dest=link.get_attribute('href')
+              link.click()
+              assert page.evaluate('location.hash')==dest
+              assert page.locator('section#falas details[open]').count()>=1
+              checks.append({'pagina':'na-voz-delas','dispositivo':device,'resultado':'ok'})
+              ctx.close()
+            browser.close()
+          Path('relatorios-investigacoes/interacoes.json').write_text(json.dumps(checks,ensure_ascii=False,indent=2))
+          print('Verificações funcionais:',len(checks))
+          PY
+      - name: Arquivar relatório
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-investigacoes-capturas
+          path: relatorios-investigacoes/
+          retention-days: 14

@@ -3,6 +3,7 @@ import { PageShell } from "@/components/PageShell";
 import { AchadoCard } from "@/components/editorial/AchadoCard";
 import { Faixa } from "@/components/editorial/Faixa";
 import { TemaOpening, ObjetoComplementar } from "@/components/editorial/TemaOpening";
+import { FotografiaEmContexto } from "@/components/editorial/CadernoDocumentalRevista";
 import { Secao } from "@/components/editorial/Secao";
 import { ACHADOS } from "@/data/achados";
 import { FALAS } from "@/data/falas";
@@ -92,6 +93,24 @@ function TemaPage() {
         <ObjetoComplementar tema={tema} />
       </section>
 
+      {tema.slug === "memoria" ? (
+        <FotografiaEmContexto
+          fotoId="posse-bertha-lutz-1936"
+          editoria="Fotografia histórica · Arquivo Nacional"
+          titulo="1936: a posse também deixou uma imagem."
+          contexto="Registro da posse de Bertha Lutz na Câmara, em 28 de julho de 1936. A fotografia documenta aquele acontecimento, sem representar todas as mulheres que disputaram ou exerceram poder político no período. Fonte e atribuição identificadas no acervo."
+          tom="ink"
+        />
+      ) : tema.slug === "agenda" ? (
+        <FotografiaEmContexto
+          fotoId="plenario-igualdade-salarial-2023"
+          editoria="Fotografia parlamentar · 2023"
+          titulo="O voto precisa do registro nominal."
+          contexto="Imagem de arquivo do plenário em maio de 2023, no contexto da igualdade salarial. Ela não identifica, por si, o voto de cada parlamentar; a conferência depende das votações nominais e das fontes indicadas nas reportagens."
+          tom="plum"
+        />
+      ) : null}
+
       {achados.length ? (
         <Faixa fundo="bg-cream">
           <div id="provas" className="scroll-mt-24 py-12 md:py-16">
@@ -99,17 +118,23 @@ function TemaPage() {
               nome="As provas"
               tipo={`${n(achados.length)} achados · cada um tem endereço próprio`}
             />
-            <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {/* Um único achado é abertura de reportagem: não ocupar só 1/3
+                da largura e obrigar a leitora a percorrer uma coluna extensa. */}
+            <div className={`mt-8 grid gap-6 ${achados.length === 1
+              ? "md:max-w-5xl"
+              : achados.length === 2
+                ? "md:grid-cols-2"
+                : "md:grid-cols-2 xl:grid-cols-3"}`}>
               {achados.map((a) => (
-                <AchadoCard key={a.id} achado={a} />
+                <AchadoCard key={a.id} achado={a} grande={achados.length === 1} />
               ))}
             </div>
           </div>
         </Faixa>
       ) : null}
 
-      <section id="quem-decide" className="scroll-mt-24 py-12 md:py-16">
-        <Secao nome="Quem decide" tipo="os atores e as relações por trás dos números" />
+      <section id="quem-decide" className="relative left-1/2 -ml-[50vw] w-screen scroll-mt-24 bg-ink text-paper"><div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
+        <Secao nome="Quem decide" tipo="os atores e as relações por trás dos números" claro />
         <ol className="mt-8 grid gap-px bg-rule md:grid-cols-3">
           {tema.quemDecide.map((q, k) => (
             <li key={q.ator} className="bg-paper p-6 md:p-8">
@@ -119,7 +144,7 @@ function TemaPage() {
             </li>
           ))}
         </ol>
-      </section>
+        </div></section>
 
       {votacoes.length ? (
         <section className="py-12">
@@ -192,16 +217,16 @@ function TemaPage() {
         </Faixa>
       ) : null}
 
-      <section id="lacunas" className="scroll-mt-24 -mx-5 bg-cream px-5 py-12 md:-mx-8 md:px-8 md:py-16">
-        <Secao nome="O que ainda não sabemos" tipo="lacunas declaradas" />
+      <section id="lacunas" className="relative left-1/2 -ml-[50vw] w-screen scroll-mt-24 bg-[#c53f22] text-paper"><div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
+        <Secao nome="O que ainda não sabemos" tipo="lacunas declaradas" claro />
         <ul className="mt-6 grid gap-6 md:grid-cols-2 md:gap-10">
           {tema.naoSabemos.map((x) => (
-            <li key={x} className="border-l-2 border-plum pl-4 text-[16px] leading-relaxed text-ink/85">
+            <li key={x} className="border-l-[3px] border-paper pl-5 text-[16px] leading-relaxed text-paper">
               {x}
             </li>
           ))}
         </ul>
-      </section>
+        </div></section>
 
       <section id="leitura-e-consulta" className="scroll-mt-24 grid gap-10 py-12 md:grid-cols-2 md:py-16">
         {tema.leituras.length ? (

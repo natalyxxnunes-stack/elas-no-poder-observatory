@@ -1,14 +1,22 @@
 import { HIPOTESES } from "@/data/hipoteses";
+import { useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Registro } from "@/components/editorial/Registro";
 import { buildSnapshotCsv } from "@/lib/tse/snapshot-csv";
 import { WhatChanged } from "@/components/home/WhatChanged";
-import { formatDateBR, formatInt } from "@/lib/format-br";
+import { formatDateBR, formatInt, formatPct } from "@/lib/format-br";
+import { FINANCE_BASE_LABEL, financeSnapshot } from "@/data/tse-finance-snapshot";
 import { INSPECTED_AT } from "@/lib/tse/data-dictionary";
 import { CORRECOES, DICIONARIO, METODO_ATUACAO, METODO_FICHAS } from "@/data/metodo-publico";
 
 import { PageShell } from "@/components/PageShell";
-import { EditorialOpening } from "@/components/editorial/EditorialOpening";
+import {
+  MetodoCapaRevista,
+  MetodoIntroducaoRevista,
+  MetodoFluxoEditorial,
+  MetodoFotoContextualizada,
+  MetodoContaRevista,
+} from "@/components/editorial/MetodoRevista";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { NextAxes } from "@/components/editorial/NextAxes";
@@ -147,6 +155,28 @@ function MetodoPage() {
     history: PublicSnapshot[];
   };
   const indicators = applySnapshot(CURRENT_INDICATORS, snapshot);
+  const cadernoRef = useRef<HTMLDetailsElement>(null);
+
+  // Um endereço direto para qualquer seção técnica deve abrir seu documento,
+  // sem obrigar o visitante a procurar um botão antes de acessar a informação.
+  useEffect(() => {
+    const abrirSecaoVinculada = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      if (!id) return;
+      const alvo = document.getElementById(id);
+      const caderno = cadernoRef.current;
+      if (!alvo || !caderno || !caderno.contains(alvo)) return;
+      if (!caderno.open) caderno.open = true;
+      window.requestAnimationFrame(() => alvo.scrollIntoView({ block: "start" }));
+    };
+    abrirSecaoVinculada();
+    window.addEventListener("hashchange", abrirSecaoVinculada);
+    return () => window.removeEventListener("hashchange", abrirSecaoVinculada);
+  }, []);
+  const receitaBrancas = financeSnapshot.universes.proporcional.feminineRevenueByRace["BRANCA"]?.value;
+  if (receitaBrancas === undefined) {
+    throw new Error("Base financeira sem a categoria BRANCA: a visualização não pode ser calculada");
+  }
 
   // O CSV é montado no navegador a partir da mesma fotografia já carregada
   // nesta página: nenhum número novo, nenhum cálculo adicional.
@@ -172,57 +202,98 @@ function MetodoPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Projeto" }, { label: "Método" }]}>
-      <EditorialOpening
-        variant="method"
-        kicker="Método"
-        question="Todo número precisa mostrar de onde veio."
-        lead={
-          <p>
-            Esta página tem duas camadas. A primeira explica em linguagem simples
-            como cada número é calculado. A segunda é a ficha técnica auditável,
-            gerada a partir da mesma camada de dados que alimenta o site.
-          </p>
-        }
-        steps={[
-          { number: "01", label: "Fonte", detail: "De onde vêm os dados?" },
-          { number: "02", label: "Universo", detail: "O que está incluído?" },
-          { number: "03", label: "Denominador", detail: "Como os percentuais são calculados?" },
-          { number: "04", label: "Cálculo", detail: "Quais as métricas utilizadas?" },
-          { number: "05", label: "Atualização", detail: "Com que frequência os dados são revisados?" },
-        ]}
-        aside={
-          <div>
-            <p className="text-[13px] text-ink/65 font-semibold">Fotografia vigente</p>
-            <p className="mt-2 font-display text-lg leading-snug text-ink">
-              Base do TSE gerada em{" "}
-              {br(snapshot?.baseGeneratedAt ?? TSE_SOURCE.baseGeneratedAt)}
-            </p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Processada pelo observatório em {br(snapshot?.collectedAt ?? null)}
-            </p>
-            {snapshot && (
-              <p className="mt-3 font-mono text-[13px] text-muted-foreground">
-                {formatInt(snapshot.recordCount)} candidaturas nos dois universos
-              </p>
-            )}
-            {snapshot?.outOfUniverse?.total ? (
-              <p className="mt-1 text-[13px] text-muted-foreground">
-                O arquivo do TSE tem{" "}
-                {formatInt(snapshot.recordCount + snapshot.outOfUniverse.total)} registros:{" "}
-                {formatInt(snapshot.recordCount)} candidaturas a deputado, senador,
-                governador e presidente, mais{" "}
-                {formatInt(snapshot.outOfUniverse.total)} vices e suplentes, que compõem
-                chapas e são contados à parte, por cargo, em{" "}
-                <Link to="/quem-sao-elas" className="underline decoration-plum/40 underline-offset-2">
-                  Quem são elas
-                </Link>
-                .
-              </p>
-            ) : null}
-          </div>
-        }
-      />
+      <MetodoCapaRevista candidaturaGeradaEm={br(snapshot?.baseGeneratedAt ?? TSE_SOURCE.baseGeneratedAt)} />
+      <MetodoIntroducaoRevista />
+      <MetodoFluxoEditorial />
+      <MetodoFotoContextualizada />
+      <MetodoContaRevista receitaBrancas={receitaBrancas} />
 
+      <nav
+        aria-label="Percursos do Método"
+        className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-gold)] text-ink"
+      >
+        <div className="mx-auto grid max-w-7xl gap-4 px-5 py-7 md:grid-cols-[13rem_1fr] md:items-start md:gap-8 md:px-8">
+          <div>
+            <p className="text-[13px] font-semibold text-plum">Guia de leitura</p>
+            <p className="mt-2 font-display text-xl leading-snug">O que você quer conferir?</p>
+          </div>
+          <ul className="grid gap-x-7 gap-y-1 sm:grid-cols-2">
+            {[
+              { href: "#calculo", label: "Entender a conta" },
+              { href: "#ficha", label: "Ver as bases" },
+              { href: "#dicionario", label: "Consultar os campos" },
+              { href: "#correcoes", label: "Histórico de correções" },
+            ].map((item) => (
+              <li key={item.href} className="border-b border-ink/20">
+                <a href={item.href} className="flex min-h-14 items-center justify-between gap-4 text-sm sm:min-h-12 font-semibold text-plum hover:underline hover:underline-offset-4 focus-visible:outline-2">
+                  <span>{item.label}</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+
+      {/* Segunda camada: documentação completa em caderno de consulta, sem apagar
+          a cronologia, os arquivos nem as correções do texto original. */}
+      <details
+        id="metodo-arquivo-tecnico"
+        ref={cadernoRef}
+        className="group relative left-1/2 -ml-[50vw] w-screen"
+      >
+        <summary className="cursor-pointer list-none bg-plum-deep text-paper focus-visible:outline-2 [&::-webkit-details-marker]:hidden">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 px-5 py-8 md:px-8 md:py-10">
+            <div>
+              <p className="text-[13px] font-semibold text-[var(--art-gold)]">Camada documental · Consulta detalhada</p>
+              <h2 className="mt-2 font-display text-[clamp(1.65rem,3vw,2.6rem)] leading-tight">
+                Abrir o caderno técnico completo
+              </h2>
+              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-paper/80">
+                Os 16 capítulos originais, com fórmulas, bases, dicionário,
+                histórico de correções e limites da apuração.
+              </p>
+            </div>
+            <span aria-hidden="true" className="shrink-0 border border-paper/50 px-5 py-3 font-semibold text-paper">
+              <span className="group-open:hidden">Abrir +</span>
+              <span className="hidden group-open:inline">Recolher −</span>
+            </span>
+          </div>
+        </summary>
+        <section aria-label="Documentação técnica do observatório" className="w-full bg-paper">
+          <div className="mx-auto grid max-w-7xl lg:grid-cols-[15rem_minmax(0,1fr)]">
+          <aside className="min-w-0 bg-plum-deep px-5 py-8 text-paper md:px-8 lg:px-6 lg:py-12">
+            <div className="lg:sticky lg:top-24">
+              <p className="text-[13px] font-semibold text-[var(--art-gold)]">Arquivo de consulta</p>
+              <h2 className="mt-3 max-w-xs font-display text-2xl leading-tight lg:text-3xl">
+                O método completo, à disposição.
+              </h2>
+              <p className="mt-4 max-w-sm text-sm leading-relaxed text-paper/80">
+                Procedimentos de recontagem, dicionário dos dados, histórico de alterações
+                e limites da apuração, com os registros disponíveis para conferência.
+              </p>
+              <nav aria-label="Índice do arquivo técnico" className="mt-6">
+                <ul className="grid grid-cols-2 gap-x-5 gap-y-1 sm:grid-cols-3 lg:grid-cols-1">
+                  {[
+                    { to: "#calculo", label: "Contas e fórmulas" },
+                    { to: "#ficha", label: "Fontes e filtros" },
+                    { to: "#fotografias", label: "Histórico das bases" },
+                    { to: "#nota-tecnica", label: "Como reproduzir" },
+                    { to: "#dicionario", label: "Dicionário de campos" },
+                    { to: "#correcoes", label: "Correções" },
+                    { to: "#limitacoes", label: "Limitações" },
+                  ].map((item) => (
+                    <li key={item.to} className="border-b border-paper/25">
+                      <a href={item.to} className="inline-flex min-h-11 items-center text-sm font-semibold text-paper hover:underline hover:underline-offset-4">
+                        {item.label} <span className="ml-1" aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </aside>
+          <div className="min-w-0 px-5 py-3 md:px-8 lg:pl-10 lg:pr-8">
       {/* RESUMO DE ENTRADA — três pontos, no padrão dos blocos "Em poucas linhas" */}
       <div className="pb-4">
         <section
@@ -261,7 +332,7 @@ function MetodoPage() {
       </div>
 
       {/* CAMADA 1 — linguagem simples */}
-      <SectionBlock collapsible="Ver as contas, passo a passo" id="calculo"
+      <SectionBlock semFio collapsible="Ver as contas, passo a passo" id="calculo"
         kicker="Camada 1 · linguagem simples"
         question="Como calculamos?"
         align="wide"
@@ -324,7 +395,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Representação descritiva × substantiva */}
-      <SectionBlock id="medidas" tone="butter"
+      <SectionBlock semFio id="medidas"
         kicker="O que estes números medem"
         question="Presença e poder de decidir são medidas diferentes"
         lead={
@@ -359,7 +430,7 @@ function MetodoPage() {
         </p>
       </SectionBlock>
       {/* CAMADA 2 — ficha técnica */}
-      <SectionBlock collapsible="Ver a ficha técnica" id="ficha" tone="lilac"
+      <SectionBlock semFio collapsible="Ver a ficha técnica" id="ficha"
         kicker="Camada 2 · ficha técnica"
         question="Fonte e processamento"
       >
@@ -547,7 +618,7 @@ function MetodoPage() {
 
       {/* Situação de candidatura */}
       {snapshot && Object.keys(snapshot.situationValues).length > 0 && (
-        <SectionBlock collapsible="Ver os estágios" id="situacao"
+        <SectionBlock semFio collapsible="Ver os estágios" id="situacao"
           kicker="Situação de candidatura"
           question="Que estágios a base contém"
           lead={
@@ -579,7 +650,7 @@ function MetodoPage() {
       <WhatChanged />
 
       {/* Histórico de fotografias */}
-      <SectionBlock collapsible="Ver as fotografias" id="fotografias" tone="lilac"
+      <SectionBlock semFio collapsible="Ver as fotografias" id="fotografias"
         kicker="Histórico"
         question="Fotografias já processadas"
         lead={
@@ -651,7 +722,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Fato, interpretação e hipótese */}
-      <SectionBlock id="como-ler"
+      <SectionBlock semFio id="como-ler"
         kicker="Como ler o site"
         question="Três registros diferentes, sempre marcados"
         lead={
@@ -712,7 +783,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Metadados por indicador */}
-      <SectionBlock collapsible="Ver os metadados" id="metadados" tone="lilac"
+      <SectionBlock semFio collapsible="Ver os metadados" id="metadados"
         kicker="Metadados por indicador"
         question="Cada número, com sua conta aberta"
         align="wide"
@@ -809,7 +880,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Competitividade */}
-      <SectionBlock collapsible="Ler a definição" id="competitividade"
+      <SectionBlock semFio collapsible="Ler a definição" id="competitividade"
         kicker="Competitividade"
         question="O que chamamos de competitividade, e o que fica de fora"
         align="wide"
@@ -891,7 +962,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Nota técnica reproduzível */}
-      <SectionBlock collapsible="Ver o passo a passo" id="nota-tecnica" tone="lilac"
+      <SectionBlock semFio collapsible="Ver o passo a passo" id="nota-tecnica"
         kicker="Nota técnica"
         question="Como refazer estas contas do zero"
         align="wide"
@@ -1099,7 +1170,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Financiamento de campanha */}
-      <SectionBlock collapsible="Ver o que publicamos" id="financiamento"
+      <SectionBlock semFio collapsible="Ver o que publicamos" id="financiamento"
         kicker="Financiamento de campanha"
         question="O que este site já publica sobre dinheiro de campanha"
         align="wide"
@@ -1150,21 +1221,21 @@ function MetodoPage() {
 
 
       {/* Fichas das eleitas */}
-      <SectionBlock
+      <SectionBlock semFio
         id="fichas"
         kicker="Quem entrou"
         question="Como as fichas das eleitas são feitas"
         lead={<p>Uma página por eleita, com endereço permanente e a data de cada base usada.</p>}
       >
-        <ol className="max-w-3xl list-decimal space-y-3 pl-5 text-[15px] leading-relaxed text-ink/85">
+        <ol className="min-w-0 max-w-3xl list-decimal space-y-3 pl-5 text-[15px] leading-relaxed text-ink/85">
           {METODO_FICHAS.map((item) => (
-            <li key={item}>{item}</li>
+            <li key={item} className="[overflow-wrap:anywhere]">{item}</li>
           ))}
         </ol>
       </SectionBlock>
 
       {/* Atuação parlamentar */}
-      <SectionBlock
+      <SectionBlock semFio
         id="atuacao"
         kicker="Atuação no poder"
         question="Como lemos votos, projetos e falas"
@@ -1185,7 +1256,7 @@ function MetodoPage() {
             ["Direito de resposta", METODO_ATUACAO.respostas],
             ["O que o voto não mostra", METODO_ATUACAO.limites],
           ].map(([titulo, texto]) => (
-            <div key={titulo} className="border-t-[3px] border-plum pt-3">
+            <div key={titulo} className="border-t border-rule pt-4">
               <h3 className="font-display text-lg text-ink">{titulo}</h3>
               <p className="mt-1 text-[15px] leading-relaxed text-ink/80">{texto}</p>
             </div>
@@ -1194,7 +1265,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Hipóteses */}
-      <SectionBlock
+      <SectionBlock semFio
         id="hipoteses"
         kicker="Hipóteses"
         question="O que ainda não sabemos, com data"
@@ -1229,7 +1300,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Dicionário */}
-      <SectionBlock
+      <SectionBlock semFio
         id="dicionario"
         kicker="Dicionário"
         question="Os campos de cada base, e o que fazemos com eles"
@@ -1270,7 +1341,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Correções */}
-      <SectionBlock
+      <SectionBlock semFio
         id="correcoes"
         kicker="Correções"
         question="Tudo o que já corrigimos"
@@ -1285,18 +1356,18 @@ function MetodoPage() {
           </p>
         }
       >
-        <ol className="max-w-4xl divide-y divide-rule border-y border-rule">
+        <ol className="min-w-0 max-w-4xl divide-y divide-rule border-y border-rule">
           {CORRECOES.map((c) => (
-            <li key={`${c.data}-${c.pagina}`} className="grid gap-2 py-4 sm:grid-cols-[8rem_1fr] sm:gap-6">
+            <li key={`${c.data}-${c.pagina}`} className="grid min-w-0 gap-2 py-4 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-6">
               <p className="font-mono text-[13px] text-ink/70">
                 {c.data}
                 <span className="mt-1 block font-sans text-[13px] text-ink/60">{c.tipo}</span>
               </p>
-              <div>
-                <a href={c.to} className="font-display text-lg leading-snug text-plum underline-offset-4 hover:underline">
+              <div className="min-w-0">
+                <a href={c.to} className="font-display text-lg leading-snug text-plum underline-offset-4 hover:underline [overflow-wrap:anywhere]">
                   {c.pagina}
                 </a>
-                <p className="mt-1 text-[15px] leading-relaxed text-ink/85">{c.oQueMudou}</p>
+                <p className="mt-1 text-[15px] leading-relaxed text-ink/85 [overflow-wrap:anywhere]">{c.oQueMudou}</p>
               </div>
             </li>
           ))}
@@ -1304,7 +1375,7 @@ function MetodoPage() {
       </SectionBlock>
 
       {/* Limitações */}
-      <SectionBlock id="limitacoes"
+      <SectionBlock semFio id="limitacoes"
         kicker="Limitações"
         question="Os limites declarados deste método"
       >
@@ -1375,6 +1446,11 @@ function MetodoPage() {
           </Link>
         </p>
       </SectionBlock>
+
+          </div>
+        </div>
+        </section>
+      </details>
 
       <NextAxes ids={["dados-2026", "sobre", "funil"]} />
     </PageShell>

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { Secao } from "@/components/editorial/Secao";
 import { ComoSabemos } from "@/components/editorial/ComoSabemos";
+import { DuasEtapasComparador } from "@/components/editorial/EvidenciasGrafadas2026";
+import { PILOT_CORAL } from "@/lib/editorial-pilot-colors";
 import { RECORTE_META, RECORTE_PARTIDOS, RECORTE_TOTAL, RECORTE_UFS, type Recorte } from "@/data/partido-uf-2026";
 import { FEFC_META, FEFC_PARTIDOS, FEFC_TOTAL, type FefcPartido } from "@/data/fefc-partidos-2026";
 import { UF_NOME } from "@/data/eleitas-cruzamentos";
@@ -83,7 +85,7 @@ const BLOCOS: Bloco[] = [
       { rotulo: "Candidaturas pardas: parte do fundo", so: "partido", valor: (_, f) => (f ? pct(f.raca["PARDA"]?.fefc ?? 0, f.fefc) : "—") },
       { rotulo: "Candidaturas pretas: parte do fundo", so: "partido", valor: (_, f) => (f ? pct(f.raca["PRETA"]?.fefc ?? 0, f.fefc) : "—") },
       {
-        rotulo: "Pretas e pardas somadas (régua da lei)",
+        rotulo: "Candidaturas pretas e pardas somadas: parte do FEFC",
         so: "partido",
         valor: (_, f) => (f ? pct(f.pretasPardasSoma.fefc, f.fefc) : "—"),
       },
@@ -126,7 +128,7 @@ function CompararPage() {
   const lista = tipo === "uf" ? UFS : PARTIDOS;
   const nome = (v: string) => (tipo === "uf" ? (UF_NOME[v] ?? v) : v);
   const dados = (v: string) => (tipo === "uf" ? RECORTE_UFS[v] : RECORTE_PARTIDOS[v]);
-  const colunas = sel.filter(Boolean);
+  const colunas = [...new Set(sel.filter(Boolean))];
   const trocar = (t: Tipo) => {
     setTipo(t);
     setSel(PADRAO[t]);
@@ -137,18 +139,39 @@ function CompararPage() {
 
   return (
     <PageShell breadcrumb={[{ label: "Eleições 2026", to: "/quem-chega" }, { label: "Comparador" }]}>
-      <header className="py-10 md:py-14">
-        <Secao nome="Comparador" tipo="ferramenta" />
-        <h1 className="mt-4 font-display text-4xl font-semibold leading-tight text-plum md:text-6xl">
-          Compare partidos ou estados, lado a lado
-        </h1>
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink/80">
-          Escolha até três. A última coluna é sempre o Brasil, para dar a régua. Os números são do universo de deputado
-          federal, estadual e distrital em 2026, recontados do arquivo do TSE.
-        </p>
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
+        <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
+          <p className="text-[13px] font-semibold text-[var(--art-gold)]">Eleições 2026 · Consulta comparativa</p>
+          <h1 className="mt-5 max-w-5xl font-display text-[clamp(3rem,6.1vw,6rem)] leading-[1.02]">
+            Compare partidos ou estados, lado a lado
+          </h1>
+          <div className="mt-8 grid items-end gap-7 border-t border-paper/35 pt-6 md:grid-cols-[1.15fr_.85fr]">
+            <p className="max-w-2xl text-lg leading-relaxed text-paper/90">
+              Quem se candidata, quem se elege e como os recursos chegam às candidaturas: escolha até três recortes.
+              O Brasil permanece como referência. Todos os indicadores de eleição nesta ferramenta tratam de
+              deputados federais, estaduais e distritais em 2026.
+            </p>
+            <div className="md:text-right">
+              <a href="#escolhas-comparar" className="inline-flex min-h-11 items-center border-b-2 border-[var(--art-gold)] font-semibold text-paper focus-visible:outline-2 focus-visible:outline-offset-4">
+                Montar comparação <span className="ml-3" aria-hidden="true">↓</span>
+              </a>
+              <p className="mt-3 font-mono text-[12px] leading-relaxed text-paper/75">
+                TSE · base eleitoral: {RECORTE_META.baseGeneratedAt}
+              </p>
+            </div>
+          </div>
+        </div>
       </header>
 
-      <section aria-label="Escolha o que comparar" className="space-y-4">
+      <nav aria-label="Etapas da comparação" className="flex flex-wrap gap-x-8 gap-y-2 border-b border-rule py-5 text-[14px] font-semibold text-plum">
+        <a href="#escolhas-comparar" className="min-h-9 underline-offset-4 hover:underline">01 · Escolher</a>
+        <a href="#leitura-comparativa" className="min-h-9 underline-offset-4 hover:underline">02 · Ler proporções</a>
+        <a href="#comparar-distancia" className="min-h-9 underline-offset-4 hover:underline">03 · Da candidatura à cadeira</a>
+        <a href="#tabela-comparativa" className="min-h-9 underline-offset-4 hover:underline">04 · Conferir todos os indicadores</a>
+        <a href="#documentos-comparar" className="min-h-9 underline-offset-4 hover:underline">05 · Ver fontes</a>
+      </nav>
+
+      <section id="escolhas-comparar" aria-label="Escolha o que comparar" className="scroll-mt-24 space-y-5 bg-paper py-9">
         <div className="flex flex-wrap gap-2" role="group" aria-label="Comparar">
           <button type="button" className={chip(tipo === "partido")} aria-pressed={tipo === "partido"} onClick={() => trocar("partido")}>
             Partidos
@@ -163,7 +186,16 @@ function CompararPage() {
               {tipo === "uf" ? "Estado" : "Partido"} {i + 1}
               <select
                 value={sel[i] ?? ""}
-                onChange={(e) => setSel((s) => Object.assign([...s, "", "", ""].slice(0, 3), { [i]: e.target.value }))}
+                onChange={(e) => setSel((s) => {
+                  const proxima = [...s, "", "", ""].slice(0, 3);
+                  proxima[i] = e.target.value;
+                  if (e.target.value) {
+                    proxima.forEach((valor, pos) => {
+                      if (pos !== i && valor === e.target.value) proxima[pos] = "";
+                    });
+                  }
+                  return proxima;
+                })}
                 className={selCls}
               >
                 <option value="">{i === 0 ? "Escolha" : "Nenhum"}</option>
@@ -176,9 +208,66 @@ function CompararPage() {
             </label>
           ))}
         </div>
-        <p className="text-[13px] text-muted-foreground">O endereço desta página guarda a escolha: dá para copiar e mandar a comparação.</p>
+        <p className="text-[13px] leading-relaxed text-ink/70">
+          A URL guarda a sua seleção e pode ser compartilhada. Cada partido ou estado aparece apenas uma vez.
+        </p>
       </section>
 
+      <section id="leitura-comparativa" aria-labelledby="comparar-proporcoes-titulo" className="scroll-mt-24 relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-plum)] text-paper">
+        <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">
+          <p className="text-[13px] font-semibold text-[var(--art-gold)]">Leitura comparativa · Vagas de deputado</p>
+          <h2 id="comparar-proporcoes-titulo" className="mt-3 max-w-4xl font-display text-[clamp(2rem,3.8vw,3.8rem)] leading-tight">
+            Qual é a participação das mulheres entre as pessoas eleitas?
+          </h2>
+          <p className="mt-4 max-w-3xl text-[14px] leading-relaxed text-paper/80">
+            Cada barra usa mulheres eleitas ÷ total de pessoas eleitas no mesmo recorte de deputado em 2026.
+            A escala vai de 0% a 100%. Uma proporção maior não mede, sozinha, as condições de disputa.
+          </p>
+          <ol className="mt-8 grid gap-6 border-t border-paper/30 pt-7 md:grid-cols-2">
+            {[...colunas.map((v) => ({ id: v, nome: nome(v), recorte: dados(v) })), { id: "brasil", nome: "Brasil", recorte: RECORTE_TOTAL }].map(({ id, nome: rotulo, recorte }) => {
+              if (!recorte) return null;
+              const proporcao = recorte.eleitos > 0 ? (100 * recorte.eleitas) / recorte.eleitos : 0;
+              return (
+                <li key={id} className="min-w-0 border-b border-paper/25 pb-5">
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-5 gap-y-2">
+                    <h3 className="font-display text-2xl">{rotulo}</h3>
+                    <strong className="font-display text-4xl tabular-nums text-[var(--art-gold)]">{pct(recorte.eleitas, recorte.eleitos)}</strong>
+                  </div>
+                  <div className="mt-4 h-3 w-full bg-paper/25" role="img" aria-label={`${rotulo}: ${n(recorte.eleitas)} mulheres eleitas em ${n(recorte.eleitos)} cadeiras preenchidas`}>
+                    <div className="h-full bg-[var(--art-gold)]" style={{ width: `${proporcao}%` }} />
+                  </div>
+                  <p className="mt-2 font-mono text-[13px] tabular-nums text-paper/85">{n(recorte.eleitas)} mulheres / {n(recorte.eleitos)} eleitos</p>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </section>
+
+      <DuasEtapasComparador linhas={[
+        ...colunas.map((v) => ({ id: v, titulo: nome(v), registro: dados(v) })),
+        { id: "brasil", titulo: "Brasil", registro: RECORTE_TOTAL },
+      ]} />
+
+      <section aria-label="Limite jurídico da comparação do financiamento" className="relative left-1/2 -ml-[50vw] w-screen text-paper" style={{ background: PILOT_CORAL }}>
+        <div className="mx-auto grid max-w-7xl gap-5 px-5 py-7 md:grid-cols-[.38fr_.62fr] md:items-start md:gap-10 md:px-8">
+          <h2 className="font-display text-2xl leading-snug md:text-3xl">O que estes números não comprovam</h2>
+          <p className="text-[15px] leading-relaxed text-paper">
+            O FEFC mostrado abaixo corresponde aos recursos declarados por candidaturas a deputado.
+            Esse subconjunto não permite concluir, isoladamente, se uma sigla cumpriu ou descumpriu as
+            regras legais de destinação. Pretas e pardas continuam separadas nas linhas de origem,
+            com a soma identificada quando apresentada.
+          </p>
+        </div>
+      </section>
+
+      <section id="tabela-comparativa" aria-labelledby="comparar-tabela-titulo" className="scroll-mt-24 py-10 md:py-14">
+        <p className="text-[13px] font-semibold text-plum">Consulta detalhada · Mesmo recorte, bases explícitas</p>
+        <h2 id="comparar-tabela-titulo" className="mt-2 font-display text-3xl text-ink md:text-4xl">Todos os indicadores</h2>
+        <p className="mt-3 max-w-3xl text-[14px] leading-relaxed text-ink/75">
+          A tabela mantém os grupos raciais separados e a coluna Brasil fixa. No celular, deslize horizontalmente
+          dentro da tabela para conferir as colunas, sem perder as informações originais.
+        </p>
       <div tabIndex={0} role="region" aria-label="Tabela de comparação" className="mt-8 overflow-x-auto border border-rule bg-card">
         <table className="w-full min-w-[36rem] border-collapse">
           <caption className="sr-only">Comparação entre {colunas.map(nome).join(", ")} e o Brasil</caption>
@@ -243,6 +332,30 @@ function CompararPage() {
         </Link>{" "}
         trazem o contexto.
       </p>
+
+      </section>
+
+      <section id="documentos-comparar" aria-labelledby="comparar-documentos-titulo" className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-gold)] text-ink">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 md:grid-cols-[.75fr_1.25fr] md:px-8 md:py-14">
+          <div>
+            <p className="text-[13px] font-semibold">Caderno documental · Fontes primárias</p>
+            <h2 id="comparar-documentos-titulo" className="mt-3 font-display text-3xl leading-tight md:text-4xl">De onde vêm os recortes</h2>
+            <p className="mt-4 text-[14px] leading-relaxed">As barras e a tabela usam recortes reprocessados de bases eleitorais públicas. A fonte original pode ser consultada independentemente do observatório.</p>
+          </div>
+          <div className="divide-y divide-ink/25 border-y border-ink/25">
+            <div className="py-5">
+              <h3 className="font-display text-xl">Candidaturas e resultados de 2026</h3>
+              <p className="mt-2 text-[14px] leading-relaxed">TSE · base do recorte: {RECORTE_META.baseGeneratedAt}. Fonte das candidaturas, eleitas e eleitos.</p>
+              <a href="https://dadosabertos.tse.jus.br/dataset/candidatos-2026" target="_blank" rel="noreferrer" className="mt-3 inline-flex min-h-11 items-center font-semibold text-ink underline underline-offset-4">Consultar Candidatos 2026 no TSE ↗</a>
+            </div>
+            <div className="py-5">
+              <h3 className="font-display text-xl">Recursos declarados pelas candidaturas</h3>
+              <p className="mt-2 text-[14px] leading-relaxed">Prestação de Contas 2026 · recorte FEFC de candidaturas a deputado, base de {FEFC_META.baseGeneratedAt}. Os critérios formais de distribuição publicados pelas siglas são documentos diferentes destes recebimentos.</p>
+              <a href="https://www.tse.jus.br/eleicoes/eleicoes-2026-content/prestacao-de-contas/fundo-especial-de-financiamento-de-campanha-fefc" target="_blank" rel="noreferrer" className="mt-3 inline-flex min-h-11 items-center font-semibold text-ink underline underline-offset-4">Consultar critérios formais do FEFC no TSE ↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <div className="mt-10">
         <ComoSabemos

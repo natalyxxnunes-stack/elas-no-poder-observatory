@@ -50,6 +50,22 @@ function AchadoPage() {
         { label: `Achado ${a.numero}` },
       ]}
     >
+
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-plum text-paper">
+        <div className="mx-auto grid max-w-7xl gap-6 px-5 py-11 md:grid-cols-[1fr_auto] md:items-end md:px-8 md:py-16">
+          <div>
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">Caderno de achados · Registro verificável</p>
+            <h1 className="mt-4 font-display text-[clamp(2.6rem,4.8vw,4.5rem)] leading-[1.03]">A evidência e sua origem</h1>
+            <p className="mt-4 text-[15px] text-paper/85">
+              Achado {a.numero} · Publicado em {formatDateBR(a.data)}
+              {a.atualizadoEm ? ` · Atualizado em ${formatDateBR(a.atualizadoEm)}` : ""}
+            </p>
+          </div>
+          <span className="font-display text-[clamp(4rem,9vw,8rem)] leading-none text-[var(--art-gold)]" aria-hidden="true">
+            {a.numero}
+          </span>
+        </div>
+      </header>
       <div className="grid gap-10 py-8 md:grid-cols-[1.6fr_1fr] md:gap-14 md:py-12">
         <div className="border border-rule">
           <AchadoCard achado={a} grande pagina />
@@ -80,15 +96,30 @@ function AchadoPage() {
             >
               {a.linkLabel} →
             </Link>
-            <Link to="/metodo" className="block text-[15px] font-semibold text-plum">
+            <Link to="/metodo" className="block min-h-11 py-2 text-[15px] font-semibold text-plum">
               Como contamos: o método →
             </Link>
           </div>
         </aside>
       </div>
 
+
+      <section aria-label="Caderno de verificação do achado" className="relative left-1/2 -ml-[50vw] w-screen bg-[var(--art-gold)] text-ink">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 md:grid-cols-[.95fr_1.05fr] md:px-8 md:py-14">
+          <div>
+            <p className="text-[13px] font-semibold">Arquivo de origem · Como conferir</p>
+            <h2 className="mt-3 font-display text-[clamp(1.9rem,3.4vw,3.15rem)] leading-tight">O número pode ser refeito.</h2>
+            <p className="mt-4 text-[15px] leading-relaxed">Fonte declarada no achado: {a.fonte}. A data, o universo e o método devem ser considerados antes de usar o resultado em outra comparação.</p>
+          </div>
+          <div className="flex flex-col justify-center gap-4 border-y border-ink/25 py-5">
+            <Link to={a.to} className="font-display text-xl font-semibold text-ink underline-offset-4 hover:underline">Abrir a página de dados: {a.linkLabel} ↗</Link>
+            <Link to="/metodo" className="font-display text-xl font-semibold text-ink underline-offset-4 hover:underline">Conferir o método e os arquivos ↗</Link>
+          </div>
+        </div>
+      </section>
+
       {vizinhos.length ? (
-        <section className="pb-16">
+        <section className="pb-16 pt-10">
           <Secao nome="Outros achados do tema" />
           <div className="mt-6 grid gap-6 md:grid-cols-3">
             {vizinhos.map((v) => (

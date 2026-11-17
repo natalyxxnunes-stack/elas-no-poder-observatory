@@ -1,0 +1,107 @@
+name: QA revista — Partidos página integral
+on:
+  push:
+    branches: [revista-partidos-pagina-integral-16nov2026]
+    paths:
+      - 'src/routes/partidos.tsx'
+      - 'src/components/editorial/LancaElege.tsx'
+      - '.github/workflows/qa-partidos-integral.yml'
+permissions:
+  contents: read
+jobs:
+  previsualizacao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Compilação e tipagem
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Garantia de dados, logo, fotos e home
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin main
+          test -z "$(git diff --name-only origin/main...HEAD -- public/dados public/fotos public/materiais src/data src/styles.css src/routes/index.tsx src/components/home/CapaEditorialV3.tsx src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
+          echo 'Bases, marca, fotos e homepage preservadas.'
+      - name: Preparar navegador
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Navegação e capturas de página integral
+        run: |
+          set -euo pipefail
+          mkdir -p qa-partidos
+          python3 -m http.server 4173 --directory dist/client > /tmp/qse-http.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          import json
+          resultados=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for dispositivo,largura,altura in [('desktop',1440,900),('celular',390,844)]:
+              context=browser.new_context(viewport={'width':largura,'height':altura},device_scale_factor=1)
+              for rota,nome in [('/','homepage'),('/partidos','partidos')]:
+                page=context.new_page()
+                erros=[]
+                page.on('pageerror',lambda e,arr=erros:arr.append(str(e)))
+                resp=page.goto('http://127.0.0.1:4173'+rota,wait_until='domcontentloaded',timeout=45000)
+                page.wait_for_timeout(700)
+                assert resp and resp.status==200,(dispositivo,rota,'status',resp.status if resp else None)
+                assert page.locator('main h1').count()==1,(dispositivo,rota,'h1')
+                assert not erros,(dispositivo,rota,'JS',erros)
+                body_width=page.evaluate('document.body.scrollWidth')
+                assert body_width<=largura+3,(dispositivo,rota,'overflow',body_width)
+                if nome=='partidos':
+                  main=page.locator('main')
+                  assert main.locator('img[src="/fotos/bancada-feminina-camara-marco-2026.jpg"]').count()==1
+                  assert main.locator('#partidos-documentos-fefc').count()==1
+                  assert main.locator('a[href*="petciv_"]').count()==3
+                  assert '15/11/2026' in main.inner_text(),(dispositivo,'finance base')
+                  assert '343 candidaturas ainda' not in main.inner_text(),(dispositivo,'obsolete base note')
+                  assert main.locator('#eleitas').count()==1 and main.locator('#lanca-elege').count()==1
+                  assert main.locator('#fundo').count()==1 and main.locator('#votos').count()==1
+                  assert main.locator('summary').filter(has_text="Abrir tabela integral de receitas").count()==1
+                  main.locator('summary').filter(has_text="Abrir tabela integral de receitas").click()
+                  assert main.locator('table').count()>=2
+                  main.locator('summary').filter(has_text="Abrir a matriz completa das seis").click()
+                  assert main.locator('table').count()>=3
+                  if dispositivo=='celular':
+                    sel=page.locator('#eleitas-escolha-partido')
+                    assert sel.is_visible(),(dispositivo,'selector')
+                    opts=sel.locator('option')
+                    assert opts.count()>=10
+                    sel.select_option(index=min(2,opts.count()-1))
+                    assert page.locator('#eleitas').inner_text().count(sel.input_value())>=1
+                  foto=main.locator('img[src="/fotos/bancada-feminina-camara-marco-2026.jpg"]')
+                  foto.scroll_into_view_if_needed()
+                  page.wait_for_function('() => {const x=document.querySelector("img[src=\'/fotos/bancada-feminina-camara-marco-2026.jpg\']");return !!x && x.complete && x.naturalWidth>0}',timeout=10000)
+                  # Retorna aos filtros fechados antes de fotografar, mas carrega imagens lazy.
+                  page.reload(wait_until='domcontentloaded')
+                  page.locator('img[src="/fotos/bancada-feminina-camara-marco-2026.jpg"]').scroll_into_view_if_needed()
+                  page.wait_for_function('() => {const x=document.querySelector("img[src=\'/fotos/bancada-feminina-camara-marco-2026.jpg\']");return !!x && x.complete && x.naturalWidth>0}',timeout=10000)
+                page.evaluate('window.scrollTo(0,0)')
+                page.screenshot(path=f'qa-partidos/{dispositivo}-{nome}-abertura.jpg',type='jpeg',quality=83)
+                page.screenshot(path=f'qa-partidos/{dispositivo}-{nome}-completa.jpg',type='jpeg',quality=70,full_page=True)
+                resultados.append({'rota':rota,'dispositivo':dispositivo,'body_width':body_width,'height':page.evaluate('document.body.scrollHeight'),'erros_js':erros})
+                page.close()
+              context.close()
+            browser.close()
+          Path('qa-partidos/resultado.json').write_text(json.dumps(resultados,indent=2,ensure_ascii=False)+'\n')
+          print('PASSOU',resultados)
+          PY
+      - name: Guardar capturas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-partidos-pagina-integral
+          path: qa-partidos/
+          if-no-files-found: warn
+          retention-days: 14

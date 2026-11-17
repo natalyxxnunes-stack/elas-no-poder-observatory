@@ -1,0 +1,45 @@
+name: QA final — reflow, espacamento e teclado
+on:
+  push:
+    branches: [revista-consolidada-ajustes-de-ritmo-16nov2026]
+    paths:
+      - ".github/workflows/qa-fechamento-reflow-teclado-16nov.yml"
+      - "scripts/qa/reflow-teclado-fechamento.py"
+      - "src/**"
+      - "vite.config.static.ts"
+  workflow_dispatch:
+concurrency:
+  group: qse-fechamento-reflow-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  diagnostico:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: latest }
+      - name: Build estatico e TypeScript
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Rodar stress de reflow e teclado
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet --break-system-packages playwright
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-a11y-final-http.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 2
+          python3 scripts/qa/reflow-teclado-fechamento.py
+      - name: Arquivar capturas e diagnostico
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-fechamento-a11y-reflow
+          path: relatorios-fechamento-a11y/
+          retention-days: 14

@@ -1,0 +1,96 @@
+name: QA revista — Histórico página integral
+on:
+  push:
+    branches: [revista-historico-pagina-integral-16nov2026]
+    paths:
+      - 'src/routes/historico.tsx'
+      - 'src/components/historical/**'
+      - '.github/workflows/qa-historico-integral.yml'
+permissions:
+  contents: read
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Checar TypeScript e compilar
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Conferir arquivos protegidos
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin main
+          test -z "$(git diff --name-only origin/main...HEAD -- public/dados public/fotos public/materiais src/data src/styles.css src/routes/index.tsx src/components/home/CapaEditorialV3.tsx src/components/BrandLogo.tsx src/components/BrandWordmark.tsx)"
+          echo 'Bases, fotografias, logo e homepage intactos.'
+      - name: Preparar Playwright
+        run: python3 -m pip install --quiet --break-system-packages playwright
+      - name: Validar página inteira e interações
+        run: |
+          set -euo pipefail
+          mkdir -p qa-historico
+          python3 -m http.server 4173 --directory dist/client >/tmp/site.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" || true' EXIT
+          sleep 3
+          python3 - <<'PY'
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          import json
+          dados=[]
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,executable_path='/usr/bin/google-chrome',args=['--no-sandbox','--disable-dev-shm-usage'])
+            for tipo,w,h in [('desktop',1440,900),('celular',390,844)]:
+              context=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=1)
+              for route,nome in [('/','homepage'),('/historico','historico')]:
+                page=context.new_page()
+                errors=[]
+                page.on('pageerror',lambda e,arr=errors:arr.append(str(e)))
+                response=page.goto('http://127.0.0.1:4173'+route,wait_until='domcontentloaded',timeout=45000)
+                page.wait_for_timeout(550)
+                assert response and response.status==200,(tipo,route,'response')
+                assert not errors,(tipo,route,'JS',errors)
+                assert page.locator('main h1').count()==1,(tipo,route,'h1')
+                width=page.evaluate('document.body.scrollWidth')
+                assert width<=w+3,(tipo,route,'overflow',width)
+                if nome=='historico':
+                  main=page.locator('main')
+                  assert main.locator('a[href*="consulta_cand_"]').count()==4,(tipo,'four official datasets')
+                  assert main.locator('#raca').count()==1 and main.locator('#genero-raca').count()==1
+                  assert main.locator('#eleitas').count()==1 and main.locator('#bases').count()==1
+                  assert main.locator('#raca').evaluate('(el)=>getComputedStyle(el).backgroundColor')!='rgb(255, 255, 255)',(tipo,'race editorial color')
+                  assert main.locator('#bases').inner_text().count('Consultar o arquivo oficial')==4
+                  main.locator('summary').filter(has_text='Abrir os quatro cadernos').click()
+                  assert main.locator('#eleitas').inner_text().count('2014')>0
+                  main.locator('summary').filter(has_text='Abrir tabela de todos os estados').click()
+                  assert main.locator('#cargo-uf table tbody tr').count()>=27
+                  uf=main.locator('label:has-text("Estado") select')
+                  assert uf.count()==1 and uf.locator('option').count()==27
+                  uf.select_option('RJ')
+                  assert 'RJ'==uf.input_value()
+                  page.reload(wait_until='domcontentloaded')
+                  page.wait_for_timeout(400)
+                page.evaluate('window.scrollTo(0,0)')
+                page.screenshot(path=f'qa-historico/{tipo}-{nome}-abertura.jpg',type='jpeg',quality=83)
+                page.screenshot(path=f'qa-historico/{tipo}-{nome}-completa.jpg',type='jpeg',quality=70,full_page=True)
+                dados.append({'route':route,'tipo':tipo,'width':width,'height':page.evaluate('document.body.scrollHeight'),'errors':errors})
+                page.close()
+              context.close()
+            browser.close()
+          Path('qa-historico/resultado.json').write_text(json.dumps(dados,ensure_ascii=False,indent=2)+'\n')
+          print('PASSOU',dados)
+          PY
+      - name: Arquivar capturas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-historico-pagina-integral
+          path: qa-historico/
+          if-no-files-found: warn
+          retention-days: 14

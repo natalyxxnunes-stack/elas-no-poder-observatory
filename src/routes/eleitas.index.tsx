@@ -1,10 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { PageShell } from "@/components/PageShell";
+import { AtlasEleitas } from "@/components/editorial/AtlasEleitas";
 import { ELEITAS_2026, ELEITAS_META, type CargoEleita } from "@/data/eleitas-2026";
 import { CARGO_PLURAL, CARGO_ROTULO, UF_NOME } from "@/data/eleitas-cruzamentos";
 import { TRAJETORIA_ELEITAS } from "@/data/eleitas-trajetoria-2026";
-import { formatInt as n } from "@/lib/format-br";
+import { formatInt as n, formatPct } from "@/lib/format-br";
+import {
+  RESULT_2026_PROPORCIONAL,
+  RESULT_2026_SENADO,
+  RESULT_2026_GOVERNO,
+  RESULT_2026_META,
+} from "@/data/resultado-2026";
 
 const description = `As ${ELEITAS_2026.length} mulheres eleitas em 2026, uma a uma: cargo, estado, partido e cor/raça declarada, com fonte.`;
 
@@ -21,6 +28,14 @@ export const Route = createFileRoute("/eleitas/")({
 });
 
 const CARGOS = Object.keys(CARGO_PLURAL) as CargoEleita[];
+/** Vagas disputadas em 2026, nunca a composição integral de uma Casa não renovada por inteiro. */
+const VAGAS_2026: Record<CargoEleita, number> = {
+  "deputada-federal": RESULT_2026_PROPORCIONAL.byCargo.federal.seats,
+  "deputada-estadual": RESULT_2026_PROPORCIONAL.byCargo.estadual.seats,
+  "deputada-distrital": RESULT_2026_PROPORCIONAL.byCargo.distrital.seats,
+  senadora: RESULT_2026_SENADO.seats,
+  governadora: RESULT_2026_GOVERNO.totalUfs,
+};
 const COR: Record<string, string> = { BRANCA: "branca", PARDA: "parda", PRETA: "preta", "INDÍGENA": "indígena", AMARELA: "amarela" };
 
 const RACAS = ["BRANCA", "PARDA", "PRETA", "INDÍGENA", "AMARELA"] as const;
@@ -40,9 +55,12 @@ const semAcento = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, 
 const CHAVES = ["cargo", "uf", "partido", "cor", "em2022", "nome"] as const;
 type Filtros = Record<(typeof CHAVES)[number], string>;
 const VAZIO: Filtros = { cargo: "", uf: "", partido: "", cor: "", em2022: "", nome: "" };
+const LOTE = 18;
 
 function EleitasPage() {
   const [f, setF] = useState<Filtros>(VAZIO);
+  const [visiveis, setVisiveis] = useState(LOTE);
+  const [filtrosProntos, setFiltrosProntos] = useState(false);
   // filtros no endereço: um recorte pode ser compartilhado por link
   useEffect(() => {
     try {
@@ -52,9 +70,12 @@ function EleitasPage() {
       setF(lido);
     } catch {
       /* sem endereço legível: segue sem filtro */
+    } finally {
+      setFiltrosProntos(true);
     }
   }, []);
   useEffect(() => {
+    if (!filtrosProntos) return;
     try {
       const q = new URLSearchParams();
       CHAVES.forEach((k) => f[k] && q.set(k, f[k]));
@@ -63,61 +84,139 @@ function EleitasPage() {
     } catch {
       /* ignora */
     }
-  }, [f]);
+  }, [f, filtrosProntos]);
+  useEffect(() => setVisiveis(LOTE), [f.cargo, f.uf, f.partido, f.cor, f.em2022, f.nome]);
   const set = (k: keyof Filtros) => (v: string) => setF((x) => ({ ...x, [k]: v }));
   const { cargo, uf, partido, cor, nome } = f;
   const partidos = useMemo(() => [...new Set(ELEITAS_2026.map((e) => e.partido))].sort(), []);
   const ufs = useMemo(() => [...new Set(ELEITAS_2026.map((e) => e.uf))].sort(), []);
   const busca = semAcento(nome.trim());
-  const lista = ELEITAS_2026.filter(
+  // Atlas preserva a comparação territorial depois dos demais filtros, mas
+  // antes da UF escolhida. A lista nominal aplica também a UF selecionada.
+  const listaSemUF = ELEITAS_2026.filter(
     (e) =>
       (!cargo || e.cargo === cargo) &&
-      (!uf || e.uf === uf) &&
       (!partido || e.partido === partido) &&
       (!cor || e.corRaca === cor) &&
       (!f.em2022 || em2022(e.slug) === f.em2022) &&
       (!busca || semAcento(e.nome).includes(busca)),
   );
+  const lista = listaSemUF.filter((e) => !uf || e.uf === uf);
   const ativos = CHAVES.filter((k) => f[k]).length;
+  const exibidas = lista.slice(0, visiveis);
   const porCor = RACAS.map((r) => [r, lista.filter((e) => e.corRaca === r).length] as const).filter(([, v]) => v);
   const porTraj = Object.keys(TRAJ)
     .map((t) => [t, lista.filter((e) => em2022(e.slug) === t).length] as const)
     .filter(([, v]) => v);
   const chip = (ativo: boolean) =>
     `min-h-11 border px-3 py-1 text-[14px] font-semibold ${ativo ? "border-ink bg-ink text-cream" : "border-rule bg-card text-ink hover:border-ink"}`;
-  const sel = "min-h-11 border border-rule bg-card px-3 text-[15px] text-ink";
+  const sel = "min-h-11 border border-rule bg-card px-3 text-[15px] text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum";
 
   return (
     <PageShell breadcrumb={[{ label: "Eleições 2026", to: "/quem-chega" }, { label: "Quem entrou" }]}>
-      <header className="relative left-1/2 -ml-[50vw] w-screen bg-cream">
-        <div className="mx-auto grid max-w-7xl gap-7 px-5 py-11 md:px-8 md:py-15 lg:grid-cols-[1.2fr_.8fr] lg:items-center">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-plum">Dados eleitorais · Catálogo de fichas</p>
-            <h1 className="mt-4 max-w-3xl font-display text-[clamp(2.45rem,4vw,4rem)] font-semibold leading-[1.05] text-ink">
-              As {n(ELEITAS_2026.length)} mulheres eleitas em 2026, uma a uma
-            </h1>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink/85">
-              {CARGOS.map((c) => `${n(ELEITAS_META.porCargo[c] ?? 0)} ${CARGO_PLURAL[c].toLowerCase()}`).join(", ")}.
-              Cada ficha traz o registro público no TSE e, quando existe, o que o site já levantou sobre ela.
-              Quem já é deputada federal tem o registro de 2026 no{" "}
-              <a href="/monitor" className="underline decoration-plum underline-offset-4">monitor de mandato</a>;
-              a atuação no novo mandato entra depois da posse.
+      {/*
+        Alternativa editorial em teste: abertura horizontal guiada pelo total
+        de eleitas e quadro de proporções em superfície separada. Não replica
+        o hero documental em duas colunas do Método.
+      */}
+      <header className="relative left-1/2 -ml-[50vw] w-screen bg-[#c53f22] text-paper">
+        {/* Tom mais profundo do mesmo coral aprovado, para garantir
+            contraste WCAG AA com o texto claro. O coral original permanece
+            reservado a detalhes e composições menores, sem mudar a paleta. */}
+        <div className="mx-auto max-w-7xl px-5 py-11 md:px-8 md:py-14 lg:py-16">
+          <p className="text-[13px] font-semibold">Eleições 2026 · Resultado</p>
+          <h1 className="mt-4 max-w-5xl font-display text-[clamp(3.7rem,9vw,8.5rem)] font-semibold leading-[.95] tracking-tight">
+            Quem entrou?
+          </h1>
+          <div className="mt-7 flex flex-wrap items-end gap-x-8 gap-y-3 border-t-2 border-paper/65 pt-7 md:mt-10">
+            <p className="font-display text-[clamp(6rem,14vw,12rem)] font-semibold leading-[.8] tabular-nums">
+              {n(ELEITAS_2026.length)}
+            </p>
+            <p className="max-w-md pb-1 font-display text-[clamp(1.45rem,2.7vw,2.5rem)] leading-tight">
+              mulheres eleitas em 2026
             </p>
           </div>
-          <aside className="border-l-4 border-plum bg-paper p-6 text-ink" aria-label="Sobre a consulta">
-            <p className="text-xs font-semibold uppercase tracking-wide text-plum">Como usar esta página</p>
-            <p className="mt-3 font-display text-xl leading-snug">Escolha o cargo, o estado ou o partido para consultar as fichas.</p>
-            <p className="mt-3 text-sm leading-relaxed text-ink/70">
-              Os filtros não alteram o universo original; mostram um recorte da base. A cor/raça segue a autodeclaração registrada no TSE.
+          <div className="mt-8 grid items-end gap-x-12 gap-y-4 md:grid-cols-[1.2fr_.8fr]">
+            <p className="max-w-2xl text-base leading-relaxed">
+              Os registros permitem consultar cargo, estado, partido, cor/raça
+              autodeclarada e trajetória. Eleição, diplomação e exercício
+              efetivo do mandato são situações distintas.
             </p>
-            <a href="#filtros-eleitas" className="mt-4 inline-flex min-h-11 items-center font-semibold text-plum underline underline-offset-4">
-              Ir aos filtros ↘
-            </a>
-          </aside>
+            <div className="md:text-right">
+              <a href="#filtros-eleitas" className="inline-flex min-h-11 items-center border-b-2 border-paper text-sm font-semibold text-paper focus-visible:outline-2 focus-visible:outline-offset-4">
+                Encontrar uma eleita <span aria-hidden="true" className="ml-3">↓</span>
+              </a>
+              <p className="mt-3 text-[12px] leading-relaxed">
+                TSE: fichas geradas em {ELEITAS_META.baseGeneratedAt}.
+                Registros sujeitos a atualizações.
+              </p>
+            </div>
+          </div>
         </div>
       </header>
 
-      <section id="filtros-eleitas" aria-label="Filtros" className="scroll-mt-24 space-y-4 border-b border-rule bg-paper py-8">
+      <section aria-labelledby="eleitas-cadeiras-titulo" className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
+        <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-12 lg:py-14">
+          <div className="grid items-end gap-x-10 gap-y-3 md:grid-cols-[1fr_1fr]">
+            <div>
+              <p className="text-[13px] font-semibold text-[var(--art-gold)]">
+                Da urna à cadeira · Proporção de vagas
+              </p>
+              <h2 id="eleitas-cadeiras-titulo" className="mt-3 max-w-xl font-display text-[clamp(1.75rem,3vw,2.7rem)] leading-tight">
+                Quantas vagas foram conquistadas por mulheres?
+              </h2>
+            </div>
+            <p className="max-w-xl text-[13px] leading-relaxed text-paper/75 md:ml-auto">
+              Cada percentual compara mulheres eleitas com o total de vagas
+              disputadas no respectivo cargo em 2026. No Senado, são as
+              54 vagas renovadas, não as 81 cadeiras da Casa.
+            </p>
+          </div>
+          <ol className="mt-8 grid gap-x-7 gap-y-6 border-t border-paper/30 pt-6 sm:grid-cols-2 lg:grid-cols-5">
+            {CARGOS.map((c) => {
+              const eleitas = ELEITAS_META.porCargo[c] ?? 0;
+              const vagas = VAGAS_2026[c];
+              const percentual = (eleitas / vagas) * 100;
+              return (
+                <li key={c} className="min-w-0">
+                  <p className="min-h-10 text-[13px] font-semibold leading-snug text-paper/85">
+                    {CARGO_PLURAL[c]}
+                  </p>
+                  <p className="mt-2 font-display text-[clamp(2rem,3.4vw,3.4rem)] leading-none tabular-nums text-[var(--art-gold)]">
+                    {formatPct(percentual)}
+                  </p>
+                  <div className="mt-4 h-2 w-full overflow-hidden bg-paper/25" aria-hidden="true">
+                    <div className="h-full bg-coral" style={{ width: `${percentual}%` }} />
+                  </div>
+                  <p className="mt-3 font-mono text-[12px] tabular-nums text-paper/85">
+                    {n(eleitas)} / {n(vagas)} vagas
+                  </p>
+                </li>
+              );
+            })}
+          </ol>
+          <p className="mt-7 max-w-5xl border-t border-paper/25 pt-4 text-[12px] leading-relaxed text-paper/70">
+            Fontes: TSE, resultado gerado em {RESULT_2026_META.baseGeneratedAt}
+            (denominadores) e fichas das eleitas geradas em {ELEITAS_META.baseGeneratedAt}
+            (numeradores). Bases com datas distintas, sujeitas a conciliação.
+          </p>
+        </div>
+      </section>
+
+      <section id="filtros-eleitas" aria-label="Filtros" className="scroll-mt-24 space-y-5 border-b border-rule bg-paper py-10">
+        <div className="grid items-end gap-5 md:grid-cols-[.75fr_1.25fr] md:gap-12">
+          <div>
+            <p className="text-[13px] font-semibold text-plum">Arquivo eleitoral · Pesquisa</p>
+            <h2 className="mt-2 font-display text-3xl leading-tight text-ink md:text-4xl">
+              Encontre uma eleita.
+            </h2>
+          </div>
+          <p className="max-w-2xl text-[15px] leading-relaxed text-ink/80">
+            Consulte cargo, estado, partido, cor/raça autodeclarada e trajetória
+            registrada. Cada filtro atualiza a lista de fichas e o atlas territorial;
+            selecionar uma UF permite comparar o recorte com as demais.
+          </p>
+        </div>
         <div className="flex flex-wrap gap-2" role="group" aria-label="Cargo">
           <button type="button" className={chip(!cargo)} aria-pressed={!cargo} onClick={() => set("cargo")("")}>
             Todos os cargos
@@ -188,6 +287,11 @@ function EleitasPage() {
           <p className="font-display text-2xl text-plum">
             {n(lista.length)} {lista.length === 1 ? "eleita" : "eleitas"}
           </p>
+          {lista.length > 0 && (
+            <a href="#lista-eleitas" className="inline-flex min-h-11 items-center font-semibold text-plum underline underline-offset-4">
+              Ver fichas deste recorte <span className="ml-2" aria-hidden="true">↓</span>
+            </a>
+          )}
           {ativos > 0 && (
             <button type="button" onClick={() => setF(VAZIO)} className="min-h-11 text-[14px] font-semibold text-ink underline underline-offset-4">
               Limpar {ativos === 1 ? "filtro" : `${ativos} filtros`}
@@ -217,20 +321,80 @@ function EleitasPage() {
         )}
       </section>
 
-      <ul className="mt-6 grid gap-x-8 pb-16 sm:grid-cols-2 lg:grid-cols-3">
-        {lista.map((e) => (
-          <li key={e.slug} className="border-b border-rule">
-            <a href={`/eleitas/${e.slug}`} className="group block py-3">
-              <span className="font-display text-lg leading-snug text-ink group-hover:underline group-hover:underline-offset-4">
-                {e.nome}
-              </span>
-              <span className="mt-0.5 block text-[14px] text-ink/70">
-                {CARGO_ROTULO[e.cargo]} · {e.partido}-{e.uf} · {COR[e.corRaca] ?? e.corRaca.toLowerCase()}
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
+      <AtlasEleitas
+        registros={listaSemUF}
+        ufs={ufs}
+        selecionada={uf}
+        selecionar={(selecionada) => {
+          set("uf")(selecionada);
+          window.requestAnimationFrame(() => {
+            const heading = document.getElementById("lista-eleitas");
+            heading?.scrollIntoView({ block: "start" });
+            heading?.focus({ preventScroll: true });
+          });
+        }}
+        corte={ELEITAS_META.baseGeneratedAt}
+      />
+
+      <section
+        aria-labelledby="lista-eleitas"
+        className="relative left-1/2 -ml-[50vw] w-screen bg-plum-deep text-paper"
+      >
+        <div className="mx-auto grid max-w-7xl lg:grid-cols-[.28fr_.72fr]">
+          <div className="px-5 py-10 md:px-8 md:py-14 lg:sticky lg:top-20 lg:self-start lg:pr-10">
+            <p className="text-[13px] font-semibold text-[var(--art-gold)]">
+              Arquivo nominal · TSE 2026
+            </p>
+            <h2 id="lista-eleitas" tabIndex={-1} className="mt-3 scroll-mt-24 font-display text-3xl leading-tight focus-visible:outline-2 focus-visible:outline-[var(--art-gold)] md:text-4xl">
+              Nomes e fichas
+            </h2>
+            <p className="mt-5 text-sm leading-relaxed text-paper/80" aria-live="polite">
+              Exibindo {n(exibidas.length)} de {n(lista.length)} {lista.length === 1 ? "eleita" : "eleitas"}
+              {uf ? ` · ${UF_NOME[uf] ?? uf}` : ""}.
+            </p>
+            <p className="mt-4 text-[13px] leading-relaxed text-paper/70">
+              Cada nome abre sua ficha individual. O carregamento progressivo
+              conserva a consulta sem transformar a página em um mural de registros.
+            </p>
+            <p className="mt-6 border-t border-paper/25 pt-4 text-[12px] leading-relaxed text-paper/70">
+              Fonte: TSE, base de eleitas gerada em {ELEITAS_META.baseGeneratedAt}.
+              Os registros documentam a eleição, não a posse ou o exercício efetivo do mandato.
+            </p>
+          </div>
+          <div className="min-w-0 bg-paper px-5 py-8 text-ink md:px-8 md:py-12 lg:pl-10">
+            {exibidas.length > 0 ? (
+              <ol className="grid gap-x-9 sm:grid-cols-2">
+                {exibidas.map((e) => (
+                  <li key={e.slug} className="min-w-0 border-b border-rule">
+                    <a href={`/eleitas/${e.slug}`} className="group block py-4 focus-visible:outline-2">
+                      <span className="block font-display text-xl leading-snug text-ink group-hover:text-plum group-hover:underline group-hover:underline-offset-4">
+                        {e.nome}
+                      </span>
+                      <span className="mt-1.5 block text-[14px] leading-snug text-ink/75">
+                        {CARGO_ROTULO[e.cargo]} · {e.partido}-{e.uf} · {COR[e.corRaca] ?? e.corRaca.toLowerCase()}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <p className="border-l-4 border-coral py-2 pl-4 text-base leading-relaxed">
+                Não há fichas de eleitas para este recorte. Remova um filtro ou
+                consulte as candidaturas no <a href="/comparar" className="font-semibold text-plum underline underline-offset-4">Comparador</a>.
+              </p>
+            )}
+            {exibidas.length < lista.length && (
+              <button
+                type="button"
+                onClick={() => setVisiveis((v) => Math.min(v + LOTE, lista.length))}
+                className="mt-8 inline-flex min-h-12 items-center border-2 border-plum px-6 py-3 text-sm font-semibold text-plum hover:bg-plum hover:text-paper"
+              >
+                Mostrar mais fichas
+              </button>
+            )}
+          </div>
+        </div>
+      </section>
       <p className="pb-12 font-mono text-[13px] text-muted-foreground">
         Fonte: TSE, Candidatos 2026, base de {ELEITAS_META.baseGeneratedAt} · SHA-256 {ELEITAS_META.csvSha256.slice(0, 16)}…
       </p>

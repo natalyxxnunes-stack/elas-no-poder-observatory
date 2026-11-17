@@ -5,6 +5,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { EditorialOpening } from "@/components/editorial/EditorialOpening";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
+import { FotografiaEmContexto, CadernoDeFontes } from "@/components/editorial/CadernoDocumentalRevista";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { StatusTag } from "@/components/editorial/StatusTag";
@@ -457,6 +458,15 @@ function QuemChegaPage() {
         />
       </div>
 
+
+      <FotografiaEmContexto
+        fotoId="bancada-feminina-camara-marco-2026"
+        editoria="Fotografia de arquivo · Antes do pleito"
+        titulo="O plenário é um registro de outra etapa."
+        contexto="Fotografia institucional da bancada feminina da Câmara em março de 2026, anterior às eleições gerais. Ela documenta representação parlamentar naquele momento; não identifica quais mulheres foram eleitas em outubro, nem quem exercerá funções de direção a partir de 2027."
+        tom="ink"
+      />
+
       <a
         href="/eleitas"
         className="group mt-6 flex items-center justify-between gap-4 border-t-[5px] border-plum bg-cream px-5 py-4 md:px-6"
@@ -475,21 +485,29 @@ function QuemChegaPage() {
 
       <SectionBlock
         id="senado"
-        tone="lilac"
+        tone="ink"
         kicker="Senado"
         question="O Senado de 2027: o PL passa de um terço da Casa"
         align="wide"
         lead={
           <>
             <p>
-              Das 54 vagas do Senado em disputa em 2026, o PL ganhou 19, quase o triplo do segundo colocado, o MDB, com
-              7. Somadas às 9 cadeiras que o partido terá com mandato até 2031 (contando Alex Diniz, suplente que assume a
-              vaga de Cleitinho, eleito governador de MG), o PL deve começar 2027 com 28 das 81 cadeiras, contra 15 hoje.
-              Um terço do Senado (27) é o número de assinaturas que a Constituição exige para criar uma CPI e para
-              apresentar uma proposta de emenda constitucional na Casa (arts. 58 e 60): o PL passa a poder fazer as duas
-              coisas sozinho. Correção em 13/11/2026: a primeira versão dizia 27, porque manteve Cleitinho na conta. A
-              projeção da Agência Senado fala em 29; a diferença está no partido do suplente de Sergio Moro, que os dados
-              abertos do Senado não informam.
+              Das 54 vagas do Senado em disputa em 2026, o PL elegeu 19, quase o triplo do segundo colocado, o MDB,
+              com 7. Somadas às 10 cadeiras previstas para o PL entre os 27 mandatos iniciados em 2023, com as
+              substituições de titulares eleitos governadores, o partido deverá começar 2027 com 29 das 81 cadeiras,
+              contra 15 na consulta de 28/10/2026. Essa projeção inclui Alex Diniz (PL), primeiro suplente de
+              Cleitinho (Republicanos-MG), e Luís Felipe Cunha (PL), primeiro suplente de Sergio Moro (PL-PR).
+              Cunha deixou o União Brasil e filiou-se ao PL em 8 de outubro. Um terço do Senado (27) é o número de
+              assinaturas que a Constituição exige para requerer CPI e apresentar proposta de emenda constitucional
+              (arts. 58 e 60); mantida a composição projetada, o PL alcançaria esse patamar sozinho. A{" "}
+              <a
+                href="https://www12.senado.leg.br/noticias/materias/2026/10/25/fim-da-eleicao-define-composicao-do-senado-em-2027-com-13-partidos"
+                target="_blank" rel="noreferrer"
+                className="font-semibold underline underline-offset-4"
+              >Agência Senado projetou 29 cadeiras em 25/10/2026</a>.
+              Correção em 16/11/2026: esta página trazia 28 porque não havia incorporado a filiação de Luís Felipe
+              Cunha. A versão anterior já havia sido corrigida em 13/11 para incluir a substituição de Cleitinho.
+              A composição de 2027 continua sujeita a novas mudanças partidárias e de exercício de mandatos.
             </p>
             <p className="mt-3">
               As mulheres passam de 15 para 19 senadoras. Três delas são do PL: Michelle Bolsonaro, Bia Kicis e Carol de
@@ -500,16 +518,18 @@ function QuemChegaPage() {
           </>
         }
       >
+        <div className="bg-paper p-5 text-ink md:p-8">
         <Senado2027Chart />
         <div className="mt-6">
           <p className="poster-eyebrow mb-3 text-ink">As 19 senadoras previstas para 2027</p>
           <Senadoras2027 />
         </div>
+        </div>
       </SectionBlock>
 
       <SectionBlock
         id="raca"
-        tone="lilac"
+        tone="paper"
         kicker="Gênero e cor/raça"
         question="Quais mulheres se elegeram"
         align="wide"
@@ -558,8 +578,10 @@ function QuemChegaPage() {
         </p>
       </SectionBlock>
 
-      <SectionBlock id="estados" kicker="Território" question="Por qual estado elas chegaram à Câmara" align="wide">
-        <UfGrid />
+      <SectionBlock id="estados" tone="plum" kicker="Território" question="Por qual estado elas chegaram à Câmara" align="wide">
+        <div className="bg-paper p-4 text-ink md:p-8">
+          <UfGrid />
+        </div>
       </SectionBlock>
 
       <SectionBlock id="partidos" tone="butter" kicker="Partido" question="Por quais partidos elas chegaram" align="wide">
@@ -568,6 +590,7 @@ function QuemChegaPage() {
 
       <SectionBlock
         id="poder"
+        tone="ink"
         kicker="Camada 2 · poder"
         question="Quem passou a decidir"
         align="wide"
@@ -578,6 +601,7 @@ function QuemChegaPage() {
           </p>
         }
       >
+        <div className="bg-paper p-5 text-ink md:p-8">
         <ul className="grid gap-4 md:grid-cols-2">
           {POWER_LAYERS.map((l) => (
             <li key={l.label} className="editorial-card p-5">
@@ -615,7 +639,19 @@ function QuemChegaPage() {
             Método
           </Link>
         </p>
+        </div>
       </SectionBlock>
+
+
+      <CadernoDeFontes
+        editoria="Resultados eleitorais · Base e período"
+        titulo="Quem foi eleita não equivale a quem já exerce poder."
+        nota="As cadeiras foram recontadas a partir dos registros eleitorais de 2026. A posse, a instalação de comissões e os postos de comando exigem outras fontes e novas datas de corte. Não presumimos a situação futura a partir da fotografia anterior à eleição."
+        documentos={[
+          { rotulo: "TSE · Base de candidaturas e resultados", titulo: "Candidatos 2026", url: "https://dadosabertos.tse.jus.br/dataset/candidatos-2026", descricao: "Registros eleitorais e autodeclaração de cor/raça; verificar situação de cada eleita e data de geração." },
+          { rotulo: "Quem são elas? · Consulta", titulo: "Fichas individuais das eleitas", url: "/eleitas", descricao: "Lista pesquisável de eleitas, separada do acompanhamento de exercício do mandato." },
+        ]}
+      />
 
       <NextAxes ids={["votos", "funil", "quem-controla"]} />
     </PageShell>

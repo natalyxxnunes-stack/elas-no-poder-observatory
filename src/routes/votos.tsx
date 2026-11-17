@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
+import { CadernoDeFontes } from "@/components/editorial/CadernoDocumentalRevista";
 import { InBrief } from "@/components/editorial/InBrief";
 import { ContextBox } from "@/components/editorial/ContextBox";
 import { StatusTag } from "@/components/editorial/StatusTag";
@@ -292,6 +293,27 @@ function VotosPage() {
         />
       </div>
 
+      <section aria-label="Régua editorial do voto" className="relative left-1/2 -ml-[50vw] w-screen bg-ink text-paper">
+        <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
+          <p className="text-[13px] font-semibold text-[var(--art-gold)]">Caderno de números · Câmara dos Deputados · 2026</p>
+          <h2 className="mt-3 max-w-4xl font-display text-[clamp(2rem,3.5vw,3.45rem)] leading-[1.08]">Três medidas da mesma eleição. Três denominadores.</h2>
+          <div className="mt-8 grid gap-px bg-paper/25 md:grid-cols-3">
+            {[
+              { rotulo: "Candidaturas de mulheres", num: fed.cand.f, den: fed.cand.t },
+              { rotulo: "Votos nominais válidos em mulheres", num: fed.votes.f, den: fed.votes.t },
+              { rotulo: "Cadeiras conquistadas por mulheres", num: fed.seats.f, den: fed.seats.t },
+            ].map((etapa, index) => (
+              <div key={etapa.rotulo} className={`min-w-0 p-5 md:p-7 ${index === 1 ? "bg-plum" : "bg-ink"}`}>
+                <p className="text-[13px] font-semibold text-paper/85">{etapa.rotulo}</p>
+                <p className="mt-4 font-display text-[clamp(2rem,3vw,3rem)] leading-none text-[var(--art-gold)]">{pct(etapa.num, etapa.den)}</p>
+                <p className="mt-3 text-[13px] leading-relaxed text-paper/80">{n(etapa.num)} de {n(etapa.den)} no próprio universo</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-5 text-[13px] leading-relaxed text-paper/80">Deputada federal, eleição proporcional de 2026. Voto nominal válido é diferente de voto de legenda; as cadeiras dependem do sistema proporcional. Base do TSE gerada em {VOTOS_2026_META.baseGeneratedAt}.</p>
+        </div>
+      </section>
+
       <SectionBlock id="etapas" kicker="Três etapas" question="Candidatura, voto e cadeira, lado a lado" align="wide">
         <div className="grid gap-6 lg:grid-cols-2 [&>*]:min-w-0">
           <StageChart cargo="federal" />
@@ -306,7 +328,7 @@ function VotosPage() {
 
       <SectionBlock
         id="raca"
-        tone="lilac"
+        tone="warm"
         kicker="Gênero e cor/raça"
         question="Quais grupos recebem os votos"
         align="wide"
@@ -330,11 +352,13 @@ function VotosPage() {
         </details>
       </SectionBlock>
 
-      <SectionBlock id="estados" kicker="Território" question="Em quais estados as candidatas receberam mais votos" align="wide">
-        <UfVotes />
+      <SectionBlock id="estados" tone="ink" kicker="Território" question="Em quais estados as candidatas receberam mais votos" align="wide">
+        <div className="bg-paper p-4 text-ink md:p-8">
+          <UfVotes />
+        </div>
       </SectionBlock>
 
-      <SectionBlock kicker="Quatro conceitos" question="O que esta página mede e o que ainda não mede" align="wide">
+      <SectionBlock tone="warm" kicker="Quatro conceitos" question="O que esta página mede e o que ainda não mede" align="wide">
         <ul className="divide-y divide-rule border-y border-rule">
           {CONCEPTS.map((c) => (
             <li key={c.term} className="py-5">
@@ -378,6 +402,17 @@ function VotosPage() {
           </Link>
         </p>
       </SectionBlock>
+
+      <CadernoDeFontes
+        editoria="Arquivo eleitoral · Recontagem"
+        titulo="O arquivo de votação exige um segundo arquivo."
+        nota="A votação nominal válida vem de votacao_candidato_munzona_2026 e os dados de gênero e cor/raça são associados ao cadastro de candidaturas do mesmo pleito. O cruzamento exclui votos de legenda e votos anulados e não deve misturar cargos distintos."
+        documentos={[
+          { rotulo: "TSE · Portal oficial", titulo: "Dados Abertos do Tribunal Superior Eleitoral", url: "https://dadosabertos.tse.jus.br/", descricao: `Arquivo de votação gerado em ${VOTOS_2026_META.baseGeneratedAt}, com SHA-256 documentado no método e nesta página.` },
+          { rotulo: "TSE · Cadastro de candidatos", titulo: "Candidatos 2026", url: "https://dadosabertos.tse.jus.br/dataset/candidatos-2026", descricao: `Cadastro gerado em ${VOTOS_2026_META.candBaseGeneratedAt}, utilizado para o cruzamento por gênero e cor/raça.` },
+          { rotulo: "Quem são elas? · Metodologia", titulo: "Conferir universo e fórmulas", url: "/metodo", descricao: "Critério dos votos nominais válidos e tratamento de registros ausentes e revisados." },
+        ]}
+      />
 
       <NextAxes ids={["quem-chega", "dinheiro", "funil"]} />
     </PageShell>
