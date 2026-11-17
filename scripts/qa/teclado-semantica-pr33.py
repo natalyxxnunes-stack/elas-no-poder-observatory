@@ -87,6 +87,11 @@ with sync_playwright() as pw:
                     after=d.get_attribute("open")
                     if before==after:
                         problems.append("details não alternou com Enter")
+                # Normalizar posição antes do axe. A navegação Tab anterior
+                # pode deixar um alvo parcialmente recortado na borda do viewport,
+                # causando falso positivo de target-size sobre uma área 56px.
+                page.evaluate("window.scrollTo(0,0)")
+                page.wait_for_timeout(120)
                 page.add_script_tag(path=AXE)
                 violations=page.evaluate("""async() => {
                   const r=await axe.run(document,{runOnly:{type:'tag',
