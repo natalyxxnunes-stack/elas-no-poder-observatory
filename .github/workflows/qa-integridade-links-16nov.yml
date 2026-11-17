@@ -7,6 +7,10 @@ on:
       - ".github/workflows/qa-integridade-links-16nov.yml"
       - "scripts/hostgator-public-binaries.mjs"
       - "vite.config.static.ts"
+      - "src/routes/**"
+      - "src/components/editorial/**"
+      - "src/data/fotos.ts"
+      - "public/arte-editorial/**"
   workflow_dispatch:
 concurrency:
   group: qse-integridade-links-${{ github.ref }}
