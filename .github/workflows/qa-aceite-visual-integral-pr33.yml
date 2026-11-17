@@ -1,0 +1,43 @@
+name: PR33 — leitura editorial de todas as paginas inteiras
+on:
+  push:
+    branches: [revista-consolidada-ajustes-de-ritmo-16nov2026]
+    paths:
+      - ".github/workflows/qa-aceite-visual-integral-pr33.yml"
+      - "scripts/qa/aceite-visual-integral-pr33.py"
+  workflow_dispatch:
+concurrency:
+  group: qse-aceite-visual-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  capturas-editoriais:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: latest }
+      - name: Compilar exatamente a previa da HostGator
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run build:hostgator
+      - name: Capturar paginas completas em desktop e celular
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet --break-system-packages playwright
+          python3 -m http.server 4173 --directory dist/client >/tmp/qse-aceite-visual.log 2>&1 &
+          server=$!
+          trap 'kill "$server" || true' EXIT
+          sleep 3
+          python3 scripts/qa/aceite-visual-integral-pr33.py
+      - name: Arquivar capturas para leitura editorial humana
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qse-pr33-aceite-editorial-paginas-inteiras
+          path: capturas-aceite-editorial-pr33/
+          retention-days: 14
