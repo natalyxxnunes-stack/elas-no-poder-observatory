@@ -98,28 +98,22 @@ export function PerfilHero({
             ) : temFoto && fotoId ? (
               <FotoDocumental id={fotoId} />
             ) : ficha && (pagu || lelia) ? (
-              <div className="space-y-4">
-                <figure className={`overflow-hidden border-[6px] ${pagu ? "border-[var(--art-coral)]" : "border-[var(--art-gold)]"} bg-ink`}>
-                  <img
-                    src={pagu ? "/arte-editorial/pagu-colagem-tipografica.svg" : "/arte-editorial/lelia-colagem-tipografica.svg"}
-                    alt={pagu
-                      ? "Colagem tipográfica editorial com o nome Pagu, referências abstratas à imprensa e à escrita, nas cores roxo, coral e dourado."
-                      : "Colagem tipográfica editorial com o nome Lélia Gonzalez, referências abstratas à escrita e ao pensamento político, nas cores roxo, dourado e coral."}
-                    width={960}
-                    height={720}
-                    loading="eager"
-                    className="block h-auto w-full"
-                  />
-                  <figcaption className="bg-ink px-4 py-3 text-[12px] leading-relaxed text-paper">
-                    Composição gráfica original do observatório. A imagem é ilustrativa:
-                    não é retrato da pessoa nem reprodução de documento histórico.
-                  </figcaption>
-                </figure>
-                <div className="border border-rule bg-paper p-5 md:p-6">
-                  <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-plum">Arquivo eleitoral · Reprodução tipográfica</p>
-                  {ficha}
-                </div>
-              </div>
+              <figure className={`overflow-hidden border-[6px] ${pagu ? "border-[var(--art-coral)]" : "border-[var(--art-gold)]"} bg-ink`}>
+                <img
+                  src={pagu ? "/arte-editorial/pagu-colagem-tipografica.svg" : "/arte-editorial/lelia-colagem-tipografica.svg"}
+                  alt={pagu
+                    ? "Colagem tipográfica editorial com o nome Pagu, referências abstratas à imprensa e à escrita, nas cores roxo, coral e dourado."
+                    : "Colagem tipográfica editorial com o nome Lélia Gonzalez, referências abstratas à escrita e ao pensamento político, nas cores roxo, dourado e coral."}
+                  width={960}
+                  height={720}
+                  loading="eager"
+                  className="block h-auto w-full"
+                />
+                <figcaption className="bg-ink px-4 py-3 text-[12px] leading-relaxed text-paper">
+                  Composição gráfica original do observatório. A imagem é ilustrativa:
+                  não é retrato da pessoa nem reprodução de documento histórico.
+                </figcaption>
+              </figure>
             ) : ficha ? (
               <div className="border border-rule bg-paper p-5 md:p-6">
                 <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-plum">Arquivo eleitoral · Reprodução tipográfica</p>
@@ -132,6 +126,23 @@ export function PerfilHero({
             )}
           </div>
         </div>
+        {ficha && (pagu || lelia) && !temFoto && (
+          <section aria-label="Ficha eleitoral da pioneira" className="mt-8 grid items-start gap-5 bg-paper p-5 text-ink md:grid-cols-[.7fr_1fr] md:gap-8 md:p-7">
+            <div>
+              <p className="font-mono text-[12px] font-semibold uppercase tracking-wide text-plum">
+                Arquivo eleitoral · Reprodução tipográfica
+              </p>
+              <h2 className="mt-3 max-w-sm font-display text-2xl leading-tight md:text-3xl">
+                O documento por trás da trajetória.
+              </h2>
+              <p className="mt-3 max-w-sm text-[14px] leading-relaxed text-ink/80">
+                Os campos de votação foram reconstituídos a partir do registro oficial do TSE.
+                Esta ficha não é um fac-símile do arquivo histórico.
+              </p>
+            </div>
+            <div className="min-w-0">{ficha}</div>
+          </section>
+        )}
         <div className={`mt-9 grid gap-5 border-t pt-6 md:grid-cols-[.75fr_1fr_1.2fr] md:items-start md:gap-9 ${fundoEscuro ? "border-paper/35" : "border-plum/30"}`}>
           <div>
             <p className={`text-xs font-semibold uppercase tracking-wide ${fundoEscuro ? "text-[var(--art-gold)]" : "text-plum"}`}>O registro eleitoral</p>
