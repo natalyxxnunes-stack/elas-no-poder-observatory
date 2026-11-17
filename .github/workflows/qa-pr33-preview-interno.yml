@@ -1,4 +1,4 @@
-name: QA PR33 — pacote para verificacao independente do navegador
+name: QA PR33 — renderizacao independente e pacote de verificacao
 on:
   push:
     branches:
@@ -20,6 +20,17 @@ jobs:
           bun install --frozen-lockfile
           bunx tsc --noEmit
           bun run build:hostgator
+      - name: Teste complementar em Chrome headless (sem Xvfb)
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet --break-system-packages playwright pillow
+          python3 scripts/qa/browser-independent-pr33.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qse-pr33-renderizacao-independente
+          path: relatorio-navegador-independente/
+          retention-days: 14
       - name: Compactar o site estatico apenas para verificacao
         run: |
           set -euo pipefail
