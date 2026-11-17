@@ -1029,3 +1029,12 @@ Após a revisão jurídica das sete reproduções, foi aprovada a exploração d
 **Regra de expansão, ainda sem aceite:** testar visualmente a página completa e a versão celular antes de criar peças em outras páginas. Usar colagem editorial apenas quando tiver função narrativa, com fontes documentais identificadas em separado. Elementos decorativos nunca devem simular conteúdo verificável (gráficos com valores inventados, jornais falsos, manchetes apócrifas, fac-símiles). Não uniformizar todas as páginas nem substituir automaticamente fotografias licenciáveis por ilustrações.
 
 **Status:** alteração apenas na branch do PR #33, que continua em rascunho, sem merge ou publicação. Build, captura integral e aceite estético desta peça ainda precisam ser realizados.
+
+
+## 33. Fechamento visual das pioneiras e controle das etapas finais — 16/11/2026
+
+As peças editoriais de **Pagu** e **Lélia Gonzalez** foram incorporadas ao PR #33 como SVGs tipográficos distintos, com composição de papel, recortes abstratos, cromia institucional e referências à escrita e ao debate político. **Não são fotografias, nem retratos fiéis, nem documentos históricos.** Os respectivos arquivos são `public/arte-editorial/pagu-colagem-tipografica.svg` e `public/arte-editorial/lelia-colagem-tipografica.svg`; os dois usam legendas que identificam a natureza ilustrativa. As fichas de votação preservam dados e fontes. As fotografias históricas continuam bloqueadas por direitos pendentes.
+
+A solução visual é candidata a aceite, **ainda não aprovada em captura integral**, e não determina que outras rotas recebam ilustrações. Mantêm-se a logo, a homepage, a paleta, os pilotos e a identidade original. Procedência, restrições e decisões jurídicas estão em `docs/etapa2-matriz-definitiva-direitos-imagens-16nov2026.md`. Estado verificável e pendências das etapas 3–5 em `docs/fechamento-etapas-2-a-5-pr33-16nov2026.md`.
+
+Controle técnico: workflow de aceite integral adaptado para mudanças em `Pioneiras.tsx` e SVGs; verificações propostas de existência, XML íntegro e ausência dos retratos e screenshot TSE no build normal; QA de variantes alterado para exigir link ao dataset em vez da captura suspensa. **Não registrar execução positiva sem resultado de Actions.** Teste humano de teclado, zoom nativo 200% e leitor de tela permanece obrigatório, assim como revisão final do diff, aceite editorial e autorização expressa de publicação. PR #33 segue em rascunho, sem merge/deploy.
