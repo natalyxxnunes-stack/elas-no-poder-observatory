@@ -65,7 +65,8 @@ jobs:
           assert meta["status"]=="FINANCEIRO_POS_16_11_RESULTADO_ELEITORAL_INCOMPLETO"
           assert meta["divergencias_totalizacao"]["DEPUTADO FEDERAL"]["encontrado"]==505
           assert meta["divergencias_totalizacao"]["DEPUTADO ESTADUAL"]["encontrado"]==1011
-          assert not list(out.glob("*")), "Pasta destino inesperadamente já populada"
+          # Idempotente: PRs podem disparar a importação mais de uma vez.
+          # A origem é fixada pela execução auditada e validada por SHA/valores.
           out.mkdir(parents=True,exist_ok=True)
           names=("receitas-agregadas.json","fefc-titulares.json","fefc-proporcional.json","despesas-agregadas.json","reconciliacao.json")
           for name in names:
