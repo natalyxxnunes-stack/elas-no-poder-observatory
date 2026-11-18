@@ -103,7 +103,7 @@ def main(candidaturas,contas,output):
    v=num(r[campo]);totais[tipo][sq]+=v
    if tipo=="receitas":
     if r.get("DS_FONTE_RECEITA")=="FUNDO ESPECIAL":fe[sq]+=v
-    if r.get("DS_TIPO_PRESTACAO"):prest[sq].add(r["DS_TIPO_PRESTACAO"])
+    if r.get("TP_PRESTACAO_CONTAS"):prest[sq].add(r["TP_PRESTACAO_CONTAS"])
   manifest["contas"][tipo]={"csv_sha256":sha_member(zf,m),"gerado_em":geracao,
       "linhas":lin,"duplicatas":dup,"sem_cadastro_titular":fora,"coluna_valor":campo}
  zf.close()
@@ -115,7 +115,7 @@ def main(candidaturas,contas,output):
   raise ValueError("Despesas pagas existem, mas nenhuma foi vinculada; esquema ou chaves inválidas")
  def calc(ids):
   a=list(ids)
-  def soma(x):return rd(sum((x[s] for s in a),ZERO))
+  def soma(x):return rd(sum((x.get(s,ZERO) for s in a),ZERO))
   return {"candidaturas":len(a),"com_receita":sum(s in totais["receitas"] for s in a),
           "com_fefc":sum(fe[s]>0 for s in a),"receitas":soma(totais["receitas"]),
           "fefc":soma(fe),"despesas_contratadas":soma(totais["despesas_contratadas"]),
@@ -130,14 +130,20 @@ def main(candidaturas,contas,output):
   d["mulheres_por_raca"]={k:calc(sq for sq in ids if cand[sq]["genero"]=="FEMININO" and cand[sq]["raca"]==k)
      for k in sorted(RACAS|{"NÃO_CLASSIFICADA"})}
   if u=="titulares":
-   d["situacao_prestacao"]=dict(Counter("FINAL" if "FINAL" in prest[sq] else
-     "PARCIAL" if "PARCIAL" in prest[sq] else
-     "RELATÓRIO FINANCEIRO" if "RELATÓRIO FINANCEIRO" in prest[sq] else "OUTRA"
-     for sq in ids if sq in totais["receitas"]))
+   d["situacao_prestacao"]=dict(Counter(tipo for sq in ids if sq in totais["receitas"] for tipo in prest[sq]))
+   d["candidaturas_com_varios_tipos_prestacao"]=sum(len(prest[sq])>1 for sq in ids if sq in totais["receitas"])
+   d["candidaturas_sem_tipo_prestacao"]=sum(len(prest[sq])==0 for sq in ids if sq in totais["receitas"])
   resultados[u]=d
  eleitos=[cand[sq] for sq,(t,sit) in situ.items() if sq in cand and sit.startswith("ELEITO")]
  resultados["eleicao"]={"eleitos_titulares":len(eleitos),"mulheres_eleitas":sum(v["genero"]=="FEMININO" for v in eleitos),
    "por_cargo":{cargo:{"eleitos":sum(v["cargo"]==cargo for v in eleitos),"mulheres":sum(v["cargo"]==cargo and v["genero"]=="FEMININO" for v in eleitos)} for cargo in sorted(CARGOS)}}
+ # A base do TSE pode conter registros de Rondônia sem totalização.
+ esperado={"DEPUTADO FEDERAL":513,"DEPUTADO ESTADUAL":1035,"DEPUTADO DISTRITAL":24,"SENADOR":54,"GOVERNADOR":27,"PRESIDENTE":1}
+ divergencias={k:{"esperado":n,"encontrado":resultados["eleicao"]["por_cargo"][k]["eleitos"]} for k,n in esperado.items()
+    if resultados["eleicao"]["por_cargo"][k]["eleitos"]!=n}
+ manifest["divergencias_totalizacao"]=divergencias
+ if divergencias:
+  manifest["aviso_resultado"]="NÃO USAR O RESULTADO ELEITORAL DESTA EXTRAÇÃO PARA SUBSTITUIR O SITE: totalização incompleta."
  base=Path("docs/auditorias/financiamento-2026-15nov")
  fin=json.loads((base/"receitas-agregadas.json").read_text(encoding="utf-8"))
  fefc_t=json.loads((base/"fefc-titulares.json").read_text(encoding="utf-8"))
