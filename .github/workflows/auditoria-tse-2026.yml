@@ -31,9 +31,6 @@ jobs:
 
   auditoria:
     needs: testes
-    if: github.event_name == 'push'
-    permissions:
-      contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
@@ -91,7 +88,28 @@ jobs:
               ("\n".join("- "+v for v in ins) if ins else "Cortes posteriores a 16/11 identificados.")+
               "\n\nVer manifest.json, indicadores.json e deltas.json para reprodução.\n",encoding="utf-8")
           PY
-      - name: Registrar apenas agregados no ramo de auditoria
+      - name: Disponibilizar agregados para conferência sem publicar
+        uses: actions/upload-artifact@v4
+        with:
+          name: auditoria-tse-2026-agregados
+          path: docs/auditorias/tse-2026-11-17/execucao-github/
+          retention-days: 7
+
+  registrar:
+    needs: auditoria
+    if: github.event_name == 'push'
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: auditoria-tse-2026-11-17
+      - uses: actions/download-artifact@v4
+        with:
+          name: auditoria-tse-2026-agregados
+          path: docs/auditorias/tse-2026-11-17/execucao-github/
+      - name: Versionar somente agregados na branch de auditoria
         shell: bash
         run: |
           set -euo pipefail
@@ -99,6 +117,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git add docs/auditorias/tse-2026-11-17/execucao-github/
           if ! git diff --staged --quiet; then
-            git commit -m "audit(tse): registrar hashes e agregados da coleta oficial sem publicar"
+            git commit -m "audit(tse): registrar hashes e agregados sem publicar"
             git push origin HEAD:auditoria-tse-2026-11-17
           fi
