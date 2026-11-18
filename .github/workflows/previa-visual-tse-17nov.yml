@@ -1,0 +1,40 @@
+name: Prévia visual temporária — TSE 17 novembro
+
+on:
+  push:
+    branches:
+      - atualizacao-financeira-tse-2026-11-17
+    paths:
+      - .github/workflows/previa-visual-tse-17nov.yml
+
+permissions:
+  contents: read
+
+jobs:
+  previa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Instalar dependências
+        run: bun install --frozen-lockfile
+      - name: Construir versão estática da HostGator
+        run: bun run build:hostgator
+      - name: Verificar cortes e registrar tamanho
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f dist/client/dinheiro/index.html
+          test -f dist/client/partidos/index.html
+          test -f dist/client/metodo/index.html
+          test -f dist/client/calendario/index.html
+          grep -q '17/11/2026' dist/client/dinheiro/index.html
+          grep -q '16/11/2026' dist/client/calendario/index.html
+          du -sh dist/client
+      - name: Artefato temporário exclusivamente para homologação
+        uses: actions/upload-artifact@v4
+        with:
+          name: previa-hostgator-tse-17nov-pr35
+          path: dist/client/
+          retention-days: 3
