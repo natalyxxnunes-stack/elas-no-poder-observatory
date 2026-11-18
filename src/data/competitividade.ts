@@ -61,16 +61,16 @@ export const UNIVERSE_SHORT: Record<UniverseId, string> = {
  * publicada no Método possa ser auditada e refeita.
  */
 export const FINANCE_AVAILABILITY = {
-  checkedAt: "2026-10-28",
+  checkedAt: "2026-11-17",
   verdict:
-    "A prestação de contas eleitorais de 2026 já tem a prestação final do 1º turno (base de 04/11/2026). Receita por candidatura está publicada em /dinheiro desde 24/09 e foi atualizada em 27/10 e em 04/11, por gênero, cor/raça, cargo, partido e UF. Despesas contratadas, despesas pagas e doador originário estão publicados em /dinheiro desde 28/10.",
+    "A prestação de contas eleitorais de 2026 foi recontada no corte de 17/11/2026, posterior ao prazo final de 16/11 do segundo turno. Receita por candidatura, FEFC por partido, despesas contratadas, despesas pagas e doadores originários do financiamento coletivo são apresentados na página Dinheiro, com universos e datas de referência identificados. As contas continuam sujeitas a retificações e julgamento.",
   checked: [
     {
       id: "contas-eleitorais-2026",
       label: "Prestação de contas eleitorais de 2026",
       url: "https://dadosabertos.tse.jus.br/dataset/prestacao-de-contas-eleitorais-2026",
       status: "receita, despesa e doador originário publicados",
-      note: "O conjunto passou a existir para 2026, em base parcial atualizada até o fim da apuração. Receita, despesas contratadas, despesas pagas e o doador originário do financiamento coletivo estão processados e publicados em Dinheiro (base de 27/10/2026).",
+      note: "Receitas, despesas contratadas e pagas e doadores originários foram reprocessados com arquivos gerados em 17/11/2026, após o prazo de 16/11, e cruzados com o cadastro de candidaturas do mesmo dia. O resultado eleitoral permanece no corte íntegro de 27/10 devido à totalização incompleta de Rondônia na extração de 17/11.",
     },
     {
       id: "contas-partidarias-2026",
@@ -89,8 +89,8 @@ export const FINANCE_AVAILABILITY = {
   ],
   /** o que o observatório ainda vai publicar quando processar o restante da base */
   plannedWhenAvailable: [
-    "Despesas contratadas e pagas por candidatura, com o mesmo recorte de gênero, cor/raça, cargo, partido e UF já publicado para receita.",
-    "Rastreio de doador originário no financiamento coletivo, hoje ligado só ao prestador de contas, sem chave direta para a candidatura.",
+    "Ampliar a auditoria de despesas e pagamentos por cargo, UF e partido, preservando o vínculo pelo identificador de prestador de contas e declarando a cobertura.",
+    "Aprofundar a distribuição dos doadores originários do financiamento coletivo, vinculados às candidaturas pelo identificador da receita, preservando os identificadores pessoais fora do site.",
     "Relação entre receita e titularidade ou suplência.",
     "Leitura de competitividade financeira: posição relativa de recursos dentro do próprio universo, não ranking entre candidaturas.",
   ],
