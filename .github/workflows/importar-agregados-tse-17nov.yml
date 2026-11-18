@@ -1,0 +1,87 @@
+name: Importar agregados auditados TSE 17-11-2026
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/workflows/importar-agregados-tse-17nov.yml
+
+permissions:
+  contents: read
+
+jobs:
+  importar:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'atualizacao-financeira-tse-2026-11-17'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: atualizacao-financeira-tse-2026-11-17
+          persist-credentials: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: auditoria-tse-2026-metodo-publicado
+          run-id: 44208584389
+          github-token: \${{ secrets.GITHUB_TOKEN }}
+          path: \${{ runner.temp }}/originais
+      - uses: actions/download-artifact@v4
+        with:
+          name: auditoria-tse-2026-agregados
+          run-id: 44208584389
+          github-token: \${{ secrets.GITHUB_TOKEN }}
+          path: \${{ runner.temp }}/independente
+      - name: Conferir integridade e critérios da importação
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,os,pathlib
+          out=pathlib.Path("docs/auditorias/financiamento-2026-17nov")
+          source=pathlib.Path(os.environ["RUNNER_TEMP"])/"originais"
+          alt=pathlib.Path(os.environ["RUNNER_TEMP"])/"independente"
+          expected={
+           "receitas":"5c9b1e0456a8aa75bdecc5ac7ffc2bb52d4bbaa0099ec675a13b6ab73c0e04ba",
+           "contratadas":"f185717ac6ffba0b04dfa5be56435e75a6071b19f570999232a5e49548bcfe9c",
+           "pagas":"f57eddcdbf270f4d03a8dce53e95aefff1e9d1900cf3c1d76f209eeddb820b6d",
+           "doador":"8839c0ef0d63945f714a5ab57767e3aec4eba04baaa58614c64b658eff8c9be3"}
+          rev=json.loads((source/"receitas-agregadas.json").read_text())
+          ds=json.loads((source/"despesas-agregadas.json").read_text())
+          fefc=json.loads((source/"fefc-titulares.json").read_text())
+          rec=json.loads((source/"reconciliacao.json").read_text())
+          meta=json.loads((alt/"manifest.json").read_text())
+          assert rev["csvSha256"]==expected["receitas"]
+          assert ds["sha256"]==expected
+          assert rev["baseGeneratedAt"]=="17/11/2026 09:03:49"
+          assert meta["candidaturas"]["gerado_em"]=="17/11/2026 19:31:29"
+          assert rec["status"]=="CONFERIDO_POR_SCRIPT_ORIGINAL"
+          assert len(rec["comparacoes"])==14
+          assert all(abs(x["dif"])<=x["tolerancia"] for x in rec["comparacoes"].values())
+          assert abs(fefc["total"]["fefc"]-5032571764.23)<0.01
+          assert rev["candidaciesWithRevenue"]==19665
+          assert rev["tiposPrestacao"]=={"FINAL":19383,"PARCIAL":186,"RELATÓRIO FINANCEIRO":96}
+          assert meta["status"]=="FINANCEIRO_POS_16_11_RESULTADO_ELEITORAL_INCOMPLETO"
+          assert meta["divergencias_totalizacao"]["DEPUTADO FEDERAL"]["encontrado"]==505
+          assert meta["divergencias_totalizacao"]["DEPUTADO ESTADUAL"]["encontrado"]==1011
+          assert not list(out.glob("*")), "Pasta destino inesperadamente já populada"
+          out.mkdir(parents=True,exist_ok=True)
+          names=("receitas-agregadas.json","fefc-titulares.json","fefc-proporcional.json","despesas-agregadas.json","reconciliacao.json")
+          for name in names:
+           data=json.loads((source/name).read_text())
+           (out/name).write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          (out/"manifest.json").write_text(json.dumps(meta,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          print("Importação validada de",len(names),"agregados e manifesto, sem CSVs/CPFs")
+          PY
+      - name: Registrar dados somente na branch da revisão
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add docs/auditorias/financiamento-2026-17nov/
+          if ! git diff --cached --quiet; then
+            git commit -m "data: incorporar agregados TSE 17/11 reconciliados sem publicar"
+            git push origin HEAD:atualizacao-financeira-tse-2026-11-17
+          fi
