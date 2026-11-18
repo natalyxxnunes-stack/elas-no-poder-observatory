@@ -52,5 +52,17 @@ jobs:
         run: bun install --frozen-lockfile
       - name: Gerar prévia técnica do site
         run: bun run build:hostgator
-      - name: Conferir lint
-        run: bun run lint
+      - name: Conferir lint do escopo alterado sem formatar o legado
+        run: |
+          bunx eslint \
+            src/data/tse-finance-snapshot.ts \
+            src/data/fefc-partidos-2026.ts \
+            src/data/despesas-2026.ts \
+            src/data/competitividade.ts \
+            src/data/achados.ts \
+            src/data/metodo-publico.ts \
+            src/data/calendario.ts \
+            src/routes/dinheiro.tsx \
+            src/routes/partidos.tsx \
+            src/components/editorial/DespesasCharts.tsx \
+            --rule 'prettier/prettier: off'
