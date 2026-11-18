@@ -1,9 +1,9 @@
 name: Prévia visual temporária — TSE 17 novembro
 
 on:
-  push:
+  pull_request:
     branches:
-      - atualizacao-financeira-tse-2026-11-17
+      - main
     paths:
       - .github/workflows/previa-visual-tse-17nov.yml
 
