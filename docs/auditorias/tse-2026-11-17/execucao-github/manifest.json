@@ -46,7 +46,9 @@
     }
   },
   "aviso_resultado": "NÃO USAR O RESULTADO ELEITORAL DESTA EXTRAÇÃO PARA SUBSTITUIR O SITE: totalização incompleta.",
-  "status": "BASES_POSTERIORES_A_16_11_PENDENTES_DE_HOMOLOGACAO",
+  "status": "FINANCEIRO_POS_16_11_RESULTADO_ELEITORAL_INCOMPLETO",
   "aviso": "ZIPs brutos não foram incorporados ao repositório; verificar datas e origem antes de publicar.",
-  "pendencias_corte": []
+  "pendencias_corte": [
+    "Não usar resultado eleitoral desta base para substituir as 1.572 vagas proporcionais: totalização incompleta."
+  ]
 }
