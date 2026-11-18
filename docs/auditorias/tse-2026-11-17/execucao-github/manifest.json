@@ -35,6 +35,17 @@
       "valor_sem_vinculo": 0.0
     }
   },
+  "divergencias_totalizacao": {
+    "DEPUTADO FEDERAL": {
+      "esperado": 513,
+      "encontrado": 505
+    },
+    "DEPUTADO ESTADUAL": {
+      "esperado": 1035,
+      "encontrado": 1011
+    }
+  },
+  "aviso_resultado": "NÃO USAR O RESULTADO ELEITORAL DESTA EXTRAÇÃO PARA SUBSTITUIR O SITE: totalização incompleta.",
   "status": "BASES_POSTERIORES_A_16_11_PENDENTES_DE_HOMOLOGACAO",
   "aviso": "ZIPs brutos não foram incorporados ao repositório; verificar datas e origem antes de publicar.",
   "pendencias_corte": []

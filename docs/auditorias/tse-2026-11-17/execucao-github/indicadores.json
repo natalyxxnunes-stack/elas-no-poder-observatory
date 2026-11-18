@@ -10,7 +10,7 @@
     "por_genero": {
       "FEMININO": {
         "candidaturas": 6953,
-        "com_receita": 6953,
+        "com_receita": 6836,
         "com_fefc": 5579,
         "receitas": 1820002369.46,
         "fefc": 1488881327.5,
@@ -19,7 +19,7 @@
       },
       "MASCULINO": {
         "candidaturas": 12578,
-        "com_receita": 12578,
+        "com_receita": 12302,
         "com_fefc": 8739,
         "receitas": 3718439326.0,
         "fefc": 2500219038.78,
@@ -30,7 +30,7 @@
     "por_raca": {
       "AMARELA": {
         "candidaturas": 101,
-        "com_receita": 101,
+        "com_receita": 100,
         "com_fefc": 68,
         "receitas": 23463284.94,
         "fefc": 15144154.78,
@@ -39,7 +39,7 @@
       },
       "BRANCA": {
         "candidaturas": 9726,
-        "com_receita": 9726,
+        "com_receita": 9576,
         "com_fefc": 7261,
         "receitas": 3502694760.97,
         "fefc": 2423679289.3,
@@ -48,7 +48,7 @@
       },
       "INDÍGENA": {
         "candidaturas": 180,
-        "com_receita": 180,
+        "com_receita": 179,
         "com_fefc": 158,
         "receitas": 43895517.71,
         "fefc": 39895950.07,
@@ -57,7 +57,7 @@
       },
       "PARDA": {
         "candidaturas": 6859,
-        "com_receita": 6859,
+        "com_receita": 6693,
         "com_fefc": 4836,
         "receitas": 1493577984.74,
         "fefc": 1130256064.86,
@@ -66,7 +66,7 @@
       },
       "PRETA": {
         "candidaturas": 2665,
-        "com_receita": 2665,
+        "com_receita": 2590,
         "com_fefc": 1995,
         "receitas": 474810147.1,
         "fefc": 380124907.27,
@@ -77,7 +77,7 @@
     "por_cargo": {
       "DEPUTADO DISTRITAL": {
         "candidaturas": 433,
-        "com_receita": 433,
+        "com_receita": 427,
         "com_fefc": 316,
         "receitas": 53355904.29,
         "fefc": 23516647.58,
@@ -86,7 +86,7 @@
       },
       "DEPUTADO ESTADUAL": {
         "candidaturas": 11295,
-        "com_receita": 11295,
+        "com_receita": 11065,
         "com_fefc": 7795,
         "receitas": 1956634526.0,
         "fefc": 1182889026.55,
@@ -95,7 +95,7 @@
       },
       "DEPUTADO FEDERAL": {
         "candidaturas": 7803,
-        "com_receita": 7803,
+        "com_receita": 7646,
         "com_fefc": 6207,
         "receitas": 3528451265.17,
         "fefc": 2782694692.15,
@@ -106,7 +106,7 @@
     "por_uf": {
       "AC": {
         "candidaturas": 349,
-        "com_receita": 349,
+        "com_receita": 331,
         "com_fefc": 192,
         "receitas": 86072052.77,
         "fefc": 68953912.99,
@@ -115,7 +115,7 @@
       },
       "AL": {
         "candidaturas": 262,
-        "com_receita": 262,
+        "com_receita": 234,
         "com_fefc": 164,
         "receitas": 95551066.77,
         "fefc": 77446869.57,
@@ -124,7 +124,7 @@
       },
       "AM": {
         "candidaturas": 433,
-        "com_receita": 433,
+        "com_receita": 430,
         "com_fefc": 322,
         "receitas": 129740771.59,
         "fefc": 92185943.54,
@@ -133,7 +133,7 @@
       },
       "AP": {
         "candidaturas": 285,
-        "com_receita": 285,
+        "com_receita": 280,
         "com_fefc": 217,
         "receitas": 101711196.78,
         "fefc": 80520951.75,
@@ -142,7 +142,7 @@
       },
       "BA": {
         "candidaturas": 1178,
-        "com_receita": 1178,
+        "com_receita": 1155,
         "com_fefc": 966,
         "receitas": 323423538.58,
         "fefc": 251911808.5,
@@ -151,7 +151,7 @@
       },
       "CE": {
         "candidaturas": 672,
-        "com_receita": 672,
+        "com_receita": 659,
         "com_fefc": 467,
         "receitas": 215709610.89,
         "fefc": 165138669.98,
@@ -160,7 +160,7 @@
       },
       "DF": {
         "candidaturas": 605,
-        "com_receita": 605,
+        "com_receita": 598,
         "com_fefc": 455,
         "receitas": 134652219.7,
         "fefc": 82371654.35,
@@ -169,7 +169,7 @@
       },
       "ES": {
         "candidaturas": 547,
-        "com_receita": 547,
+        "com_receita": 546,
         "com_fefc": 383,
         "receitas": 114740161.92,
         "fefc": 86009140.06,
@@ -178,7 +178,7 @@
       },
       "GO": {
         "candidaturas": 860,
-        "com_receita": 860,
+        "com_receita": 836,
         "com_fefc": 611,
         "receitas": 195075324.0,
         "fefc": 129393889.19,
@@ -187,7 +187,7 @@
       },
       "MA": {
         "candidaturas": 567,
-        "com_receita": 567,
+        "com_receita": 548,
         "com_fefc": 401,
         "receitas": 201715877.71,
         "fefc": 148483236.24,
@@ -196,7 +196,7 @@
       },
       "MG": {
         "candidaturas": 1754,
-        "com_receita": 1754,
+        "com_receita": 1696,
         "com_fefc": 1200,
         "receitas": 475986935.08,
         "fefc": 330073357.61,
@@ -205,7 +205,7 @@
       },
       "MS": {
         "candidaturas": 377,
-        "com_receita": 377,
+        "com_receita": 376,
         "com_fefc": 283,
         "receitas": 104082656.64,
         "fefc": 77660432.31,
@@ -214,7 +214,7 @@
       },
       "MT": {
         "candidaturas": 406,
-        "com_receita": 406,
+        "com_receita": 400,
         "com_fefc": 285,
         "receitas": 138025291.18,
         "fefc": 70632537.14,
@@ -223,7 +223,7 @@
       },
       "PA": {
         "candidaturas": 685,
-        "com_receita": 685,
+        "com_receita": 661,
         "com_fefc": 458,
         "receitas": 175032234.81,
         "fefc": 134130373.0,
@@ -232,7 +232,7 @@
       },
       "PB": {
         "candidaturas": 403,
-        "com_receita": 403,
+        "com_receita": 392,
         "com_fefc": 317,
         "receitas": 117488789.17,
         "fefc": 92070496.99,
@@ -241,7 +241,7 @@
       },
       "PE": {
         "candidaturas": 909,
-        "com_receita": 909,
+        "com_receita": 884,
         "com_fefc": 691,
         "receitas": 224051306.26,
         "fefc": 169089493.61,
@@ -250,7 +250,7 @@
       },
       "PI": {
         "candidaturas": 317,
-        "com_receita": 317,
+        "com_receita": 311,
         "com_fefc": 259,
         "receitas": 121676392.17,
         "fefc": 91453966.48,
@@ -259,7 +259,7 @@
       },
       "PR": {
         "candidaturas": 1045,
-        "com_receita": 1045,
+        "com_receita": 1018,
         "com_fefc": 884,
         "receitas": 316978545.88,
         "fefc": 214477869.13,
@@ -268,7 +268,7 @@
       },
       "RJ": {
         "candidaturas": 1981,
-        "com_receita": 1981,
+        "com_receita": 1950,
         "com_fefc": 1396,
         "receitas": 443688206.63,
         "fefc": 353345611.86,
@@ -277,7 +277,7 @@
       },
       "RN": {
         "candidaturas": 265,
-        "com_receita": 265,
+        "com_receita": 260,
         "com_fefc": 204,
         "receitas": 80494409.43,
         "fefc": 63915171.58,
@@ -286,7 +286,7 @@
       },
       "RO": {
         "candidaturas": 394,
-        "com_receita": 394,
+        "com_receita": 388,
         "com_fefc": 249,
         "receitas": 117978975.38,
         "fefc": 80436823.59,
@@ -295,7 +295,7 @@
       },
       "RR": {
         "candidaturas": 358,
-        "com_receita": 358,
+        "com_receita": 356,
         "com_fefc": 246,
         "receitas": 91814738.76,
         "fefc": 78439556.49,
@@ -304,7 +304,7 @@
       },
       "RS": {
         "candidaturas": 1001,
-        "com_receita": 1001,
+        "com_receita": 993,
         "com_fefc": 816,
         "receitas": 271397393.63,
         "fefc": 210087086.62,
@@ -313,7 +313,7 @@
       },
       "SC": {
         "candidaturas": 645,
-        "com_receita": 645,
+        "com_receita": 639,
         "com_fefc": 556,
         "receitas": 190087405.88,
         "fefc": 124760150.27,
@@ -322,7 +322,7 @@
       },
       "SE": {
         "candidaturas": 363,
-        "com_receita": 363,
+        "com_receita": 354,
         "com_fefc": 271,
         "receitas": 96525318.95,
         "fefc": 72017947.38,
@@ -331,7 +331,7 @@
       },
       "SP": {
         "candidaturas": 2563,
-        "com_receita": 2563,
+        "com_receita": 2536,
         "com_fefc": 1813,
         "receitas": 888222879.6,
         "fefc": 584023161.82,
@@ -351,7 +351,7 @@
     "por_partido": {
       "AGIR": {
         "candidaturas": 432,
-        "com_receita": 432,
+        "com_receita": 411,
         "com_fefc": 129,
         "receitas": 13296069.85,
         "fefc": 2375331.05,
@@ -360,7 +360,7 @@
       },
       "AVANTE": {
         "candidaturas": 945,
-        "com_receita": 945,
+        "com_receita": 912,
         "com_fefc": 525,
         "receitas": 99165812.04,
         "fefc": 61259294.91,
@@ -369,7 +369,7 @@
       },
       "CIDADANIA": {
         "candidaturas": 148,
-        "com_receita": 148,
+        "com_receita": 147,
         "com_fefc": 124,
         "receitas": 38604623.93,
         "fefc": 35101896.18,
@@ -378,7 +378,7 @@
       },
       "DC": {
         "candidaturas": 697,
-        "com_receita": 697,
+        "com_receita": 631,
         "com_fefc": 95,
         "receitas": 5613103.78,
         "fefc": 1708985.82,
@@ -387,7 +387,7 @@
       },
       "DEMOCRATA": {
         "candidaturas": 408,
-        "com_receita": 408,
+        "com_receita": 379,
         "com_fefc": 3,
         "receitas": 5037924.73,
         "fefc": 3812.96,
@@ -396,7 +396,7 @@
       },
       "MDB": {
         "candidaturas": 1338,
-        "com_receita": 1338,
+        "com_receita": 1326,
         "com_fefc": 1064,
         "receitas": 440080916.68,
         "fefc": 312744120.31,
@@ -405,7 +405,7 @@
       },
       "MISSÃO": {
         "candidaturas": 509,
-        "com_receita": 509,
+        "com_receita": 501,
         "com_fefc": 452,
         "receitas": 5738439.78,
         "fefc": 2318077.86,
@@ -414,7 +414,7 @@
       },
       "MOBILIZA": {
         "candidaturas": 558,
-        "com_receita": 558,
+        "com_receita": 550,
         "com_fefc": 153,
         "receitas": 10876964.19,
         "fefc": 2355873.0,
@@ -459,7 +459,7 @@
       },
       "PDT": {
         "candidaturas": 1084,
-        "com_receita": 1084,
+        "com_receita": 1071,
         "com_fefc": 837,
         "receitas": 180063187.49,
         "fefc": 121651898.86,
@@ -468,7 +468,7 @@
       },
       "PL": {
         "candidaturas": 1530,
-        "com_receita": 1530,
+        "com_receita": 1513,
         "com_fefc": 1402,
         "receitas": 898617466.88,
         "fefc": 667325331.02,
@@ -477,7 +477,7 @@
       },
       "PODE": {
         "candidaturas": 1201,
-        "com_receita": 1201,
+        "com_receita": 1188,
         "com_fefc": 963,
         "receitas": 293686230.31,
         "fefc": 221737550.61,
@@ -486,7 +486,7 @@
       },
       "PP": {
         "candidaturas": 673,
-        "com_receita": 673,
+        "com_receita": 663,
         "com_fefc": 597,
         "receitas": 467358107.26,
         "fefc": 373699858.06,
@@ -495,7 +495,7 @@
       },
       "PRD": {
         "candidaturas": 493,
-        "com_receita": 493,
+        "com_receita": 464,
         "com_fefc": 311,
         "receitas": 98966629.36,
         "fefc": 67046084.49,
@@ -504,7 +504,7 @@
       },
       "PSB": {
         "candidaturas": 926,
-        "com_receita": 926,
+        "com_receita": 915,
         "com_fefc": 820,
         "receitas": 203024481.08,
         "fefc": 136679157.34,
@@ -513,7 +513,7 @@
       },
       "PSD": {
         "candidaturas": 1061,
-        "com_receita": 1061,
+        "com_receita": 1046,
         "com_fefc": 896,
         "receitas": 504154327.11,
         "fefc": 324749611.2,
@@ -522,7 +522,7 @@
       },
       "PSDB": {
         "candidaturas": 1042,
-        "com_receita": 1042,
+        "com_receita": 1024,
         "com_fefc": 656,
         "receitas": 174146979.03,
         "fefc": 118430419.69,
@@ -531,7 +531,7 @@
       },
       "PSOL": {
         "candidaturas": 714,
-        "com_receita": 714,
+        "com_receita": 706,
         "com_fefc": 681,
         "receitas": 124605947.56,
         "fefc": 115922088.65,
@@ -549,7 +549,7 @@
       },
       "PT": {
         "candidaturas": 1035,
-        "com_receita": 1035,
+        "com_receita": 1017,
         "com_fefc": 962,
         "receitas": 489338172.22,
         "fefc": 389169550.13,
@@ -558,7 +558,7 @@
       },
       "PV": {
         "candidaturas": 226,
-        "com_receita": 226,
+        "com_receita": 222,
         "com_fefc": 176,
         "receitas": 65930849.42,
         "fefc": 44824500.97,
@@ -567,7 +567,7 @@
       },
       "REDE": {
         "candidaturas": 334,
-        "com_receita": 334,
+        "com_receita": 331,
         "com_fefc": 294,
         "receitas": 29650571.82,
         "fefc": 26918923.33,
@@ -576,7 +576,7 @@
       },
       "REPUBLICANOS": {
         "candidaturas": 1254,
-        "com_receita": 1254,
+        "com_receita": 1227,
         "com_fefc": 992,
         "receitas": 498836959.16,
         "fefc": 305553214.67,
@@ -585,7 +585,7 @@
       },
       "SOLIDARIEDADE": {
         "candidaturas": 521,
-        "com_receita": 521,
+        "com_receita": 497,
         "com_fefc": 386,
         "receitas": 95708769.05,
         "fefc": 86314254.55,
@@ -594,7 +594,7 @@
       },
       "UNIÃO": {
         "candidaturas": 809,
-        "com_receita": 809,
+        "com_receita": 804,
         "com_fefc": 726,
         "receitas": 595513400.92,
         "fefc": 474332753.94,
@@ -614,7 +614,7 @@
     "mulheres_por_raca": {
       "AMARELA": {
         "candidaturas": 41,
-        "com_receita": 41,
+        "com_receita": 40,
         "com_fefc": 29,
         "receitas": 7943946.52,
         "fefc": 6879079.29,
@@ -623,7 +623,7 @@
       },
       "BRANCA": {
         "candidaturas": 3254,
-        "com_receita": 3254,
+        "com_receita": 3203,
         "com_fefc": 2646,
         "receitas": 1021231121.06,
         "fefc": 818003683.79,
@@ -632,7 +632,7 @@
       },
       "INDÍGENA": {
         "candidaturas": 82,
-        "com_receita": 82,
+        "com_receita": 81,
         "com_fefc": 74,
         "receitas": 27557271.15,
         "fefc": 26128712.97,
@@ -650,7 +650,7 @@
       },
       "PARDA": {
         "candidaturas": 2380,
-        "com_receita": 2380,
+        "com_receita": 2332,
         "com_fefc": 1855,
         "receitas": 504702196.1,
         "fefc": 416296184.62,
@@ -659,7 +659,7 @@
       },
       "PRETA": {
         "candidaturas": 1196,
-        "com_receita": 1196,
+        "com_receita": 1180,
         "com_fefc": 975,
         "receitas": 258567834.63,
         "fefc": 221573666.83,
@@ -688,7 +688,7 @@
       },
       "MASCULINO": {
         "candidaturas": 426,
-        "com_receita": 426,
+        "com_receita": 420,
         "com_fefc": 312,
         "receitas": 1264565831.52,
         "fefc": 860081277.92,
@@ -697,7 +697,7 @@
       },
       "NÃO DIVULGÁVEL": {
         "candidaturas": 1,
-        "com_receita": 1,
+        "com_receita": 0,
         "com_fefc": 0,
         "receitas": 0.0,
         "fefc": 0.0,
@@ -717,7 +717,7 @@
       },
       "BRANCA": {
         "candidaturas": 321,
-        "com_receita": 321,
+        "com_receita": 318,
         "com_fefc": 257,
         "receitas": 1237261229.54,
         "fefc": 866190640.43,
@@ -735,7 +735,7 @@
       },
       "NÃO_CLASSIFICADA": {
         "candidaturas": 1,
-        "com_receita": 1,
+        "com_receita": 0,
         "com_fefc": 0,
         "receitas": 0.0,
         "fefc": 0.0,
@@ -744,7 +744,7 @@
       },
       "PARDA": {
         "candidaturas": 144,
-        "com_receita": 144,
+        "com_receita": 141,
         "com_fefc": 99,
         "receitas": 198159960.41,
         "fefc": 138651477.54,
@@ -764,7 +764,7 @@
     "por_cargo": {
       "GOVERNADOR": {
         "candidaturas": 201,
-        "com_receita": 201,
+        "com_receita": 197,
         "com_fefc": 153,
         "receitas": 634176677.02,
         "fefc": 438751065.89,
@@ -782,7 +782,7 @@
       },
       "SENADOR": {
         "candidaturas": 319,
-        "com_receita": 319,
+        "com_receita": 316,
         "com_fefc": 245,
         "receitas": 539408076.11,
         "fefc": 421799362.78,
@@ -847,7 +847,7 @@
       },
       "CE": {
         "candidaturas": 17,
-        "com_receita": 17,
+        "com_receita": 16,
         "com_fefc": 15,
         "receitas": 41975366.43,
         "fefc": 20789341.64,
@@ -856,7 +856,7 @@
       },
       "DF": {
         "candidaturas": 24,
-        "com_receita": 24,
+        "com_receita": 23,
         "com_fefc": 17,
         "receitas": 44550604.86,
         "fefc": 31960878.72,
@@ -892,7 +892,7 @@
       },
       "MG": {
         "candidaturas": 29,
-        "com_receita": 29,
+        "com_receita": 28,
         "com_fefc": 25,
         "receitas": 92196725.23,
         "fefc": 56827885.07,
@@ -910,7 +910,7 @@
       },
       "MT": {
         "candidaturas": 17,
-        "com_receita": 17,
+        "com_receita": 16,
         "com_fefc": 9,
         "receitas": 39606739.04,
         "fefc": 21565640.99,
@@ -919,7 +919,7 @@
       },
       "PA": {
         "candidaturas": 21,
-        "com_receita": 21,
+        "com_receita": 20,
         "com_fefc": 13,
         "receitas": 32384345.33,
         "fefc": 29766180.17,
@@ -973,7 +973,7 @@
       },
       "RN": {
         "candidaturas": 24,
-        "com_receita": 24,
+        "com_receita": 23,
         "com_fefc": 18,
         "receitas": 34938861.43,
         "fefc": 27430809.58,
@@ -1027,7 +1027,7 @@
       },
       "SP": {
         "candidaturas": 23,
-        "com_receita": 23,
+        "com_receita": 22,
         "com_fefc": 18,
         "receitas": 95291965.33,
         "fefc": 63582504.76,
@@ -1047,7 +1047,7 @@
     "por_partido": {
       "AGIR": {
         "candidaturas": 14,
-        "com_receita": 14,
+        "com_receita": 13,
         "com_fefc": 0,
         "receitas": 136825.98,
         "fefc": 0.0,
@@ -1074,7 +1074,7 @@
       },
       "DC": {
         "candidaturas": 30,
-        "com_receita": 30,
+        "com_receita": 28,
         "com_fefc": 2,
         "receitas": 2359572.62,
         "fefc": 1515000.0,
@@ -1101,7 +1101,7 @@
       },
       "MISSÃO": {
         "candidaturas": 16,
-        "com_receita": 16,
+        "com_receita": 15,
         "com_fefc": 13,
         "receitas": 4141904.75,
         "fefc": 1006000.0,
@@ -1119,7 +1119,7 @@
       },
       "NOVO": {
         "candidaturas": 22,
-        "com_receita": 22,
+        "com_receita": 21,
         "com_fefc": 15,
         "receitas": 27913764.83,
         "fefc": 3578611.01,
@@ -1191,7 +1191,7 @@
       },
       "PRTB": {
         "candidaturas": 6,
-        "com_receita": 6,
+        "com_receita": 5,
         "com_fefc": 4,
         "receitas": 2694869.49,
         "fefc": 2120247.96,
@@ -1218,7 +1218,7 @@
       },
       "PSDB": {
         "candidaturas": 18,
-        "com_receita": 18,
+        "com_receita": 17,
         "com_fefc": 15,
         "receitas": 58255255.75,
         "fefc": 36887500.0,
@@ -1366,7 +1366,7 @@
   },
   "titulares": {
     "candidaturas": 20065,
-    "com_receita": 20065,
+    "com_receita": 19665,
     "com_fefc": 14725,
     "receitas": 7021570001.15,
     "fefc": 5032571764.23,
@@ -1375,7 +1375,7 @@
     "por_genero": {
       "FEMININO": {
         "candidaturas": 7060,
-        "com_receita": 7060,
+        "com_receita": 6943,
         "com_fefc": 5674,
         "receitas": 2038564843.63,
         "fefc": 1672271447.53,
@@ -1384,7 +1384,7 @@
       },
       "MASCULINO": {
         "candidaturas": 13004,
-        "com_receita": 13004,
+        "com_receita": 12722,
         "com_fefc": 9051,
         "receitas": 4983005157.52,
         "fefc": 3360300316.7,
@@ -1393,7 +1393,7 @@
       },
       "NÃO DIVULGÁVEL": {
         "candidaturas": 1,
-        "com_receita": 1,
+        "com_receita": 0,
         "com_fefc": 0,
         "receitas": 0.0,
         "fefc": 0.0,
@@ -1404,7 +1404,7 @@
     "por_raca": {
       "AMARELA": {
         "candidaturas": 105,
-        "com_receita": 105,
+        "com_receita": 104,
         "com_fefc": 70,
         "receitas": 23782518.39,
         "fefc": 15164143.75,
@@ -1413,7 +1413,7 @@
       },
       "BRANCA": {
         "candidaturas": 10047,
-        "com_receita": 10047,
+        "com_receita": 9894,
         "com_fefc": 7518,
         "receitas": 4739955990.51,
         "fefc": 3289869929.73,
@@ -1422,7 +1422,7 @@
       },
       "INDÍGENA": {
         "candidaturas": 187,
-        "com_receita": 187,
+        "com_receita": 186,
         "com_fefc": 163,
         "receitas": 52218488.98,
         "fefc": 47123499.76,
@@ -1431,7 +1431,7 @@
       },
       "NÃO_CLASSIFICADA": {
         "candidaturas": 1,
-        "com_receita": 1,
+        "com_receita": 0,
         "com_fefc": 0,
         "receitas": 0.0,
         "fefc": 0.0,
@@ -1440,7 +1440,7 @@
       },
       "PARDA": {
         "candidaturas": 7003,
-        "com_receita": 7003,
+        "com_receita": 6834,
         "com_fefc": 4935,
         "receitas": 1691737945.15,
         "fefc": 1268907542.4,
@@ -1449,7 +1449,7 @@
       },
       "PRETA": {
         "candidaturas": 2722,
-        "com_receita": 2722,
+        "com_receita": 2647,
         "com_fefc": 2039,
         "receitas": 513875058.12,
         "fefc": 411506648.59,
@@ -1460,7 +1460,7 @@
     "por_cargo": {
       "DEPUTADO DISTRITAL": {
         "candidaturas": 433,
-        "com_receita": 433,
+        "com_receita": 427,
         "com_fefc": 316,
         "receitas": 53355904.29,
         "fefc": 23516647.58,
@@ -1469,7 +1469,7 @@
       },
       "DEPUTADO ESTADUAL": {
         "candidaturas": 11295,
-        "com_receita": 11295,
+        "com_receita": 11065,
         "com_fefc": 7795,
         "receitas": 1956634526.0,
         "fefc": 1182889026.55,
@@ -1478,7 +1478,7 @@
       },
       "DEPUTADO FEDERAL": {
         "candidaturas": 7803,
-        "com_receita": 7803,
+        "com_receita": 7646,
         "com_fefc": 6207,
         "receitas": 3528451265.17,
         "fefc": 2782694692.15,
@@ -1487,7 +1487,7 @@
       },
       "GOVERNADOR": {
         "candidaturas": 201,
-        "com_receita": 201,
+        "com_receita": 197,
         "com_fefc": 153,
         "receitas": 634176677.02,
         "fefc": 438751065.89,
@@ -1505,7 +1505,7 @@
       },
       "SENADOR": {
         "candidaturas": 319,
-        "com_receita": 319,
+        "com_receita": 316,
         "com_fefc": 245,
         "receitas": 539408076.11,
         "fefc": 421799362.78,
@@ -1516,7 +1516,7 @@
     "por_uf": {
       "AC": {
         "candidaturas": 363,
-        "com_receita": 363,
+        "com_receita": 345,
         "com_fefc": 202,
         "receitas": 112178991.74,
         "fefc": 90606916.06,
@@ -1525,7 +1525,7 @@
       },
       "AL": {
         "candidaturas": 273,
-        "com_receita": 273,
+        "com_receita": 245,
         "com_fefc": 173,
         "receitas": 124812881.62,
         "fefc": 98766137.66,
@@ -1534,7 +1534,7 @@
       },
       "AM": {
         "candidaturas": 449,
-        "com_receita": 449,
+        "com_receita": 446,
         "com_fefc": 335,
         "receitas": 172944702.46,
         "fefc": 122636660.92,
@@ -1543,7 +1543,7 @@
       },
       "AP": {
         "candidaturas": 299,
-        "com_receita": 299,
+        "com_receita": 294,
         "com_fefc": 228,
         "receitas": 121097047.28,
         "fefc": 97373379.5,
@@ -1552,7 +1552,7 @@
       },
       "BA": {
         "candidaturas": 1195,
-        "com_receita": 1195,
+        "com_receita": 1172,
         "com_fefc": 980,
         "receitas": 368471589.62,
         "fefc": 291180120.62,
@@ -1570,7 +1570,7 @@
       },
       "CE": {
         "candidaturas": 689,
-        "com_receita": 689,
+        "com_receita": 675,
         "com_fefc": 482,
         "receitas": 257684977.32,
         "fefc": 185928011.62,
@@ -1579,7 +1579,7 @@
       },
       "DF": {
         "candidaturas": 629,
-        "com_receita": 629,
+        "com_receita": 621,
         "com_fefc": 472,
         "receitas": 179202824.56,
         "fefc": 114332533.07,
@@ -1588,7 +1588,7 @@
       },
       "ES": {
         "candidaturas": 563,
-        "com_receita": 563,
+        "com_receita": 562,
         "com_fefc": 396,
         "receitas": 152958551.34,
         "fefc": 114416391.02,
@@ -1597,7 +1597,7 @@
       },
       "GO": {
         "candidaturas": 877,
-        "com_receita": 877,
+        "com_receita": 853,
         "com_fefc": 626,
         "receitas": 248264646.17,
         "fefc": 173785578.76,
@@ -1606,7 +1606,7 @@
       },
       "MA": {
         "candidaturas": 586,
-        "com_receita": 586,
+        "com_receita": 567,
         "com_fefc": 416,
         "receitas": 239461466.15,
         "fefc": 178462149.98,
@@ -1615,7 +1615,7 @@
       },
       "MG": {
         "candidaturas": 1783,
-        "com_receita": 1783,
+        "com_receita": 1724,
         "com_fefc": 1225,
         "receitas": 568183660.31,
         "fefc": 386901242.68,
@@ -1624,7 +1624,7 @@
       },
       "MS": {
         "candidaturas": 395,
-        "com_receita": 395,
+        "com_receita": 394,
         "com_fefc": 294,
         "receitas": 124855271.03,
         "fefc": 89260258.22,
@@ -1633,7 +1633,7 @@
       },
       "MT": {
         "candidaturas": 423,
-        "com_receita": 423,
+        "com_receita": 416,
         "com_fefc": 294,
         "receitas": 177632030.22,
         "fefc": 92198178.13,
@@ -1642,7 +1642,7 @@
       },
       "PA": {
         "candidaturas": 706,
-        "com_receita": 706,
+        "com_receita": 681,
         "com_fefc": 471,
         "receitas": 207416580.14,
         "fefc": 163896553.17,
@@ -1651,7 +1651,7 @@
       },
       "PB": {
         "candidaturas": 419,
-        "com_receita": 419,
+        "com_receita": 408,
         "com_fefc": 330,
         "receitas": 154372937.49,
         "fefc": 124540196.51,
@@ -1660,7 +1660,7 @@
       },
       "PE": {
         "candidaturas": 929,
-        "com_receita": 929,
+        "com_receita": 904,
         "com_fefc": 708,
         "receitas": 270377282.61,
         "fefc": 203857011.32,
@@ -1669,7 +1669,7 @@
       },
       "PI": {
         "candidaturas": 348,
-        "com_receita": 348,
+        "com_receita": 342,
         "com_fefc": 279,
         "receitas": 150896304.98,
         "fefc": 108200920.53,
@@ -1678,7 +1678,7 @@
       },
       "PR": {
         "candidaturas": 1062,
-        "com_receita": 1062,
+        "com_receita": 1035,
         "com_fefc": 900,
         "receitas": 374777111.48,
         "fefc": 248674764.26,
@@ -1687,7 +1687,7 @@
       },
       "RJ": {
         "candidaturas": 2007,
-        "com_receita": 2007,
+        "com_receita": 1976,
         "com_fefc": 1415,
         "receitas": 520315772.08,
         "fefc": 422795423.39,
@@ -1696,7 +1696,7 @@
       },
       "RN": {
         "candidaturas": 289,
-        "com_receita": 289,
+        "com_receita": 283,
         "com_fefc": 222,
         "receitas": 115433270.86,
         "fefc": 91345981.16,
@@ -1705,7 +1705,7 @@
       },
       "RO": {
         "candidaturas": 410,
-        "com_receita": 410,
+        "com_receita": 404,
         "com_fefc": 262,
         "receitas": 158392543.05,
         "fefc": 109533502.17,
@@ -1714,7 +1714,7 @@
       },
       "RR": {
         "candidaturas": 376,
-        "com_receita": 376,
+        "com_receita": 374,
         "com_fefc": 259,
         "receitas": 108403860.71,
         "fefc": 93335230.44,
@@ -1723,7 +1723,7 @@
       },
       "RS": {
         "candidaturas": 1021,
-        "com_receita": 1021,
+        "com_receita": 1013,
         "com_fefc": 834,
         "receitas": 332388347.74,
         "fefc": 258431499.07,
@@ -1732,7 +1732,7 @@
       },
       "SC": {
         "candidaturas": 666,
-        "com_receita": 666,
+        "com_receita": 660,
         "com_fefc": 573,
         "receitas": 225837058.44,
         "fefc": 153006514.82,
@@ -1741,7 +1741,7 @@
       },
       "SE": {
         "candidaturas": 380,
-        "com_receita": 380,
+        "com_receita": 371,
         "com_fefc": 284,
         "receitas": 130850384.57,
         "fefc": 98963503.93,
@@ -1750,7 +1750,7 @@
       },
       "SP": {
         "candidaturas": 2586,
-        "com_receita": 2586,
+        "com_receita": 2558,
         "com_fefc": 1831,
         "receitas": 983514844.93,
         "fefc": 647605666.58,
@@ -1770,7 +1770,7 @@
     "por_partido": {
       "AGIR": {
         "candidaturas": 446,
-        "com_receita": 446,
+        "com_receita": 424,
         "com_fefc": 129,
         "receitas": 13432895.83,
         "fefc": 2375331.05,
@@ -1779,7 +1779,7 @@
       },
       "AVANTE": {
         "candidaturas": 956,
-        "com_receita": 956,
+        "com_receita": 923,
         "com_fefc": 531,
         "receitas": 117877026.44,
         "fefc": 70720143.83,
@@ -1788,7 +1788,7 @@
       },
       "CIDADANIA": {
         "candidaturas": 151,
-        "com_receita": 151,
+        "com_receita": 150,
         "com_fefc": 126,
         "receitas": 45710868.59,
         "fefc": 42133138.52,
@@ -1797,7 +1797,7 @@
       },
       "DC": {
         "candidaturas": 727,
-        "com_receita": 727,
+        "com_receita": 659,
         "com_fefc": 97,
         "receitas": 7972676.4,
         "fefc": 3223985.82,
@@ -1806,7 +1806,7 @@
       },
       "DEMOCRATA": {
         "candidaturas": 429,
-        "com_receita": 429,
+        "com_receita": 400,
         "com_fefc": 3,
         "receitas": 6584992.28,
         "fefc": 3812.96,
@@ -1815,7 +1815,7 @@
       },
       "MDB": {
         "candidaturas": 1366,
-        "com_receita": 1366,
+        "com_receita": 1354,
         "com_fefc": 1092,
         "receitas": 557122399.19,
         "fefc": 410272737.99,
@@ -1824,7 +1824,7 @@
       },
       "MISSÃO": {
         "candidaturas": 525,
-        "com_receita": 525,
+        "com_receita": 516,
         "com_fefc": 465,
         "receitas": 9880344.53,
         "fefc": 3324077.86,
@@ -1833,7 +1833,7 @@
       },
       "MOBILIZA": {
         "candidaturas": 567,
-        "com_receita": 567,
+        "com_receita": 559,
         "com_fefc": 156,
         "receitas": 12386118.88,
         "fefc": 2495873.0,
@@ -1842,7 +1842,7 @@
       },
       "NOVO": {
         "candidaturas": 1269,
-        "com_receita": 1269,
+        "com_receita": 1268,
         "com_fefc": 797,
         "receitas": 150288680.08,
         "fefc": 36646925.52,
@@ -1878,7 +1878,7 @@
       },
       "PDT": {
         "candidaturas": 1095,
-        "com_receita": 1095,
+        "com_receita": 1082,
         "com_fefc": 847,
         "receitas": 242428650.78,
         "fefc": 169098265.36,
@@ -1887,7 +1887,7 @@
       },
       "PL": {
         "candidaturas": 1577,
-        "com_receita": 1577,
+        "com_receita": 1560,
         "com_fefc": 1446,
         "receitas": 1260116219.14,
         "fefc": 894003695.56,
@@ -1896,7 +1896,7 @@
       },
       "PODE": {
         "candidaturas": 1209,
-        "com_receita": 1209,
+        "com_receita": 1196,
         "com_fefc": 971,
         "receitas": 322292672.07,
         "fefc": 247825498.97,
@@ -1905,7 +1905,7 @@
       },
       "PP": {
         "candidaturas": 688,
-        "com_receita": 688,
+        "com_receita": 678,
         "com_fefc": 612,
         "receitas": 547571308.38,
         "fefc": 428417133.91,
@@ -1914,7 +1914,7 @@
       },
       "PRD": {
         "candidaturas": 498,
-        "com_receita": 498,
+        "com_receita": 469,
         "com_fefc": 312,
         "receitas": 102422242.85,
         "fefc": 70046084.49,
@@ -1923,7 +1923,7 @@
       },
       "PRTB": {
         "candidaturas": 6,
-        "com_receita": 6,
+        "com_receita": 5,
         "com_fefc": 4,
         "receitas": 2694869.49,
         "fefc": 2120247.96,
@@ -1932,7 +1932,7 @@
       },
       "PSB": {
         "candidaturas": 941,
-        "com_receita": 941,
+        "com_receita": 930,
         "com_fefc": 831,
         "receitas": 237447611.49,
         "fefc": 158262833.32,
@@ -1941,7 +1941,7 @@
       },
       "PSD": {
         "candidaturas": 1090,
-        "com_receita": 1090,
+        "com_receita": 1075,
         "com_fefc": 922,
         "receitas": 674430073.32,
         "fefc": 442151431.98,
@@ -1950,7 +1950,7 @@
       },
       "PSDB": {
         "candidaturas": 1060,
-        "com_receita": 1060,
+        "com_receita": 1041,
         "com_fefc": 671,
         "receitas": 232402234.78,
         "fefc": 155317919.69,
@@ -1959,7 +1959,7 @@
       },
       "PSOL": {
         "candidaturas": 745,
-        "com_receita": 745,
+        "com_receita": 737,
         "com_fefc": 711,
         "receitas": 139526145.11,
         "fefc": 129067346.87,
@@ -1977,7 +1977,7 @@
       },
       "PT": {
         "candidaturas": 1067,
-        "com_receita": 1067,
+        "com_receita": 1049,
         "com_fefc": 994,
         "receitas": 778057505.32,
         "fefc": 636534609.69,
@@ -1986,7 +1986,7 @@
       },
       "PV": {
         "candidaturas": 228,
-        "com_receita": 228,
+        "com_receita": 224,
         "com_fefc": 178,
         "receitas": 66296766.92,
         "fefc": 45134118.47,
@@ -1995,7 +1995,7 @@
       },
       "REDE": {
         "candidaturas": 341,
-        "com_receita": 341,
+        "com_receita": 338,
         "com_fefc": 298,
         "receitas": 36529746.0,
         "fefc": 31682736.76,
@@ -2004,7 +2004,7 @@
       },
       "REPUBLICANOS": {
         "candidaturas": 1274,
-        "com_receita": 1274,
+        "com_receita": 1247,
         "com_fefc": 1012,
         "receitas": 601578352.0,
         "fefc": 363367227.13,
@@ -2013,7 +2013,7 @@
       },
       "SOLIDARIEDADE": {
         "candidaturas": 524,
-        "com_receita": 524,
+        "com_receita": 500,
         "com_fefc": 386,
         "receitas": 95912007.45,
         "fefc": 86314254.55,
@@ -2022,7 +2022,7 @@
       },
       "UNIÃO": {
         "candidaturas": 825,
-        "com_receita": 825,
+        "com_receita": 820,
         "com_fefc": 742,
         "receitas": 676835140.74,
         "fefc": 533294491.11,
@@ -2042,7 +2042,7 @@
     "mulheres_por_raca": {
       "AMARELA": {
         "candidaturas": 42,
-        "com_receita": 42,
+        "com_receita": 41,
         "com_fefc": 30,
         "receitas": 7979907.03,
         "fefc": 6897279.8,
@@ -2051,7 +2051,7 @@
       },
       "BRANCA": {
         "candidaturas": 3319,
-        "com_receita": 3319,
+        "com_receita": 3268,
         "com_fefc": 2708,
         "receitas": 1199103913.12,
         "fefc": 965335019.17,
@@ -2060,7 +2060,7 @@
       },
       "INDÍGENA": {
         "candidaturas": 82,
-        "com_receita": 82,
+        "com_receita": 81,
         "com_fefc": 74,
         "receitas": 27557271.15,
         "fefc": 26128712.97,
@@ -2078,7 +2078,7 @@
       },
       "PARDA": {
         "candidaturas": 2404,
-        "com_receita": 2404,
+        "com_receita": 2356,
         "com_fefc": 1872,
         "receitas": 528741022.26,
         "fefc": 438756390.84,
@@ -2087,7 +2087,7 @@
       },
       "PRETA": {
         "candidaturas": 1213,
-        "com_receita": 1213,
+        "com_receita": 1197,
         "com_fefc": 990,
         "receitas": 275182730.07,
         "fefc": 235154044.75,
@@ -2096,8 +2096,12 @@
       }
     },
     "situacao_prestacao": {
-      "OUTRA": 20065
-    }
+      "FINAL": 19383,
+      "PARCIAL": 186,
+      "RELATÓRIO FINANCEIRO": 96
+    },
+    "candidaturas_com_varios_tipos_prestacao": 0,
+    "candidaturas_sem_tipo_prestacao": 0
   },
   "eleicao": {
     "eleitos_titulares": 1622,
