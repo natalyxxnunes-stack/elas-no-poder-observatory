@@ -1,0 +1,235 @@
+name: Auditoria TSE 2026 — coleta isolada
+
+on:
+  push:
+    branches:
+      - auditoria-tse-2026-11-17
+    paths:
+      - .github/workflows/auditoria-tse-2026.yml
+      - scripts/auditoria/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/auditoria-tse-2026.yml
+      - scripts/auditoria/**
+
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Testar vínculos financeiros e integridade com dados sintéticos
+        run: python scripts/auditoria/test_tse_2026_rodada.py
+
+  auditoria:
+    needs: testes
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Baixar dois arquivos diretamente da CDN oficial do TSE
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/tse"
+          curl --fail --location --silent --show-error --retry 3 --connect-timeout 30 --max-time 900 \
+            "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2026.zip" \
+            -o "$RUNNER_TEMP/tse/consulta_cand_2026.zip"
+          curl --fail --location --silent --show-error --retry 3 --connect-timeout 30 --max-time 900 \
+            "https://cdn.tse.jus.br/estatistica/sead/odsele/prestacao_contas/prestacao_de_contas_eleitorais_candidatos_2026.zip" \
+            -o "$RUNNER_TEMP/tse/prestacao_de_contas_eleitorais_candidatos_2026.zip"
+          unzip -tqq "$RUNNER_TEMP/tse/consulta_cand_2026.zip"
+          unzip -tqq "$RUNNER_TEMP/tse/prestacao_de_contas_eleitorais_candidatos_2026.zip"
+      - name: Recontar e produzir diferenças contra base de 15/11
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/auditoria/tse_2026_rodada.py \
+            "$RUNNER_TEMP/tse/consulta_cand_2026.zip" \
+            "$RUNNER_TEMP/tse/prestacao_de_contas_eleitorais_candidatos_2026.zip" \
+            "docs/auditorias/tse-2026-11-17/execucao-github"
+      - name: Classificar cortes e registrar ressalvas antes de integrar
+        shell: bash
+        run: |
+          python - <<'PY'
+          import datetime, json, pathlib
+          p=pathlib.Path("docs/auditorias/tse-2026-11-17/execucao-github/manifest.json")
+          d=json.loads(p.read_text(encoding="utf-8"))
+          cortes={"candidaturas": d["candidaturas"].get("gerado_em",""),
+                  "receitas": d["contas"].get("receitas",{}).get("gerado_em","")}
+          ins=[]
+          for nome, txt in cortes.items():
+              try:
+                  data=datetime.datetime.strptime(txt.split()[0],"%d/%m/%Y").date()
+                  if data<=datetime.date(2026,11,16):
+                      ins.append(f"{nome} gerado até 16/11/2026: {txt}; precisa de corte mais recente")
+              except Exception:
+                  ins.append(f"{nome}: data de geração ilegível {txt!r}")
+          d["pendencias_corte"]=ins
+          d["status"]="CORTE_ANTIGO_OU_INDETERMINADO" if ins else "BASES_POSTERIORES_A_16_11_PENDENTES_DE_HOMOLOGACAO"
+          if d.get("divergencias_totalizacao"):
+              d["status"]="FINANCEIRO_POS_16_11_RESULTADO_ELEITORAL_INCOMPLETO"
+              d["pendencias_corte"].append("Não usar resultado eleitoral desta base para substituir as 1.572 vagas proporcionais: totalização incompleta.")
+          p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          report=pathlib.Path("docs/auditorias/tse-2026-11-17/execucao-github/relatorio.md")
+          report.write_text("# Auditoria TSE 2026 — coleta automatizada no GitHub\n\n"+
+              "**Status: "+d["status"]+"**. Nenhum indicador do site foi alterado.\n\n"+
+              "Candidaturas: "+cortes["candidaturas"]+"\n\nReceitas: "+cortes["receitas"]+"\n\n"+
+              ("\n".join("- "+v for v in ins) if ins else "Cortes posteriores a 16/11 identificados.")+
+              "\n\nVer manifest.json, indicadores.json e deltas.json para reprodução.\n",encoding="utf-8")
+          PY
+      - name: Disponibilizar agregados para conferência sem publicar
+        uses: actions/upload-artifact@v4
+        with:
+          name: auditoria-tse-2026-agregados
+          path: docs/auditorias/tse-2026-11-17/execucao-github/
+          retention-days: 7
+
+
+  metodo_publicado:
+    needs: auditoria
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Obter novamente arquivos oficiais para recontagem conforme scripts originais
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/tse/originais"
+          curl --fail --location --silent --show-error --retry 3 --connect-timeout 30 --max-time 900 \
+            "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2026.zip" \
+            -o "$RUNNER_TEMP/tse/cand.zip"
+          curl --fail --location --silent --show-error --retry 3 --connect-timeout 30 --max-time 900 \
+            "https://cdn.tse.jus.br/estatistica/sead/odsele/prestacao_contas/prestacao_de_contas_eleitorais_candidatos_2026.zip" \
+            -o "$RUNNER_TEMP/tse/contas.zip"
+          python - <<'PY'
+          import os,zipfile,pathlib,shutil,hashlib
+          root=pathlib.Path(os.environ["RUNNER_TEMP"])/"tse"
+          arqs=[
+            ("cand.zip","consulta_cand_2026_BRASIL.csv"),
+            ("contas.zip","receitas_candidatos_2026_BRASIL.csv"),
+            ("contas.zip","despesas_contratadas_candidatos_2026_BRASIL.csv"),
+            ("contas.zip","despesas_pagas_candidatos_2026_BRASIL.csv"),
+            ("contas.zip","receitas_candidatos_doador_originario_2026_BRASIL.csv")
+          ]
+          for z,n in arqs:
+              with zipfile.ZipFile(root/z) as arc:
+                  files=[x for x in arc.namelist() if pathlib.Path(x).name.lower()==n.lower()]
+                  if len(files)!=1:raise ValueError((n,files))
+                  with arc.open(files[0]) as src,(root/"originais"/n).open("wb") as dst:shutil.copyfileobj(src,dst)
+              print("Extraído",n)
+          PY
+      - name: Executar recontagens originais sem publicar dados individuais
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p docs/auditorias/tse-2026-11-17/metodo-publicado
+          O="$RUNNER_TEMP/tse/originais"
+          S="docs/auditorias/tse-2026-11-17/metodo-publicado"
+          python -I scripts/recontagem/dinheiro_2026.py "$O/receitas_candidatos_2026_BRASIL.csv" "$O/consulta_cand_2026_BRASIL.csv" \
+            > "$RUNNER_TEMP/tse/receitas-raw.json"
+          python - <<'PY'
+          import os,json,pathlib
+          p=pathlib.Path(os.environ["RUNNER_TEMP"])/"tse/receitas-raw.json"
+          j=json.loads(p.read_text())
+          j.pop("candidatasMajoritarias",None)
+          pathlib.Path("docs/auditorias/tse-2026-11-17/metodo-publicado/receitas-agregadas.json").write_text(json.dumps(j,ensure_ascii=False,indent=2)+"\n")
+          p.unlink()
+          print("Receitas agregadas processadas",j["rowsProcessed"],"linhas",j["tiposPrestacao"])
+          PY
+          python -I scripts/recontagem/fefc_partidos_2026.py "$O/receitas_candidatos_2026_BRASIL.csv" "$O/consulta_cand_2026_BRASIL.csv" \
+            > "$S/fefc-titulares.json"
+          python -I scripts/recontagem/fefc_partidos_2026.py "$O/receitas_candidatos_2026_BRASIL.csv" "$O/consulta_cand_2026_BRASIL.csv" proporcional \
+            > "$S/fefc-proporcional.json"
+          python -I scripts/recontagem/despesas_doadores_2026.py "$O" "$O/consulta_cand_2026_BRASIL.csv" \
+            > "$S/despesas-agregadas.json"
+      - uses: actions/download-artifact@v4
+        with:
+          name: auditoria-tse-2026-agregados
+          path: ${{ runner.temp }}/agregado
+      - name: Confrontar scripts originais e recontagem independente
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,os,pathlib
+          ref=pathlib.Path(os.environ["RUNNER_TEMP"])/"agregado"
+          cur=json.loads((ref/"indicadores.json").read_text())
+          arc=pathlib.Path("docs/auditorias/tse-2026-11-17/metodo-publicado")
+          rev=json.loads((arc/"receitas-agregadas.json").read_text())
+          tit=json.loads((arc/"fefc-titulares.json").read_text())
+          prop=json.loads((arc/"fefc-proporcional.json").read_text())
+          despesas=json.loads((arc/"despesas-agregadas.json").read_text())
+          d={}
+          def v(nome,x,y,tol=0.25):
+              dif=round(x-y,2);d[nome]={"original":round(x,2),"auditoria":round(y,2),"dif":dif,"tolerancia":tol}
+              if abs(dif)>tol:raise ValueError("Divergência "+nome+" "+str(d[nome]))
+          for u in ("proporcional","majoritario"):
+              v("receitas_"+u,rev["universes"][u]["totalRevenue"],cur[u]["receitas"])
+              v("receitas_mulheres_"+u,rev["universes"][u]["feminineRevenue"],cur[u]["por_genero"]["FEMININO"]["receitas"])
+              for g in ("FEMININO","MASCULINO"):
+                  vg=despesas[u][g]
+                  v("despesas_contratadas_"+u+"_"+g,vg["contratadoTotal"],cur[u]["por_genero"][g]["despesas_contratadas"],1.0)
+                  v("despesas_pagas_"+u+"_"+g,sum(vg["pagoPorFonte"].values()),cur[u]["por_genero"][g]["despesas_pagas"],1.0)
+          for u,old in (("titulares",tit),("proporcional",prop)):
+              v("fefc_"+u,old["total"]["fefc"],cur[u]["fefc"],1.0)
+          for u in ("proporcional","majoritario"):
+              if rev["universes"][u]["candidaciesWithRevenue"]!=cur[u]["com_receita"]:
+                  raise ValueError("Candidaturas com receita não reconciliadas: "+u)
+          report={"status":"CONFERIDO_POR_SCRIPT_ORIGINAL","comparacoes":d,"ressalvas":["Resultado eleitoral de 17/11 incompleto: não substituir 342 titulares eleitas.","Não afirmar julgamento das contas com base em TP_PRESTACAO_CONTAS."]}
+          (arc/"reconciliacao.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
+          print("CONFERÊNCIA ORIGINAL",len(d),"indicadores")
+          PY
+      - name: Arquivar recontagens originais para revisão, sem dados pessoais
+        uses: actions/upload-artifact@v4
+        with:
+          name: auditoria-tse-2026-metodo-publicado
+          path: docs/auditorias/tse-2026-11-17/metodo-publicado/
+          retention-days: 7
+
+  registrar:
+    needs: [auditoria, metodo_publicado]
+    if: github.event_name == 'push'
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: auditoria-tse-2026-11-17
+      - uses: actions/download-artifact@v4
+        with:
+          name: auditoria-tse-2026-agregados
+          path: docs/auditorias/tse-2026-11-17/execucao-github/
+      - uses: actions/download-artifact@v4
+        with:
+          name: auditoria-tse-2026-metodo-publicado
+          path: docs/auditorias/tse-2026-11-17/metodo-publicado/
+      - name: Versionar somente agregados na branch de auditoria
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add docs/auditorias/tse-2026-11-17/execucao-github/
+          if ! git diff --staged --quiet; then
+            git commit -m "audit(tse): registrar hashes e agregados sem publicar"
+            git push origin HEAD:auditoria-tse-2026-11-17
+          fi
