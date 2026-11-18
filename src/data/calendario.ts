@@ -26,9 +26,13 @@ const TSE = {
   nome: "TSE, principais datas do calendário eleitoral de 2026",
   url: "https://www.tse.jus.br/comunicacao/noticias/2026/Marco/eleicoes-2026-confira-as-principais-datas-do-calendario-eleitoral",
 };
+const TSE_PRORROGACAO = {
+  nome: "TSE, prorrogação do prazo de prestação de contas do segundo turno (Portaria nº 741/2026)",
+  url: "https://www.tse.jus.br/comunicacao/noticias/2026/Novembro/prazo-para-prestar-contas-relativas-ao-2-turno-e-adiado-para-16-de-novembro",
+};
 const CF = { nome: "Constituição Federal", url: "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" };
 
-export const CALENDARIO_META = { conferidoEm: "04/11/2026" } as const;
+export const CALENDARIO_META = { conferidoEm: "17/11/2026" } as const;
 
 export const CALENDARIO: readonly DataCalendario[] = [
   {
@@ -40,11 +44,11 @@ export const CALENDARIO: readonly DataCalendario[] = [
     pauta: "Dinheiro refeito com a prestação final: receita, fundo por partido, gênero e cor/raça.",
   },
   {
-    data: "2026-11-14",
+    data: "2026-11-16",
     tipo: "eleitoral",
     titulo: "Prestação de contas final do 2º turno",
-    explica: "Prazo das contas de quem disputou o 2º turno e da devolução de sobras de campanha.",
-    fonte: SENADO,
+    explica: "Prazo prorrogado para 16/11/2026 pela Portaria TSE nº 741/2026. Substitui a data de 14/11 divulgada no calendário inicial; registro sujeito a atualizações ou retificações.",
+    fonte: TSE_PRORROGACAO,
     pauta: "Receita das candidatas a governo que foram ao 2º turno, com a conta final.",
   },
   {
