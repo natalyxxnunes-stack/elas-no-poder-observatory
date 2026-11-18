@@ -53,7 +53,8 @@ O prazo de apresentação das contas finais relativas ao segundo turno foi prorr
 - [x] Camadas de receita, FEFC e despesas apontam para 17/11.
 - [x] Textos correntes de Dinheiro, Partidos, Achados, Método e Calendário revisados.
 - [x] Dados de resultado eleitoral íntegro preservados.
-- [ ] Conferir conclusão do lint e checklist de qualidade editorial.
+- [x] Testes de integridade, build estático HostGator e lint do escopo alterado aprovados no GitHub Actions, execução [44217755988](https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/actions/runs/44217755988). O lint global, pré-existente, acusa problemas de formatação fora do escopo e não foi usado como bloqueio desta revisão.
+- [ ] Homologação visual das páginas efetivamente afetadas e conferência editorial final.
 - [ ] Aprovação explícita para integrar na branch `main`.
 - [ ] Gerar pacote estático e publicar na HostGator por procedimento habitual, após backup.
 
