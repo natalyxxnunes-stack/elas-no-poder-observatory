@@ -42,7 +42,7 @@ export const Route = createFileRoute("/dinheiro")({
       {
         name: "description",
         content:
-          "Receitas declaradas nas campanhas de 2026 por gênero, cor/raça, cargo, partido e UF, com cobertura, denominadores e limites da base de declarações de 15/11, após o prazo do 2º turno.",
+          "Receitas declaradas nas campanhas de 2026 por gênero, cor/raça, cargo, partido e UF, com cobertura, denominadores e limites da base de declarações de 17/11, após o prazo do 2º turno.",
       },
       {
         property: "og:title",
@@ -50,7 +50,7 @@ export const Route = createFileRoute("/dinheiro")({
       },
       {
         property: "og:description",
-        content: `Receitas declaradas pelas candidaturas de mulheres na base de declarações de 15/11, após o prazo do 2º turno, por cargo, cor/raça, partido e UF. Fotografia de ${FINANCE_BASE_LABEL}.`,
+        content: `Receitas declaradas pelas candidaturas de mulheres na base de declarações de 17/11, após o prazo do 2º turno, por cargo, cor/raça, partido e UF. Fotografia de ${FINANCE_BASE_LABEL}.`,
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -126,7 +126,7 @@ function DinheiroPage() {
           </p>
         }
         layers={MONEY_LAYERS.map((layer) => layer.label)}
-        gap="Contas declaradas no TSE em 15/11 · receitas, não despesas · 195 candidaturas com prestação parcial e 102 com relatório financeiro"
+        gap="Contas declaradas no TSE em 17/11 · receitas, não despesas · 186 candidaturas com prestação parcial e 96 com relatório financeiro"
         snapshot={financeSnapshot}
       />
 
@@ -176,8 +176,8 @@ function DinheiroPage() {
             Só no Senado as mulheres recebem mais do que a presença delas (25,6% da receita, 22,2%
             das candidaturas com receita). Nas assembleias legislativas, quase empatam (34,8% e
             34,9%). Nas outras, recebem menos: Câmara dos Deputados (31,8% e 36,9%), Câmara
-            Legislativa do DF (29,9% e 35,4%) e governos estaduais (12,2% e 17,8%). Na Presidência,
-            as mulheres são 2 das 13 candidaturas com receita; com base tão pequena, a fatia delas
+            Legislativa do DF (29,9% e 35,4%) e governos estaduais (12,3% e 17,8%). Na Presidência,
+            as mulheres são 2 das 14 candidaturas com receita; com base tão pequena, a fatia delas
             no dinheiro não vira percentual aqui.
           </p>
         }
@@ -287,7 +287,7 @@ function DinheiroPage() {
               percentuais de universos tão pequenos exigem cautela. A conta com todos os cargos
               depende ainda de como se atribui o dinheiro das chapas de governo e Senado.
               Somando governo, Senado e Presidência, a fatia das mulheres no fundo fica em
-              33,2%. Os valores vêm da extração de 15/11/2026, após o prazo final do segundo
+              33,2%. Os valores vêm da extração de 17/11/2026, após o prazo final do segundo
               turno, e medem o FEFC recebido pelas candidaturas, não o cumprimento legal das cotas.
               Para essa verificação, o TSE usa o universo e os percentuais oficiais de distribuição
               dos partidos e examina as contas correspondentes.
@@ -300,8 +300,8 @@ function DinheiroPage() {
             <FefcPartidos />
           </Desdobra>
           <p className="mt-5 max-w-3xl border-t border-rule pt-4 text-[13px] leading-relaxed text-ink/80">
-            Base de 15/11/2026, gerada após o prazo final do 2º turno: 195 candidaturas
-            ainda constam com prestação parcial e 102 com relatório financeiro.
+            Base de 17/11/2026, gerada após o prazo final do 2º turno: 186 candidaturas
+            ainda constam com prestação parcial e 96 com relatório financeiro.
             São registros declarados e sujeitos a atualização e julgamento.
             Esta tabela não verifica, isoladamente, cumprimento ou infração de cotas legais.
           </p>
@@ -317,9 +317,9 @@ function DinheiroPage() {
         lead={
           <p>
             As campanhas de candidatas a deputada dependem mais do fundo público que as de homens:
-            84,3% do que elas pagaram saiu do fundo eleitoral, contra 69,3% entre os homens. A
-            dependência é maior entre as pretas (88,1%) e as pardas (85,8%) do que entre as brancas
-            (82,3%). Os homens brancos são o grupo com mais dinheiro de outras fontes: só 66,5% do
+            84,3% do que elas pagaram saiu do fundo eleitoral, contra 69,2% entre os homens. A
+            dependência é maior entre as pretas (88,2%) e as pardas (85,8%) do que entre as brancas
+            (82,3%). Os homens brancos são o grupo com mais dinheiro de outras fontes: só 66,4% do
             que pagaram veio do fundo. Dinheiro privado chega mais a eles.
           </p>
         }
@@ -331,7 +331,7 @@ function DinheiroPage() {
         </div>
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground">
           Vaquinhas: candidatas brancas usaram mais (9,9% delas) do que pardas (4,2%) e pretas
-          (8,4%). Somadas, as vaquinhas das candidatas a deputada arrecadaram R$ 3,2 milhões, 24% do
+          (8,5%). Somadas, as vaquinhas das candidatas a deputada arrecadaram R$ 3,2 milhões, 24% do
           total arrecadado assim para deputado, com as mulheres sendo 35,6% das candidaturas. Na
           mediana, quem usou vaquinha recebeu de 15 ou 16 pessoas.
         </p>
@@ -412,8 +412,8 @@ function DinheiroPage() {
         }
         limites={[
           "Despesas contratadas e pagas e o doador originário do financiamento coletivo entram desde 28/10, na seção sobre gasto e vaquinhas.",
-          "Entre as 19.660 candidaturas com receita nos seis cargos, 19.363 constam com prestação FINAL, 195 PARCIAL e 102 RELATÓRIO FINANCEIRO na extração de 15/11; tipo de prestação não equivale à aprovação das contas.",
-          "Base financeira de 15/11/2026 e cadastro de candidaturas de 15/11/2026, após o prazo final do 2º turno (14/11). Os registros ainda podem ser complementados ou retificados e as contas estão sujeitas a julgamento. Fotografias anteriores de 13/11, 04/11, 27/10 e 25/09 ficam preservadas no histórico.",
+          "Entre as 19.665 candidaturas com receita nos seis cargos, 19.383 constam com prestação FINAL, 186 PARCIAL e 96 RELATÓRIO FINANCEIRO na extração de 17/11; tipo de prestação não equivale à aprovação das contas.",
+          "Base financeira de 17/11/2026 e cadastro de candidaturas de 17/11/2026, após o prazo final do 2º turno (16/11). Os registros ainda podem ser complementados ou retificados e as contas estão sujeitas a julgamento. Fotografias anteriores de 15/11, 13/11, 04/11, 27/10 e 25/09 ficam preservadas no histórico.",
           "Os percentuais que o TSE usa para distribuir o Fundo Partidário e o FEFC (divulgados em 21/08/2026) partem de outro universo: 20.560 candidaturas com pedido aceito até 18/08/2026, fixado para esse fim. Por isso diferem dos números deste site, que acompanham o registro atualizado.",
           "Titularidade e suplência ficam para a próxima fase. A relação entre dinheiro e reeleição está em Como votaram; índice de competitividade não entra no site.",
         ]}

@@ -134,7 +134,7 @@ export const DICIONARIO: readonly CampoDicionario[] = [
     oQueE:
       "Valor, fonte (fundo eleitoral, fundo partidário, outros recursos) e origem de cada receita declarada.",
     comoUsamos:
-      "Receita por candidatura, fundo eleitoral por partido e por cor/raça. Declarações de receita de 15/11/2026, após o prazo de entrega do 2º turno; base sujeita a complementações, retificações e julgamento.",
+      "Receita por candidatura, fundo eleitoral por partido e por cor/raça. Declarações da base financeira de 17/11/2026, posterior ao prazo de 16/11, cruzadas com cadastro de candidaturas de 17/11. Contas ainda sujeitas a retificações e julgamento. A base eleitoral de resultados mantém o corte íntegro de 27/10.",
     publicado: true,
   },
   {
@@ -184,6 +184,14 @@ export type Correcao = {
  * apareceu. Toda nova correção entra aqui e no lugar do erro, no mesmo commit.
  */
 export const CORRECOES: readonly Correcao[] = [
+  {
+    data: "17/11/2026",
+    pagina: "Dinheiro, Partido por partido, Achados, Método e Calendário",
+    to: "/dinheiro",
+    tipo: "dado",
+    oQueMudou:
+      "A receita, o FEFC e as despesas foram reprocessados com a prestação de contas de 17/11/2026 (receitas às 09h03, despesas contratadas às 04h05 e pagas às 04h05) e cadastro de candidaturas do mesmo dia (19h31). Candidaturas titulares com receita: 19.665; FINAL: 19.383; PARCIAL: 186; RELATÓRIO FINANCEIRO: 96. Receitas de todas as candidaturas titulares: R$ 7.021.570.001,15; recebidas pelas mulheres: R$ 2.038.564.843,63. FEFC das titulares: R$ 5.032.571.764,23; mulheres: R$ 1.672.271.447,53. Os percentuais financeiros mudaram pontualmente, mas o arredondamento da participação das brancas na receita feminina proporcional segue em 56,1%. O TSE prorrogou o prazo das contas do 2º turno de 14 para 16/11. A fotografia dos resultados de 17/11 está incompleta em Rondônia e não substituiu os números eleitorais validados de 27/10. Métodos, hashes, arquivos e conciliação no repositório, pasta financiamento-2026-17nov. Tipo de prestação não equivale a contas aprovadas.",
+  },
   {
     data: "15/11/2026",
     pagina: "Quem chega, Achado 12, Poder e capa",

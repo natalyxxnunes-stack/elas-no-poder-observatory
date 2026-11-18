@@ -829,7 +829,7 @@ function PartidosPage() {
           </>
         }
         limites={[
-          "O FEFC utiliza a base de 15/11/2026; parte das contas não estava em situação final. Os valores declarados podem ser retificados e precisam ser distinguidos dos gastos realizados pelo partido.",
+          "O FEFC utiliza a base de 17/11/2026, posterior ao prazo final de 16/11; ainda há contas parciais e relatórios financeiros. Os valores declarados podem ser retificados e precisam ser distinguidos dos gastos realizados pelo partido.",
           "O voto em plenário usa a sigla da data do voto; as eleitas, a sigla do registro em 2026.",
           "Cor/raça é autodeclarada ao TSE; o arquivo não registra identidade trans ou travesti.",
         ]}

@@ -1,0 +1,489 @@
+{
+  "sha256": {
+    "contratadas": "f185717ac6ffba0b04dfa5be56435e75a6071b19f570999232a5e49548bcfe9c",
+    "pagas": "f57eddcdbf270f4d03a8dce53e95aefff1e9d1900cf3c1d76f209eeddb820b6d",
+    "receitas": "5c9b1e0456a8aa75bdecc5ac7ffc2bb52d4bbaa0099ec675a13b6ab73c0e04ba",
+    "doador": "8839c0ef0d63945f714a5ab57767e3aec4eba04baaa58614c64b658eff8c9be3"
+  },
+  "proporcional": {
+    "FEMININO": {
+      "candidaturas": 6953,
+      "contratadoTotal": 1674437832.14,
+      "contratadoPorTipo": {
+        "Publicidade por materiais impressos": 323514552.96,
+        "Atividades de militância e mobilização de rua": 295208917.28,
+        "Despesas com pessoal": 213060454.11,
+        "Serviços prestados por terceiros": 210397392.82,
+        "Despesa com Impulsionamento de Conteúdos": 142855739.2,
+        "Publicidade por adesivos": 76085880.9,
+        "Serviços advocatícios": 71418771.46,
+        "Cessão ou locação de veículos": 59117570.22,
+        "Diversas a especificar": 41915628.8,
+        "Serviços contábeis": 41600854.69,
+        "Produção de programas de rádio, televisão ou vídeo": 35585398.34,
+        "Combustíveis e lubrificantes": 26159811.91,
+        "Locação/cessão de bens imóveis": 19196402.61,
+        "Doações financeiras a outros candidatos/partidos": 17125357.87,
+        "Despesas com transporte ou deslocamento": 11988564.36,
+        "Serviços próprios prestados por terceiros": 11033971.56,
+        "Eventos de promoção da candidatura": 10822722.85,
+        "Publicidade por carros de som": 9354996.4,
+        "Produção de jingles, vinhetas e slogans": 9264814.58,
+        "Correspondências e despesas postais": 9258962.17,
+        "Alimentação": 8417103.9,
+        "Criação e inclusão de páginas na internet": 6213718.69,
+        "Locação/cessão de bens móveis (exceto veículos)": 5846834.19,
+        "Publicidade por jornais e revistas": 4949887.15,
+        "Pesquisas ou testes eleitorais": 3966907.03,
+        "Comícios": 2997341.95,
+        "Materiais de expediente": 2096707.18,
+        "Pré-instalação física de comitê de campanha": 1470589.4,
+        "Água": 968185.27,
+        "Despesas com Hospedagem": 572365.89,
+        "Encargos financeiros, taxas bancárias e/ou op. cartão de crédito": 569336.71,
+        "Segurança e prevenção, repressão e combate à violência política": 517814.44,
+        "Aquisição/Doação de bens móveis ou imóveis": 355706.03,
+        "Passagem Aérea": 124294.14,
+        "Energia elétrica": 117903.97,
+        "Taxa de Administração de Financiamento Coletivo": 76951.02,
+        "Impostos, contribuições e taxas": 67457.13,
+        "Despesa com geradores de energia": 55887.16,
+        "Multas eleitorais": 53050.0,
+        "Telefone": 13612.77,
+        "Encargos sociais": 10921.06,
+        "Reembolsos de gastos realizados por eleitores": 8491.97,
+        "#NULO": 0.0
+      },
+      "pagoPorFonte": {
+        "Fundo Especial de Financiamento de Campanha": 1395002926.65,
+        "Outros Recursos": 133707216.51,
+        "Fundo Partidário": 125982499.16
+      },
+      "comVaquinha": 551,
+      "vaquinhaTotal": 3182667.12,
+      "vaquinhaMediana": 1800.0,
+      "doadoresMediana": 16,
+      "doadoresDistintos": 30458,
+      "porRaca": {
+        "BRANCA": {
+          "candidaturas": 3254,
+          "pagoPorFonte": {
+            "Fundo Partidário": 71503007.16,
+            "Fundo Especial de Financiamento de Campanha": 773131780.04,
+            "Outros Recursos": 94909505.01
+          },
+          "comVaquinha": 321,
+          "vaquinhaTotal": 1978033.37,
+          "vaquinhaMediana": 1860.0,
+          "doadoresMediana": 17
+        },
+        "PARDA": {
+          "candidaturas": 2380,
+          "pagoPorFonte": {
+            "Fundo Especial de Financiamento de Campanha": 387856987.04,
+            "Fundo Partidário": 36366708.97,
+            "Outros Recursos": 27914320.23
+          },
+          "comVaquinha": 100,
+          "vaquinhaTotal": 353284.47,
+          "vaquinhaMediana": 1195.67,
+          "doadoresMediana": 10.0
+        },
+        "PRETA": {
+          "candidaturas": 1196,
+          "pagoPorFonte": {
+            "Fundo Especial de Financiamento de Campanha": 204182093.52,
+            "Outros Recursos": 9589297.75,
+            "Fundo Partidário": 17810637.83
+          },
+          "comVaquinha": 102,
+          "vaquinhaTotal": 721676.22,
+          "vaquinhaMediana": 2250.0,
+          "doadoresMediana": 19.0
+        },
+        "INDÍGENA": {
+          "candidaturas": 82,
+          "pagoPorFonte": {
+            "Fundo Especial de Financiamento de Campanha": 23076135.2,
+            "Outros Recursos": 678620.34,
+            "Fundo Partidário": 223369.33
+          },
+          "comVaquinha": 21,
+          "vaquinhaTotal": 83477.06,
+          "vaquinhaMediana": 3000.0,
+          "doadoresMediana": 19
+        },
+        "AMARELA": {
+          "candidaturas": 41,
+          "pagoPorFonte": {
+            "Fundo Especial de Financiamento de Campanha": 6755930.85,
+            "Outros Recursos": 615473.18,
+            "Fundo Partidário": 78775.87
+          },
+          "comVaquinha": 7,
+          "vaquinhaTotal": 46196.0,
+          "vaquinhaMediana": 770.0,
+          "doadoresMediana": 11
+        }
+      }
+    },
+    "MASCULINO": {
+      "candidaturas": 12578,
+      "contratadoTotal": 3509707546.13,
+      "contratadoPorTipo": {
+        "Publicidade por materiais impressos": 761222131.66,
+        "Atividades de militância e mobilização de rua": 542877311.06,
+        "Despesas com pessoal": 425915590.35,
+        "Despesa com Impulsionamento de Conteúdos": 358378565.65,
+        "Serviços prestados por terceiros": 337922619.59,
+        "Publicidade por adesivos": 202706333.91,
+        "Serviços advocatícios": 127080941.15,
+        "Cessão ou locação de veículos": 121559062.3,
+        "Serviços contábeis": 78653627.06,
+        "Doações financeiras a outros candidatos/partidos": 75171999.88,
+        "Produção de programas de rádio, televisão ou vídeo": 67808422.25,
+        "Diversas a especificar": 66760658.06,
+        "Combustíveis e lubrificantes": 59693935.59,
+        "Locação/cessão de bens imóveis": 49930309.01,
+        "Despesas com transporte ou deslocamento": 38588555.13,
+        "Eventos de promoção da candidatura": 25669097.83,
+        "Publicidade por carros de som": 25517782.4,
+        "Correspondências e despesas postais": 23683768.57,
+        "Serviços próprios prestados por terceiros": 18765315.33,
+        "Locação/cessão de bens móveis (exceto veículos)": 17048517.17,
+        "Produção de jingles, vinhetas e slogans": 15437755.31,
+        "Alimentação": 15405260.48,
+        "Publicidade por jornais e revistas": 14324578.19,
+        "Pesquisas ou testes eleitorais": 10510949.7,
+        "Criação e inclusão de páginas na internet": 9271016.6,
+        "Comícios": 5952379.82,
+        "Materiais de expediente": 4168687.33,
+        "Pré-instalação física de comitê de campanha": 2636859.89,
+        "Água": 2521012.18,
+        "Encargos financeiros, taxas bancárias e/ou op. cartão de crédito": 1122492.48,
+        "Despesas com Hospedagem": 967564.6,
+        "Segurança e prevenção, repressão e combate à violência política": 661727.41,
+        "Passagem Aérea": 364550.64,
+        "Energia elétrica": 345722.8,
+        "Aquisição/Doação de bens móveis ou imóveis": 309695.76,
+        "Taxa de Administração de Financiamento Coletivo": 223759.51,
+        "Despesa com geradores de energia": 148993.1,
+        "Multas eleitorais": 136263.43,
+        "Impostos, contribuições e taxas": 107836.05,
+        "Reembolsos de gastos realizados por eleitores": 86675.82,
+        "Telefone": 48982.97,
+        "Encargos sociais": 238.11,
+        "#NULO": 0.0
+      },
+      "pagoPorFonte": {
+        "Fundo Especial de Financiamento de Campanha": 2371940956.88,
+        "Outros Recursos": 752879507.23,
+        "Fundo Partidário": 303338394.93
+      },
+      "comVaquinha": 922,
+      "vaquinhaTotal": 9952692.72,
+      "vaquinhaMediana": 1916.5,
+      "doadoresMediana": 15.0,
+      "doadoresDistintos": 89667,
+      "porRaca": {
+        "BRANCA": {
+          "candidaturas": 6472,
+          "pagoPorFonte": {
+            "Outros Recursos": 566660632.84,
+            "Fundo Especial de Financiamento de Campanha": 1533391765.18,
+            "Fundo Partidário": 209600015.16
+          },
+          "comVaquinha": 594,
+          "vaquinhaTotal": 7098143.49,
+          "vaquinhaMediana": 2904.0,
+          "doadoresMediana": 18.0
+        },
+        "PARDA": {
+          "candidaturas": 4479,
+          "pagoPorFonte": {
+            "Fundo Especial de Financiamento de Campanha": 672328550.0,
+            "Fundo Partidário": 72572683.07,
+            "Outros Recursos": 151735033.73
+          },
+          "comVaquinha": 219,
+          "vaquinhaTotal": 985705.21,
+          "vaquinhaMediana": 1166.0,
+          "doadoresMediana": 11
+        },
+        "PRETA": {
+          "candidaturas": 1469,
+          "pagoPorFonte": {
+            "Fundo Especial de Financiamento de Campanha": 145677951.1,
+            "Fundo Partidário": 17365029.41,
+            "Outros Recursos": 29837724.94
+          },
+          "comVaquinha": 92,
+          "vaquinhaTotal": 1255268.43,
+          "vaquinhaMediana": 1110.0,
+          "doadoresMediana": 10.0
+        },
+        "INDÍGENA": {
+          "candidaturas": 98,
+          "pagoPorFonte": {
+            "Outros Recursos": 1680169.69,
+            "Fundo Especial de Financiamento de Campanha": 12733736.26,
+            "Fundo Partidário": 137071.0
+          },
+          "comVaquinha": 8,
+          "vaquinhaTotal": 50199.74,
+          "vaquinhaMediana": 2041.66,
+          "doadoresMediana": 14.0
+        },
+        "AMARELA": {
+          "candidaturas": 60,
+          "pagoPorFonte": {
+            "Fundo Especial de Financiamento de Campanha": 7808954.34,
+            "Outros Recursos": 2965946.03,
+            "Fundo Partidário": 3663596.29
+          },
+          "comVaquinha": 9,
+          "vaquinhaTotal": 563375.85,
+          "vaquinhaMediana": 7490.0,
+          "doadoresMediana": 26
+        }
+      }
+    }
+  },
+  "majoritario": {
+    "FEMININO": {
+      "candidaturas": 107,
+      "contratadoTotal": 216667033.57,
+      "contratadoPorTipo": {
+        "Serviços prestados por terceiros": 47600584.33,
+        "Publicidade por materiais impressos": 31909637.62,
+        "Despesa com Impulsionamento de Conteúdos": 30833583.47,
+        "Atividades de militância e mobilização de rua": 26776099.03,
+        "Produção de programas de rádio, televisão ou vídeo": 20209210.45,
+        "Serviços advocatícios": 12635284.51,
+        "Publicidade por adesivos": 7770121.86,
+        "Cessão ou locação de veículos": 5821485.32,
+        "Despesas com pessoal": 5467284.64,
+        "Serviços contábeis": 4629971.5,
+        "Despesas com transporte ou deslocamento": 4111286.04,
+        "Pesquisas ou testes eleitorais": 4069981.38,
+        "Diversas a especificar": 2935965.87,
+        "Combustíveis e lubrificantes": 1805445.67,
+        "Locação/cessão de bens imóveis": 1485075.03,
+        "Locação/cessão de bens móveis (exceto veículos)": 1140363.81,
+        "Eventos de promoção da candidatura": 1012873.89,
+        "Produção de jingles, vinhetas e slogans": 943541.08,
+        "Doações financeiras a outros candidatos/partidos": 941225.54,
+        "Serviços próprios prestados por terceiros": 929029.17,
+        "Publicidade por carros de som": 810860.02,
+        "Alimentação": 699268.87,
+        "Criação e inclusão de páginas na internet": 617053.33,
+        "Correspondências e despesas postais": 363509.41,
+        "Publicidade por jornais e revistas": 277212.92,
+        "Água": 272831.48,
+        "Pré-instalação física de comitê de campanha": 212026.9,
+        "Segurança e prevenção, repressão e combate à violência política": 111552.07,
+        "Encargos financeiros, taxas bancárias e/ou op. cartão de crédito": 72438.4,
+        "Materiais de expediente": 67973.77,
+        "Despesas com Hospedagem": 40204.32,
+        "Passagem Aérea": 39744.98,
+        "Aquisição/Doação de bens móveis ou imóveis": 18050.0,
+        "Taxa de Administração de Financiamento Coletivo": 17115.77,
+        "Energia elétrica": 12189.6,
+        "Comícios": 4995.0,
+        "Impostos, contribuições e taxas": 1270.76,
+        "Telefone": 685.76,
+        "#NULO": 0.0
+      },
+      "pagoPorFonte": {
+        "Fundo Especial de Financiamento de Campanha": 176272547.9,
+        "Outros Recursos": 17987399.7,
+        "Fundo Partidário": 13773792.81
+      },
+      "comVaquinha": 27,
+      "vaquinhaTotal": 674076.0,
+      "vaquinhaMediana": 6349.0,
+      "doadoresMediana": 53,
+      "doadoresDistintos": 7251,
+      "porRaca": {
+        "BRANCA": {
+          "candidaturas": 65,
+          "pagoPorFonte": {
+            "Outros Recursos": 14467026.7,
+            "Fundo Especial de Financiamento de Campanha": 141217131.6,
+            "Fundo Partidário": 13277065.26
+          },
+          "comVaquinha": 14,
+          "vaquinhaTotal": 172821.19,
+          "vaquinhaMediana": 7157.0,
+          "doadoresMediana": 58.5
+        },
+        "PARDA": {
+          "candidaturas": 24,
+          "pagoPorFonte": {
+            "Fundo Especial de Financiamento de Campanha": 21897683.84,
+            "Outros Recursos": 1319930.46,
+            "Fundo Partidário": 11860.47
+          },
+          "comVaquinha": 6,
+          "vaquinhaTotal": 51456.81,
+          "vaquinhaMediana": 6387.5,
+          "doadoresMediana": 18.0
+        },
+        "PRETA": {
+          "candidaturas": 17,
+          "pagoPorFonte": {
+            "Fundo Especial de Financiamento de Campanha": 13139531.95,
+            "Outros Recursos": 2186647.97,
+            "Fundo Partidário": 484867.08
+          },
+          "comVaquinha": 6,
+          "vaquinhaTotal": 443838.0,
+          "vaquinhaMediana": 10847.5,
+          "doadoresMediana": 157.0
+        },
+        "INDÍGENA": {
+          "candidaturas": 0,
+          "pagoPorFonte": {},
+          "comVaquinha": 0,
+          "vaquinhaTotal": 0,
+          "vaquinhaMediana": 0,
+          "doadoresMediana": 0
+        },
+        "AMARELA": {
+          "candidaturas": 1,
+          "pagoPorFonte": {
+            "Outros Recursos": 13794.57,
+            "Fundo Especial de Financiamento de Campanha": 18200.51
+          },
+          "comVaquinha": 1,
+          "vaquinhaTotal": 5960.0,
+          "vaquinhaMediana": 5960.0,
+          "doadoresMediana": 97
+        }
+      }
+    },
+    "MASCULINO": {
+      "candidaturas": 426,
+      "contratadoTotal": 1237805225.07,
+      "contratadoPorTipo": {
+        "Serviços prestados por terceiros": 322433004.11,
+        "Despesa com Impulsionamento de Conteúdos": 166602809.56,
+        "Produção de programas de rádio, televisão ou vídeo": 150092332.89,
+        "Publicidade por materiais impressos": 125307909.28,
+        "Serviços advocatícios": 76321372.23,
+        "Atividades de militância e mobilização de rua": 71676118.87,
+        "Despesas com transporte ou deslocamento": 59133983.85,
+        "Publicidade por adesivos": 55688600.52,
+        "Despesas com pessoal": 30356615.67,
+        "Serviços contábeis": 24579381.07,
+        "Eventos de promoção da candidatura": 24009986.42,
+        "Cessão ou locação de veículos": 23137677.05,
+        "Doações financeiras a outros candidatos/partidos": 21951098.67,
+        "Pesquisas ou testes eleitorais": 12988107.5,
+        "Diversas a especificar": 11575014.6,
+        "Combustíveis e lubrificantes": 10762573.84,
+        "Locação/cessão de bens imóveis": 9254827.79,
+        "Locação/cessão de bens móveis (exceto veículos)": 8260695.27,
+        "Publicidade por carros de som": 8061149.24,
+        "Passagem Aérea": 3738446.89,
+        "Alimentação": 3625082.91,
+        "Correspondências e despesas postais": 3462081.17,
+        "Produção de jingles, vinhetas e slogans": 2733989.0,
+        "Despesas com Hospedagem": 2113316.95,
+        "Comícios": 2072830.01,
+        "Pré-instalação física de comitê de campanha": 1544477.98,
+        "Criação e inclusão de páginas na internet": 1289770.92,
+        "Serviços próprios prestados por terceiros": 1253442.65,
+        "Publicidade por jornais e revistas": 1045325.96,
+        "Segurança e prevenção, repressão e combate à violência política": 993023.79,
+        "Água": 516898.61,
+        "Multas eleitorais": 313280.0,
+        "Materiais de expediente": 303529.0,
+        "Taxa de Administração de Financiamento Coletivo": 214572.46,
+        "Encargos financeiros, taxas bancárias e/ou op. cartão de crédito": 150847.15,
+        "Impostos, contribuições e taxas": 77356.91,
+        "Energia elétrica": 77341.28,
+        "Despesa com geradores de energia": 52077.96,
+        "Aquisição/Doação de bens móveis ou imóveis": 20313.34,
+        "Telefone": 13299.63,
+        "Reembolsos de gastos realizados por eleitores": 659.07,
+        "Encargos sociais": 3.0,
+        "#NULO": 0.0
+      },
+      "pagoPorFonte": {
+        "Fundo Especial de Financiamento de Campanha": 846040774.73,
+        "Outros Recursos": 257485319.8,
+        "Fundo Partidário": 89311276.39
+      },
+      "comVaquinha": 65,
+      "vaquinhaTotal": 7583574.75,
+      "vaquinhaMediana": 6409.0,
+      "doadoresMediana": 44,
+      "doadoresDistintos": 86209,
+      "porRaca": {
+        "BRANCA": {
+          "candidaturas": 256,
+          "pagoPorFonte": {
+            "Fundo Especial de Financiamento de Campanha": 707329374.7,
+            "Outros Recursos": 219135693.38,
+            "Fundo Partidário": 73473072.98
+          },
+          "comVaquinha": 42,
+          "vaquinhaTotal": 7388118.23,
+          "vaquinhaMediana": 6691.0,
+          "doadoresMediana": 49.0
+        },
+        "PARDA": {
+          "candidaturas": 120,
+          "pagoPorFonte": {
+            "Fundo Especial de Financiamento de Campanha": 114083804.86,
+            "Fundo Partidário": 13526738.46,
+            "Outros Recursos": 36525717.57
+          },
+          "comVaquinha": 14,
+          "vaquinhaTotal": 133499.52,
+          "vaquinhaMediana": 7380.14,
+          "doadoresMediana": 49.5
+        },
+        "PRETA": {
+          "candidaturas": 40,
+          "pagoPorFonte": {
+            "Outros Recursos": 519145.41,
+            "Fundo Especial de Financiamento de Campanha": 17557685.79,
+            "Fundo Partidário": 2261464.95
+          },
+          "comVaquinha": 8,
+          "vaquinhaTotal": 58842.0,
+          "vaquinhaMediana": 5228.5,
+          "doadoresMediana": 32.0
+        },
+        "INDÍGENA": {
+          "candidaturas": 7,
+          "pagoPorFonte": {
+            "Fundo Especial de Financiamento de Campanha": 7069909.38,
+            "Outros Recursos": 1027547.32,
+            "Fundo Partidário": 50000.0
+          },
+          "comVaquinha": 0,
+          "vaquinhaTotal": 0,
+          "vaquinhaMediana": 0,
+          "doadoresMediana": 0
+        },
+        "AMARELA": {
+          "candidaturas": 3,
+          "pagoPorFonte": {
+            "Outros Recursos": 277216.12
+          },
+          "comVaquinha": 1,
+          "vaquinhaTotal": 3115.0,
+          "vaquinhaMediana": 3115.0,
+          "doadoresMediana": 24
+        }
+      }
+    }
+  },
+  "auditoria": {
+    "pagoSemPrestador": 0.0,
+    "doadorSemReceita": 0
+  }
+}

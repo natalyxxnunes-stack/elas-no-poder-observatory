@@ -122,7 +122,7 @@ export const ACHADOS: Achado[] = [
     data: "2026-09-25",
     titulo: "No dinheiro, as candidatas brancas ficam com mais do que o seu peso",
     texto:
-      "Nas listas para deputada, brancas são 46,9% das candidatas com receita declarada e ficam com 56,1% do dinheiro das mulheres. Pardas são 34,1% e ficam com 27,7%; pretas, 17,3% e 14,2%. Em 25/09, eram 47,0% e 55,7%. A distância persiste na base de 15/11, que ainda inclui prestações parciais e relatórios financeiros.",
+      "Nas listas para deputada, brancas são 46,9% das candidatas com receita declarada e ficam com 56,1% do dinheiro das mulheres. Pardas são 34,1% e ficam com 27,7%; pretas, 17,3% e 14,2%. Em 25/09, eram 47,0% e 55,7%. A distância persiste na base de 17/11, posterior ao prazo do segundo turno, ainda com prestações parciais e relatórios financeiros.",
     barras: [
       { rotulo: "Brancas · candidatas", valor: 46.9 },
       { rotulo: "Brancas · receita", valor: 56.1 },
@@ -133,8 +133,8 @@ export const ACHADOS: Achado[] = [
     ],
     legenda: "Candidatas a deputada com receita declarada",
     fonte:
-      "TSE, receitas declaradas até 15/11/2026 (04h05), cruzadas com Candidaturas de 15/11/2026; 982 duplicatas removidas, ainda com contas não finais",
-    atualizadoEm: "2026-11-15",
+      "TSE, receitas declaradas na base de 17/11/2026 (09h03), cruzadas com Candidaturas de 17/11/2026 (19h31); 981 duplicatas integrais removidas; sujeitas a retificação e julgamento",
+    atualizadoEm: "2026-11-17",
     to: "/dinheiro",
     linkLabel: "Ver em Dinheiro",
   },
@@ -282,14 +282,14 @@ export const ACHADOS: Achado[] = [
     id: "governadoras-brancas",
     ancora: {
       valor: "3 de 27",
-      rotulo: "estados terão governadora a partir de 2027, e as três são brancas",
+      rotulo: "unidades da Federação terão governadoras eleitas para o mandato de 2027, as três brancas",
     },
     tema: "poder",
     numero: "09",
     data: "2026-10-28",
-    titulo: "Três governadoras em 27 estados, as três brancas",
+    titulo: "Três governadoras eleitas em 27 unidades da Federação, as três brancas",
     texto:
-      "Depois do 2º turno, mulheres governam 3 das 27 unidades da federação: Pernambuco, Acre e Distrito Federal. As três se declaram brancas. Quatro mulheres chegaram ao 2º turno; duas venceram. A Presidência segue sem mulher eleita.",
+      "Após o 2º turno, três mulheres foram eleitas para governar unidades da Federação a partir de 2027: Pernambuco, Acre e Distrito Federal. As três se declaram brancas. Quatro mulheres disputaram o 2º turno; duas venceram. A Presidência não teve mulher eleita.",
     barras: [],
     legenda: "Base de 27 governos: só números absolutos",
     fonte: "TSE, Candidatos 2026, resultado final · base de 27/10/2026",
@@ -320,7 +320,8 @@ export const ACHADOS: Achado[] = [
     legenda:
       "Todas as candidaturas titulares, de deputado à Presidência, e o Fundo Especial que chegou a elas. Só deputado, a fatia branca é 60,8% (ver Dinheiro)",
     fonte:
-      "TSE, Candidaturas e Prestação de Contas 2026 · prestação final do 1º turno, base de 04/11/2026",
+      "TSE, Candidaturas 2026 e Prestação de Contas 2026 · base financeira de 17/11/2026, posterior ao prazo final de 16/11; contas sujeitas a retificação e julgamento",
+    atualizadoEm: "2026-11-17",
     to: "/dinheiro",
     linkLabel: "Ver em Dinheiro",
   },
@@ -521,9 +522,10 @@ export const ACHADOS: Achado[] = [
     foco: "Mulheres 2027",
     numero: "18",
     data: "2026-11-13",
+    atualizadoEm: "2026-11-17",
     titulo: "O Distrito Federal terá só senadoras",
     texto:
-      "A partir de 2027, as três cadeiras do DF no Senado serão de mulheres: Damares Alves (Republicanos), com mandato até 2031, e Michelle Bolsonaro e Bia Kicis (PL), eleitas em 2026. Nenhuma outra unidade da Federação terá bancada só de mulheres. No Senado inteiro, as senadoras passam de 15 para 19 das 81 cadeiras; 3 das 19 são do PL, partido que terá 28 cadeiras.",
+      "A partir de 2027, as três cadeiras do DF no Senado serão de mulheres: Damares Alves (Republicanos), com mandato até 2031, e Michelle Bolsonaro e Bia Kicis (PL), eleitas em 2026. Nenhuma outra unidade da Federação terá bancada só de mulheres. No Senado inteiro, as senadoras passam de 15 para 19 das 81 cadeiras; 3 das 19 são do PL, cuja projeção atual é de 29 cadeiras.",
     barras: [
       { rotulo: "Mulheres hoje", valor: 18.5 },
       { rotulo: "Mulheres 2027", valor: 23.5 },
