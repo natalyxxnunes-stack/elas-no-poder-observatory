@@ -68,6 +68,9 @@ def main(candidaturas,contas,output):
  zf=zipfile.ZipFile(contas)
  totais={k:defaultdict(lambda:ZERO) for k in NOMES}
  fe=defaultdict(lambda:ZERO);prest=defaultdict(set)
+ prestador_para_candidato={}
+ auditoria_pagas_sem_vinculo=0
+ auditoria_pagas_sem_vinculo_valor=ZERO
  for tipo,nome in NOMES.items():
   m=member(zf,nome)
   vistos=set();lin=0;dup=0;fora=0;geracao=None;campo=None
@@ -81,8 +84,22 @@ def main(candidaturas,contas,output):
    key=hashlib.sha256(repr(tuple(r.items())).encode("utf-8")).digest()
    if key in vistos:dup+=1;continue
    vistos.add(key)
-   sq=r.get("SQ_CANDIDATO","")
-   if sq not in cand:fora+=1;continue
+   if tipo=="despesas_pagas":
+    sq=prestador_para_candidato.get(r.get("SQ_PRESTADOR_CONTAS",""),"")
+   else:
+    sq=r.get("SQ_CANDIDATO","")
+    codigo_prestador=r.get("SQ_PRESTADOR_CONTAS","")
+    if codigo_prestador and sq in cand:
+     existente=prestador_para_candidato.get(codigo_prestador)
+     if existente and existente!=sq:
+      raise ValueError("SQ_PRESTADOR_CONTAS vinculado a mais de uma candidatura")
+     prestador_para_candidato[codigo_prestador]=sq
+   if sq not in cand:
+    fora+=1
+    if tipo=="despesas_pagas":
+     auditoria_pagas_sem_vinculo+=1
+     auditoria_pagas_sem_vinculo_valor+=num(r[campo])
+    continue
    v=num(r[campo]);totais[tipo][sq]+=v
    if tipo=="receitas":
     if r.get("DS_FONTE_RECEITA")=="FUNDO ESPECIAL":fe[sq]+=v
@@ -90,6 +107,12 @@ def main(candidaturas,contas,output):
   manifest["contas"][tipo]={"csv_sha256":sha_member(zf,m),"gerado_em":geracao,
       "linhas":lin,"duplicatas":dup,"sem_cadastro_titular":fora,"coluna_valor":campo}
  zf.close()
+ manifest["contas"]["despesas_pagas"]["linhas_sem_vinculo"]=auditoria_pagas_sem_vinculo
+ manifest["contas"]["despesas_pagas"]["valor_sem_vinculo"]=rd(auditoria_pagas_sem_vinculo_valor)
+ if auditoria_pagas_sem_vinculo:
+  manifest["alerta_desembolso"]="Há despesas pagas sem vínculo a SQ_CANDIDATO: investigar antes de publicação."
+ if manifest["contas"]["despesas_pagas"]["linhas"]>0 and len(totais["despesas_pagas"])==0:
+  raise ValueError("Despesas pagas existem, mas nenhuma foi vinculada; esquema ou chaves inválidas")
  def calc(ids):
   a=list(ids)
   def soma(x):return rd(sum((x[s] for s in a),ZERO))
