@@ -1,0 +1,23 @@
+name: Teste temporário de snapshot TSE 17-11
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/recontagem/validar_snapshot_financeiro.mjs
+      - .github/workflows/teste-temporario-tse-17nov.yml
+
+permissions:
+  contents: read
+
+jobs:
+  conferir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Executar validador de dados publicados
+        run: node scripts/recontagem/validar_snapshot_financeiro.mjs
