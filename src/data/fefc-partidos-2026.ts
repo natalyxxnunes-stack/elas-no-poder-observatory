@@ -1,11 +1,11 @@
 /**
  * FEFC recebido por candidatura em 2026, por partido, gênero e cor/raça.
- * Recontagem do CSV do TSE de 15/11/2026 (04:05:10), combinada com
- * candidaturas registradas em 15/11/2026 (05:30:40).
+ * Recontagem do CSV do TSE de 17/11/2026 (09:03:49), combinada com
+ * candidaturas registradas em 17/11/2026 (19:31:29).
  *
  * Os objetos vêm das saídas versionadas do script
  * scripts/recontagem/fefc_partidos_2026.py, com linhas integralmente
- * duplicadas removidas: docs/auditorias/financiamento-2026-15nov/.
+ * duplicadas removidas: docs/auditorias/financiamento-2026-17nov/.
  *
  * O universo "proporcional" abrange deputado federal, estadual e distrital
  * (incluindo candidaturas sem FEFC); "titulares" acrescenta presidente,
@@ -15,11 +15,11 @@
  *
  * Este quadro NÃO comprova cumprimento legal das cotas; informa os recursos
  * declarados como recebidos pelas candidaturas, distintos dos gastos partidários.
- * Fotografia posterior ao prazo final do 2º turno (14/11), ainda com contas
+ * Fotografia posterior ao prazo final do 2º turno (16/11), ainda com contas
  * não finais, sujeita a retificações e julgamento.
  */
-import proporcional from "../../docs/auditorias/financiamento-2026-15nov/fefc-proporcional.json";
-import titulares from "../../docs/auditorias/financiamento-2026-15nov/fefc-titulares.json";
+import proporcional from "../../docs/auditorias/financiamento-2026-17nov/fefc-proporcional.json";
+import titulares from "../../docs/auditorias/financiamento-2026-17nov/fefc-titulares.json";
 
 export type FefcGrupo = { candidaturas: number; fefc: number };
 export type FefcPartido = {
@@ -33,9 +33,9 @@ export type FefcPartido = {
 };
 
 export const FEFC_META = {
-  baseGeneratedAt: "15/11/2026",
-  csvSha256: "73ec0cd7727edd6ef3f9b69e7158f0e9dbb02a772a47e01e01374d004f4bdd90",
-  proximaAtualizacao: "Base de 15/11/2026 após o prazo do 2º turno; futuras retificações podem alterar os valores",
+  baseGeneratedAt: "17/11/2026",
+  csvSha256: "5c9b1e0456a8aa75bdecc5ac7ffc2bb52d4bbaa0099ec675a13b6ab73c0e04ba",
+  proximaAtualizacao: "Base de 17/11/2026, posterior ao prazo do 2º turno (16/11); futuras retificações podem alterar os valores",
 } as const;
 
 export const FEFC_TOTAL: FefcPartido = proporcional.total;
