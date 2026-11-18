@@ -80,6 +80,9 @@ jobs:
                   ins.append(f"{nome}: data de geração ilegível {txt!r}")
           d["pendencias_corte"]=ins
           d["status"]="CORTE_ANTIGO_OU_INDETERMINADO" if ins else "BASES_POSTERIORES_A_16_11_PENDENTES_DE_HOMOLOGACAO"
+          if d.get("divergencias_totalizacao"):
+              d["status"]="FINANCEIRO_POS_16_11_RESULTADO_ELEITORAL_INCOMPLETO"
+              d["pendencias_corte"].append("Não usar resultado eleitoral desta base para substituir as 1.572 vagas proporcionais: totalização incompleta.")
           p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
           report=pathlib.Path("docs/auditorias/tse-2026-11-17/execucao-github/relatorio.md")
           report.write_text("# Auditoria TSE 2026 — coleta automatizada no GitHub\n\n"+
