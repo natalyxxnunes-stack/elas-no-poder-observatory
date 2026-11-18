@@ -51,6 +51,10 @@ def test():
   j=json.loads((out/"indicadores.json").read_text())
   mf=json.loads((out/"manifest.json").read_text())
   assert j["proporcional"]["receitas"]==150.0,j
+  assert j["titulares"]["com_receita"]==2,j
+  assert j["titulares"]["situacao_prestacao"]=={"FINAL":1,"PARCIAL":1},j
+  assert j["titulares"]["candidaturas_com_varios_tipos_prestacao"]==0,j
+  assert "DEPUTADO FEDERAL" in mf["divergencias_totalizacao"],mf
   assert j["proporcional"]["fefc"]==100.0,j
   assert j["proporcional"]["despesas_contratadas"]==60.0,j
   assert j["proporcional"]["despesas_pagas"]==45.0,j
