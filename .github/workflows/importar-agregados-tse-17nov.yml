@@ -26,14 +26,14 @@ jobs:
         with:
           name: auditoria-tse-2026-metodo-publicado
           run-id: 44208584389
-          github-token: \${{ secrets.GITHUB_TOKEN }}
-          path: \${{ runner.temp }}/originais
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ runner.temp }}/originais
       - uses: actions/download-artifact@v4
         with:
           name: auditoria-tse-2026-agregados
           run-id: 44208584389
-          github-token: \${{ secrets.GITHUB_TOKEN }}
-          path: \${{ runner.temp }}/independente
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ runner.temp }}/independente
       - name: Conferir integridade e critérios da importação
         shell: bash
         run: |
