@@ -38,3 +38,4 @@ jobs:
           name: previa-hostgator-tse-17nov-pr35
           path: dist/client/
           retention-days: 3
+          include-hidden-files: true
