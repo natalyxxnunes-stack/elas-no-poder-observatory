@@ -42,7 +42,7 @@ export const Route = createFileRoute("/dinheiro")({
       {
         name: "description",
         content:
-          "Receitas declaradas nas campanhas de 2026 por gênero, cor/raça, cargo, partido e UF, com cobertura, denominadores e limites da base de declarações de 15/11, após o prazo do 2º turno.",
+          "Receitas declaradas nas campanhas de 2026 por gênero, cor/raça, cargo, partido e UF, com cobertura, denominadores e limites da base de declarações de 17/11, após o prazo do 2º turno.",
       },
       {
         property: "og:title",
@@ -50,7 +50,7 @@ export const Route = createFileRoute("/dinheiro")({
       },
       {
         property: "og:description",
-        content: `Receitas declaradas pelas candidaturas de mulheres na base de declarações de 15/11, após o prazo do 2º turno, por cargo, cor/raça, partido e UF. Fotografia de ${FINANCE_BASE_LABEL}.`,
+        content: `Receitas declaradas pelas candidaturas de mulheres na base de declarações de 17/11, após o prazo do 2º turno, por cargo, cor/raça, partido e UF. Fotografia de ${FINANCE_BASE_LABEL}.`,
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -412,7 +412,7 @@ function DinheiroPage() {
         }
         limites={[
           "Despesas contratadas e pagas e o doador originário do financiamento coletivo entram desde 28/10, na seção sobre gasto e vaquinhas.",
-          "Entre as 19.665 candidaturas com receita nos seis cargos, 19.383 constam com prestação FINAL, 186 PARCIAL e 96 RELATÓRIO FINANCEIRO na extração de 15/11; tipo de prestação não equivale à aprovação das contas.",
+          "Entre as 19.665 candidaturas com receita nos seis cargos, 19.383 constam com prestação FINAL, 186 PARCIAL e 96 RELATÓRIO FINANCEIRO na extração de 17/11; tipo de prestação não equivale à aprovação das contas.",
           "Base financeira de 17/11/2026 e cadastro de candidaturas de 17/11/2026, após o prazo final do 2º turno (16/11). Os registros ainda podem ser complementados ou retificados e as contas estão sujeitas a julgamento. Fotografias anteriores de 15/11, 13/11, 04/11, 27/10 e 25/09 ficam preservadas no histórico.",
           "Os percentuais que o TSE usa para distribuir o Fundo Partidário e o FEFC (divulgados em 21/08/2026) partem de outro universo: 20.560 candidaturas com pedido aceito até 18/08/2026, fixado para esse fim. Por isso diferem dos números deste site, que acompanham o registro atualizado.",
           "Titularidade e suplência ficam para a próxima fase. A relação entre dinheiro e reeleição está em Como votaram; índice de competitividade não entra no site.",
