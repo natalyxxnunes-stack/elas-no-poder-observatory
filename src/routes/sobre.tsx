@@ -1,3 +1,4 @@
+import { AcervoCientifico } from "@/components/editorial/AcervoCientifico";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { SectionBlock } from "@/components/editorial/SectionBlock";
@@ -323,6 +324,8 @@ function SobrePage() {
           </div>
         </div>
       </SectionBlock>
+
+      <AcervoCientifico />
 
       <SectionBlock id="compromisso" tone="warm"
         kicker="O compromisso"
