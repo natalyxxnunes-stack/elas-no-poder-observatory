@@ -134,7 +134,7 @@ export const DICIONARIO: readonly CampoDicionario[] = [
     oQueE:
       "Valor, fonte (fundo eleitoral, fundo partidário, outros recursos) e origem de cada receita declarada.",
     comoUsamos:
-      "Receita por candidatura, fundo eleitoral por partido e por cor/raça. Declarações da base financeira de 25/11/2026, posterior ao prazo de 16/11, cruzadas com cadastro de candidaturas de 25/11. Contas ainda sujeitas a retificações e julgamento. A base eleitoral de resultados mantém o corte íntegro de 27/10.",
+      "Recebimentos declarados por candidatura, com recursos financeiros e estimáveis e repasses entre candidaturas; FEFC por cor/raça e recorte separado de origem partidária por partido da candidatura receptora. Declarações da base financeira de 25/11/2026, posterior ao prazo de 16/11, cruzadas com cadastro de candidaturas de 25/11. Contas ainda sujeitas a retificações e julgamento. A base eleitoral de resultados mantém o corte íntegro de 27/10.",
     publicado: true,
   },
   {
@@ -198,7 +198,7 @@ export const CORRECOES: readonly Correcao[] = [
     to: "/dinheiro",
     tipo: "dado",
     oQueMudou:
-      "Receitas, FEFC e despesas recontados com a base financeira de 25/11/2026 (receitas às 04h05min30s, despesas às 04h05min12s) e cadastro do mesmo dia às 16h30min55s. 19.692 candidaturas titulares com receita: 19.454 FINAL, 164 PARCIAL e 74 RELATÓRIO FINANCEIRO. Receitas totais: R$ 7.026.864.553,75; mulheres: R$ 2.039.869.234,05. FEFC total: R$ 5.035.316.334,04; mulheres: R$ 1.672.964.894,43. A fatia das brancas na receita feminina proporcional segue em 56,1%. A totalização nacional de 25/11 permanece incompleta; a contagem específica de Rondônia não confirma que o déficit esteja ali. Resultados eleitorais de 27/10 mantidos. Artefatos e hashes em financiamento-2026-25nov. Tipo de prestação não significa contas aprovadas.",
+      "Receitas, FEFC e despesas recontados com a base financeira de 25/11/2026 (receitas às 04h05min30s, despesas às 04h05min12s) e cadastro do mesmo dia às 16h30min55s. 19.692 candidaturas titulares presentes no arquivo de receitas, das quais 17.887 com soma positiva e 1.805 com registro zero; 373 ausentes. Tipos de entrega: 19.454 FINAL, 164 PARCIAL e 74 RELATÓRIO FINANCEIRO. Soma dos recebimentos declarados (inclui repasses e estimáveis): R$ 7.026.864.553,75; sem repasses de outras candidaturas: R$ 6.872.606.155,95; mulheres: R$ 2.039.869.234,05. FEFC, soma dos recebimentos declarados: R$ 5.035.316.334,04; mulheres: R$ 1.672.964.894,43. FEFC de origem partidária: R$ 4.918.335.856,45. O recorte por partido da receptora não identifica a sigla do doador. A fatia das brancas na receita feminina proporcional segue em 56,1%. A totalização nacional de 25/11 permanece incompleta; a lacuna de 32 cadeiras está no Amapá nesse corte; Rondônia está completa. Resultados eleitorais de 27/10 mantidos. Artefatos e hashes em financiamento-2026-25nov. Tipo de prestação não significa contas aprovadas.",
   },
   {
     data: "17/11/2026",
