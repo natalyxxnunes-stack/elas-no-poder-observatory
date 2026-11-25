@@ -24,7 +24,7 @@ export const Route = createFileRoute("/partidos")({
       {
         name: "description",
         content:
-          "Quantas mulheres cada partido elegeu, quem são elas por cor/raça, como cada partido dividiu o fundo eleitoral e como cada bancada votou.",
+          "Quantas mulheres cada partido elegeu, quem são elas por cor/raça, quanto do FEFC declarado de origem partidária chegou às candidaturas de cada sigla e como cada bancada votou.",
       },
       { property: "og:title", content: M_PL_PRETAS.texto },
       {
@@ -393,7 +393,7 @@ function FundoTable() {
       </table>
       <p className="border-t border-rule px-3 py-3 text-xs leading-relaxed text-muted-foreground">
         Este quadro inclui apenas candidaturas a deputado federal, estadual e distrital, entre
-        as siglas com R$ 10 milhões ou mais de FEFC declarado nesse universo.
+        as siglas com R$ 10 milhões ou mais de FEFC declarado de origem partidária nesse universo. Exclui repasses de outras candidaturas; agrupa pelo partido da candidatura receptora, não pelo doador.
         <strong> Nenhum percentual isolado desta tabela comprova cumprimento ou infração às cotas constitucionais.</strong>
         Para essa avaliação, seria necessário considerar o conjunto dos recursos de campanha do partido,
         incluindo disputas majoritárias, a regra aplicável e os lançamentos pertinentes.
@@ -575,7 +575,7 @@ function FundoEmFoco() {
               R$ {formatDecimal(d.fefc / 1e6).replace(/,0$/, "")} mi
             </p>
             <p className="mt-2 text-sm leading-relaxed text-cream/85">
-              Recebidos por candidaturas a deputado federal, estadual e distrital
+              Declarados com origem partidária por candidaturas a deputado federal, estadual e distrital
               da sigla, conforme prestação de contas na base de {FEFC_META.baseGeneratedAt}.
             </p>
           </div>
@@ -775,7 +775,7 @@ function PartidosPage() {
           <FundoEmFoco />
           <details className="group border border-plum bg-paper px-4 py-3 md:px-5">
             <summary className="flex min-h-11 cursor-pointer items-center justify-between gap-3 text-base font-semibold text-plum">
-              Abrir tabela integral de receitas por partido
+              Abrir tabela de FEFC de origem partidária
               <span aria-hidden="true" className="group-open:rotate-180">↓</span>
             </summary>
             <div className="mt-4"><FundoTable /></div>
@@ -811,15 +811,15 @@ function PartidosPage() {
         <GapNote label="Lacuna declarada">
           Partidos mudam de nome, se fundem e trocam de membros entre 2023 e 2026:
           o voto vale com a sigla da data, e as eleitas, com a sigla do registro em 2026.
-          A comparação entre tabelas é por sigla, não por pessoa. O FEFC reflete
-          as receitas declaradas pelas candidaturas na base de {FEFC_META.baseGeneratedAt},
+          A comparação entre tabelas é por sigla, não por pessoa. O FEFC deste recorte reflete
+          os recebimentos declarados de origem partidária pelas candidaturas na base de {FEFC_META.baseGeneratedAt},
           com prestações ainda sujeitas a retificação ou julgamento.
         </GapNote>
       </div>
 
       <ComoSabemos
         fonte="TSE, Candidatos 2026 e Prestação de Contas 2026; Câmara dos Deputados e Senado Federal, Dados Abertos"
-        universo="Eleitas e eleitos para deputado federal, estadual e distrital em 2026; composição prevista do Senado em 2027; governadoras eleitas; candidaturas a deputado com fundo eleitoral; deputadas e deputados em exercício nas seis votações."
+        universo="Eleitas e eleitos para deputado federal, estadual e distrital em 2026; composição prevista do Senado em 2027; governadoras eleitas; candidaturas a deputado, com e sem FEFC de origem partidária; deputadas e deputados em exercício nas seis votações."
         base={`Resultado e candidaturas: base do TSE de ${RESULT_2026_META.baseGeneratedAt}; fundo: base de ${FEFC_META.baseGeneratedAt}; Senado: consulta de ${SENADO_2027_META.consultaSenado}`}
         calculo={
           <>
@@ -829,7 +829,7 @@ function PartidosPage() {
           </>
         }
         limites={[
-          "O FEFC utiliza a base de 25/11/2026, posterior ao prazo final de 16/11; ainda há contas parciais e relatórios financeiros. Os valores declarados podem ser retificados e precisam ser distinguidos dos gastos realizados pelo partido.",
+          "O FEFC utiliza a base de 25/11/2026, posterior ao prazo final de 16/11; ainda há contas parciais e relatórios financeiros. O recorte exclui transferências de outras candidaturas, agrupa pela sigla da receptora e não identifica o partido doador. Os valores declarados podem ser retificados e precisam ser distinguidos dos gastos realizados pelo partido.",
           "O voto em plenário usa a sigla da data do voto; as eleitas, a sigla do registro em 2026.",
           "Cor/raça é autodeclarada ao TSE; o arquivo não registra identidade trans ou travesti.",
         ]}
