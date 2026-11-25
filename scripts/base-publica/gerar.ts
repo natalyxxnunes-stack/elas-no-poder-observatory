@@ -21,7 +21,8 @@ import { HISTORICO_CARGO_UF } from "../../src/data/historico-cargo-uf";
 import { VOTACOES, VOTACOES_META } from "../../src/data/votacoes-camara";
 import { DEPUTADAS } from "../../src/data/votacoes-deputadas";
 import { MONITOR_CAMARA, MONITOR_META } from "../../src/data/monitor-camara";
-import { FEFC_META, FEFC_PARTIDOS } from "../../src/data/fefc-partidos-2026";
+import { FEFC_META, FEFC_PARTIDOS, FEFC_PARTIDOS_ORIGEM } from "../../src/data/fefc-partidos-2026";
+import { FINANCE_AUDIT_SOURCE, FINANCE_AUDIT_TOTAL, FINANCE_AUDIT_UNIVERSES, FINANCE_AUDIT_RACE } from "../../src/data/financas-auditoria";
 import { COAUTORIA_LIGACOES, COAUTORIA_META, COAUTORIA_NOS } from "../../src/data/coautoria-camara";
 
 const RACAS = ["BRANCA", "PARDA", "PRETA", "INDÍGENA", "AMARELA"];
@@ -144,7 +145,7 @@ add(
 add(
   "fundo-eleitoral-deputado-por-partido.csv",
   "Fundo eleitoral a deputado, por partido",
-  "Fundo Especial de Financiamento de Campanha que chegou às candidaturas a deputado de cada partido, por gênero e cor/raça, em reais.",
+  "Soma dos recebimentos declarados de FEFC pelas candidaturas proporcionais de cada sigla, inclusive repasses de outras candidaturas, por gênero e cor/raça, em reais.",
   `TSE, Prestação de Contas 2026, base de ${FEFC_META.baseGeneratedAt} (SHA-256 ${FEFC_META.csvSha256})`,
   ["partido", "grupo", "candidaturas", "fefc_reais"],
   Object.entries(FEFC_PARTIDOS).flatMap(([p, f]) => [
@@ -155,12 +156,44 @@ add(
   ]),
 );
 
+// 9. recorte de origem partidária: preserva o CSV anterior de recebimentos
+add(
+  "fundo-eleitoral-origem-partidaria-deputado-por-partido.csv",
+  "FEFC declarado de origem partidária, por partido da candidatura",
+  "Receitas de fonte Fundo Especial e origem Recursos de partido político, excluídos repasses de outras candidaturas; agrupadas pela sigla do registro da candidatura receptora, não pelo doador. Cargos proporcionais.",
+  `TSE, Prestação de Contas 2026, base de ${FEFC_META.baseGeneratedAt} (SHA-256 ${FEFC_META.csvSha256})`,
+  ["partido","grupo","candidaturas","fefc_origem_partidaria_reais"],
+  Object.entries(FEFC_PARTIDOS_ORIGEM).flatMap(([p,f])=>[
+    [p,"todas",f.candidaturas,f.fefc.toFixed(2)],
+    [p,"mulheres",f.mulheres.candidaturas,f.mulheres.fefc.toFixed(2)],
+    ...RACAS.map(r=>[p,`cor_raca_${r.toLowerCase()}`,f.raca[r]?.candidaturas??0,(f.raca[r]?.fefc??0).toFixed(2)]),
+    ...RACAS.map(r=>[p,`mulheres_${r.toLowerCase()}`,f.mulheresRaca[r]?.candidaturas??0,(f.mulheresRaca[r]?.fefc??0).toFixed(2)]),
+  ]),
+);
+const FONTE_AUDIT = `TSE, receitas ${FINANCE_AUDIT_SOURCE.receitas}, candidaturas ${FINANCE_AUDIT_SOURCE.candidaturas}; SHA-256 ${FINANCE_AUDIT_SOURCE.csvSha256}`;
+add("receitas-2026-universos.csv","Receitas declaradas e cobertura por universo",
+  "Contagens e valores agregados. Registros zero e ausências separados. Recebimentos sem repasses não constituem fluxo líquido conciliado. Estimáveis incluídos nos recebimentos.",
+  FONTE_AUDIT,
+  ["universo","titulares","no_arquivo","receita_positiva","registro_zero","ausentes","recebimentos_reais","repasses_reais","sem_repasses_reais","fefc_recebimentos_reais","fefc_origem_partidaria_reais"],
+  [["titulares",FINANCE_AUDIT_TOTAL],...Object.entries(FINANCE_AUDIT_UNIVERSES)].map(([u,d])=>{
+    const x=d as typeof FINANCE_AUDIT_TOTAL;
+    return [u,x.titulares,x.noArquivo,x.positivas,x.zeros,x.ausentes,x.receitaBruta.toFixed(2),x.repasses.toFixed(2),x.semRepasses.toFixed(2),x.fefcBruto.toFixed(2),x.fefcPartidos.toFixed(2)];
+  }),
+);
+add("receitas-2026-medianas.csv","Medianas de receita declarada com e sem zeros",
+  "Receita por candidatura, medianas do arquivo (inclusive zero) e das candidaturas com soma positiva; ausentes não imputados. Gênero por universo e categorias raciais das mulheres proporcionais.",
+  FONTE_AUDIT,
+  ["universo","grupo","titulares","no_arquivo","receita_positiva","mediana_no_arquivo_reais","mediana_positiva_reais"],
+  [...Object.entries(FINANCE_AUDIT_UNIVERSES).flatMap(([u,d])=>[["mulheres",d.mulheres],["homens",d.homens]].map(([g,x])=>{const v=x as typeof d.mulheres;return [u,g,v.titulares,v.noArquivo,v.positivas,v.medianaArquivo.toFixed(2),v.medianaPositivas.toFixed(2)];})),...Object.entries(FINANCE_AUDIT_RACE).map(([r,x])=>["proporcional",`mulheres_${r.toLowerCase()}`,x.titulares,x.noArquivo,x.positivas,x.medianaArquivo.toFixed(2),x.medianaPositivas.toFixed(2)])],
+);
+
 mkdirSync("public/dados", { recursive: true });
 const manifesto = arquivos.map(({ conteudo, ...a }) => {
   writeFileSync(`public/dados/${a.arquivo}`, conteudo);
   return { ...a, bytes: Buffer.byteLength(conteudo), sha256: createHash("sha256").update(conteudo).digest("hex") };
 });
-const geradoEm = new Date().toLocaleDateString("pt-BR", { timeZone: "America/Sao_Paulo" });
+// Data da versão editorial, fixada para reprodução em qualquer dia. Atualizar a cada versão do acervo.
+const geradoEm = "25/11/2026";
 writeFileSync(
   "src/data/base-publica.ts",
   `/** base-publica — manifesto dos CSVs de public/dados. GERADO por scripts/base-publica/gerar.ts; não editar à mão. */\n` +

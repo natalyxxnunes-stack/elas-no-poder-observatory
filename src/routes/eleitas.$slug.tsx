@@ -128,6 +128,18 @@ function EleitaPage() {
         </div>
       </header>
 
+      {e.uf === "AP" && (e.cargo === "deputada-federal" || e.cargo === "deputada-estadual") && (
+        <section className="py-5" aria-label="Nota de atualização eleitoral do Amapá">
+          <GapNote label="Resultado preservado — Amapá">
+            A situação eleitoral desta ficha permanece na base do TSE de 02/11/2026, às 08h30min34s.
+            Na extração de 25/11/2026, a situação de totalização das candidaturas proporcionais do Amapá
+            veio sem informação (#NULO). Isso não comprova alteração do resultado. O TRE-AP confirmou
+            a totalização de oito cadeiras federais e 24 estaduais; a lista de eleitas divulgada em 04/10 pela CNN Brasil, a partir dos dados do TSE, confirma o nome e a sigla desta ficha. A conferência nominal diretamente nos relatórios oficiais permanece pendente. Consulte os{" "}
+            <a className="underline underline-offset-4" href="https://www.tre-ap.jus.br/eleicoes/eleicoes-2026/resultados-eleicoes-geirais-2026-amapa">relatórios de totalização do TRE-AP</a>.
+          </GapNote>
+        </section>
+      )}
+
       <section id="registro-eleita" className="border-b border-rule py-9 md:py-12">
         <Secao nome="O registro" tipo="TSE" />
         <dl className="mt-4 grid max-w-3xl gap-x-8 sm:grid-cols-2">

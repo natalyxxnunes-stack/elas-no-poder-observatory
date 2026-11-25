@@ -42,7 +42,7 @@ O prazo de apresentação das contas finais relativas ao segundo turno foi prorr
 
 - **Financiamento**: dados de 17/11/2026, conforme horário registrado individualmente em cada CSV.
 - **Candidaturas para cruzamento financeiro**: 17/11/2026, às 19:31:29.
-- **Eleitas e eleitos para cargos titulares**: resultados consolidados da base íntegra de 27/10/2026. O arquivo de 17/11 omite a totalização de 8 deputados federais e 24 estaduais de Rondônia, o que reduziria artificialmente o total de mulheres eleitas de 342 para 333. Não utilizar a fotografia incompleta na contagem eleitoral.
+- **Eleitas e eleitos para cargos titulares**: resultados consolidados da base íntegra de 27/10/2026. O arquivo de 17/11 apresentava déficit de 8 cadeiras federais e 24 estaduais, o que reduziria artificialmente o total de mulheres eleitas de 342 para 333. Retificação em 25/11/2026: a atribuição anterior a Rondônia não foi comprovada, e o arquivo daquele corte não está disponível para nova conferência. Em 25/11, a lacuna foi localizada no Amapá. Não utilizar a fotografia incompleta na contagem eleitoral.
 - **Análises históricas de reeleição e votação**: conservar cortes próprios, inclusive 04/11, até reexecutar as metodologias específicas. Uma atualização financeira agregada não reproduz automaticamente essas análises.
 - **Senado em 2027**: projeção de 29 cadeiras do PL, sujeita às substituições e mudanças partidárias.
 - Uma candidatura no universo majoritário está sem classificação racial nas cinco categorias; sua receita e FEFC são zero, e não há imputação.

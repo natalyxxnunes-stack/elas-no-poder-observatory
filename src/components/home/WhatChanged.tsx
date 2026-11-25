@@ -37,6 +37,7 @@ function UniverseTable({ title, k }: { title: string; k: "proporcional" | "major
         {CHANGE_TO.label} ({signedPp(shareB - shareA)}).
       </p>
       <table className="mt-4 w-full text-sm">
+        <caption className="sr-only">Comparação das duas fotografias de candidaturas por universo</caption>
         <thead>
           <tr className="text-[13px] text-muted-foreground font-semibold">
             <th className="pb-2 text-left font-normal">Candidaturas</th>

@@ -52,7 +52,7 @@ export const FALAS: Fala[] = [
     fonteUrl: DC("11/3/2026", 163),
     fonteRotulo: "Diário da Câmara, 11/03/2026, p. 163",
     dado: {
-      texto: `O Anuário confirma: ${formatInt(FEMINICIDIO_2025.vitimas)} vítimas de feminicídio em 2025, ${FEMINICIDIO_2025.variacao}.`,
+      texto: `O Anuário publicado em 23/07/2026, depois da fala, registra: ${formatInt(FEMINICIDIO_2025.vitimas)} vítimas de feminicídio em 2025, ${FEMINICIDIO_2025.variacao}.`,
       fonte: ANUARIO,
     },
     publicar: true,

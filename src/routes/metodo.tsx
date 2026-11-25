@@ -1,3 +1,4 @@
+import { AcervoCientifico } from "@/components/editorial/AcervoCientifico";
 import { HIPOTESES } from "@/data/hipoteses";
 import { useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -1169,6 +1170,44 @@ function MetodoPage() {
         </ol>
       </SectionBlock>
 
+      <AcervoCientifico />
+
+      {/* Inventário editorial de cortes: não confundir as fotografias. */}
+      <SectionBlock semFio id="cortes-das-bases" kicker="Rastreabilidade" question="Qual é a data de cada recorte" align="wide">
+        <p className="max-w-3xl text-[15px] leading-relaxed text-ink/85">
+          O site cruza fotografias distintas do TSE e da Câmara. Atualizar a prestação de contas não
+          significa atualizar automaticamente o resultado eleitoral, as fichas ou as análises de mandato.
+          Os cortes abaixo são os dos indicadores publicados, e não a data de acesso ao site.
+        </p>
+        <dl className="mt-5 grid gap-4 sm:grid-cols-2">
+          {[
+            ["Resultados nacionais e votos", "Cadastro de 27/10/2026 às 19h30min36s; votação de 27/10 às 19h32min16s. Governadores: recorte de 12/11/2026."],
+            ["Fichas das eleitas", "02/11/2026 às 08h30min34s; trajetória de 2022 com base de 01/11/2026."],
+            ["Partido × UF e cor/raça", "04/11/2026 às 12h30min19s."],
+            ["Reeleição e receita de campanha histórica", "Prestação final do 1º turno, base de 04/11/2026."],
+            ["Monitor de mandato e coautoria", "Câmara, coleta de 04/11/2026; período de 01/01 a 03/11/2026."],
+            ["Seis votações nominais", "Câmara, coleta de 27 e 28/10/2026."],
+            ["Receitas, FEFC e despesas", "25/11/2026; receitas às 04h05min30s, despesas às 04h05min12s, cadastro às 16h30min55s."],
+            ["Painel de violência política", "Extração de 23/10/2026, leitura em 28/10; atualização documental e legislativa de 25/11."],
+          ].map(([titulo, corte]) => (
+            <div key={titulo} className="min-w-0 border-t border-rule pt-3">
+              <dt className="font-semibold text-plum">{titulo}</dt>
+              <dd className="mt-1 text-sm leading-relaxed text-ink/85">{corte}</dd>
+            </div>
+          ))}
+        </dl>
+        <div className="mt-6">
+          <GapNote label="Diferenças entre fotografias">
+            Entre os cortes de 27/10 e 25/11, as contagens de candidatas proporcionais pretas e pardas
+            passaram de 1.197 e 2.379 para
+            1.196 e 2.380, respectivamente. Não se trata de agregar as duas categorias.
+            Os recortes de 25/11 para financiamento não substituem os resultados eleitorais anteriores,
+            devido à lacuna de totalização do Amapá. Outros recortes específicos conservam a data indicada
+            junto à própria análise.
+          </GapNote>
+        </div>
+      </SectionBlock>
+
       {/* Financiamento de campanha */}
       <SectionBlock semFio collapsible="Ver o que publicamos" id="financiamento"
         kicker="Financiamento de campanha"
@@ -1187,6 +1226,11 @@ function MetodoPage() {
         }
       >
         <div className="space-y-4">
+          <ContextBox variant="calculamos" title="Recebimentos, repasses e cobertura">
+            <p>Para cada candidatura titular, somamos VR_RECEITA após excluir 978 linhas integralmente duplicadas. Receita declarada abrange recursos financeiros e bens ou serviços estimáveis. O arquivo de 25/11 contém 19.692 das 20.065 candidaturas titulares, das quais 17.887 com soma positiva, 1.805 com registro zero e 373 ausentes. Ausência não é zero. Medianas com e sem zeros têm denominadores próprios.</p>
+            <p>Os recebimentos somam R$ 7.026.864.553,75; R$ 154.258.397,80 são classificados como Recursos de outros candidatos. Excluídos esses repasses, a soma é R$ 6.872.606.155,95, sem conciliação individual de entradas e saídas. O FEFC bruto soma R$ 5.035.316.334,04, dos quais R$ 4.918.335.856,45 têm origem declarada Recursos de partido político. O recorte por sigla usa a candidatura receptora, não identifica o partido doador nem comprova cumprimento legal de cotas.</p>
+            <p>Fonte: TSE, receitas geradas em 25/11/2026 às 04h05min30s e cadastro às 16h30min55s. Recontagem em centavos inteiros, por SQ_CANDIDATO, incluindo os registros de todos os turnos, mantendo proporcional e majoritário separados. Script e agregados em <a className="underline underline-offset-4" href="https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/blob/main/scripts/auditoria/recontagem_pos_claude.py">repositório do observatório</a> (disponíveis após integração da versão).</p>
+          </ContextBox>
           {FINANCE_AVAILABILITY.checked.map((c) => (
             <article key={c.id} className="editorial-card p-5">
               <div className="flex flex-wrap items-baseline justify-between gap-3">

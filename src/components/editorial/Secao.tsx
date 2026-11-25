@@ -13,6 +13,7 @@ export function Secao({
   pequeno = false,
   semFio = false,
   className = "",
+  as: Tag = "p",
 }: {
   nome: ReactNode;
   tipo?: string;
@@ -23,9 +24,10 @@ export function Secao({
   /** Permite aberturas sem fio ornamental; mantém o comportamento existente por padrão. */
   semFio?: boolean;
   className?: string;
+  as?: "p" | "h2" | "h3";
 }) {
   return (
-    <p
+    <Tag
       className={`flex flex-wrap items-baseline gap-x-3 gap-y-1 ${semFio ? "" : pequeno ? "border-t-[3px] pt-2" : "border-t-[5px] pt-3"} ${
         semFio ? "" : claro ? "border-lilac" : "border-plum"
       } ${className}`}
@@ -38,6 +40,6 @@ export function Secao({
         {nome}
       </span>
       {tipo ? <span className={`text-[14px] ${claro ? "text-paper" : "text-ink/80"}`}>{tipo}</span> : null}
-    </p>
+    </Tag>
   );
 }

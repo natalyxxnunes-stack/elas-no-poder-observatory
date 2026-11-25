@@ -1,3 +1,4 @@
+import { AcervoCientifico } from "@/components/editorial/AcervoCientifico";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { TEMAS } from "@/data/temas";
@@ -79,6 +80,8 @@ function DadosPage() {
           </div>
         </div>
       </section>
+
+      <AcervoCientifico />
 
       <nav id="indice-ferramentas" aria-label="Índice dos seis assuntos de dados" className="scroll-mt-24 py-7">
         <p className="text-[13px] font-semibold text-plum">A consulta por assunto</p>

@@ -267,6 +267,7 @@ function ElectionRateTable() {
     >
       <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[22rem] text-sm">
+          <caption className="sr-only">Taxas de eleição por gênero e cor/raça</caption>
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
               <th className="pb-2 text-left font-normal">Cor/raça</th>
@@ -371,6 +372,7 @@ function PartyTable() {
     >
       <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[30rem] text-sm">
+          <caption className="sr-only">Cadeiras proporcionais e mulheres eleitas por partido</caption>
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
               <th className="pb-2 text-left font-normal">Partido</th>
@@ -479,6 +481,14 @@ function QuemChegaPage() {
         </span>
         <span aria-hidden="true" className="text-2xl text-plum">→</span>
       </a>
+      <div className="py-5">
+        <GapNote label="Cortes eleitorais preservados">
+          O resultado nacional mantém a base íntegra de 27/10/2026. As fichas individuais utilizam o cadastro de
+          02/11/2026. Na extração de 25/11, os 91 registros federais e 194 estaduais do Amapá vieram
+          sem situação de totalização; não substituímos os resultados anteriores por essa fotografia incompleta.
+          Os nomes e as siglas das nove deputadas conferem com as listas de apuração publicadas pela CNN Brasil em 04/10, com dados do TSE. A conferência nominal diretamente nos relatórios do TRE-AP está pendente.
+        </GapNote>
+      </div>
       <SectionBlock id="cargos" kicker="Resultado" question="Quantas se elegeram, em cada cargo" align="wide">
         <OfficeBars />
       </SectionBlock>

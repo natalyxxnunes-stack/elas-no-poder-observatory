@@ -4,9 +4,10 @@ import {
   type FinanceUniverseSnapshot,
   type TseFinanceSnapshot,
 } from "@/data/tse-finance-snapshot";
+import { FINANCE_AUDIT_UNIVERSES, FINANCE_AUDIT_RACE } from "@/data/financas-auditoria";
 import type { UniverseId } from "@/lib/tse/compute";
 import { ChartBar, ChartFrame, ChartScale, LegendSwatch } from "@/components/editorial/ChartFrame";
-import { formatBRLCompact, formatInt, formatPct } from "@/lib/format-br";
+import { formatBRL, formatBRLCompact, formatInt, formatPct } from "@/lib/format-br";
 
 const UNIVERSE_LABEL: Record<UniverseId, string> = {
   proporcional: "Proporcional",
@@ -18,6 +19,7 @@ function share(part: number, total: number) {
 }
 
 function CoverageCard({ universe, data }: { universe: UniverseId; data: FinanceUniverseSnapshot }) {
+  const audited = FINANCE_AUDIT_UNIVERSES[universe];
   const totalCoverage = share(data.candidaciesWithRevenue, data.registeredCandidacies);
   const feminineCoverage = share(
     data.feminineCandidaciesWithRevenue,
@@ -37,28 +39,37 @@ function CoverageCard({ universe, data }: { universe: UniverseId; data: FinanceU
           </dd>
         </div>
         <div className="flex justify-between gap-4 py-3">
-          <dt>Cobertura total</dt>
+          <dt>Presença no arquivo de receitas</dt>
           <dd className="text-right font-mono">
             {formatInt(data.candidaciesWithRevenue)} de {formatInt(data.registeredCandidacies)} ·{" "}
             {formatPct(totalCoverage)}
           </dd>
         </div>
         <div className="flex justify-between gap-4 py-3">
-          <dt>Cobertura entre mulheres</dt>
+          <dt>Mulheres presentes no arquivo</dt>
           <dd className="text-right font-mono">
             {formatInt(data.feminineCandidaciesWithRevenue)} de{" "}
             {formatInt(data.registeredFeminineCandidacies)} · {formatPct(feminineCoverage)}
           </dd>
         </div>
         <div className="flex justify-between gap-4 py-3">
-          <dt>Mediana · mulheres</dt>
-          <dd className="text-right font-mono">{formatBRLCompact(data.feminineMedian)}</dd>
+          <dt>Receita positiva</dt>
+          <dd className="text-right font-mono">{formatInt(audited.positivas)} de {formatInt(audited.titulares)} · {formatPct(share(audited.positivas,audited.titulares))}</dd>
         </div>
         <div className="flex justify-between gap-4 py-3">
-          <dt>Mediana · homens</dt>
-          <dd className="text-right font-mono">{formatBRLCompact(data.masculineMedian)}</dd>
+          <dt>Registro zero / ausentes</dt>
+          <dd className="text-right font-mono">{formatInt(audited.zeros)} / {formatInt(audited.ausentes)}</dd>
         </div>
       </dl>
+      <p className="mt-5 text-sm font-semibold">Medianas da receita declarada (R$)</p>
+      <div className="mt-2 overflow-x-auto" tabIndex={0} role="region" aria-label={`Medianas de receita — ${UNIVERSE_LABEL[universe]}`}>
+        <table className="w-full text-sm">
+          <caption className="sr-only">Mediana por gênero e critério de inclusão</caption>
+          <thead><tr className="border-b border-rule"><th scope="col" className="py-2 text-left">Grupo</th><th scope="col" className="py-2 text-right">No arquivo</th><th scope="col" className="py-2 text-right">Só positivas</th></tr></thead>
+          <tbody>{([["Mulheres",audited.mulheres],["Homens",audited.homens]] as const).map(([label,d])=><tr key={label} className="border-b border-rule"><th scope="row" className="py-2 text-left font-normal">{label}</th><td className="py-2 text-right font-mono">{formatBRL(d.medianaArquivo)}<span className="block text-xs">n={formatInt(d.noArquivo)}</span></td><td className="py-2 text-right font-mono">{formatBRL(d.medianaPositivas)}<span className="block text-xs">n={formatInt(d.positivas)}</span></td></tr>)}</tbody>
+        </table>
+      </div>
+      <p className="mt-3 text-xs leading-relaxed text-muted-foreground">O primeiro recorte inclui zeros; o segundo exige soma positiva por candidatura. Ausentes não são imputados como zero.</p>
     </article>
   );
 }
@@ -106,10 +117,10 @@ export function FinanceByOffice({ snapshot }: { snapshot: TseFinanceSnapshot }) 
     <ChartFrame
       ficha={{
         vendo:
-          "Para cada cargo, a fatia de mulheres entre as candidaturas com receita e a fatia delas no dinheiro declarado.",
-        contados: "Candidaturas que já declararam alguma receita na prestação de contas.",
+          "Para cada cargo, a fatia de mulheres entre as candidaturas presentes no arquivo de receitas e a fatia delas no dinheiro declarado.",
+        contados: "Candidaturas presentes no arquivo de receitas, inclusive registros de valor zero.",
         denominador:
-          "Presença: candidaturas com receita no cargo. Receita: total declarado no cargo.",
+          "Presença: candidaturas presentes no arquivo de receitas no cargo. Receita: total declarado no cargo.",
         data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
         limitacao:
@@ -123,7 +134,7 @@ export function FinanceByOffice({ snapshot }: { snapshot: TseFinanceSnapshot }) 
           <LegendSwatch className="bg-plum-soft">Receita</LegendSwatch>
         </>
       }
-      note="Presença: mulheres entre as candidaturas que já declararam receita. Receita: fatia do dinheiro declarado no cargo. Régua de 0 a 50%. Receita, não despesa."
+      note="Presença: mulheres entre as candidaturas presentes no arquivo de receitas, inclusive zeros. Receita: fatia do dinheiro declarado no cargo. Régua de 0 a 50%. Receita, não despesa."
       source={SOURCE}
       ariaLabel="Presença das mulheres e participação na receita declarada, por cargo"
     >
@@ -188,8 +199,8 @@ export function FinanceRace({ snapshot }: { snapshot: TseFinanceSnapshot }) {
                   "Como o dinheiro declarado por candidatas se divide entre os grupos de cor/raça.",
                 contados:
                   universe === "proporcional"
-                    ? "Candidatas a deputada com receita declarada."
-                    : "Candidatas à Presidência, aos governos e ao Senado com receita declarada.",
+                    ? "Candidatas a deputada presentes no arquivo de receitas."
+                    : "Candidatas à Presidência, aos governos e ao Senado presentes no arquivo de receitas.",
                 denominador: "Receita total declarada pelas candidatas do mesmo universo.",
                 data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
                 fonte:
@@ -208,7 +219,7 @@ export function FinanceRace({ snapshot }: { snapshot: TseFinanceSnapshot }) {
                   Fatia de {formatBRLCompact(data.feminineRevenue)} declarados por candidaturas de
                   mulheres, na régua de 0 a 100%.{" "}
                   {universe === "proporcional"
-                    ? "Nos 12 partidos com mais receita: mediana de R$ 151.040,30 para brancas (2.118 candidatas), R$ 100.000 para pardas (1.495) e R$ 81.030,57 para pretas (796)."
+                    ? "Nos 12 partidos com mais receita, incluindo registros zero: mediana de R$ 151.040,30 para brancas (2.118 candidatas), R$ 100.000 para pardas (1.495) e R$ 81.030,57 para pretas (796)."
                     : "Aqui a distribuição da receita também varia conforme o partido que lança a candidata: nos 12 partidos com mais receita estão 36 das 65 candidatas brancas, 6 das 24 pardas e 2 das 17 pretas."}
                 </>
               }
@@ -221,7 +232,7 @@ export function FinanceRace({ snapshot }: { snapshot: TseFinanceSnapshot }) {
                   const label = race.charAt(0) + race.slice(1).toLocaleLowerCase("pt-BR");
                   const median =
                     universe === "proporcional"
-                      ? ` · mediana ${formatBRLCompact(data.feminineMedianByRace[race] ?? 0)}`
+                      ? ` · mediana com zeros ${formatBRLCompact(data.feminineMedianByRace[race] ?? 0)}${race in FINANCE_AUDIT_RACE ? `; só positivas ${formatBRLCompact(FINANCE_AUDIT_RACE[race as keyof typeof FINANCE_AUDIT_RACE].medianaPositivas)} (n=${formatInt(FINANCE_AUDIT_RACE[race as keyof typeof FINANCE_AUDIT_RACE].positivas)})` : ""}`
                       : "";
                   const pct = share(datum.value, data.feminineRevenue);
                   return [
@@ -252,17 +263,17 @@ export function FinanceParties({ snapshot }: { snapshot: TseFinanceSnapshot }) {
     <ChartFrame
       ficha={{
         vendo:
-          "Nos cinco partidos com mais receita, a fatia do dinheiro do partido que foi para candidatas.",
+          "Nos cinco partidos com mais receita, a fatia da receita das candidaturas do partido declarada pelas mulheres.",
         contados:
           "Candidaturas a deputada e deputado com receita declarada, pelo partido do registro.",
         denominador: "Receita total declarada pelas candidaturas do próprio partido.",
         data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
         limitacao:
-          "Receita declarada por candidatura, de qualquer origem, inclusive repasses partidários. Base gerada após o prazo final do segundo turno, ainda sujeita a retificações.",
+          "Receita declarada por candidatura, de qualquer origem, inclusive repasses de partidos e de outras candidaturas e recursos estimáveis. Não mede apenas repasses feitos pelo partido. Base gerada após o prazo final do segundo turno, ainda sujeita a retificações.",
       }}
       eyebrow="Cinco partidos com mais receita · proporcional"
-      title="Quanto do dinheiro de cada partido foi para candidatas"
+      title="Quanto da receita declarada pelas candidaturas de cada partido corresponde às mulheres"
       note="Ordem pela receita total declarada, do maior para o menor. Fatia das mulheres na régua de 0 a 50%. Ordem descritiva, sem classificar mérito."
       source={SOURCE}
     >
