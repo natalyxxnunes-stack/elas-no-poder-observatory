@@ -86,7 +86,7 @@ export const TEMAS: readonly Tema[] = [
     linha:
       "Quem recebe o fundo eleitoral e a receita de campanha dentro do universo de mulheres, e o que isso tem a ver com quem volta ao mandato.",
     tese:
-      "O dinheiro chega às mulheres e se concentra nas brancas e em quem já tem mandato: nas listas para deputada, brancas são 46,9% das candidatas com receita e ficam com 56,1% do dinheiro das mulheres.",
+      "Nas disputas proporcionais, as candidatas brancas são 46,9% das mulheres presentes no arquivo de receitas (inclusive registros de valor zero) e concentram 56,1% da receita declarada pelas mulheres, no corte de 25/11. A relação entre receita e reeleição é examinada separadamente.",
     quemDecide: [
       { ator: "A direção nacional de cada partido", decide: "como o fundo eleitoral é dividido entre as candidaturas" },
       { ator: "A Constituição e o TSE", decide: "os pisos de 30% do fundo para mulheres e de 30% para candidaturas pretas e pardas" },
@@ -203,7 +203,7 @@ export const TEMAS: readonly Tema[] = [
     linha:
       "Processos de violência política de gênero na Justiça Eleitoral, feminicídio e o que as eleitas disseram sobre o assunto.",
     tese:
-      "O preço de participar subiu: os processos de violência política de gênero na Justiça Eleitoral foram de 15 em 2022 para 224 em 2026, até 23/10.",
+      "O painel TSE/MPF registra 15 processos autuados em 2022 e 224 em 2026 até 23/10. Os períodos têm durações diferentes, e o painel não permite distinguir aumento da violência, das denúncias ou de ambos.",
     quemDecide: [
       { ator: "O Ministério Público Eleitoral", decide: "a denúncia pelo crime de violência política de gênero" },
       { ator: "A Polícia Federal", decide: "os inquéritos de crime eleitoral" },

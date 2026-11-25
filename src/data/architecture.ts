@@ -147,7 +147,7 @@ export const AXES: readonly Axis[] = [
     publication: "published",
     status: "publicado",
     statusNote:
-      "Receitas declaradas na prestação final do 1º turno, base de 04/11/2026; a prestação do 2º turno entra depois.",
+      "Receitas e despesas declaradas na base de 25/11/2026, incluindo os registros do segundo turno; contas sujeitas a retificação e julgamento.",
     group: "investigacao",
   },
   {
@@ -246,7 +246,7 @@ export const AXES: readonly Axis[] = [
     publication: "published",
     status: "publicado",
     statusNote:
-      "Regras em vigor e projetos em tramitação na Câmara, verificados em 28/10/2026; Senado ainda não levantado.",
+      "Regras em vigor e projetos em tramitação na Câmara; atualização do recorte de violência política em 25/11/2026. Senado ainda não levantado.",
     group: "investigacao",
   },
   {

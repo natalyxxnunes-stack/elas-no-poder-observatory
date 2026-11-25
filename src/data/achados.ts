@@ -338,7 +338,7 @@ export const ACHADOS: Achado[] = [
     data: "2026-10-28",
     titulo: "Entre as deputadas que tentaram voltar, as de maior receita voltaram mais",
     texto:
-      "No terço de maior receita de campanha, 31 de 37 deputadas se reelegeram. No terço de menor receita, 4 de 17. Entre os homens, a diferença é menor: 76,9% e 50,0%. O voto em seis pautas da Câmara separou bem menos: a reeleição das deputadas variou entre 52,7% e 72,2%. A relação pode correr nos dois sentidos: quem já tinha chance de vencer também atrai mais dinheiro.",
+      "Na fotografia de 04/11/2026, os terços de receita são definidos conjuntamente para homens e mulheres que disputaram a reeleição à Câmara. No terço de maior receita de campanha, 31 de 37 deputadas se reelegeram. No terço de menor receita, 4 de 17. Entre os homens, a diferença é menor: 76,9% e 50,0%. O voto em seis pautas da Câmara separou bem menos: a reeleição das deputadas variou entre 52,7% e 72,2%. A relação pode correr nos dois sentidos: quem já tinha chance de vencer também atrai mais dinheiro.",
     barras: [
       { rotulo: "Mulheres · mais receita", valor: 83.8 },
       { rotulo: "Mulheres · menos receita", valor: 23.5 },
@@ -465,9 +465,9 @@ export const ACHADOS: Achado[] = [
     foco: "2026",
     numero: "16",
     data: "2026-11-13",
-    titulo: "De uma eleição geral para a outra, os processos de violência política de gênero foram de 15 para 224",
+    titulo: "Painel da Justiça Eleitoral registra 15 processos em 2022 e 224 até 23/10/2026",
     texto:
-      "A violência política de gênero virou crime eleitoral em agosto de 2021 (Lei 14.192). O painel da Justiça Eleitoral só alcança o crime, e por isso não chega a 2018; a violência, essa, já existia. Entre setembro de 2020 e outubro de 2022, o levantamento da Justiça Global e da Terra de Direitos, feito a partir de casos noticiados, encontrou mulheres cisgênero em 35% dos casos de violência política, quando elas tinham 16% das cadeiras em disputa. Dentro do painel, a comparação justa é entre as duas eleições gerais seguintes: 15 processos autuados na Justiça Eleitoral em 2022 e 224 em 2026, até a extração de 23/10. No meio, 78 em 2024, ano de eleição municipal. O painel do TSE e do MPF registra ainda 2 processos em 2019, sem explicar a origem, e não mostra 2020 nem 2021. Processo é diferente de caso: um mesmo episódio pode gerar inquérito, representação e ação penal. O crescimento pode vir de mais violência, de mais denúncia ou das duas coisas, e o painel não separa.",
+      "A Lei 14.192 tipificou o crime eleitoral de violência política contra a mulher em agosto de 2021. O painel também registra processos anteriores à lei, sem explicitar sua classificação. A violência política já existia antes da tipificação. Entre setembro de 2020 e outubro de 2022, o levantamento da Justiça Global e da Terra de Direitos, feito a partir de casos noticiados, encontrou mulheres cisgênero em 35% dos casos de violência política, quando elas tinham 16% das cadeiras em disputa. O painel registra 15 processos autuados na Justiça Eleitoral em 2022, ano completo, e 224 em 2026, até a extração de 23/10. São períodos de extensão diferente, não uma comparação de incidência anual. No meio, 78 em 2024, ano de eleição municipal. O painel do TSE e do MPF registra ainda 2 processos em 2019, sem explicar a origem, e não mostra 2020 nem 2021. Processo é diferente de caso: um mesmo episódio pode gerar inquérito, representação e ação penal. O crescimento pode vir de mais violência, de mais denúncia ou das duas coisas, e o painel não separa.",
     barras: [
       { rotulo: "2022", valor: 15 },
       { rotulo: "2023", valor: 23 },
@@ -478,7 +478,7 @@ export const ACHADOS: Achado[] = [
     contagem: true,
     escala: 250,
     legenda:
-      "Processos autuados por ano, desde a primeira eleição com a lei em vigor (o painel registra ainda 2 em 2019 e não mostra 2020 e 2021)",
+      "Processos autuados por ano conforme painel (2026 até 23/10; registra ainda 2 em 2019 e não mostra 2020 e 2021)",
     fonte:
       "TSE e MPF, painel Violência Política de Gênero, aba Justiça Eleitoral, todas as instâncias · dados extraídos em 23/10/2026, lidos em 28/10/2026",
     to: "/barreiras",

@@ -1,0 +1,54 @@
+name: Validar correções jornalísticas pós-Claude
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - src/**
+      - docs/auditorias/pos-claude-2026-11-25/**
+      - .github/workflows/validar-pos-claude-editorial.yml
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.4'
+      - run: bun install --frozen-lockfile
+      - run: bun scripts/recontagem/validar_snapshot_financeiro.mjs
+      - run: bun run build:hostgator
+      - name: Conferir notas e textos no HTML pré-renderizado
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path("dist/client")
+          html=list(root.rglob("*.html"))
+          assert len(html)>=399, len(html)
+          def page(route):
+              p=root/route/"index.html"
+              assert p.exists(),p
+              return p.read_text()
+          # Check exact nine AP notes without changing data.
+          source=Path("src/data/eleitas-2026.ts").read_text()
+          arr=json.loads(source[source.index("= [",source.index("export const ELEITAS_2026"))+2:source.rindex("]")+1])
+          ap=[e for e in arr if e["uf"]=="AP" and e["cargo"] in ("deputada-federal","deputada-estadual")]
+          assert len(ap)==9
+          for e in ap:
+              assert "Resultado preservado" in page("eleitas/"+e["slug"]),e["slug"]
+          assert "Resultado preservado" not in page("eleitas/rayssa-furlan-ap")
+          assert "O preço de participar subiu" not in page("temas/violencia")
+          assert "25/11/2026" in page("investigacoes")
+          assert "cortes-das-bases" in page("metodo")
+          assert "Cortes eleitorais preservados" in page("quem-chega")
+          print("OK:",len(html),"HTMLs; notas em 9 fichas proporcionais, ressalva nacional e inventário de cortes.")
+          PY
+      - name: Reproduzir exportações sem alterar bases
+        run: |
+          bun scripts/base-publica/gerar.ts
+          git diff --exit-code -- public/dados
