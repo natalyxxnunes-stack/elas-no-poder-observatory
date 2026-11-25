@@ -316,11 +316,10 @@ function DinheiroPage() {
         align="wide"
         lead={
           <p>
-            As campanhas de candidatas a deputada dependem mais do fundo público que as de homens:
+            Nas disputas proporcionais, a parcela das despesas pagas com FEFC é maior entre as mulheres:
             84,3% do que elas pagaram saiu do fundo eleitoral, contra 69,2% entre os homens. A
             dependência é maior entre as pretas (88,1%) e as pardas (85,8%) do que entre as brancas
-            (82,3%). Os homens brancos são o grupo com mais dinheiro de outras fontes: só 66,4% do
-            que pagaram veio do fundo. Dinheiro privado chega mais a eles.
+            (82,3%). Os homens brancos concentram, em valor absoluto, R$ 778,8 milhões de despesas pagas com fontes distintas do FEFC, dos quais R$ 209,9 milhões vieram do Fundo Partidário. Portanto, recursos fora do FEFC não equivalem a financiamento privado.
           </p>
         }
       >
@@ -397,14 +396,14 @@ function DinheiroPage() {
             {formatInt(financeSnapshot.revenueRowsProcessed)} linhas de receita.
           </>
         }
-        universo="Candidaturas de 2026 que já declararam receita, com proporcional e majoritário separados. A unidade de análise é a candidatura: todas as linhas de receita de cada uma são somadas."
+        universo="Candidaturas titulares de 2026 presentes no arquivo de receitas, inclusive registros de valor zero, com proporcional e majoritário separados. A unidade de análise é a candidatura: suas linhas de receita são somadas."
         base={FINANCE_BASE_LABEL}
         calculo={
           <>
-            Receita é o dinheiro informado como recebido. O arquivo do TSE traz, para cada
-            candidatura, uma única entrega: a prestação parcial, o relatório financeiro mais recente
-            ou a prestação final. Conferimos que nenhuma candidatura aparece em mais de um tipo,
-            então somar as linhas não conta a mesma receita duas vezes. Linhas idênticas em todas as
+            Receita declarada inclui recursos financeiros e bens ou serviços estimáveis em dinheiro. O arquivo do TSE traz, para cada
+            candidatura, um único tipo de entrega: prestação parcial, relatório financeiro ou prestação final.
+            Nenhuma candidatura aparece em mais de um tipo. Essa conferência não elimina a circulação de recursos entre campanhas:
+            a soma dos recebimentos inclui repasses de outras candidaturas, e não representa o ingresso líquido de recursos no sistema eleitoral. Linhas idênticas em todas as
             colunas entram uma única vez ({DUPLICATE_ROWS_REMOVED} removidas nesta base); linhas que
             dividem um mesmo recibo em partes são somadas. Gênero e cor/raça do arquivo de receitas
             foram conferidos, candidatura por candidatura, contra o registro de candidaturas.
@@ -412,7 +411,7 @@ function DinheiroPage() {
         }
         limites={[
           "Despesas contratadas e pagas e o doador originário do financiamento coletivo entram desde 28/10, na seção sobre gasto e vaquinhas.",
-          "Entre as 19.692 candidaturas com receita nos seis cargos, 19.454 constam com prestação FINAL, 164 PARCIAL e 74 RELATÓRIO FINANCEIRO na extração de 25/11; tipo de prestação não equivale à aprovação das contas.",
+          "Das 20.065 candidaturas titulares, 19.692 aparecem no arquivo de receitas (19.454 FINAL, 164 PARCIAL e 74 RELATÓRIO FINANCEIRO); 17.887 têm soma positiva, 1.805 apresentam registro único de valor zero e 373 não aparecem. Ausência não equivale a zero. Tipo de prestação não equivale à aprovação das contas.",
           "Base financeira de 25/11/2026 e cadastro de candidaturas de 25/11/2026, após o prazo final do 2º turno (16/11). Os registros ainda podem ser complementados ou retificados e as contas estão sujeitas a julgamento. Fotografias anteriores de 15/11, 13/11, 04/11, 27/10 e 25/09 ficam preservadas no histórico.",
           "Os percentuais que o TSE usa para distribuir o Fundo Partidário e o FEFC (divulgados em 21/08/2026) partem de outro universo: 20.560 candidaturas com pedido aceito até 18/08/2026, fixado para esse fim. Por isso diferem dos números deste site, que acompanham o registro atualizado.",
           "Titularidade e suplência ficam para a próxima fase. A relação entre dinheiro e reeleição está em Como votaram; índice de competitividade não entra no site.",
