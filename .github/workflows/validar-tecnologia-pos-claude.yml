@@ -1,4 +1,4 @@
-name: Homologar tecnologia e acessibilidade pós-Claude
+name: Homologar versão consolidada pós-Claude
 on:
   pull_request:
     branches: [main]
@@ -9,6 +9,10 @@ on:
       - .github/workflows/validar-tecnologia-pos-claude.yml
 permissions:
   contents: read
+  actions: read
+concurrency:
+  group: homologacao-pos-claude-${{ github.head_ref }}
+  cancel-in-progress: true
 jobs:
   validar:
     runs-on: ubuntu-24.04
@@ -37,6 +41,27 @@ jobs:
           for(const [v,s] of [[1000000,"R$ 1 milhão"],[1999000,"R$ 2 milhões"],[1500000,"R$ 1,5 milhão"],[1000000000,"R$ 1 bilhão"],[2000000000,"R$ 2 bilhões"]])if(f(v)!==s)throw Error(f(v)+" != "+s);
           '
       - run: bun scripts/recontagem/validar_snapshot_financeiro.mjs
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 45709028417
+          name: recortes-financeiros-pos-claude
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/recortes
+      - name: Conciliar recortes financeiros com recontagem independente
+        run: |
+          bun scripts/auditoria/validar_recortes_pos_claude.ts "$RUNNER_TEMP/recortes/recontagem-financeira.json"
+          cmp "$RUNNER_TEMP/recortes/fefc-origem-partidaria-proporcional.json" docs/auditorias/pos-claude-2026-11-25/fefc-origem-partidaria-proporcional.json
+      - name: Testar sinais de privacidade
+        run: |
+          bun -e '
+          import {trackPageview} from "./src/lib/analytics.ts";
+          let calls=0;
+          Object.defineProperty(globalThis,"window",{value:{location:{hostname:"quemsaoelas.com.br"},goatcounter:{count:()=>calls++}},configurable:true});
+          for(const [nav,expected] of [[{doNotTrack:"1"},0],[{globalPrivacyControl:true},0],[{doNotTrack:"yes"},0],[{},1]]){
+            Object.defineProperty(globalThis,"navigator",{value:nav,configurable:true});trackPageview("/sobre");if(calls!==expected)throw Error("privacy signal ignored");
+          }
+          window.location.hostname="localhost";trackPageview("/sobre");if(calls!==1)throw Error("preview tracked");
+          '
       - run: bun run build:hostgator
       - name: Conferir reprodutibilidade dos CSVs
         run: |
@@ -67,6 +92,23 @@ jobs:
               route="/"+str(p.parent.relative_to(root)).replace(".","",1) if p.parent==root else "/"+str(p.parent.relative_to(root))
               result[route]={"tables":len(a.tables),"tables_sem_nome":a.tables.count(False),"salto_inicial":a.headings[0:2]==[1,3],"cortes_rodape":"Cortes publicados:" in s and "25/11/2026" in s}
           assert len(result)>=399,len(result)
+          assert sum(v["tables_sem_nome"] for v in result.values())==0
+          assert sum(v["salto_inicial"] for v in result.values())==0
+          def page(route):return (root/route/"index.html").read_text()
+          assert "Global Privacy Control" in page("sobre") and "/sobre#privacidade" in page("dinheiro")
+          assert "Recebimentos e circulação de recursos" in page("dinheiro")
+          assert "79.298,76" in page("dinheiro") and "82.472,00" in page("dinheiro")
+          assert "FEFC de origem partidária" in page("partidos")
+          assert "cortes-das-bases" in page("metodo")
+          assert "O preço de participar subiu" not in page("temas/violencia")
+          source=Path("src/data/eleitas-2026.ts").read_text()
+          arr=json.loads(source[source.index("= [",source.index("export const ELEITAS_2026"))+2:source.rindex("]")+1])
+          ap=[e for e in arr if e["uf"]=="AP" and e["cargo"] in ("deputada-federal","deputada-estadual")]
+          assert len(ap)==9
+          for e in ap:assert "Resultado preservado" in page("eleitas/"+e["slug"]),e["slug"]
+          assert "Resultado preservado" not in page("eleitas/rayssa-furlan-ap")
+          for fn in ["fundo-eleitoral-origem-partidaria-deputado-por-partido.csv","receitas-2026-universos.csv","receitas-2026-medianas.csv"]:
+              assert (root/"dados"/fn).is_file(),fn
           for k in ["/dinheiro","/quem-chega","/votos","/como-votaram","/historico","/metodo"]:
               assert result[k]["cortes_rodape"],k
           assert all(not v["salto_inicial"] for k,v in result.items() if k.startswith("/achados/"))
