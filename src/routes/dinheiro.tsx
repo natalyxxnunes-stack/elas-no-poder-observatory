@@ -27,7 +27,8 @@ import {
   FinanceParties,
   FinanceRace,
 } from "@/components/editorial/FinanceOverview";
-import { formatInt } from "@/lib/format-br";
+import { FINANCE_AUDIT_TOTAL } from "@/data/financas-auditoria";
+import { formatBRL, formatInt } from "@/lib/format-br";
 
 /**
  * Fase 1 publicada: receitas declaradas por gênero, cor/raça, cargo, partido e UF.
@@ -37,7 +38,7 @@ export const Route = createFileRoute("/dinheiro")({
     meta: [
       {
         title:
-          "Entre as candidatas a deputada, as brancas concentram uma fatia maior da receita declarada | Quem são elas?",
+          `${M_FUNDO_BRANCAS.texto} | Quem são elas?`,
       },
       {
         name: "description",
@@ -117,10 +118,10 @@ function DinheiroPage() {
         question={M_FUNDO_BRANCAS.texto}
         lead={
           <p>
-            Nas disputas para deputada, mulheres são 35,7% das candidaturas com receita declarada e
+            Nas disputas para deputada, mulheres são 35,7% das candidaturas presentes no arquivo de receitas e
             ficam com 32,9% do dinheiro, abaixo da presença delas. A diferença maior aparece dentro
             do grupo. Nos 12 partidos com mais receita declarada, que concentram 87,9% do dinheiro,
-            a mediana das candidatas brancas é R$ 151 mil; a das pardas, R$ 100 mil; a das pretas,
+            a mediana, incluindo registros de valor zero, das candidatas brancas é R$ 151 mil; a das pardas, R$ 100 mil; a das pretas,
             R$ 81 mil. Nas disputas por governo, Senado e Presidência, os valores também variam por
             cor/raça e pelos partidos que lançam as candidatas.
           </p>
@@ -136,10 +137,7 @@ function DinheiroPage() {
         className="mt-4 max-w-4xl border-l-4 border-plum bg-cream px-5 py-4 text-ink">
         <p className="font-semibold">Como ler os percentuais desta página</p>
         <p className="mt-2 text-sm leading-relaxed text-ink/80">
-          A manchete considera apenas a distribuição do Fundo Especial de Financiamento
-          de Campanha (FEFC) entre candidaturas de mulheres. Os indicadores de
-          <strong> receita total declarada</strong> incluem outras fontes de financiamento.
-          As participações podem ser diferentes, mesmo quando o recorte eleitoral é o mesmo.
+          A manchete compara a presença de mulheres brancas no arquivo de receitas (3.209 de 6.845 candidatas, incluindo zeros) com a participação delas na receita total declarada pelas candidatas proporcionais. Entre as 6.300 com receita positiva, são 2.981 (47,3%). O FEFC é uma das fontes da receita, analisado separadamente.
         </p>
       </aside>
 
@@ -152,7 +150,7 @@ function DinheiroPage() {
         question="Quanto foi declarado como receita, e por quantas candidaturas"
         align="wide"
         lead={
-          <p>Quantas candidaturas já declararam receita e quanto elas somam, em cada universo.</p>
+          <p>Quantas candidaturas aparecem no arquivo de receitas, quantas têm soma positiva e quanto declararam, em cada universo. Os registros de valor zero não são excluídos da cobertura.</p>
         }
         source={
           <>
@@ -162,6 +160,21 @@ function DinheiroPage() {
         }
       >
         <FinanceCoverage snapshot={financeSnapshot} />
+        <div className="mt-6 border-y border-rule py-5">
+          <h3 className="font-display text-2xl text-ink">Recebimentos e circulação de recursos</h3>
+          <p className="mt-2 text-sm leading-relaxed text-ink/85">Nos seis cargos titulares, {formatInt(FINANCE_AUDIT_TOTAL.noArquivo)} de {formatInt(FINANCE_AUDIT_TOTAL.titulares)} candidaturas aparecem no arquivo; {formatInt(FINANCE_AUDIT_TOTAL.positivas)} têm receita positiva, {formatInt(FINANCE_AUDIT_TOTAL.zeros)} têm registro zero e {formatInt(FINANCE_AUDIT_TOTAL.ausentes)} estão ausentes. Ausência não equivale a zero.</p>
+          <dl className="mt-5 grid gap-4 sm:grid-cols-2">
+            {[
+              ["Soma de recebimentos declarados",FINANCE_AUDIT_TOTAL.receitaBruta],
+              ["Repasses de outras candidaturas",FINANCE_AUDIT_TOTAL.repasses],
+              ["Recebimentos sem esses repasses",FINANCE_AUDIT_TOTAL.semRepasses],
+              ["Bens e serviços estimáveis (incluídos na soma)",FINANCE_AUDIT_TOTAL.estimaveis],
+              ["FEFC: recebimentos declarados",FINANCE_AUDIT_TOTAL.fefcBruto],
+              ["FEFC: origem partidária declarada",FINANCE_AUDIT_TOTAL.fefcPartidos],
+            ].map(([label,v])=><div key={label} className="border-t border-rule pt-3"><dt className="text-sm text-muted-foreground">{label}</dt><dd className="mt-1 font-display text-xl text-ink">{formatBRL(Number(v))}</dd></div>)}
+          </dl>
+          <p className="mt-4 text-sm leading-relaxed text-ink/85">A soma de recebimentos inclui circulação entre campanhas: não representa ingresso líquido no sistema. A exclusão pela origem declarada não concilia individualmente doações e saídas. O recorte partidário usa a origem declarada e o partido do registro da candidatura receptora, não a sigla do doador.</p>
+        </div>
       </SectionBlock>
 
       <SectionBlock
@@ -174,10 +187,10 @@ function DinheiroPage() {
         lead={
           <p>
             Só no Senado as mulheres recebem mais do que a presença delas (25,6% da receita, 22,2%
-            das candidaturas com receita). Nas assembleias legislativas, quase empatam (34,8% e
+            das candidaturas presentes no arquivo de receitas). Nas assembleias legislativas, quase empatam (34,8% e
             34,9%). Nas outras, recebem menos: Câmara dos Deputados (31,8% e 36,9%), Câmara
             Legislativa do DF (29,9% e 35,4%) e governos estaduais (12,3% e 17,8%). Na Presidência,
-            as mulheres são 2 das 14 candidaturas com receita; com base tão pequena, a fatia delas
+            as mulheres são 2 das 14 candidaturas presentes no arquivo de receitas; com base tão pequena, a fatia delas
             no dinheiro não vira percentual aqui.
           </p>
         }
@@ -263,25 +276,23 @@ function DinheiroPage() {
         id="fundo-eleitoral"
         tone="ink"
         kicker="Fundo eleitoral por partido"
-        question="O fundo público acompanhou a presença de mulheres e de pessoas negras nas candidaturas de cada partido?"
+        question="O FEFC acompanhou a presença de mulheres e de pessoas negras nas candidaturas de cada partido?"
         align="wide"
         lead={
           <>
             <p>
               A Constituição reserva pelo menos 30% do fundo eleitoral de cada partido para
               candidaturas de mulheres, na proporção das candidatas (EC 117/2022), e 30% para
-              candidaturas de pessoas pretas e pardas (EC 133/2024). Nas candidaturas a deputada e
-              deputado, o fundo acompanhou a presença das mulheres: elas são 35,6% das candidaturas
+              candidaturas de pessoas pretas e pardas (EC 133/2024). Na soma de recebimentos declarados pelas candidaturas a deputada e
+              deputado (inclusive repasses entre candidaturas), o fundo acompanhou a presença das mulheres: elas são 35,6% das candidaturas
               e receberam 37,3% do dinheiro. Com pessoas pretas e pardas, a distância é grande:
               candidaturas de pessoas pardas são 35,1% e receberam 28,3%; de pessoas pretas, 13,6% e
               9,5%. Candidaturas de pessoas brancas são 49,8% e receberam 60,8%.
             </p>
             <p className="mt-3">
-              No recorte das candidaturas a deputado, a participação de pretas e pardas
-              somadas no FEFC declarado ficou abaixo de 30% em três siglas:
-              PL (26,7%), NOVO (25,6%) e PCO (24,7%). Esses percentuais
+              No recorte proporcional de FEFC declarado com origem partidária (sem repasses de outras candidaturas), pretas e pardas somadas ficaram abaixo de 30% em três siglas: PL (26,3%), NOVO (26,2%) e PCO (24,7%). Esses percentuais
               descrevem apenas o recorte, sem estabelecer infração legal.
-              Incluindo titulares dos seis cargos, são seis: PL (22,3%),
+              Na soma dos recebimentos declarados, incluindo repasses entre campanhas e titulares dos seis cargos, são seis: PL (22,3%),
               NOVO (26,4%), MDB (28,2%), Cidadania (29,4%), PSD (29,4%) e PRTB (14,1%).
               O PRTB tem somente seis candidaturas titulares neste recorte, quatro com FEFC;
               percentuais de universos tão pequenos exigem cautela. A conta com todos os cargos
@@ -296,11 +307,11 @@ function DinheiroPage() {
         }
       >
         <div className="bg-paper p-4 text-ink md:p-7">
-          <Desdobra rotulo="Ver a tabela íntegra, partido por partido">
+          <Desdobra rotulo="Ver FEFC de origem partidária, partido por partido">
             <FefcPartidos />
           </Desdobra>
           <p className="mt-5 max-w-3xl border-t border-rule pt-4 text-[13px] leading-relaxed text-ink/80">
-            Base de 25/11/2026, gerada após o prazo final do 2º turno: 164 candidaturas
+            A tabela exclui repasses de outras candidaturas e agrupa pelo partido do registro da receptora. Base de 25/11/2026, gerada após o prazo final do 2º turno: 164 candidaturas
             ainda constam com prestação parcial e 74 com relatório financeiro.
             São registros declarados e sujeitos a atualização e julgamento.
             Esta tabela não verifica, isoladamente, cumprimento ou infração de cotas legais.
