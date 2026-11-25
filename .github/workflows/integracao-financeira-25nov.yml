@@ -32,12 +32,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.4'
       - name: Conferir integridade financeira
         run: node scripts/recontagem/validar_snapshot_financeiro.mjs
       - name: Compilar pacote estático de teste
         run: |
-          npm ci
-          npm run build:hostgator
+          bun install --frozen-lockfile
+          bun run build:hostgator
       - name: Registrar somente os agregados e arquivos de conteúdo autorizados
         run: |
           git config user.name 'github-actions[bot]'
