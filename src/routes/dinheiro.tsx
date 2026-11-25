@@ -273,7 +273,7 @@ function DinheiroPage() {
               candidaturas de pessoas pretas e pardas (EC 133/2024). Nas candidaturas a deputada e
               deputado, o fundo acompanhou a presença das mulheres: elas são 35,6% das candidaturas
               e receberam 37,3% do dinheiro. Com pessoas pretas e pardas, a distância é grande:
-              candidaturas de pessoas pardas são 35,1% e receberam 28,3%; de pessoas pretas, 13,7% e
+              candidaturas de pessoas pardas são 35,1% e receberam 28,3%; de pessoas pretas, 13,6% e
               9,5%. Candidaturas de pessoas brancas são 49,8% e receberam 60,8%.
             </p>
             <p className="mt-3">
