@@ -1,6 +1,6 @@
 /** base-publica — manifesto dos CSVs de public/dados. GERADO por scripts/base-publica/gerar.ts; não editar à mão. */
 export type ArquivoBase = { arquivo: string; titulo: string; descricao: string; fonte: string; linhas: number; colunas: string[]; bytes: number; sha256: string };
-export const BASE_PUBLICA_GERADA_EM = "15/11/2026";
+export const BASE_PUBLICA_GERADA_EM = "25/11/2026";
 export const BASE_PUBLICA: readonly ArquivoBase[] = [
  {
   "arquivo": "eleitas-2026.csv",
@@ -167,7 +167,7 @@ export const BASE_PUBLICA: readonly ArquivoBase[] = [
   "arquivo": "fundo-eleitoral-deputado-por-partido.csv",
   "titulo": "Fundo eleitoral a deputado, por partido",
   "descricao": "Fundo Especial de Financiamento de Campanha que chegou às candidaturas a deputado de cada partido, por gênero e cor/raça, em reais.",
-  "fonte": "TSE, Prestação de Contas 2026, base de 15/11/2026 (SHA-256 73ec0cd7727edd6ef3f9b69e7158f0e9dbb02a772a47e01e01374d004f4bdd90)",
+  "fonte": "TSE, Prestação de Contas 2026, base de 25/11/2026 (SHA-256 7cbbb11fb8004591e42ebb1ec1432585740c5b2436cd5f3ff65765e921247f29)",
   "linhas": 336,
   "colunas": [
    "partido",
@@ -176,6 +176,6 @@ export const BASE_PUBLICA: readonly ArquivoBase[] = [
    "fefc_reais"
   ],
   "bytes": 11451,
-  "sha256": "ea33f944be2cf7a8f8bc2e7036489bfa6fd340c49b73bd04caf73da07033ac51"
+  "sha256": "7b546881af11bf92a92b0d5622a892d9e991cfb15f36b97ac1b858b62e24e9b7"
  }
 ];
