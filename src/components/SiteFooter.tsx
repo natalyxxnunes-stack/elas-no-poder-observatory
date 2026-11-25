@@ -84,6 +84,7 @@ export function SiteFooter({ flush = false }: { flush?: boolean }) {
             Indicadores de candidatura calculados a partir de TSE / Dados Abertos / Candidatos 2026.
             A data da base usada aparece junto de cada número.
           </p>
+          <p className="mt-3"><a href="/sobre#privacidade" className="underline underline-offset-4 hover:text-cream">Privacidade e dados de navegação</a></p>
         </div>
       </div>
     </footer>
