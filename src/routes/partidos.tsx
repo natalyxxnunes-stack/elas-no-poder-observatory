@@ -10,7 +10,7 @@ import { ComoSabemos } from "@/components/editorial/ComoSabemos";
 import { GapNote } from "@/components/GapNote";
 import { LancaElege } from "@/components/editorial/LancaElege";
 import { M_PL_PRETAS } from "@/data/manchetes";
-import { FEFC_META, FEFC_PARTIDOS } from "@/data/fefc-partidos-2026";
+import { FEFC_META, FEFC_PARTIDOS_ORIGEM as FEFC_PARTIDOS } from "@/data/fefc-partidos-2026";
 import { RESULT_2026_GOVERNO, RESULT_2026_META, RESULT_2026_PARTIDOS } from "@/data/resultado-2026";
 import { SENADO_2027, SENADO_2027_META } from "@/data/senado-2027";
 import { PARTIDOS_VOTOS } from "@/data/partidos-votos";
@@ -356,7 +356,7 @@ function FundoTable() {
     <p className="mb-2 text-[13px] text-muted-foreground md:hidden">Deslize a tabela para ver todas as colunas →</p>
     <div tabIndex={0} className="overflow-x-auto border border-rule bg-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
       <table className="w-full min-w-[48rem] text-sm">
-        <caption className="sr-only">Fundo eleitoral por partido, candidaturas a deputado</caption>
+        <caption className="sr-only">FEFC de origem partidária por partido, candidaturas a deputado</caption>
         <thead>
           <tr className="text-[13px] text-muted-foreground font-semibold">
             <th className="px-3 pb-2 pt-3 text-left font-normal">Partido</th>
@@ -581,8 +581,8 @@ function FundoEmFoco() {
           </div>
           <dl className="space-y-5">
             {[
-              {label: "Participação de candidaturas de mulheres no FEFC deste recorte", count: d.mulheres.fefc, total: d.fefc},
-              {label: "Participação de candidaturas pretas e pardas somadas no FEFC deste recorte", count: d.pretasPardasSoma.fefc, total: d.fefc},
+              {label: "Participação de candidaturas de mulheres no FEFC de origem partidária", count: d.mulheres.fefc, total: d.fefc},
+              {label: "Participação de candidaturas pretas e pardas somadas no FEFC de origem partidária", count: d.pretasPardasSoma.fefc, total: d.fefc},
             ].map((x) => {
               const valor = pct(x.count, x.total);
               return <div key={x.label}>
