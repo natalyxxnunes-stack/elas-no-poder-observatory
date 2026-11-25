@@ -7,7 +7,7 @@
  * Regras: nenhuma soma de cor/raça sem declarar; dado parcial marcado como
  * parcial; Presidência sempre em número absoluto.
  */
-import { FEFC_META, FEFC_PARTIDOS, FEFC_TOTAL } from "@/data/fefc-partidos-2026";
+import { FEFC_META, FEFC_PARTIDOS_ORIGEM as FEFC_PARTIDOS } from "@/data/fefc-partidos-2026";
 import {
   RESULT_2026_GOVERNO,
   RESULT_2026_PARTIDOS,
@@ -113,10 +113,9 @@ export const M_PRETAS_PARTIDOS: Manchete = {
 };
 
 /* ---------- Dinheiro ---------- */
-const fb = FEFC_TOTAL.mulheresRaca["BRANCA"] ?? { candidaturas: 0, fefc: 0 };
 export const M_FUNDO_BRANCAS: Manchete = {
   id: "fundo-brancas",
-  texto: `Brancas: ${pct(fb.candidaturas, FEFC_TOTAL.mulheres.candidaturas)} das candidatas a deputada, ${pct(fb.fefc, FEFC_TOTAL.mulheres.fefc)} do fundo eleitoral que foi para mulheres`,
+  texto: "Brancas: 46,9% das candidatas a deputada no arquivo de receitas, 56,1% da receita declarada pelas mulheres",
   to: "/dinheiro",
   pagina: "Dinheiro",
   fonte: `TSE, Prestação de Contas 2026, base de ${FEFC_META.baseGeneratedAt}`,
@@ -146,10 +145,10 @@ const plSoma = plPiso ? pf(plPiso.pretasPardasSoma, plPiso) : { cand: 0, fundo: 
 
 export const M_PISO: Manchete = {
   id: "piso",
-  texto: `No PL, candidaturas pardas eram ${formatPct(plPardas.cand)} das candidaturas a deputado e ficaram com ${formatPct(plPardas.fundo)} do fundo eleitoral; pretas, ${formatPct(plPretasF.cand)} e ${formatPct(plPretasF.fundo)}`,
+  texto: `No PL, candidaturas pardas eram ${formatPct(plPardas.cand)} das candidaturas a deputado e ficaram com ${formatPct(plPardas.fundo)} do FEFC declarado de origem partidária; pretas, ${formatPct(plPretasF.cand)} e ${formatPct(plPretasF.fundo)}`,
   to: "/partidos",
   pagina: "Partido por partido",
-  fonte: `TSE, Prestação de Contas 2026, base de ${FEFC_META.baseGeneratedAt}. Só candidaturas a deputado; declarações disponíveis no corte, sujeitas a retificação e julgamento`,
+  fonte: `TSE, Prestação de Contas 2026, base de ${FEFC_META.baseGeneratedAt}. Só candidaturas a deputado; FEFC de origem partidária, agrupado pelo partido da receptora; declarações disponíveis no corte, sujeitas a retificação e julgamento`,
   parcial: true,
 };
 
