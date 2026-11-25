@@ -1,0 +1,49 @@
+name: Integrar fotografia financeira auditada 25-11 (isolado)
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/workflows/integracao-financeira-25nov.yml
+permissions:
+  contents: write
+  actions: read
+jobs:
+  integrar:
+    if: github.head_ref == 'atualizacao-financeira-tse-2026-11-25' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: atualizacao-financeira-tse-2026-11-25
+      - uses: actions/download-artifact@v4
+        with:
+          name: auditoria-tse-2026-metodo-publicado
+          run-id: 45690095847
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: docs/auditorias/financiamento-2026-25nov
+      - uses: actions/download-artifact@v4
+        with:
+          name: auditoria-tse-2026-agregados
+          run-id: 45690095847
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: docs/auditorias/financiamento-2026-25nov/independente
+      - name: Aplicar fotografia e recalcular textos correntes
+        run: python scripts/auditoria/integrar_25nov.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Conferir integridade financeira
+        run: node scripts/recontagem/validar_snapshot_financeiro.mjs
+      - name: Compilar pacote estático de teste
+        run: |
+          npm ci
+          npm run build:hostgator
+      - name: Registrar somente os agregados e arquivos de conteúdo autorizados
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/auditorias/financiamento-2026-25nov src/data/tse-finance-snapshot.ts src/data/despesas-2026.ts src/data/fefc-partidos-2026.ts src/data/metodo-publico.ts src/data/achados.ts src/data/competitividade.ts src/routes/dinheiro.tsx src/routes/partidos.tsx src/components/editorial/DespesasCharts.tsx scripts/recontagem/validar_snapshot_financeiro.mjs
+          git diff --cached --stat
+          git diff --cached --check
+          git commit -m 'data: integrar fotografia financeira TSE de 25/11, sem alterar resultados eleitorais'
+          git push origin HEAD:atualizacao-financeira-tse-2026-11-25
