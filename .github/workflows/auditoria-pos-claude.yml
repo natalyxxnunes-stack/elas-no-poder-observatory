@@ -1,0 +1,43 @@
+name: Recontagem financeira pós-auditoria independente
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/workflows/auditoria-pos-claude.yml
+      - scripts/auditoria/recontagem_pos_claude.py
+permissions:
+  contents: read
+jobs:
+  recontar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Testar classificação e centavos
+        run: |
+          python - <<'PY'
+          from scripts.auditoria.recontagem_pos_claude import category,cents,reais
+          assert cents("1.234,56")==123456 and cents("-0,01")==-1
+          assert reais(123456)=="1234.56"
+          r={"DS_ORIGEM_RECEITA":"Recursos de outros candidatos","DS_FONTE_RECEITA":"FUNDO ESPECIAL","DS_NATUREZA_RECEITA":"Estimável em dinheiro"}
+          assert category(r)[1:4]==(True,False,True) and category(r)[5]
+          r["DS_ORIGEM_RECEITA"]="Recursos de partidos políticos"
+          assert category(r)[1:4]==(False,True,True)
+          PY
+      - name: Baixar o corte oficial e conferir hashes antes de recontar
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/tse"
+          curl --fail --location --silent --show-error --retry 3 --connect-timeout 30 --max-time 900 "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2026.zip" -o "$RUNNER_TEMP/tse/cand.zip"
+          curl --fail --location --silent --show-error --retry 3 --connect-timeout 30 --max-time 900 "https://cdn.tse.jus.br/estatistica/sead/odsele/prestacao_contas/prestacao_de_contas_eleitorais_candidatos_2026.zip" -o "$RUNNER_TEMP/tse/contas.zip"
+          python scripts/auditoria/recontagem_pos_claude.py "$RUNNER_TEMP/tse/cand.zip" "$RUNNER_TEMP/tse/contas.zip" "resultado-auditoria"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: recontagem-financeira-pos-claude
+          path: resultado-auditoria/
+          retention-days: 90
