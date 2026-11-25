@@ -79,7 +79,7 @@ function TemaPage() {
       </nav>
 
       <section id="tese" className="scroll-mt-24 py-12 md:py-16">
-        <Secao nome="O essencial" tipo="o que o observatório encontrou neste tema" semFio />
+        <Secao as="h2" nome="O essencial" tipo="o que o observatório encontrou neste tema" semFio />
         {/* Duas colunas no desktop para a tese não deixar meia tela vazia (13/11/2026). */}
         <div className="mt-6 grid gap-8 md:grid-cols-12 md:gap-10">
           <p className="font-display text-[1.9rem] leading-[1.15] text-ink md:col-span-8 md:text-[2.5rem]">
@@ -114,7 +114,7 @@ function TemaPage() {
       {achados.length ? (
         <Faixa fundo="bg-cream">
           <div id="provas" className="scroll-mt-24 py-12 md:py-16">
-            <Secao
+            <Secao as="h2"
               nome="As provas"
               tipo={`${n(achados.length)} achados · cada um tem endereço próprio`}
             />
@@ -134,7 +134,7 @@ function TemaPage() {
       ) : null}
 
       <section id="quem-decide" className="relative left-1/2 -ml-[50vw] w-screen scroll-mt-24 bg-ink text-paper"><div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
-        <Secao nome="Quem decide" tipo="os atores e as relações por trás dos números" claro />
+        <Secao as="h2" nome="Quem decide" tipo="os atores e as relações por trás dos números" claro />
         <ol className="mt-8 grid gap-px bg-rule md:grid-cols-3">
           {tema.quemDecide.map((q, k) => (
             <li key={q.ator} className="bg-paper p-6 md:p-8">
@@ -148,7 +148,7 @@ function TemaPage() {
 
       {votacoes.length ? (
         <section className="py-12">
-          <Secao nome="No plenário" tipo="votações na Câmara" />
+          <Secao as="h2" nome="No plenário" tipo="votações na Câmara" />
           <ul className="mt-4 divide-y divide-rule border-b border-rule">
             {votacoes.map((v) => {
               const F = v.porSexo.F;
@@ -183,7 +183,7 @@ function TemaPage() {
       {falas.length ? (
         <Faixa fundo="bg-plum text-paper">
           <div className="py-12 md:py-16">
-            <Secao nome="Na voz delas" tipo="falas conferidas, com o dado oficial ao lado" claro />
+            <Secao as="h2" nome="Na voz delas" tipo="falas conferidas, com o dado oficial ao lado" claro />
             <ul className="mt-8 grid gap-8 md:grid-cols-2">
               {falas.map((f) => (
                 <li key={f.id}>
@@ -218,7 +218,7 @@ function TemaPage() {
       ) : null}
 
       <section id="lacunas" className="relative left-1/2 -ml-[50vw] w-screen scroll-mt-24 bg-[#c53f22] text-paper"><div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
-        <Secao nome="O que ainda não sabemos" tipo="lacunas declaradas" claro />
+        <Secao as="h2" nome="O que ainda não sabemos" tipo="lacunas declaradas" claro />
         <ul className="mt-6 grid gap-6 md:grid-cols-2 md:gap-10">
           {tema.naoSabemos.map((x) => (
             <li key={x} className="border-l-[3px] border-paper pl-5 text-[16px] leading-relaxed text-paper">
@@ -231,7 +231,7 @@ function TemaPage() {
       <section id="leitura-e-consulta" className="scroll-mt-24 grid gap-10 py-12 md:grid-cols-2 md:py-16">
         {tema.leituras.length ? (
           <div>
-            <Secao nome="Para ler" tipo="reportagens e perfis" />
+            <Secao as="h2" nome="Para ler" tipo="reportagens e perfis" />
             <ul className="mt-4">
               {tema.leituras.map((l) => (
                 <li key={l.to}>
@@ -247,7 +247,7 @@ function TemaPage() {
           </div>
         ) : null}
         <div>
-          <Secao nome="Para consultar" tipo="as ferramentas de dados deste tema" />
+          <Secao as="h2" nome="Para consultar" tipo="as ferramentas de dados deste tema" />
           <ul className="mt-4">
             {tema.paginas.map((p) => (
               <li key={`${p.to}${p.hash ?? ""}`}>
