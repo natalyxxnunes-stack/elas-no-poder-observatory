@@ -394,6 +394,64 @@ function SobrePage() {
         </div>
       </SectionBlock>
 
+      <SectionBlock id="privacidade" kicker="Transparência" question="Privacidade e dados de navegação" align="wide">
+        <p className="max-w-3xl text-sm leading-relaxed text-ink/80">
+          Aviso de privacidade · revisão de 25/11/2026. O Quem são elas? é um observatório
+          independente sob responsabilidade editorial de Nataly Nunes Pinto.
+        </p>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          <div className="poster-frame p-5">
+            <h3 className="font-display text-xl text-ink">Navegação e serviços externos</h3>
+            <p className="mt-3 text-sm leading-relaxed text-ink/85">
+              A hospedagem na HostGator e os serviços externos necessários ao funcionamento do site
+              podem receber informações técnicas da conexão, como endereço IP e dados do navegador.
+              O site solicita fontes ao Google Fonts e consulta dados eleitorais agregados no Supabase.
+              Cada serviço tem suas próprias condições de tratamento.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-ink/85">
+              Consulte as políticas de{" "}
+              <a className="underline underline-offset-4" href="https://www.hostgator.com.br/politica-de-privacidade">HostGator</a>,{" "}
+              <a className="underline underline-offset-4" href="https://policies.google.com/privacy?hl=pt-BR">Google</a> e{" "}
+              <a className="underline underline-offset-4" href="https://supabase.com/privacy">Supabase</a>.
+            </p>
+          </div>
+          <div className="poster-frame p-5">
+            <h3 className="font-display text-xl text-ink">Estatísticas de audiência</h3>
+            <p className="mt-3 text-sm leading-relaxed text-ink/85">
+              Utilizamos o GoatCounter para estatísticas de acesso, como páginas visitadas, navegador
+              e localização aproximada. O serviço informa que usa dados técnicos para produzir
+              contagens agregadas, sem cookies de rastreamento. A contagem respeita os sinais
+              Do Not Track e Global Privacy Control enviados pelo navegador, quando presentes.
+              Você também pode bloquear o script de estatísticas nas configurações do navegador.
+            </p>
+            <p className="mt-3 text-sm">
+              <a className="underline underline-offset-4" href="https://www.goatcounter.com/help/privacy">Política de privacidade do GoatCounter</a>.
+            </p>
+          </div>
+          <div className="poster-frame p-5">
+            <h3 className="font-display text-xl text-ink">Dados da pesquisa</h3>
+            <p className="mt-3 text-sm leading-relaxed text-ink/85">
+              O conteúdo jornalístico utiliza registros públicos de fontes oficiais. A publicação
+              de informações sobre candidaturas e mandatos observa relevância jornalística,
+              minimização de dados, contexto e possibilidade de correção. Dados de contato pessoais
+              e identificadores desnecessários não integram as fichas eleitorais publicadas.
+              Informações de apuração preliminar não devem ser incluídas no acervo aberto.
+            </p>
+          </div>
+          <div className="poster-frame p-5">
+            <h3 className="font-display text-xl text-ink">Contato e solicitações</h3>
+            <p className="mt-3 text-sm leading-relaxed text-ink/85">
+              Se escrever ao observatório, as informações fornecidas serão utilizadas para responder
+              à mensagem e avaliar pedidos de correção, privacidade ou exercício de direitos.
+              Envie apenas o necessário para a solicitação.
+            </p>
+            <p className="mt-3 text-sm">
+              <a className="underline underline-offset-4" href="mailto:contato@quemsaoelas.com.br?subject=Privacidade">contato@quemsaoelas.com.br</a>
+            </p>
+          </div>
+        </div>
+      </SectionBlock>
+
       <NextAxes ids={["dados-2026", "metodo", "funil"]} />
     </PageShell>
   );
