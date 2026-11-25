@@ -32,7 +32,7 @@ const TSE_PRORROGACAO = {
 };
 const CF = { nome: "Constituição Federal", url: "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" };
 
-export const CALENDARIO_META = { conferidoEm: "17/11/2026" } as const;
+export const CALENDARIO_META = { conferidoEm: "25/11/2026" } as const;
 
 export const CALENDARIO: readonly DataCalendario[] = [
   {
@@ -65,7 +65,7 @@ export const CALENDARIO: readonly DataCalendario[] = [
     titulo: "Dia Internacional pela Eliminação da Violência contra as Mulheres",
     explica: "Data da ONU; abre os 16 dias de ativismo, que vão até 10 de dezembro.",
     fonte: { nome: "ONU Mulheres", url: "https://www.onumulheres.org.br/" },
-    pauta: "Barreiras atualizada com os processos de violência política de gênero do painel do TSE e do MPF.",
+    pauta: "Barreiras: incorporar o monitoramento eleitoral da Terra de Direitos e Justiça Global e a jurisprudência da Nota Técnica nº 13; manter o corte processual de 23/10 até nova leitura verificável.",
   },
   {
     data: "2026-12-15",
