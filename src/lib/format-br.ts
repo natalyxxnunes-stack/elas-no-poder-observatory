@@ -31,11 +31,11 @@ export function formatBRLCompact(value: number): string {
   const absolute = Math.abs(value);
   if (absolute >= 1_000_000_000) {
     const amount = formatDecimal(value / 1_000_000_000, 2).replace(/,00$/, "");
-    return `R$ ${amount} ${Math.abs(value / 1_000_000_000).toFixed(2) === "1.00" ? "bilhão" : "bilhões"}`;
+    return `R$ ${amount} ${Number(Math.abs(value / 1_000_000_000).toFixed(2)) < 2 ? "bilhão" : "bilhões"}`;
   }
   if (absolute >= 1_000_000) {
     const amount = formatDecimal(value / 1_000_000, 1).replace(/,0$/, "");
-    return `R$ ${amount} ${Math.abs(value / 1_000_000).toFixed(1) === "1.0" ? "milhão" : "milhões"}`;
+    return `R$ ${amount} ${Number(Math.abs(value / 1_000_000).toFixed(1)) < 2 ? "milhão" : "milhões"}`;
   }
   if (absolute >= 1_000) return `R$ ${formatInt(value / 1_000)} mil`;
   return formatBRL(value);
