@@ -3,6 +3,7 @@
 
 Options -MultiViews
 DirectoryIndex index.html
+ErrorDocument 404 /404.html
 
 Redirect 301 /condicoes /quem-controla
 
@@ -34,9 +35,8 @@ Redirect 301 /condicoes /quem-controla
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # 3) Qualquer outra rota cai no app (fallback de SPA); a página 404 do
-  #    próprio site trata endereços inexistentes.
-  RewriteRule ^ /index.html [L]
+  # 3) Rotas e arquivos inexistentes retornam HTTP 404 real.
+  RewriteRule ^ - [R=404,L]
 </IfModule>
 
 <IfModule mod_deflate.c>
@@ -45,19 +45,27 @@ Redirect 301 /condicoes /quem-controla
 
 <IfModule mod_expires.c>
   ExpiresActive On
-  # Assets com hash no nome podem ser cacheados longamente.
-  <FilesMatch "\.(js|css|woff2|png|jpg|jpeg|webp|svg|avif)$">
-    ExpiresDefault "access plus 1 year"
-    Header set Cache-Control "public, max-age=31536000, immutable"
+  # Sem hash, revalidar em prazo curto (inclusive fotografias e documentos).
+  <FilesMatch "\\.(js|css|woff2|png|jpg|jpeg|webp|svg|avif|pdf|csv|json)$">
+    ExpiresDefault "access plus 1 hour"
   </FilesMatch>
   # HTML precisa revalidar: cada nova fotografia publicada gera HTML novo.
   <FilesMatch "\.html$">
     ExpiresDefault "access plus 0 seconds"
-    Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
 </IfModule>
 
 <IfModule mod_headers.c>
+  <FilesMatch "\\.(js|css|woff2|png|jpg|jpeg|webp|svg|avif|pdf|csv|json)$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+  # Somente assets versionados por hash emitidos no build.
+  <If "%{REQUEST_URI} =~ m#^/assets/[^/]+-[A-Za-z0-9_-]{8,}\\.(js|css|woff2)$#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  <FilesMatch "\\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
   Header set X-Content-Type-Options "nosniff"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
