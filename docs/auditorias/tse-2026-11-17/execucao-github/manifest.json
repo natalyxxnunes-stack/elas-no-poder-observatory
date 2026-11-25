@@ -1,0 +1,54 @@
+{
+  "candidaturas": {
+    "zip_sha256": "60b0a9292b3ad38de914624f4eedf9c2d97440e3825335a5cf2a1a018faabc9e",
+    "csv_sha256": "51a7b2d098e6d3712b75dc6364faad8183bad16c72b63298a0a6e41403e538cf",
+    "gerado_em": "17/11/2026 19:31:29",
+    "linhas": 21017,
+    "titulares": 20065
+  },
+  "contas": {
+    "zip_sha256": "ad32754c7188cef29422445a52fc5f9a9c35b75e10918b56a8900ac4420e0e81",
+    "receitas": {
+      "csv_sha256": "5c9b1e0456a8aa75bdecc5ac7ffc2bb52d4bbaa0099ec675a13b6ab73c0e04ba",
+      "gerado_em": "17/11/2026 09:03:49",
+      "linhas": 269411,
+      "duplicatas": 981,
+      "sem_cadastro_titular": 0,
+      "coluna_valor": "VR_RECEITA"
+    },
+    "despesas_contratadas": {
+      "csv_sha256": "f185717ac6ffba0b04dfa5be56435e75a6071b19f570999232a5e49548bcfe9c",
+      "gerado_em": "17/11/2026 04:05:11",
+      "linhas": 1789016,
+      "duplicatas": 27487,
+      "sem_cadastro_titular": 0,
+      "coluna_valor": "VR_DESPESA_CONTRATADA"
+    },
+    "despesas_pagas": {
+      "csv_sha256": "f57eddcdbf270f4d03a8dce53e95aefff1e9d1900cf3c1d76f209eeddb820b6d",
+      "gerado_em": "17/11/2026 04:05:24",
+      "linhas": 2001891,
+      "duplicatas": 38,
+      "sem_cadastro_titular": 0,
+      "coluna_valor": "VR_PAGTO_DESPESA",
+      "linhas_sem_vinculo": 0,
+      "valor_sem_vinculo": 0.0
+    }
+  },
+  "divergencias_totalizacao": {
+    "DEPUTADO FEDERAL": {
+      "esperado": 513,
+      "encontrado": 505
+    },
+    "DEPUTADO ESTADUAL": {
+      "esperado": 1035,
+      "encontrado": 1011
+    }
+  },
+  "aviso_resultado": "NÃO USAR O RESULTADO ELEITORAL DESTA EXTRAÇÃO PARA SUBSTITUIR O SITE: totalização incompleta.",
+  "status": "FINANCEIRO_POS_16_11_RESULTADO_ELEITORAL_INCOMPLETO",
+  "aviso": "ZIPs brutos não foram incorporados ao repositório; verificar datas e origem antes de publicar.",
+  "pendencias_corte": [
+    "Não usar resultado eleitoral desta base para substituir as 1.572 vagas proporcionais: totalização incompleta."
+  ]
+}
