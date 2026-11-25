@@ -1178,7 +1178,7 @@ function MetodoPage() {
         </p>
         <dl className="mt-5 grid gap-4 sm:grid-cols-2">
           {[
-            ["Resultados nacionais e votos", "Cadastro de 27/10/2026 às 19h30min36s; votação de 27/10 às 19h32min16s."],
+            ["Resultados nacionais e votos", "Cadastro de 27/10/2026 às 19h30min36s; votação de 27/10 às 19h32min16s. Governadores: recorte de 12/11/2026."],
             ["Fichas das eleitas", "02/11/2026 às 08h30min34s; trajetória de 2022 com base de 01/11/2026."],
             ["Partido × UF e cor/raça", "04/11/2026 às 12h30min19s."],
             ["Reeleição e receita de campanha histórica", "Prestação final do 1º turno, base de 04/11/2026."],
@@ -1223,6 +1223,11 @@ function MetodoPage() {
         }
       >
         <div className="space-y-4">
+          <ContextBox variant="calculamos" title="Recebimentos, repasses e cobertura">
+            <p>Para cada candidatura titular, somamos VR_RECEITA após excluir 978 linhas integralmente duplicadas. Receita declarada abrange recursos financeiros e bens ou serviços estimáveis. O arquivo de 25/11 contém 19.692 das 20.065 candidaturas titulares, das quais 17.887 com soma positiva, 1.805 com registro zero e 373 ausentes. Ausência não é zero. Medianas com e sem zeros têm denominadores próprios.</p>
+            <p>Os recebimentos somam R$ 7.026.864.553,75; R$ 154.258.397,80 são classificados como Recursos de outros candidatos. Excluídos esses repasses, a soma é R$ 6.872.606.155,95, sem conciliação individual de entradas e saídas. O FEFC bruto soma R$ 5.035.316.334,04, dos quais R$ 4.918.335.856,45 têm origem declarada Recursos de partido político. O recorte por sigla usa a candidatura receptora, não identifica o partido doador nem comprova cumprimento legal de cotas.</p>
+            <p>Fonte: TSE, receitas geradas em 25/11/2026 às 04h05min30s e cadastro às 16h30min55s. Recontagem em centavos inteiros, por SQ_CANDIDATO, incluindo os registros de todos os turnos, mantendo proporcional e majoritário separados. Script e agregados em <a className="underline underline-offset-4" href="https://github.com/natalyxxnunes-stack/elas-no-poder-observatory/blob/main/scripts/auditoria/recontagem_pos_claude.py">repositório do observatório</a> (disponíveis após integração da versão).</p>
+          </ContextBox>
           {FINANCE_AVAILABILITY.checked.map((c) => (
             <article key={c.id} className="editorial-card p-5">
               <div className="flex flex-wrap items-baseline justify-between gap-3">
