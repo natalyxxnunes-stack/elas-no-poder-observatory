@@ -322,7 +322,7 @@ export function MetodoContaRevista({
             Cálculo: numerador ÷ denominador × 100; percentual arredondado
             a uma casa decimal, a partir dos valores não arredondados.
             Fonte: TSE, prestação de contas gerada em {FINANCE_BASE_LABEL},
-            cruzada com o registro de candidaturas de 15/11/2026.
+            cruzada com o registro de candidaturas de 25/11/2026.
             Receitas declaradas, sujeitas a complementações, retificações e julgamento.
           </figcaption>
           <a href="#financiamento" className="mt-5 inline-flex min-h-11 items-center text-sm font-semibold text-paper underline underline-offset-4">
