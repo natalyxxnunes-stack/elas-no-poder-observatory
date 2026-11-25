@@ -1,0 +1,47 @@
+name: Gerar CSVs da homologação pós-Claude
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/base-publica/gerar.ts
+      - .github/workflows/gerar-csv-pos-claude.yml
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: csv-pos-claude-${{ github.head_ref }}
+  cancel-in-progress: true
+jobs:
+  gerar:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'homologacao-pos-claude-2026-11-25'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.4'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 45709028417
+          name: recortes-financeiros-pos-claude
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/recortes
+      - name: Verificar dados contra recontagem
+        run: |
+          bun scripts/auditoria/validar_recortes_pos_claude.ts "$RUNNER_TEMP/recortes/recontagem-financeira.json"
+          cmp "$RUNNER_TEMP/recortes/fefc-origem-partidaria-proporcional.json" docs/auditorias/pos-claude-2026-11-25/fefc-origem-partidaria-proporcional.json
+      - name: Gerar dados públicos e conferir preservação dos CSVs anteriores
+        run: |
+          set -euo pipefail
+          bun scripts/base-publica/gerar.ts
+          git diff --exit-code -- public/dados
+          git add -- public/dados/fundo-eleitoral-origem-partidaria-deputado-por-partido.csv public/dados/receitas-2026-universos.csv public/dados/receitas-2026-medianas.csv src/data/base-publica.ts
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: exportar recortes financeiros pós-Claude e manifesto"
+          git pull --rebase origin homologacao-pos-claude-2026-11-25
+          git push origin HEAD:homologacao-pos-claude-2026-11-25
