@@ -3,6 +3,7 @@ import { ChartBar, ChartFrame, ChartScale } from "@/components/editorial/ChartFr
 import { ManchetesStrip } from "@/components/editorial/Manchetes";
 import { M_FEMINICIDIO, M_VPG } from "@/data/manchetes";
 import { FEMINICIDIO_2025, FEMINICIDIO_META, VPG, VPG_META } from "@/data/violencia-2026";
+import { MONITOR_VIOLENCIA, JURISPRUDENCIA_VPG, LEGISLACAO_VPG } from "@/data/violencia-monitoramento-2026";
 import { formatInt, formatPct } from "@/lib/format-br";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/editorial/PageHero";
@@ -84,8 +85,7 @@ function BarreirasPage() {
         lead={
           <p>
             Violência política de gênero é crime desde 2021 (art. 326-B do Código Eleitoral):
-            assediar, constranger, humilhar, perseguir ou ameaçar candidata ou eleita por ela ser
-            mulher. O painel público do TSE e do MPF mostra quantos processos chegaram à Justiça
+            assediar, constranger, humilhar, perseguir ou ameaçar candidata ou detentora de mandato, mediante discriminação à condição de mulher ou à sua cor, raça ou etnia, com a finalidade de dificultar ou impedir a campanha ou o mandato. O painel público do TSE e do MPF mostra quantos processos chegaram à Justiça
             Eleitoral. Quem são as vítimas, por cargo e cor/raça, o painel não mostra; pedimos esses
             dados pela Lei de Acesso à Informação.
           </p>
@@ -98,7 +98,7 @@ function BarreirasPage() {
             </p>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               Publicamos o que o registro oficial conta, com o nome certo: processos autuados.
-              Subnotificação é a regra neste tema.
+              A subnotificação limita a interpretação dos registros.
             </p>
           </div>
         }
@@ -209,6 +209,98 @@ function BarreirasPage() {
           </div>
         </div>
       </section>
+
+      <SectionBlock
+        id="violencia-eleicoes-2026"
+        tone="plum"
+        kicker="Eleições 2026 · monitoramento independente"
+        question="Mulheres foram alvo de 60 dos 102 episódios contra candidaturas no primeiro turno"
+        align="wide"
+        lead={<p>O levantamento da Terra de Direitos e da Justiça Global acompanha episódios de violência política e eleitoral. É uma pesquisa com metodologia própria, distinta dos registros de processos da Justiça Eleitoral.</p>}
+      >
+        <div className="grid gap-6 lg:grid-cols-2">
+          <ChartFrame
+            eyebrow="16 de agosto a 4 de outubro de 2026"
+            title="58,8% dos episódios contra candidaturas atingiram mulheres"
+            source={MONITOR_VIOLENCIA.fonte}
+            ficha={{
+              vendo: "Participação dos episódios contra candidaturas que atingiram mulheres cis, trans e travestis.",
+              contados: "Episódios registrados pelo monitoramento, não pessoas distintas.",
+              denominador: "102 episódios contra candidaturas.",
+              data: "16/08 a 04/10/2026; publicação de 07/10/2026.",
+              fonte: MONITOR_VIOLENCIA.fonte,
+              limitacao: "A pesquisa não mede a incidência nacional de violência nem o risco individual de sofrer um ataque.",
+            }}
+          >
+            <ChartBar label="Episódios que atingiram mulheres" base="60 de 102" value={100 * MONITOR_VIOLENCIA.primeiro.episodiosMulheresCandidatas / MONITOR_VIOLENCIA.primeiro.episodiosCandidaturas} display="58,8%" barClass="bg-plum" />
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">No conjunto mais amplo do primeiro turno, 70 dos 134 episódios atingiram mulheres. Os dois denominadores correspondem a recortes diferentes.</p>
+            <a className="mt-4 inline-flex min-h-11 items-center font-semibold text-ink underline underline-offset-4" href={MONITOR_VIOLENCIA.primeiro.url} target="_blank" rel="noreferrer">Consultar publicação de 7 de outubro ↗</a>
+          </ChartFrame>
+          <ChartFrame
+            eyebrow="5 a 31 de outubro de 2026"
+            title="14 de 29 episódios da série principal atingiram mulheres"
+            source={MONITOR_VIOLENCIA.fonte}
+            ficha={{
+              vendo: "Episódios envolvendo candidaturas, mandatos e partidos.",
+              contados: "29 episódios da série principal; 14 envolveram mulheres e sete apresentaram componentes de gênero.",
+              denominador: "29 episódios; universo diferente do recorte de candidaturas no primeiro turno.",
+              data: "05/10 a 31/10/2026; publicação de 11/11/2026.",
+              fonte: MONITOR_VIOLENCIA.fonte,
+              limitacao: "Não inclui o conjunto adicional de episódios contra eleitorado, militantes e equipes. Não comparar diretamente com a proporção do primeiro turno.",
+            }}
+          >
+            <ChartBar label="Episódios que atingiram mulheres" base="14 de 29" value={100 * MONITOR_VIOLENCIA.segundo.episodiosMulheres / MONITOR_VIOLENCIA.segundo.episodiosSeriePrincipal} display="14 de 29" barClass="bg-plum" />
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Em sete desses episódios foram identificados elementos de violência política de gênero. O monitoramento inclui o período posterior à votação.</p>
+            <a className="mt-4 inline-flex min-h-11 items-center font-semibold text-ink underline underline-offset-4" href={MONITOR_VIOLENCIA.segundo.url} target="_blank" rel="noreferrer">Consultar publicação de 11 de novembro ↗</a>
+          </ChartFrame>
+        </div>
+      </SectionBlock>
+
+      <SectionBlock
+        id="responsabilizacao"
+        tone="ink"
+        kicker="Arquivo judicial · novembro de 2026"
+        question="O que a Justiça Eleitoral tem decidido sobre a violência política de gênero?"
+        align="wide"
+      >
+        <div className="grid gap-8 bg-paper p-5 text-ink md:grid-cols-[1fr_2fr] md:p-8">
+          <div className="border-t-2 border-ink pt-4">
+            <p className="font-display text-6xl">{JURISPRUDENCIA_VPG.casos}</p>
+            <p className="mt-2 text-sm">casos examinados pela Nota Técnica nº 13, com registros disponíveis até {JURISPRUDENCIA_VPG.corte}.</p>
+          </div>
+          <div>
+            <p className="leading-relaxed">O levantamento da Câmara dos Deputados reúne controvérsias sobre a aplicação da Lei nº 14.192/2021. Inclui decisões que reconheceram a violência política de gênero, decisões que não a reconheceram e questões conexas de inelegibilidade por violência doméstica. Não constitui uma contagem nacional de condenações.</p>
+            <p className="mt-4 text-sm text-muted-foreground">Fonte: {JURISPRUDENCIA_VPG.fonte}. Autoria: {JURISPRUDENCIA_VPG.autores}.</p>
+            <a href={JURISPRUDENCIA_VPG.url} target="_blank" rel="noreferrer" className="mt-4 inline-flex min-h-11 items-center font-semibold underline underline-offset-4">Ler a nota técnica original (PDF) ↗</a>
+            <p className="mt-4 border-t border-rule pt-4 text-sm">O Quem são elas? acompanha esses documentos para investigar a responsabilização e o exercício dos mandatos. O estado atual de cada processo será verificado nos autos antes de publicação individualizada.</p>
+          </div>
+        </div>
+      </SectionBlock>
+
+      <SectionBlock
+        id="protecao-legislativa"
+        kicker="A proteção em disputa"
+        question="Quais mudanças estão em discussão na Câmara?"
+        align="wide"
+      >
+        <div className="bg-paper p-5 text-ink md:p-8">
+          <p className="text-sm">Consulta em {LEGISLACAO_VPG.consulta}. Proposições em tramitação, não normas vigentes.</p>
+          <div className="mt-4 border-t-2 border-ink py-4">
+            <h3 className="font-display text-2xl">{LEGISLACAO_VPG.principal.projeto} · {LEGISLACAO_VPG.principal.autoria}</h3>
+            <p className="mt-2">{LEGISLACAO_VPG.principal.objeto} {LEGISLACAO_VPG.principal.situacao}</p>
+            <a href={LEGISLACAO_VPG.principal.url} target="_blank" rel="noreferrer" className="mt-3 inline-flex min-h-11 items-center font-semibold underline underline-offset-4">Consultar tramitação e documentos ↗</a>
+          </div>
+          <ul className="divide-y divide-rule border-y border-rule">
+            {LEGISLACAO_VPG.apensados.map((p) => (
+              <li key={p.projeto} className="py-4">
+                <h3 className="font-semibold">{p.projeto} · {p.autoria}</h3>
+                <p className="mt-1 text-sm">{p.objeto}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-sm text-muted-foreground">Os três projetos acima tramitam apensados ao PL 68/2025.</p>
+        </div>
+      </SectionBlock>
 
       <ManchetesStrip items={[M_FEMINICIDIO]} label="Violência contra mulheres" />
 
@@ -367,8 +459,8 @@ function BarreirasPage() {
                 <h3 className="font-display text-xl text-ink">{b.form}</h3>
                 <StatusTag tone="pending">
                   {b.form === "Violência política de gênero"
-                    ? "processos agregados publicados; caso a caso via LAI"
-                    : "sem indicador publicável"}
+                    ? "processos e monitoramento de episódios; universos distintos"
+                    : "sem série própria comparável"}
                 </StatusTag>
               </div>
               <p className="mt-2 max-w-3xl leading-relaxed text-muted-foreground">{b.note}</p>
@@ -415,9 +507,7 @@ function BarreirasPage() {
         </div>
         <div className="mt-6">
           <GapNote label="Lacuna declarada">
-            Fora a violência política de gênero, em processos agregados, e o feminicídio, pelo
-            Anuário, este eixo segue sem indicador até que exista fonte comparável. Nenhum relato
-            individual é transformado em estatística.
+            O painel processual mantém a extração de 23/10/2026 até nova leitura verificável. Os levantamentos de episódios e a nota técnica são apresentados separadamente, com seus próprios recortes. Ainda não há série própria comparável por raça, cargo ou identidade de gênero.
           </GapNote>
         </div>
         </div>
