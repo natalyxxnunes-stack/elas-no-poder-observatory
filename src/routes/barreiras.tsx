@@ -319,8 +319,8 @@ function BarreirasPage() {
         <div className="grid gap-6 lg:grid-cols-2">
           <ChartFrame
             eyebrow="Processos autuados por ano · todas as instâncias"
-            title="De 15 processos em 2022 a 224 em 2026"
-            note={`Acervo total: ${n(VPG.acervo)} processos, ${n(VPG.tramitando)} ainda tramitando (${formatPct((VPG.tramitando / VPG.acervo) * 100)}), de ${n(VPG.ufs)} estados e ${n(VPG.municipios)} municípios. O painel registra 2 processos em 2019, sem explicar a origem, e não mostra 2020 e 2021. Em 2018 a violência política de gênero não era crime: a Lei 14.192 é de agosto de 2021, e o painel conta só processos por esse crime. A violência existia antes; quem a contou foram levantamentos de casos noticiados, como os da Justiça Global e da Terra de Direitos (2016 a 2020 e 2020 a 2022), com método próprio e sem comparação direta com este gráfico. Régua de 0 a 250.`}
+            title="15 processos em 2022 e 224 até 23/10/2026"
+            note={`Acervo total: ${n(VPG.acervo)} processos, ${n(VPG.tramitando)} ainda tramitando (${formatPct((VPG.tramitando / VPG.acervo) * 100)}), de ${n(VPG.ufs)} estados e ${n(VPG.municipios)} municípios. O painel registra 2 processos em 2019, sem explicar a origem, e não mostra 2020 e 2021. A Lei 14.192 é de agosto de 2021; a classificação dos registros anteriores à lei não está esclarecida. O período de 2026 termina em 23/10, enquanto 2022 corresponde ao ano completo. Os números não permitem medir isoladamente a incidência da violência. Os levantamentos de casos noticiados da Justiça Global e da Terra de Direitos (2016 a 2020 e 2020 a 2022) têm método próprio, sem comparação direta com este gráfico. Régua de 0 a 250.`}
             source={`Fonte: ${VPG_META.fonte}; dados extraídos em ${VPG_META.extraidoEm}, lidos em ${VPG_META.lidoEm}.`}
             ficha={{
               vendo:
