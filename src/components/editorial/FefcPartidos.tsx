@@ -1,9 +1,9 @@
 import { ChartFrame } from "@/components/editorial/ChartFrame";
 import {
   FEFC_META,
-  FEFC_PARTIDOS,
-  FEFC_PARTIDOS_SEM_FUNDO,
-  FEFC_TOTAL,
+  FEFC_PARTIDOS_ORIGEM as FEFC_PARTIDOS,
+  FEFC_PARTIDOS_ORIGEM_SEM_FUNDO as FEFC_PARTIDOS_SEM_FUNDO,
+  FEFC_TOTAL_ORIGEM as FEFC_TOTAL,
   type FefcGrupo,
   type FefcPartido,
 } from "@/data/fefc-partidos-2026";
@@ -52,12 +52,12 @@ export function FefcPartidos() {
   const rows = Object.entries(FEFC_PARTIDOS);
   return (
     <ChartFrame
-      eyebrow="Fundo eleitoral (FEFC) por partido · deputada e deputado · 2026"
-      title="Em cada partido, a fatia de cada grupo nas candidaturas a deputado e no fundo eleitoral que chegou a elas"
+      eyebrow="FEFC de origem partidária · deputada e deputado · 2026"
+      title="Em cada partido, presença de cada grupo e participação no FEFC declarado de origem partidária"
       note={
         <>
           Cada célula: fatia do grupo entre as candidaturas do partido → fatia do grupo no FEFC
-          recebido pelas candidaturas do partido, e a diferença em pontos percentuais. O fundo é
+          de origem partidária recebido pelas candidaturas do partido (excluídos repasses entre candidaturas), e a diferença em pontos percentuais. O agrupamento usa o partido do registro da receptora; não identifica a sigla do doador. O fundo é
           apresentado neste quadro sem sinalização de infração. O piso constitucional de financiamento
           exige exame do conjunto dos recursos partidários e das campanhas abrangidas pelas normas,
           inclusive disputas majoritárias; percentuais inferiores a 30% neste recorte proporcional
@@ -65,22 +65,22 @@ export function FefcPartidos() {
           20 delas, mostram só o número absoluto de candidaturas do grupo: ali uma única campanha
           muda o percentual inteiro. Ordem pelo total de FEFC, sem classificar mérito.
           {FEFC_PARTIDOS_SEM_FUNDO.length > 0
-            ? ` Sem FEFC declarado: ${FEFC_PARTIDOS_SEM_FUNDO.join(", ")}.`
+            ? ` Sem FEFC de origem partidária declarado: ${FEFC_PARTIDOS_SEM_FUNDO.join(", ")}.`
             : ""}
         </>
       }
       source={`Fonte: TSE, Prestação de Contas Eleitorais 2026 (base de ${FEFC_META.baseGeneratedAt}, declarações disponíveis até a geração da base) e Candidatos 2026. Recontagem independente.`}
       ficha={{
         vendo:
-          "Para cada partido, se o fundo eleitoral que chegou às candidaturas acompanhou a presença de mulheres e de cada grupo de cor/raça entre elas.",
+          "Para cada partido, se o FEFC declarado de origem partidária que chegou às candidaturas acompanhou a presença de mulheres e de cada grupo de cor/raça entre elas.",
         contados: `Pedidos de registro para deputada e deputado federal, estadual e distrital em 2026: ${n(FEFC_TOTAL.candidaturas)} candidaturas. Governo, Senado e Presidência ficam fora desta tabela.`,
         denominador:
-          "Candidaturas do próprio partido (primeiro número) e FEFC recebido pelas candidaturas do próprio partido (segundo número).",
+          "Candidaturas do próprio partido (primeiro número) e FEFC declarado de origem partidária recebido pelas candidaturas do próprio partido (segundo número).",
         data: `Prestação de contas e registro do TSE de ${FEFC_META.baseGeneratedAt}`,
         fonte:
-          "TSE, Prestação de Contas Eleitorais 2026 (receitas, fonte Fundo Especial) e Candidatos 2026",
+          "TSE, Prestação de Contas Eleitorais 2026 (receitas, fonte Fundo Especial, origem Recursos de partido político) e Candidatos 2026",
         limitacao:
-          "O piso de financiamento incide sobre o universo partidário pertinente, que também abrange disputas majoritárias; esta tabela restringe-se a candidaturas a deputado. A atribuição de recursos às chapas majoritárias exige exame próprio da prestação de contas, da legislação e das decisões aplicáveis. A tabela contabiliza o FEFC declarado recebido até a geração da base, sujeita a retificações e julgamento, sem demonstrar cumprimento ou infração legal. Pretas e pardas são somadas apenas no campo identificado como candidaturas negras, preservando as categorias separadas nas demais colunas.",
+          "O piso de financiamento incide sobre o universo partidário pertinente, que também abrange disputas majoritárias; esta tabela restringe-se a candidaturas a deputado. A atribuição de recursos às chapas majoritárias exige exame próprio da prestação de contas, da legislação e das decisões aplicáveis. A tabela contabiliza apenas o FEFC declarado de origem partidária até a geração da base, sujeita a retificações e julgamento, sem demonstrar cumprimento ou infração legal. Pretas e pardas são somadas apenas no campo identificado como candidaturas negras, preservando as categorias separadas nas demais colunas.",
       }}
     >
       <p className="mb-3 text-[13px] leading-relaxed text-muted-foreground md:hidden">
@@ -88,7 +88,7 @@ export function FefcPartidos() {
       </p>
       <div tabIndex={0} role="region" aria-label="Tabela do fundo eleitoral por partido, rolável na horizontal" className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[64rem] text-sm">
-          <caption className="sr-only">Candidaturas e FEFC por partido, gênero e cor/raça</caption>
+          <caption className="sr-only">Candidaturas e FEFC de origem partidária por partido, gênero e cor/raça</caption>
           <thead>
             <tr className="align-bottom text-[13px] text-muted-foreground font-semibold">
               <th className="sticky left-0 z-10 bg-paper pb-2 pr-3 text-left font-normal">Partido</th>
