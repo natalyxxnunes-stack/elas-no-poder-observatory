@@ -406,7 +406,7 @@ function SobrePage() {
             <p className="mt-3 text-sm leading-relaxed text-ink/85">
               A hospedagem na HostGator e os serviços externos necessários ao funcionamento do site
               podem receber informações técnicas da conexão, como endereço IP e dados do navegador.
-              O site solicita fontes ao Google Fonts e consulta dados eleitorais agregados no Supabase.
+              O site solicita fontes ao Google Fonts. As fotografias eleitorais atuais estão fixadas no código; quando não disponíveis, a leitura de dados agregados pode consultar o Supabase.
               Cada serviço tem suas próprias condições de tratamento.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-ink/85">
