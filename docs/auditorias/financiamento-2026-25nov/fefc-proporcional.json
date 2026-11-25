@@ -1,0 +1,1660 @@
+{
+ "total": {
+  "candidaturas": 19531,
+  "comFefc": 14329,
+  "fefc": 3991469172.38,
+  "mulheres": {
+   "candidaturas": 6953,
+   "fefc": 1489533400.13
+  },
+  "raca": {
+   "BRANCA": {
+    "candidaturas": 9726,
+    "fefc": 2424915959.85
+   },
+   "PARDA": {
+    "candidaturas": 6859,
+    "fefc": 1131306715.86
+   },
+   "PRETA": {
+    "candidaturas": 2665,
+    "fefc": 380177704.59
+   },
+   "INDÍGENA": {
+    "candidaturas": 180,
+    "fefc": 39922637.3
+   },
+   "AMARELA": {
+    "candidaturas": 101,
+    "fefc": 15146154.78
+   }
+  },
+  "mulheresRaca": {
+   "BRANCA": {
+    "candidaturas": 3254,
+    "fefc": 818316183.85
+   },
+   "PARDA": {
+    "candidaturas": 2380,
+    "fefc": 416588010.46
+   },
+   "PRETA": {
+    "candidaturas": 1196,
+    "fefc": 221617708.97
+   },
+   "INDÍGENA": {
+    "candidaturas": 82,
+    "fefc": 26130417.56
+   },
+   "AMARELA": {
+    "candidaturas": 41,
+    "fefc": 6881079.29
+   }
+  },
+  "pretasPardasSoma": {
+   "candidaturas": 9524,
+   "fefc": 1511484420.45
+  }
+ },
+ "partidos": {
+  "PL": {
+   "candidaturas": 1530,
+   "comFefc": 1402,
+   "fefc": 667987755.65,
+   "mulheres": {
+    "candidaturas": 524,
+    "fefc": 212395668.2
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 938,
+     "fefc": 482671251.87
+    },
+    "PARDA": {
+     "candidaturas": 471,
+     "fefc": 153159020.06
+    },
+    "PRETA": {
+     "candidaturas": 101,
+     "fefc": 24919386.46
+    },
+    "INDÍGENA": {
+     "candidaturas": 8,
+     "fefc": 2001227.27
+    },
+    "AMARELA": {
+     "candidaturas": 12,
+     "fefc": 5236869.99
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 303,
+     "fefc": 157903323.05
+    },
+    "PARDA": {
+     "candidaturas": 166,
+     "fefc": 38274939.16
+    },
+    "PRETA": {
+     "candidaturas": 44,
+     "fefc": 10659678.73
+    },
+    "INDÍGENA": {
+     "candidaturas": 4,
+     "fefc": 1752727.27
+    },
+    "AMARELA": {
+     "candidaturas": 7,
+     "fefc": 3804999.99
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 572,
+    "fefc": 178078406.52
+   }
+  },
+  "UNIÃO": {
+   "candidaturas": 809,
+   "comFefc": 727,
+   "fefc": 474746274.69,
+   "mulheres": {
+    "candidaturas": 308,
+    "fefc": 191322089.99
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 399,
+     "fefc": 244959183.17
+    },
+    "PARDA": {
+     "candidaturas": 335,
+     "fefc": 188428470.94
+    },
+    "PRETA": {
+     "candidaturas": 74,
+     "fefc": 41116365.91
+    },
+    "INDÍGENA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 1,
+     "fefc": 242254.67
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 137,
+     "fefc": 82493904.21
+    },
+    "PARDA": {
+     "candidaturas": 130,
+     "fefc": 84256353.88
+    },
+    "PRETA": {
+     "candidaturas": 40,
+     "fefc": 24329577.23
+    },
+    "INDÍGENA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 1,
+     "fefc": 242254.67
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 409,
+    "fefc": 229544836.85
+   }
+  },
+  "PT": {
+   "candidaturas": 1035,
+   "comFefc": 964,
+   "fefc": 389530449.68,
+   "mulheres": {
+    "candidaturas": 386,
+    "fefc": 202824695.6
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 479,
+     "fefc": 212220986.38
+    },
+    "PARDA": {
+     "candidaturas": 285,
+     "fefc": 67630087.07
+    },
+    "PRETA": {
+     "candidaturas": 228,
+     "fefc": 93530153.99
+    },
+    "INDÍGENA": {
+     "candidaturas": 37,
+     "fefc": 15181976.29
+    },
+    "AMARELA": {
+     "candidaturas": 6,
+     "fefc": 967245.95
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 154,
+     "fefc": 87008117.27
+    },
+    "PARDA": {
+     "candidaturas": 88,
+     "fefc": 33165057.52
+    },
+    "PRETA": {
+     "candidaturas": 127,
+     "fefc": 71841266.79
+    },
+    "INDÍGENA": {
+     "candidaturas": 16,
+     "fefc": 10182214.02
+    },
+    "AMARELA": {
+     "candidaturas": 1,
+     "fefc": 628040.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 513,
+    "fefc": 161160241.06
+   }
+  },
+  "PP": {
+   "candidaturas": 673,
+   "comFefc": 597,
+   "fefc": 373873798.56,
+   "mulheres": {
+    "candidaturas": 242,
+    "fefc": 128230696.48
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 399,
+     "fefc": 237982596.62
+    },
+    "PARDA": {
+     "candidaturas": 207,
+     "fefc": 110955057.53
+    },
+    "PRETA": {
+     "candidaturas": 60,
+     "fefc": 19847532.81
+    },
+    "INDÍGENA": {
+     "candidaturas": 3,
+     "fefc": 1411250.0
+    },
+    "AMARELA": {
+     "candidaturas": 4,
+     "fefc": 3677361.6
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 133,
+     "fefc": 77149208.12
+    },
+    "PARDA": {
+     "candidaturas": 82,
+     "fefc": 35448024.07
+    },
+    "PRETA": {
+     "candidaturas": 25,
+     "fefc": 14833464.29
+    },
+    "INDÍGENA": {
+     "candidaturas": 2,
+     "fefc": 800000.0
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 267,
+    "fefc": 130802590.34
+   }
+  },
+  "PSD": {
+   "candidaturas": 1061,
+   "comFefc": 898,
+   "fefc": 324826489.7,
+   "mulheres": {
+    "candidaturas": 374,
+    "fefc": 113263174.08
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 588,
+     "fefc": 208493330.88
+    },
+    "PARDA": {
+     "candidaturas": 351,
+     "fefc": 88265781.69
+    },
+    "PRETA": {
+     "candidaturas": 112,
+     "fefc": 24781841.84
+    },
+    "INDÍGENA": {
+     "candidaturas": 7,
+     "fefc": 2657435.29
+    },
+    "AMARELA": {
+     "candidaturas": 3,
+     "fefc": 628100.0
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 197,
+     "fefc": 70008495.17
+    },
+    "PARDA": {
+     "candidaturas": 122,
+     "fefc": 32336516.85
+    },
+    "PRETA": {
+     "candidaturas": 48,
+     "fefc": 8936622.59
+    },
+    "INDÍGENA": {
+     "candidaturas": 5,
+     "fefc": 1881439.47
+    },
+    "AMARELA": {
+     "candidaturas": 2,
+     "fefc": 100100.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 463,
+    "fefc": 113047623.53
+   }
+  },
+  "MDB": {
+   "candidaturas": 1338,
+   "comFefc": 1064,
+   "fefc": 312538095.29,
+   "mulheres": {
+    "candidaturas": 482,
+    "fefc": 109647774.99
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 736,
+     "fefc": 202748019.91
+    },
+    "PARDA": {
+     "candidaturas": 431,
+     "fefc": 87875297.92
+    },
+    "PRETA": {
+     "candidaturas": 153,
+     "fefc": 17229034.28
+    },
+    "INDÍGENA": {
+     "candidaturas": 13,
+     "fefc": 4638847.08
+    },
+    "AMARELA": {
+     "candidaturas": 5,
+     "fefc": 46896.1
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 238,
+     "fefc": 64745759.21
+    },
+    "PARDA": {
+     "candidaturas": 159,
+     "fefc": 32501668.04
+    },
+    "PRETA": {
+     "candidaturas": 76,
+     "fefc": 8727055.54
+    },
+    "INDÍGENA": {
+     "candidaturas": 7,
+     "fefc": 3630292.2
+    },
+    "AMARELA": {
+     "candidaturas": 2,
+     "fefc": 43000.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 584,
+    "fefc": 105104332.2
+   }
+  },
+  "REPUBLICANOS": {
+   "candidaturas": 1254,
+   "comFefc": 992,
+   "fefc": 305402639.67,
+   "mulheres": {
+    "candidaturas": 424,
+    "fefc": 108045915.7
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 648,
+     "fefc": 170538292.12
+    },
+    "PARDA": {
+     "candidaturas": 473,
+     "fefc": 108791097.98
+    },
+    "PRETA": {
+     "candidaturas": 129,
+     "fefc": 25484520.57
+    },
+    "INDÍGENA": {
+     "candidaturas": 1,
+     "fefc": 335000.0
+    },
+    "AMARELA": {
+     "candidaturas": 3,
+     "fefc": 253729.0
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 212,
+     "fefc": 62602240.72
+    },
+    "PARDA": {
+     "candidaturas": 159,
+     "fefc": 35703022.52
+    },
+    "PRETA": {
+     "candidaturas": 53,
+     "fefc": 9740652.46
+    },
+    "INDÍGENA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 602,
+    "fefc": 134275618.55
+   }
+  },
+  "PODE": {
+   "candidaturas": 1201,
+   "comFefc": 963,
+   "fefc": 222097723.11,
+   "mulheres": {
+    "candidaturas": 418,
+    "fefc": 75847395.57
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 625,
+     "fefc": 142239035.52
+    },
+    "PARDA": {
+     "candidaturas": 428,
+     "fefc": 61676285.71
+    },
+    "PRETA": {
+     "candidaturas": 139,
+     "fefc": 16791911.28
+    },
+    "INDÍGENA": {
+     "candidaturas": 1,
+     "fefc": 499997.0
+    },
+    "AMARELA": {
+     "candidaturas": 8,
+     "fefc": 890493.6
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 205,
+     "fefc": 42164377.93
+    },
+    "PARDA": {
+     "candidaturas": 148,
+     "fefc": 27591626.19
+    },
+    "PRETA": {
+     "candidaturas": 60,
+     "fefc": 5311391.45
+    },
+    "INDÍGENA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 5,
+     "fefc": 780000.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 567,
+    "fefc": 78468196.99
+   }
+  },
+  "PSB": {
+   "candidaturas": 926,
+   "comFefc": 820,
+   "fefc": 136975555.04,
+   "mulheres": {
+    "candidaturas": 328,
+    "fefc": 46894523.09
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 451,
+     "fefc": 85443684.3
+    },
+    "PARDA": {
+     "candidaturas": 296,
+     "fefc": 38291814.48
+    },
+    "PRETA": {
+     "candidaturas": 165,
+     "fefc": 12490930.21
+    },
+    "INDÍGENA": {
+     "candidaturas": 9,
+     "fefc": 428715.11
+    },
+    "AMARELA": {
+     "candidaturas": 5,
+     "fefc": 320410.94
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 140,
+     "fefc": 26594433.56
+    },
+    "PARDA": {
+     "candidaturas": 106,
+     "fefc": 13922536.26
+    },
+    "PRETA": {
+     "candidaturas": 76,
+     "fefc": 5921625.68
+    },
+    "INDÍGENA": {
+     "candidaturas": 4,
+     "fefc": 263927.59
+    },
+    "AMARELA": {
+     "candidaturas": 2,
+     "fefc": 192000.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 461,
+    "fefc": 50782744.69
+   }
+  },
+  "PDT": {
+   "candidaturas": 1084,
+   "comFefc": 837,
+   "fefc": 121665139.67,
+   "mulheres": {
+    "candidaturas": 386,
+    "fefc": 36928334.22
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 462,
+     "fefc": 69651085.55
+    },
+    "PARDA": {
+     "candidaturas": 403,
+     "fefc": 38023439.81
+    },
+    "PRETA": {
+     "candidaturas": 193,
+     "fefc": 10770614.31
+    },
+    "INDÍGENA": {
+     "candidaturas": 18,
+     "fefc": 2890000.0
+    },
+    "AMARELA": {
+     "candidaturas": 8,
+     "fefc": 330000.0
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 157,
+     "fefc": 16463523.47
+    },
+    "PARDA": {
+     "candidaturas": 131,
+     "fefc": 14232212.66
+    },
+    "PRETA": {
+     "candidaturas": 91,
+     "fefc": 5239598.09
+    },
+    "INDÍGENA": {
+     "candidaturas": 6,
+     "fefc": 993000.0
+    },
+    "AMARELA": {
+     "candidaturas": 1,
+     "fefc": 0.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 596,
+    "fefc": 48794054.12
+   }
+  },
+  "PSDB": {
+   "candidaturas": 1042,
+   "comFefc": 657,
+   "fefc": 118537804.3,
+   "mulheres": {
+    "candidaturas": 372,
+    "fefc": 45277953.21
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 541,
+     "fefc": 72940713.4
+    },
+    "PARDA": {
+     "candidaturas": 373,
+     "fefc": 38282463.8
+    },
+    "PRETA": {
+     "candidaturas": 117,
+     "fefc": 6982212.2
+    },
+    "INDÍGENA": {
+     "candidaturas": 4,
+     "fefc": 179148.94
+    },
+    "AMARELA": {
+     "candidaturas": 7,
+     "fefc": 153265.96
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 164,
+     "fefc": 23036367.33
+    },
+    "PARDA": {
+     "candidaturas": 145,
+     "fefc": 18227744.7
+    },
+    "PRETA": {
+     "candidaturas": 57,
+     "fefc": 3786426.28
+    },
+    "INDÍGENA": {
+     "candidaturas": 3,
+     "fefc": 99148.94
+    },
+    "AMARELA": {
+     "candidaturas": 3,
+     "fefc": 128265.96
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 490,
+    "fefc": 45264676.0
+   }
+  },
+  "PSOL": {
+   "candidaturas": 714,
+   "comFefc": 681,
+   "fefc": 116000579.81,
+   "mulheres": {
+    "candidaturas": 281,
+    "fefc": 62171056.03
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 259,
+     "fefc": 55399952.72
+    },
+    "PARDA": {
+     "candidaturas": 213,
+     "fefc": 14281752.19
+    },
+    "PRETA": {
+     "candidaturas": 218,
+     "fefc": 39058571.48
+    },
+    "INDÍGENA": {
+     "candidaturas": 18,
+     "fefc": 6255757.01
+    },
+    "AMARELA": {
+     "candidaturas": 6,
+     "fefc": 1004546.41
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 94,
+     "fefc": 24525314.36
+    },
+    "PARDA": {
+     "candidaturas": 70,
+     "fefc": 4240853.56
+    },
+    "PRETA": {
+     "candidaturas": 103,
+     "fefc": 26819101.99
+    },
+    "INDÍGENA": {
+     "candidaturas": 12,
+     "fefc": 5729388.24
+    },
+    "AMARELA": {
+     "candidaturas": 2,
+     "fefc": 856397.88
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 431,
+    "fefc": 53340323.67
+   }
+  },
+  "SOLIDARIEDADE": {
+   "candidaturas": 521,
+   "comFefc": 387,
+   "fefc": 86330264.04,
+   "mulheres": {
+    "candidaturas": 186,
+    "fefc": 25376489.71
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 207,
+     "fefc": 49493400.28
+    },
+    "PARDA": {
+     "candidaturas": 234,
+     "fefc": 29124824.35
+    },
+    "PRETA": {
+     "candidaturas": 75,
+     "fefc": 7367355.23
+    },
+    "INDÍGENA": {
+     "candidaturas": 2,
+     "fefc": 333755.0
+    },
+    "AMARELA": {
+     "candidaturas": 3,
+     "fefc": 10929.18
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 75,
+     "fefc": 16227545.29
+    },
+    "PARDA": {
+     "candidaturas": 81,
+     "fefc": 5707090.57
+    },
+    "PRETA": {
+     "candidaturas": 27,
+     "fefc": 3430924.67
+    },
+    "INDÍGENA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 3,
+     "fefc": 10929.18
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 309,
+    "fefc": 36492179.58
+   }
+  },
+  "PRD": {
+   "candidaturas": 493,
+   "comFefc": 312,
+   "fefc": 67028793.24,
+   "mulheres": {
+    "candidaturas": 184,
+    "fefc": 22644193.97
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 246,
+     "fefc": 39631451.01
+    },
+    "PARDA": {
+     "candidaturas": 196,
+     "fefc": 23140456.15
+    },
+    "PRETA": {
+     "candidaturas": 49,
+     "fefc": 4156886.08
+    },
+    "INDÍGENA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 2,
+     "fefc": 100000.0
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 91,
+     "fefc": 13384367.92
+    },
+    "PARDA": {
+     "candidaturas": 71,
+     "fefc": 7590690.3
+    },
+    "PRETA": {
+     "candidaturas": 21,
+     "fefc": 1669135.75
+    },
+    "INDÍGENA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 1,
+     "fefc": 0.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 245,
+    "fefc": 27297342.23
+   }
+  },
+  "PCDOB": {
+   "candidaturas": 146,
+   "comFefc": 128,
+   "fefc": 62386664.84,
+   "mulheres": {
+    "candidaturas": 65,
+    "fefc": 27703275.38
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 62,
+     "fefc": 31907046.08
+    },
+    "PARDA": {
+     "candidaturas": 43,
+     "fefc": 16337187.27
+    },
+    "PRETA": {
+     "candidaturas": 41,
+     "fefc": 14142431.49
+    },
+    "INDÍGENA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 25,
+     "fefc": 10946848.89
+    },
+    "PARDA": {
+     "candidaturas": 14,
+     "fefc": 6563560.0
+    },
+    "PRETA": {
+     "candidaturas": 26,
+     "fefc": 10192866.49
+    },
+    "INDÍGENA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 84,
+    "fefc": 30479618.76
+   }
+  },
+  "AVANTE": {
+   "candidaturas": 945,
+   "comFefc": 525,
+   "fefc": 61271617.41,
+   "mulheres": {
+    "candidaturas": 318,
+    "fefc": 20187963.3
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 385,
+     "fefc": 25339514.77
+    },
+    "PARDA": {
+     "candidaturas": 403,
+     "fefc": 25070570.64
+    },
+    "PRETA": {
+     "candidaturas": 154,
+     "fefc": 9631875.5
+    },
+    "INDÍGENA": {
+     "candidaturas": 1,
+     "fefc": 74641.5
+    },
+    "AMARELA": {
+     "candidaturas": 2,
+     "fefc": 1155015.0
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 116,
+     "fefc": 7961614.98
+    },
+    "PARDA": {
+     "candidaturas": 135,
+     "fefc": 8935112.07
+    },
+    "PRETA": {
+     "candidaturas": 65,
+     "fefc": 3216594.75
+    },
+    "INDÍGENA": {
+     "candidaturas": 1,
+     "fefc": 74641.5
+    },
+    "AMARELA": {
+     "candidaturas": 1,
+     "fefc": 0.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 557,
+    "fefc": 34702446.14
+   }
+  },
+  "PV": {
+   "candidaturas": 226,
+   "comFefc": 177,
+   "fefc": 44900885.72,
+   "mulheres": {
+    "candidaturas": 92,
+    "fefc": 18943503.24
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 103,
+     "fefc": 28645467.06
+    },
+    "PARDA": {
+     "candidaturas": 84,
+     "fefc": 13719702.62
+    },
+    "PRETA": {
+     "candidaturas": 35,
+     "fefc": 1752144.62
+    },
+    "INDÍGENA": {
+     "candidaturas": 4,
+     "fefc": 783571.42
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 40,
+     "fefc": 11024740.43
+    },
+    "PARDA": {
+     "candidaturas": 38,
+     "fefc": 6757428.81
+    },
+    "PRETA": {
+     "candidaturas": 14,
+     "fefc": 1161334.0
+    },
+    "INDÍGENA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 119,
+    "fefc": 15471847.24
+   }
+  },
+  "CIDADANIA": {
+   "candidaturas": 148,
+   "comFefc": 124,
+   "fefc": 35101896.18,
+   "mulheres": {
+    "candidaturas": 65,
+    "fefc": 16031623.84
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 69,
+     "fefc": 22732066.27
+    },
+    "PARDA": {
+     "candidaturas": 60,
+     "fefc": 9469775.03
+    },
+    "PRETA": {
+     "candidaturas": 19,
+     "fefc": 2900054.88
+    },
+    "INDÍGENA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 35,
+     "fefc": 10247373.93
+    },
+    "PARDA": {
+     "candidaturas": 23,
+     "fefc": 3684316.04
+    },
+    "PRETA": {
+     "candidaturas": 7,
+     "fefc": 2099933.87
+    },
+    "INDÍGENA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 79,
+    "fefc": 12369829.91
+   }
+  },
+  "NOVO": {
+   "candidaturas": 1247,
+   "comFefc": 783,
+   "fefc": 33068344.28,
+   "mulheres": {
+    "candidaturas": 415,
+    "fefc": 10829548.12
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 693,
+     "fefc": 24474078.93
+    },
+    "PARDA": {
+     "candidaturas": 435,
+     "fefc": 6071372.14
+    },
+    "PRETA": {
+     "candidaturas": 103,
+     "fefc": 2400298.0
+    },
+    "INDÍGENA": {
+     "candidaturas": 9,
+     "fefc": 91500.0
+    },
+    "AMARELA": {
+     "candidaturas": 7,
+     "fefc": 31095.21
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 238,
+     "fefc": 8154851.75
+    },
+    "PARDA": {
+     "candidaturas": 129,
+     "fefc": 1251886.06
+    },
+    "PRETA": {
+     "candidaturas": 42,
+     "fefc": 1392810.31
+    },
+    "INDÍGENA": {
+     "candidaturas": 4,
+     "fefc": 25500.0
+    },
+    "AMARELA": {
+     "candidaturas": 2,
+     "fefc": 4500.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 538,
+    "fefc": 8471670.14
+   }
+  },
+  "REDE": {
+   "candidaturas": 334,
+   "comFefc": 294,
+   "fefc": 26969111.25,
+   "mulheres": {
+    "candidaturas": 127,
+    "fefc": 10389803.57
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 111,
+     "fefc": 13289919.68
+    },
+    "PARDA": {
+     "candidaturas": 131,
+     "fefc": 8421891.52
+    },
+    "PRETA": {
+     "candidaturas": 76,
+     "fefc": 3154072.46
+    },
+    "INDÍGENA": {
+     "candidaturas": 15,
+     "fefc": 2048042.11
+    },
+    "AMARELA": {
+     "candidaturas": 1,
+     "fefc": 55185.48
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 41,
+     "fefc": 3582547.43
+    },
+    "PARDA": {
+     "candidaturas": 47,
+     "fefc": 4602719.13
+    },
+    "PRETA": {
+     "candidaturas": 31,
+     "fefc": 1492904.62
+    },
+    "INDÍGENA": {
+     "candidaturas": 7,
+     "fefc": 656446.91
+    },
+    "AMARELA": {
+     "candidaturas": 1,
+     "fefc": 55185.48
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 207,
+    "fefc": 11575963.98
+   }
+  },
+  "AGIR": {
+   "candidaturas": 432,
+   "comFefc": 129,
+   "fefc": 2373219.93,
+   "mulheres": {
+    "candidaturas": 144,
+    "fefc": 792662.42
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 176,
+     "fefc": 793000.0
+    },
+    "PARDA": {
+     "candidaturas": 190,
+     "fefc": 1197845.13
+    },
+    "PRETA": {
+     "candidaturas": 57,
+     "fefc": 345893.5
+    },
+    "INDÍGENA": {
+     "candidaturas": 5,
+     "fefc": 36481.3
+    },
+    "AMARELA": {
+     "candidaturas": 4,
+     "fefc": 0.0
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 54,
+     "fefc": 325000.0
+    },
+    "PARDA": {
+     "candidaturas": 63,
+     "fefc": 289000.0
+    },
+    "PRETA": {
+     "candidaturas": 26,
+     "fefc": 166502.0
+    },
+    "INDÍGENA": {
+     "candidaturas": 1,
+     "fefc": 12160.42
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 247,
+    "fefc": 1543738.63
+   }
+  },
+  "MOBILIZA": {
+   "candidaturas": 558,
+   "comFefc": 154,
+   "fefc": 2360873.0,
+   "mulheres": {
+    "candidaturas": 184,
+    "fefc": 1274578.0
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 209,
+     "fefc": 1032490.0
+    },
+    "PARDA": {
+     "candidaturas": 232,
+     "fefc": 927249.0
+    },
+    "PRETA": {
+     "candidaturas": 111,
+     "fefc": 381134.0
+    },
+    "INDÍGENA": {
+     "candidaturas": 4,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 2,
+     "fefc": 20000.0
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 61,
+     "fefc": 486320.0
+    },
+    "PARDA": {
+     "candidaturas": 80,
+     "fefc": 614079.0
+    },
+    "PRETA": {
+     "candidaturas": 39,
+     "fefc": 154179.0
+    },
+    "INDÍGENA": {
+     "candidaturas": 2,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 2,
+     "fefc": 20000.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 343,
+    "fefc": 1308383.0
+   }
+  },
+  "MISSÃO": {
+   "candidaturas": 509,
+   "comFefc": 452,
+   "fefc": 2318077.86,
+   "mulheres": {
+    "candidaturas": 180,
+    "fefc": 1172854.01
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 310,
+     "fefc": 1441759.97
+    },
+    "PARDA": {
+     "candidaturas": 154,
+     "fefc": 672567.14
+    },
+    "PRETA": {
+     "candidaturas": 37,
+     "fefc": 172995.06
+    },
+    "INDÍGENA": {
+     "candidaturas": 1,
+     "fefc": 8000.0
+    },
+    "AMARELA": {
+     "candidaturas": 7,
+     "fefc": 22755.69
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 121,
+     "fefc": 785262.02
+    },
+    "PARDA": {
+     "candidaturas": 45,
+     "fefc": 280035.96
+    },
+    "PRETA": {
+     "candidaturas": 12,
+     "fefc": 92149.9
+    },
+    "INDÍGENA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 2,
+     "fefc": 15406.13
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 191,
+    "fefc": 845562.2
+   }
+  },
+  "DC": {
+   "candidaturas": 697,
+   "comFefc": 95,
+   "fefc": 1708985.82,
+   "mulheres": {
+    "candidaturas": 229,
+    "fefc": 432341.9
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 350,
+     "fefc": 165249.32
+    },
+    "PARDA": {
+     "candidaturas": 241,
+     "fefc": 1122890.16
+    },
+    "PRETA": {
+     "candidaturas": 91,
+     "fefc": 401013.36
+    },
+    "INDÍGENA": {
+     "candidaturas": 10,
+     "fefc": 19832.98
+    },
+    "AMARELA": {
+     "candidaturas": 5,
+     "fefc": 0.0
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 114,
+     "fefc": 62277.41
+    },
+    "PARDA": {
+     "candidaturas": 83,
+     "fefc": 146635.11
+    },
+    "PRETA": {
+     "candidaturas": 27,
+     "fefc": 223429.38
+    },
+    "INDÍGENA": {
+     "candidaturas": 2,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 3,
+     "fefc": 0.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 332,
+    "fefc": 1523903.52
+   }
+  },
+  "PSTU": {
+   "candidaturas": 44,
+   "comFefc": 36,
+   "fefc": 707509.2,
+   "mulheres": {
+    "candidaturas": 20,
+    "fefc": 475949.5
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 23,
+     "fefc": 388779.5
+    },
+    "PARDA": {
+     "candidaturas": 9,
+     "fefc": 223894.7
+    },
+    "PRETA": {
+     "candidaturas": 12,
+     "fefc": 94835.0
+    },
+    "INDÍGENA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 11,
+     "fefc": 273758.5
+    },
+    "PARDA": {
+     "candidaturas": 5,
+     "fefc": 179960.0
+    },
+    "PRETA": {
+     "candidaturas": 4,
+     "fefc": 22231.0
+    },
+    "INDÍGENA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 21,
+    "fefc": 318729.7
+   }
+  },
+  "UP": {
+   "candidaturas": 83,
+   "comFefc": 63,
+   "fefc": 570565.8,
+   "mulheres": {
+    "candidaturas": 41,
+    "fefc": 309776.21
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 33,
+     "fefc": 189040.12
+    },
+    "PARDA": {
+     "candidaturas": 21,
+     "fefc": 120074.04
+    },
+    "PRETA": {
+     "candidaturas": 28,
+     "fefc": 249848.64
+    },
+    "INDÍGENA": {
+     "candidaturas": 1,
+     "fefc": 11603.0
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 15,
+     "fefc": 95449.41
+    },
+    "PARDA": {
+     "candidaturas": 10,
+     "fefc": 67133.0
+    },
+    "PRETA": {
+     "candidaturas": 15,
+     "fefc": 135590.8
+    },
+    "INDÍGENA": {
+     "candidaturas": 1,
+     "fefc": 11603.0
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 49,
+    "fefc": 369922.68
+   }
+  },
+  "PCO": {
+   "candidaturas": 67,
+   "comFefc": 65,
+   "fefc": 186245.68,
+   "mulheres": {
+    "candidaturas": 31,
+    "fefc": 116559.8
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 33,
+     "fefc": 104471.09
+    },
+    "PARDA": {
+     "candidaturas": 16,
+     "fefc": 25846.79
+    },
+    "PRETA": {
+     "candidaturas": 11,
+     "fefc": 20071.8
+    },
+    "INDÍGENA": {
+     "candidaturas": 7,
+     "fefc": 35856.0
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 17,
+     "fefc": 63161.49
+    },
+    "PARDA": {
+     "candidaturas": 6,
+     "fefc": 17809.0
+    },
+    "PRETA": {
+     "candidaturas": 5,
+     "fefc": 17661.31
+    },
+    "INDÍGENA": {
+     "candidaturas": 3,
+     "fefc": 17928.0
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 27,
+    "fefc": 45918.59
+   }
+  },
+  "DEMOCRATA": {
+   "candidaturas": 408,
+   "comFefc": 3,
+   "fefc": 3812.96,
+   "mulheres": {
+    "candidaturas": 145,
+    "fefc": 3000.0
+   },
+   "raca": {
+    "BRANCA": {
+     "candidaturas": 189,
+     "fefc": 93.33
+    },
+    "PARDA": {
+     "candidaturas": 143,
+     "fefc": 0.0
+    },
+    "PRETA": {
+     "candidaturas": 74,
+     "fefc": 3719.63
+    },
+    "INDÍGENA": {
+     "candidaturas": 2,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "mulheresRaca": {
+    "BRANCA": {
+     "candidaturas": 65,
+     "fefc": 0.0
+    },
+    "PARDA": {
+     "candidaturas": 43,
+     "fefc": 0.0
+    },
+    "PRETA": {
+     "candidaturas": 35,
+     "fefc": 3000.0
+    },
+    "INDÍGENA": {
+     "candidaturas": 2,
+     "fefc": 0.0
+    },
+    "AMARELA": {
+     "candidaturas": 0,
+     "fefc": 0.0
+    }
+   },
+   "pretasPardasSoma": {
+    "candidaturas": 217,
+    "fefc": 3719.63
+   }
+  }
+ },
+ "partidosSemFefc": [
+  "PCB"
+ ]
+}

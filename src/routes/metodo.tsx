@@ -1114,7 +1114,7 @@ function MetodoPage() {
                 votos e partidos saíram sem o estado entre 14/10 e 27/10. Na base
                 de 27/10 Rondônia voltou: todos os gráficos somam os 27 estados, e
                 o resultado de deputadas e deputados ficou igual ao da base de
-                05/10
+                05/10. Na extração de 25/11, Rondônia está completa, mas o Amapá apresenta situação de totalização #NULO nos registros proporcionais (91 federais e 194 estaduais). A contagem nacional perde as 32 cadeiras dessa UF; por isso, o resultado eleitoral permanece no corte íntegro de 27/10.
               </li>
             </ul>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

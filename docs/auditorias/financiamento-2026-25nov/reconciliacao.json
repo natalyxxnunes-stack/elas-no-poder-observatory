@@ -1,0 +1,93 @@
+{
+  "status": "CONFERIDO_POR_SCRIPT_ORIGINAL",
+  "comparacoes": {
+    "receitas_proporcional": {
+      "original": 5543250248.58,
+      "auditoria": 5543250248.58,
+      "dif": 0.0,
+      "tolerancia": 0.25
+    },
+    "receitas_mulheres_proporcional": {
+      "original": 1821259985.61,
+      "auditoria": 1821259985.61,
+      "dif": 0.0,
+      "tolerancia": 0.25
+    },
+    "despesas_contratadas_proporcional_FEMININO": {
+      "original": 1678525362.96,
+      "auditoria": 1678525362.96,
+      "dif": 0.0,
+      "tolerancia": 1.0
+    },
+    "despesas_pagas_proporcional_FEMININO": {
+      "original": 1660356498.4,
+      "auditoria": 1660356498.4,
+      "dif": -0.0,
+      "tolerancia": 1.0
+    },
+    "despesas_contratadas_proporcional_MASCULINO": {
+      "original": 3520019355.79,
+      "auditoria": 3520019355.79,
+      "dif": 0.0,
+      "tolerancia": 1.0
+    },
+    "despesas_pagas_proporcional_MASCULINO": {
+      "original": 3442236083.71,
+      "auditoria": 3442236083.71,
+      "dif": 0.0,
+      "tolerancia": 1.0
+    },
+    "receitas_majoritario": {
+      "original": 1483614305.17,
+      "auditoria": 1483614305.17,
+      "dif": 0.0,
+      "tolerancia": 0.25
+    },
+    "receitas_mulheres_majoritario": {
+      "original": 218609248.44,
+      "auditoria": 218609248.44,
+      "dif": 0.0,
+      "tolerancia": 0.25
+    },
+    "despesas_contratadas_majoritario_FEMININO": {
+      "original": 216846305.03,
+      "auditoria": 216846305.03,
+      "dif": 0.0,
+      "tolerancia": 1.0
+    },
+    "despesas_pagas_majoritario_FEMININO": {
+      "original": 208239111.87,
+      "auditoria": 208239111.87,
+      "dif": 0.0,
+      "tolerancia": 1.0
+    },
+    "despesas_contratadas_majoritario_MASCULINO": {
+      "original": 1238244218.98,
+      "auditoria": 1238244218.98,
+      "dif": 0.0,
+      "tolerancia": 1.0
+    },
+    "despesas_pagas_majoritario_MASCULINO": {
+      "original": 1193277964.23,
+      "auditoria": 1193277964.23,
+      "dif": 0.0,
+      "tolerancia": 1.0
+    },
+    "fefc_titulares": {
+      "original": 5035316334.04,
+      "auditoria": 5035316334.04,
+      "dif": 0.0,
+      "tolerancia": 1.0
+    },
+    "fefc_proporcional": {
+      "original": 3991469172.38,
+      "auditoria": 3991469172.38,
+      "dif": 0.0,
+      "tolerancia": 1.0
+    }
+  },
+  "ressalvas": [
+    "Resultados eleitorais só podem ser substituídos após verificar a totalização nacional e por UF.",
+    "Não afirmar julgamento das contas com base em TP_PRESTACAO_CONTAS."
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "proporcional_receitas": {
+    "candidaturas": {
+      "anterior": 19531,
+      "atual": 19531,
+      "variacao": 0
+    },
+    "com_receita": {
+      "anterior": 19138,
+      "atual": 19165,
+      "variacao": 27
+    },
+    "receitas": {
+      "anterior": 5538441695.46,
+      "atual": 5543250248.58,
+      "variacao": 4808553.12
+    },
+    "receitas_mulheres": {
+      "anterior": 1820002369.46,
+      "atual": 1821259985.61,
+      "variacao": 1257616.15
+    }
+  },
+  "majoritario_receitas": {
+    "candidaturas": {
+      "anterior": 534,
+      "atual": 534,
+      "variacao": 0
+    },
+    "com_receita": {
+      "anterior": 527,
+      "atual": 527,
+      "variacao": 0
+    },
+    "receitas": {
+      "anterior": 1483128305.69,
+      "atual": 1483614305.17,
+      "variacao": 485999.48
+    },
+    "receitas_mulheres": {
+      "anterior": 218562474.17,
+      "atual": 218609248.44,
+      "variacao": 46774.27
+    }
+  },
+  "titulares_fefc": {
+    "fefc": {
+      "anterior": 5032571764.23,
+      "atual": 5035316334.04,
+      "variacao": 2744569.81
+    },
+    "fefc_mulheres": {
+      "anterior": 1672271447.53,
+      "atual": 1672964894.43,
+      "variacao": 693446.9
+    },
+    "com_fefc": {
+      "anterior": 14725,
+      "atual": 14738,
+      "variacao": 13
+    }
+  },
+  "proporcional_fefc": {
+    "fefc": {
+      "anterior": 3989100366.28,
+      "atual": 3991469172.38,
+      "variacao": 2368806.1
+    },
+    "fefc_mulheres": {
+      "anterior": 1488881327.5,
+      "atual": 1489533400.13,
+      "variacao": 652072.63
+    },
+    "com_fefc": {
+      "anterior": 14318,
+      "atual": 14329,
+      "variacao": 11
+    }
+  }
+}

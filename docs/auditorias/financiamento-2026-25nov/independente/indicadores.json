@@ -1,0 +1,2146 @@
+{
+  "proporcional": {
+    "candidaturas": 19531,
+    "com_receita": 19165,
+    "com_fefc": 14329,
+    "receitas": 5543250248.58,
+    "fefc": 3991469172.38,
+    "despesas_contratadas": 5198544718.75,
+    "despesas_pagas": 5102592582.11,
+    "por_genero": {
+      "FEMININO": {
+        "candidaturas": 6953,
+        "com_receita": 6845,
+        "com_fefc": 5582,
+        "receitas": 1821259985.61,
+        "fefc": 1489533400.13,
+        "despesas_contratadas": 1678525362.96,
+        "despesas_pagas": 1660356498.4
+      },
+      "MASCULINO": {
+        "candidaturas": 12578,
+        "com_receita": 12320,
+        "com_fefc": 8747,
+        "receitas": 3721990262.97,
+        "fefc": 2501935772.25,
+        "despesas_contratadas": 3520019355.79,
+        "despesas_pagas": 3442236083.71
+      }
+    },
+    "por_raca": {
+      "AMARELA": {
+        "candidaturas": 101,
+        "com_receita": 100,
+        "com_fefc": 68,
+        "receitas": 23465284.94,
+        "fefc": 15146154.78,
+        "despesas_contratadas": 22508845.76,
+        "despesas_pagas": 21862387.71
+      },
+      "BRANCA": {
+        "candidaturas": 9726,
+        "com_receita": 9588,
+        "com_fefc": 7265,
+        "receitas": 3505191173.12,
+        "fefc": 2424915959.85,
+        "despesas_contratadas": 3322945891.93,
+        "despesas_pagas": 3260542019.76
+      },
+      "INDÍGENA": {
+        "candidaturas": 180,
+        "com_receita": 179,
+        "com_fefc": 158,
+        "receitas": 43929205.94,
+        "fefc": 39922637.3,
+        "despesas_contratadas": 38866366.83,
+        "despesas_pagas": 38554199.7
+      },
+      "PARDA": {
+        "candidaturas": 6859,
+        "com_receita": 6705,
+        "com_fefc": 4842,
+        "receitas": 1495381630.91,
+        "fefc": 1131306715.86,
+        "despesas_contratadas": 1377910267.68,
+        "despesas_pagas": 1355190913.71
+      },
+      "PRETA": {
+        "candidaturas": 2665,
+        "com_receita": 2593,
+        "com_fefc": 1996,
+        "receitas": 475282953.67,
+        "fefc": 380177704.59,
+        "despesas_contratadas": 436313346.55,
+        "despesas_pagas": 426443061.23
+      }
+    },
+    "por_cargo": {
+      "DEPUTADO DISTRITAL": {
+        "candidaturas": 433,
+        "com_receita": 427,
+        "com_fefc": 316,
+        "receitas": 53433567.2,
+        "fefc": 23537647.58,
+        "despesas_contratadas": 46787698.27,
+        "despesas_pagas": 46381215.25
+      },
+      "DEPUTADO ESTADUAL": {
+        "candidaturas": 11295,
+        "com_receita": 11083,
+        "com_fefc": 7805,
+        "receitas": 1959474931.54,
+        "fefc": 1184310489.97,
+        "despesas_contratadas": 1772076914.26,
+        "despesas_pagas": 1742848669.8
+      },
+      "DEPUTADO FEDERAL": {
+        "candidaturas": 7803,
+        "com_receita": 7655,
+        "com_fefc": 6208,
+        "receitas": 3530341749.84,
+        "fefc": 2783621034.83,
+        "despesas_contratadas": 3379680106.22,
+        "despesas_pagas": 3313362697.06
+      }
+    },
+    "por_uf": {
+      "AC": {
+        "candidaturas": 349,
+        "com_receita": 332,
+        "com_fefc": 192,
+        "receitas": 86119627.77,
+        "fefc": 68955912.99,
+        "despesas_contratadas": 80438212.97,
+        "despesas_pagas": 78480404.81
+      },
+      "AL": {
+        "candidaturas": 262,
+        "com_receita": 234,
+        "com_fefc": 164,
+        "receitas": 95603015.77,
+        "fefc": 77460293.57,
+        "despesas_contratadas": 91261262.47,
+        "despesas_pagas": 89536395.6
+      },
+      "AM": {
+        "candidaturas": 433,
+        "com_receita": 430,
+        "com_fefc": 322,
+        "receitas": 129907569.04,
+        "fefc": 92256836.7,
+        "despesas_contratadas": 119987449.66,
+        "despesas_pagas": 117864127.14
+      },
+      "AP": {
+        "candidaturas": 285,
+        "com_receita": 283,
+        "com_fefc": 218,
+        "receitas": 101774109.28,
+        "fefc": 80575364.25,
+        "despesas_contratadas": 92842637.46,
+        "despesas_pagas": 91744116.4
+      },
+      "BA": {
+        "candidaturas": 1178,
+        "com_receita": 1156,
+        "com_fefc": 967,
+        "receitas": 324786713.28,
+        "fefc": 252721724.45,
+        "despesas_contratadas": 304408699.07,
+        "despesas_pagas": 303617743.38
+      },
+      "CE": {
+        "candidaturas": 672,
+        "com_receita": 663,
+        "com_fefc": 468,
+        "receitas": 215803402.05,
+        "fefc": 165253956.14,
+        "despesas_contratadas": 205122065.57,
+        "despesas_pagas": 206514498.49
+      },
+      "DF": {
+        "candidaturas": 605,
+        "com_receita": 598,
+        "com_fefc": 455,
+        "receitas": 134750677.61,
+        "fefc": 82397734.35,
+        "despesas_contratadas": 121464509.57,
+        "despesas_pagas": 120573361.17
+      },
+      "ES": {
+        "candidaturas": 547,
+        "com_receita": 546,
+        "com_fefc": 383,
+        "receitas": 114872523.91,
+        "fefc": 86029615.56,
+        "despesas_contratadas": 107414315.7,
+        "despesas_pagas": 104195298.6
+      },
+      "GO": {
+        "candidaturas": 860,
+        "com_receita": 837,
+        "com_fefc": 615,
+        "receitas": 195243440.79,
+        "fefc": 129592889.3,
+        "despesas_contratadas": 179620726.5,
+        "despesas_pagas": 175646280.98
+      },
+      "MA": {
+        "candidaturas": 567,
+        "com_receita": 548,
+        "com_fefc": 401,
+        "receitas": 201906164.37,
+        "fefc": 148511666.92,
+        "despesas_contratadas": 188539544.49,
+        "despesas_pagas": 186926950.27
+      },
+      "MG": {
+        "candidaturas": 1754,
+        "com_receita": 1696,
+        "com_fefc": 1199,
+        "receitas": 476752244.87,
+        "fefc": 330433881.47,
+        "despesas_contratadas": 444600824.88,
+        "despesas_pagas": 438579597.29
+      },
+      "MS": {
+        "candidaturas": 377,
+        "com_receita": 376,
+        "com_fefc": 284,
+        "receitas": 104305072.16,
+        "fefc": 77939808.69,
+        "despesas_contratadas": 99164805.95,
+        "despesas_pagas": 98810035.93
+      },
+      "MT": {
+        "candidaturas": 406,
+        "com_receita": 400,
+        "com_fefc": 285,
+        "receitas": 138267592.58,
+        "fefc": 70645785.89,
+        "despesas_contratadas": 131445929.95,
+        "despesas_pagas": 126394287.56
+      },
+      "PA": {
+        "candidaturas": 685,
+        "com_receita": 661,
+        "com_fefc": 458,
+        "receitas": 175136399.16,
+        "fefc": 134146078.0,
+        "despesas_contratadas": 157253706.14,
+        "despesas_pagas": 156708937.98
+      },
+      "PB": {
+        "candidaturas": 403,
+        "com_receita": 398,
+        "com_fefc": 317,
+        "receitas": 117546449.04,
+        "fefc": 92076183.39,
+        "despesas_contratadas": 117137862.46,
+        "despesas_pagas": 111494448.87
+      },
+      "PE": {
+        "candidaturas": 909,
+        "com_receita": 884,
+        "com_fefc": 692,
+        "receitas": 224110524.16,
+        "fefc": 169088645.61,
+        "despesas_contratadas": 221925074.45,
+        "despesas_pagas": 207598219.02
+      },
+      "PI": {
+        "candidaturas": 317,
+        "com_receita": 311,
+        "com_fefc": 259,
+        "receitas": 121705440.07,
+        "fefc": 91460633.15,
+        "despesas_contratadas": 111307949.19,
+        "despesas_pagas": 110529586.64
+      },
+      "PR": {
+        "candidaturas": 1045,
+        "com_receita": 1021,
+        "com_fefc": 885,
+        "receitas": 317518153.64,
+        "fefc": 214741430.34,
+        "despesas_contratadas": 295956603.51,
+        "despesas_pagas": 290159396.85
+      },
+      "RJ": {
+        "candidaturas": 1981,
+        "com_receita": 1951,
+        "com_fefc": 1398,
+        "receitas": 443712941.79,
+        "fefc": 353304747.03,
+        "despesas_contratadas": 417234809.31,
+        "despesas_pagas": 405815088.27
+      },
+      "RN": {
+        "candidaturas": 265,
+        "com_receita": 260,
+        "com_fefc": 204,
+        "receitas": 80538000.74,
+        "fefc": 63920575.83,
+        "despesas_contratadas": 76672945.84,
+        "despesas_pagas": 75360372.11
+      },
+      "RO": {
+        "candidaturas": 394,
+        "com_receita": 388,
+        "com_fefc": 249,
+        "receitas": 118087444.89,
+        "fefc": 80511827.34,
+        "despesas_contratadas": 107260122.32,
+        "despesas_pagas": 103038438.17
+      },
+      "RR": {
+        "candidaturas": 358,
+        "com_receita": 356,
+        "com_fefc": 246,
+        "receitas": 91849738.76,
+        "fefc": 78439556.49,
+        "despesas_contratadas": 86602989.93,
+        "despesas_pagas": 86417102.67
+      },
+      "RS": {
+        "candidaturas": 1001,
+        "com_receita": 995,
+        "com_fefc": 816,
+        "receitas": 271506632.11,
+        "fefc": 210189586.62,
+        "despesas_contratadas": 254593076.48,
+        "despesas_pagas": 252568983.25
+      },
+      "SC": {
+        "candidaturas": 645,
+        "com_receita": 639,
+        "com_fefc": 556,
+        "receitas": 189952264.33,
+        "fefc": 124578150.27,
+        "despesas_contratadas": 185586227.69,
+        "despesas_pagas": 181468470.39
+      },
+      "SE": {
+        "candidaturas": 363,
+        "com_receita": 354,
+        "com_fefc": 271,
+        "receitas": 96578950.88,
+        "fefc": 72014987.38,
+        "despesas_contratadas": 94423794.21,
+        "despesas_pagas": 91679122.61
+      },
+      "SP": {
+        "candidaturas": 2563,
+        "com_receita": 2541,
+        "com_fefc": 1813,
+        "receitas": 888396759.74,
+        "fefc": 584143161.81,
+        "despesas_contratadas": 830694272.61,
+        "despesas_pagas": 815360960.38
+      },
+      "TO": {
+        "candidaturas": 307,
+        "com_receita": 307,
+        "com_fefc": 212,
+        "receitas": 86518395.79,
+        "fefc": 60078138.84,
+        "despesas_contratadas": 75584300.37,
+        "despesas_pagas": 75510357.28
+      }
+    },
+    "por_partido": {
+      "AGIR": {
+        "candidaturas": 432,
+        "com_receita": 413,
+        "com_fefc": 129,
+        "receitas": 13325768.4,
+        "fefc": 2373219.93,
+        "despesas_contratadas": 11912457.7,
+        "despesas_pagas": 11725783.07
+      },
+      "AVANTE": {
+        "candidaturas": 945,
+        "com_receita": 914,
+        "com_fefc": 525,
+        "receitas": 99259360.59,
+        "fefc": 61271617.41,
+        "despesas_contratadas": 88779021.68,
+        "despesas_pagas": 86569827.26
+      },
+      "CIDADANIA": {
+        "candidaturas": 148,
+        "com_receita": 147,
+        "com_fefc": 124,
+        "receitas": 38604623.93,
+        "fefc": 35101896.18,
+        "despesas_contratadas": 25248747.42,
+        "despesas_pagas": 23856766.11
+      },
+      "DC": {
+        "candidaturas": 697,
+        "com_receita": 635,
+        "com_fefc": 95,
+        "receitas": 5625403.78,
+        "fefc": 1708985.82,
+        "despesas_contratadas": 4869313.64,
+        "despesas_pagas": 4200785.91
+      },
+      "DEMOCRATA": {
+        "candidaturas": 408,
+        "com_receita": 381,
+        "com_fefc": 3,
+        "receitas": 5041724.73,
+        "fefc": 3812.96,
+        "despesas_contratadas": 4592234.24,
+        "despesas_pagas": 4399655.72
+      },
+      "MDB": {
+        "candidaturas": 1338,
+        "com_receita": 1327,
+        "com_fefc": 1064,
+        "receitas": 439887382.41,
+        "fefc": 312538095.29,
+        "despesas_contratadas": 411512726.42,
+        "despesas_pagas": 408331557.25
+      },
+      "MISSÃO": {
+        "candidaturas": 509,
+        "com_receita": 501,
+        "com_fefc": 452,
+        "receitas": 5738439.78,
+        "fefc": 2318077.86,
+        "despesas_contratadas": 5292101.94,
+        "despesas_pagas": 5286287.65
+      },
+      "MOBILIZA": {
+        "candidaturas": 558,
+        "com_receita": 550,
+        "com_fefc": 154,
+        "receitas": 10904564.88,
+        "fefc": 2360873.0,
+        "despesas_contratadas": 9823471.46,
+        "despesas_pagas": 9635866.61
+      },
+      "NOVO": {
+        "candidaturas": 1247,
+        "com_receita": 1247,
+        "com_fefc": 783,
+        "receitas": 122464206.7,
+        "fefc": 33068344.28,
+        "despesas_contratadas": 117609558.11,
+        "despesas_pagas": 114196629.08
+      },
+      "PCB": {
+        "candidaturas": 6,
+        "com_receita": 6,
+        "com_fefc": 0,
+        "receitas": 14779.0,
+        "fefc": 0.0,
+        "despesas_contratadas": 14119.06,
+        "despesas_pagas": 11719.06
+      },
+      "PCDOB": {
+        "candidaturas": 146,
+        "com_receita": 146,
+        "com_fefc": 128,
+        "receitas": 76362177.34,
+        "fefc": 62386664.84,
+        "despesas_contratadas": 72885085.0,
+        "despesas_pagas": 71979306.86
+      },
+      "PCO": {
+        "candidaturas": 67,
+        "com_receita": 67,
+        "com_fefc": 65,
+        "receitas": 186245.68,
+        "fefc": 186245.68,
+        "despesas_contratadas": 0.0,
+        "despesas_pagas": 0.0
+      },
+      "PDT": {
+        "candidaturas": 1084,
+        "com_receita": 1071,
+        "com_fefc": 837,
+        "receitas": 180173265.04,
+        "fefc": 121665139.67,
+        "despesas_contratadas": 165853824.15,
+        "despesas_pagas": 161624292.16
+      },
+      "PL": {
+        "candidaturas": 1530,
+        "com_receita": 1513,
+        "com_fefc": 1402,
+        "receitas": 899646674.51,
+        "fefc": 667987755.65,
+        "despesas_contratadas": 848682776.11,
+        "despesas_pagas": 847290327.62
+      },
+      "PODE": {
+        "candidaturas": 1201,
+        "com_receita": 1189,
+        "com_fefc": 963,
+        "receitas": 294194057.08,
+        "fefc": 222097723.11,
+        "despesas_contratadas": 270566883.47,
+        "despesas_pagas": 258079882.42
+      },
+      "PP": {
+        "candidaturas": 673,
+        "com_receita": 664,
+        "com_fefc": 597,
+        "receitas": 467752447.14,
+        "fefc": 373873798.56,
+        "despesas_contratadas": 442487376.43,
+        "despesas_pagas": 436964424.49
+      },
+      "PRD": {
+        "candidaturas": 493,
+        "com_receita": 465,
+        "com_fefc": 312,
+        "receitas": 99063852.31,
+        "fefc": 67028793.24,
+        "despesas_contratadas": 91798730.19,
+        "despesas_pagas": 90089891.77
+      },
+      "PSB": {
+        "candidaturas": 926,
+        "com_receita": 917,
+        "com_fefc": 820,
+        "receitas": 203414406.47,
+        "fefc": 136975555.04,
+        "despesas_contratadas": 198063192.41,
+        "despesas_pagas": 188929111.24
+      },
+      "PSD": {
+        "candidaturas": 1061,
+        "com_receita": 1047,
+        "com_fefc": 898,
+        "receitas": 504253351.58,
+        "fefc": 324826489.7,
+        "despesas_contratadas": 483041309.49,
+        "despesas_pagas": 473374107.08
+      },
+      "PSDB": {
+        "candidaturas": 1042,
+        "com_receita": 1024,
+        "com_fefc": 657,
+        "receitas": 174694089.57,
+        "fefc": 118537804.3,
+        "despesas_contratadas": 160918419.81,
+        "despesas_pagas": 157484762.03
+      },
+      "PSOL": {
+        "candidaturas": 714,
+        "com_receita": 706,
+        "com_fefc": 681,
+        "receitas": 124703111.52,
+        "fefc": 116000579.81,
+        "despesas_contratadas": 115456277.57,
+        "despesas_pagas": 114215585.36
+      },
+      "PSTU": {
+        "candidaturas": 44,
+        "com_receita": 44,
+        "com_fefc": 36,
+        "receitas": 818585.97,
+        "fefc": 707509.2,
+        "despesas_contratadas": 776810.94,
+        "despesas_pagas": 769303.94
+      },
+      "PT": {
+        "candidaturas": 1035,
+        "com_receita": 1021,
+        "com_fefc": 964,
+        "receitas": 489908301.15,
+        "fefc": 389530449.68,
+        "despesas_contratadas": 454137843.82,
+        "despesas_pagas": 449935898.17
+      },
+      "PV": {
+        "candidaturas": 226,
+        "com_receita": 224,
+        "com_fefc": 177,
+        "receitas": 65941786.55,
+        "fefc": 44900885.72,
+        "despesas_contratadas": 63577921.7,
+        "despesas_pagas": 63173392.49
+      },
+      "REDE": {
+        "candidaturas": 334,
+        "com_receita": 331,
+        "com_fefc": 294,
+        "receitas": 29700759.74,
+        "fefc": 26969111.25,
+        "despesas_contratadas": 24081122.65,
+        "despesas_pagas": 23945119.91
+      },
+      "REPUBLICANOS": {
+        "candidaturas": 1254,
+        "com_receita": 1228,
+        "com_fefc": 992,
+        "receitas": 498815216.82,
+        "fefc": 305402639.67,
+        "despesas_contratadas": 466919256.2,
+        "despesas_pagas": 456043089.29
+      },
+      "SOLIDARIEDADE": {
+        "candidaturas": 521,
+        "com_receita": 499,
+        "com_fefc": 387,
+        "receitas": 95771808.54,
+        "fefc": 86330264.04,
+        "despesas_contratadas": 84651149.05,
+        "despesas_pagas": 80865189.09
+      },
+      "UNIÃO": {
+        "candidaturas": 809,
+        "com_receita": 805,
+        "com_fefc": 727,
+        "receitas": 596258847.3,
+        "fefc": 474746274.69,
+        "despesas_contratadas": 574858192.95,
+        "despesas_pagas": 559478885.33
+      },
+      "UP": {
+        "candidaturas": 83,
+        "com_receita": 83,
+        "com_fefc": 63,
+        "receitas": 725010.07,
+        "fefc": 570565.8,
+        "despesas_contratadas": 134795.14,
+        "despesas_pagas": 135135.14
+      }
+    },
+    "mulheres_por_raca": {
+      "AMARELA": {
+        "candidaturas": 41,
+        "com_receita": 40,
+        "com_fefc": 29,
+        "receitas": 7945946.52,
+        "fefc": 6881079.29,
+        "despesas_contratadas": 7433090.46,
+        "despesas_pagas": 7452179.9
+      },
+      "BRANCA": {
+        "candidaturas": 3254,
+        "com_receita": 3209,
+        "com_fefc": 2648,
+        "receitas": 1021786470.97,
+        "fefc": 818316183.85,
+        "despesas_contratadas": 952947935.76,
+        "despesas_pagas": 942408493.93
+      },
+      "INDÍGENA": {
+        "candidaturas": 82,
+        "com_receita": 81,
+        "com_fefc": 74,
+        "receitas": 27558975.74,
+        "fefc": 26130417.56,
+        "despesas_contratadas": 24046209.51,
+        "despesas_pagas": 23996221.75
+      },
+      "NÃO_CLASSIFICADA": {
+        "candidaturas": 0,
+        "com_receita": 0,
+        "com_fefc": 0,
+        "receitas": 0.0,
+        "fefc": 0.0,
+        "despesas_contratadas": 0.0,
+        "despesas_pagas": 0.0
+      },
+      "PARDA": {
+        "candidaturas": 2380,
+        "com_receita": 2334,
+        "com_fefc": 1855,
+        "receitas": 505128965.39,
+        "fefc": 416588010.46,
+        "despesas_contratadas": 457823019.26,
+        "despesas_pagas": 454350527.46
+      },
+      "PRETA": {
+        "candidaturas": 1196,
+        "com_receita": 1181,
+        "com_fefc": 976,
+        "receitas": 258839626.99,
+        "fefc": 221617708.97,
+        "despesas_contratadas": 236275107.97,
+        "despesas_pagas": 232149075.36
+      }
+    }
+  },
+  "majoritario": {
+    "candidaturas": 534,
+    "com_receita": 527,
+    "com_fefc": 409,
+    "receitas": 1483614305.17,
+    "fefc": 1043847161.66,
+    "despesas_contratadas": 1455090524.01,
+    "despesas_pagas": 1401517076.1,
+    "por_genero": {
+      "FEMININO": {
+        "candidaturas": 107,
+        "com_receita": 107,
+        "com_fefc": 95,
+        "receitas": 218609248.44,
+        "fefc": 183431494.3,
+        "despesas_contratadas": 216846305.03,
+        "despesas_pagas": 208239111.87
+      },
+      "MASCULINO": {
+        "candidaturas": 426,
+        "com_receita": 420,
+        "com_fefc": 314,
+        "receitas": 1265005056.73,
+        "fefc": 860415667.36,
+        "despesas_contratadas": 1238244218.98,
+        "despesas_pagas": 1193277964.23
+      },
+      "NÃO DIVULGÁVEL": {
+        "candidaturas": 1,
+        "com_receita": 0,
+        "com_fefc": 0,
+        "receitas": 0.0,
+        "fefc": 0.0,
+        "despesas_contratadas": 0.0,
+        "despesas_pagas": 0.0
+      }
+    },
+    "por_raca": {
+      "AMARELA": {
+        "candidaturas": 4,
+        "com_receita": 4,
+        "com_fefc": 2,
+        "receitas": 318058.45,
+        "fefc": 19988.97,
+        "despesas_contratadas": 312304.56,
+        "despesas_pagas": 312304.56
+      },
+      "BRANCA": {
+        "candidaturas": 321,
+        "com_receita": 318,
+        "com_fefc": 257,
+        "receitas": 1237577093.14,
+        "fefc": 866398592.26,
+        "despesas_contratadas": 1211127375.52,
+        "despesas_pagas": 1169527541.03
+      },
+      "INDÍGENA": {
+        "candidaturas": 7,
+        "com_receita": 7,
+        "com_fefc": 7,
+        "receitas": 8490783.15,
+        "fefc": 7395361.57,
+        "despesas_contratadas": 8437224.5,
+        "despesas_pagas": 8147456.7
+      },
+      "NÃO_CLASSIFICADA": {
+        "candidaturas": 1,
+        "com_receita": 0,
+        "com_fefc": 0,
+        "receitas": 0.0,
+        "fefc": 0.0,
+        "despesas_contratadas": 0.0,
+        "despesas_pagas": 0.0
+      },
+      "PARDA": {
+        "candidaturas": 144,
+        "com_receita": 141,
+        "com_fefc": 99,
+        "receitas": 198163459.41,
+        "fefc": 138651477.54,
+        "despesas_contratadas": 198475289.95,
+        "despesas_pagas": 187380430.66
+      },
+      "PRETA": {
+        "candidaturas": 57,
+        "com_receita": 57,
+        "com_fefc": 44,
+        "receitas": 39064911.02,
+        "fefc": 31381741.32,
+        "despesas_contratadas": 36738329.48,
+        "despesas_pagas": 36149343.15
+      }
+    },
+    "por_cargo": {
+      "GOVERNADOR": {
+        "candidaturas": 201,
+        "com_receita": 197,
+        "com_fefc": 154,
+        "receitas": 634465358.29,
+        "fefc": 439004696.76,
+        "despesas_contratadas": 640169571.71,
+        "despesas_pagas": 610560070.55
+      },
+      "PRESIDENTE": {
+        "candidaturas": 14,
+        "com_receita": 14,
+        "com_fefc": 9,
+        "receitas": 309551622.96,
+        "fefc": 182905777.79,
+        "despesas_contratadas": 286712473.06,
+        "despesas_pagas": 274143652.29
+      },
+      "SENADOR": {
+        "candidaturas": 319,
+        "com_receita": 316,
+        "com_fefc": 246,
+        "receitas": 539597323.92,
+        "fefc": 421936687.11,
+        "despesas_contratadas": 528208479.24,
+        "despesas_pagas": 516813353.26
+      }
+    },
+    "por_uf": {
+      "AC": {
+        "candidaturas": 14,
+        "com_receita": 14,
+        "com_fefc": 10,
+        "receitas": 26106938.97,
+        "fefc": 21653003.07,
+        "despesas_contratadas": 25598724.73,
+        "despesas_pagas": 25121690.54
+      },
+      "AL": {
+        "candidaturas": 11,
+        "com_receita": 11,
+        "com_fefc": 9,
+        "receitas": 29261814.85,
+        "fefc": 21319268.09,
+        "despesas_contratadas": 26945247.23,
+        "despesas_pagas": 26426544.98
+      },
+      "AM": {
+        "candidaturas": 16,
+        "com_receita": 16,
+        "com_fefc": 15,
+        "receitas": 43371742.75,
+        "fefc": 30618529.26,
+        "despesas_contratadas": 47631864.51,
+        "despesas_pagas": 40082065.83
+      },
+      "AP": {
+        "candidaturas": 14,
+        "com_receita": 14,
+        "com_fefc": 11,
+        "receitas": 19430535.33,
+        "fefc": 16893779.25,
+        "despesas_contratadas": 18392912.02,
+        "despesas_pagas": 18979744.06
+      },
+      "BA": {
+        "candidaturas": 17,
+        "com_receita": 17,
+        "com_fefc": 14,
+        "receitas": 45048051.04,
+        "fefc": 39268312.12,
+        "despesas_contratadas": 46220051.41,
+        "despesas_pagas": 44616595.87
+      },
+      "BR": {
+        "candidaturas": 14,
+        "com_receita": 14,
+        "com_fefc": 9,
+        "receitas": 309551622.96,
+        "fefc": 182905777.79,
+        "despesas_contratadas": 286712473.06,
+        "despesas_pagas": 274143652.29
+      },
+      "CE": {
+        "candidaturas": 17,
+        "com_receita": 16,
+        "com_fefc": 15,
+        "receitas": 41981901.83,
+        "fefc": 20789341.64,
+        "despesas_contratadas": 40416486.47,
+        "despesas_pagas": 38647130.71
+      },
+      "DF": {
+        "candidaturas": 24,
+        "com_receita": 23,
+        "com_fefc": 17,
+        "receitas": 44550604.86,
+        "fefc": 31960878.72,
+        "despesas_contratadas": 43964427.84,
+        "despesas_pagas": 43121252.49
+      },
+      "ES": {
+        "candidaturas": 16,
+        "com_receita": 16,
+        "com_fefc": 13,
+        "receitas": 38299707.21,
+        "fefc": 28419591.96,
+        "despesas_contratadas": 38399858.74,
+        "despesas_pagas": 37219246.15
+      },
+      "GO": {
+        "candidaturas": 17,
+        "com_receita": 17,
+        "com_fefc": 15,
+        "receitas": 53221146.44,
+        "fefc": 44423513.84,
+        "despesas_contratadas": 52618695.1,
+        "despesas_pagas": 52486329.43
+      },
+      "MA": {
+        "candidaturas": 19,
+        "com_receita": 19,
+        "com_fefc": 15,
+        "receitas": 37745588.44,
+        "fefc": 29972697.08,
+        "despesas_contratadas": 39131316.99,
+        "despesas_pagas": 36502753.93
+      },
+      "MG": {
+        "candidaturas": 29,
+        "com_receita": 28,
+        "com_fefc": 25,
+        "receitas": 92196725.23,
+        "fefc": 56827885.07,
+        "despesas_contratadas": 89324075.34,
+        "despesas_pagas": 88209385.63
+      },
+      "MS": {
+        "candidaturas": 18,
+        "com_receita": 18,
+        "com_fefc": 11,
+        "receitas": 20771549.39,
+        "fefc": 11599935.91,
+        "despesas_contratadas": 20734610.53,
+        "despesas_pagas": 20269360.53
+      },
+      "MT": {
+        "candidaturas": 17,
+        "com_receita": 16,
+        "com_fefc": 9,
+        "receitas": 39606739.04,
+        "fefc": 21565640.99,
+        "despesas_contratadas": 41341619.06,
+        "despesas_pagas": 37311655.19
+      },
+      "PA": {
+        "candidaturas": 21,
+        "com_receita": 20,
+        "com_fefc": 13,
+        "receitas": 32384345.33,
+        "fefc": 29766180.17,
+        "despesas_contratadas": 35228741.42,
+        "despesas_pagas": 30716951.88
+      },
+      "PB": {
+        "candidaturas": 16,
+        "com_receita": 16,
+        "com_fefc": 13,
+        "receitas": 36884148.32,
+        "fefc": 32469699.52,
+        "despesas_contratadas": 37476291.1,
+        "despesas_pagas": 36313951.22
+      },
+      "PE": {
+        "candidaturas": 20,
+        "com_receita": 20,
+        "com_fefc": 17,
+        "receitas": 46325976.35,
+        "fefc": 34767517.71,
+        "despesas_contratadas": 47535398.0,
+        "despesas_pagas": 45792023.7
+      },
+      "PI": {
+        "candidaturas": 31,
+        "com_receita": 31,
+        "com_fefc": 20,
+        "receitas": 29221909.81,
+        "fefc": 16746954.05,
+        "despesas_contratadas": 26952618.43,
+        "despesas_pagas": 25872589.78
+      },
+      "PR": {
+        "candidaturas": 17,
+        "com_receita": 17,
+        "com_fefc": 16,
+        "receitas": 57895049.46,
+        "fefc": 34293388.29,
+        "despesas_contratadas": 60138154.7,
+        "despesas_pagas": 56498560.55
+      },
+      "RJ": {
+        "candidaturas": 26,
+        "com_receita": 26,
+        "com_fefc": 19,
+        "receitas": 76674255.5,
+        "fefc": 69496501.58,
+        "despesas_contratadas": 74937133.8,
+        "despesas_pagas": 74447965.9
+      },
+      "RN": {
+        "candidaturas": 24,
+        "com_receita": 23,
+        "com_fefc": 18,
+        "receitas": 34940510.43,
+        "fefc": 27431359.58,
+        "despesas_contratadas": 38043728.17,
+        "despesas_pagas": 34347916.93
+      },
+      "RO": {
+        "candidaturas": 16,
+        "com_receita": 16,
+        "com_fefc": 13,
+        "receitas": 40413567.67,
+        "fefc": 29096678.58,
+        "despesas_contratadas": 40306574.98,
+        "despesas_pagas": 39031317.79
+      },
+      "RR": {
+        "candidaturas": 18,
+        "com_receita": 18,
+        "com_fefc": 13,
+        "receitas": 16589121.95,
+        "fefc": 14895673.95,
+        "despesas_contratadas": 16419957.74,
+        "despesas_pagas": 16351195.9
+      },
+      "RS": {
+        "candidaturas": 20,
+        "com_receita": 20,
+        "com_fefc": 18,
+        "receitas": 60990954.11,
+        "fefc": 48344412.45,
+        "despesas_contratadas": 60205174.17,
+        "despesas_pagas": 59652145.03
+      },
+      "SC": {
+        "candidaturas": 21,
+        "com_receita": 21,
+        "com_fefc": 17,
+        "receitas": 35749652.56,
+        "fefc": 28246364.55,
+        "despesas_contratadas": 35287880.61,
+        "despesas_pagas": 35380017.67
+      },
+      "SE": {
+        "candidaturas": 17,
+        "com_receita": 17,
+        "com_fefc": 13,
+        "receitas": 34325065.62,
+        "fefc": 26945556.55,
+        "despesas_contratadas": 34764327.26,
+        "despesas_pagas": 33155495.46
+      },
+      "SP": {
+        "candidaturas": 23,
+        "com_receita": 22,
+        "com_fefc": 18,
+        "receitas": 95291965.33,
+        "fefc": 63582504.76,
+        "despesas_contratadas": 89161584.19,
+        "despesas_pagas": 89530368.65
+      },
+      "TO": {
+        "candidaturas": 21,
+        "com_receita": 21,
+        "com_fefc": 13,
+        "receitas": 44783114.39,
+        "fefc": 29546215.13,
+        "despesas_contratadas": 41200596.41,
+        "despesas_pagas": 41289168.01
+      }
+    },
+    "por_partido": {
+      "AGIR": {
+        "candidaturas": 14,
+        "com_receita": 13,
+        "com_fefc": 0,
+        "receitas": 136825.98,
+        "fefc": 0.0,
+        "despesas_contratadas": 177989.98,
+        "despesas_pagas": 125016.69
+      },
+      "AVANTE": {
+        "candidaturas": 11,
+        "com_receita": 11,
+        "com_fefc": 6,
+        "receitas": 18711211.4,
+        "fefc": 9460848.92,
+        "despesas_contratadas": 10047427.67,
+        "despesas_pagas": 8204267.37
+      },
+      "CIDADANIA": {
+        "candidaturas": 3,
+        "com_receita": 3,
+        "com_fefc": 2,
+        "receitas": 7106244.66,
+        "fefc": 7031242.34,
+        "despesas_contratadas": 4428629.52,
+        "despesas_pagas": 4351447.78
+      },
+      "DC": {
+        "candidaturas": 30,
+        "com_receita": 28,
+        "com_fefc": 2,
+        "receitas": 2398806.37,
+        "fefc": 1515000.0,
+        "despesas_contratadas": 2474953.32,
+        "despesas_pagas": 2119023.37
+      },
+      "DEMOCRATA": {
+        "candidaturas": 21,
+        "com_receita": 21,
+        "com_fefc": 0,
+        "receitas": 1547067.55,
+        "fefc": 0.0,
+        "despesas_contratadas": 1478025.49,
+        "despesas_pagas": 1468851.49
+      },
+      "MDB": {
+        "candidaturas": 28,
+        "com_receita": 28,
+        "com_fefc": 28,
+        "receitas": 117035815.84,
+        "fefc": 97519617.68,
+        "despesas_contratadas": 117485555.3,
+        "despesas_pagas": 113255614.25
+      },
+      "MISSÃO": {
+        "candidaturas": 16,
+        "com_receita": 15,
+        "com_fefc": 13,
+        "receitas": 4141904.75,
+        "fefc": 1006000.0,
+        "despesas_contratadas": 3801023.26,
+        "despesas_pagas": 3788736.38
+      },
+      "MOBILIZA": {
+        "candidaturas": 9,
+        "com_receita": 9,
+        "com_fefc": 3,
+        "receitas": 1509154.69,
+        "fefc": 140000.0,
+        "despesas_contratadas": 1372960.92,
+        "despesas_pagas": 1361020.92
+      },
+      "NOVO": {
+        "candidaturas": 22,
+        "com_receita": 21,
+        "com_fefc": 15,
+        "receitas": 27912589.83,
+        "fefc": 3578611.01,
+        "despesas_contratadas": 28177590.63,
+        "despesas_pagas": 26580118.29
+      },
+      "PCB": {
+        "candidaturas": 7,
+        "com_receita": 7,
+        "com_fefc": 0,
+        "receitas": 96809.85,
+        "fefc": 0.0,
+        "despesas_contratadas": 90909.79,
+        "despesas_pagas": 90789.79
+      },
+      "PCO": {
+        "candidaturas": 33,
+        "com_receita": 33,
+        "com_fefc": 30,
+        "receitas": 495558.64,
+        "fefc": 486963.64,
+        "despesas_contratadas": 512230.68,
+        "despesas_pagas": 512230.68
+      },
+      "PDT": {
+        "candidaturas": 11,
+        "com_receita": 11,
+        "com_fefc": 10,
+        "receitas": 62365463.29,
+        "fefc": 47446366.5,
+        "despesas_contratadas": 62152810.11,
+        "despesas_pagas": 62023849.94
+      },
+      "PL": {
+        "candidaturas": 47,
+        "com_receita": 47,
+        "com_fefc": 44,
+        "receitas": 361644826.17,
+        "fefc": 226821547.75,
+        "despesas_contratadas": 351058818.15,
+        "despesas_pagas": 336707176.85
+      },
+      "PODE": {
+        "candidaturas": 8,
+        "com_receita": 8,
+        "com_fefc": 8,
+        "receitas": 28607040.76,
+        "fefc": 26087948.36,
+        "despesas_contratadas": 32190286.06,
+        "despesas_pagas": 28071524.66
+      },
+      "PP": {
+        "candidaturas": 15,
+        "com_receita": 15,
+        "com_fefc": 15,
+        "receitas": 80213201.12,
+        "fefc": 54717275.85,
+        "despesas_contratadas": 76120344.82,
+        "despesas_pagas": 76509445.01
+      },
+      "PRD": {
+        "candidaturas": 5,
+        "com_receita": 5,
+        "com_fefc": 1,
+        "receitas": 3455613.49,
+        "fefc": 3000000.0,
+        "despesas_contratadas": 3422157.63,
+        "despesas_pagas": 3425519.23
+      },
+      "PRTB": {
+        "candidaturas": 6,
+        "com_receita": 5,
+        "com_fefc": 4,
+        "receitas": 2694869.49,
+        "fefc": 2120247.96,
+        "despesas_contratadas": 1484864.43,
+        "despesas_pagas": 1461999.43
+      },
+      "PSB": {
+        "candidaturas": 15,
+        "com_receita": 15,
+        "com_fefc": 11,
+        "receitas": 34429665.81,
+        "fefc": 21583675.98,
+        "despesas_contratadas": 35697222.03,
+        "despesas_pagas": 32445483.04
+      },
+      "PSD": {
+        "candidaturas": 29,
+        "com_receita": 29,
+        "com_fefc": 26,
+        "receitas": 170317097.71,
+        "fefc": 117436955.62,
+        "despesas_contratadas": 176290304.43,
+        "despesas_pagas": 162913976.98
+      },
+      "PSDB": {
+        "candidaturas": 18,
+        "com_receita": 17,
+        "com_fefc": 15,
+        "receitas": 58257255.75,
+        "fefc": 36887500.0,
+        "despesas_contratadas": 55133359.25,
+        "despesas_pagas": 54017893.61
+      },
+      "PSOL": {
+        "candidaturas": 31,
+        "com_receita": 31,
+        "com_fefc": 30,
+        "receitas": 14920197.55,
+        "fefc": 13145258.22,
+        "despesas_contratadas": 13862307.42,
+        "despesas_pagas": 13900040.09
+      },
+      "PSTU": {
+        "candidaturas": 34,
+        "com_receita": 34,
+        "com_fefc": 33,
+        "receitas": 2939084.05,
+        "fefc": 2759969.5,
+        "despesas_contratadas": 2850517.66,
+        "despesas_pagas": 2773997.9
+      },
+      "PT": {
+        "candidaturas": 32,
+        "com_receita": 32,
+        "com_fefc": 32,
+        "receitas": 288727513.5,
+        "fefc": 247349978.07,
+        "despesas_contratadas": 284398049.53,
+        "despesas_pagas": 282078723.35
+      },
+      "PV": {
+        "candidaturas": 2,
+        "com_receita": 2,
+        "com_fefc": 2,
+        "receitas": 365917.5,
+        "fefc": 309617.5,
+        "despesas_contratadas": 307206.67,
+        "despesas_pagas": 307206.67
+      },
+      "REDE": {
+        "candidaturas": 7,
+        "com_receita": 7,
+        "com_fefc": 6,
+        "receitas": 7046986.06,
+        "fefc": 4931625.31,
+        "despesas_contratadas": 7831969.99,
+        "despesas_pagas": 6541133.14
+      },
+      "REPUBLICANOS": {
+        "candidaturas": 20,
+        "com_receita": 20,
+        "com_fefc": 20,
+        "receitas": 102780576.88,
+        "fefc": 57826353.46,
+        "despesas_contratadas": 99569764.35,
+        "despesas_pagas": 98347514.43
+      },
+      "SOLIDARIEDADE": {
+        "candidaturas": 3,
+        "com_receita": 3,
+        "com_fefc": 0,
+        "receitas": 203238.4,
+        "fefc": 0.0,
+        "despesas_contratadas": 195738.4,
+        "despesas_pagas": 190738.4
+      },
+      "UNIÃO": {
+        "candidaturas": 16,
+        "com_receita": 16,
+        "com_fefc": 16,
+        "receitas": 81362564.09,
+        "fefc": 59002561.44,
+        "despesas_contratadas": 81060515.22,
+        "despesas_pagas": 76465824.33
+      },
+      "UP": {
+        "candidaturas": 41,
+        "com_receita": 41,
+        "com_fefc": 37,
+        "receitas": 2191203.99,
+        "fefc": 1681996.55,
+        "despesas_contratadas": 1416991.3,
+        "despesas_pagas": 1477912.03
+      }
+    },
+    "mulheres_por_raca": {
+      "AMARELA": {
+        "candidaturas": 1,
+        "com_receita": 1,
+        "com_fefc": 1,
+        "receitas": 35960.51,
+        "fefc": 18200.51,
+        "despesas_contratadas": 31995.08,
+        "despesas_pagas": 31995.08
+      },
+      "BRANCA": {
+        "candidaturas": 65,
+        "com_receita": 65,
+        "com_fefc": 62,
+        "receitas": 177916666.33,
+        "fefc": 147372709.65,
+        "despesas_contratadas": 177657764.65,
+        "despesas_pagas": 169151900.02
+      },
+      "INDÍGENA": {
+        "candidaturas": 0,
+        "com_receita": 0,
+        "com_fefc": 0,
+        "receitas": 0.0,
+        "fefc": 0.0,
+        "despesas_contratadas": 0.0,
+        "despesas_pagas": 0.0
+      },
+      "NÃO_CLASSIFICADA": {
+        "candidaturas": 0,
+        "com_receita": 0,
+        "com_fefc": 0,
+        "receitas": 0.0,
+        "fefc": 0.0,
+        "despesas_contratadas": 0.0,
+        "despesas_pagas": 0.0
+      },
+      "PARDA": {
+        "candidaturas": 24,
+        "com_receita": 24,
+        "com_fefc": 17,
+        "receitas": 24041726.16,
+        "fefc": 22460206.22,
+        "despesas_contratadas": 23524848.3,
+        "despesas_pagas": 23244169.77
+      },
+      "PRETA": {
+        "candidaturas": 17,
+        "com_receita": 17,
+        "com_fefc": 15,
+        "receitas": 16614895.44,
+        "fefc": 13580377.92,
+        "despesas_contratadas": 15631697.0,
+        "despesas_pagas": 15811047.0
+      }
+    }
+  },
+  "titulares": {
+    "candidaturas": 20065,
+    "com_receita": 19692,
+    "com_fefc": 14738,
+    "receitas": 7026864553.75,
+    "fefc": 5035316334.04,
+    "despesas_contratadas": 6653635242.76,
+    "despesas_pagas": 6504109658.21,
+    "por_genero": {
+      "FEMININO": {
+        "candidaturas": 7060,
+        "com_receita": 6952,
+        "com_fefc": 5677,
+        "receitas": 2039869234.05,
+        "fefc": 1672964894.43,
+        "despesas_contratadas": 1895371667.99,
+        "despesas_pagas": 1868595610.27
+      },
+      "MASCULINO": {
+        "candidaturas": 13004,
+        "com_receita": 12740,
+        "com_fefc": 9061,
+        "receitas": 4986995319.7,
+        "fefc": 3362351439.61,
+        "despesas_contratadas": 4758263574.77,
+        "despesas_pagas": 4635514047.94
+      },
+      "NÃO DIVULGÁVEL": {
+        "candidaturas": 1,
+        "com_receita": 0,
+        "com_fefc": 0,
+        "receitas": 0.0,
+        "fefc": 0.0,
+        "despesas_contratadas": 0.0,
+        "despesas_pagas": 0.0
+      }
+    },
+    "por_raca": {
+      "AMARELA": {
+        "candidaturas": 105,
+        "com_receita": 104,
+        "com_fefc": 70,
+        "receitas": 23783343.39,
+        "fefc": 15166143.75,
+        "despesas_contratadas": 22821150.32,
+        "despesas_pagas": 22174692.27
+      },
+      "BRANCA": {
+        "candidaturas": 10047,
+        "com_receita": 9906,
+        "com_fefc": 7522,
+        "receitas": 4742768266.26,
+        "fefc": 3291314552.11,
+        "despesas_contratadas": 4534073267.45,
+        "despesas_pagas": 4430069560.79
+      },
+      "INDÍGENA": {
+        "candidaturas": 187,
+        "com_receita": 186,
+        "com_fefc": 165,
+        "receitas": 52419989.09,
+        "fefc": 47317998.87,
+        "despesas_contratadas": 47303591.33,
+        "despesas_pagas": 46701656.4
+      },
+      "NÃO_CLASSIFICADA": {
+        "candidaturas": 1,
+        "com_receita": 0,
+        "com_fefc": 0,
+        "receitas": 0.0,
+        "fefc": 0.0,
+        "despesas_contratadas": 0.0,
+        "despesas_pagas": 0.0
+      },
+      "PARDA": {
+        "candidaturas": 7003,
+        "com_receita": 6846,
+        "com_fefc": 4941,
+        "receitas": 1693545090.32,
+        "fefc": 1269958193.4,
+        "despesas_contratadas": 1576385557.63,
+        "despesas_pagas": 1542571344.37
+      },
+      "PRETA": {
+        "candidaturas": 2722,
+        "com_receita": 2650,
+        "com_fefc": 2040,
+        "receitas": 514347864.69,
+        "fefc": 411559445.91,
+        "despesas_contratadas": 473051676.03,
+        "despesas_pagas": 462592404.38
+      }
+    },
+    "por_cargo": {
+      "DEPUTADO DISTRITAL": {
+        "candidaturas": 433,
+        "com_receita": 427,
+        "com_fefc": 316,
+        "receitas": 53433567.2,
+        "fefc": 23537647.58,
+        "despesas_contratadas": 46787698.27,
+        "despesas_pagas": 46381215.25
+      },
+      "DEPUTADO ESTADUAL": {
+        "candidaturas": 11295,
+        "com_receita": 11083,
+        "com_fefc": 7805,
+        "receitas": 1959474931.54,
+        "fefc": 1184310489.97,
+        "despesas_contratadas": 1772076914.26,
+        "despesas_pagas": 1742848669.8
+      },
+      "DEPUTADO FEDERAL": {
+        "candidaturas": 7803,
+        "com_receita": 7655,
+        "com_fefc": 6208,
+        "receitas": 3530341749.84,
+        "fefc": 2783621034.83,
+        "despesas_contratadas": 3379680106.22,
+        "despesas_pagas": 3313362697.06
+      },
+      "GOVERNADOR": {
+        "candidaturas": 201,
+        "com_receita": 197,
+        "com_fefc": 154,
+        "receitas": 634465358.29,
+        "fefc": 439004696.76,
+        "despesas_contratadas": 640169571.71,
+        "despesas_pagas": 610560070.55
+      },
+      "PRESIDENTE": {
+        "candidaturas": 14,
+        "com_receita": 14,
+        "com_fefc": 9,
+        "receitas": 309551622.96,
+        "fefc": 182905777.79,
+        "despesas_contratadas": 286712473.06,
+        "despesas_pagas": 274143652.29
+      },
+      "SENADOR": {
+        "candidaturas": 319,
+        "com_receita": 316,
+        "com_fefc": 246,
+        "receitas": 539597323.92,
+        "fefc": 421936687.11,
+        "despesas_contratadas": 528208479.24,
+        "despesas_pagas": 516813353.26
+      }
+    },
+    "por_uf": {
+      "AC": {
+        "candidaturas": 363,
+        "com_receita": 346,
+        "com_fefc": 202,
+        "receitas": 112226566.74,
+        "fefc": 90608916.06,
+        "despesas_contratadas": 106036937.7,
+        "despesas_pagas": 103602095.35
+      },
+      "AL": {
+        "candidaturas": 273,
+        "com_receita": 245,
+        "com_fefc": 173,
+        "receitas": 124864830.62,
+        "fefc": 98779561.66,
+        "despesas_contratadas": 118206509.7,
+        "despesas_pagas": 115962940.58
+      },
+      "AM": {
+        "candidaturas": 449,
+        "com_receita": 446,
+        "com_fefc": 337,
+        "receitas": 173279311.79,
+        "fefc": 122875365.96,
+        "despesas_contratadas": 167619314.17,
+        "despesas_pagas": 157946192.97
+      },
+      "AP": {
+        "candidaturas": 299,
+        "com_receita": 297,
+        "com_fefc": 229,
+        "receitas": 121204644.61,
+        "fefc": 97469143.5,
+        "despesas_contratadas": 111235549.48,
+        "despesas_pagas": 110723860.46
+      },
+      "BA": {
+        "candidaturas": 1195,
+        "com_receita": 1173,
+        "com_fefc": 981,
+        "receitas": 369834764.32,
+        "fefc": 291990036.57,
+        "despesas_contratadas": 350628750.48,
+        "despesas_pagas": 348234339.25
+      },
+      "BR": {
+        "candidaturas": 14,
+        "com_receita": 14,
+        "com_fefc": 9,
+        "receitas": 309551622.96,
+        "fefc": 182905777.79,
+        "despesas_contratadas": 286712473.06,
+        "despesas_pagas": 274143652.29
+      },
+      "CE": {
+        "candidaturas": 689,
+        "com_receita": 679,
+        "com_fefc": 483,
+        "receitas": 257785303.88,
+        "fefc": 186043297.78,
+        "despesas_contratadas": 245538552.04,
+        "despesas_pagas": 245161629.2
+      },
+      "DF": {
+        "candidaturas": 629,
+        "com_receita": 621,
+        "com_fefc": 472,
+        "receitas": 179301282.47,
+        "fefc": 114358613.07,
+        "despesas_contratadas": 165428937.41,
+        "despesas_pagas": 163694613.66
+      },
+      "ES": {
+        "candidaturas": 563,
+        "com_receita": 562,
+        "com_fefc": 396,
+        "receitas": 153172231.12,
+        "fefc": 114449207.52,
+        "despesas_contratadas": 145814174.44,
+        "despesas_pagas": 141414544.75
+      },
+      "GO": {
+        "candidaturas": 877,
+        "com_receita": 854,
+        "com_fefc": 630,
+        "receitas": 248464587.23,
+        "fefc": 174016403.14,
+        "despesas_contratadas": 232239421.6,
+        "despesas_pagas": 228132610.41
+      },
+      "MA": {
+        "candidaturas": 586,
+        "com_receita": 567,
+        "com_fefc": 416,
+        "receitas": 239651752.81,
+        "fefc": 178484364.0,
+        "despesas_contratadas": 227670861.48,
+        "despesas_pagas": 223429704.2
+      },
+      "MG": {
+        "candidaturas": 1783,
+        "com_receita": 1724,
+        "com_fefc": 1224,
+        "receitas": 568948970.1,
+        "fefc": 387261766.54,
+        "despesas_contratadas": 533924900.22,
+        "despesas_pagas": 526788982.92
+      },
+      "MS": {
+        "candidaturas": 395,
+        "com_receita": 394,
+        "com_fefc": 295,
+        "receitas": 125076621.55,
+        "fefc": 89539744.6,
+        "despesas_contratadas": 119899416.48,
+        "despesas_pagas": 119079396.46
+      },
+      "MT": {
+        "candidaturas": 423,
+        "com_receita": 416,
+        "com_fefc": 294,
+        "receitas": 177874331.62,
+        "fefc": 92211426.88,
+        "despesas_contratadas": 172787549.01,
+        "despesas_pagas": 163705942.75
+      },
+      "PA": {
+        "candidaturas": 706,
+        "com_receita": 681,
+        "com_fefc": 471,
+        "receitas": 207520744.49,
+        "fefc": 163912258.17,
+        "despesas_contratadas": 192482447.56,
+        "despesas_pagas": 187425889.86
+      },
+      "PB": {
+        "candidaturas": 419,
+        "com_receita": 414,
+        "com_fefc": 330,
+        "receitas": 154430597.36,
+        "fefc": 124545882.91,
+        "despesas_contratadas": 154614153.56,
+        "despesas_pagas": 147808400.09
+      },
+      "PE": {
+        "candidaturas": 929,
+        "com_receita": 904,
+        "com_fefc": 709,
+        "receitas": 270436500.51,
+        "fefc": 203856163.32,
+        "despesas_contratadas": 269460472.45,
+        "despesas_pagas": 253390242.72
+      },
+      "PI": {
+        "candidaturas": 348,
+        "com_receita": 342,
+        "com_fefc": 279,
+        "receitas": 150927349.88,
+        "fefc": 108207587.2,
+        "despesas_contratadas": 138260567.62,
+        "despesas_pagas": 136402176.42
+      },
+      "PR": {
+        "candidaturas": 1062,
+        "com_receita": 1038,
+        "com_fefc": 901,
+        "receitas": 375413203.1,
+        "fefc": 249034818.63,
+        "despesas_contratadas": 356094758.21,
+        "despesas_pagas": 346657957.4
+      },
+      "RJ": {
+        "candidaturas": 2007,
+        "com_receita": 1977,
+        "com_fefc": 1417,
+        "receitas": 520387197.29,
+        "fefc": 422801248.61,
+        "despesas_contratadas": 492171943.11,
+        "despesas_pagas": 480263054.17
+      },
+      "RN": {
+        "candidaturas": 289,
+        "com_receita": 283,
+        "com_fefc": 222,
+        "receitas": 115478511.17,
+        "fefc": 91351935.41,
+        "despesas_contratadas": 114716674.01,
+        "despesas_pagas": 109708289.04
+      },
+      "RO": {
+        "candidaturas": 410,
+        "com_receita": 404,
+        "com_fefc": 262,
+        "receitas": 158501012.56,
+        "fefc": 109608505.92,
+        "despesas_contratadas": 147566697.3,
+        "despesas_pagas": 142069755.96
+      },
+      "RR": {
+        "candidaturas": 376,
+        "com_receita": 374,
+        "com_fefc": 259,
+        "receitas": 108438860.71,
+        "fefc": 93335230.44,
+        "despesas_contratadas": 103022947.67,
+        "despesas_pagas": 102768298.57
+      },
+      "RS": {
+        "candidaturas": 1021,
+        "com_receita": 1015,
+        "com_fefc": 834,
+        "receitas": 332497586.22,
+        "fefc": 258533999.07,
+        "despesas_contratadas": 314798250.65,
+        "despesas_pagas": 312221128.28
+      },
+      "SC": {
+        "candidaturas": 666,
+        "com_receita": 660,
+        "com_fefc": 573,
+        "receitas": 225701916.89,
+        "fefc": 152824514.82,
+        "despesas_contratadas": 220874108.3,
+        "despesas_pagas": 216848488.06
+      },
+      "SE": {
+        "candidaturas": 380,
+        "com_receita": 371,
+        "com_fefc": 284,
+        "receitas": 130904016.5,
+        "fefc": 98960543.93,
+        "despesas_contratadas": 129188121.47,
+        "despesas_pagas": 124834618.07
+      },
+      "SP": {
+        "candidaturas": 2586,
+        "com_receita": 2563,
+        "com_fefc": 1831,
+        "receitas": 983688725.07,
+        "fefc": 647725666.57,
+        "despesas_contratadas": 919855856.8,
+        "despesas_pagas": 904891329.03
+      },
+      "TO": {
+        "candidaturas": 328,
+        "com_receita": 328,
+        "com_fefc": 225,
+        "receitas": 131301510.18,
+        "fefc": 89624353.97,
+        "despesas_contratadas": 116784896.78,
+        "despesas_pagas": 116799525.29
+      }
+    },
+    "por_partido": {
+      "AGIR": {
+        "candidaturas": 446,
+        "com_receita": 426,
+        "com_fefc": 129,
+        "receitas": 13462594.38,
+        "fefc": 2373219.93,
+        "despesas_contratadas": 12090447.68,
+        "despesas_pagas": 11850799.76
+      },
+      "AVANTE": {
+        "candidaturas": 956,
+        "com_receita": 925,
+        "com_fefc": 531,
+        "receitas": 117970571.99,
+        "fefc": 70732466.33,
+        "despesas_contratadas": 98826449.35,
+        "despesas_pagas": 94774094.63
+      },
+      "CIDADANIA": {
+        "candidaturas": 151,
+        "com_receita": 150,
+        "com_fefc": 126,
+        "receitas": 45710868.59,
+        "fefc": 42133138.52,
+        "despesas_contratadas": 29677376.94,
+        "despesas_pagas": 28208213.89
+      },
+      "DC": {
+        "candidaturas": 727,
+        "com_receita": 663,
+        "com_fefc": 97,
+        "receitas": 8024210.15,
+        "fefc": 3223985.82,
+        "despesas_contratadas": 7344266.96,
+        "despesas_pagas": 6319809.28
+      },
+      "DEMOCRATA": {
+        "candidaturas": 429,
+        "com_receita": 402,
+        "com_fefc": 3,
+        "receitas": 6588792.28,
+        "fefc": 3812.96,
+        "despesas_contratadas": 6070259.73,
+        "despesas_pagas": 5868507.21
+      },
+      "MDB": {
+        "candidaturas": 1366,
+        "com_receita": 1355,
+        "com_fefc": 1092,
+        "receitas": 556923198.25,
+        "fefc": 410057712.97,
+        "despesas_contratadas": 528998281.72,
+        "despesas_pagas": 521587171.5
+      },
+      "MISSÃO": {
+        "candidaturas": 525,
+        "com_receita": 516,
+        "com_fefc": 465,
+        "receitas": 9880344.53,
+        "fefc": 3324077.86,
+        "despesas_contratadas": 9093125.2,
+        "despesas_pagas": 9075024.03
+      },
+      "MOBILIZA": {
+        "candidaturas": 567,
+        "com_receita": 559,
+        "com_fefc": 157,
+        "receitas": 12413719.57,
+        "fefc": 2500873.0,
+        "despesas_contratadas": 11196432.38,
+        "despesas_pagas": 10996887.53
+      },
+      "NOVO": {
+        "candidaturas": 1269,
+        "com_receita": 1268,
+        "com_fefc": 798,
+        "receitas": 150376796.53,
+        "fefc": 36646955.29,
+        "despesas_contratadas": 145787148.74,
+        "despesas_pagas": 140776747.37
+      },
+      "PCB": {
+        "candidaturas": 13,
+        "com_receita": 13,
+        "com_fefc": 0,
+        "receitas": 111588.85,
+        "fefc": 0.0,
+        "despesas_contratadas": 105028.85,
+        "despesas_pagas": 102508.85
+      },
+      "PCDOB": {
+        "candidaturas": 146,
+        "com_receita": 146,
+        "com_fefc": 128,
+        "receitas": 76362177.34,
+        "fefc": 62386664.84,
+        "despesas_contratadas": 72885085.0,
+        "despesas_pagas": 71979306.86
+      },
+      "PCO": {
+        "candidaturas": 100,
+        "com_receita": 100,
+        "com_fefc": 95,
+        "receitas": 681804.32,
+        "fefc": 673209.32,
+        "despesas_contratadas": 512230.68,
+        "despesas_pagas": 512230.68
+      },
+      "PDT": {
+        "candidaturas": 1095,
+        "com_receita": 1082,
+        "com_fefc": 847,
+        "receitas": 242538728.33,
+        "fefc": 169111506.17,
+        "despesas_contratadas": 228006634.26,
+        "despesas_pagas": 223648142.1
+      },
+      "PL": {
+        "candidaturas": 1577,
+        "com_receita": 1560,
+        "com_fefc": 1446,
+        "receitas": 1261291500.68,
+        "fefc": 894809303.4,
+        "despesas_contratadas": 1199741594.26,
+        "despesas_pagas": 1183997504.47
+      },
+      "PODE": {
+        "candidaturas": 1209,
+        "com_receita": 1197,
+        "com_fefc": 971,
+        "receitas": 322801097.84,
+        "fefc": 248185671.47,
+        "despesas_contratadas": 302757169.53,
+        "despesas_pagas": 286151407.08
+      },
+      "PP": {
+        "candidaturas": 688,
+        "com_receita": 679,
+        "com_fefc": 612,
+        "receitas": 547965648.26,
+        "fefc": 428591074.41,
+        "despesas_contratadas": 518607721.25,
+        "despesas_pagas": 513473869.5
+      },
+      "PRD": {
+        "candidaturas": 498,
+        "com_receita": 470,
+        "com_fefc": 313,
+        "receitas": 102519465.8,
+        "fefc": 70028793.24,
+        "despesas_contratadas": 95220887.82,
+        "despesas_pagas": 93515411.0
+      },
+      "PRTB": {
+        "candidaturas": 6,
+        "com_receita": 5,
+        "com_fefc": 4,
+        "receitas": 2694869.49,
+        "fefc": 2120247.96,
+        "despesas_contratadas": 1484864.43,
+        "despesas_pagas": 1461999.43
+      },
+      "PSB": {
+        "candidaturas": 941,
+        "com_receita": 932,
+        "com_fefc": 831,
+        "receitas": 237844072.28,
+        "fefc": 158559231.02,
+        "despesas_contratadas": 233760414.44,
+        "despesas_pagas": 221374594.28
+      },
+      "PSD": {
+        "candidaturas": 1090,
+        "com_receita": 1076,
+        "com_fefc": 924,
+        "receitas": 674570449.29,
+        "fefc": 442263445.32,
+        "despesas_contratadas": 659331613.92,
+        "despesas_pagas": 636288084.06
+      },
+      "PSDB": {
+        "candidaturas": 1060,
+        "com_receita": 1041,
+        "com_fefc": 672,
+        "receitas": 232951345.32,
+        "fefc": 155425304.3,
+        "despesas_contratadas": 216051779.06,
+        "despesas_pagas": 211502655.64
+      },
+      "PSOL": {
+        "candidaturas": 745,
+        "com_receita": 737,
+        "com_fefc": 711,
+        "receitas": 139623309.07,
+        "fefc": 129145838.03,
+        "despesas_contratadas": 129318584.99,
+        "despesas_pagas": 128115625.45
+      },
+      "PSTU": {
+        "candidaturas": 78,
+        "com_receita": 78,
+        "com_fefc": 69,
+        "receitas": 3757670.02,
+        "fefc": 3467478.7,
+        "despesas_contratadas": 3627328.6,
+        "despesas_pagas": 3543301.84
+      },
+      "PT": {
+        "candidaturas": 1067,
+        "com_receita": 1053,
+        "com_fefc": 996,
+        "receitas": 778635814.65,
+        "fefc": 636880427.75,
+        "despesas_contratadas": 738535893.35,
+        "despesas_pagas": 732014621.52
+      },
+      "PV": {
+        "candidaturas": 228,
+        "com_receita": 226,
+        "com_fefc": 179,
+        "receitas": 66307704.05,
+        "fefc": 45210503.22,
+        "despesas_contratadas": 63885128.37,
+        "despesas_pagas": 63480599.16
+      },
+      "REDE": {
+        "candidaturas": 341,
+        "com_receita": 338,
+        "com_fefc": 300,
+        "receitas": 36747745.8,
+        "fefc": 31900736.56,
+        "despesas_contratadas": 31913092.64,
+        "despesas_pagas": 30486253.05
+      },
+      "REPUBLICANOS": {
+        "candidaturas": 1274,
+        "com_receita": 1248,
+        "com_fefc": 1012,
+        "receitas": 601595793.7,
+        "fefc": 363228993.13,
+        "despesas_contratadas": 566489020.55,
+        "despesas_pagas": 554390603.72
+      },
+      "SOLIDARIEDADE": {
+        "candidaturas": 524,
+        "com_receita": 502,
+        "com_fefc": 387,
+        "receitas": 95975046.94,
+        "fefc": 86330264.04,
+        "despesas_contratadas": 84846887.45,
+        "despesas_pagas": 81055927.49
+      },
+      "UNIÃO": {
+        "candidaturas": 825,
+        "com_receita": 821,
+        "com_fefc": 743,
+        "receitas": 677621411.39,
+        "fefc": 533748836.13,
+        "despesas_contratadas": 655918708.17,
+        "despesas_pagas": 635944709.66
+      },
+      "UP": {
+        "candidaturas": 124,
+        "com_receita": 124,
+        "com_fefc": 100,
+        "receitas": 2916214.06,
+        "fefc": 2252562.35,
+        "despesas_contratadas": 1551786.44,
+        "despesas_pagas": 1613047.17
+      }
+    },
+    "mulheres_por_raca": {
+      "AMARELA": {
+        "candidaturas": 42,
+        "com_receita": 41,
+        "com_fefc": 30,
+        "receitas": 7981907.03,
+        "fefc": 6899279.8,
+        "despesas_contratadas": 7465085.54,
+        "despesas_pagas": 7484174.98
+      },
+      "BRANCA": {
+        "candidaturas": 3319,
+        "com_receita": 3274,
+        "com_fefc": 2710,
+        "receitas": 1199703137.3,
+        "fefc": 965688893.5,
+        "despesas_contratadas": 1130605700.41,
+        "despesas_pagas": 1111560393.95
+      },
+      "INDÍGENA": {
+        "candidaturas": 82,
+        "com_receita": 81,
+        "com_fefc": 74,
+        "receitas": 27558975.74,
+        "fefc": 26130417.56,
+        "despesas_contratadas": 24046209.51,
+        "despesas_pagas": 23996221.75
+      },
+      "NÃO_CLASSIFICADA": {
+        "candidaturas": 0,
+        "com_receita": 0,
+        "com_fefc": 0,
+        "receitas": 0.0,
+        "fefc": 0.0,
+        "despesas_contratadas": 0.0,
+        "despesas_pagas": 0.0
+      },
+      "PARDA": {
+        "candidaturas": 2404,
+        "com_receita": 2358,
+        "com_fefc": 1872,
+        "receitas": 529170691.55,
+        "fefc": 439048216.68,
+        "despesas_contratadas": 481347867.56,
+        "despesas_pagas": 477594697.23
+      },
+      "PRETA": {
+        "candidaturas": 1213,
+        "com_receita": 1198,
+        "com_fefc": 991,
+        "receitas": 275454522.43,
+        "fefc": 235198086.89,
+        "despesas_contratadas": 251906804.97,
+        "despesas_pagas": 247960122.36
+      }
+    },
+    "situacao_prestacao": {
+      "FINAL": 19454,
+      "PARCIAL": 164,
+      "RELATÓRIO FINANCEIRO": 74
+    },
+    "candidaturas_com_varios_tipos_prestacao": 0,
+    "candidaturas_sem_tipo_prestacao": 0
+  },
+  "eleicao": {
+    "eleitos_titulares": 1622,
+    "mulheres_eleitas": 333,
+    "por_cargo": {
+      "DEPUTADO DISTRITAL": {
+        "eleitos": 24,
+        "mulheres": 5
+      },
+      "DEPUTADO ESTADUAL": {
+        "eleitos": 1011,
+        "mulheres": 207
+      },
+      "DEPUTADO FEDERAL": {
+        "eleitos": 505,
+        "mulheres": 106
+      },
+      "GOVERNADOR": {
+        "eleitos": 27,
+        "mulheres": 3
+      },
+      "PRESIDENTE": {
+        "eleitos": 1,
+        "mulheres": 0
+      },
+      "SENADOR": {
+        "eleitos": 54,
+        "mulheres": 12
+      }
+    },
+    "rondonia": {
+      "DEPUTADO FEDERAL": {
+        "eleitos": 8,
+        "mulheres": 3
+      },
+      "DEPUTADO ESTADUAL": {
+        "eleitos": 24,
+        "mulheres": 3
+      }
+    }
+  }
+}

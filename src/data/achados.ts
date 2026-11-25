@@ -122,7 +122,7 @@ export const ACHADOS: Achado[] = [
     data: "2026-09-25",
     titulo: "No dinheiro, as candidatas brancas ficam com mais do que o seu peso",
     texto:
-      "Nas listas para deputada, brancas são 46,9% das candidatas com receita declarada e ficam com 56,1% do dinheiro das mulheres. Pardas são 34,1% e ficam com 27,7%; pretas, 17,3% e 14,2%. Em 25/09, eram 47,0% e 55,7%. A distância persiste na base de 17/11, posterior ao prazo do segundo turno, ainda com prestações parciais e relatórios financeiros.",
+      "Nas listas para deputada, brancas são 46,9% das candidatas com receita declarada e ficam com 56,1% do dinheiro das mulheres. Pardas são 34,1% e ficam com 27,7%; pretas, 17,3% e 14,2%. Em 25/09, eram 47,0% e 55,7%. A distância persiste na base de 25/11, posterior ao prazo do segundo turno, ainda com prestações parciais e relatórios financeiros.",
     barras: [
       { rotulo: "Brancas · candidatas", valor: 46.9 },
       { rotulo: "Brancas · receita", valor: 56.1 },
@@ -133,8 +133,8 @@ export const ACHADOS: Achado[] = [
     ],
     legenda: "Candidatas a deputada com receita declarada",
     fonte:
-      "TSE, receitas declaradas na base de 17/11/2026 (09h03), cruzadas com Candidaturas de 17/11/2026 (19h31); 981 duplicatas integrais removidas; sujeitas a retificação e julgamento",
-    atualizadoEm: "2026-11-17",
+      "TSE, receitas declaradas na base de 25/11/2026 (04h05), cruzadas com Candidaturas de 25/11/2026 (16h30); 978 duplicatas integrais removidas; sujeitas a retificação e julgamento",
+    atualizadoEm: "2026-11-25",
     to: "/dinheiro",
     linkLabel: "Ver em Dinheiro",
   },
@@ -320,8 +320,8 @@ export const ACHADOS: Achado[] = [
     legenda:
       "Todas as candidaturas titulares, de deputado à Presidência, e o Fundo Especial que chegou a elas. Só deputado, a fatia branca é 60,8% (ver Dinheiro)",
     fonte:
-      "TSE, Candidaturas 2026 e Prestação de Contas 2026 · base financeira de 17/11/2026, posterior ao prazo final de 16/11; contas sujeitas a retificação e julgamento",
-    atualizadoEm: "2026-11-17",
+      "TSE, Candidaturas 2026 e Prestação de Contas 2026 · base financeira de 25/11/2026, posterior ao prazo final de 16/11; contas sujeitas a retificação e julgamento",
+    atualizadoEm: "2026-11-25",
     to: "/dinheiro",
     linkLabel: "Ver em Dinheiro",
   },

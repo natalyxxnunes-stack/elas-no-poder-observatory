@@ -134,7 +134,7 @@ export const DICIONARIO: readonly CampoDicionario[] = [
     oQueE:
       "Valor, fonte (fundo eleitoral, fundo partidário, outros recursos) e origem de cada receita declarada.",
     comoUsamos:
-      "Receita por candidatura, fundo eleitoral por partido e por cor/raça. Declarações da base financeira de 17/11/2026, posterior ao prazo de 16/11, cruzadas com cadastro de candidaturas de 17/11. Contas ainda sujeitas a retificações e julgamento. A base eleitoral de resultados mantém o corte íntegro de 27/10.",
+      "Receita por candidatura, fundo eleitoral por partido e por cor/raça. Declarações da base financeira de 25/11/2026, posterior ao prazo de 16/11, cruzadas com cadastro de candidaturas de 25/11. Contas ainda sujeitas a retificações e julgamento. A base eleitoral de resultados mantém o corte íntegro de 27/10.",
     publicado: true,
   },
   {
@@ -184,6 +184,22 @@ export type Correcao = {
  * apareceu. Toda nova correção entra aqui e no lugar do erro, no mesmo commit.
  */
 export const CORRECOES: readonly Correcao[] = [
+  {
+    data: "25/11/2026",
+    pagina: "Barreiras e Calendário",
+    to: "/barreiras",
+    tipo: "apuração",
+    oQueMudou:
+      "Ampliação do eixo de violência política com o monitoramento de episódios da Terra de Direitos e Justiça Global (16/08 a 04/10 e 05/10 a 31/10), a Nota Técnica nº 13 da Câmara dos Deputados e a tramitação legislativa consultada em 25/11. Os universos não são somados. O painel TSE/MPF permanece no corte de 23/10, inclusive a divergência entre a soma anual (460) e o acervo (436). A pauta do calendário de 25/11 foi ajustada a esse limite.",
+  },
+  {
+    data: "25/11/2026",
+    pagina: "Dinheiro, Partido por partido, Achados e Método",
+    to: "/dinheiro",
+    tipo: "dado",
+    oQueMudou:
+      "Receitas, FEFC e despesas recontados com a base financeira de 25/11/2026 (receitas às 04h05min30s, despesas às 04h05min12s) e cadastro do mesmo dia às 16h30min55s. 19.692 candidaturas titulares com receita: 19.454 FINAL, 164 PARCIAL e 74 RELATÓRIO FINANCEIRO. Receitas totais: R$ 7.026.864.553,75; mulheres: R$ 2.039.869.234,05. FEFC total: R$ 5.035.316.334,04; mulheres: R$ 1.672.964.894,43. A fatia das brancas na receita feminina proporcional segue em 56,1%. A totalização nacional de 25/11 permanece incompleta; a contagem específica de Rondônia não confirma que o déficit esteja ali. Resultados eleitorais de 27/10 mantidos. Artefatos e hashes em financiamento-2026-25nov. Tipo de prestação não significa contas aprovadas.",
+  },
   {
     data: "17/11/2026",
     pagina: "Dinheiro, Partido por partido, Achados, Método e Calendário",

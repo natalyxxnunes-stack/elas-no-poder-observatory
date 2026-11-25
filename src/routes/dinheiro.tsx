@@ -42,7 +42,7 @@ export const Route = createFileRoute("/dinheiro")({
       {
         name: "description",
         content:
-          "Receitas declaradas nas campanhas de 2026 por gênero, cor/raça, cargo, partido e UF, com cobertura, denominadores e limites da base de declarações de 17/11, após o prazo do 2º turno.",
+          "Receitas declaradas nas campanhas de 2026 por gênero, cor/raça, cargo, partido e UF, com cobertura, denominadores e limites da base de declarações de 25/11, após o prazo do 2º turno.",
       },
       {
         property: "og:title",
@@ -50,7 +50,7 @@ export const Route = createFileRoute("/dinheiro")({
       },
       {
         property: "og:description",
-        content: `Receitas declaradas pelas candidaturas de mulheres na base de declarações de 17/11, após o prazo do 2º turno, por cargo, cor/raça, partido e UF. Fotografia de ${FINANCE_BASE_LABEL}.`,
+        content: `Receitas declaradas pelas candidaturas de mulheres na base de declarações de 25/11, após o prazo do 2º turno, por cargo, cor/raça, partido e UF. Fotografia de ${FINANCE_BASE_LABEL}.`,
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -126,7 +126,7 @@ function DinheiroPage() {
           </p>
         }
         layers={MONEY_LAYERS.map((layer) => layer.label)}
-        gap="Contas declaradas no TSE em 17/11 · receitas, não despesas · 186 candidaturas com prestação parcial e 96 com relatório financeiro"
+        gap="Contas declaradas no TSE em 25/11 · receitas, não despesas · 164 candidaturas com prestação parcial e 74 com relatório financeiro"
         snapshot={financeSnapshot}
       />
 
@@ -273,7 +273,7 @@ function DinheiroPage() {
               candidaturas de pessoas pretas e pardas (EC 133/2024). Nas candidaturas a deputada e
               deputado, o fundo acompanhou a presença das mulheres: elas são 35,6% das candidaturas
               e receberam 37,3% do dinheiro. Com pessoas pretas e pardas, a distância é grande:
-              candidaturas de pessoas pardas são 35,1% e receberam 28,3%; de pessoas pretas, 13,7% e
+              candidaturas de pessoas pardas são 35,1% e receberam 28,3%; de pessoas pretas, 13,6% e
               9,5%. Candidaturas de pessoas brancas são 49,8% e receberam 60,8%.
             </p>
             <p className="mt-3">
@@ -287,7 +287,7 @@ function DinheiroPage() {
               percentuais de universos tão pequenos exigem cautela. A conta com todos os cargos
               depende ainda de como se atribui o dinheiro das chapas de governo e Senado.
               Somando governo, Senado e Presidência, a fatia das mulheres no fundo fica em
-              33,2%. Os valores vêm da extração de 17/11/2026, após o prazo final do segundo
+              33,2%. Os valores vêm da extração de 25/11/2026, após o prazo final do segundo
               turno, e medem o FEFC recebido pelas candidaturas, não o cumprimento legal das cotas.
               Para essa verificação, o TSE usa o universo e os percentuais oficiais de distribuição
               dos partidos e examina as contas correspondentes.
@@ -300,8 +300,8 @@ function DinheiroPage() {
             <FefcPartidos />
           </Desdobra>
           <p className="mt-5 max-w-3xl border-t border-rule pt-4 text-[13px] leading-relaxed text-ink/80">
-            Base de 17/11/2026, gerada após o prazo final do 2º turno: 186 candidaturas
-            ainda constam com prestação parcial e 96 com relatório financeiro.
+            Base de 25/11/2026, gerada após o prazo final do 2º turno: 164 candidaturas
+            ainda constam com prestação parcial e 74 com relatório financeiro.
             São registros declarados e sujeitos a atualização e julgamento.
             Esta tabela não verifica, isoladamente, cumprimento ou infração de cotas legais.
           </p>
@@ -318,7 +318,7 @@ function DinheiroPage() {
           <p>
             As campanhas de candidatas a deputada dependem mais do fundo público que as de homens:
             84,3% do que elas pagaram saiu do fundo eleitoral, contra 69,2% entre os homens. A
-            dependência é maior entre as pretas (88,2%) e as pardas (85,8%) do que entre as brancas
+            dependência é maior entre as pretas (88,1%) e as pardas (85,8%) do que entre as brancas
             (82,3%). Os homens brancos são o grupo com mais dinheiro de outras fontes: só 66,4% do
             que pagaram veio do fundo. Dinheiro privado chega mais a eles.
           </p>
@@ -412,8 +412,8 @@ function DinheiroPage() {
         }
         limites={[
           "Despesas contratadas e pagas e o doador originário do financiamento coletivo entram desde 28/10, na seção sobre gasto e vaquinhas.",
-          "Entre as 19.665 candidaturas com receita nos seis cargos, 19.383 constam com prestação FINAL, 186 PARCIAL e 96 RELATÓRIO FINANCEIRO na extração de 17/11; tipo de prestação não equivale à aprovação das contas.",
-          "Base financeira de 17/11/2026 e cadastro de candidaturas de 17/11/2026, após o prazo final do 2º turno (16/11). Os registros ainda podem ser complementados ou retificados e as contas estão sujeitas a julgamento. Fotografias anteriores de 15/11, 13/11, 04/11, 27/10 e 25/09 ficam preservadas no histórico.",
+          "Entre as 19.692 candidaturas com receita nos seis cargos, 19.454 constam com prestação FINAL, 164 PARCIAL e 74 RELATÓRIO FINANCEIRO na extração de 25/11; tipo de prestação não equivale à aprovação das contas.",
+          "Base financeira de 25/11/2026 e cadastro de candidaturas de 25/11/2026, após o prazo final do 2º turno (16/11). Os registros ainda podem ser complementados ou retificados e as contas estão sujeitas a julgamento. Fotografias anteriores de 15/11, 13/11, 04/11, 27/10 e 25/09 ficam preservadas no histórico.",
           "Os percentuais que o TSE usa para distribuir o Fundo Partidário e o FEFC (divulgados em 21/08/2026) partem de outro universo: 20.560 candidaturas com pedido aceito até 18/08/2026, fixado para esse fim. Por isso diferem dos números deste site, que acompanham o registro atualizado.",
           "Titularidade e suplência ficam para a próxima fase. A relação entre dinheiro e reeleição está em Como votaram; índice de competitividade não entra no site.",
         ]}

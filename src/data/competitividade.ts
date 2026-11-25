@@ -61,16 +61,16 @@ export const UNIVERSE_SHORT: Record<UniverseId, string> = {
  * publicada no Método possa ser auditada e refeita.
  */
 export const FINANCE_AVAILABILITY = {
-  checkedAt: "2026-11-17",
+  checkedAt: "2026-11-25",
   verdict:
-    "A prestação de contas eleitorais de 2026 foi recontada no corte de 17/11/2026, posterior ao prazo final de 16/11 do segundo turno. Receita por candidatura, FEFC por partido, despesas contratadas, despesas pagas e doadores originários do financiamento coletivo são apresentados na página Dinheiro, com universos e datas de referência identificados. As contas continuam sujeitas a retificações e julgamento.",
+    "A prestação de contas eleitorais de 2026 foi recontada no corte de 25/11/2026, posterior ao prazo final de 16/11 do segundo turno. Receita por candidatura, FEFC por partido, despesas contratadas, despesas pagas e doadores originários do financiamento coletivo são apresentados na página Dinheiro, com universos e datas de referência identificados. As contas continuam sujeitas a retificações e julgamento.",
   checked: [
     {
       id: "contas-eleitorais-2026",
       label: "Prestação de contas eleitorais de 2026",
       url: "https://dadosabertos.tse.jus.br/dataset/prestacao-de-contas-eleitorais-2026",
       status: "receita, despesa e doador originário publicados",
-      note: "Receitas, despesas contratadas e pagas e doadores originários foram reprocessados com arquivos gerados em 17/11/2026, após o prazo de 16/11, e cruzados com o cadastro de candidaturas do mesmo dia. O resultado eleitoral permanece no corte íntegro de 27/10 devido à totalização incompleta de Rondônia na extração de 17/11.",
+      note: "Receitas, despesas contratadas e pagas e doadores originários foram reprocessados com arquivos gerados em 25/11/2026, após o prazo de 16/11, e cruzados com o cadastro de candidaturas do mesmo dia. O resultado eleitoral permanece no corte íntegro de 27/10 devido à totalização nacional incompleta na extração de 25/11, com lacuna nas 32 cadeiras proporcionais do Amapá.",
     },
     {
       id: "contas-partidarias-2026",
