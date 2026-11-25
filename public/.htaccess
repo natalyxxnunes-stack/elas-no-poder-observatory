@@ -46,24 +46,24 @@ Redirect 301 /condicoes /quem-controla
 <IfModule mod_expires.c>
   ExpiresActive On
   # Sem hash, revalidar em prazo curto (inclusive fotografias e documentos).
-  <FilesMatch "\\.(js|css|woff2|png|jpg|jpeg|webp|svg|avif|pdf|csv|json)$">
+  <FilesMatch "[.](js|css|woff2|png|jpg|jpeg|webp|svg|avif|pdf|csv|json)$">
     ExpiresDefault "access plus 1 hour"
   </FilesMatch>
   # HTML precisa revalidar: cada nova fotografia publicada gera HTML novo.
-  <FilesMatch "\.html$">
+  <FilesMatch "[.]html$">
     ExpiresDefault "access plus 0 seconds"
   </FilesMatch>
 </IfModule>
 
 <IfModule mod_headers.c>
-  <FilesMatch "\\.(js|css|woff2|png|jpg|jpeg|webp|svg|avif|pdf|csv|json)$">
+  <FilesMatch "[.](js|css|woff2|png|jpg|jpeg|webp|svg|avif|pdf|csv|json)$">
     Header set Cache-Control "public, max-age=3600, must-revalidate"
   </FilesMatch>
   # Somente assets versionados por hash emitidos no build.
-  <If "%{REQUEST_URI} =~ m#^/assets/[^/]+-[A-Za-z0-9_-]{8,}\\.(js|css|woff2)$#">
+  <If "%{REQUEST_URI} =~ m#^/assets/[^/]+-[A-Za-z0-9_-]{8,}[.](js|css|woff2)$#">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </If>
-  <FilesMatch "\\.html$">
+  <FilesMatch "[.]html$">
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
   Header set X-Content-Type-Options "nosniff"
