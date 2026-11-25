@@ -1195,8 +1195,8 @@ function MetodoPage() {
         </dl>
         <div className="mt-6">
           <GapNote label="Diferenças entre fotografias">
-            A classificação racial de uma candidatura proporcional feminina mudou entre os cortes de
-            27/10 e 25/11: as contagens de candidatas pretas e pardas passaram de 1.197 e 2.379 para
+            Entre os cortes de 27/10 e 25/11, as contagens de candidatas proporcionais pretas e pardas
+            passaram de 1.197 e 2.379 para
             1.196 e 2.380, respectivamente. Não se trata de agregar as duas categorias.
             Os recortes de 25/11 para financiamento não substituem os resultados eleitorais anteriores,
             devido à lacuna de totalização do Amapá. Outros recortes específicos conservam a data indicada
