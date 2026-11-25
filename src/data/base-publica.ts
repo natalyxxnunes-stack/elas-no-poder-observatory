@@ -166,7 +166,7 @@ export const BASE_PUBLICA: readonly ArquivoBase[] = [
  {
   "arquivo": "fundo-eleitoral-deputado-por-partido.csv",
   "titulo": "Fundo eleitoral a deputado, por partido",
-  "descricao": "Fundo Especial de Financiamento de Campanha que chegou às candidaturas a deputado de cada partido, por gênero e cor/raça, em reais.",
+  "descricao": "Soma dos recebimentos declarados de FEFC pelas candidaturas proporcionais de cada sigla, inclusive repasses de outras candidaturas, por gênero e cor/raça, em reais.",
   "fonte": "TSE, Prestação de Contas 2026, base de 25/11/2026 (SHA-256 7cbbb11fb8004591e42ebb1ec1432585740c5b2436cd5f3ff65765e921247f29)",
   "linhas": 336,
   "colunas": [
@@ -177,5 +177,60 @@ export const BASE_PUBLICA: readonly ArquivoBase[] = [
   ],
   "bytes": 11451,
   "sha256": "7b546881af11bf92a92b0d5622a892d9e991cfb15f36b97ac1b858b62e24e9b7"
+ },
+ {
+  "arquivo": "fundo-eleitoral-origem-partidaria-deputado-por-partido.csv",
+  "titulo": "FEFC declarado de origem partidária, por partido da candidatura",
+  "descricao": "Receitas de fonte Fundo Especial e origem Recursos de partido político, excluídos repasses de outras candidaturas; agrupadas pela sigla do registro da candidatura receptora, não pelo doador. Cargos proporcionais.",
+  "fonte": "TSE, Prestação de Contas 2026, base de 25/11/2026 (SHA-256 7cbbb11fb8004591e42ebb1ec1432585740c5b2436cd5f3ff65765e921247f29)",
+  "linhas": 348,
+  "colunas": [
+   "partido",
+   "grupo",
+   "candidaturas",
+   "fefc_origem_partidaria_reais"
+  ],
+  "bytes": 11775,
+  "sha256": "693934207c143e632175ec82a4976bfb349078a42a70d1686bd17a72ae7c7edf"
+ },
+ {
+  "arquivo": "receitas-2026-universos.csv",
+  "titulo": "Receitas declaradas e cobertura por universo",
+  "descricao": "Contagens e valores agregados. Registros zero e ausências separados. Recebimentos sem repasses não constituem fluxo líquido conciliado. Estimáveis incluídos nos recebimentos.",
+  "fonte": "TSE, receitas 25/11/2026, 04h05min30s, candidaturas 25/11/2026, 16h30min55s; SHA-256 7cbbb11fb8004591e42ebb1ec1432585740c5b2436cd5f3ff65765e921247f29",
+  "linhas": 3,
+  "colunas": [
+   "universo",
+   "titulares",
+   "no_arquivo",
+   "receita_positiva",
+   "registro_zero",
+   "ausentes",
+   "recebimentos_reais",
+   "repasses_reais",
+   "sem_repasses_reais",
+   "fefc_recebimentos_reais",
+   "fefc_origem_partidaria_reais"
+  ],
+  "bytes": 491,
+  "sha256": "0356d938ff331bb98b5e07df9f70a0f3ef3cbbb27ca5788d26440d10be2c0761"
+ },
+ {
+  "arquivo": "receitas-2026-medianas.csv",
+  "titulo": "Medianas de receita declarada com e sem zeros",
+  "descricao": "Receita por candidatura, medianas do arquivo (inclusive zero) e das candidaturas com soma positiva; ausentes não imputados. Gênero por universo e categorias raciais das mulheres proporcionais.",
+  "fonte": "TSE, receitas 25/11/2026, 04h05min30s, candidaturas 25/11/2026, 16h30min55s; SHA-256 7cbbb11fb8004591e42ebb1ec1432585740c5b2436cd5f3ff65765e921247f29",
+  "linhas": 9,
+  "colunas": [
+   "universo",
+   "grupo",
+   "titulares",
+   "no_arquivo",
+   "receita_positiva",
+   "mediana_no_arquivo_reais",
+   "mediana_positiva_reais"
+  ],
+  "bytes": 622,
+  "sha256": "5bf1faf9371e6f229abb161e6ed81161ee8dfe8bf7478be25f6ef78dad01ae2e"
  }
 ];
