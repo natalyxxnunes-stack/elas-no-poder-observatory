@@ -186,6 +186,14 @@ export type Correcao = {
 export const CORRECOES: readonly Correcao[] = [
   {
     data: "25/11/2026",
+    pagina: "Barreiras e Calendário",
+    to: "/barreiras",
+    tipo: "apuração",
+    oQueMudou:
+      "Ampliação do eixo de violência política com o monitoramento de episódios da Terra de Direitos e Justiça Global (16/08 a 04/10 e 05/10 a 31/10), a Nota Técnica nº 13 da Câmara dos Deputados e a tramitação legislativa consultada em 25/11. Os universos não são somados. O painel TSE/MPF permanece no corte de 23/10, inclusive a divergência entre a soma anual (460) e o acervo (436). A pauta do calendário de 25/11 foi ajustada a esse limite.",
+  },
+  {
+    data: "25/11/2026",
     pagina: "Dinheiro, Partido por partido, Achados e Método",
     to: "/dinheiro",
     tipo: "dado",
