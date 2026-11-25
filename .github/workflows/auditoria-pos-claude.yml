@@ -26,7 +26,7 @@ jobs:
           assert reais(123456)=="1234.56"
           r={"DS_ORIGEM_RECEITA":"Recursos de outros candidatos","DS_FONTE_RECEITA":"FUNDO ESPECIAL","DS_NATUREZA_RECEITA":"Estimável em dinheiro"}
           assert category(r)[1:4]==(True,False,True) and category(r)[5]
-          r["DS_ORIGEM_RECEITA"]="Recursos de partidos políticos"
+          r["DS_ORIGEM_RECEITA"]="Recursos de partido político"
           assert category(r)[1:4]==(False,True,True)
           PY
       - name: Baixar o corte oficial e conferir hashes antes de recontar
