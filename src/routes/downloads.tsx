@@ -1,3 +1,4 @@
+import { AcervoCientifico } from "@/components/editorial/AcervoCientifico";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { Faixa } from "@/components/editorial/Faixa";
@@ -260,6 +261,8 @@ function DownloadsPage() {
           ))}
         </ul>
       </SectionBlock>
+
+      <AcervoCientifico />
 
       <div className="min-w-0 [overflow-wrap:anywhere]">
       <SectionBlock
