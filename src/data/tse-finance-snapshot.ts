@@ -74,7 +74,7 @@ export const financeSnapshot: TseFinanceSnapshot = {
     "Gênero, cor/raça, cargo, UF e partido do registro de candidaturas de 25/11/2026 às 16:30:55",
     "Todos os turnos: 19.454 candidaturas com prestação FINAL; 164 PARCIAL e 74 RELATÓRIO FINANCEIRO. Base de 25/11, após o prazo final do segundo turno (16/11), ainda sujeita a retificações e julgamento; tipo de prestação não significa aprovação das contas",
     "Cor/raça nas categorias originais do TSE, com pretas e pardas separadas",
-    "O cadastro de 25/11 preserva 19.531 candidaturas proporcionais e 6.953 mulheres; a classificação racial foi atualizada entre 27/10 e 15/11. A totalização nacional de 25/11 permanece incompleta; a origem da divergência por UF está em investigação: os resultados de eleitas continuam no corte íntegro de 27/10",
+    "O cadastro de 25/11 preserva 19.531 candidaturas proporcionais e 6.953 mulheres; a classificação racial foi atualizada entre 27/10 e 15/11. A totalização nacional de 25/11 permanece incompleta; a lacuna está nos registros proporcionais do Amapá: os resultados de eleitas continuam no corte íntegro de 27/10",
   ],
   universes: {
     proporcional: receitas.universes.proporcional,
