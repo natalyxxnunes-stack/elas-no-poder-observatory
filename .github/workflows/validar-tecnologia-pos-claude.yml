@@ -104,7 +104,15 @@ jobs:
           sudo apache2ctl configtest
           sudo systemctl restart apache2
           request(){ curl -sS -H 'X-Forwarded-Proto: https' -D "$RUNNER_TEMP/headers" -o "$RUNNER_TEMP/body" -w '%{http_code}' "http://localhost$1"; }
-          test "$(request /dinheiro)" = 200
+          # Apache pode canonicalizar diretório sem barra com 301; testar destino e status.
+          trap 'echo "Falha HTTP: linha $LINENO"; cat "$RUNNER_TEMP/headers" 2>/dev/null || true; sudo tail -n 20 /var/log/apache2/error.log || true' ERR
+          status=$(request /dinheiro)
+          if [ "$status" = 301 ]; then
+            grep -qi 'location:.*dinheiro/' "$RUNNER_TEMP/headers"
+          else
+            test "$status" = 200
+          fi
+          test "$(request /dinheiro/)" = 200
           test "$(request /metodo/)" = 200
           test "$(request /rota-inexistente-teste-qse)" = 404
           grep -q 'Esta página não existe' "$RUNNER_TEMP/body"
@@ -114,7 +122,8 @@ jobs:
           grep -qi 'cache-control:.*max-age=3600' "$RUNNER_TEMP/headers"
           test "$(request /dinheiro/index.html)" = 200
           grep -qi 'cache-control:.*max-age=0' "$RUNNER_TEMP/headers"
-          asset=$(find dist/client/assets -type f -name '*.js' | head -n1 | sed 's#dist/client##')
+          asset=$(find dist/client/assets -type f -name '*.js' -print -quit | sed 's#dist/client##')
+          test -n "$asset"
           test "$(request "$asset")" = 200
           grep -qi 'cache-control:.*immutable' "$RUNNER_TEMP/headers"
           echo "OK: Apache, HTTP 200/301/404, CSV e cache."
