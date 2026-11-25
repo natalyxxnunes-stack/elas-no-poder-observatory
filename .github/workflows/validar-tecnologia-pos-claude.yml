@@ -34,7 +34,7 @@ jobs:
         run: |
           bun -e '
           import {formatBRLCompact as f} from "./src/lib/format-br.ts";
-          for(const [v,s] of [[1000000,"R$ 1 milhão"],[1999000,"R$ 2 milhões"],[1500000,"R$ 1,5 milhões"],[1000000000,"R$ 1 bilhão"],[2000000000,"R$ 2 bilhões"]])if(f(v)!==s)throw Error(f(v)+" != "+s);
+          for(const [v,s] of [[1000000,"R$ 1 milhão"],[1999000,"R$ 2 milhões"],[1500000,"R$ 1,5 milhão"],[1000000000,"R$ 1 bilhão"],[2000000000,"R$ 2 bilhões"]])if(f(v)!==s)throw Error(f(v)+" != "+s);
           '
       - run: bun scripts/recontagem/validar_snapshot_financeiro.mjs
       - run: bun run build:hostgator
