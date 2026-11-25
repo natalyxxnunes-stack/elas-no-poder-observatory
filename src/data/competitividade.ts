@@ -70,7 +70,7 @@ export const FINANCE_AVAILABILITY = {
       label: "Prestação de contas eleitorais de 2026",
       url: "https://dadosabertos.tse.jus.br/dataset/prestacao-de-contas-eleitorais-2026",
       status: "receita, despesa e doador originário publicados",
-      note: "Receitas, despesas contratadas e pagas e doadores originários foram reprocessados com arquivos gerados em 25/11/2026, após o prazo de 16/11, e cruzados com o cadastro de candidaturas do mesmo dia. O resultado eleitoral permanece no corte íntegro de 27/10 devido à totalização nacional incompleta na extração de 25/11, com origem em investigação.",
+      note: "Receitas, despesas contratadas e pagas e doadores originários foram reprocessados com arquivos gerados em 25/11/2026, após o prazo de 16/11, e cruzados com o cadastro de candidaturas do mesmo dia. O resultado eleitoral permanece no corte íntegro de 27/10 devido à totalização nacional incompleta na extração de 25/11, com lacuna nas 32 cadeiras proporcionais do Amapá.",
     },
     {
       id: "contas-partidarias-2026",
