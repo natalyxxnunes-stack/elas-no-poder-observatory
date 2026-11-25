@@ -19,6 +19,7 @@ export function AchadoCard({
   pagina?: boolean;
 }) {
   const max = achado.escala ?? 100;
+  const Heading = pagina ? "h2" : "h3";
   return (
     <article
       id={`achado-${achado.id}`}
@@ -70,14 +71,14 @@ export function AchadoCard({
           </figcaption>
         </figure>
       )}
-      <h3 className={`mt-5 font-display leading-snug text-ink ${grande ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"}`}>
+      <Heading className={`mt-5 font-display leading-snug text-ink ${grande ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"}`}>
         <Link
           {...(pagina ? { to: achado.to } : { to: "/achados/$id", params: { id: achado.id } })}
           className="after:absolute after:inset-0 focus-visible:outline-none group-hover:underline group-hover:decoration-plum group-hover:underline-offset-4"
         >
           {achado.titulo}
         </Link>
-      </h3>
+      </Heading>
       <p className="mt-3 max-w-[62ch] text-[15px] leading-relaxed text-ink/80">{achado.texto}</p>
       <div className="mt-auto pt-5" />
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-rule pt-2 text-[13px] text-muted-foreground">
