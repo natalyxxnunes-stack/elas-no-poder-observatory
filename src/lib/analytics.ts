@@ -1,8 +1,8 @@
 // Contagem de visitas com GoatCounter (https://www.goatcounter.com).
 //
 // Por que GoatCounter: grátis para projetos sem fins lucrativos, não usa
-// cookies e não guarda dado pessoal, então dispensa banner de consentimento
-// (LGPD). Conta só o site publicado em quemsaoelas.com.br: o preview do
+// cookies de rastreamento segundo o fornecedor. Isso não equivale a uma
+// dispensa jurídica automática de consentimento. Conta só o site publicado em quemsaoelas.com.br: o preview do
 // Lovable e o ambiente local ficam de fora para não poluir os números.
 //
 // O site navega entre páginas sem recarregar (React), então a contagem
@@ -31,7 +31,14 @@ function isProduction(): boolean {
   return typeof window !== "undefined" && PRODUCTION_HOSTS.has(window.location.hostname);
 }
 
+function privacySignal(): boolean {
+  if (typeof navigator === "undefined") return false;
+  const nav = navigator as Navigator & { globalPrivacyControl?: boolean };
+  return nav.doNotTrack === "1" || nav.doNotTrack === "yes" || nav.globalPrivacyControl === true;
+}
+
 function send(path: string) {
+  if (privacySignal()) return;
   try {
     window.goatcounter?.count?.({ path });
   } catch {
@@ -55,7 +62,7 @@ function load() {
 }
 
 export function trackPageview(path: string) {
-  if (!isProduction()) return;
+  if (!isProduction() || privacySignal()) return;
   if (window.goatcounter?.count) {
     send(path);
     return;
