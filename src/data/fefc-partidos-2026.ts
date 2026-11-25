@@ -19,6 +19,7 @@
  * não finais, sujeita a retificações e julgamento.
  */
 import proporcional from "../../docs/auditorias/financiamento-2026-25nov/fefc-proporcional.json";
+import origem from "../../docs/auditorias/pos-claude-2026-11-25/fefc-origem-partidaria-proporcional.json";
 import titulares from "../../docs/auditorias/financiamento-2026-25nov/fefc-titulares.json";
 
 export type FefcGrupo = { candidaturas: number; fefc: number };
@@ -44,3 +45,8 @@ export const FEFC_PARTIDOS_SEM_FUNDO: readonly string[] = proporcional.partidosS
 
 /** Candidaturas titulares dos cargos proporcionais e majoritários. */
 export const FEFC_TOTAL_TITULARES: FefcPartido = titulares.total;
+
+/** FEFC declarado com DS_ORIGEM_RECEITA = Recursos de partido político; agrupado pelo partido do registro da candidatura receptora, não pelo CNPJ do doador. */
+export const FEFC_TOTAL_ORIGEM: FefcPartido = origem.total;
+export const FEFC_PARTIDOS_ORIGEM: Record<string, FefcPartido> = origem.partidos;
+export const FEFC_PARTIDOS_ORIGEM_SEM_FUNDO: readonly string[] = origem.partidosSemFefc;
