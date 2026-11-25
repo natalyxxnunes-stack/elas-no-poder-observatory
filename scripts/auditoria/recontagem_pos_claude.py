@@ -117,6 +117,24 @@ def main(cand_zip,contas_zip,out):
     print("NATUREZAS",json.dumps(result["por_natureza"],ensure_ascii=False))
     for k in ["titulares","proporcional","majoritario","proporcional|FEMININO","proporcional|MASCULINO","proporcional|FEMININO|BRANCA","proporcional|FEMININO|PARDA","proporcional|FEMININO|PRETA","majoritario|FEMININO","majoritario|MASCULINO"]:
         print("GRUPO",k,json.dumps(res[k],ensure_ascii=False))
+    # Direct-origin FEFC by recipient party, gender and race; preserve gross snapshot.
+    # Counts include all registered titular candidates; comFefc is positive direct receipts.
+    def party_table(ids):
+        def group(xs):
+            return {"candidaturas":len(xs),"fefc":float(reais(sum(rev[i]["fefc_origem_partidaria"] for i in xs)))}
+        women=[i for i in ids if reg[i]["DS_GENERO"]=="FEMININO"]
+        races=sorted({reg[i]["DS_COR_RACA"] for i in ids})
+        raca={r:group([i for i in ids if reg[i]["DS_COR_RACA"]==r]) for r in races}
+        wr={r:group([i for i in women if reg[i]["DS_COR_RACA"]==r]) for r in races}
+        return {**group(ids),"comFefc":sum(rev[i]["fefc_origem_partidaria"]>0 for i in ids),"mulheres":group(women),"raca":raca,"mulheresRaca":wr,"pretasPardasSoma":group([i for i in ids if reg[i]["DS_COR_RACA"] in {"PRETA","PARDA"}])}
+    prop=groups[("proporcional",)]
+    parties={p:party_table(ids) for (u,t,p),ids in [(k,v) for k,v in groups.items() if len(k)==3 and k[0]=="proporcional" and k[1]=="partido"]}
+    total=party_table(prop)
+    assert Decimal(str(total["fefc"]))==Decimal(res["proporcional"]["valores"]["fefc_origem_partidaria"])
+    assert sum(Decimal(str(p["fefc"])) for p in parties.values())==Decimal(str(total["fefc"]))
+    assert sum(p["candidaturas"] for p in parties.values())==total["candidaturas"]
+    direct={"total":total,"partidos":dict(sorted(parties.items(),key=lambda kv:-kv[1]["fefc"])),"partidosSemFefc":[p for p,v in sorted(parties.items()) if not v["fefc"]]}
+    (out/"fefc-origem-partidaria-proporcional.json").write_text(json.dumps(direct,ensure_ascii=False,indent=2)+"\n")
     print("OK: conciliado com agregados versionados; nenhuma informação individual exportada.")
 
 if __name__=="__main__": main(*sys.argv[1:])
