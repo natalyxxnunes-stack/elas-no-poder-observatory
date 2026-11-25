@@ -35,7 +35,7 @@ export function ContextBox({
 }) {
   const v = VARIANTS[variant];
   return (
-    <aside
+    <div role="note"
       className={`border-l-4 ${v.accent} ${v.tint} rounded-r-md px-5 py-4`}
     >
       <h3 className="text-[13px] text-ink font-semibold">
@@ -44,6 +44,6 @@ export function ContextBox({
       <div className="mt-2 space-y-2 text-sm leading-relaxed text-muted-foreground">
         {children}
       </div>
-    </aside>
+    </div>
   );
 }

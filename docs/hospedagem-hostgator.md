@@ -8,7 +8,7 @@ Apache compartilhada, sem servidor Node, e o que continua rodando fora dela.
 | Camada | Onde roda | Observação |
 | --- | --- | --- |
 | Site (HTML, CSS, JS, gráficos, glossário, rotas) | HostGator, arquivos estáticos | Pré-renderizado rota por rota |
-| Leitura das fotografias e da série histórica | Navegador → banco do projeto | Chave publicável + RLS de leitura pública |
+| Leitura das fotografias e da série histórica | Dados versionados e fallback de banco | A fotografia atual é fixada em código; se ausente, leitura pública por RLS |
 | CSV da fotografia vigente | Navegador | Montado a partir da fotografia já carregada na página |
 | Coleta diária da base do TSE | Aplicação de servidor do observatório (`/api/public/tse/ingest`) | Acionada por agendamento com `CRON_SECRET` |
 | Coleta histórica (2014, 2018, 2022) | Mesmo endpoint, sob demanda (`/api/public/tse/ingest-history`) | Eleições encerradas; só repetir se o TSE republicar |
@@ -32,18 +32,11 @@ credencial de serviço nunca entra no pacote enviado à HostGator.
 ## Gerar o pacote
 
 ```bash
-bun install
+bun install --frozen-lockfile --registry https://registry.npmjs.org
 bun run build:hostgator
 ```
 
-Fora do ambiente da Lovable, o `bun.lock` aponta para o cache privado de pacotes
-da Lovable e a instalação falha. Nesse caso, instale pelo registro público sem
-alterar o lockfile e rode o build com npm:
-
-```bash
-npm install --no-package-lock --registry https://registry.npmjs.org
-npm run build:hostgator
-```
+O lockfile utiliza o registro público npm para as dependências antes apontadas para o cache privado. A instalação deve preservar versões e hashes; a validação pós-auditoria registra a evidência. A coleta e as ferramentas de configuração do Lovable permanecem no projeto.
 
 A saída fica em `dist/client/`. Suba **todo** o conteúdo dessa pasta (incluindo
 o `.htaccess`, que é um arquivo oculto) para `public_html` no gerenciador de
@@ -60,7 +53,7 @@ Arquivos gerados:
   as referências `/__l5e/assets-v1/...` para `/ilustracoes/...`, deixando o pacote
   autocontido. Se algum binário não puder ser baixado, o build falha e nomeia o
   asset — nenhum substituto é usado;
-- `.htaccess` com HTTPS forçado, resolução das rotas, fallback de SPA,
+- `.htaccess` com HTTPS forçado, resolução das rotas, resposta HTTP 404 real,
   compressão e cache;
 - `sitemap.xml` gerado a partir das páginas que o pré-render produziu (todas as
   rotas publicadas, inclusive as fichas de `/eleitas/*`, `/temas/*` e
@@ -69,31 +62,21 @@ Arquivos gerados:
 
 ## Quando republicar
 
-O HTML carrega os números da fotografia vigente **no momento do build**. Ao
-abrir a página, o navegador relê o banco e mostra a fotografia vigente de fato,
-então o público sempre vê o dado atual. O HTML fica defasado apenas para
-leitores que não executam JavaScript (rastreadores antigos, pré-visualizações
-de link).
+O HTML e a navegação usam a fotografia fixada em código quando disponível. A leitura de banco é um fallback, não substitui automaticamente os recortes versionados. O rodapé identifica separadamente os cortes eleitoral e financeiro; outras análises têm datas próprias.
 
-Por isso: **a cada fotografia conferida e liberada, rode `bun run build:hostgator`
-novamente e suba o pacote.** É a mesma etapa em que hoje a fotografia é
-liberada no banco.
+A cada nova fotografia homologada, atualizar os dados versionados, rodar `bun run build:hostgator` e subir o pacote aprovado.
 
 ## Limitações conhecidas desta hospedagem
 
 - Sem servidor não existe redirecionamento 301 nem cabeçalho HTTP dinâmico:
   tudo isso passa a viver no `.htaccess`.
-- Endereços inexistentes respondem HTTP 200 servindo o HTML da home; ao
-  carregar, o próprio site mostra a página 404. É o comportamento padrão de
-  site estático em Apache.
+- Endereços inexistentes devem retornar HTTP 404 com `/404.html`. O teste em Apache local não substitui a conferência na HostGator. Arquivos de versões antigas que ainda existam no servidor devem ser inventariados antes de publicar; não apagar arquivos sem backup.
 - `/historico` voltou a ser publicada (série 2014–2026) e é pré-renderizada como
-  qualquer outra rota. O único redirecionamento fixo do `.htaccess` hoje é
-  `/condicoes` → `/quem-controla` (301).
+  qualquer outra rota. Os redirecionamentos fixos incluem `/condicoes` → `/quem-controla` (301) e três URLs antigas de temas; preservar essas regras.
 - A chave publicável fica visível no pacote JavaScript. É o comportamento
   previsto: a proteção real são as políticas de acesso do banco, que permitem
   apenas leitura para visitantes anônimos.
-- Os blocos de dados aparecem com estado de carregamento na primeira abertura
-  de uma rota navegada no cliente; o texto editorial aparece imediatamente.
+- O acesso ao banco depende das configurações do ambiente quando o fallback é necessário; o texto editorial aparece imediatamente. Verificar a experiência no navegador após publicação.
 
 ## Segurança do banco
 

@@ -141,7 +141,7 @@ function MobileUniverseRows({ series, universe }: { series: Series; universe: Un
   ].includes(series.id);
 
   return (
-    <section aria-label={`Leitura por ano: ${UNIVERSE_LABEL[universe]}`}>
+    <section aria-label={`Leitura por ano: ${series.label} — ${UNIVERSE_LABEL[universe]}`}>
       <h3 className="font-sans text-sm font-semibold text-plum">{UNIVERSE_LABEL[universe]}</h3>
       <ol className="mt-2 divide-y divide-rule border-y border-rule">
         {points.map((p) => {

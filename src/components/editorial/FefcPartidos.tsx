@@ -57,8 +57,8 @@ export function FefcPartidos() {
       note={
         <>
           Cada célula: fatia do grupo entre as candidaturas do partido → fatia do grupo no FEFC
-          recebido pelas candidaturas do partido, e a diferença em pontos percentuais. Fundo em
-          apresentado neste quadro, sem sinalização de infração. O piso constitucional de financiamento
+          recebido pelas candidaturas do partido, e a diferença em pontos percentuais. O fundo é
+          apresentado neste quadro sem sinalização de infração. O piso constitucional de financiamento
           exige exame do conjunto dos recursos partidários e das campanhas abrangidas pelas normas,
           inclusive disputas majoritárias; percentuais inferiores a 30% neste recorte proporcional
           não demonstram, por si, descumprimento. Partidos com menos de 20 candidaturas, ou com fundo em menos de
@@ -88,6 +88,7 @@ export function FefcPartidos() {
       </p>
       <div tabIndex={0} role="region" aria-label="Tabela do fundo eleitoral por partido, rolável na horizontal" className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[64rem] text-sm">
+          <caption className="sr-only">Candidaturas e FEFC por partido, gênero e cor/raça</caption>
           <thead>
             <tr className="align-bottom text-[13px] text-muted-foreground font-semibold">
               <th className="sticky left-0 z-10 bg-paper pb-2 pr-3 text-left font-normal">Partido</th>

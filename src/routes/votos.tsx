@@ -177,6 +177,7 @@ function RaceGenderTable({ cargo }: { cargo: keyof typeof VOTOS_2026 }) {
     >
       <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[30rem] text-sm">
+          <caption className="sr-only">Participação nas candidaturas, votos e cadeiras por grupo</caption>
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
               <th className="pb-2 text-left font-normal">Grupo</th>

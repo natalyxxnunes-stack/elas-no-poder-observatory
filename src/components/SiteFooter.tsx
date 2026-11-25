@@ -1,29 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
 import { BrandLogo } from "./BrandLogo";
 import { BrandWordmark } from "./BrandWordmark";
-import { SITE } from "@/data/election-2026";
 import { CENTRAL_THESIS, COVER_QUESTION } from "@/data/architecture";
 import { MENU } from "./SiteHeader";
-import { getSnapshotStamp } from "@/lib/tse/snapshot.functions";
-
-function br(iso: string | null | undefined): string | null {
-  if (!iso) return null;
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return null;
-  return d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
-}
+import { RESULT_2026_META } from "@/data/resultado-2026";
+import { FINANCE_BASE_LABEL } from "@/data/tse-finance-snapshot";
 
 export function SiteFooter({ flush = false }: { flush?: boolean }) {
-  const { data: stamp } = useQuery({
-    queryKey: ["tse-snapshot-stamp"],
-    queryFn: () => getSnapshotStamp(),
-    staleTime: 5 * 60 * 1000,
-  });
-
-  const generated = br(stamp?.baseGeneratedAt);
-  const collected = br(stamp?.collectedAt);
-
   return (
     <footer className={`ink-panel ${flush ? "border-t border-cream/15" : "mt-24"}`}>
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-[1.2fr_2fr] md:px-8">
@@ -94,13 +77,10 @@ export function SiteFooter({ flush = false }: { flush?: boolean }) {
       </div>
       <div className="border-t border-cream/15">
         <div className="mx-auto max-w-7xl px-5 py-5 text-sm leading-relaxed text-cream/70 md:px-8">
-          {generated && (
-            <p className="text-cream/75">
-              Última fotografia publicada: base gerada pelo TSE em {generated}
-              {collected ? ` · coletada pelo observatório em ${collected}` : ""}.
-            </p>
-          )}
-          <p className={generated ? "mt-1" : undefined}>
+          <p className="text-cream/75">
+            Cortes publicados: resultado eleitoral de {RESULT_2026_META.baseGeneratedAt.slice(0, 10)} · financiamento de {FINANCE_BASE_LABEL}.
+          </p>
+          <p className="mt-1">
             Indicadores de candidatura calculados a partir de TSE / Dados Abertos / Candidatos 2026.
             A data da base usada aparece junto de cada número.
           </p>

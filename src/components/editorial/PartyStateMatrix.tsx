@@ -101,6 +101,7 @@ export function PartyStateMatrix({ snapshot }: { snapshot: PublicSnapshot | null
     >
       <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[60rem] border-separate border-spacing-0.5 text-[13px]">
+          <caption className="sr-only">Distribuição de candidaturas por partido e unidade federativa</caption>
           <thead>
             <tr className="text-muted-foreground font-semibold">
               <th className="sticky left-0 z-10 bg-card pr-2 text-left font-normal">Partido</th>

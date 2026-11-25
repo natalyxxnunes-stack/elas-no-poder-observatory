@@ -2,8 +2,8 @@
 //
 // Não substitui o build padrão (`vite.config.ts`), usado pela publicação atual.
 // Aqui o site é pré-renderizado rota por rota e sai como arquivos estáticos,
-// com fallback de SPA para navegação no cliente. Nenhum código de servidor é
-// necessário: as leituras de dados vão direto ao banco com a chave publicável.
+// com navegação no cliente. Nenhum código de servidor é
+// necessário: a fotografia eleitoral é versionada, com fallback de leitura pública do banco.
 //
 // Uso: `bun run build:hostgator` → suba o conteúdo de `dist/client/` para a
 // pasta `public_html` da HostGator.
@@ -24,8 +24,7 @@ export default defineConfig({
     server: { entry: "server" },
     // Sem shell de SPA: o shell é gerado a partir de "/" e ocuparia o lugar do
     // HTML da home. Como todas as rotas do site são pré-renderizadas, o
-    // fallback do .htaccess é o próprio /index.html, e o roteador assume no
-    // cliente (inclusive para mostrar a página 404 em endereços inexistentes).
+    // .htaccess serve a página /404.html com status 404 em endereços inexistentes.
     spa: { enabled: false },
     // Toda página de achado sai em HTML próprio, mesmo sem link apontando
     // para ela (13/11/2026): quem chega pelo Google precisa do HTML, e o
@@ -42,8 +41,8 @@ export default defineConfig({
       enabled: true,
       crawlLinks: true,
 
-      // Rotas com dados: o HTML sai com a fotografia vigente no momento do
-      // build; ao abrir, o navegador relê o banco e mostra a fotografia atual.
+      // Rotas com dados: o HTML e a navegação usam a fotografia versionada,
+      // quando disponível; a leitura pública do banco é fallback.
       // Rotas despublicadas não geram HTML: o redirecionamento fica no
       // .htaccess, para não servir uma página que o site não publica.
       filter: ({ path }: { path: string }) =>
