@@ -348,6 +348,7 @@ function RaceVoteTable() {
         className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum"
       >
         <table className="w-full min-w-[36rem] text-sm">
+          <caption className="sr-only">Votos por grupo nas seis votações selecionadas</caption>
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
               <th className="pb-2 text-left font-normal">Grupo</th>
@@ -556,6 +557,7 @@ function DeputadasTable() {
         className="overflow-x-auto border border-rule bg-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum"
       >
         <table className="w-full min-w-[56rem] text-sm">
+          <caption className="sr-only">Votações nominais por deputada e cor/raça</caption>
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
               <th className="px-3 pb-2 pt-3 text-left font-normal">Deputada</th>
