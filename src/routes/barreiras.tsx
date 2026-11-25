@@ -84,8 +84,7 @@ function BarreirasPage() {
         question={M_VPG.texto}
         lead={
           <p>
-            Violência política de gênero é crime desde 2021 (art. 326-B do Código Eleitoral):
-            assediar, constranger, humilhar, perseguir ou ameaçar candidata ou detentora de mandato, mediante discriminação à condição de mulher ou à sua cor, raça ou etnia, com a finalidade de dificultar ou impedir a campanha ou o mandato. O painel público do TSE e do MPF mostra quantos processos chegaram à Justiça
+            Desde 2021, o art. 326-B do Código Eleitoral tipifica o crime de violência política contra a mulher: assédio, constrangimento, humilhação, perseguição ou ameaça, por qualquer meio, contra candidata a cargo eletivo ou detentora de mandato eletivo, mediante menosprezo ou discriminação por ser mulher ou por sua cor, raça ou etnia, com a finalidade de impedir ou dificultar a campanha eleitoral ou o exercício do mandato. O painel público do TSE e do MPF mostra quantos processos chegaram à Justiça
             Eleitoral. Quem são as vítimas, por cargo e cor/raça, o painel não mostra; pedimos esses
             dados pela Lei de Acesso à Informação.
           </p>
