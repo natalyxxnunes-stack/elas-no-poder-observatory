@@ -45,6 +45,6 @@ export const LEGISLACAO_VPG = {
   apensados: [
     { projeto: "PL 1015/2025", autoria: "Alexandre Guimarães", objeto: "Programa nacional de enfrentamento à violência política de gênero." },
     { projeto: "PL 1446/2025", autoria: "Renilce Nicodemos", objeto: "Proteção na pré-candidatura." },
-    { projeto: "PL 1440/2026", autoria: "Erika Hilton", objeto: "Violência política de gênero e raça, inclusive nos meios digitais." },
+    { projeto: "PL 1440/2026", autoria: "Erika Hilton e outras deputadas", objeto: "Violência política de gênero e raça, inclusive nos meios digitais." },
   ],
 } as const;
