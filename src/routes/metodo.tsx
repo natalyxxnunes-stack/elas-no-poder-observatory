@@ -1,3 +1,4 @@
+import { AcervoCientifico } from "@/components/editorial/AcervoCientifico";
 import { HIPOTESES } from "@/data/hipoteses";
 import { useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -1168,6 +1169,8 @@ function MetodoPage() {
           </li>
         </ol>
       </SectionBlock>
+
+      <AcervoCientifico />
 
       {/* Inventário editorial de cortes: não confundir as fotografias. */}
       <SectionBlock semFio id="cortes-das-bases" kicker="Rastreabilidade" question="Qual é a data de cada recorte" align="wide">
