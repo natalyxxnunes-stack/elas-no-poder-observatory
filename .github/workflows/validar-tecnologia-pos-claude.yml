@@ -100,6 +100,13 @@ jobs:
           assert "79.298,76" in page("dinheiro") and "82.472,00" in page("dinheiro")
           assert "FEFC de origem partidária" in page("partidos")
           assert "cortes-das-bases" in page("metodo")
+          for route in ["sobre","metodo","dados","downloads"]:
+              s=page(route)
+              assert 'id="acervo-cientifico"' in s,route
+              for link in ["https://doi.org/10.5281/zenodo.24544834","https://doi.org/10.5281/zenodo.24544833","https://orcid.org/0009-0000-5651-3946"]:
+                  assert 'href="'+link+'"' in s,(route,link)
+          assert not list(root.rglob("Quem_sao_elas_Zenodo*.zip"))
+          assert not list(root.rglob("indice-nt13.json"))
           assert "O preço de participar subiu" not in page("temas/violencia")
           source=Path("src/data/eleitas-2026.ts").read_text()
           arr=json.loads(source[source.index("= [",source.index("export const ELEITAS_2026"))+2:source.rindex("]")+1])
@@ -199,7 +206,7 @@ jobs:
             await browser.close();
             fs.writeFileSync(root+"/axe.json",JSON.stringify(records,null,2));
             for(const r of records)console.log("AUDIT",r.route,r.status,"overflow",r.overflow,"errors",r.errors.length,"violations",r.violation.map(v=>v.id+":"+v.nodes.length).join(","),"manual",r.incomplete.map(v=>v.id+":"+v.nodes.length).join(","));
-            if(records.some(r=>r.status!==200||r.overflow>2||r.errors.length))process.exitCode=1;
+            if(records.some(r=>r.status!==200||r.overflow>2||r.errors.length||r.violation.length))process.exitCode=1;
           })().catch(e=>{console.error(e);process.exitCode=1});
           JS
           node "$RUNNER_TEMP/visual/test.cjs"
@@ -209,3 +216,34 @@ jobs:
           name: homologacao-tecnica-pos-claude
           path: homologacao-tecnica/
           retention-days: 90
+      - name: Empacotar somente a saída estática homologada
+        if: success()
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import zipfile,hashlib
+          root=Path("dist/client")
+          assert (root/".htaccess").is_file()
+          assert (root/"index.html").is_file()
+          assert (root/"404.html").is_file()
+          files=sorted(p for p in root.rglob("*") if p.is_file())
+          assert not any(p.is_symlink() or any(x in {".git",".env","node_modules"} or x.startswith(".env.") for x in p.relative_to(root).parts) for p in files)
+          out=Path("pacote-hostgator")
+          out.mkdir(exist_ok=True)
+          zpath=out/"Quem_sao_elas_HostGator_2026-11-25.zip"
+          with zipfile.ZipFile(zpath,"w",zipfile.ZIP_DEFLATED,compresslevel=6) as z:
+              for p in files:z.write(p,p.relative_to(root).as_posix())
+          with zipfile.ZipFile(zpath) as z:
+              assert z.testzip() is None
+              assert ".htaccess" in z.namelist()
+              assert len(z.namelist())==len(files)
+          (out/"SHA256SUMS.txt").write_text(hashlib.sha256(zpath.read_bytes()).hexdigest()+"  "+zpath.name+"\n")
+          print("PACOTE",len(files),"arquivos",zpath.stat().st_size,"bytes")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: pacote-hostgator-pos-claude
+          path: pacote-hostgator/
+          retention-days: 30
