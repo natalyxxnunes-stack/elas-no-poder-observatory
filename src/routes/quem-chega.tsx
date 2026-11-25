@@ -267,6 +267,7 @@ function ElectionRateTable() {
     >
       <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[22rem] text-sm">
+          <caption className="sr-only">Taxas de eleição por gênero e cor/raça</caption>
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
               <th className="pb-2 text-left font-normal">Cor/raça</th>
@@ -371,6 +372,7 @@ function PartyTable() {
     >
       <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[30rem] text-sm">
+          <caption className="sr-only">Cadeiras proporcionais e mulheres eleitas por partido</caption>
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
               <th className="pb-2 text-left font-normal">Partido</th>
