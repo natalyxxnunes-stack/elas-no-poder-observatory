@@ -311,9 +311,10 @@ function SobrePage() {
           <div className="poster-frame p-5 md:p-6">
             <h3 className="font-display text-xl text-ink">Como citar</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Os dados e análises do {SITE.name} podem ser utilizados e citados.
-              Só peço que a fonte seja identificada e que o contexto da
-              informação seja preservado.
+              Os dados e análises do {SITE.name} podem ser citados com identificação da fonte,
+              da versão e do contexto. A reutilização de bases, código, fotografias e documentos
+              deve respeitar as condições de cada fonte e os direitos aplicáveis. A citação não
+              implica autorização geral para redistribuir materiais de terceiros.
             </p>
             <p className="mt-3 rounded-md bg-muted p-3 text-sm leading-relaxed text-ink">
               Fonte: {SITE.name}, observatório independente sobre mulheres na
