@@ -1,0 +1,53 @@
+name: Validar integridade e privacidade pós-Claude
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - src/**
+      - .github/workflows/validar-integridade-pos-claude.yml
+      - docs/auditorias/pos-claude-2026-11-25/**
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.4'
+      - run: bun install --frozen-lockfile
+      - name: Testar sinais de privacidade sem requisições externas
+        run: |
+          bun -e '
+          import { trackPageview } from "./src/lib/analytics.ts";
+          let calls=0;
+          Object.defineProperty(globalThis,"window",{value:{location:{hostname:"quemsaoelas.com.br"},goatcounter:{count:()=>calls++}},configurable:true});
+          for(const [nav,expected] of [[{doNotTrack:"1"},0],[{globalPrivacyControl:true},0],[{doNotTrack:"yes"},0],[{},1]]){
+            Object.defineProperty(globalThis,"navigator",{value:nav,configurable:true});
+            trackPageview("/sobre");
+            if(calls!==expected)throw Error("privacy signal ignored");
+          }
+          window.location.hostname="localhost";
+          trackPageview("/sobre");
+          if(calls!==1)throw Error("preview tracked");
+          console.log("OK: DNT/GPC e ambiente local.");
+          '
+      - run: bun scripts/recontagem/validar_snapshot_financeiro.mjs
+      - run: bun run build:hostgator
+      - name: Conferir aviso e rodapé no HTML
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          root=Path("dist/client")
+          p=root/"sobre"/"index.html"
+          s=p.read_text()
+          assert 'id="privacidade"' in s and "Global Privacy Control" in s
+          for page in [root/"index.html", root/"dinheiro"/"index.html",p]:
+              assert "/sobre#privacidade" in page.read_text(),page
+          assert len(list(root.rglob("*.html")))>=399
+          print("OK: seção e links de privacidade no HTML estático.")
+          PY
