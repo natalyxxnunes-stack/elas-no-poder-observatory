@@ -113,7 +113,7 @@ export function FinanceByOffice({ snapshot }: { snapshot: TseFinanceSnapshot }) 
         data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
         limitacao:
-          "Na base de 15/11, 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Mede receita declarada, não despesa.",
+          "Na base de 25/11, 164 candidaturas ainda constam com prestação parcial e 74 com relatório financeiro. Mede receita declarada, não despesa; o tipo de prestação não equivale à aprovação das contas.",
       }}
       eyebrow="Presença × receita, por cargo · 2026"
       title="Fatia das mulheres entre as candidaturas e no dinheiro de cada cargo"
@@ -195,7 +195,7 @@ export function FinanceRace({ snapshot }: { snapshot: TseFinanceSnapshot }) {
                 fonte:
                   "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
                 limitacao:
-                  "Na base de 15/11, 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Mede receita declarada, não despesa.",
+                  "Na base de 25/11, 164 candidaturas ainda constam com prestação parcial e 74 com relatório financeiro. Mede receita declarada, não despesa; o tipo de prestação não equivale à aprovação das contas.",
               }}
               eyebrow={`Receita de mulheres por cor/raça · ${UNIVERSE_LABEL[universe].toLocaleLowerCase("pt-BR")}`}
               title={
@@ -208,7 +208,7 @@ export function FinanceRace({ snapshot }: { snapshot: TseFinanceSnapshot }) {
                   Fatia de {formatBRLCompact(data.feminineRevenue)} declarados por candidaturas de
                   mulheres, na régua de 0 a 100%.{" "}
                   {universe === "proporcional"
-                    ? "Nos 12 partidos com mais receita: mediana de R$ 151.020 para brancas (2.113 candidatas), R$ 100.000 para pardas (1.490) e R$ 80.804 para pretas (795)."
+                    ? "Nos 12 partidos com mais receita: mediana de R$ 151.040,30 para brancas (2.118 candidatas), R$ 100.000 para pardas (1.495) e R$ 81.030,57 para pretas (796)."
                     : "Aqui a distribuição da receita também varia conforme o partido que lança a candidata: nos 12 partidos com mais receita estão 36 das 65 candidatas brancas, 6 das 24 pardas e 2 das 17 pretas."}
                 </>
               }
@@ -299,7 +299,7 @@ export function FinanceByUf({ snapshot }: { snapshot: TseFinanceSnapshot }) {
         data: `Prestação de contas de ${FINANCE_BASE_LABEL}, declarações disponíveis até a geração da base`,
         fonte: "TSE, Prestação de Contas Eleitorais 2026, cruzada com TSE, Candidaturas 2026",
         limitacao:
-          "Na base de 15/11, 195 candidaturas ainda constam com prestação parcial e 102 com relatório financeiro. Mede receita declarada, não despesa.",
+          "Na base de 25/11, 164 candidaturas ainda constam com prestação parcial e 74 com relatório financeiro. Mede receita declarada, não despesa; o tipo de prestação não equivale à aprovação das contas.",
       }}
       eyebrow="Receita das mulheres por estado · proporcional"
       title={
