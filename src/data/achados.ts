@@ -114,7 +114,7 @@ export const ACHADOS: Achado[] = [
     id: "dinheiro-brancas-peso",
     ancora: {
       valor: "56,1%",
-      rotulo: "do dinheiro das candidatas a deputada foi para as brancas, que eram 46,9% delas",
+      rotulo: "da receita declarada pelas candidatas a deputada corresponde às brancas, 46,9% das candidatas no arquivo",
     },
     tema: "dinheiro",
     foco: "Brancas · receita",
@@ -122,7 +122,7 @@ export const ACHADOS: Achado[] = [
     data: "2026-09-25",
     titulo: "No dinheiro, as candidatas brancas ficam com mais do que o seu peso",
     texto:
-      "Nas listas para deputada, brancas são 46,9% das candidatas com receita declarada e ficam com 56,1% do dinheiro das mulheres. Pardas são 34,1% e ficam com 27,7%; pretas, 17,3% e 14,2%. Em 25/09, eram 47,0% e 55,7%. A distância persiste na base de 25/11, posterior ao prazo do segundo turno, ainda com prestações parciais e relatórios financeiros.",
+      "Nas listas para deputada, brancas são 46,9% das candidatas presentes no arquivo de receitas, inclusive registros zero e ficam com 56,1% do dinheiro das mulheres. Pardas são 34,1% e ficam com 27,7%; pretas, 17,3% e 14,2%. Em 25/09, eram 47,0% e 55,7%. A distância persiste na base de 25/11, posterior ao prazo do segundo turno, ainda com prestações parciais e relatórios financeiros. Entre as candidatas com soma positiva, 2.981 de 6.300 (47,3%) são brancas. As receitas incluem repasses entre candidaturas e recursos estimáveis.",
     barras: [
       { rotulo: "Brancas · candidatas", valor: 46.9 },
       { rotulo: "Brancas · receita", valor: 56.1 },
@@ -131,7 +131,7 @@ export const ACHADOS: Achado[] = [
       { rotulo: "Pretas · candidatas", valor: 17.3 },
       { rotulo: "Pretas · receita", valor: 14.2 },
     ],
-    legenda: "Candidatas a deputada com receita declarada",
+    legenda: "Candidatas a deputada presentes no arquivo de receitas, inclusive zeros",
     fonte:
       "TSE, receitas declaradas na base de 25/11/2026 (04h05), cruzadas com Candidaturas de 25/11/2026 (16h30); 978 duplicatas integrais removidas; sujeitas a retificação e julgamento",
     atualizadoEm: "2026-11-25",
@@ -300,15 +300,15 @@ export const ACHADOS: Achado[] = [
     id: "fundo-eleitoral-cor",
     ancora: {
       valor: "65,4%",
-      rotulo: "do fundo eleitoral foi para candidaturas brancas, que eram 50,1% das titulares",
+      rotulo: "dos recebimentos declarados de FEFC correspondem a candidaturas brancas, 50,1% das titulares",
     },
     tema: "dinheiro",
     foco: "Brancas · fundo",
     numero: "10",
     data: "2026-10-28",
-    titulo: "O fundo eleitoral foi mais para candidaturas brancas",
+    titulo: "Candidaturas brancas concentram os recebimentos declarados de FEFC",
     texto:
-      "Candidaturas brancas são 50,1% das candidaturas titulares de 2026 e ficaram com 65,4% do fundo eleitoral que chegou às campanhas. Pardas são 34,9% e ficaram com 25,2%; pretas, 13,6% e 8,2%. Para as mulheres, o fundo ficou perto da presença: 35,2% das candidaturas, 33,2% do dinheiro.",
+      "Candidaturas brancas são 50,1% das candidaturas titulares de 2026 e ficaram com 65,4% dos recebimentos declarados de FEFC, inclusive repasses entre candidaturas. Pardas são 34,9% e ficaram com 25,2%; pretas, 13,6% e 8,2%. Para as mulheres, o fundo ficou perto da presença: 35,2% das candidaturas, 33,2% do dinheiro.",
     barras: [
       { rotulo: "Brancas · candidaturas", valor: 50.1 },
       { rotulo: "Brancas · fundo", valor: 65.4 },
@@ -318,7 +318,7 @@ export const ACHADOS: Achado[] = [
       { rotulo: "Pretas · fundo", valor: 8.2 },
     ],
     legenda:
-      "Todas as candidaturas titulares, de deputado à Presidência, e o Fundo Especial que chegou a elas. Só deputado, a fatia branca é 60,8% (ver Dinheiro)",
+      "Todas as candidaturas titulares, de deputado à Presidência, e os recebimentos declarados do Fundo Especial, inclusive repasses entre campanhas. Só deputado, a fatia branca é 60,8% nesse mesmo critério (ver Dinheiro) ",
     fonte:
       "TSE, Candidaturas 2026 e Prestação de Contas 2026 · base financeira de 25/11/2026, posterior ao prazo final de 16/11; contas sujeitas a retificação e julgamento",
     atualizadoEm: "2026-11-25",
