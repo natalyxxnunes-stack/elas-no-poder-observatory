@@ -299,6 +299,11 @@ function BarreirasPage() {
             ))}
           </ul>
           <p className="mt-4 text-sm text-muted-foreground">Os três projetos acima tramitam apensados ao PL 68/2025.</p>
+          <div className="mt-6 border-t-2 border-ink pt-4">
+            <h3 className="font-display text-xl">PL 2218/2026 · Alice Portugal (PCdoB-BA)</h3>
+            <p className="mt-2 text-sm">Propõe mudanças nas normas de enfrentamento à violência política, desinformação eleitoral e participação de mulheres em debates. Recebido pela Comissão de Defesa dos Direitos da Mulher em 13/11/2026; aguardava designação de relatoria na consulta de 25/11/2026.</p>
+            <a href="https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2622246" target="_blank" rel="noreferrer" className="mt-3 inline-flex min-h-11 items-center font-semibold underline underline-offset-4">Consultar tramitação ↗</a>
+          </div>
         </div>
       </SectionBlock>
 
