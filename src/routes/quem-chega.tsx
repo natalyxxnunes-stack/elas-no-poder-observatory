@@ -486,7 +486,7 @@ function QuemChegaPage() {
           O resultado nacional mantém a base íntegra de 27/10/2026. As fichas individuais utilizam o cadastro de
           02/11/2026. Na extração de 25/11, os 91 registros federais e 194 estaduais do Amapá vieram
           sem situação de totalização; não substituímos os resultados anteriores por essa fotografia incompleta.
-          A conferência nominal das nove deputadas do estado nos relatórios do TRE-AP está pendente.
+          Os nomes e as siglas das nove deputadas conferem com as listas de apuração publicadas pela CNN Brasil em 04/10, com dados do TSE. A conferência nominal diretamente nos relatórios do TRE-AP está pendente.
         </GapNote>
       </div>
       <SectionBlock id="cargos" kicker="Resultado" question="Quantas se elegeram, em cada cargo" align="wide">
