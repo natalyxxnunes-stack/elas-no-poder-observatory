@@ -481,6 +481,14 @@ function QuemChegaPage() {
         </span>
         <span aria-hidden="true" className="text-2xl text-plum">→</span>
       </a>
+      <div className="py-5">
+        <GapNote label="Cortes eleitorais preservados">
+          O resultado nacional mantém a base íntegra de 27/10/2026. As fichas individuais utilizam o cadastro de
+          02/11/2026. Na extração de 25/11, os 91 registros federais e 194 estaduais do Amapá vieram
+          sem situação de totalização; não substituímos os resultados anteriores por essa fotografia incompleta.
+          A conferência nominal das nove deputadas do estado nos relatórios do TRE-AP está pendente.
+        </GapNote>
+      </div>
       <SectionBlock id="cargos" kicker="Resultado" question="Quantas se elegeram, em cada cargo" align="wide">
         <OfficeBars />
       </SectionBlock>
