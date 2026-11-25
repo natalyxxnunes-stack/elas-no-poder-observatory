@@ -94,7 +94,7 @@ jobs:
         with:
           name: auditoria-tse-2026-agregados
           path: docs/auditorias/tse-2026-11-25/execucao-github/
-          retention-days: 7
+          retention-days: 90
 
 
   metodo_publicado:
@@ -205,10 +205,31 @@ jobs:
           (arc/"reconciliacao.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
           print("CONFERÊNCIA ORIGINAL",len(d),"indicadores",json.dumps(report,ensure_ascii=False))
           PY
+      - name: Diagnosticar todas as UFs e despesas de segurança
+        shell: bash
+        run: |
+          set -euo pipefail
+          O="$RUNNER_TEMP/tse/originais"
+          S="docs/auditorias/tse-2026-11-25/metodo-publicado"
+          python scripts/auditoria/totalizacao_seguranca_2026.py "$O" "$S"
+          python - <<'PY'
+          import json,pathlib
+          from decimal import Decimal
+          p=pathlib.Path("docs/auditorias/tse-2026-11-25/metodo-publicado")
+          sec=json.loads((p/"seguranca-politica.json").read_text())
+          d=json.loads((p/"despesas-agregadas.json").read_text())
+          for row in sec["por_universo_genero"]:
+              u,g=row["grupo"]
+              if g not in ("FEMININO","MASCULINO"):continue
+              old=Decimal(str(d[u][g]["contratadoPorTipo"].get(sec["categoria"],0)))
+              if abs(old-Decimal(row["contratado"]))>Decimal("0.01"):
+                  raise ValueError("Categoria de segurança não reconciliada")
+          print("SEGURANCA: totais por universo e gênero reconciliados.")
+          PY
       - name: Arquivar recontagens originais para revisão, sem dados pessoais
         uses: actions/upload-artifact@v4
         with:
           name: auditoria-tse-2026-metodo-publicado
           path: docs/auditorias/tse-2026-11-25/metodo-publicado/
-          retention-days: 7
+          retention-days: 90
 
