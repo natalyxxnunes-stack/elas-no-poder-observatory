@@ -1,0 +1,30 @@
+name: Validar atualização editorial 25-11
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/workflows/validar-editorial-25nov.yml
+      - src/routes/barreiras.tsx
+      - src/data/violencia-monitoramento-2026.ts
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.4'
+      - run: bun install --frozen-lockfile
+      - run: bun scripts/recontagem/validar_snapshot_financeiro.mjs
+      - run: bun run build:hostgator
+      - name: Conferir invariantes editoriais
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path("src/routes/barreiras.tsx").read_text()
+          assert all(x in p for x in ('violencia-eleicoes-2026','responsabilizacao','protecao-legislativa','23/10/2026','460','436'))
+          assert Path('src/data/violencia-monitoramento-2026.ts').exists()
+          print('OK: três novas seções, corte anterior e ressalva do painel preservados.')
+          PY
