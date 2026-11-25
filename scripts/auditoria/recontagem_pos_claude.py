@@ -38,7 +38,7 @@ def records(raw):
 def category(r):
     origin=norm(r["DS_ORIGEM_RECEITA"])
     transfer=origin=="RECURSOS DE OUTROS CANDIDATOS"
-    party=origin=="RECURSOS DE PARTIDOS POLITICOS"
+    party=origin=="RECURSOS DE PARTIDO POLITICO"
     fefc=norm(r["DS_FONTE_RECEITA"])=="FUNDO ESPECIAL"
     kind=norm(r["DS_NATUREZA_RECEITA"])
     estimavel="ESTIM" in kind
@@ -105,6 +105,9 @@ def main(cand_zip,contas_zip,out):
     oldf=json.loads((BASE/"fefc-titulares.json").read_text())
     assert Decimal(res["titulares"]["valores"]["fefc_bruto"])==Decimal(str(oldf["total"]["fefc"]))
     assert res["titulares"]["no_arquivo"]==old["candidaciesWithRevenue"]
+    # Verify exact official category against independent origin breakdown.
+    assert Decimal(res["titulares"]["valores"]["fefc_origem_partidaria"])==Decimal(reais(origins["RECURSOS DE PARTIDO POLITICO"]["fefc"]))
+    assert origins["RECURSOS DE PARTIDO POLITICO"]["fefc"]>0
     # Do not assume party origin equals all receipts excluding candidate transfers.
     def breakdown(d):return {k:{"linhas":v["linhas"],"receita":reais(v["receita"]),"fefc":reais(v["fefc"])} for k,v in sorted(d.items())}
     result={"hashes_zip":hashes,"cortes":{"candidaturas":mf["candidaturas"]["gerado_em"],"receitas":mf["contas"]["receitas"]["gerado_em"]},"linhas":rawrows,"duplicatas":duplicates,"por_origem":breakdown(origins),"por_natureza":breakdown(nature),"grupos":res,"ressalva":"Sem repasses = exclusão pela origem declarada; não valida cadeia de transferência, doador ou destinatário. Estimáveis identificados pela natureza declarada. Ausência não equivale a zero."}
