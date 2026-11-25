@@ -1,12 +1,12 @@
 /**
  * Despesas contratadas e pagas, financiamento coletivo e doadores originários,
- * recontados de arquivos oficiais do TSE gerados em 17/11/2026
- * (contratadas 04:05:11; pagas 04:05:24), cruzados com Candidatos
- * de 17/11/2026 às 19:31:29.
+ * recontados de arquivos oficiais do TSE gerados em 25/11/2026
+ * (contratadas 04:05:12; pagas 04:05:12), cruzados com Candidatos
+ * de 25/11/2026 às 16:30:55.
  *
  * Script original: scripts/recontagem/despesas_doadores_2026.py.
  * Saída integral agregada, hashes e auditoria:
- * docs/auditorias/financiamento-2026-17nov/despesas-agregadas.json.
+ * docs/auditorias/financiamento-2026-25nov/despesas-agregadas.json.
  *
  * As linhas integralmente repetidas contam uma vez. Gastos contratados,
  * pagamentos por fonte e doações recebidas são conceitos distintos e não
@@ -16,11 +16,11 @@
  * sucede o prazo final do segundo turno (16/11), mas inclui contas ainda
  * não finais e não representa contas julgadas definitivamente.
  */
-import despesas from "../../docs/auditorias/financiamento-2026-17nov/despesas-agregadas.json";
+import despesas from "../../docs/auditorias/financiamento-2026-25nov/despesas-agregadas.json";
 
 export const DESPESAS_META = {
-  baseGeneratedAt: "17/11/2026",
-  candidateGeneratedAt: "17/11/2026",
+  baseGeneratedAt: "25/11/2026",
+  candidateGeneratedAt: "25/11/2026",
   fefcLabel: "Fundo Especial de Financiamento de Campanha",
 } as const;
 

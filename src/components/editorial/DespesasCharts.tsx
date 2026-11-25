@@ -72,7 +72,7 @@ export function FundoNoGasto() {
         fonte:
           "TSE, Prestação de Contas Eleitorais 2026 (despesas pagas, campo DS_FONTE_DESPESA) e Candidatos 2026",
         limitacao:
-          "Base de 17/11, posterior ao prazo final de 16/11: 186 candidaturas com receita constam com prestação parcial e 96 com relatório financeiro. Tipo de prestação não equivale à aprovação das contas. Despesas pagas e contratadas têm denominadores distintos.",
+          "Base de 25/11, posterior ao prazo final de 16/11: 164 candidaturas com receita constam com prestação parcial e 74 com relatório financeiro. Tipo de prestação não equivale à aprovação das contas. Despesas pagas e contratadas têm denominadores distintos.",
       }}
     >
       <div className="grid gap-x-8 gap-y-6 md:grid-cols-2">

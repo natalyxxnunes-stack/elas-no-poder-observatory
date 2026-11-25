@@ -1,0 +1,336 @@
+{
+  "baseGeneratedAt": "25/11/2026 04:05:30",
+  "csvSha256": "7cbbb11fb8004591e42ebb1ec1432585740c5b2436cd5f3ff65765e921247f29",
+  "rawRows": 271785,
+  "duplicateRows": 978,
+  "duplicateValue": 770684.0,
+  "rowsProcessed": 270807,
+  "candidaciesWithRevenue": 19692,
+  "unmatchedCandidacies": 0,
+  "genderMismatchRows": 0,
+  "tiposPrestacao": {
+    "FINAL": 19454,
+    "RELATÓRIO FINANCEIRO": 74,
+    "PARCIAL": 164
+  },
+  "universes": {
+    "proporcional": {
+      "registeredCandidacies": 19531,
+      "candidaciesWithRevenue": 19165,
+      "registeredFeminineCandidacies": 6953,
+      "feminineCandidaciesWithRevenue": 6845,
+      "totalRevenue": 5543250248.58,
+      "feminineRevenue": 1821259985.61,
+      "feminineMedian": 64000.0,
+      "masculineMedian": 57032.76,
+      "feminineRevenueByRace": {
+        "BRANCA": {
+          "value": 1021786470.97,
+          "candidacies": 3209
+        },
+        "PARDA": {
+          "value": 505128965.39,
+          "candidacies": 2334
+        },
+        "PRETA": {
+          "value": 258839626.99,
+          "candidacies": 1181
+        },
+        "INDÍGENA": {
+          "value": 27558975.74,
+          "candidacies": 81
+        },
+        "AMARELA": {
+          "value": 7945946.52,
+          "candidacies": 40
+        }
+      },
+      "byOffice": {
+        "DEPUTADO FEDERAL": {
+          "total": 3530341749.84,
+          "feminine": 1123466252.79,
+          "candidacies": 7655,
+          "feminineCandidacies": 2824
+        },
+        "DEPUTADO ESTADUAL": {
+          "total": 1959474931.54,
+          "feminine": 681812941.74,
+          "candidacies": 11083,
+          "feminineCandidacies": 3870
+        },
+        "DEPUTADO DISTRITAL": {
+          "total": 53433567.2,
+          "feminine": 15980791.08,
+          "candidacies": 427,
+          "feminineCandidacies": 151
+        }
+      },
+      "feminineMedianByRace": {
+        "PRETA": 52804.0,
+        "PARDA": 52033.44,
+        "BRANCA": 83476.86,
+        "AMARELA": 32755.74,
+        "INDÍGENA": 113500.0
+      },
+      "topParties": {
+        "PL": {
+          "total": 899646674.51,
+          "feminine": 253988586.85
+        },
+        "UNIÃO": {
+          "total": 596258847.3,
+          "feminine": 217786267.95
+        },
+        "PSD": {
+          "total": 504253351.58,
+          "feminine": 148912845.42
+        },
+        "REPUBLICANOS": {
+          "total": 498815216.82,
+          "feminine": 162917670.84
+        },
+        "PT": {
+          "total": 489908301.15,
+          "feminine": 221652222.59
+        }
+      },
+      "byUf": {
+        "SP": {
+          "total": 888396759.74,
+          "feminine": 276827451.97
+        },
+        "MG": {
+          "total": 476752244.87,
+          "feminine": 138035667.49
+        },
+        "RJ": {
+          "total": 443712941.79,
+          "feminine": 150761938.1
+        },
+        "BA": {
+          "total": 324786713.28,
+          "feminine": 104850287.27
+        },
+        "PR": {
+          "total": 317518153.64,
+          "feminine": 94606009.25
+        },
+        "RS": {
+          "total": 271506632.11,
+          "feminine": 89153230.52
+        },
+        "PE": {
+          "total": 224110524.16,
+          "feminine": 70813376.04
+        },
+        "CE": {
+          "total": 215803402.05,
+          "feminine": 77334486.72
+        },
+        "MA": {
+          "total": 201906164.37,
+          "feminine": 65805643.06
+        },
+        "GO": {
+          "total": 195243440.79,
+          "feminine": 69250777.86
+        },
+        "SC": {
+          "total": 189952264.33,
+          "feminine": 59021179.62
+        },
+        "PA": {
+          "total": 175136399.16,
+          "feminine": 63876990.09
+        },
+        "MT": {
+          "total": 138267592.58,
+          "feminine": 45451708.7
+        },
+        "DF": {
+          "total": 134750677.61,
+          "feminine": 37585614.38
+        },
+        "AM": {
+          "total": 129907569.04,
+          "feminine": 39977648.57
+        },
+        "PI": {
+          "total": 121705440.07,
+          "feminine": 39584261.79
+        },
+        "RO": {
+          "total": 118087444.89,
+          "feminine": 40697636.21
+        },
+        "PB": {
+          "total": 117546449.04,
+          "feminine": 35837985.46
+        },
+        "ES": {
+          "total": 114872523.91,
+          "feminine": 35492366.86
+        },
+        "MS": {
+          "total": 104305072.16,
+          "feminine": 38745385.14
+        },
+        "AP": {
+          "total": 101774109.28,
+          "feminine": 42969373.47
+        },
+        "SE": {
+          "total": 96578950.88,
+          "feminine": 36921767.44
+        },
+        "AL": {
+          "total": 95603015.77,
+          "feminine": 31606058.28
+        },
+        "RR": {
+          "total": 91849738.76,
+          "feminine": 40127362.71
+        },
+        "TO": {
+          "total": 86518395.79,
+          "feminine": 27343455.29
+        },
+        "AC": {
+          "total": 86119627.77,
+          "feminine": 34427438.96
+        },
+        "RN": {
+          "total": 80538000.74,
+          "feminine": 34154884.36
+        }
+      }
+    },
+    "majoritario": {
+      "registeredCandidacies": 534,
+      "candidaciesWithRevenue": 527,
+      "registeredFeminineCandidacies": 107,
+      "feminineCandidaciesWithRevenue": 107,
+      "totalRevenue": 1483614305.17,
+      "feminineRevenue": 218609248.44,
+      "feminineMedian": 207500.0,
+      "masculineMedian": 418301.3,
+      "feminineRevenueByRace": {
+        "BRANCA": {
+          "value": 177916666.33,
+          "candidacies": 65
+        },
+        "PARDA": {
+          "value": 24041726.16,
+          "candidacies": 24
+        },
+        "PRETA": {
+          "value": 16614895.44,
+          "candidacies": 17
+        },
+        "AMARELA": {
+          "value": 35960.51,
+          "candidacies": 1
+        }
+      },
+      "byOffice": {
+        "GOVERNADOR": {
+          "total": 634465358.29,
+          "feminine": 78083350.13,
+          "candidacies": 197,
+          "feminineCandidacies": 35
+        },
+        "PRESIDENTE": {
+          "total": 309551622.96,
+          "feminine": 2519302.0,
+          "candidacies": 14,
+          "feminineCandidacies": 2
+        },
+        "SENADOR": {
+          "total": 539597323.92,
+          "feminine": 138006596.31,
+          "candidacies": 316,
+          "feminineCandidacies": 70
+        }
+      },
+      "feminineMedianByRace": {
+        "BRANCA": 2478357.13,
+        "PRETA": 59393.67,
+        "PARDA": 73413.33,
+        "AMARELA": 35960.51
+      }
+    }
+  },
+  "extras": {
+    "proporcional": {
+      "top12Parties": [
+        "MDB",
+        "PDT",
+        "PL",
+        "PODE",
+        "PP",
+        "PSB",
+        "PSD",
+        "PSDB",
+        "PSOL",
+        "PT",
+        "REPUBLICANOS",
+        "UNIÃO"
+      ],
+      "top12Share": 87.9,
+      "top12FeminineMedianByRace": {
+        "PRETA": 81030.57,
+        "BRANCA": 151040.3,
+        "PARDA": 100000.0,
+        "AMARELA": 98875.0,
+        "INDÍGENA": 215546.39
+      },
+      "top12FeminineByRace": {
+        "PRETA": 796,
+        "BRANCA": 2118,
+        "PARDA": 1495,
+        "AMARELA": 26,
+        "INDÍGENA": 58
+      },
+      "feminineByRace": {
+        "PRETA": 1181,
+        "PARDA": 2334,
+        "BRANCA": 3209,
+        "AMARELA": 40,
+        "INDÍGENA": 81
+      }
+    },
+    "majoritario": {
+      "top12Parties": [
+        "MDB",
+        "NOVO",
+        "PDT",
+        "PL",
+        "PODE",
+        "PP",
+        "PSB",
+        "PSD",
+        "PSDB",
+        "PT",
+        "REPUBLICANOS",
+        "UNIÃO"
+      ],
+      "top12Share": 95.3,
+      "top12FeminineMedianByRace": {
+        "BRANCA": 4085000.0,
+        "PARDA": 3460960.5,
+        "PRETA": 4697153.53
+      },
+      "top12FeminineByRace": {
+        "BRANCA": 36,
+        "PARDA": 6,
+        "PRETA": 2
+      },
+      "feminineByRace": {
+        "BRANCA": 65,
+        "PRETA": 17,
+        "PARDA": 24,
+        "AMARELA": 1
+      }
+    }
+  }
+}
