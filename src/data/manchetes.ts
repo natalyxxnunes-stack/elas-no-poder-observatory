@@ -325,8 +325,8 @@ M_SENADO.fonteCurta = "TSE; Agência Senado · projeção de 25/10/2026 · revis
 
 M_PISO.ancora = {
   valor: formatPct(plPardas.fundo),
-  rotulo: `do fundo do PL para deputado foi para candidaturas pardas, que eram ${formatPct(plPardas.cand)} delas`,
-  tensao: `Pretas: ${formatPct(plPretasF.cand)} das candidaturas e ${formatPct(plPretasF.fundo)} do fundo. Somadas, como na EC 133/2024: ${formatPct(plSoma.fundo)}. O piso de 30% vale para o fundo do partido inteiro, em todos os cargos; aqui, só deputado.`,
+  rotulo: `do FEFC de origem partidária declarado por candidaturas do PL a deputado corresponde às pardas, que eram ${formatPct(plPardas.cand)} delas`,
+  tensao: `Pretas: ${formatPct(plPretasF.cand)} das candidaturas e ${formatPct(plPretasF.fundo)} do fundo. Somadas, como na EC 133/2024: ${formatPct(plSoma.fundo)}. O piso de 30% exige exame de todos os cargos e das regras de distribuição; aqui, só deputado, por sigla da receptora.`,
   visual: {
     tipo: "barras",
     dados: [
