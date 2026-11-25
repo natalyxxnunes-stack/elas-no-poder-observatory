@@ -10,7 +10,7 @@ permissions:
   contents: read
 jobs:
   validar:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -21,6 +21,83 @@ jobs:
           bun-version: '1.4.4'
       - run: bun install --frozen-lockfile
       - run: bun scripts/recontagem/validar_snapshot_financeiro.mjs
+      - name: Regenerar base pública e conferir escopo
+        run: |
+          bun scripts/base-publica/gerar.ts
+          git diff --stat -- public/dados src/data/base-publica.ts
+          git diff --name-only -- public/dados | grep -v '^public/dados/fundo-eleitoral-deputado-por-partido.csv
+      - name: Conferir referências e preservar relatório
+        run: |
+          mkdir -p homologacao
+          git grep -n -E '17/11(/2026)?|15/11(/2026)?|19\.665|19\.383|195 candidaturas|981 duplicatas|56,2%|Rondônia' -- src > homologacao/referencias-anteriores.txt || true
+          cat homologacao/referencias-anteriores.txt
+          python - <<'PY'
+          from pathlib import Path
+          p=Path("src/routes/barreiras.tsx").read_text()
+          assert all(x in p for x in ('violencia-eleicoes-2026','responsabilizacao','protecao-legislativa','23/10/2026','460','436','PL 2218/2026'))
+          assert 'Na base de 15/11' not in Path('src/components/editorial/FinanceOverview.tsx').read_text()
+          print('OK: novas seções, corte anterior e ressalva do painel preservados.')
+          PY
+      - name: Instalar navegador isoladamente
+        run: |
+          npm install --prefix "$RUNNER_TEMP/visual" playwright@1.56.1
+          "$RUNNER_TEMP/visual/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Testar prévia em navegador e produzir capturas
+        env:
+          VISUAL_DIR: ${{ runner.temp }}/visual
+        run: |
+          python -m http.server 4173 --directory dist/client > "$RUNNER_TEMP/http.log" 2>&1 &
+          cat > "$VISUAL_DIR/test.cjs" <<'JS'
+          const {chromium}=require('playwright');
+          const fs=require('fs');
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const report=[];
+            for(const v of [{name:'desktop',width:1440,height:960},{name:'mobile',width:390,height:844},{name:'reflow-200',width:720,height:960}]){
+              for(const route of ['dinheiro','partidos','achados','metodo','barreiras']){
+                const page=await browser.newPage({viewport:{width:v.width,height:v.height}});
+                const errors=[];page.on('pageerror',e=>errors.push(e.message));
+                const resp=await page.goto('http://127.0.0.1:4173/'+route+'/',{waitUntil:'networkidle',timeout:30000});
+                await page.locator('main').first().waitFor({timeout:15000});
+                await page.evaluate(()=>document.fonts.ready);
+                const result=await page.evaluate(()=>({title:document.title,width:document.documentElement.clientWidth,scrollWidth:document.documentElement.scrollWidth,headings:[...document.querySelectorAll('h1,h2')].map(e=>e.innerText),text:document.body.innerText.slice(0,1200)}));
+                const row={route,viewport:v.name,status:resp.status(),errors,overflow:result.scrollWidth-result.width,...result};
+                report.push(row);
+                console.log(JSON.stringify({route,viewport:v.name,status:row.status,errors,overflow:row.overflow,title:row.title}));
+                await page.screenshot({path:'homologacao/'+route+'-'+v.name+'.png',fullPage:true});
+                if(route==='barreiras'){
+                  for(const id of ['violencia-eleicoes-2026','responsabilizacao','protecao-legislativa']){
+                    const loc=page.locator('#'+id);await loc.scrollIntoViewIfNeeded();
+                    await loc.screenshot({path:'homologacao/'+id+'-'+v.name+'.png'});
+                  }
+                }
+                await page.close();
+              }
+            }
+            fs.writeFileSync('homologacao/navegador.json',JSON.stringify(report,null,2));
+            await browser.close();
+            if(report.some(r=>r.status!==200||r.errors.length||r.overflow>2))process.exitCode=1;
+          })().catch(e=>{console.error(e);process.exitCode=1});
+          JS
+          node "$VISUAL_DIR/test.cjs"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: homologacao-editorial-25nov
+          path: homologacao/
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: previa-hostgator-25nov
+          path: dist/client/
+          include-hidden-files: true
+          retention-days: 30
+ > "$RUNNER_TEMP/alteracoes-fora-escopo.txt" || true
+          test ! -s "$RUNNER_TEMP/alteracoes-fora-escopo.txt" || { cat "$RUNNER_TEMP/alteracoes-fora-escopo.txt"; exit 1; }
+          mkdir -p homologacao/base-publica
+          cp src/data/base-publica.ts homologacao/base-publica/
+          cp public/dados/fundo-eleitoral-deputado-por-partido.csv homologacao/base-publica/
       - run: bun run build:hostgator
       - name: Conferir referências e preservar relatório
         run: |
