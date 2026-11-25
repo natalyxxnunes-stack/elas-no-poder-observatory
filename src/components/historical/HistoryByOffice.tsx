@@ -39,6 +39,7 @@ export function HistoryByOffice() {
     >
       <div tabIndex={0} className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
         <table className="w-full min-w-[36rem] text-sm">
+          <caption className="sr-only">Série histórica por cargo e eleição</caption>
           <thead>
             <tr className="text-[13px] text-muted-foreground font-semibold">
               <th className="pb-2 text-left font-normal">Cargo</th>
@@ -151,6 +152,7 @@ export function HistoryByUf() {
         </summary>
         <div tabIndex={0} className="mt-4 overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-plum">
           <table className="w-full min-w-[30rem] text-sm">
+            <caption className="sr-only">Série histórica por unidade federativa</caption>
             <thead>
               <tr className="text-[13px] text-muted-foreground font-semibold">
                 <th scope="col" className="pb-2 text-left font-normal">UF</th>
